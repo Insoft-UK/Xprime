@@ -1,7 +1,9 @@
 <img src="https://github.com/Insoft-UK/PrimeSDK/blob/main/Xcode/Xprime/Assets.xcassets/AppIcon.appiconset/128pt@2x.png?raw=true" width="128" />
 
 ## Xprime Code Editor for macOS
-Edit your PPL or PPL+ code for the HP Prime.
+- Edit your PPL or PPL+ code for the HP Prime.
+- Package your application for deployment on a physical HP Prime or the virtual emulator.
+- Export a G1 .hpprgm file for use on a real HP Prime or the Virtual Calculator.
 
 ### Themes
 Allows you to select a theme for your source code, determining how syntax highlighting colors are applied.
