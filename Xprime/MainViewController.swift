@@ -356,7 +356,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         savePanel.begin { result in
             guard result == .OK, let outURL = savePanel.url else { return }
             
-            let result = CommandLineTool.execute("\(CommandLineTool.binURL.path)/ppl+", arguments: [url.path, "-o", outURL.path])
+            
+            let command = HP.sdkURL
+                .appendingPathComponent("bin")
+                .appendingPathComponent("ppl+")
+                .path
+            
+            let result = CommandLineTool.execute(command, arguments: [url.path, "-o", outURL.path])
             if let out = result.out, !out.isEmpty {
                 self.outputTextView.string = out
             }
@@ -379,7 +385,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         savePanel.begin { result in
             guard result == .OK, let outURL = savePanel.url else { return }
             
-            let result = CommandLineTool.execute("\(CommandLineTool.binURL.path)/ppl+", arguments: [url.path, "-o", outURL.path])
+            
+            let command = HP.sdkURL
+                .appendingPathComponent("bin")
+                .appendingPathComponent("ppl+")
+                .path
+            
+            let result = CommandLineTool.execute(command, arguments: [url.path, "-o", outURL.path])
             if let out = result.out, !out.isEmpty {
                 self.outputTextView.string = out
             }
@@ -427,12 +439,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    /*
-     • Saves the current PPL+ source file.
-     • If .prgm+, Preprocesses the source into a standard .prgm format.
-     • Builds an .hpprgm executable from the .prgm file.
-     • Copies the .hpprgm file to HP Prime Virtual Calculator.
-     */
+
     @IBAction func run(_ sender: Any) {
         guard let parentURL = parentURL, let name = applicationName else {
             return
@@ -440,7 +447,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         let result = processRequires(in: codeEditorTextView.string)
 
-        let baseURL = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/hpprgm/")
+        let baseURL = HP.sdkURL
+            .appendingPathComponent("hpprgm")
         for file in result.requiredFiles {
             do {
                 try HP.installHPPrgm(at: baseURL
@@ -472,7 +480,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         let result = processRequires(in: codeEditorTextView.string)
 
-        let baseURL = URL(fileURLWithPath: "\(CommandLineTool.binURL.path)/hpprgm/")
+        let baseURL = HP.sdkURL
+            .appendingPathComponent("hpprgm")
+        
         for file in result.requiredFiles {
             do {
                 try HP.installHPPrgm(at: baseURL
@@ -513,7 +523,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathComponent(name)
             .appendingPathExtension("hpappprgm")
         
-        let result = CommandLineTool.`ppl+`(i: currentURL, o: hpPrgmPath)
+        let command = HP.sdkURL
+            .appendingPathComponent("bin")
+            .appendingPathComponent("ppl+")
+            .path
+        
+        var arguments: [String] = [currentURL.path, "-o", hpPrgmPath.path]
+        if AppSettings.compressHPPRGM {
+            arguments.append(contentsOf: ["-c"])
+        }
+        
+        let result = CommandLineTool.execute(command, arguments: arguments)
         outputTextView.string = result.err ?? ""
     }
     
@@ -578,7 +598,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .deletingPathExtension()
             .appendingPathExtension("hpprgm")
         
-        let result = CommandLineTool.`ppl+`(i: currentURL, o: hpPrgmPath)
+        let command = HP.sdkURL
+            .appendingPathComponent("bin")
+            .appendingPathComponent("ppl+")
+            .path
+        
+        var arguments: [String] = [currentURL.path, "-o", hpPrgmPath.path]
+        if AppSettings.compressHPPRGM {
+            arguments.append(contentsOf: ["-c"])
+        }
+        
+        let result = CommandLineTool.execute(command, arguments: arguments)
         outputTextView.string = result.err ?? ""
     }
     
@@ -594,8 +624,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
+            let command = HP.sdkURL
+                .appendingPathComponent("bin")
+                .appendingPathComponent("grob")
+                .path
             
-            let contents = CommandLineTool.execute("\(CommandLineTool.binURL.path)/grob", arguments: [url.path, "-o", "/dev/stdout"])
+            let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
                 self.codeEditorTextView.insertCode(out)
             }
@@ -615,7 +649,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
             
-            let contents = CommandLineTool.execute("\(CommandLineTool.binURL.path)/pplfont", arguments: [url.path, "-o", "/dev/stdout", "--ppl"])
+            let command = HP.sdkURL
+                .appendingPathComponent("bin")
+                .appendingPathComponent("pplfont")
+                .path
+            
+            let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout", "--ppl"])
             if let out = contents.out, !out.isEmpty {
                 self.codeEditorTextView.insertCode(contents.out ?? "")
             }
@@ -722,7 +761,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         saveDocument(sender)
         
-        let contents = CommandLineTool.execute("\(CommandLineTool.binURL.path)/pplref", arguments: [url.path, "-o", "/dev/stdout"])
+        let command = HP.sdkURL
+            .appendingPathComponent("bin")
+            .appendingPathComponent("pplref")
+            .path
+        
+        let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout"])
         if let out = contents.out, !out.isEmpty {
             codeEditorTextView.string = out
         }
@@ -791,7 +835,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 }
             }
             if let parentURL = parentURL, let name = applicationName {
-                return HP.hpAppDirExists(atPath: parentURL.path, named: name)
+                return HP.hpAppDirIsComplete(atPath: parentURL.path, named: name)
             }
             return false
             
@@ -825,7 +869,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
         case #selector(cleanBuildFolder(_:)):
             if let _ = currentURL, let name = applicationName, let parentURL = parentURL {
-                return HP.hpAppDirExists(atPath: parentURL.path, named: name)
+                return parentURL.appendingPathComponent("\(name).hpappdir").isDirectory
             }
             return false
             

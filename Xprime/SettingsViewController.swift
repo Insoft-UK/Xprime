@@ -59,11 +59,15 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func defaultHeaderSearchPath(_ sender: Any) {
-        headerSearchPath.stringValue = AppSettings.defaultHeaderSearchPath
+        headerSearchPath.stringValue = HP.sdkURL
+            .appendingPathComponent("include")
+            .path
     }
     
     @IBAction func defaultLibarySearchPath(_ sender: Any) {
-        librarySearchPath.stringValue = AppSettings.defaultLibarySearchPath
+        librarySearchPath.stringValue = HP.sdkURL
+            .appendingPathComponent("lib")
+            .path
     }
     
     @IBAction func close(_ sender: Any) {

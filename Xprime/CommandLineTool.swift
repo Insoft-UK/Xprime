@@ -48,7 +48,7 @@ fileprivate func run(_ task: Process) -> (out: String?, err: String?) {
 }
 
 enum CommandLineTool {
-    static var binURL: URL {
+    static private var binURL: URL {
         let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/bin")
         if url.isDirectory == false || AppSettings.usePrimeSDK == false {
             return URL(fileURLWithPath: Bundle.main.bundleURL.path)
@@ -59,7 +59,7 @@ enum CommandLineTool {
     
     static func execute(_ command: String, arguments: [String], currentDirectory: URL? = nil) -> (out: String?, err: String?) {
         let task = Process()
-        
+    
         task.executableURL = URL(fileURLWithPath: command)
         task.arguments = arguments
         if let url = currentDirectory {
@@ -67,34 +67,6 @@ enum CommandLineTool {
         }
         
         return run(task)
-    }
-    
-    static func `ppl+`(i infile: URL, o outfile: URL? = nil) -> (out: String?, err: String?) {
-        
-        let process = Process()
-        process.executableURL = URL(filePath: binURL.path)
-            .appendingPathComponent("ppl+")
-        
-        process.arguments = [infile.path]
-        
-        if AppSettings.librarySearchPath.isEmpty == false {
-            process.arguments?.append("-L\(AppSettings.librarySearchPath)")
-        }
-        
-        if AppSettings.headerSearchPath.isEmpty == false {
-            process.arguments?.append("-I\(AppSettings.headerSearchPath)")
-        }
-        
-        if let outfile = outfile {
-            process.arguments?.append("-o")
-            process.arguments?.append(outfile.path)
-        }
-        
-        if AppSettings.compressHPPRGM == true {
-            process.arguments?.append("-c")
-        }
-        
-        return run(process)
     }
 }
 

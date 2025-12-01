@@ -28,11 +28,6 @@ struct AppSettings {
     private static let defaults = UserDefaults.standard
     private static let bundleURL = Bundle.main.bundleURL
     
-    static let defaultHeaderSearchPath: String = "/Applications/HP/PrimeSDK/include"
-    static let defaultLibarySearchPath: String = "/Applications/HP/PrimeSDK/lib"
-    static let defaultSDKPath: String = "/Applications/HP/PrimeSDK"
-    
-
     private enum Key: String {
         case librarySearchPath
         case headerSearchPath
@@ -55,12 +50,26 @@ struct AppSettings {
     }
 
     static var librarySearchPath: String {
-        get { defaults.object(forKey: Key.librarySearchPath.rawValue) as? String ?? defaultHeaderSearchPath }
+        get { let path = defaults.object(forKey: Key.librarySearchPath.rawValue) as? String ?? HP.sdkURL
+            .appendingPathComponent("lib")
+            .path
+            guard URL(fileURLWithPath: path).isDirectory else {
+                return HP.sdkURL.appendingPathComponent("lib").path
+            }
+            return path
+        }
         set { defaults.set(newValue, forKey: Key.librarySearchPath.rawValue) }
     }
     
     static var headerSearchPath: String {
-        get { defaults.object(forKey: Key.headerSearchPath.rawValue) as? String ?? defaultLibarySearchPath }
+        get { let path = defaults.object(forKey: Key.headerSearchPath.rawValue) as? String ?? HP.sdkURL
+            .appendingPathComponent("include")
+            .path
+            guard URL(fileURLWithPath: path).isDirectory else {
+                return HP.sdkURL.appendingPathComponent("include").path
+            }
+            return path
+        }
         set { defaults.set(newValue, forKey: Key.headerSearchPath.rawValue) }
     }
     

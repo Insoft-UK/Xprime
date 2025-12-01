@@ -1,0 +1,54 @@
+{
+    "name": "Dark",
+    "type": "dark",
+    "colors": {
+        "editor.background": "#1F1F24",
+        "editor.foreground": "#FFFFFF",
+        "editor.cursor": "#797979",
+        "editor.selectionBackground": "#5E5E5E"
+    },
+    "tokenColors": [
+        {
+            "scope": ["Preprocessor Statements"],
+            "settings": {
+                "foreground": "#FFCC00"
+            }
+        },
+        {
+            "scope": ["Comments"],
+            "settings": {
+                "foreground": "#777777"
+            }
+        },
+        {
+            "scope": ["Keywords"],
+            "settings": {
+                "foreground": "#3399FF"
+            }
+        },
+        {
+            "scope": ["Brackets"],
+            "settings": {
+                "foreground": "#CCCCCC"
+            }
+        },
+        {
+            "scope": ["Operators"],
+            "settings": {
+                "foreground": "#CCCCCC"
+            }
+        },
+        {
+            "scope": ["Numbers", "Strings", "Backquotes"],
+            "settings": {
+                "foreground": "#FFCC00"
+            }
+        },
+        {
+            "scope": ["Functions"],
+            "settings": {
+                "foreground": "#FFCC00"
+            }
+        }
+    ]
+}

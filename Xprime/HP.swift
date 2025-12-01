@@ -60,6 +60,16 @@ fileprivate func launchApplication(named appName: String, arguments: [String] = 
 //        }
 
 enum HP {
+    static var sdkURL: URL {
+        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK")
+        if url.isDirectory == false || AppSettings.usePrimeSDK == false {
+            return URL(fileURLWithPath: Bundle.main.bundleURL.path)
+                .appendingPathComponent("Contents/Developer/usr")
+        }
+        return url
+    }
+    
+    
     static var isVirtualCalculatorInstalled: Bool {
         if AppSettings.HPPrime == "macOS" {
             return FileManager.default.fileExists(atPath: "/Applications/HP Prime.app/Contents/MacOS/HP Prime")
@@ -168,7 +178,7 @@ enum HP {
                 .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
         }
 
-        let appDirURL = baseURL.appendingPathComponent(name)
+        let appDirURL = baseURL.appendingPathComponent("\(name).hpappdir")
         return appDirURL.isDirectory
     }
     
@@ -192,24 +202,19 @@ enum HP {
             .appendingPathExtension("hpprgm")
         return FileManager.default.fileExists(atPath: programURL.path)
     }
-    
-    static func hpAppDirExists(atPath path: String, named name: String) -> Bool {
-        let dirURL = URL(fileURLWithPath: path).appendingPathComponent("\(name).hpappdir")
-        var isDir: ObjCBool = false
-        return FileManager.default.fileExists(atPath: dirURL.path, isDirectory: &isDir) && isDir.boolValue
-    }
+
     
     static func hpAppDirIsComplete(atPath path: String, named name: String) -> Bool {
-        guard hpAppDirExists(atPath: path, named: name) else {
-            return false
-        }
-        
         let appDirURL = URL(fileURLWithPath: path)
             .appendingPathComponent(name)
             .appendingPathExtension("hpappdir")
         
+        guard appDirURL.isDirectory else {
+            return false
+        }
+        
         let files: [URL] = [
-            appDirURL.appendingPathComponent("icon.hpapp"),
+            appDirURL.appendingPathComponent("icon.png"),
             appDirURL.appendingPathComponent("\(name).hpapp"),
             appDirURL.appendingPathComponent("\(name).hpappprgm")
         ]
@@ -309,7 +314,8 @@ enum HP {
     static func loadHPPrgm(at url: URL) -> String? {
         
         if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased() == "hpappprgm" {
-            let commandURL = CommandLineTool.binURL
+            let commandURL = HP.sdkURL
+                .appendingPathComponent("bin")
                 .appendingPathComponent("hpprgm")
             
             let contents = CommandLineTool.execute(commandURL.path, arguments: [url.path, "-o", "/dev/stdout"])
