@@ -100,8 +100,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
     @IBAction func launchHPPrimeVirtualCalculator(_ sender: Any) {
         HP.launchVirtualCalculator()
     }
+    
+    @IBAction func primeSDK(_ sender: NSMenuItem) {
+        AppSettings.usePrimeSDK = !AppSettings.usePrimeSDK
+    }
 
     // MARK: - Action Handlers
+
     
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
         guard let vc = NSApp.mainWindow?.contentViewController as? MainViewController else { return }
@@ -149,6 +154,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
             
         case #selector(launchHPPrimeVirtualCalculator(_:)):
             return HP.isVirtualCalculatorInstalled
+            
+        case #selector(primeSDK(_:)):
+            if let item = menuItem.menu?.item(withTitle: "Prime SDK") {
+                if HP.isPrimeSDKInstalled {
+                    item.state = AppSettings.usePrimeSDK ? .on : .off
+                    item.isHidden = false
+                    return true
+                }
+                item.isHidden = false
+            }
+            return false
             
         default:
             break

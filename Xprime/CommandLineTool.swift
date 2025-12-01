@@ -50,7 +50,7 @@ fileprivate func run(_ task: Process) -> (out: String?, err: String?) {
 enum CommandLineTool {
     static var binURL: URL {
         let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/bin")
-        if url.isDirectory == false {
+        if url.isDirectory == false || AppSettings.usePrimeSDK == false {
             return URL(fileURLWithPath: Bundle.main.bundleURL.path)
                 .appendingPathComponent("Contents/Developer/usr/bin")
         }

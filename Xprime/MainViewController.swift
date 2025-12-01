@@ -340,12 +340,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    /*
-     • Saves the current PPL source file.
-     
-     • Builds an .hpprgm executable package from the
-       generated .prgm file to a given destination.
-     */
+    
     @IBAction func exportAsHPPrgm(_ sender: Any) {
         saveDocument(sender)
         
@@ -365,7 +360,30 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             if let out = result.out, !out.isEmpty {
                 self.outputTextView.string = out
             }
-            self.outputTextView.string += result.err ?? ""
+            self.outputTextView.string = result.err ?? ""
+        }
+    }
+    
+    @IBAction func exportAsPrgm(_ sender: Any) {
+        saveDocument(sender)
+        
+        guard let url = currentURL,
+           FileManager.default.fileExists(atPath: url.path) else
+        {
+            return
+        }
+        
+        let savePanel = NSSavePanel()
+        savePanel.allowedContentTypes = ["prgm"].compactMap { UTType(filenameExtension: $0) }
+        savePanel.nameFieldStringValue = url.deletingPathExtension().lastPathComponent + ".prgm"
+        savePanel.begin { result in
+            guard result == .OK, let outURL = savePanel.url else { return }
+            
+            let result = CommandLineTool.execute("\(CommandLineTool.binURL.path)/ppl+", arguments: [url.path, "-o", outURL.path])
+            if let out = result.out, !out.isEmpty {
+                self.outputTextView.string = out
+            }
+            self.outputTextView.string = result.err ?? ""
         }
     }
     
@@ -454,7 +472,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         let result = processRequires(in: codeEditorTextView.string)
 
-        let baseURL = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/hpprgm/")
+        let baseURL = URL(fileURLWithPath: "\(CommandLineTool.binURL.path)/hpprgm/")
         for file in result.requiredFiles {
             do {
                 try HP.installHPPrgm(at: baseURL
@@ -506,7 +524,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let programURL = parentURL
             .appendingPathComponent(name)
             .appendingPathExtension("hpprgm")
-        
+        outputTextView.string = "Installing: \(programURL.lastPathComponent)\n"
         do {
             try HP.installHPPrgm(at: programURL, forUser: AppSettings.calculatorName)
         } catch {
@@ -524,6 +542,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let appDirURL = parentURL
             .appendingPathComponent(name)
             .appendingPathExtension("hpappdir")
+        outputTextView.string = "Installing: \(appDirURL.lastPathComponent)\n"
         do {
             try HP.installHPAppDirectory(at: appDirURL, forUser: AppSettings.calculatorName)
         } catch {
@@ -545,7 +564,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if let out = result.out, !out.isEmpty {
             self.outputTextView.string = out
         }
-        self.outputTextView.string += result.err ?? ""
+        self.outputTextView.string = result.err ?? ""
     }
     
     @IBAction func build(_ sender: Any) {
@@ -703,7 +722,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         saveDocument(sender)
         
-        let contents = CommandLineTool.execute("/Applications/HP/PrimeSDK/bin/pplref", arguments: [url.path, "-o", "/dev/stdout"])
+        let contents = CommandLineTool.execute("\(CommandLineTool.binURL.path)/pplref", arguments: [url.path, "-o", "/dev/stdout"])
         if let out = contents.out, !out.isEmpty {
             codeEditorTextView.string = out
         }
@@ -722,20 +741,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let ext = (currentURL != nil) ? currentURL!.pathExtension.lowercased() : ""
     
         switch item.action {
-        case #selector(build(_:)):
-            if let _ = currentURL, ext == "prgm+" {
-                return true
-            }
-            return false
-            
-        case #selector(run(_:)):
-            if let _ = currentURL, ext == "prgm" || ext == "prgm+" {
-                return true
-            }
-            return false
-            
-        case #selector(exportAsHPPrgm(_:)):
-            if let url = currentURL, let ext = url.pathExtension.lowercased() as String?, ext == "prgm" {
+        case #selector(build(_:)), #selector(run(_:)), #selector(exportAsHPPrgm(_:)):
+            if let _ = currentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+" {
                 return true
             }
             return false
@@ -754,6 +761,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         switch menuItem.action {
         case #selector(reformatCode(_:)):
             if let _ = currentURL, ext == "prgm" || ext == "ppl" {
+                return true
+            }
+            return false
+            
+        case #selector(exportAsPrgm(_:)):
+            if let _ = currentURL, ext == "prgm+" || ext == "ppl+" {
                 return true
             }
             return false
@@ -790,7 +803,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             #selector(buildForArchiving(_:)),
             #selector(build(_:)):
             
-            if let _ = currentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+" {
+            if let _ = currentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+"  {
                 return true
             }
             return false

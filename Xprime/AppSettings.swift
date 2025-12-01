@@ -41,6 +41,12 @@ struct AppSettings {
         case HPPrime
         case compressHPPRGM
         case calculatorName
+        case usePrimeSDK
+    }
+    
+    static var usePrimeSDK: Bool {
+        get { defaults.object(forKey: Key.usePrimeSDK.rawValue) as? Bool ?? false }
+        set { defaults.set(newValue, forKey: Key.usePrimeSDK.rawValue) }
     }
     
     static var compressHPPRGM: Bool {

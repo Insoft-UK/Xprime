@@ -78,6 +78,27 @@ enum HP {
     }
     
     
+    static var isPrimeSDKInstalled: Bool {
+        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK")
+        guard url.isDirectory else { return false }
+        
+        let files: [URL] = [
+            url.appendingPathComponent("bin"),
+            url.appendingPathComponent("lib"),
+            url.appendingPathComponent("hpprgm"),
+            url.appendingPathComponent("include"),
+            url.appendingPathComponent("prgm")
+        ]
+        for file in files {
+            if url.isDirectory == false {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    
     static func hpPrimeCalculatorExists(named name: String) -> Bool {
         guard !name.isEmpty else { return false }
         
