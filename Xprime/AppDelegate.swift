@@ -160,9 +160,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
                 if HP.isPrimeSDKInstalled {
                     item.state = AppSettings.usePrimeSDK ? .on : .off
                     item.isHidden = false
+                    item.isEnabled = true
                     return true
                 }
-                item.isHidden = false
+                item.isHidden = true
+                item.isEnabled = false
             }
             return false
             

@@ -57,6 +57,30 @@ enum CommandLineTool {
         return url
     }
     
+    static private var includeURL: URL {
+        guard AppSettings.headerSearchPath == "~" else {
+            return URL(fileURLWithPath: AppSettings.headerSearchPath)
+        }
+        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/include")
+        if url.isDirectory == false || AppSettings.usePrimeSDK == false {
+            return URL(fileURLWithPath: Bundle.main.bundleURL.path)
+                .appendingPathComponent("Contents/Developer/usr/include")
+        }
+        return url
+    }
+    
+    static private var libURL: URL {
+        guard AppSettings.headerSearchPath == "~" else {
+            return URL(fileURLWithPath: AppSettings.headerSearchPath)
+        }
+        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK/lib")
+        if url.isDirectory == false || AppSettings.usePrimeSDK == false {
+            return URL(fileURLWithPath: Bundle.main.bundleURL.path)
+                .appendingPathComponent("Contents/Developer/usr/lib")
+        }
+        return url
+    }
+    
     static func execute(_ command: String, arguments: [String], currentDirectory: URL? = nil) -> (out: String?, err: String?) {
         let task = Process()
     

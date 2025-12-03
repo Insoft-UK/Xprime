@@ -101,17 +101,17 @@ final class CodeEditorTextView: NSTextView {
         
         let fileManager = FileManager.default
         
-        if let url = Bundle.main.url(forResource: AppSettings.selectedTheme, withExtension: "xpcolortheme") {
-            if fileManager.fileExists(atPath: url.path) {
-                loadTheme(at: url)
+        if let themeURL = Bundle.main.url(forResource: AppSettings.selectedTheme, withExtension: "xpcolortheme") {
+            if fileManager.fileExists(atPath: themeURL.path) {
+                loadTheme(at: themeURL)
             } else {
                 loadTheme(at: Bundle.main.url(forResource: "Default (Dark)", withExtension: "xpcolortheme")!)
             }
         }
         
-        if let url = Bundle.main.url(forResource: AppSettings.selectedGrammar, withExtension: "xpgrammar") {
-            if fileManager.fileExists(atPath: url.path) {
-                loadGrammar(at: url)
+        if let grammarURL = Bundle.main.url(forResource: AppSettings.selectedGrammar, withExtension: "xpgrammar") {
+            if fileManager.fileExists(atPath: grammarURL.path) {
+                loadGrammar(at: grammarURL)
             } else {
                 loadGrammar(at: Bundle.main.url(forResource: "Prime Plus", withExtension: "xpgrammar")!)
             }
@@ -246,7 +246,7 @@ final class CodeEditorTextView: NSTextView {
         colors["Numbers"] = colorWithKey("Numbers")
         colors["Strings"] = colorWithKey("Strings")
         colors["Comments"] = colorWithKey("Comments")
-        colors["Backquote"] = colorWithKey("Backquote")
+        colors["Backquotes"] = colorWithKey("Backquotes")
         colors["Preprocessor Statements"] = colorWithKey("Preprocessor Statements")
         colors["Functions"] = colorWithKey("Functions")
         

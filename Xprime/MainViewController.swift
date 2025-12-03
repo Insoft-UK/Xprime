@@ -231,8 +231,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             self.codeEditorTextView.loadGrammar(at: Bundle.main.url(forResource: "Python", withExtension: "xpgrammar")!)
         }
         
-        
-        
         updateDocumentIconButtonImage()
         
         let fm = FileManager.default
@@ -290,6 +288,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
             self.openDocument(withContentsOf: url)
+            let ext = url.pathExtension.lowercased()
+            if ext == "prgm+" || ext == "ppl+" || ext == "prgm" || ext == "ppl" {
+                XprimeProject.load(at: url
+                    .deletingPathExtension()
+                    .appendingPathExtension("xprimeproj")
+                )
+            }
         }
     }
     
@@ -305,7 +310,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         do {
-            try HP.saveFile(at: url, content: codeEditorTextView.string)
+            try HP.savePrgm(at: url, content: codeEditorTextView.string)
             currentURL = url
             self.documentIsModified = false
         } catch {
@@ -328,7 +333,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             guard result == .OK, let url = savePanel.url else { return }
 
             do {
-                try HP.saveFile(at: url, content: self.codeEditorTextView.string)
+                try HP.savePrgm(at: url, content: self.codeEditorTextView.string)
                 self.currentURL = url
                 self.documentIsModified = false
             } catch {
@@ -344,25 +349,19 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBAction func exportAsHPPrgm(_ sender: Any) {
         saveDocument(sender)
         
-        guard let url = currentURL,
-           FileManager.default.fileExists(atPath: url.path) else
+        guard let currentURL = currentURL,
+           FileManager.default.fileExists(atPath: currentURL.path) else
         {
             return
         }
         
         let savePanel = NSSavePanel()
         savePanel.allowedContentTypes = ["hpprgm"].compactMap { UTType(filenameExtension: $0) }
-        savePanel.nameFieldStringValue = url.deletingPathExtension().lastPathComponent + ".hpprgm"
+        savePanel.nameFieldStringValue = currentURL.deletingPathExtension().lastPathComponent + ".hpprgm"
         savePanel.begin { result in
             guard result == .OK, let outURL = savePanel.url else { return }
             
-            
-            let command = HP.sdkURL
-                .appendingPathComponent("bin")
-                .appendingPathComponent("ppl+")
-                .path
-            
-            let result = CommandLineTool.execute(command, arguments: [url.path, "-o", outURL.path])
+            let result = HP.preProccess(at: currentURL, to: outURL)
             if let out = result.out, !out.isEmpty {
                 self.outputTextView.string = out
             }
@@ -373,25 +372,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBAction func exportAsPrgm(_ sender: Any) {
         saveDocument(sender)
         
-        guard let url = currentURL,
-           FileManager.default.fileExists(atPath: url.path) else
+        guard let currentURL = currentURL,
+           FileManager.default.fileExists(atPath: currentURL.path) else
         {
             return
         }
         
         let savePanel = NSSavePanel()
         savePanel.allowedContentTypes = ["prgm"].compactMap { UTType(filenameExtension: $0) }
-        savePanel.nameFieldStringValue = url.deletingPathExtension().lastPathComponent + ".prgm"
+        savePanel.nameFieldStringValue = currentURL.deletingPathExtension().lastPathComponent + ".prgm"
         savePanel.begin { result in
             guard result == .OK, let outURL = savePanel.url else { return }
             
             
-            let command = HP.sdkURL
-                .appendingPathComponent("bin")
-                .appendingPathComponent("ppl+")
-                .path
-            
-            let result = CommandLineTool.execute(command, arguments: [url.path, "-o", outURL.path])
+            let result = HP.preProccess(at: currentURL, to: outURL)
             if let out = result.out, !out.isEmpty {
                 self.outputTextView.string = out
             }
@@ -514,26 +508,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         do {
             try HP.restoreMissingAppFiles(at: parentURL, named: name)
         } catch {
+            outputTextView.string = "Failed to build for archiving: \(error)"
             return
         }
         
-        let hpPrgmPath = parentURL
+        let result = HP.preProccess(at: currentURL, to: parentURL
             .appendingPathComponent(name)
             .appendingPathExtension("hpappdir")
             .appendingPathComponent(name)
             .appendingPathExtension("hpappprgm")
-        
-        let command = HP.sdkURL
-            .appendingPathComponent("bin")
-            .appendingPathComponent("ppl+")
-            .path
-        
-        var arguments: [String] = [currentURL.path, "-o", hpPrgmPath.path]
-        if AppSettings.compressHPPRGM {
-            arguments.append(contentsOf: ["-c"])
-        }
-        
-        let result = CommandLineTool.execute(command, arguments: arguments)
+        )
         outputTextView.string = result.err ?? ""
     }
     
@@ -587,28 +571,35 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         self.outputTextView.string = result.err ?? ""
     }
     
+    @IBAction func convert(_ sender: Any) {
+        guard let currentURL = currentURL else { return }
+    
+        let result = HP.preProccess(at: currentURL, to: currentURL
+            .deletingPathExtension()
+            .appendingPathExtension("prgm")
+        )
+        if let out = result.out, !out.isEmpty {
+            outputTextView.string = "Converting...\n"
+        }
+        outputTextView.string = result.err ?? ""
+        
+        openDocument(withContentsOf: currentURL
+            .deletingPathExtension()
+            .appendingPathExtension("prgm"))
+    }
+    
     @IBAction func build(_ sender: Any) {
-        guard let currentURL = currentURL, currentURL.pathExtension.lowercased() == "prgm+" else {
+        guard let currentURL = currentURL else {
             return
         }
 
         saveDocument(sender)
-        
-        let hpPrgmPath = currentURL
+
+        let result = HP.preProccess(at: currentURL, to: currentURL
             .deletingPathExtension()
             .appendingPathExtension("hpprgm")
+        )
         
-        let command = HP.sdkURL
-            .appendingPathComponent("bin")
-            .appendingPathComponent("ppl+")
-            .path
-        
-        var arguments: [String] = [currentURL.path, "-o", hpPrgmPath.path]
-        if AppSettings.compressHPPRGM {
-            arguments.append(contentsOf: ["-c"])
-        }
-        
-        let result = CommandLineTool.execute(command, arguments: arguments)
         outputTextView.string = result.err ?? ""
     }
     
@@ -631,6 +622,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
             let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
+                self.outputTextView.string = "Importing \(url.pathExtension.uppercased()) Image...\n"
                 self.codeEditorTextView.insertCode(out)
             }
             self.outputTextView.string = contents.err ?? ""
@@ -656,6 +648,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
             let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout", "--ppl"])
             if let out = contents.out, !out.isEmpty {
+                self.outputTextView.string = "Importing Adafruit GFX Font...\n"
                 self.codeEditorTextView.insertCode(contents.out ?? "")
             }
             self.outputTextView.string = contents.err ?? ""
@@ -720,7 +713,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        outputTextView.string = ""
+        outputTextView.string = "Cleaning...\n"
         
         let files: [URL] = [
             parentURL.appendingPathComponent("\(name).hpprgm"),
@@ -733,7 +726,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 try FileManager.default.removeItem(at: file)
                 outputTextView.string += ("✅ File removed: \(file.lastPathComponent)\n")
             } catch {
-                outputTextView.string += ("⚠️ File not found: \(file.lastPathComponent)\n")
+                outputTextView.string += ("⚠️ No file found: \(file.lastPathComponent)\n")
             }
         }
     }
@@ -770,7 +763,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if let out = contents.out, !out.isEmpty {
             codeEditorTextView.string = out
         }
-        self.outputTextView.string += contents.err ?? ""
+        self.outputTextView.string = contents.err ?? ""
     }
     
     @IBAction func toggleSmartSubtitution(_ sender: NSMenuItem) {
@@ -809,7 +802,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return false
             
-        case #selector(exportAsPrgm(_:)):
+        case #selector(exportAsPrgm(_:)), #selector(convert(_:)):
             if let _ = currentURL, ext == "prgm+" || ext == "ppl+" {
                 return true
             }
@@ -889,6 +882,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return false
             
+      
         default:
             break
         }

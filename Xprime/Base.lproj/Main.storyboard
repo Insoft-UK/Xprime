@@ -660,6 +660,13 @@
                                                             <action selector="archiveWithoutBuilding:" target="Ady-hI-5gd" id="6FG-tx-MXM"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="TmP-CD-ooN"/>
+                                                    <menuItem title="Convert..." image="text.document" catalog="system" id="ndx-vy-6Rj">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="convert:" target="Ady-hI-5gd" id="rwe-u5-IdK"/>
+                                                        </connections>
+                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>
@@ -1085,7 +1092,7 @@ Gw
                                                 </scroller>
                                             </scrollView>
                                             <customView id="JSg-5W-Jz5">
-                                                <rect key="frame" x="0.0" y="277" width="800" height="42"/>
+                                                <rect key="frame" x="0.0" y="45" width="800" height="42"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 <subviews>
                                                     <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwT-Xi-9rw">
@@ -1122,9 +1129,8 @@ Gw
                                             <real value="3.4028234663852886e+38"/>
                                         </customSpacing>
                                     </stackView>
-                                    <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cy-3f-AfV">
+                                    <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cy-3f-AfV">
                                         <rect key="frame" x="0.0" y="484" width="800" height="16"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="aWt-Hd-0t0">
                                             <rect key="frame" x="0.0" y="0.0" width="800" height="16"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1140,6 +1146,9 @@ Gw
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </clipView>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="110-Ml-VBt"/>
+                                        </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="7yt-uS-snv">
                                             <rect key="frame" x="-100" y="-100" width="240" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>

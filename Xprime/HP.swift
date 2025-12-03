@@ -100,7 +100,7 @@ enum HP {
             url.appendingPathComponent("prgm")
         ]
         for file in files {
-            if url.isDirectory == false {
+            if file.isDirectory == false {
                 return false
             }
         }
@@ -328,8 +328,9 @@ enum HP {
         return loadTextFile(at: url)
     }
     
-    static func saveFile(at url: URL, content prgm: String) throws {
-        let encoding: String.Encoding = url.pathExtension.lowercased() == "prgm" ? .utf16LittleEndian : .utf8
+    static func savePrgm(at url: URL, content prgm: String) throws {
+        let ext = url.pathExtension.lowercased()
+        let encoding: String.Encoding = ext == "prgm" ? .utf16LittleEndian : .utf8
         
         if encoding == .utf8 {
             try prgm.write(to: url, atomically: true, encoding: .utf8)
@@ -341,6 +342,10 @@ enum HP {
             var data = Data([0xFF, 0xFE]) // BOM
             data.append(body)
             try data.write(to: url, options: .atomic)
+        }
+        
+        if ext == "prgm+" || ext == "ppl+" || ext == "prgm" || ext == "ppl" {
+            XprimeProject.save(to: url.deletingPathExtension().appendingPathExtension("xprimeproj"))
         }
     }
     
@@ -368,6 +373,31 @@ enum HP {
 
             try FileManager.default.copyItem(at: programURL, to: destinationURL)
         }
+    }
+    
+    static func preProccess(at sourceURL: URL, to destinationURL: URL) -> (out: String?, err: String?) {
+    
+        let command = HP.sdkURL
+            .appendingPathComponent("bin")
+            .appendingPathComponent("ppl+")
+            .path
+        
+        var arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
+        
+        if AppSettings.compressHPPRGM {
+            arguments.append(contentsOf: ["-compress"])
+        }
+        
+        if AppSettings.headerSearchPath.isEmpty == false {
+            arguments.append(contentsOf: ["-I\(AppSettings.headerSearchPath)"])
+        }
+        
+        if AppSettings.librarySearchPath.isEmpty == false {
+            arguments.append(contentsOf: ["-L\(AppSettings.librarySearchPath)"])
+        }
+        
+        let result = CommandLineTool.execute(command, arguments: arguments)
+        return result
     }
     
     static func installHPAppDirectory(at appURL: URL, forUser user: String? = nil) throws {
