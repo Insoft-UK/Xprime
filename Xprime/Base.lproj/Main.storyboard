@@ -75,7 +75,7 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="New" id="hZv-jB-C2g">
                                                 <items>
-                                                    <menuItem title="Project" image="NSTouchBarNewFolderTemplate" keyEquivalent="N" id="VW3-UP-pyd">
+                                                    <menuItem title="Project..." image="NSTouchBarNewFolderTemplate" keyEquivalent="N" id="VW3-UP-pyd">
                                                         <connections>
                                                             <action selector="newProject:" target="Ady-hI-5gd" id="HYW-8r-m9R"/>
                                                         </connections>

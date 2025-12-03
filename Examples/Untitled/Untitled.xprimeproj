@@ -1,6 +1,6 @@
 {
-  "include" : "",
+  "include" : ".\/",
   "compression" : false,
-  "calculator" : "Prime",
-  "lib" : ""
+  "lib" : ".\/",
+  "calculator" : "Prime"
 }

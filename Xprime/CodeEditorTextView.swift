@@ -53,6 +53,7 @@ struct GrammarPattern: Codable {
 final class CodeEditorTextView: NSTextView {
     var theme: Theme?
     var grammar: Grammar?
+
     
     private var _smartSubtitution: Bool = false
     var smartSubtitution: Bool {

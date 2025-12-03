@@ -1,5 +1,4 @@
 #pragma mode( separator(.,;) integer(h64) )
-#include "JO.ppl"
 
 export START()
 begin
