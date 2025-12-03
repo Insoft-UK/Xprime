@@ -39,10 +39,11 @@ enum XprimeProject {
         }
     }
     
-    static func load(at url: URL) {
+    static func load(at dirURL: URL, named name: String) {
         var project: Project?
+        let projectURL = dirURL.appendingPathComponent(name + ".xprimeproj")
         
-        if let jsonString = loadJSONString(url),
+        if let jsonString = loadJSONString(projectURL),
            let jsonData = jsonString.data(using: .utf8) {
             project = try? JSONDecoder().decode(Project.self, from: jsonData)
         }
@@ -57,7 +58,9 @@ enum XprimeProject {
         AppSettings.calculatorName = project.calculator
     }
 
-    static func save(to url: URL) {
+    
+    static func save(to dirURL: URL, named name: String) {
+        let projectURL = dirURL.appendingPathComponent(name + ".xprimeproj")
         let project = Project(
             compression: AppSettings.compressHPPRGM,
             include: AppSettings.headerSearchPath,
@@ -69,10 +72,10 @@ enum XprimeProject {
             encoder.outputFormatting = [.prettyPrinted]
             let data = try encoder.encode(project)
             if let jsonString = String(data: data, encoding: .utf8) {
-                try jsonString.write(to: url, atomically: true, encoding: .utf8)
+                try jsonString.write(to: projectURL, atomically: true, encoding: .utf8)
             } else {
                 // Fallback: write raw data if string conversion fails
-                try data.write(to: url)
+                try data.write(to: projectURL)
             }
         } catch {
             // Silently ignore errors to mirror load(at:) behavior; consider logging in the future

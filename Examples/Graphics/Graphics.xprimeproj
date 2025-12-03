@@ -1,6 +1,6 @@
 {
   "calculator" : "Prime",
-  "lib" : "",
   "compression" : false,
+  "lib" : "",
   "include" : ""
 }

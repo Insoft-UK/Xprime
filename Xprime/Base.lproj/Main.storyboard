@@ -71,12 +71,30 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
-                                            <connections>
-                                                <action selector="openDocument:" target="Ady-hI-5gd" id="bfI-qU-Mow"/>
-                                            </connections>
+                                        <menuItem title="New" image="plus" catalog="system" id="se1-HG-ipn">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="New" id="hZv-jB-C2g">
+                                                <items>
+                                                    <menuItem title="Project" image="NSTouchBarNewFolderTemplate" keyEquivalent="N" id="VW3-UP-pyd">
+                                                        <connections>
+                                                            <action selector="newProject:" target="Ady-hI-5gd" id="HYW-8r-m9R"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="File from Template..." image="document" catalog="system" keyEquivalent="n" id="IAo-SY-fd9">
+                                                        <connections>
+                                                            <action selector="newDocument:" target="Ady-hI-5gd" id="kbT-ZG-EW2"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                                        <menuItem title="Open…" keyEquivalent="o" id="lub-ID-MFY">
+                                            <connections>
+                                                <action selector="openDocument:" target="Ady-hI-5gd" id="EKn-8H-hZl"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="2O6-iy-OW6"/>
                                         <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
                                                 <action selector="saveDocument:" target="Ady-hI-5gd" id="6y1-Lw-kQR"/>
@@ -1199,6 +1217,7 @@ Gw
         <image name="character.book.closed" catalog="system" width="14" height="16"/>
         <image name="cube.box" catalog="system" width="16" height="17"/>
         <image name="cube.fill" catalog="system" width="16" height="17"/>
+        <image name="document" catalog="system" width="14" height="16"/>
         <image name="folder" catalog="system" width="18" height="14"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
@@ -1208,6 +1227,7 @@ Gw
         <image name="paintbrush" catalog="system" width="17" height="18"/>
         <image name="photo" catalog="system" width="18" height="14"/>
         <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="plus" catalog="system" width="14" height="13"/>
         <image name="ppl" width="16" height="16"/>
         <image name="pplplus" width="16" height="16"/>
         <image name="square.and.arrow.down" catalog="system" width="15" height="17"/>

@@ -75,12 +75,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return nil
     }
     private var applicationName: String? {
-        guard let url = currentURL else { return nil }
-        var isDir: ObjCBool = false
-        if FileManager.default.fileExists(atPath: url.path, isDirectory: &isDir) && isDir.boolValue {
+        guard let currentURL = currentURL else { return nil }
+        if currentURL.pathComponents.count <= 1 {
             return nil
         }
-        return url.deletingPathExtension().lastPathComponent
+        let projectName = currentURL
+            .deletingLastPathComponent()
+            .lastPathComponent
+        
+        return projectName
     }
     
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
@@ -276,9 +279,53 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Interface Builder Action Handlers
     
+    @IBAction func newProject(_ sender: Any) {
+        let savePanel = NSSavePanel()
+        let extensions = ["prgm+"]
+        let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
+        
+        savePanel.allowedContentTypes = contentTypes
+        savePanel.nameFieldStringValue = "Untitled"
+        
+        savePanel.begin { result in
+            guard result == .OK, let url = savePanel.url else { return }
+
+            do {
+                let projectName = url.deletingPathExtension().lastPathComponent
+                
+                let dirURL = url
+                    .deletingLastPathComponent()
+                    .appendingPathComponent(projectName)
+                
+                try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: false)
+                
+                let fileURL = dirURL.appendingPathComponent(projectName + "prgm+")
+                try HP.savePrgm(at: fileURL, content: self.codeEditorTextView.string)
+                self.currentURL = fileURL
+                self.documentIsModified = false
+                
+                XprimeProject.save(to: dirURL, named: projectName)
+                FileManager.default.changeCurrentDirectoryPath(dirURL.path)
+                
+            } catch {
+                let alert = NSAlert()
+                alert.messageText = "Error"
+                alert.informativeText = "Failed to save project: \(error)"
+                alert.runModal()
+            }
+        }
+    }
+    
+    @IBAction func newDocument(_ sender: Any) {
+        if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
+            codeEditorTextView.string = HP.loadHPPrgm(at: url) ?? ""
+            currentURL = nil
+        }
+    }
+    
     @IBAction func openDocument(_ sender: Any) {
         let openPanel = NSOpenPanel()
-        let extensions = ["py", "prgm", "prgm+", "hpprgm", "hpappprgm", "ppl"]
+        let extensions = ["py", "prgm", "prgm+", "hpprgm", "hpappprgm", "ppl", "ppl+"]
         let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
         
         openPanel.allowedContentTypes = contentTypes
@@ -288,12 +335,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
             self.openDocument(withContentsOf: url)
-            let ext = url.pathExtension.lowercased()
-            if ext == "prgm+" || ext == "ppl+" || ext == "prgm" || ext == "ppl" {
-                XprimeProject.load(at: url
-                    .deletingPathExtension()
-                    .appendingPathExtension("xprimeproj")
-                )
+            if let applicationName = self.applicationName {
+                XprimeProject.load(at: url.deletingLastPathComponent(), named: applicationName)
             }
         }
     }
@@ -313,6 +356,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             try HP.savePrgm(at: url, content: codeEditorTextView.string)
             currentURL = url
             self.documentIsModified = false
+            if let applicationName = self.applicationName {
+                XprimeProject.save(to: url.deletingLastPathComponent(), named: applicationName)
+            }
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error"
@@ -336,6 +382,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 try HP.savePrgm(at: url, content: self.codeEditorTextView.string)
                 self.currentURL = url
                 self.documentIsModified = false
+                
+                if let applicationName = self.applicationName {
+                    XprimeProject.save(to: url.deletingLastPathComponent(), named: applicationName)
+                }
+                
             } catch {
                 let alert = NSAlert()
                 alert.messageText = "Error"
@@ -833,18 +884,25 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return false
             
         case
-            #selector(exportAsHPPrgm(_:)),
+            #selector(exportAsHPPrgm(_:)):
+            
+            if let _ = currentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+"  {
+                return true
+            }
+            return false
+        
+        case
             #selector(run(_:)),
             #selector(archive(_:)),
             #selector(buildForRunning(_:)),
             #selector(buildForArchiving(_:)),
             #selector(build(_:)):
             
-            if let _ = currentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+"  {
-                return true
+            if let currentURL = currentURL, let name = applicationName,
+                    ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+"  {
+                return currentURL.deletingPathExtension().lastPathComponent == name
             }
             return false
-            
             
         case
             #selector(insertTemplate(_:)),

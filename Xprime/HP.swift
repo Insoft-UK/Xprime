@@ -343,10 +343,6 @@ enum HP {
             data.append(body)
             try data.write(to: url, options: .atomic)
         }
-        
-        if ext == "prgm+" || ext == "ppl+" || ext == "prgm" || ext == "ppl" {
-            XprimeProject.save(to: url.deletingPathExtension().appendingPathExtension("xprimeproj"))
-        }
     }
     
     static func installHPPrgm(at programURL: URL, forUser user: String? = nil) throws {
