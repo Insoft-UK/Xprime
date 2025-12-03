@@ -299,7 +299,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 
                 try FileManager.default.createDirectory(at: dirURL, withIntermediateDirectories: false)
                 
-                let fileURL = dirURL.appendingPathComponent(projectName + "prgm+")
+                let fileURL = dirURL.appendingPathComponent(projectName + ".prgm+")
                 try HP.savePrgm(at: fileURL, content: self.codeEditorTextView.string)
                 self.currentURL = fileURL
                 self.documentIsModified = false
