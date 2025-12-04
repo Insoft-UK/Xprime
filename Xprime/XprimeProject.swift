@@ -27,6 +27,7 @@ fileprivate struct Project: Codable {
     let include: String
     let lib: String
     let calculator: String
+    let bin: String
 }
 
 enum XprimeProject {
@@ -65,7 +66,8 @@ enum XprimeProject {
             compression: AppSettings.compressHPPRGM,
             include: AppSettings.headerSearchPath,
             lib: AppSettings.librarySearchPath,
-            calculator: AppSettings.calculatorName
+            calculator: AppSettings.calculatorName,
+            bin: ""
         )
         do {
             let encoder = JSONEncoder()

@@ -1,13 +1,14 @@
 #pragma mode( separator(.,;) integer(h64) assignment(=) indentation(2) )
 #require "GROB"
 
-#include <Common.prgm+>
+#include "spectrum.prgm"
 
 export START()
 begin
-	IMAGE_S(G0, 0, 0, img, 20, 240);
+	RECT();
+	IMAGE(G0, 0, 0, spectrum, 20, 240);
+	WAIT(-1);
 	
-	WAIT();
     return 0;
 end;
 
