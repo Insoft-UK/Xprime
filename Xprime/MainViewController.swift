@@ -61,9 +61,13 @@ extension MainViewController: NSWindowRestoration {
     }
 }
 
-final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation {
+final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
     @IBOutlet weak var toolbar: NSToolbar!
     @IBOutlet weak var icon: NSImageView!
+    
+    @IBOutlet weak var splitView: NSSplitView!
+    @IBOutlet weak var fixedPane: NSView!
+    
     
     private var currentURL: URL?
     private var parentURL: URL? {
@@ -86,10 +90,26 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return projectName
     }
     
+    private var projectURL: URL? {
+        guard let projectName, let parentURL else { return nil }
+        let url = parentURL.appendingPathComponent(projectName).appendingPathExtension("prgm+")
+        if !FileManager.default.fileExists(atPath: url.path) {
+            return nil
+        }
+        return url
+    }
+    
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
     @IBOutlet var outputTextView: NSTextView!
     @IBOutlet var statusTextLabel: NSTextField!
     @IBOutlet var outputScrollView: NSScrollView!
+    
+    func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
+        // Optionally hide the divider when the output is collapsed
+        return outputScrollView.isHidden
+    }
+   
+    
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -99,6 +119,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         super.viewDidLoad()
         
         codeEditorTextView.delegate = self
+        splitView.delegate = self
         
         // Add the Line Number Ruler
         if let scrollView = codeEditorTextView.enclosingScrollView {
@@ -128,6 +149,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             self?.documentIsModified = true
         }
       
+        if let menu = NSApp.mainMenu {
+            populateThemesMenu(menu: menu)
+            populateGrammarMenu(menu: menu)
+        }
     }
     
     @objc private func updateStatus() {
@@ -187,6 +212,76 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 }
             }
         }
+    }
+    
+    private func populateThemesMenu(menu: NSMenu) {
+        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpcolortheme", subdirectory: nil) else {
+            print("⚠️ No .xpcolortheme files found.")
+            return
+        }
+
+        for fileURL in resourceURLs {
+            let filename = fileURL.deletingPathExtension().lastPathComponent
+
+            let menuItem = NSMenuItem(title: filename, action: #selector(handleThemeSelection(_:)), keyEquivalent: "")
+            menuItem.representedObject = fileURL
+            menuItem.target = self  // or another target if needed
+            if filename == AppSettings.selectedTheme {
+                menuItem.state = .on
+            }
+
+            menu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Theme")?.submenu?.addItem(menuItem)
+        }
+    }
+    
+    private func populateGrammarMenu(menu: NSMenu) {
+        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: nil) else {
+            print("⚠️ No .xpgrammar files found.")
+            return
+        }
+        
+        for fileURL in resourceURLs {
+            let name = fileURL.deletingPathExtension().lastPathComponent
+            
+            let menuItem = NSMenuItem(title: name, action: #selector(handleGrammarSelection(_:)), keyEquivalent: "")
+            menuItem.representedObject = fileURL
+            menuItem.target = self  // or another target if needed
+            if name == AppSettings.selectedGrammar {
+                menuItem.state = .on
+            }
+
+            menu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")?.submenu?.addItem(menuItem)
+        }
+    }
+    
+    // MARK: - Action Handlers
+    
+    @objc func handleThemeSelection(_ sender: NSMenuItem) {
+        guard let mainVC = NSApp.mainWindow?.contentViewController as? MainViewController else { return }
+        guard let mainMenu = NSApp.mainMenu else { return }
+        
+        guard let fileURL = sender.representedObject as? URL else { return }
+        mainVC.codeEditorTextView.loadTheme(at: fileURL)
+        AppSettings.selectedTheme = sender.title
+        
+        for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Theme")!.submenu!.items ?? [] {
+            menuItem.state = .off
+        }
+        sender.state = .on
+    }
+    
+    @objc func handleGrammarSelection(_ sender: NSMenuItem) {
+        guard let mainVC = NSApp.mainWindow?.contentViewController as? MainViewController else { return }
+        guard let mainMenu = NSApp.mainMenu else { return }
+        
+        guard let fileURL = sender.representedObject as? URL else { return }
+        mainVC.codeEditorTextView.loadGrammar(at: fileURL)
+        AppSettings.selectedGrammar = sender.title
+        
+        for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")!.submenu!.items ?? [] {
+            menuItem.state = .off
+        }
+        sender.state = .on
     }
     
     
@@ -393,7 +488,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func performBuild() {
-        guard let sourceURL = currentURL else {
+        guard let sourceURL = projectURL else {
             return
         }
         let destinationURL = sourceURL
@@ -515,7 +610,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func exportAsHPPrgm(_ sender: Any) {
-        saveDocument()
+        if let _ = currentURL {
+            saveDocument()
+        } else {
+            saveDocumentAs()
+        }
         
         guard let currentURL = currentURL,
               FileManager.default.fileExists(atPath: currentURL.path) else { return }
@@ -531,7 +630,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func exportAsPrgm(_ sender: Any) {
-        saveDocument()
+        if let _ = currentURL {
+            saveDocument()
+        } else {
+            saveDocumentAs()
+        }
         
         guard let currentURL = currentURL,
               FileManager.default.fileExists(atPath: currentURL.path) else { return }
@@ -588,7 +691,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
 
     @IBAction func run(_ sender: Any) {
-        saveDocument()
+        if let _ = currentURL {
+            saveDocument()
+        } else {
+            saveDocumentAs()
+        }
         
         guard let parentURL = parentURL, let projectName = projectName else {
             return
@@ -606,13 +713,21 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func archive(_ sender: Any) {
-        saveDocument()
+        if let _ = currentURL {
+            saveDocument()
+        } else {
+            saveDocumentAs()
+        }
         prepareForArchive()
         archiveProcess()
     }
     
     @IBAction func buildForRunning(_ sender: Any) {
-        saveDocument()
+        if let _ = currentURL {
+            saveDocument()
+        } else {
+            saveDocumentAs()
+        }
         
         guard let parentURL = parentURL, let projectName = projectName else {
             return
@@ -630,7 +745,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     
     @IBAction func buildForArchiving(_ sender: Any) {
-        saveDocument()
+        if let _ = currentURL {
+            saveDocument()
+        } else {
+            saveDocumentAs()
+        }
         prepareForArchive()
     }
     
@@ -676,8 +795,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func convert(_ sender: Any) {
-        saveDocument()
-        
+        if let _ = currentURL {
+            saveDocument()
+        } else {
+            saveDocumentAs()
+        }
         guard let sourceURL = currentURL else {
             return
         }
@@ -692,7 +814,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func build(_ sender: Any) {
-        saveDocument()
+        if let _ = currentURL {
+            saveDocument()
+        } else {
+            saveDocumentAs()
+        }
         performBuild()
     }
     
@@ -833,12 +959,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func reformatCode(_ sender: Any) {
-        saveDocument()
+        if let _ = currentURL {
+            saveDocument()
+        } else {
+            saveDocumentAs()
+        }
         
         guard let currentURL = currentURL else {
             return
         }
-        
         
         let command = HP.sdkURL
             .appendingPathComponent("bin")
@@ -858,6 +987,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     
+    @IBAction func toggleOutput(_ sender: NSButton) {
+        let shouldShow = outputScrollView.isHidden
+        
+        if shouldShow {
+            outputScrollView.isHidden = false
+            sender.contentTintColor = .systemBlue
+        } else {
+            outputScrollView.isHidden = true
+            sender.contentTintColor = .systemGray
+        }
+    }
+    
     // MARK: - Validation for Toolbar Items
     
     internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
@@ -865,9 +1006,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
         switch item.action {
         case #selector(build(_:)), #selector(run(_:)):
-            if let currentURL = currentURL, let projectName = projectName,
-                    ext == "prgm+" || ext == "ppl+" || ext == "pp"  {
-                return currentURL.deletingPathExtension().lastPathComponent == projectName
+            if let _ = projectURL  {
+                return true
             }
             return false
             
@@ -938,9 +1078,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return false
             
         case #selector(run(_:)), #selector(archive(_:)), #selector(build(_:)), #selector(buildForRunning(_:)), #selector(buildForArchiving(_:)):
-            if let currentURL = currentURL, let projectName = projectName,
-                    ext == "prgm+" || ext == "ppl+" || ext == "pp"  {
-                return currentURL.deletingPathExtension().lastPathComponent == projectName
+            if let _ = projectURL  {
+                return true
             }
             return false
             

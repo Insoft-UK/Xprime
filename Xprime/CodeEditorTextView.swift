@@ -393,4 +393,68 @@ final class CodeEditorTextView: NSTextView {
 
         textStorage.endEditing()
     }
+    
+    //MARK: HELP
+    override func mouseDown(with event: NSEvent) {
+        // 1. Check if Option key is held
+        let optionDown = event.modifierFlags.contains(.option)
+        
+        if optionDown {
+            handleOptionClick(event)
+            return
+        }
+        
+        super.mouseDown(with: event)
+    }
+    
+    
+    private func handleOptionClick(_ event: NSEvent) {
+        // 2. Convert click location to text position
+        let point = convert(event.locationInWindow, from: nil)
+        let charIndex = characterIndexForInsertion(at: point)
+        
+        guard charIndex != NSNotFound else { return }
+        
+        // 3. Get the word at that index
+        if let word = word(at: charIndex) {
+            // Do whatever you want — show docs, definitions, etc.
+            print("Option-clicked word: \(word)")
+        }
+    }
+    
+    
+    // Extract the word around a character index
+    private func word(at index: Int) -> String? {
+        guard index < string.count else { return nil }
+        
+        let nsString = self.string as NSString
+        let range = nsString.rangeOfWord(at: index)
+        if range.location != NSNotFound {
+            return nsString.substring(with: range)
+        }
+        return nil
+    }
+}
+
+// Small helper to get a word range (you can customize)
+extension NSString {
+    func rangeOfWord(at index: Int) -> NSRange {
+        _ = NSRange(location: 0, length: length)
+        guard index >= 0 && index < length else { return NSRange(location: NSNotFound, length: 0) }
+
+        let tokenizer = CFStringTokenizerCreate(
+            kCFAllocatorDefault,
+            self,
+            CFRange(location: 0, length: length),
+            CFOptionFlags(kCFStringTokenizerUnitWord),
+            nil
+        )
+
+        CFStringTokenizerGoToTokenAtIndex(tokenizer, index)
+        let cfRange = CFStringTokenizerGetCurrentTokenRange(tokenizer)
+        if cfRange.location == kCFNotFound {
+            return NSRange(location: NSNotFound, length: 0)
+        }
+        return NSRange(location: cfRange.location, length: cfRange.length)
+    }
 }

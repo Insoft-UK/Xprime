@@ -36,10 +36,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
         UserDefaults.standard.set(false, forKey: "NSAutomaticQuoteSubstitutionEnabled")
         UserDefaults.standard.set(false, forKey: "NSAutomaticDashSubstitutionEnabled")
         UserDefaults.standard.synchronize()
-        
-        
-        populateThemesMenu(menu: mainMenu)
-        populateGrammarMenu(menu: mainMenu)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -51,45 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
     }
     
     
-    private func populateThemesMenu(menu: NSMenu) {
-        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpcolortheme", subdirectory: nil) else {
-            print("⚠️ No .xpcolortheme files found.")
-            return
-        }
-
-        for fileURL in resourceURLs {
-            let filename = fileURL.deletingPathExtension().lastPathComponent
-
-            let menuItem = NSMenuItem(title: filename, action: #selector(handleThemeSelection(_:)), keyEquivalent: "")
-            menuItem.representedObject = fileURL
-            menuItem.target = self  // or another target if needed
-            if filename == AppSettings.selectedTheme {
-                menuItem.state = .on
-            }
-
-            menu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Theme")?.submenu?.addItem(menuItem)
-        }
-    }
-    
-    private func populateGrammarMenu(menu: NSMenu) {
-        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: nil) else {
-            print("⚠️ No .xpgrammar files found.")
-            return
-        }
-        
-        for fileURL in resourceURLs {
-            let name = fileURL.deletingPathExtension().lastPathComponent
-            
-            let menuItem = NSMenuItem(title: name, action: #selector(handleGrammarSelection(_:)), keyEquivalent: "")
-            menuItem.representedObject = fileURL
-            menuItem.target = self  // or another target if needed
-            if name == AppSettings.selectedGrammar {
-                menuItem.state = .on
-            }
-
-            menu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")?.submenu?.addItem(menuItem)
-        }
-    }
     
     // MARK: - Interface Builder Action Handlers
     
@@ -107,32 +64,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
 
     // MARK: - Action Handlers
 
-    
-    @objc func handleThemeSelection(_ sender: NSMenuItem) {
-        guard let vc = NSApp.mainWindow?.contentViewController as? MainViewController else { return }
-        
-        guard let fileURL = sender.representedObject as? URL else { return }
-        vc.codeEditorTextView.loadTheme(at: fileURL)
-        AppSettings.selectedTheme = sender.title
-        
-        for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Theme")!.submenu!.items ?? [] {
-            menuItem.state = .off
-        }
-        sender.state = .on
-    }
-    
-    @objc func handleGrammarSelection(_ sender: NSMenuItem) {
-        guard let vc = NSApp.mainWindow?.contentViewController as? MainViewController else { return }
-        
-        guard let fileURL = sender.representedObject as? URL else { return }
-        vc.codeEditorTextView.loadGrammar(at: fileURL)
-        AppSettings.selectedGrammar = sender.title
-        
-        for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")!.submenu!.items ?? [] {
-            menuItem.state = .off
-        }
-        sender.state = .on
-    }
     
     internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         switch item.action {
