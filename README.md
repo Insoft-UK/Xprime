@@ -16,6 +16,3 @@ Launch the HP Connectivity Kit or HP Prime Virtual Calculator.
 This section provides template snippets for common programming constructs (e.g., for loops, if statements) that you can insert directly into your code.
 
 <img width="50%" src="https://raw.githubusercontent.com/Insoft-UK/PrimeSDK/main/assets/screenshots/Templates.png" />
-
-> [!NOTE]
-> The command-line utilities utilized by Xprime are sourced from the PrimeSDK installation.
