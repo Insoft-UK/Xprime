@@ -50,26 +50,12 @@ struct AppSettings {
     }
 
     static var librarySearchPath: String {
-        get { let path = defaults.object(forKey: Key.librarySearchPath.rawValue) as? String ?? HP.sdkURL
-            .appendingPathComponent("lib")
-            .path
-            guard URL(fileURLWithPath: path).isDirectory else {
-                return HP.sdkURL.appendingPathComponent("lib").path
-            }
-            return path
-        }
+        get { defaults.object(forKey: Key.librarySearchPath.rawValue) as? String ?? "$(SDK)/lib" }
         set { defaults.set(newValue, forKey: Key.librarySearchPath.rawValue) }
     }
     
     static var headerSearchPath: String {
-        get { let path = defaults.object(forKey: Key.headerSearchPath.rawValue) as? String ?? HP.sdkURL
-            .appendingPathComponent("include")
-            .path
-            guard URL(fileURLWithPath: path).isDirectory else {
-                return HP.sdkURL.appendingPathComponent("include").path
-            }
-            return path
-        }
+        get { defaults.object(forKey: Key.headerSearchPath.rawValue) as? String ?? "$(SDK)/include" }
         set { defaults.set(newValue, forKey: Key.headerSearchPath.rawValue) }
     }
     

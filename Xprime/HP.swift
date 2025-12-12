@@ -318,9 +318,9 @@ enum HP {
                 .appendingPathComponent("bin")
                 .appendingPathComponent("ppl+")
             
-            let contents = CommandLineTool.execute(commandURL.path, arguments: [url.path, "-o", "/dev/stdout"])
-            if let out = contents.out, !out.isEmpty {
-                return contents.out
+            let result = CommandLineTool.execute(commandURL.path, arguments: [url.path, "-o", "/dev/stdout"])
+            if let out = result.out, !out.isEmpty {
+                return result.out
             }
             return nil
         }
@@ -385,11 +385,13 @@ enum HP {
         }
         
         if AppSettings.headerSearchPath.isEmpty == false {
-            arguments.append(contentsOf: ["-I\(AppSettings.headerSearchPath)"])
+            let path = AppSettings.headerSearchPath.replacingOccurrences(of: "$(SDK)", with: HP.sdkURL.path)
+            arguments.append(contentsOf: ["-I\(path)"])
         }
         
         if AppSettings.librarySearchPath.isEmpty == false {
-            arguments.append(contentsOf: ["-L\(AppSettings.librarySearchPath)"])
+            let path = AppSettings.librarySearchPath.replacingOccurrences(of: "$(SDK)", with: HP.sdkURL.path)
+            arguments.append(contentsOf: ["-L\(path)"])
         }
         
         let result = CommandLineTool.execute(command, arguments: arguments)

@@ -354,7 +354,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func saveDocumentAs() {
         let savePanel = NSSavePanel()
-        let extensions = ["py", "prgm", "prgm+"]
+        let extensions = ["prgm+"]
         let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
         
         savePanel.allowedContentTypes = contentTypes
@@ -453,6 +453,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
         var requiredFiles: [String] = []
         var cleanedText = text
+        
+        let basePath = HP.sdkURL
+            .appendingPathComponent("hpprgm")
+            .path
 
         // Find matches
         let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
@@ -460,7 +464,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         for match in matches.reversed() {
             // Extract filename
             if let range = Range(match.range(at: 1), in: text) {
-                requiredFiles.append(String(text[range]))
+                let filePath = URL(fileURLWithPath: basePath)
+                    .appendingPathComponent(String(text[range]))
+                    .appendingPathExtension("hpprgm")
+                    .path
+                    
+                requiredFiles.append(filePath)
             }
 
             // Remove entire #require line from the output
@@ -472,20 +481,21 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return (cleanedText, requiredFiles)
     }
     
+   
+    
     private func installRequiredPrograms(requiredFiles: [String]) {
-        let baseURL = HP.sdkURL
-            .appendingPathComponent("hpprgm")
         for file in requiredFiles {
             do {
-                try HP.installHPPrgm(at: baseURL
-                    .appendingPathComponent(file)
-                    .appendingPathExtension("hpprgm"))
+                try HP.installHPPrgm(at: URL(fileURLWithPath: file))
                 outputTextView.string += "Installed: \(file)\n"
             } catch {
                 outputTextView.string += "Error installing \(file).hpprgm: \(error)"
             }
         }
     }
+    
+    
+
     
     private func performBuild() {
         guard let sourceURL = projectURL else {
@@ -494,7 +504,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let destinationURL = sourceURL
             .deletingPathExtension()
             .appendingPathExtension("hpprgm")
-
+        
+        
         let result = HP.preProccess(at: sourceURL, to: destinationURL,  compress: AppSettings.compressHPPRGM)
         outputTextView.string = result.err ?? ""
     }
@@ -584,6 +595,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func openDocument(_ sender: Any) {
+        if documentIsModified {
+            saveDocument()
+        }
         let openPanel = NSOpenPanel()
         let extensions = ["py", "prgm", "prgm+", "hpprgm", "hpappprgm", "ppl", "ppl+"]
         let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
@@ -1096,13 +1110,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return documentIsModified
             
         case #selector(cleanBuildFolder(_:)):
-            if let _ = currentURL {
+            if let _ = projectURL {
                 return true
             }
             return false
             
         case #selector(showBuildFolderInFinder(_:)):
-            if let _ = currentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+" || ext == "pp" {
+            if let _ = projectURL {
                 return true
             }
             return false

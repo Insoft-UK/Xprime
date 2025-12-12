@@ -59,15 +59,11 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func defaultHeaderSearchPath(_ sender: Any) {
-        headerSearchPath.stringValue = HP.sdkURL
-            .appendingPathComponent("include")
-            .path
+        headerSearchPath.stringValue = "$(SDK)/include"
     }
     
     @IBAction func defaultLibarySearchPath(_ sender: Any) {
-        librarySearchPath.stringValue = HP.sdkURL
-            .appendingPathComponent("lib")
-            .path
+        librarySearchPath.stringValue = "$(SDK)/lib"
     }
     
     @IBAction func close(_ sender: Any) {
@@ -116,4 +112,6 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
             calculator.image = NSImage(named: "VirtualCalculator")
         }
     }
+    
+    
 }

@@ -1,7 +1,7 @@
 {
-  "compression" : true,
+  "include" : "",
   "bin" : "",
-  "lib" : "",
   "calculator" : "Prime",
-  "include" : ""
+  "compression" : true,
+  "lib" : ""
 }

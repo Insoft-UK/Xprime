@@ -41,7 +41,7 @@
         {
             "scope": ["Numbers"],
             "settings": {
-                "foreground": "#FFFFFF"
+                "foreground": "#FFCC00"
             }
         },
         {

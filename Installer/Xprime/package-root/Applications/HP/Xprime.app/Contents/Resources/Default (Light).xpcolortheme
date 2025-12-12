@@ -39,7 +39,19 @@
             }
         },
         {
-            "scope": ["Numbers", "Strings", "Backquotes"],
+            "scope": ["Numbers"],
+            "settings": {
+                "foreground": "#DD7700"
+            }
+        },
+        {
+            "scope": ["Strings"],
+            "settings": {
+                "foreground": "#DD7700"
+            }
+        },
+        {
+            "scope": ["Backquotes"],
             "settings": {
                 "foreground": "#DD7700"
             }
