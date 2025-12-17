@@ -8,13 +8,12 @@
 export START()
 begin
 	RECT(BLACK);
-	HP.Text(G0, "VGA Font Example", 0, 0, VGA, WHITE, 1, 1);
+	TEXT(G0, "VGA Font Example", 0, 0, VGA, WHITE, 1, 1);
 	WAIT(-1);
     return 0;
 end;
 
 export RESET()
 begin
-FILLPOLY_P
     return 0;
 end;

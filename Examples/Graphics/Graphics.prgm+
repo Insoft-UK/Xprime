@@ -1,7 +1,7 @@
 #pragma mode( separator(.,;) integer(h64) assignment(=) indentation(2) )
 #require "GROB"
 
-#include <spectrum>
+#include "spectrum.prgm+"
 
 export START()
 begin

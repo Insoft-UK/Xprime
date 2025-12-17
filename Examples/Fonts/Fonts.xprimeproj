@@ -1,7 +1,7 @@
 {
   "bin" : "",
+  "compression" : true,
   "include" : "$(SDK)\/include",
   "lib" : "$(SDK)\/lib",
-  "calculator" : "Prime",
-  "compression" : true
+  "calculator" : "Prime"
 }
