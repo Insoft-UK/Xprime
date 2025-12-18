@@ -355,7 +355,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        icon.image = NSImage(contentsOf: Bundle.main.url(forResource: "icon", withExtension: "png", subdirectory:"Developer/Library/Xprime/Teemplates/Application Template")!)
+        icon.image = NSImage(contentsOf: Bundle.main.url(forResource: "icon", withExtension: "png", subdirectory:"Developer/Library/Xprime/Templates/Application Template")!)
         
     }
     
