@@ -60,11 +60,8 @@ fileprivate func launchApplication(named appName: String, arguments: [String] = 
 //        }
 
 enum HP {
-    static var sdkURL: URL {
-        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr")
-    }
-    
-    
+    static let sdkURL = URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr")
+
     static var isVirtualCalculatorInstalled: Bool {
         if AppSettings.HPPrime == "macOS" {
             return FileManager.default.fileExists(atPath: "/Applications/HP Prime.app/Contents/MacOS/HP Prime")
@@ -82,28 +79,6 @@ enum HP {
         return FileManager.default.fileExists(atPath: homeDirectory.appendingPathComponent(".wine/drive_c/Program Files/HP/HP Connectivity Kit/ConnectivityKit.exe").path)
     }
     
-    
-//    static var isPrimeSDKInstalled: Bool {
-//        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK")
-//        guard url.isDirectory else { return false }
-//        
-//        let files: [URL] = [
-//            url.appendingPathComponent("bin"),
-//            url.appendingPathComponent("lib"),
-//            url.appendingPathComponent("hpprgm"),
-//            url.appendingPathComponent("include"),
-//            url.appendingPathComponent("prgm")
-//        ]
-//        for file in files {
-//            if file.isDirectory == false {
-//                return false
-//            }
-//        }
-//        
-//        return true
-//    }
-    
-    
     static func hpPrimeCalculatorExists(named name: String) -> Bool {
         guard !name.isEmpty else { return false }
         
@@ -115,7 +90,6 @@ enum HP {
         print(calculatorURL.isDirectory)
         return calculatorURL.isDirectory
     }
-    
     
     static func hpPrimeDirectory(forUser user: String = "Prime") -> URL? {
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
@@ -422,8 +396,6 @@ enum HP {
             try FileManager.default.copyItem(at: appURL, to: destinationURL)
         }
     }
-    
-    
     
     static func launchVirtualCalculator() {
         let appName = "HP Prime"

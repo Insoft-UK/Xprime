@@ -316,6 +316,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         currentURL = url
         codeEditorTextView.string = contents
         
+        refreshQuickOpenItems()
 
         guard let projectName = projectName else { return }
         guard let parentURL = parentURL else { return }
@@ -356,6 +357,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         icon.image = NSImage(contentsOf: Bundle.main.url(forResource: "icon", withExtension: "png", subdirectory:"Developer/Library/Xprime/Templates/Application Template")!)
+        
         
     }
     
@@ -581,6 +583,54 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 self.outputTextView.string = result.err ?? ""
             }
         }
+    }
+    
+    @objc private func quickOpen(_ sender: NSMenuItem) {
+        guard let parentURL = parentURL else { return }
+        openDocument(url: parentURL.appendingPathComponent(sender.title))
+    }
+    
+    private func refreshQuickOpenItems() {
+        guard let parentURL = self.parentURL
+        else { return }
+        
+            
+            let fm = FileManager.default
+            let enumerator = fm.enumerator(
+                at: parentURL,
+                includingPropertiesForKeys: [.isRegularFileKey],
+                options: [.skipsHiddenFiles]
+            )
+            
+            NSApp.mainMenu?
+                .item(withTitle: "Quick Open")?
+                .submenu?
+                .removeAllItems()
+            
+            while let fileURL = enumerator?.nextObject() as? URL {
+                let values = try? fileURL.resourceValues(forKeys: [.isRegularFileKey])
+                if values?.isRegularFile == true {
+                    let ext = fileURL.pathExtension.lowercased()
+                    if ext != "prgm+" && ext != "prgm" && ext != "ppl" && ext != "ppl+" && ext != "py" {
+                        continue
+                    }
+                    let item = NSMenuItem(
+                        title: fileURL.lastPathComponent,
+                        action: #selector(quickOpen(_:)),
+                        keyEquivalent: ""
+                    )
+                    item.image = NSImage(systemSymbolName: "text.page.fill", accessibilityDescription: nil)
+                    item.target = self
+                    item.representedObject = fileURL
+                    if fileURL.lastPathComponent == currentURL?.lastPathComponent {
+                        item.state = .on
+                    }
+                    NSApp.mainMenu?
+                        .item(withTitle: "Quick Open")?
+                        .submenu?
+                        .addItem(item)
+                }
+            }
     }
     
     // MARK: - Interface Builder Action Handlers

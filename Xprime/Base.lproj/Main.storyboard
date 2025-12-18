@@ -741,6 +741,10 @@
                                     </items>
                                 </menu>
                             </menuItem>
+                            <menuItem title="Quick Open" id="l86-Bj-2pX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Quick Open" id="kXA-b8-4bv"/>
+                            </menuItem>
                             <menuItem title="Help" id="wpr-3q-Mcd">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
