@@ -215,7 +215,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func populateThemesMenu(menu: NSMenu) {
-        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpcolortheme", subdirectory: nil) else {
+        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpcolortheme", subdirectory: "Themes") else {
             print("⚠️ No .xpcolortheme files found.")
             return
         }
@@ -235,7 +235,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func populateGrammarMenu(menu: NSMenu) {
-        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: nil) else {
+        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: "Grammars") else {
             print("⚠️ No .xpgrammar files found.")
             return
         }
@@ -324,15 +324,21 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let ext = url.pathExtension.lowercased()
         
         if ext == "prgm+" || ext == "ppl+" {
-            self.codeEditorTextView.loadGrammar(at: Bundle.main.url(forResource: "Prime Plus", withExtension: "xpgrammar")!)
+            if let url = Bundle.main.url(forResource: "Prime Plus", withExtension: "xpgrammar", subdirectory:"Grammars") {
+                self.codeEditorTextView.loadGrammar(at: url)
+            }
         }
         
         if ext == "prgm" || ext == "ppl" || ext == "hpprgm" || ext == "hpappprgm" {
-            self.codeEditorTextView.loadGrammar(at: Bundle.main.url(forResource: "Prime", withExtension: "xpgrammar")!)
+            if let url = Bundle.main.url(forResource: "Prime", withExtension: "xpgrammar", subdirectory:"Grammars") {
+                self.codeEditorTextView.loadGrammar(at: url)
+            }
         }
         
         if ext == "py" {
-            self.codeEditorTextView.loadGrammar(at: Bundle.main.url(forResource: "Python", withExtension: "xpgrammar")!)
+            if let url = Bundle.main.url(forResource: "Python", withExtension: "xpgrammar", subdirectory:"Grammars") {
+                self.codeEditorTextView.loadGrammar(at: url)
+            }
         }
         
         updateDocumentIconButtonImage()
@@ -349,7 +355,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        icon.image = NSImage(contentsOf: Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/icon.png"))
+//        icon.image = NSImage(contentsOf: Bundle.main.bundleURL.appendingPathComponent("Contents/Resources/icon.png"))
+        icon.image = NSImage(contentsOf: Bundle.main.url(forResource: "icon", withExtension: "png", subdirectory:"Developer/Library/Xprime/Teemplates/Application Template")!)
     }
     
     private func saveDocumentAs() {
@@ -448,7 +455,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @discardableResult
     private func processRequires(in text: String) -> (cleaned: String, requiredFiles: [String]) {
-        let pattern = #"#require\s*"([^"]+)""#
+        let pattern = #"#require\s*"([^"<>]+)""#
         let regex = try! NSRegularExpression(pattern: pattern)
 
         var requiredFiles: [String] = []
@@ -481,6 +488,41 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return (cleanedText, requiredFiles)
     }
     
+    @discardableResult
+    private func processAppRequires(in text: String) -> (cleaned: String, requiredApps: [String]) {
+        let pattern = #"#require\s*<([^"<>]+)>"#
+        let regex = try! NSRegularExpression(pattern: pattern)
+
+        var requiredApps: [String] = []
+        var cleanedText = text
+        
+        let basePath = HP.sdkURL
+            .appendingPathComponent("hpappdir")
+            .path
+
+        // Find matches
+        let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
+
+        for match in matches.reversed() {
+            // Extract filename
+            if let range = Range(match.range(at: 1), in: text) {
+                let filePath = URL(fileURLWithPath: basePath)
+                    .appendingPathComponent(String(text[range]))
+                    .appendingPathExtension("hpappdir")
+                    .path
+                    
+                requiredApps.append(filePath)
+            }
+
+            // Remove entire #require line from the output
+            if let fullRange = Range(match.range, in: cleanedText) {
+                cleanedText.removeSubrange(fullRange)
+            }
+        }
+
+        return (cleanedText, requiredApps)
+    }
+    
    
     
     private func installRequiredPrograms(requiredFiles: [String]) {
@@ -490,6 +532,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 outputTextView.string += "Installed: \(file)\n"
             } catch {
                 outputTextView.string += "Error installing \(file).hpprgm: \(error)"
+            }
+        }
+    }
+    
+    private func installRequiredApps(requiredApps: [String]) {
+        for file in requiredApps {
+            do {
+                try HP.installHPAppDirectory(at: URL(fileURLWithPath: file))
+                outputTextView.string += "Installed: \(file)\n"
+            } catch {
+                outputTextView.string += "Error installing \(file).hpappdir: \(error)"
             }
         }
     }
@@ -534,8 +587,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func newProject(_ sender: Any) {
         let savePanel = NSSavePanel()
-        savePanel.allowedContentTypes = ["prgm+"].compactMap { UTType(filenameExtension: $0) }
-        savePanel.nameFieldStringValue = "Untitled.prgm+"
+        savePanel.allowedContentTypes = ["xprimeproj"].compactMap { UTType(filenameExtension: $0) }
+        savePanel.nameFieldStringValue = "Untitled"
         
         savePanel.begin { result in
             guard result == .OK, let selectedURL = savePanel.url else { return }
@@ -556,6 +609,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 
                 // File inside project directory
                 let prgmURL = projectDir.appendingPathComponent(projectName + ".prgm+")
+                
+                if let url = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") {
+                    self.codeEditorTextView.string = HP.loadHPPrgm(at: url) ?? ""
+                }
                 
                 // Save the .prgm+ file
                 try HP.savePrgm(
@@ -713,8 +770,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        let result = processRequires(in: codeEditorTextView.string)
-        installRequiredPrograms(requiredFiles: result.requiredFiles)
+        let programs = processRequires(in: codeEditorTextView.string)
+        installRequiredPrograms(requiredFiles: programs.requiredFiles)
+        
+        let apps = processAppRequires(in: codeEditorTextView.string)
+        installRequiredApps(requiredApps: apps.requiredApps)
         
         performBuild()
         
@@ -747,6 +807,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         let result = processRequires(in: codeEditorTextView.string)
         installRequiredPrograms(requiredFiles: result.requiredFiles)
+        
+        let appsToInstall = processAppRequires(in: codeEditorTextView.string)
+        installRequiredApps(requiredApps: appsToInstall.requiredApps)
         
         performBuild()
         

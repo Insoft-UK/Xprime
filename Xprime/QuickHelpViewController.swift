@@ -34,7 +34,7 @@ final class QuickHelpViewController: NSViewController {
     required init?(coder: NSCoder) { fatalError() }
 
     override func loadView() {
-        guard let rtfURL = Bundle.main.url(forResource: symbol.uppercased(), withExtension: "rtf") else {
+        guard let rtfURL = Bundle.main.url(forResource: symbol.uppercased(), withExtension: "rtf", subdirectory: "Help") else {
             print("⚠️ No .rtf file found.")
             return
         }

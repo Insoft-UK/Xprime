@@ -1,13 +1,13 @@
 #pragma mode( separator(.,;) integer(h64) )
-#require "HP"
-#require "Fonts"
+#require <HP>
+#require <Fonts>
 
 #define WHITE #FFFFFF:32h
 #define BLACK 0
 export START()
 begin
 	RECT(BLACK);
-	TEXT("VGA Font Example", 0, 0, Fonts.VGA, WHITE);
+	HP.TEXT("VGA Font Example", 0, 0, Fonts.VGA, WHITE);
 	WAIT(-1);
     return 0;
 end;

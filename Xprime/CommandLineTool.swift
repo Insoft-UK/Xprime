@@ -49,21 +49,21 @@ fileprivate func run(_ task: Process) -> (out: String?, err: String?) {
 
 enum CommandLineTool {
     static private var binURL: URL {
-        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Developer/usr/bin")
+        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr/bin")
     }
     
     static private var includeURL: URL {
         guard AppSettings.headerSearchPath == "~" else {
             return URL(fileURLWithPath: AppSettings.headerSearchPath)
         }
-        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Developer/usr/include")
+        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr/include")
     }
     
     static private var libURL: URL {
         guard AppSettings.headerSearchPath == "~" else {
             return URL(fileURLWithPath: AppSettings.headerSearchPath)
         }
-        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Developer/usr/lib")
+        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr/lib")
     }
     
     static func execute(_ command: String, arguments: [String], currentDirectory: URL? = nil) -> (out: String?, err: String?) {

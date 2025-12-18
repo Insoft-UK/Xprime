@@ -22,8 +22,8 @@
 
 import Cocoa
 
-let templatesBasePath = "Contents/Developer/Library/Xprime/Templates/File Templates"
-let applicationTemplateBasePath = "Contents/Developer/Library/Xprime/Templates/Application Template"
+let templatesBasePath = "Contents/Resources/Developer/Library/Xprime/Templates/File Templates"
+let applicationTemplateBasePath = "Contents/Resources/Developer/Library/Xprime/Templates/Application Template"
 
 
 fileprivate func launchApplication(named appName: String, arguments: [String] = []) {
@@ -61,7 +61,7 @@ fileprivate func launchApplication(named appName: String, arguments: [String] = 
 
 enum HP {
     static var sdkURL: URL {
-        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Developer/usr")
+        return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr")
     }
     
     
@@ -83,25 +83,25 @@ enum HP {
     }
     
     
-    static var isPrimeSDKInstalled: Bool {
-        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK")
-        guard url.isDirectory else { return false }
-        
-        let files: [URL] = [
-            url.appendingPathComponent("bin"),
-            url.appendingPathComponent("lib"),
-            url.appendingPathComponent("hpprgm"),
-            url.appendingPathComponent("include"),
-            url.appendingPathComponent("prgm")
-        ]
-        for file in files {
-            if file.isDirectory == false {
-                return false
-            }
-        }
-        
-        return true
-    }
+//    static var isPrimeSDKInstalled: Bool {
+//        let url = URL(fileURLWithPath: "/Applications/HP/PrimeSDK")
+//        guard url.isDirectory else { return false }
+//        
+//        let files: [URL] = [
+//            url.appendingPathComponent("bin"),
+//            url.appendingPathComponent("lib"),
+//            url.appendingPathComponent("hpprgm"),
+//            url.appendingPathComponent("include"),
+//            url.appendingPathComponent("prgm")
+//        ]
+//        for file in files {
+//            if file.isDirectory == false {
+//                return false
+//            }
+//        }
+//        
+//        return true
+//    }
     
     
     static func hpPrimeCalculatorExists(named name: String) -> Bool {
