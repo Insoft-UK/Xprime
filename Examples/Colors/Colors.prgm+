@@ -22,10 +22,9 @@
 // SOFTWARE.
 #endif
 
-#pragma mode( separator(.,;) integer(h64) indentation(2) operators(▶) )
+#pragma mode( separator(.,;) integer(h64) indentation(2) )
 
-#require "ColorSpace"
-#require "HP"
+#require <HP>
 
 #define HUE G2
 #define BLACK_TO_TRANSPARENT_OVERLAY G3
@@ -72,16 +71,13 @@ end;
 
 DrawTextCentered(s:string, x:atX, y:ofY, fs:fontSize)
 begin
-    local sz:size;
-    dict Size size;
- 
-    size = TEXTSIZE(string, fontSize);
-    TEXTOUT_P(string, G9, atX - size.width / 2, ofY, fontSize, Color.White);
+    local size = TEXTSIZE(string, fontSize);
+    TEXTOUT_P(string, G9, atX - size[1] / 2, ofY, fontSize, Color.White);
 end;
 
 Setup: Colors::Setup()
 begin
-    local n, auto: data;
+    local n, data;
     DIMGROB_P(G9, 320, 240, 0);
     
     RECT(Color.Black);
@@ -89,7 +85,7 @@ begin
     
     data = {};
     for n from 0 to 359 step 2 do
-        data[n / 2 + 1] = R→B(HSV(n, 100, 100), 64, Base.Hex) + BITSL(R→B(HSV(n + 1, 100, 100), 64, Base.Hex), 32);
+        data[n / 2 + 1] = R→B(HP.HSV(n, 100, 100), 64, Base.Hex) + BITSL(R→B(HP.HSV(n + 1, 100, 100), 64, Base.Hex), 32);
     end;
     DIMGROB_P(HUE, 360, 1, data);
     
@@ -147,7 +143,7 @@ end;
 
 DrawSV: Colors::DrawSV(h,s,v)
 begin
-    RECT_P(G9, 10, 10, 137, 137, HSV(h, 100, 100));
+    RECT_P(G9, 10, 10, 137, 137, HP.HSV(h, 100, 100));
     BLIT_P(G9, 10, 10, 138, 138, G4);
     BLIT_P(G9, 10, 10, 138, 138, G3);
 
@@ -166,13 +162,13 @@ begin
     Colors::DrawSV(colorsH, colorsS, colorsV);
     
     /// Color Picked
-    RECT_P(G9, 154, 10, 309, 42, HSV(colorsH, colorsS, colorsV));
+    RECT_P(G9, 154, 10, 309, 42, HP.HSV(colorsH, colorsS, colorsV));
     
     local hsl, rgb, cmyk, hex;
     
     rgb = {colorsR, colorsG, colorsB};
-    hsl = HSVtoHSL(colorsH, colorsS, colorsV);
-    cmyk = RGBtoCMYK(colorsR, colorsG, colorsB);
+    hsl = HP.HSVtoHSL(colorsH, colorsS, colorsV);
+    cmyk = HP.RGBtoCMYK(colorsR, colorsG, colorsB);
     hex = "#" + HEX(colorsR) + HEX(colorsG) + HEX(colorsB);
     
     L0 := TEXTSIZE(hex,7);
@@ -262,7 +258,7 @@ end;
 UpdateRGB: Colors::UpdateRGB()
 begin
     local rgb;
-    rgb = HSVtoRGB(colorsH, colorsS, colorsV);
+    rgb = HP.HSVtoRGB(colorsH, colorsS, colorsV);
     colorsR = rgb[1];
     colorsG = rgb[2];
     colorsB = rgb[3];
@@ -324,7 +320,7 @@ begin
     
     /// Update HSV values.
     local hsv;
-    hsv = RGBtoHSV(colorsR, colorsG, colorsB);
+    hsv = HP.RGBtoHSV(colorsR, colorsG, colorsB);
     colorsH = hsv[1];
     colorsS = hsv[2];
     colorsV = hsv[3];
@@ -373,7 +369,7 @@ begin
                 end;
                 
                 if event.key == KeyCode.Enter then
-                    return HSV(colorsH, colorsS, colorsV);
+                    return HP.HSV(colorsH, colorsS, colorsV);
                 end;
                 
                 if event.key == KeyCode.Minus then
