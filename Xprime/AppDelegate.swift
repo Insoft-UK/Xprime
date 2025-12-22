@@ -37,11 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
         UserDefaults.standard.set(false, forKey: "NSAutomaticDashSubstitutionEnabled")
         UserDefaults.standard.synchronize()
         
-        
-        
-        
-        
-                
+        NSApp.helpMenu = nil
     }
     
     

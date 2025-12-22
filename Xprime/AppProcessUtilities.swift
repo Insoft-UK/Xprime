@@ -44,12 +44,14 @@ func terminateApp(withBundleIdentifier bundleIdentifier: String) {
 
 func isProcessRunning(_ name: String) -> Bool {
     let process = Process()
-    let pipe = Pipe()
+//    let pipe = Pipe()
 
     process.executableURL = URL(fileURLWithPath: "/usr/bin/pgrep")
     process.arguments = ["-f", name]     // -f = match full command line
-    process.standardOutput = pipe
-    process.standardError = Pipe()
+//    process.standardOutput = pipe
+//    process.standardError = Pipe()
+    process.standardOutput = FileHandle.nullDevice
+    process.standardError = FileHandle.nullDevice
 
     do {
         try process.run()
@@ -64,6 +66,8 @@ func killProcess(named name: String) {
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/usr/bin/pkill")
     process.arguments = ["-f", name]   // -f matches full command line
+    process.standardOutput = FileHandle.nullDevice
+    process.standardError = FileHandle.nullDevice
 
     do { try process.run() }
     catch { print("Failed to kill: \(error)") }
@@ -105,6 +109,8 @@ func launchApp(named name: String,
     let process = Process()
     process.executableURL = URL(fileURLWithPath: path)
     process.arguments = arguments
+    process.standardOutput = FileHandle.nullDevice
+    process.standardError = FileHandle.nullDevice
 
     do {
         try process.run()

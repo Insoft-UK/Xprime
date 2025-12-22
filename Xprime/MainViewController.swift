@@ -428,7 +428,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         else { return }
         
         do {
-            try HP.restoreMissingAppFiles(at: parentURL, named: projectName)
+            try HP.restoreMissingAppFiles(in: parentURL, named: projectName)
         } catch {
             outputTextView.string = "Failed to build for archiving: \(error)"
             return
@@ -446,8 +446,27 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func archiveProcess() {
         guard let projectName = projectName , let parentURL = parentURL else { return }
-       
-        let result = HP.archiveHPAppDirectory(at: parentURL, named: projectName)
+        
+        let url: URL!
+        
+        let dirA = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
+            .appendingPathComponent(projectName)
+            .appendingPathExtension("hpappdir")
+        let dirB = parentURL
+            .appendingPathComponent(projectName)
+            .appendingPathExtension("hpappdir")
+        
+        if dirA.isNewer(than: dirB) {
+            url = dirA.deletingLastPathComponent()
+            self.outputTextView.string = "Archiving from the virtual calculator directory.\n"
+        } else {
+            url = parentURL
+            self.outputTextView.string = "Archiving from the current project directory.\n"
+        }
+
+        
+        let result = HP.archiveHPAppDirectory(in: url, named: projectName, to: parentURL)
         
         if let out = result.out, !out.isEmpty {
             self.outputTextView.string += out
@@ -784,7 +803,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             destination = destination.appendingPathExtension("hpappdir.zip")
             
-            let result = HP.archiveHPAppDirectory(at: parentURL, named: projectName, to: destination)
+            let result = HP.archiveHPAppDirectory(in: parentURL, named: projectName, to: destination)
             
             if let out = result.out, !out.isEmpty {
                 return (out, nil)
@@ -919,18 +938,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         archiveProcess()
     }
     
-    @IBAction func archiveInstalledApplication(_ sender: Any) {
-        guard let projectName = projectName , let parentURL = parentURL else { return }
-       
-        let url = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
-        let result = HP.archiveHPAppDirectory(at: url, named: projectName, to: parentURL)
-        
-        if let out = result.out, !out.isEmpty {
-            self.outputTextView.string += out
-        }
-        self.outputTextView.string += result.err ?? ""
-    }
+    
     
     @IBAction func convert(_ sender: Any) {
         if let _ = currentURL {
@@ -1140,8 +1148,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Validation for Toolbar Items
     
     internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-        let ext = (currentURL != nil) ? currentURL!.pathExtension.lowercased() : ""
-    
         switch item.action {
         case #selector(build(_:)), #selector(run(_:)):
             if let _ = projectURL  {
@@ -1188,14 +1194,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             if let parentURL = parentURL, let projectName = projectName {
                 return HP.hpAppDirIsComplete(atPath: parentURL.path, named: projectName)
-            }
-            return false
-            
-        case #selector(archiveInstalledApplication(_:)):
-            if let projectName = projectName {
-                if HP.hpAppDirectoryIsInstalled(named: projectName) {
-                    return true
-                }
             }
             return false
             

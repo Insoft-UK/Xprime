@@ -36,4 +36,15 @@ extension URL {
     func openInFinder() {
         NSWorkspace.shared.open(self)
     }
+    
+    var modificationDate: Date? {
+        try? resourceValues(forKeys: [.contentModificationDateKey])
+            .contentModificationDate
+    }
+    
+    func isNewer(than other: URL) -> Bool {
+        guard let a = modificationDate,
+              let b = other.modificationDate else { return false }
+        return a > b
+    }
 }

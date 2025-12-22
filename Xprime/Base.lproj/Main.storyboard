@@ -29,13 +29,6 @@
                                                 <segue destination="CFc-li-Drx" kind="show" id="rs1-pK-ahC"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
-                                        <menuItem title="Developer Tools..." id="ZcX-JW-Pzd">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <segue destination="Qnp-eU-JNK" kind="modal" id="oCq-uz-hyH"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Dlo-Hf-EQO"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -624,7 +617,7 @@
                                                 <action selector="run:" target="Ady-hI-5gd" id="S3B-qu-8QR"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Archive" image="cube.fill" catalog="system" keyEquivalent="a" id="n0t-oe-wmy">
+                                        <menuItem title="Archive" image="shippingbox.fill" catalog="system" keyEquivalent="a" id="n0t-oe-wmy">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                             <connections>
                                                 <action selector="archive:" target="Ady-hI-5gd" id="WQR-gu-FYO"/>
@@ -640,7 +633,7 @@
                                                             <action selector="buildForRunning:" target="Ady-hI-5gd" id="UfM-bB-7Gx"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Archiving" image="cube.fill" catalog="system" keyEquivalent="A" id="6iN-LO-z15">
+                                                    <menuItem title="Archiving" image="shippingbox.fill" catalog="system" keyEquivalent="A" id="6iN-LO-z15">
                                                         <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                                         <connections>
                                                             <action selector="buildForArchiving:" target="Ady-hI-5gd" id="MI1-gq-5aA"/>
@@ -673,16 +666,10 @@
                                                             </items>
                                                         </menu>
                                                     </menuItem>
-                                                    <menuItem title="Archive Without Building" image="cube.box" catalog="system" id="csI-Pr-hfC">
+                                                    <menuItem title="Archive Without Building" image="shippingbox" catalog="system" id="csI-Pr-hfC">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
                                                             <action selector="archiveWithoutBuilding:" target="Ady-hI-5gd" id="6FG-tx-MXM"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Archive Installed Application" image="cube.box" catalog="system" id="rKl-ey-BsJ">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="archiveInstalledApplication:" target="Ady-hI-5gd" id="oSZ-ej-2AH"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="TmP-CD-ooN"/>
@@ -785,57 +772,6 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-745" y="-766"/>
-        </scene>
-        <!--Window Controller-->
-        <scene sceneID="zH6-S8-jeO">
-            <objects>
-                <windowController id="Qnp-eU-JNK" sceneMemberID="viewController">
-                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="7Sc-Yg-SE2">
-                        <windowStyleMask key="styleMask" titled="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="211" y="269" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1512" height="948"/>
-                        <view key="contentView" id="jAn-ly-x9p">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </view>
-                        <connections>
-                            <outlet property="delegate" destination="Qnp-eU-JNK" id="TOX-0l-RVg"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="Gkt-Fd-z1u" kind="relationship" relationship="window.shadowedContentViewController" id="LLr-64-c1e"/>
-                    </connections>
-                </windowController>
-                <customObject id="HWC-eh-Lyv" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1075" y="-1021"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="I0s-yX-Ymg">
-            <objects>
-                <viewController id="Gkt-Fd-z1u" sceneMemberID="viewController">
-                    <view key="view" id="gIg-ra-mZ1">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L9Q-dc-3ai" customClass="CustomButton" customModule="Xprime" customModuleProvider="target">
-                                <rect key="frame" x="364" y="20" width="96" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Close" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vR3-h9-knO">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                                </buttonCell>
-                            </button>
-                        </subviews>
-                    </view>
-                </viewController>
-                <customObject id="21N-4S-2h1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-434" y="-1033"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="0zq-Fv-lwY">
@@ -1268,8 +1204,6 @@ Gw
         <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
         <image name="bubbles.and.sparkles" catalog="system" width="17" height="15"/>
         <image name="character.book.closed" catalog="system" width="14" height="16"/>
-        <image name="cube.box" catalog="system" width="16" height="17"/>
-        <image name="cube.fill" catalog="system" width="16" height="17"/>
         <image name="document" catalog="system" width="14" height="16"/>
         <image name="folder" catalog="system" width="18" height="14"/>
         <image name="gear" catalog="system" width="17" height="16"/>
@@ -1283,6 +1217,8 @@ Gw
         <image name="play.fill" catalog="system" width="12" height="13"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="ppl" width="16" height="16"/>
+        <image name="shippingbox" catalog="system" width="16" height="17"/>
+        <image name="shippingbox.fill" catalog="system" width="16" height="16"/>
         <image name="square.and.arrow.down" catalog="system" width="15" height="17"/>
         <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
         <image name="square.and.arrow.up.on.square" catalog="system" width="17" height="20"/>

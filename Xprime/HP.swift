@@ -196,15 +196,15 @@ enum HP {
         return true
     }
     
-    static func restoreMissingAppFiles(at parentURL: URL, named name: String) throws {
-        if hpAppDirIsComplete(atPath: parentURL.path, named: name) {
+    static func restoreMissingAppFiles(in directory: URL, named name: String) throws {
+        if hpAppDirIsComplete(atPath: directory.path, named: name) {
             return
         }
         
         let templateDirURL = Bundle.main.bundleURL
             .appendingPathComponent(applicationTemplateBasePath)
         
-        let hpAppDirURL = parentURL.appendingPathComponent("\(name).hpappdir")
+        let hpAppDirURL = directory.appendingPathComponent("\(name).hpappdir")
         
         if hpAppDirURL.isDirectory == false {
             try FileManager.default.createDirectory(
@@ -219,7 +219,7 @@ enum HP {
             .path
         )
         {
-            if FileManager.default.fileExists(atPath: parentURL.appendingPathComponent("icon.png").path) == true {
+            if FileManager.default.fileExists(atPath: directory.appendingPathComponent("icon.png").path) == true {
                 try FileManager.default.copyItem(
                     at: templateDirURL
                         .appendingPathComponent("icon.png"),
@@ -252,9 +252,9 @@ enum HP {
         }
     }
     
-    static func archiveHPAppDirectory(at url: URL, named name: String, to desctinationURL: URL? = nil) -> (out: String?, err: String?)  {
+    static func archiveHPAppDirectory(in directory: URL, named name: String, to desctinationURL: URL? = nil) -> (out: String?, err: String?)  {
         do {
-            try restoreMissingAppFiles(at: url, named: name)
+            try restoreMissingAppFiles(in: directory, named: name)
         } catch {
             return (nil, "Failed to restore missing app files: \(error)")
         }
@@ -265,7 +265,7 @@ enum HP {
             try? FileManager.default.removeItem(at: desctinationURL.appendingPathComponent("\(name).hpappdir.zip"))
             destinationPath = desctinationURL.appendingPathComponent("\(name).hpappdir.zip").path
         } else {
-            try? FileManager.default.removeItem(at: url.appendingPathComponent("\(name).hpappdir.zip"))
+            try? FileManager.default.removeItem(at: directory.appendingPathComponent("\(name).hpappdir.zip"))
         }
         
         return CommandLineTool.execute(
@@ -276,7 +276,7 @@ enum HP {
                 "\(name).hpappdir",
                 "-x", "*.DS_Store"
             ],
-            currentDirectory: url
+            currentDirectory: directory
         )
     }
     
@@ -362,6 +362,17 @@ enum HP {
             let path = AppSettings.librarySearchPath.replacingOccurrences(of: "$(SDK)", with: HP.sdkURL.path)
             arguments.append(contentsOf: ["-L\(path)"])
         }
+        
+        /*
+         A directory’s modification date changes only when:
+            • A file is added
+            • A file is removed
+            • A file is renamed
+         
+         ❌ It does NOT change when:
+            • A file inside the directory is edited
+         */
+        try? FileManager.default.removeItem(at: destinationURL)
         
         let result = CommandLineTool.execute(command, arguments: arguments)
         return result
