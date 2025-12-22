@@ -262,8 +262,8 @@ enum HP {
         var destinationPath = "\(name).hpappdir.zip"
         
         if let desctinationURL = desctinationURL {
-            try? FileManager.default.removeItem(at: desctinationURL)
-            destinationPath = desctinationURL.path
+            try? FileManager.default.removeItem(at: desctinationURL.appendingPathComponent("\(name).hpappdir.zip"))
+            destinationPath = desctinationURL.appendingPathComponent("\(name).hpappdir.zip").path
         } else {
             try? FileManager.default.removeItem(at: url.appendingPathComponent("\(name).hpappdir.zip"))
         }

@@ -919,6 +919,19 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         archiveProcess()
     }
     
+    @IBAction func archiveInstalledApplication(_ sender: Any) {
+        guard let projectName = projectName , let parentURL = parentURL else { return }
+       
+        let url = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
+        let result = HP.archiveHPAppDirectory(at: url, named: projectName, to: parentURL)
+        
+        if let out = result.out, !out.isEmpty {
+            self.outputTextView.string += out
+        }
+        self.outputTextView.string += result.err ?? ""
+    }
+    
     @IBAction func convert(_ sender: Any) {
         if let _ = currentURL {
             saveDocument()
@@ -987,7 +1000,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
             let command = HP.sdkURL
                 .appendingPathComponent("bin")
-                .appendingPathComponent("ppl+")
+                .appendingPathComponent("font")
                 .path
             
             let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout"])
@@ -1175,6 +1188,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             if let parentURL = parentURL, let projectName = projectName {
                 return HP.hpAppDirIsComplete(atPath: parentURL.path, named: projectName)
+            }
+            return false
+            
+        case #selector(archiveInstalledApplication(_:)):
+            if let projectName = projectName {
+                if HP.hpAppDirectoryIsInstalled(named: projectName) {
+                    return true
+                }
             }
             return false
             

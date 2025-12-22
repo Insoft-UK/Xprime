@@ -22,9 +22,9 @@
 
 #pragma mode( separator(.,;) integer(h64) indentation(2) )
 
-#include <../prgm/ARCADE.prgm>
-#include <../prgm/BBC.prgm>
-#include <../prgm/CGA.prgm>
-#include <../prgm/EGA.prgm>
-#include <../prgm/VGA.prgm>
-#include <../prgm/HD44780.prgm>
+#include "ARCADE.prgm"
+#include "BBC.prgm"
+#include "CGA.prgm"
+#include "EGA.prgm"
+#include "VGA.prgm"
+#include "HD44780.prgm"

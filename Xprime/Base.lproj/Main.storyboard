@@ -679,6 +679,12 @@
                                                             <action selector="archiveWithoutBuilding:" target="Ady-hI-5gd" id="6FG-tx-MXM"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem title="Archive Installed Application" image="cube.box" catalog="system" id="rKl-ey-BsJ">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="archiveInstalledApplication:" target="Ady-hI-5gd" id="oSZ-ej-2AH"/>
+                                                        </connections>
+                                                    </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="TmP-CD-ooN"/>
                                                     <menuItem title="Convert..." image="text.document" catalog="system" id="ndx-vy-6Rj">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
