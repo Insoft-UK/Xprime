@@ -383,7 +383,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 self.documentIsModified = false
                 
                 if let projectName = self.projectName {
-                    XprimeProject.save(to: url.deletingLastPathComponent(), named: projectName)
+                    XprimeProjectService.save(to: url.deletingLastPathComponent(), named: projectName)
                 }
                 
             } catch {
@@ -410,7 +410,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             try HP.savePrgm(at: url, content: codeEditorTextView.string)
             currentURL = url
             if let projectName = self.projectName {
-                XprimeProject.save(to: url.deletingLastPathComponent(), named: projectName)
+                XprimeProjectService.save(to: url.deletingLastPathComponent(), named: projectName)
             }
         } catch {
             let alert = NSAlert()
@@ -694,7 +694,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 self.documentIsModified = false
                 
                 // Save project metadata
-                XprimeProject.save(to: projectDir, named: projectName)
+                XprimeProjectService.save(to: projectDir, named: projectName)
                 
                 // Change working directory (if your app depends on this)
                 FileManager.default.changeCurrentDirectoryPath(projectDir.path)
@@ -734,7 +734,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             guard result == .OK, let url = openPanel.url else { return }
             self.openDocument(url: url)
             if let projectName = self.projectName {
-                XprimeProject.load(at: url.deletingLastPathComponent(), named: projectName)
+                XprimeProjectService.load(at: url.deletingLastPathComponent(), named: projectName)
             }
         }
     }

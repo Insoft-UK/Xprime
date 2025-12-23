@@ -30,7 +30,7 @@ fileprivate struct Project: Codable {
     let bin: String
 }
 
-enum XprimeProject {
+enum XprimeProjectService {
     static private func loadJSONString(_ url: URL) -> String? {
         do {
             let jsonString = try String(contentsOf: url, encoding: .utf8)
