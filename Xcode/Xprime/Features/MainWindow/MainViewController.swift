@@ -226,7 +226,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let menuItem = NSMenuItem(title: filename, action: #selector(handleThemeSelection(_:)), keyEquivalent: "")
             menuItem.representedObject = fileURL
             menuItem.target = self  // or another target if needed
-            if filename == AppSettings.selectedTheme {
+            let theme = UserDefaults.standard.object(forKey: "theme") as? String ?? "Default (Dark)"
+            if filename == theme {
                 menuItem.state = .on
             }
 
@@ -246,7 +247,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let menuItem = NSMenuItem(title: name, action: #selector(handleGrammarSelection(_:)), keyEquivalent: "")
             menuItem.representedObject = fileURL
             menuItem.target = self  // or another target if needed
-            if name == AppSettings.selectedGrammar {
+            let grammar = UserDefaults.standard.object(forKey: "grammar") as? String ?? "Language"
+            if name == grammar {
                 menuItem.state = .on
             }
 
@@ -262,7 +264,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         guard let fileURL = sender.representedObject as? URL else { return }
         mainVC.codeEditorTextView.loadTheme(at: fileURL)
-        AppSettings.selectedTheme = sender.title
+        UserDefaults.standard.set(sender.title, forKey: "theme")
         
         for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Theme")!.submenu!.items ?? [] {
             menuItem.state = .off
@@ -276,7 +278,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         guard let fileURL = sender.representedObject as? URL else { return }
         mainVC.codeEditorTextView.loadGrammar(at: fileURL)
-        AppSettings.selectedGrammar = sender.title
+        UserDefaults.standard.set(sender.title, forKey: "grammar")
         
         for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")!.submenu!.items ?? [] {
             menuItem.state = .off
@@ -439,7 +441,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpappdir")
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappprgm"),
-            compress: AppSettings.compression
+            compress: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
         )
         outputTextView.string = result.err ?? ""
     }
@@ -457,7 +459,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
         
-        if dirA.isNewer(than: dirB), AppSettings.archiveProjectAppOnly == false {
+        let archiveProjectAppOnly = UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
+        if dirA.isNewer(than: dirB), archiveProjectAppOnly == false {
             url = dirA.deletingLastPathComponent()
             self.outputTextView.string = "Archiving from the virtual calculator directory.\n"
         } else {
@@ -577,8 +580,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .deletingPathExtension()
             .appendingPathExtension("hpprgm")
         
-        
-        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: AppSettings.compression)
+        let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
+        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: compression)
         outputTextView.string = result.err ?? ""
     }
     
@@ -758,12 +761,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
               FileManager.default.fileExists(atPath: currentURL.path) else { return }
         
         let defaultName = currentURL.deletingPathExtension().lastPathComponent + ".hpprgm"
-        
+        let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
         runExport(
             allowedExtensions: ["hpprgm"],
             defaultName: defaultName
         ) { outputURL in
-            HPServices.preProccess(at: currentURL, to: outputURL, compress: AppSettings.compression)
+            HPServices.preProccess(at: currentURL, to: outputURL, compress: compression)
         }
     }
     
@@ -906,7 +909,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpprgm")
         outputTextView.string = "Installing: \(programURL.lastPathComponent)\n"
         do {
-            try HPServices.installHPPrgm(at: programURL, forUser: AppSettings.calculatorName)
+            let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
+            try HPServices.installHPPrgm(at: programURL, forUser: calculator)
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error"
@@ -924,7 +928,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpappdir")
         outputTextView.string = "Installing: \(appDirURL.lastPathComponent)\n"
         do {
-            try HPServices.installHPAppDirectory(at: appDirURL, forUser: AppSettings.calculatorName)
+            let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
+            try HPServices.installHPAppDirectory(at: appDirURL, forUser: calculator)
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error"
@@ -1098,7 +1103,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
-        guard let url = HPServices.hpPrimeDirectory(forUser: AppSettings.calculatorName) else {
+        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
+        guard let url = HPServices.hpPrimeDirectory(forUser: calculator) else {
             return
         }
         url.revealInFinder()

@@ -835,9 +835,12 @@
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rsD-fj-6VW" customClass="CustomButton" customModule="Xprime" customModuleProvider="target">
                                 <rect key="frame" x="360" y="20" width="96" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" title="Close" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NuY-Ke-2Vm">
+                                <buttonCell key="cell" type="square" title="Done" bezelStyle="shadowlessSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NuY-Ke-2Vm">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 </buttonCell>
                                 <connections>
                                     <action selector="close:" target="HsO-bO-Dfd" id="SQ6-d3-RYb"/>

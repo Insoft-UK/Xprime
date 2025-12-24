@@ -54,22 +54,24 @@ enum XprimeProjectService {
             return
         }
         
-        AppSettings.compression = project.compression
-        AppSettings.headerSearchPath = project.include
-        AppSettings.librarySearchPath = project.lib
-        AppSettings.calculatorName = project.calculator
+        UserDefaults.standard.set(project.compression, forKey: "compression")
+        UserDefaults.standard.set(project.include, forKey: "include")
+        UserDefaults.standard.set(project.lib, forKey: "lib")
+        UserDefaults.standard.set(project.calculator, forKey: "calculator")
+        UserDefaults.standard.set(project.bin, forKey: "bin")
+        UserDefaults.standard.set(project.archiveProjectAppOnly, forKey: "archiveProjectAppOnly")
     }
 
     
     static func save(to dirURL: URL, named name: String) {
         let projectURL = dirURL.appendingPathComponent(name + ".xprimeproj")
         let project = Project(
-            compression: AppSettings.compression,
-            include: AppSettings.headerSearchPath,
-            lib: AppSettings.librarySearchPath,
-            calculator: AppSettings.calculatorName,
-            bin: "",
-            archiveProjectAppOnly: AppSettings.archiveProjectAppOnly
+            compression: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false,
+            include: UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDK)/include",
+            lib: UserDefaults.standard.object(forKey: "lib") as? String ?? "$(SDK)/lib",
+            calculator: UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime",
+            bin: "", // Reserved!
+            archiveProjectAppOnly: UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
         )
         do {
             let encoder = JSONEncoder()

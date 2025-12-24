@@ -102,7 +102,8 @@ final class CodeEditorTextView: NSTextView {
         
         let fileManager = FileManager.default
         
-        if let themeURL = Bundle.main.url(forResource: AppSettings.selectedTheme, withExtension: "xpcolortheme", subdirectory: "Themes") {
+        let theme = UserDefaults.standard.object(forKey: "theme") as? String ?? "Default (Dark)"
+        if let themeURL = Bundle.main.url(forResource: theme, withExtension: "xpcolortheme", subdirectory: "Themes") {
             if fileManager.fileExists(atPath: themeURL.path) {
                 loadTheme(at: themeURL)
             } else {
@@ -110,7 +111,8 @@ final class CodeEditorTextView: NSTextView {
             }
         }
         
-        if let grammarURL = Bundle.main.url(forResource: AppSettings.selectedGrammar, withExtension: "xpgrammar", subdirectory: "Grammars") {
+        let grammar = UserDefaults.standard.object(forKey: "grammar") as? String ?? "Language"
+        if let grammarURL = Bundle.main.url(forResource: grammar, withExtension: "xpgrammar", subdirectory: "Grammars") {
             if fileManager.fileExists(atPath: grammarURL.path) {
                 loadGrammar(at: grammarURL)
             } else {
@@ -253,10 +255,8 @@ final class CodeEditorTextView: NSTextView {
         colors["Preprocessor Statements"] = colorWithKey("Preprocessor Statements")
         colors["Functions"] = colorWithKey("Functions")
         
-        
-        
-        AppSettings.selectedTheme = url.deletingPathExtension().lastPathComponent
-        
+        UserDefaults.standard.set(url.deletingPathExtension().lastPathComponent, forKey: "theme")
+     
         applySyntaxHighlighting()
     }
     

@@ -53,7 +53,9 @@ enum HPServices {
     static let sdkURL = URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr")
 
     static var isVirtualCalculatorInstalled: Bool {
-        if AppSettings.HPPrime == "macOS" {
+        let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
+        
+        if platform == "macOS" {
             return FileManager.default.fileExists(atPath: "/Applications/HP Prime.app/Contents/MacOS/HP Prime")
         }
         
@@ -62,7 +64,9 @@ enum HPServices {
     }
     
     static var isConnectivityKitInstalled: Bool {
-        if AppSettings.HPPrime == "macOS" {
+        let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
+        
+        if platform == "macOS" {
             return FileManager.default.fileExists(atPath: "/Applications/HP Connectivity Kit.app/Contents/MacOS/HP Connectivity Kit")
         }
         let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
@@ -82,10 +86,12 @@ enum HPServices {
     }
     
     static func hpPrimeDirectory(forUser user: String = "Prime") -> URL? {
+        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
+        
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
         
         let directoryURL: URL
-        let user = AppSettings.calculatorName
+        let user = calculator
         
         if hpPrimeCalculatorExists(named: user) {
             if HPServices.isConnectivityKitInstalled == false {
@@ -343,13 +349,15 @@ enum HPServices {
             arguments.append(contentsOf: ["--compress"])
         }
         
-        if AppSettings.headerSearchPath.isEmpty == false {
-            let path = AppSettings.headerSearchPath.replacingOccurrences(of: "$(SDK)", with: HPServices.sdkURL.path)
+        let include = UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDK)/include"
+        if include.isEmpty == false {
+            let path = include.replacingOccurrences(of: "$(SDK)", with: HPServices.sdkURL.path)
             arguments.append(contentsOf: ["-I\(path)"])
         }
         
-        if AppSettings.librarySearchPath.isEmpty == false {
-            let path = AppSettings.librarySearchPath.replacingOccurrences(of: "$(SDK)", with: HPServices.sdkURL.path)
+        let lib = UserDefaults.standard.object(forKey: "lib") as? String ?? "$(SDK)/lib"
+        if lib.isEmpty == false {
+            let path = lib.replacingOccurrences(of: "$(SDK)", with: HPServices.sdkURL.path)
             arguments.append(contentsOf: ["-L\(path)"])
         }
         
@@ -400,8 +408,8 @@ enum HPServices {
     
     static func launchVirtualCalculator() {
         let appName = "HP Prime"
-        
-        if AppSettings.HPPrime == "macOS" {
+        let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
+        if platform == "macOS" {
             if let targetBundleIdentifier = getBundleIdentifier(forApp: appName) {
                 terminateApp(withBundleIdentifier: targetBundleIdentifier)
             }
@@ -428,7 +436,8 @@ enum HPServices {
     static func launchConnectivityKit() {
         let appName = "HP Connectivity Kit"
         
-        if AppSettings.HPPrime == "macOS" {
+        let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
+        if platform == "macOS" {
             if let targetBundleIdentifier = getBundleIdentifier(forApp: appName) {
                 terminateApp(withBundleIdentifier: targetBundleIdentifier)
             }

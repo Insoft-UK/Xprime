@@ -5,6 +5,8 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<false/>
 			<key>CFBundleTypeName</key>
 			<string>PPL+</string>
 			<key>CFBundleTypeRole</key>

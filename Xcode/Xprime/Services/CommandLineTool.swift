@@ -53,15 +53,19 @@ enum CommandLineTool {
     }
     
     static private var includeURL: URL {
-        guard AppSettings.headerSearchPath == "~" else {
-            return URL(fileURLWithPath: AppSettings.headerSearchPath)
+        let include = UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDK)/include"
+        
+        guard include == "~" else {
+            return URL(fileURLWithPath: include)
         }
         return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr/include")
     }
     
     static private var libURL: URL {
-        guard AppSettings.headerSearchPath == "~" else {
-            return URL(fileURLWithPath: AppSettings.headerSearchPath)
+        let lib = UserDefaults.standard.object(forKey: "lib") as? String ?? "$(SDK)/lib"
+        
+        guard lib == "~" else {
+            return URL(fileURLWithPath: lib)
         }
         return URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr/lib")
     }

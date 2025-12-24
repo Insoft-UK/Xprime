@@ -42,15 +42,23 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         librarySearchPath.delegate = self
         headerSearchPath.delegate = self
         
-        librarySearchPath.stringValue = AppSettings.librarySearchPath
-        headerSearchPath.stringValue = AppSettings.headerSearchPath
+        let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
+        let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
+        let include = UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDK)/include"
+        let lib = UserDefaults.standard.object(forKey: "lib") as? String ?? "$(SDK)/lib"
+        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
+//        let bin = "" // Reserved!
+        let archiveProjectAppOnly = UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
+        
+        librarySearchPath.stringValue = lib
+        headerSearchPath.stringValue = include
         
         if !FileManager.default.fileExists(atPath: "/Applications/Wine.app/Contents/MacOS/wine") {
             macOS.isEnabled = false
             Wine.isEnabled = false
-            AppSettings.HPPrime = "macOS"
+            UserDefaults.standard.set("macOS", forKey: "platform")
         } else {
-            if AppSettings.HPPrime == "macOS" {
+            if platform == "macOS" {
                 macOS.state = .on
                 Wine.state = .off
             } else {
@@ -59,13 +67,13 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
             }
         }
         
-        compressionSwitch.state = AppSettings.compression ? .on : .off
-        archiveProjectAppOnly.state = AppSettings.archiveProjectAppOnly ? .on : .off
+        compressionSwitch.state = compression ? .on : .off
+        self.archiveProjectAppOnly.state = archiveProjectAppOnly ? .on : .off
         
-        if HPServices.hpPrimeCalculatorExists(named: AppSettings.calculatorName) {
-            calculator.image = NSImage(named: "ConnectivityKit")
+        if HPServices.hpPrimeCalculatorExists(named: calculator) {
+            self.calculator.image = NSImage(named: "ConnectivityKit")
         } else {
-            calculator.image = NSImage(named: "VirtualCalculator")
+            self.calculator.image = NSImage(named: "VirtualCalculator")
         }
         
         let menu = NSMenu()
@@ -100,7 +108,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
             calculatorComboButton.title = defaultItem.title
         }
         
-        switch AppSettings.calculatorName {
+        switch calculator {
         case "Prime":
             calculatorComboButton.title = "Virtual Calculator"
             break;
@@ -110,7 +118,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
             break;
             
         default:
-            calculatorComboButton.title = AppSettings.calculatorName
+            calculatorComboButton.title = calculator
         }
         
     }
@@ -120,10 +128,10 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
 
         switch textField.tag {
         case 1:
-            AppSettings.headerSearchPath = textField.stringValue
+            UserDefaults.standard.set(textField.stringValue, forKey: "include")
             break;
         case 2:
-            AppSettings.librarySearchPath = textField.stringValue
+            UserDefaults.standard.set(textField.stringValue, forKey: "lib")
             break;
         default:
             break
@@ -138,12 +146,12 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         calculatorComboButton.title = sender.title
         if sender.title == "Virtual Calculator" {
             calculator.image = NSImage(named: "VirtualCalculator")
-            AppSettings.calculatorName = "Prime"
+            UserDefaults.standard.set("Prime", forKey: "calculator")
         } else {
             if sender.title == "Connectivity Kit" {
-                AppSettings.calculatorName = "HP Prime"
+                UserDefaults.standard.set("HP Prime", forKey: "calculator")
             } else {
-                AppSettings.calculatorName = sender.title
+                UserDefaults.standard.set(sender.title, forKey: "calculator")
             }
             calculator.image = NSImage(named: "ConnectivityKit")
         }
@@ -152,18 +160,18 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func platform(_ sender: NSButton) {
         if sender.title == "macOS" {
-            AppSettings.HPPrime = sender.state == .on ? "macOS" : "Wine"
+            UserDefaults.standard.set(sender.state == .on ? "macOS" : "Wine", forKey: "platform")
         } else {
-            AppSettings.HPPrime = sender.state == .on ? "Wine" : "macOS"
+            UserDefaults.standard.set(sender.state == .on ? "Wine" : "macOS", forKey: "platform")
         }
     }
     
     @IBAction func compressionSwitchToggled(_ sender: NSSwitch) {
-        AppSettings.compression = sender.state == .on
+        UserDefaults.standard.set(sender.state == .on, forKey: "compression")
     }
     
     @IBAction func archiveProjectAppOnlySwitchToggled(_ sender: NSSwitch) {
-        AppSettings.archiveProjectAppOnly = sender.state == .on
+        UserDefaults.standard.set(sender.state == .on, forKey: "archiveProjectAppOnly")
     }
     
     @IBAction func defaultSettings(_ sender: Any) {
@@ -171,16 +179,17 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         librarySearchPath.stringValue = "$(SDK)/lib"
         macOS.state = .on
         Wine.state = .off
+        archiveProjectAppOnly.state = .on
         compressionSwitch.state = .off
         calculatorComboButton.title = "Virtual Calculator"
         calculator.image = NSImage(named: "VirtualCalculator")
         
-        AppSettings.headerSearchPath = "$(SDK)/include"
-        AppSettings.librarySearchPath = "$(SDK)/lib"
-        AppSettings.HPPrime = "macOS"
-        AppSettings.compression = false
-        AppSettings.calculatorName = "Virtual Calculator"
-        AppSettings.archiveProjectAppOnly = true
+        UserDefaults.standard.set(false, forKey: "compression")
+        UserDefaults.standard.set("$(SDK)/include", forKey: "include")
+        UserDefaults.standard.set("$(SDK)/lib", forKey: "lib")
+        UserDefaults.standard.set("Prime", forKey: "calculator")
+        UserDefaults.standard.set("", forKey: "bin")
+        UserDefaults.standard.set(true, forKey: "archiveProjectAppOnly")
     }
     
  
