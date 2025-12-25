@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const html = fs.readFileSync('help.html', 'utf8');
+const html = fs.readFileSync('commands.html', 'utf8');
 
 // Ensure output folder exists
 const outputDir = path.join(__dirname, 'rtf_output');
@@ -18,15 +18,25 @@ function toRtf(text) {
         .replace(/\\/g, '\\\\')       // escape backslashes
         .replace(/{/g, '\\{')         // escape {
         .replace(/}/g, '\\}')         // escape }
+        .replace(/&gt;=/g, '≥}')      // ≥
+        .replace(/&lt;=/g, '≤}')      // ≤
+        .replace(/&gt;/g, '>')        // >
+        .replace(/&lt;/g, '<')        // <
         .replace(/[\u0080-\uFFFF]/g, c => `\\u${c.charCodeAt(0)}?`); // Unicode
 //        .replace(/\n +/g, '\\par ');
 //        .replace(/\r?\n/g, '\\par ');  // line breaks
 }
 
+function toFileName(name) {
+    return name
+    .replace(/&gt;/g, '>')            // >
+    .replace(/&lt;/g, '<');           // <
+}
+
 let match;
 
 while ((match = sectionRegex.exec(html)) !== null) {
-    const name = match[1];
+    const name = toFileName(match[1]);
     const sectionHtml = match[2];
     
     const getContent = (className) => {
@@ -35,13 +45,9 @@ while ((match = sectionRegex.exec(html)) !== null) {
         return m ? m[1].trim() : '';
     };
     
-    const commandName = toRtf(getContent('command__name'));
     const syntax = toRtf(getContent('command__syntax'));
     const description = toRtf(getContent('command__description'));
-        const example = toRtf(getContent('command__example'));
-    
-    //    {\\b Command:}\\par ${commandName}\\par
-
+    const example = toRtf(getContent('command__example'));
     
     let rtfContent = `
 {\\rtf1\\ansi\\deff0
