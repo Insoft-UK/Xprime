@@ -1,0 +1,5 @@
+
+{\rtf1\ansi\deff0
+{Syntax:}\par TEXTSIZE(text, [font])\par
+\par Returns the pixel dimensions of text when rendered using the specified font. No text is drawn.\par \par TEXTSIZE is typically used to determine the width and height of a string before drawing it, making it useful for centering or aligning text on the screen.\par \par The function returns a 2-element list \{width, height\}, where:\par \u8226? width is the number of pixels the text would occupy horizontally\par \u8226? height is the number of pixels the text would occupy vertically\par
+{\par Example:}\par TEXTSIZE("Some text", 3) returns \{65, 16\}\par \par In this example, the text would be 65 pixels wide and 16 pixels high if drawn using font 3. No graphics are modified by this command.\par \par If font is omitted, the current font is used.\par }

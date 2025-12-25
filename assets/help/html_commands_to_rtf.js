@@ -18,11 +18,9 @@ function toRtf(text) {
         .replace(/\\/g, '\\\\')       // escape backslashes
         .replace(/{/g, '\\{')         // escape {
         .replace(/}/g, '\\}')         // escape }
-        .replace(/&gt;=/g, '≥}')      // ≥
-        .replace(/&lt;=/g, '≤}')      // ≤
+        .replace(/[\u0080-\uFFFF]/g, c => `\\u${c.charCodeAt(0)}?`) // Unicode
         .replace(/&gt;/g, '>')        // >
         .replace(/&lt;/g, '<')        // <
-        .replace(/[\u0080-\uFFFF]/g, c => `\\u${c.charCodeAt(0)}?`) // Unicode
         .replace(/\n +/g, '\\par ')
         .replace(/\r?\n/g, '\\par ');  // line breaks
 }
@@ -51,12 +49,12 @@ while ((match = sectionRegex.exec(html)) !== null) {
     
     let rtfContent = `
 {\\rtf1\\ansi\\deff0
-{\\par \\b Syntax:}\\par ${syntax}\\par
-{\\par \\b Description:}\\par ${description}\\par
+{Syntax:}\\par ${syntax}\\par
+\\par ${description}\\par
 `;
     
     if (example) {
-        rtfContent += `{\\par \\b Example:}\\par ${example}\\par `;
+        rtfContent += `{\\par Example:}\\par ${example}\\par `;
     }
     
     rtfContent += '}';

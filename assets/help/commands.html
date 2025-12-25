@@ -1,3 +1,23 @@
+<a name="TEXTSIZE"></a>
+<div class="command" title="TEXTSIZE"> <a class="command__link" href="#TEXTSIZE">#link</a> <a class="command__discussion" href="/docs/reference/TEXTSIZE">discussion</a>
+  <div class="command__name">TEXTSIZE</div>
+  <h4>Syntax</h4>
+  <div class="command__syntax">TEXTSIZE(text, [font])</div>
+  <h4>Description</h4>
+  <div class="command__description">Returns the pixel dimensions of text when rendered using the specified font. No text is drawn.
+      
+      TEXTSIZE is typically used to determine the width and height of a string before drawing it, making it useful for centering or aligning text on the screen.
+
+      The function returns a 2-element list {width, height}, where:
+      • width is the number of pixels the text would occupy horizontally
+      • height is the number of pixels the text would occupy vertically</div>
+  <h4>Example</h4>
+  <div class="command__example">TEXTSIZE("Some text", 3) returns {65, 16}
+      
+      In this example, the text would be 65 pixels wide and 16 pixels high if drawn using font 3. No graphics are modified by this command.
+
+      If font is omitted, the current font is used.</div>
+</div>
 <a name="!"></a>
 <div class="command" title="!"> <a class="command__link" href="#!">#link</a> <a class="command__discussion" href="/docs/reference/!">discussion</a>
   <div class="command__name">!</div>
