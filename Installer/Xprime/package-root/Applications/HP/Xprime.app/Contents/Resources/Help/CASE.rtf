@@ -1,24 +1,5 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2867
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\vieww12000\viewh15840\viewkind0
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f0\b\fs32 \cf0 \b Syntax\b0\
-
-\f1\b0\fs24 \
-CASE\
-	IF test1 THEN commands1 END;\
-\
-	IF test1 THEN commands1 END;\
-\
-	IF testN THEN commandsN END;\
-END;\
-\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f0\b\fs28 \cf0 \b Description\b0
-\f1\b0\fs24 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-\cf0 Evaluates test1. If it is true, executes commands1 and closes the CASE. Otherwise, evaluates test1. If it is true, executes commands2 and closes the CASE. Continues evaluating tests until it finds a true one. If no true test is found, executes the default commands, if provided. The CASE command is limited to 127 branches.}
+{\rtf1\ansi\deff0
+{\par \b Syntax:}\par CASE IF test1 THEN commands1 END IF test2 THEN commands2 END ... IF testN THEN commandsN END [DEFAULT] [commandsD] END;\par
+{\par \b Description:}\par Starts a &quot;CASE...END&quot; branch structure.\par
+{\par \b Example:}\par Evaluates test1. If true, executes commands1 and ends the CASE. Otherwise, evaluates test2. If true, executes commands2. Continues evaluating tests until a true is found. If no true test is found, executes commandsD, if provided.\par }

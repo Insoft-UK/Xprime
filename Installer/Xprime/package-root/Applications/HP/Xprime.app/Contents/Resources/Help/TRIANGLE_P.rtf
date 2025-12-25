@@ -1,30 +1,19 @@
+
 {\rtf1\ansi\deff0
-{\fonttbl{\f0\fnil System;}}
-\f0\fs24
-\b\fs32Syntax\par\b0\fs24\par
-TRIANGLE_P([\i \i G\i0\i0], \i \i x1\i0\i0, \i \i y1\i0\i0, \i \i x2\i0\i0, \i \i y2\i0\i0, x3, y3, c1, [c2, c3], [alpha], ["StringZ", z1, z2, z3])\par
-\par
-\b\fs28Example\b0\fs24\par
-RECT();\par
-TRIANGLE_P(40,20,120,100,40,100,RGB(128,0,255),128);\par
-WAIT();\par
-TRIANGLE_P(\{265,145,RGB(128,0,255),90\},\{240,220,RGB(255,200,50),100\},\{195,157,RGB(196,0,0),128\});\par
-WAIT();\par
-\par
-\b\fs28Description\b0\fs24\par
-Draws a triangle between the specified pixel coordinate points in the graphics using the specified \i color\i0 and transparency (0 ≤ Alpha ≤ 255). If 3 colors are specified, it blends the colors between the vertices.\par
-\par
-The following form of TRIANGLE allows for the visualization of multiple triangles at once.\par
-\par
-This is primarily used if you have a set of vertices and want to display them all at once.\par
-\par
-The first 2 arrays indicate the \i x\i0/\i y\i0 coordinates and the colors of each point. TRIANGLE_P will draw 1 quadrilateral for each set of 4 adjacent vertices and blend the colors associated with the 4 points.\par
-\par
-If a z projection array is provided, for each point, this array is multiplied by the vector [\i x\i0,\i y\i0,z,1] to create the \i x\i0,\i y\i0 viewing coordinates.\par
-\par
-If zcode is a \i list\i0 containing 3 real numbers \{ ex, ey, ez \} then \i x\i0,\i y\i0 are further modified making \i x\i0=ez/z*xex and \i y\i0=ez/z*yey creating a perspective projection.\par
-\par
-If zstring is provided, z clipping will occur using the z value (see below).\par
-\par
-If zcode="N" or is a \i list\i0 starting with "N", then each z is normalized between 0 and 255.
-}
+{\par \b Syntax:}\par TRIANGLE_P([G], x1, y1, x2, y2, x3, y3, c1, [c2, c3], [Alpha], [&quot;ZString&quot;, z1, z2, z3]) or TRIANGLE_P([G], \{x1, y1, [c1], [z1]\}, \{x2, y2, [c2], [z2]\},\{x3, y3, [c3], [z3]\}, [&quot;ZString&quot;]) or TRIANGLE_P([G], [[x/y coordinate matrix]], [[color matrix]], \{[[z matrix]], [zcode], [[[projection matrix]]], [zstring]) or TRIANGLE_P([G])\par
+{\par \b Description:}\par Draws a triangle between specified pixel coordinates in the graphic using the specified color and transparency (0 \u8804? Alpha \u8804? 255). If 3 colors are specified, blends the colors in between the vertexes.
+    
+    The next form of TRIANGLE allows display of multiple triangles at a time.
+    This is mostly used if you have a set of vertices and want to display them all at once.
+    
+    The first 2 matrices indicate the x/y coordinates and colors of each points. TRIANGLE_P will draw 1 quadrilateral for each set of 4 adjacent vertices and blends the colors associated with the 4 points.
+    If a z and projection matrix are provided, for each point, this matrix is multiplied by the [x,y,z,1] vector to create the display x,y coordinates.
+    If zcode is a list that contains 3 real numbers \{ ex, ey, ez \} then x,y are further modified by doing x=ez/z*x-ex and y=ez/z*y-ey creating a perspective projection.
+    If zstring is provided, z clipping will happen using the z value (see below).
+    If zcode=&quot;N&quot; or is a list that starts with &quot;N&quot;, then each z is normalized to be between 0 and 255.
+    
+    About ZString
+    TRIANGLE_P([G]) returns a string adapted for z clipping.
+    
+    To use Z clipping, call TRIANGLE_P to create a Z clipping string (initialized at 255 for each pixels). You can then call TRIANGLE_P with appropriate z (0-255) values for each of the triangle vertexes and TRIANGLE_P will not draw pixels further than the already drawn pixels. ZString is automatically updated as appropriate.\par
+{\par \b Example:}\par TRIANGLE_P(0,20,150,50,100,100,#FFh,#FF00h,#FF0000h,128)\par }

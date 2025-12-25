@@ -1,0 +1,5 @@
+
+{\rtf1\ansi\deff0
+{\par \b Syntax:}\par odesolve(Expr,VectVar,VectInitCond,FinalVal,[tstep=Val,curve])\par
+{\par \b Description:}\par Ordinary Differential Equation solver. Solves an ordinary differential equation given by Expr, with variables declared in VectrVar and initial conditions for those variables declared in VectrInit. For example, odesolve(f(t,y),[t,y],[t0,y0],t1) returns the approximate solution of y&#39;=f(t,y) for the variables t and y with initial conditions t=t0 and y=y0.\par
+{\par \b Example:}\par odesolve(sin(t*y),[t,y],[0,1],2) returns [1.82241255674]\par }

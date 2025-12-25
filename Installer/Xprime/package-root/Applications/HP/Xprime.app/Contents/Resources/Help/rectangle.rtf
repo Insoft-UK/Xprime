@@ -1,0 +1,6 @@
+
+{\rtf1\ansi\deff0
+{\par \b Syntax:}\par rectangle(Point1, Point2, Point3) or rectangle(Point1, Point2, Realk)\par
+{\par \b Description:}\par Draws a rectangle given two consecutive vertices and a point on the side opposite the side defined by the first two vertices or a scale factor for the sides perpendicular to the first side. As with many of the other polygon commands, you can specify optional CAS variable names for storing the coordinates of the other two vertices as points.\par
+{\par \b Example:}\par rectangle(GA, GB, GE) draws a rectangle whose first two vertices are points A and B (one side is segment AB). Point E is on the line that contains the side of the rectangle opposite segment AB. 
+    rectangle(GA, GB, 3, p, q) draws a rectangle whose first two vertices are points A and B (one side is segment AB). The sides perpendicular to segment AB have length 3*AB. The third and fourth points are stored into the CAS variables p and q, respectively.\par }

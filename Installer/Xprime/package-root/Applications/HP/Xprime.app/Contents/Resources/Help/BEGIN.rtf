@@ -1,8 +1,12 @@
+
 {\rtf1\ansi\deff0
-{\fonttbl{\f0\fnil System;}}
-\f0\fs24
-\b\fs32Syntax\par\b0\fs24\par
-BEGIN command1; command2; ...; commandN; END;\par
-\par
-Define a command or a set of commands that must be executed together in a simple program.
-}
+{\par \b Syntax:}\par BEGIN commands; END;\par
+{\par \b Description:}\par Defines a set of commands to be executed in a block.\par
+{\par \b Example:}\par SQM1
+    
+    EXPORT  SQM1(X)
+    BEGIN
+    RETURN X^2-1;
+    END;
+    
+    This program defines a user function named SQM1(X). From the Home view, entering SQM1(8) returns 63.\par }

@@ -1,0 +1,7 @@
+
+{\rtf1\ansi\deff0
+{\par \b Syntax:}\par hexagon(Point1, Point2, [Var1, Var2, Var3, Var4])\par
+{\par \b Description:}\par Draws a regular hexagon defined by one of its sides; that is, by two consecutive vertices. The remaining points are calculated automatically, but are not defined symbolically. The orientation of the hexagon is counterclockwise from the first point.\par
+{\par \b Example:}\par hexagon(0,6) draws a regular hexagon whose first two vertices are at (0, 0) and (6, 0).
+    
+    hexagon(0,6, a, b, c, d) draws a regular hexagon whose first two vertices are at (0, 0) and (6, 0)l labels the other four vertices a, b, c, and d, and stores the coordinates into the CAS variables a, b, c, and d. You do not have to define variables for all four remaining points, but the coordinates are stored in order. For example, hexagon(0,6, a) stores just the third point into the CAS variable a.\par }

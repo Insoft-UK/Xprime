@@ -1,20 +1,9 @@
+
 {\rtf1\ansi\deff0
-{\fonttbl{\f0\fnil System;}}
-\f0\fs24
-\b\fs32Syntax\par\b0\fs24\par
-SUBGROB(srcGRB [,\i \i x1\i0\i0, \i \i y1\i0\i0, \i \i x2\i0\i0, \i \i y2\i0\i0], \i \i trgtGRB\i0\i0)\par
-\par
-\b\fs28Example\b0\fs24\par
-SUBGROB(G1, G4) will copy G1 to G4.\par
-\par
-\b\fs28Description\b0\fs24\par
-Sets \i trgtGRB\i0 to be a copy of the area of srcGRB between the points \i x1\i0,\i y1\i0 and \i x2\i0,\i y2\i0.\par
-\par
-srcGRB can be any of the graphic variables and is optional. The default value is G0.\par
-\par
-\i trgtGRB\i0 can be any of the graphic variables except G0.\par
-\par
-\i x2\i0, \i y2\i0 are optional, and if not specified, it will be the bottomright corner of srcGRB.\par
-\par
-\i x1\i0, \i y1\i0 are optional, and if not specified, it will be the topleft corner of srcGRB.
+{\par \b Syntax:}\par SUBGROB(srcG, [x1, y1], [x2, y2], trgtG)\par
+{\par \b Description:}\par Sets graphic trgtG to be a copy of the area of srcG between points (x1,y1) and (x2,y2). If both (x1, y1) and (x2, y2) are not specified, then the entire graphic srcG is used. If (x1, y1) is not specified, then the top left corner of srcG is used; if (x2, y2) is not specified, then the bottom right corner of srcG is used.
+    
+    trgtGRB can be any of the graphic variables except G0.
+    
+    SUBGROB(G1, G4) will copy G1 in G4.\par
 }

@@ -1,12 +1,7 @@
+
 {\rtf1\ansi\deff0
-{\fonttbl{\f0\fnil System;}}
-\f0\fs24
-\b\fs32Syntax\par\b0\fs24\par
-REPLACE(\i \i object1\i0\i0, \i \i begin\i0\i0, \i \i object2\i0\i0)\par
-\par
-\b\fs28Example\b0\fs24\par
-REPLACE("12345","3","99") returns "12995"\par
-\par
-\b\fs28Description\b0\fs24\par
-Replaces part of \i object1\i0 with \i object2\i0 starting from the beginning. Objects can be arrays, vectors, or strings.
+{\par \b Syntax:}\par REPLACE(object,start,object)\par
+{\par \b Description:}\par Replaces portion of a matrix, vector or string starting at start by object.
+    For a matrix, start is a list containing two numbers; for a vector or string it is a single number.
+    Note: for strings, you can do: REPLACE(&quot;string&quot;, &quot;sub_string&quot;, &quot;replace_string&quot;)\par
 }

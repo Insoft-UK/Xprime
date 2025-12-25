@@ -1,0 +1,16 @@
+
+{\rtf1\ansi\deff0
+{\par \b Syntax:}\par EXECON(&quot;expression with &amp;&quot;, lists or matrices)\par
+{\par \b Description:}\par Returns a matrix or list composed of the result of the evaluation of the expression after replacement of &amp; by each item in the input.\par
+{\par \b Example:}\par EXECON(&quot;&amp;1+1&quot;, \{1,2,3\}) returns \{2,3,4\}
+    
+    If EXECON has only 1 list or matrix input, using &amp; followed by a number A (between 1 and 9) will replace &amp;A by the element i+A-1 of the input.
+    Example: EXECON(&quot;&amp;2-&amp;1&quot;, \{ 1, 4, 3, 5\}&quot;) returns \{3, -1, 2\} - the difference between 2 successive elements.
+    
+    If EXECON has 2 or more lists or matrices input, using &amp; followed by a number A (between 1 and 9) will replace &amp;1 by the element from the Ath input.
+    Example: EXECON(&quot;&amp;1+&amp;2&quot;, \{1,2,3\},\{4,5,6\}) returns \{5,7,9\}
+    
+    If EXECON has 2 or more lists or matrices as input, using &amp; followed by 2 numbers A and B (between 1 and 9) will reaplace &amp;AB by the element i+B-1 of the Ath input.
+    Example: EXECON(&quot;&amp;22-&amp;1&quot;, \{1,2,3\},\{4,5,6,7\}) returns \{4,4,4\}
+    
+    Note that for matrix input, the elements are treated as if the matrix was a vector.\par }

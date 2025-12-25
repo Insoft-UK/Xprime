@@ -1,0 +1,9 @@
+
+{\rtf1\ansi\deff0
+{\par \b Syntax:}\par UFACTOR(Value_Unit1, 1_Unit2)\par
+{\par \b Description:}\par Unit factor conversion. 
+    Converts a measurement using a compound unit into a measurement expressed in constituent units.\par
+{\par \b Example:}\par a Coulomb\u8212?a measure of electric charge\u8212?is a compound unit derived from the SI base units of Ampere and second: 1 C = 1 A * 1 s.  Using UFACTOR, you can express a measurement in Coulombs as a product of Amperes and time.
+    
+    UFACTOR(100_C,1_A)) returns 100_A*s
+    UFACTOR(100_C, 1_min) returns 1.66666666667_min*A\par }

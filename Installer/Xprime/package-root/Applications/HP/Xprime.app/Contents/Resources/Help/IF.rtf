@@ -1,31 +1,8 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2867
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fswiss\fcharset0 Helvetica-Oblique;
-}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\vieww12000\viewh15840\viewkind0
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
-\f0\b\fs32 \cf0 Syntax\
-
-\f1\b0\fs24 \
-IF 
-\f2\i test
-\f1\i0  THEN 
-\f2\i commands 1
-\f1\i0  ELSE 
-\f2\i commands 2
-\f1\i0  END;\
-\
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-
-\f0\b\fs28 \cf0 Description
-\f1\b0\fs24 \
-\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
-\cf0 Evaluates test. If 
-\f2\i test
-\f1\i0  is true (not equal to 0), executes 
-\f2\i commands 1
-\f1\i0 ; otherwise, executes 
-\f2\i commands 2
-\f1\i0 .}
+{\rtf1\ansi\deff0
+{\par \b Syntax:}\par IF test THEN command(s) [ELSE commands] END;\par
+{\par \b Description:}\par Evaluates test. If test is true (non 0), executes command(s); otherwise, executes the comands in the ELSE clause nothing happens.\par
+{\par \b Example:}\par IF A&lt;1 
+    THEN PRINT(&quot;A IS SMALLER THAN 1&quot;); 
+    ELSE PRINT(&quot;A IS LARGER THAN 1&quot;); 
+    END;\par }
