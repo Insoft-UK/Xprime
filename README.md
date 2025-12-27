@@ -7,7 +7,7 @@
 - Compress code to fit more programs on your HP Prime
 
 ### Download for macOS
-<a href="https://insoft.uk/action/?method=downlink&path=macos&file=Xprime.pkg">macOS</a>
+<a href="https://insoft.uk/action/?method=downlink&path=macos&file=Xprime.pkg">Version 1.0.6 Preview</a>
 
 ### Lauching the HP Applications
 Launch the HP Connectivity Kit or HP Prime Virtual Calculator.
