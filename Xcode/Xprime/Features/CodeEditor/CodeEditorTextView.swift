@@ -64,6 +64,7 @@ final class CodeEditorTextView: NSTextView {
     var colors: [String: NSColor] = [
         "Keywords": .black,
         "Operators": .black,
+        "Symbols": .black,
         "Brackets": .black,
         "Numbers": .black,
         "Strings": .black,
@@ -246,6 +247,7 @@ final class CodeEditorTextView: NSTextView {
         
         
         colors["Keywords"] = colorWithKey("Keywords")
+        colors["Symbols"] = colorWithKey("Symbols")
         colors["Operators"] = colorWithKey("Operators")
         colors["Brackets"] = colorWithKey("Brackets")
         colors["Numbers"] = colorWithKey("Numbers")

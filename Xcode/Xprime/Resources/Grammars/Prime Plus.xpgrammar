@@ -8,7 +8,11 @@
     },
     {
       "name": "Functions",
-      "match": "(?mi)[a-z]\\w*(::[a-z_]\\w*)*(?= *\\()"
+      "match": "(?mi)[a-z\\u0080-\\uFFFF]\\w*(::[a-z_]\\w*)*(?= *\\()"
+    },
+    {
+      "name": "Symbols",
+      "match": "[\\u0080-\\uFFFF]+"
     },
     {
       "name": "Operators",

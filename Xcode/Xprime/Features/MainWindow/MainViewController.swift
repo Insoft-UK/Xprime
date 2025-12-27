@@ -68,7 +68,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBOutlet weak var splitView: NSSplitView!
     @IBOutlet weak var fixedPane: NSView!
     
-    
     private var currentURL: URL?
     private var parentURL: URL? {
         guard let url = currentURL else { return nil }
@@ -318,8 +317,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         currentURL = url
         codeEditorTextView.string = contents
         
-        refreshQuickOpenItems()
-
+//        refreshQuickOpenItems()
+        refreshQuickOpenToolbar()
+        
         guard let projectName = projectName else { return }
         guard let parentURL = parentURL else { return }
         let folderURL = parentURL.appendingPathComponent("\(projectName).hpappdir")
@@ -612,47 +612,45 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         openDocument(url: parentURL.appendingPathComponent(sender.title))
     }
     
-    private func refreshQuickOpenItems() {
-        guard let parentURL = self.parentURL
-        else { return }
-        
-            
-            let fm = FileManager.default
-            let enumerator = fm.enumerator(
-                at: parentURL,
-                includingPropertiesForKeys: [.isRegularFileKey],
-                options: [.skipsHiddenFiles]
-            )
-            
-            NSApp.mainMenu?
-                .item(withTitle: "Quick Open")?
-                .submenu?
-                .removeAllItems()
-            
-            while let fileURL = enumerator?.nextObject() as? URL {
-                let values = try? fileURL.resourceValues(forKeys: [.isRegularFileKey])
-                if values?.isRegularFile == true {
-                    let ext = fileURL.pathExtension.lowercased()
-                    if ext != "prgm+" && ext != "prgm" && ext != "ppl" && ext != "ppl+" && ext != "py" {
-                        continue
-                    }
-                    let item = NSMenuItem(
-                        title: fileURL.lastPathComponent,
+    private func refreshQuickOpenToolbar() {
+        guard let directoryURL = parentURL else { return }
+        let menu = NSMenu()
+       
+    
+        let contents = try? FileManager.default.contentsOfDirectory(
+            at: directoryURL,
+            includingPropertiesForKeys: [.isDirectoryKey],
+            options: [.skipsHiddenFiles]
+        )
+
+        contents?
+            .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
+            .forEach { url in
+                if url.pathExtension == "prgm" ||
+                    url.pathExtension == "prgm+" ||
+                    url.pathExtension == "ppl" ||
+                    url.pathExtension == "ppl+" ||
+                    url.pathExtension == "py" {
+                    menu.addItem(
+                        withTitle: url.lastPathComponent,
                         action: #selector(quickOpen(_:)),
                         keyEquivalent: ""
                     )
-                    item.image = NSImage(systemSymbolName: "text.page.fill", accessibilityDescription: nil)
-                    item.target = self
-                    item.representedObject = fileURL
-                    if fileURL.lastPathComponent == currentURL?.lastPathComponent {
-                        item.state = .on
-                    }
-                    NSApp.mainMenu?
-                        .item(withTitle: "Quick Open")?
-                        .submenu?
-                        .addItem(item)
                 }
             }
+  
+        guard
+                let toolbar = view.window?.toolbar,
+                let item = toolbar.items.first(where: {
+                    $0.paletteLabel == "Quick Open"
+                }),
+                let comboButton = item.view as? NSComboButton
+            else {
+                return
+            }
+        
+        comboButton.menu = menu
+        comboButton.title = currentURL?.lastPathComponent ?? ""
     }
     
     // MARK: - Interface Builder Action Handlers
@@ -829,7 +827,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             updateDocumentIconButtonImage()
         }
     }
-    
+    @IBAction func stop(_ sender: Any) {
+        HPServices.terminateVirtualCalculator()
+    }
 
     @IBAction func run(_ sender: Any) {
         if let _ = currentURL {

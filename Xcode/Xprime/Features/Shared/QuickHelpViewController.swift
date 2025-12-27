@@ -63,6 +63,10 @@ final class QuickHelpViewController: NSViewController {
             
     
         let view = NSView()
+        textView.syntaxHighlight()
+        textView.highlightBold("Syntax:", caseInsensitive: false)
+        textView.highlightBold("Example:", caseInsensitive: false)
+        textView.highlightBold("Note:", caseInsensitive: false)
         view.addSubview(textView)
         
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,7 +79,10 @@ final class QuickHelpViewController: NSViewController {
 
         self.view = view
         preferredContentSize = NSSize(width: 500, height: 250)
+        
+        
     }
+    
 }
 
 

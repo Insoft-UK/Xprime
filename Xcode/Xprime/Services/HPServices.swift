@@ -406,15 +406,29 @@ enum HPServices {
         }
     }
     
+    static func terminateVirtualCalculator() {
+        guard isProcessRunning("HP Prime Virtual Calculator") else {
+            return
+        }
+        killProcess(named: "HP Prime Virtual Calculator")
+        
+        let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
+        
+        if platform == "macOS" {
+            if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime") {
+                terminateApp(withBundleIdentifier: targetBundleIdentifier)
+            }
+        }
+    }
+    
     static func launchVirtualCalculator() {
-        let appName = "HP Prime"
         let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
         if platform == "macOS" {
-            if let targetBundleIdentifier = getBundleIdentifier(forApp: appName) {
+            if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime") {
                 terminateApp(withBundleIdentifier: targetBundleIdentifier)
             }
             
-            launchApplication(named: appName + ".app")
+            launchApplication(named: "HP Prime.app")
             return
         }
         

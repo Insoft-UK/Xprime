@@ -23,11 +23,9 @@
 import Cocoa
 
 
-final class OutputTextView: NSTextView {
+final class CatalogHelpTextView: NSTextView {
     
     var editorForegroundColor = NSColor(.black)
-    
-    
     
     // MARK: - Initializers
     override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
@@ -51,29 +49,7 @@ final class OutputTextView: NSTextView {
         isAutomaticTextReplacementEnabled = false
         isContinuousSpellCheckingEnabled = false
         
-        textContainerInset = NSSize(width: 0, height: 0)
+        textContainerInset = NSSize(width: 20, height: 20)
         backgroundColor = NSColor.black
-        
-        smartInsertDeleteEnabled = false
-        
-        // No Wrapping, Horizontal Scroll Enabled
-        isHorizontallyResizable = true
-        isVerticallyResizable = true
-        
-        if let textContainer = textContainer {
-            textContainer.widthTracksTextView = false // THIS is the key line
-            textContainer.containerSize = NSSize(
-                width: CGFloat.greatestFiniteMagnitude,
-                height: CGFloat.greatestFiniteMagnitude
-            )
-        }
-        
-        enclosingScrollView?.hasHorizontalScroller = true
-        typingAttributes[.kern] = 0
-        typingAttributes[.ligature] = 0
-        isRichText = false
-        usesFindPanel = true
     }
-    
-    
 }
