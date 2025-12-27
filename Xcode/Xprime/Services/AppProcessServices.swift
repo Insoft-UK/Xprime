@@ -44,12 +44,9 @@ func terminateApp(withBundleIdentifier bundleIdentifier: String) {
 
 func isProcessRunning(_ name: String) -> Bool {
     let process = Process()
-//    let pipe = Pipe()
 
     process.executableURL = URL(fileURLWithPath: "/usr/bin/pgrep")
     process.arguments = ["-f", name]     // -f = match full command line
-//    process.standardOutput = pipe
-//    process.standardError = Pipe()
     process.standardOutput = FileHandle.nullDevice
     process.standardError = FileHandle.nullDevice
 

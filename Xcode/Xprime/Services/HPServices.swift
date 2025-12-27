@@ -48,8 +48,46 @@ fileprivate func launchApplication(named appName: String, arguments: [String] = 
     }
 }
 
+fileprivate func encodingType(_ data: inout Data) -> String.Encoding {
+    if data.starts(with: [0xFF, 0xFE]) {
+        data.removeFirst(2)
+        return .utf16LittleEndian
+    }
+    if data.starts(with: [0xFE, 0xFF]) {
+        data.removeFirst(2)
+        return .utf16BigEndian
+    }
+    
+    if data.count > 2, data[0] > 0, data[1] == 0 {
+        return .utf16BigEndian
+    }
+    
+    if data.count > 2, data[0] == 0, data[1] > 0 {
+        return .utf16LittleEndian
+    }
+    
+    return .utf8
+}
 
 enum HPServices {
+    static private func loadTextFile(at url: URL) -> String? {
+        var encoding: String.Encoding = .utf8
+        
+        do {
+            var data = try Data(contentsOf: url)
+            encoding = encodingType(&data)
+            
+            return String(data: data, encoding: encoding)
+        } catch {
+            let alert = NSAlert()
+            alert.messageText = "Error"
+            alert.informativeText = "Failed to open file: \(error)"
+            alert.runModal()
+        }
+        
+        return nil
+    }
+    
     static let sdkURL = URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr")
 
     static var isVirtualCalculatorInstalled: Bool {

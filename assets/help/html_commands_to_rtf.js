@@ -8,7 +8,7 @@ const outputDir = path.join(__dirname, '../../Xcode/Xprime/Resources/Help');
 if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir);
 }
-
+// ““
 // Regex to match each command section
 const sectionRegex = /<a name="([^"]+)"><\/a>\s*<div class="command"[^>]*>([\s\S]*?<\/div>)\s*<\/div>/gi;
 

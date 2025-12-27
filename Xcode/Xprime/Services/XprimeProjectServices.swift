@@ -31,7 +31,7 @@ fileprivate struct Project: Codable {
     let archiveProjectAppOnly: Bool
 }
 
-enum XprimeProjectService {
+enum XprimeProjectServices {
     static private func loadJSONString(_ url: URL) -> String? {
         do {
             let jsonString = try String(contentsOf: url, encoding: .utf8)

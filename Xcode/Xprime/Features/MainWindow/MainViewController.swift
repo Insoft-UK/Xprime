@@ -385,7 +385,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 self.documentIsModified = false
                 
                 if let projectName = self.projectName {
-                    XprimeProjectService.save(to: url.deletingLastPathComponent(), named: projectName)
+                    XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
                 }
                 
             } catch {
@@ -412,7 +412,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             try HPServices.savePrgm(at: url, content: codeEditorTextView.string)
             currentURL = url
             if let projectName = self.projectName {
-                XprimeProjectService.save(to: url.deletingLastPathComponent(), named: projectName)
+                XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
             }
         } catch {
             let alert = NSAlert()
@@ -636,6 +636,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         action: #selector(quickOpen(_:)),
                         keyEquivalent: ""
                     )
+                    menu.items.last?.state = (url == currentURL) ? .on : .off
                 }
             }
   
@@ -695,7 +696,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 self.documentIsModified = false
                 
                 // Save project metadata
-                XprimeProjectService.save(to: projectDir, named: projectName)
+                XprimeProjectServices.save(to: projectDir, named: projectName)
                 
                 // Change working directory (if your app depends on this)
                 FileManager.default.changeCurrentDirectoryPath(projectDir.path)
@@ -735,7 +736,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             guard result == .OK, let url = openPanel.url else { return }
             self.openDocument(url: url)
             if let projectName = self.projectName {
-                XprimeProjectService.load(at: url.deletingLastPathComponent(), named: projectName)
+                XprimeProjectServices.load(at: url.deletingLastPathComponent(), named: projectName)
             }
         }
     }

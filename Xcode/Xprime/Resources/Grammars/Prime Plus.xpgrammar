@@ -28,7 +28,7 @@
     },
     {
       "name": "Strings",
-      "match": "\".*\""
+      "match": "\"([^\"\\\\]|\\\\.)*\""
     },
     {
         "name": "Backquotes",

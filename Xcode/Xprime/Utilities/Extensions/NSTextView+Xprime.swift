@@ -36,7 +36,7 @@ extension NSTextView {
             (#"[▶:=+\-*/<>≠≤≥]+"#, .systemGray),
             (#"[{}()\[\]]+"#, .systemGray),
             (#"#([\dA-F]+|[0-7]+|[01]+)(:-?\d+)?[hdob]|\b-?\d+(\.\d+)?\b"#, .systemBlue),
-            (#""[^"]*""#, .systemGreen),
+            (#""([^"\\]|\\.)*""#, .systemGreen),
             (#"(?m)^\s*#[a-z]{2}.+"#, .systemGreen)
         ]
 
