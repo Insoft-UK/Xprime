@@ -22,34 +22,6 @@
 
 import Cocoa
 
-struct Theme: Codable {
-    let name: String
-    let type: String
-    let colors: [String: String]
-    let tokenColors: [TokenColor]
-}
-
-struct TokenColor: Codable {
-    let scope: [String]
-    let settings: TokenSettings
-}
-
-struct TokenSettings: Codable {
-    let foreground: String
-}
-
-
-struct Grammar: Codable {
-    let name: String
-    let scopeName: String
-    let patterns: [GrammarPattern]
-}
-
-struct GrammarPattern: Codable {
-    let name: String
-    let match: String
-}
-
 final class CodeEditorTextView: NSTextView {
     var theme: Theme?
     var grammar: Grammar?
@@ -91,37 +63,23 @@ final class CodeEditorTextView: NSTextView {
         ]
     }()
     
+    private let syntaxHighlighter = SyntaxHighlighter()
+    
     // MARK: - Initializers
     override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
         super.init(frame: frameRect, textContainer: container)
-        setupEditor()
+        commonInit()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        commonInit()
+    }
+    
+    private func commonInit() {
         setupEditor()
-        
-        let fileManager = FileManager.default
-        
-        let theme = UserDefaults.standard.object(forKey: "theme") as? String ?? "Default (Dark)"
-        if let themeURL = Bundle.main.url(forResource: theme, withExtension: "xpcolortheme", subdirectory: "Themes") {
-            if fileManager.fileExists(atPath: themeURL.path) {
-                loadTheme(at: themeURL)
-            } else {
-                loadTheme(at: Bundle.main.url(forResource: "Default (Dark)", withExtension: "xpcolortheme", subdirectory: "Themes")!)
-            }
-        }
-        
-        let grammar = UserDefaults.standard.object(forKey: "grammar") as? String ?? "Language"
-        if let grammarURL = Bundle.main.url(forResource: grammar, withExtension: "xpgrammar", subdirectory: "Grammars") {
-            if fileManager.fileExists(atPath: grammarURL.path) {
-                loadGrammar(at: grammarURL)
-            } else {
-                loadGrammar(at: Bundle.main.url(forResource: "Prime Plus", withExtension: "xpgrammar", subdirectory: "Grammars")!)
-            }
-        }
-        
-        
+        loadInitialTheme()
+        loadInitialGrammar()
     }
     
     // MARK: - Setup
@@ -158,6 +116,53 @@ final class CodeEditorTextView: NSTextView {
         isRichText = false
         usesFindPanel = true
     }
+    
+    
+    
+    func loadTheme(named name: String) {
+        if let theme = ThemeLoader.shared.loadTheme(named: name) {
+            UserDefaults.standard.set(name, forKey: "preferredTheme")
+            
+            self.theme = theme
+            EditorThemeApplier.apply(theme, to: self)
+            applySyntaxHighlighting()
+        }
+    }
+    
+    private func loadInitialTheme() {
+        if let theme = ThemeLoader.shared.loadPreferredTheme() {
+            self.theme = theme
+            EditorThemeApplier.apply(theme, to: self)
+            applySyntaxHighlighting()
+        }
+    }
+    
+    func loadGrammar(named name: String) {
+        if let grammar = GrammarLoader.shared.loadGrammar(named: name) {
+            UserDefaults.standard.set(name, forKey: "preferredGrammar")
+            
+            self.grammar = grammar
+            applySyntaxHighlighting()
+        }
+    }
+    
+    private func loadInitialGrammar() {
+        self.grammar = GrammarLoader.shared.loadPreferredGrammar()
+    }
+    
+    private func applySyntaxHighlighting() {
+        guard let grammar = grammar else { return }
+
+        syntaxHighlighter.highlight(
+            textView: self,
+            grammar: grammar,
+            baseAttributes: baseAttributes,
+            colors: colors,
+            defaultColor: editorForegroundColor
+        )
+    }
+    
+    
     
     // MARK: - Helper Functions
     private func registerUndo<T: AnyObject>(
@@ -218,62 +223,6 @@ final class CodeEditorTextView: NSTextView {
                 setSelectedRange(NSRange(location: selectedRange.location + string.count, length: 0))
             }
         }
-        applySyntaxHighlighting()
-    }
-    
-    func loadTheme(at url: URL) {
-        if let jsonString = loadJSONString(url),
-           let jsonData = jsonString.data(using: .utf8) {
-            theme = try? JSONDecoder().decode(Theme.self, from: jsonData)
-        }
-        
-        func colorWithKey(_ key: String) -> NSColor {
-            for tokenColor in theme!.tokenColors {
-                if tokenColor.scope.contains(key) {
-                    return NSColor(hex: tokenColor.settings.foreground)!
-                }
-            }
-            return editorForegroundColor
-        }
-        
-        editorForegroundColor = NSColor(hex: (theme?.colors["editor.foreground"])!)!
-        
-        backgroundColor = NSColor(hex: (theme?.colors["editor.background"])!)!
-        textColor = NSColor(hex: (theme?.colors["editor.foreground"])!)!
-        selectedTextAttributes = [
-            .backgroundColor: NSColor(hex: (theme?.colors["editor.selectionBackground"])!)!
-        ]
-        insertionPointColor = NSColor(hex: (theme?.colors["editor.cursor"])!)!
-        
-        
-        colors["Keywords"] = colorWithKey("Keywords")
-        colors["Symbols"] = colorWithKey("Symbols")
-        colors["Operators"] = colorWithKey("Operators")
-        colors["Brackets"] = colorWithKey("Brackets")
-        colors["Numbers"] = colorWithKey("Numbers")
-        colors["Strings"] = colorWithKey("Strings")
-        colors["Comments"] = colorWithKey("Comments")
-        colors["Backquotes"] = colorWithKey("Backquotes")
-        colors["Preprocessor Statements"] = colorWithKey("Preprocessor Statements")
-        colors["Functions"] = colorWithKey("Functions")
-        
-        UserDefaults.standard.set(url.deletingPathExtension().lastPathComponent, forKey: "theme")
-     
-        applySyntaxHighlighting()
-    }
-    
-    func loadGrammar(at url: URL) {
-        if let jsonString = loadJSONString(url),
-           let jsonData = jsonString.data(using: .utf8) {
-            grammar = try? JSONDecoder().decode(Grammar.self, from: jsonData)
-        }
-        
-        let delegate = NSApplication.shared.delegate as! AppDelegate
-        
-        for menuItem in delegate.mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")!.submenu!.items ?? [] {
-            menuItem.state = menuItem.title == url.deletingPathExtension().lastPathComponent ? .on : .off
-        }
-        
         applySyntaxHighlighting()
     }
     
@@ -368,33 +317,33 @@ final class CodeEditorTextView: NSTextView {
     
     // MARK: Syntax Highlighting
     
-    private func applySyntaxHighlighting() {
-        guard let textStorage = textStorage else { return }
-        guard let grammar = grammar else { return }
-        
-        let text = string as NSString
-        let fullRange = NSRange(location: 0, length: text.length)
-        
-        // Reset all text color first
-        textStorage.beginEditing()
-        textStorage.setAttributes(baseAttributes, range: fullRange)
-        textStorage.foregroundColor = editorForegroundColor
-        
-        for pattern in grammar.patterns {
-            if pattern.match.isEmpty {
-                continue
-            }
-            let color = colors[pattern.name]!
-            let regex = try! NSRegularExpression(pattern: pattern.match)
-            regex.enumerateMatches(in: text as String, range: fullRange) { match, _, _ in
-                if let match = match {
-                    textStorage.addAttribute(.foregroundColor, value: color, range: match.range)
-                }
-            }
-        }
-        
-        textStorage.endEditing()
-    }
+//    private func applySyntaxHighlighting() {
+//        guard let textStorage = textStorage else { return }
+//        guard let grammar = grammar else { return }
+//        
+//        let text = string as NSString
+//        let fullRange = NSRange(location: 0, length: text.length)
+//        
+//        // Reset all text color first
+//        textStorage.beginEditing()
+//        textStorage.setAttributes(baseAttributes, range: fullRange)
+//        textStorage.foregroundColor = editorForegroundColor
+//        
+//        for pattern in grammar.patterns {
+//            if pattern.match.isEmpty {
+//                continue
+//            }
+//            let color = colors[pattern.name]!
+//            let regex = try! NSRegularExpression(pattern: pattern.match)
+//            regex.enumerateMatches(in: text as String, range: fullRange) { match, _, _ in
+//                if let match = match {
+//                    textStorage.addAttribute(.foregroundColor, value: color, range: match.range)
+//                }
+//            }
+//        }
+//        
+//        textStorage.endEditing()
+//    }
     
     //MARK: HELP
     override func mouseDown(with event: NSEvent) {

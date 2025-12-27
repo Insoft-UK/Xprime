@@ -262,7 +262,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let mainMenu = NSApp.mainMenu else { return }
         
         guard let fileURL = sender.representedObject as? URL else { return }
-        mainVC.codeEditorTextView.loadTheme(at: fileURL)
+        mainVC.codeEditorTextView.loadTheme(named: sender.title)
+      
         UserDefaults.standard.set(sender.title, forKey: "theme")
         
         for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Theme")!.submenu!.items ?? [] {
@@ -276,7 +277,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let mainMenu = NSApp.mainMenu else { return }
         
         guard let fileURL = sender.representedObject as? URL else { return }
-        mainVC.codeEditorTextView.loadGrammar(at: fileURL)
+//        mainVC.codeEditorTextView.loadGrammar(at: fileURL)
+        mainVC.codeEditorTextView.loadGrammar(named: sender.title)
         UserDefaults.standard.set(sender.title, forKey: "grammar")
         
         for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")!.submenu!.items ?? [] {
@@ -317,7 +319,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         currentURL = url
         codeEditorTextView.string = contents
         
-//        refreshQuickOpenItems()
         refreshQuickOpenToolbar()
         
         guard let projectName = projectName else { return }
@@ -327,21 +328,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let ext = url.pathExtension.lowercased()
         
         if ext == "prgm+" || ext == "ppl+" {
-            if let url = Bundle.main.url(forResource: "Prime Plus", withExtension: "xpgrammar", subdirectory:"Grammars") {
-                codeEditorTextView.loadGrammar(at: url)
-            }
+            codeEditorTextView.loadGrammar(named: "Prime Plus")
         }
         
         if ext == "prgm" || ext == "ppl" || ext == "hpprgm" || ext == "hpappprgm" {
-            if let url = Bundle.main.url(forResource: "Prime", withExtension: "xpgrammar", subdirectory:"Grammars") {
-                codeEditorTextView.loadGrammar(at: url)
-            }
+            codeEditorTextView.loadGrammar(named: "Prime")
         }
         
         if ext == "py" {
-            if let url = Bundle.main.url(forResource: "Python", withExtension: "xpgrammar", subdirectory:"Grammars") {
-                codeEditorTextView.loadGrammar(at: url)
-            }
+            codeEditorTextView.loadGrammar(named: "Python")
         }
         
         updateDocumentIconButtonImage()
