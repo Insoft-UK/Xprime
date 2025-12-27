@@ -6,6 +6,9 @@
 - Export a G1 .hpprgm file for use on a real HP Prime or the Virtual Calculator.
 - Compress code to fit more programs on your HP Prime
 
+### Download for macOS
+<a href="https://insoft.uk/action/?method=downlink&path=macos&file=Xprime.pkg">macOS</a>
+
 ### Lauching the HP Applications
 Launch the HP Connectivity Kit or HP Prime Virtual Calculator.
 
