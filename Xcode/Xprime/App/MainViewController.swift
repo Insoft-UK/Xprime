@@ -588,7 +588,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     func runExport(
         allowedExtensions: [String],
         defaultName: String,
-        action: @escaping (_ outputURL: URL) -> (out: String?, err: String?)
+        action: @escaping (_ outputURL: URL) -> (out: String?, err: String?, exitCode: Int32)
     ) {
         let savePanel = NSSavePanel()
         savePanel.allowedContentTypes = allowedExtensions.compactMap { UTType(filenameExtension: $0) }
@@ -808,7 +808,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let result = HPServices.archiveHPAppDirectory(in: parentURL, named: projectName, to: destination)
             
             if let out = result.out, !out.isEmpty {
-                return (out, nil)
+                return (out, nil, 0)
             }
             
             // Show error alert
@@ -817,7 +817,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             alert.informativeText = "Failed to save file: \(url.lastPathComponent)"
             alert.runModal()
             
-            return (nil, "Failed to save!")
+            return (nil, "Failed to save!", -1)
         }
     }
     
@@ -991,7 +991,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 .appendingPathComponent("grob")
                 .path
             
-            let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout"])
+            let commandURL = URL(fileURLWithPath: command)
+            let contents = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
                 self.outputTextView.string = "Importing \(url.pathExtension.uppercased()) Image...\n"
                 self.codeEditorTextView.insertCode(out)
@@ -1017,7 +1018,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 .appendingPathComponent("font")
                 .path
             
-            let contents = CommandLineTool.execute(command, arguments: [url.path, "-o", "/dev/stdout"])
+            let commandURL = URL(fileURLWithPath: command)
+            let contents = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
                 self.outputTextView.string = "Importing Adafruit GFX Font...\n"
                 self.codeEditorTextView.insertCode(contents.out ?? "")
@@ -1127,7 +1129,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathComponent("ppl+")
             .path
         
-        let contents = CommandLineTool.execute(command, arguments: [currentURL.path, "--reformat", "-o", "/dev/stdout"])
+        let commandURL = URL(fileURLWithPath: command)
+        let contents = ProcessRunner.run(executable: commandURL, arguments: [currentURL.path, "--reformat", "-o", "/dev/stdout"])
         if let out = contents.out, !out.isEmpty {
             codeEditorTextView.string = out
         }

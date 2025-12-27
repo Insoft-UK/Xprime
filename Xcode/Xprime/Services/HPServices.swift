@@ -286,11 +286,11 @@ enum HPServices {
         }
     }
     
-    static func archiveHPAppDirectory(in directory: URL, named name: String, to desctinationURL: URL? = nil) -> (out: String?, err: String?)  {
+    static func archiveHPAppDirectory(in directory: URL, named name: String, to desctinationURL: URL? = nil) -> (out: String?, err: String?, exitCode: Int32)  {
         do {
             try restoreMissingAppFiles(in: directory, named: name)
         } catch {
-            return (nil, "Failed to restore missing app files: \(error)")
+            return (nil, "Failed to restore missing app files: \(error)", -1)
         }
         
         var destinationPath = "\(name).hpappdir.zip"
@@ -302,8 +302,9 @@ enum HPServices {
             try? FileManager.default.removeItem(at: directory.appendingPathComponent("\(name).hpappdir.zip"))
         }
         
-        return CommandLineTool.execute(
-            "/usr/bin/zip",
+        
+        return ProcessRunner.run(
+            executable: URL(fileURLWithPath: "/usr/bin/zip"),
             arguments: [
                 "-r",
                 destinationPath,
@@ -321,7 +322,7 @@ enum HPServices {
                 .appendingPathComponent("bin")
                 .appendingPathComponent("ppl+")
             
-            let result = CommandLineTool.execute(commandURL.path, arguments: [url.path, "-o", "/dev/stdout"])
+            let result = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = result.out, !out.isEmpty {
                 return result.out
             }
@@ -374,7 +375,7 @@ enum HPServices {
         }
     }
     
-    static func preProccess(at sourceURL: URL, to destinationURL: URL, compress: Bool = false) -> (out: String?, err: String?) {
+    static func preProccess(at sourceURL: URL, to destinationURL: URL, compress: Bool = false) -> (out: String?, err: String?, exitCode: Int32) {
     
         let command = HPServices.sdkURL
             .appendingPathComponent("bin")
@@ -410,7 +411,8 @@ enum HPServices {
          */
         try? FileManager.default.removeItem(at: destinationURL)
         
-        let result = CommandLineTool.execute(command, arguments: arguments)
+        let commandURL = URL(fileURLWithPath: command)
+        let result = ProcessRunner.run(executable: commandURL, arguments: arguments)
         return result
     }
     
