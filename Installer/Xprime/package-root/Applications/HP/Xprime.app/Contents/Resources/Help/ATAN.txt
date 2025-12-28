@@ -1,0 +1,8 @@
+Syntax:
+ATAN(Value)
+
+ATAN: the inverse tangent function.
+This Shift-key combination returns the inverse tangent of Value.  The output depends on the Angle Measure setting.
+
+Example:
+ATAN(0) returns 0

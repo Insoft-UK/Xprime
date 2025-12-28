@@ -88,7 +88,6 @@ enum HPServices {
         return nil
     }
     
-    static let sdkURL = URL(fileURLWithPath: Bundle.main.bundleURL.path).appendingPathComponent("Contents/Resources/Developer/usr")
 
     static var isVirtualCalculatorInstalled: Bool {
         let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
@@ -318,11 +317,7 @@ enum HPServices {
     static func loadHPPrgm(at url: URL) -> String? {
         
         if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased() == "hpappprgm" {
-            let commandURL = HPServices.sdkURL
-                .appendingPathComponent("bin")
-                .appendingPathComponent("ppl+")
-            
-            let result = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
+            let result = ProcessRunner.run(executable: ToolchainPaths.bin.appendingPathComponent("ppl+"), arguments: [url.path, "-o", "/dev/stdout"])
             if let out = result.out, !out.isEmpty {
                 return result.out
             }
@@ -377,10 +372,7 @@ enum HPServices {
     
     static func preProccess(at sourceURL: URL, to destinationURL: URL, compress: Bool = false) -> (out: String?, err: String?, exitCode: Int32) {
     
-        let command = HPServices.sdkURL
-            .appendingPathComponent("bin")
-            .appendingPathComponent("ppl+")
-            .path
+        let command = ToolchainPaths.bin.appendingPathComponent("ppl+").path
         
         var arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
         
@@ -390,13 +382,13 @@ enum HPServices {
         
         let include = UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDK)/include"
         if include.isEmpty == false {
-            let path = include.replacingOccurrences(of: "$(SDK)", with: HPServices.sdkURL.path)
+            let path = include.replacingOccurrences(of: "$(SDK)", with: ToolchainPaths.developerRoot.appendingPathComponent("usr").path)
             arguments.append(contentsOf: ["-I\(path)"])
         }
         
         let lib = UserDefaults.standard.object(forKey: "lib") as? String ?? "$(SDK)/lib"
         if lib.isEmpty == false {
-            let path = lib.replacingOccurrences(of: "$(SDK)", with: HPServices.sdkURL.path)
+            let path = lib.replacingOccurrences(of: "$(SDK)", with: ToolchainPaths.developerRoot.appendingPathComponent("usr").path)
             arguments.append(contentsOf: ["-L\(path)"])
         }
         

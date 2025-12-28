@@ -1,8 +1,0 @@
-
-{\rtf1\ansi\deff0
-{\par \b Syntax:}\par MAKEMAT(expression, n, [m])\par
-{\par \b Description:}\par Make Matrix. Creates a matrix of dimension n \u215? m, using expression to calculate each element. If expression contains the variables I and J, then the calculation for each element substitutes the current row number for I and the current column number for J. With two arguments, this creates a vector of size n.\par
-{\par \b Example:}\par MAKEMAT(0,3,3) returns [[0,0,0],[0,0,0],[0,0,0]]
-    MAKEMAT(\u8730?2,2,3) returns [[\u8730?2,\u8730?2,\u8730?2],[\u8730?2,\u8730?2,\u8730?2]]
-    MAKEMAT(I+J\u8211?1,2,3) returns [[1,2,3],[2,3,4]] 
-    MAKEMAT(\u8730?2,2) returns [\u8730?2,\u8730?2]\par }

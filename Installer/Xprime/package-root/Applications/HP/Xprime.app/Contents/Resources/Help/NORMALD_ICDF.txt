@@ -1,0 +1,7 @@
+Syntax:
+NORMALD_ICDF(μ, ϭ, p)
+
+Inverse cumulative normal distribution function. Returns the cumulative normal distribution value associated with the lower-tail probability, p, given the mean, μ, and standard deviation, ϭ, of a normal distribution. With one argument, p, assumes a mean of zero and a standard deviation of one.
+
+Example:
+NORMALD_ICDF(0, 1, 0.841344746069) returns 1

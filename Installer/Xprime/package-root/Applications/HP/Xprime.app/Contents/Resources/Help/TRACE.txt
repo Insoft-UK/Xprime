@@ -1,0 +1,4 @@
+Syntax:
+trace(Point)
+
+Begins tracing the specified point.

@@ -11,6 +11,10 @@
       "match": "(?mi)(?:def +)[a-z]\\w*"
     },
     {
+      "name": "Symbols",
+      "match": "[\\u0080-\\uFFFF]+"
+    },
+    {
       "name": "Operators",
       "match": "[▶:=+\\-*/<>≠≤≥]+"
     },
@@ -24,7 +28,7 @@
     },
     {
       "name": "Strings",
-      "match": "\".*?\""
+      "match": "\"([^\"\\\\]|\\\\.)*\""
     },
     {
         "name": "Backquotes",

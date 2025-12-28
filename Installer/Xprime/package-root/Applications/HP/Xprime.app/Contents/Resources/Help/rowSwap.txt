@@ -1,0 +1,7 @@
+Syntax:
+rowSwap(Mtrx(A),Intg(n1),Intg(n2))
+
+Returns the matrix obtained from A by swapping the  n1th row and the n2th row
+
+Example:
+rowSwap([[1,2],[3,4],[5,6]],1,2) returns [[1,2],[5,6],[3,4]]

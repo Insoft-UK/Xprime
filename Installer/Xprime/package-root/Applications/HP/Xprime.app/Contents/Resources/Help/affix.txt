@@ -1,0 +1,8 @@
+Syntax:
+affix(Point) or affix(Vector)
+
+Returns the coordinates of a point or both the x- and y-lengths of a vector as a complex number.
+
+Example:
+affix(point(3,2)) returns 3+2*i
+if GA is a point at (1, -2), then affix(GA) returns 1-2*i.

@@ -1,0 +1,7 @@
+Syntax:
+is_parallel(Line1, Line2)
+
+Tests whether or not two lines are parallel. Returns 1 if they are and 0 otherwise.
+
+Example:
+is_parallel(line(2x+3y=7),line(2x+3y=9) returns 1.

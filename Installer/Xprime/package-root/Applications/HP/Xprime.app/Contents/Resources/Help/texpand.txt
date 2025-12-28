@@ -1,0 +1,7 @@
+Syntax:
+texpand(Expr)
+
+Expands a transcendental expression; that is, an expression containing trigonometric, logarithmic, or exponential functions. texpand develops the expression in terms of sin(), cos(), ln(), and exp().
+
+Example:
+texpand(sin(2*x)+exp(x+y)) returns 2*cos(x)*sin(x)+exp(x)*exp(y)

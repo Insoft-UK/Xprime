@@ -1,0 +1,4 @@
+Syntax:
+vertices(Polygon or Polyedr(P))
+
+Returns the list of the vertices of the polygon or polyhedron P.

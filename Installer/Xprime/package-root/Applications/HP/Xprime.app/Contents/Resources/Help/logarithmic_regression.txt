@@ -1,0 +1,7 @@
+Syntax:
+logarithmic_regression(Lst||Mtrx(A),[Lst])
+
+Returns the coefficients a and b of y=a*ln(x)+b : it is the best logarithm that approximates the points where the coordinates are the rows of A (or the 2 lists).
+
+Example:
+logarithmic_regression([[1.0,1.0],[2.0,4.0],[3.0,9.0],[4.0,16.0]]) returns 10.1506450002,-0.564824055818

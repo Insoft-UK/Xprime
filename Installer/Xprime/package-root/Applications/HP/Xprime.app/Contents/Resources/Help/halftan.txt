@@ -1,0 +1,7 @@
+Syntax:
+halftan(Expr)
+
+Transforms sin(x), cos(x) and tan(x) as a function of tan(x/2).
+
+Example:
+halftan(sin(x)) returns (2*tan(x/2))/((tan(x/2))^2+1)

@@ -1,0 +1,4 @@
+Syntax:
+plotinequation(Expr,[x=xrange,y=yrange],[xstep],[ystep])
+
+Shows the graph of the solution of inequations with 2 variables.

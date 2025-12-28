@@ -1,0 +1,9 @@
+Syntax:
+inversion(Point1, Realk, Point2)
+
+Draws the inversion of a point, with respect to another point, by a scale factor.
+
+Example:
+inversion(GA, 3, GB) draws point C on line AB such that AB*AC=3. In this case, point A is the center of the inversion and the scale factor is 3. Point B is the point whose inversion is created.
+
+In general, the inversion of point A through center C, with scale factor k, maps A onto A’, such that A’ is on line CA and CA*CA’=k, where CA and CA’ denote the lengths of the corresponding segments. If k=1, then the lengths CA and CA’ are reciprocals.

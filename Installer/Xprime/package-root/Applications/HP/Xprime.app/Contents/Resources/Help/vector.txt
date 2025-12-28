@@ -1,0 +1,4 @@
+Syntax:
+vector(Pnt,Pnt || Pnt,Vect)
+
+Defines a vector(origin is 0 if 1 arg) with two points or two components or two affix (for 2D) or with a point and a vector or with a point (its extrmity and its origin is [0,0,0]).

@@ -1,0 +1,7 @@
+Syntax:
+symb2poly(Expr,[Var]) or symb2poly(Expr, ListVar)
+
+Returns the coefficients of a polynomial Expr with respect tothe variable Var or if the second argument is a list returns the internal format of the polynomial. Essentaiilly the inverse of poly2symb().
+
+Example:
+symb2poly( (x+2)*x+3) returns [1,2,3]

@@ -1,0 +1,4 @@
+Syntax:
+plotcontour(Expr(Xpr),[LstVar],[LstVal])
+
+Draws 11 contour-lines  z=z_min,,...z=z_max of the surface z=Xpr, where the contour-lines are defined by the 3rd argument.

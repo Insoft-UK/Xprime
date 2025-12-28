@@ -1,0 +1,8 @@
+Syntax:
+area(Circle) or area(Polygon) or area(Expr, x=value1..value2)
+
+Returns the area of a circle or polygon. Can also return the area under a curve between two points.
+
+Example:
+If GA is defined to be the unit circle, then area(GA) returns π.
+area(4-x^2/4, x=-4..4) returns 64/3 or 21.333…

@@ -1,0 +1,7 @@
+Syntax:
+divpc(Poly1,Poly2,Integer)
+
+Returns the n-degree Taylor polynomial for the quotient of 2 polynomials.
+
+Example:
+divpc(x^4+x+2,x^2+1,5) returns the 5th-degree polynomial x^5+3*x^4-x^3-2*x^2+x+2

@@ -1,0 +1,9 @@
+Syntax:
+tangent(Curve, Point)
+
+Draws the tangent(s) to a given curve through a given point. The point does not have to be a point on the curve.
+
+Example:
+tangent(plotfunc(x^2), point(1,1)) draws the tangent to the graph y=x^2 through the point (1,1); that is, the line whose equation is y=2*x-1.
+tangent(plotfunc(x^2), GA) draws the tangent to the graph of y=x^2 through point A. Point A can then be moved and the tangent will move with it.
+tangent(circle(GB, GC-GB), GA) draws one or more tangent lines through point A to the circle whose center is at point B and whose radius is defined by segment BC.

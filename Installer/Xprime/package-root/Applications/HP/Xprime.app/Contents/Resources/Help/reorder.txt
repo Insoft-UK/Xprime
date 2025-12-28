@@ -1,0 +1,7 @@
+Syntax:
+reorder(Expr,LstVar)
+
+Reorders the variables in E according to the order of the 2nd argument
+
+Example:
+reorder(x^2+2*x+y^2,[y,x]) returns y^2+x^2+2*x

@@ -1,0 +1,7 @@
+Syntax:
+spline(Lst(lx),Lst(ly),Var(x),Intg(d))
+
+Returns the natural spline through the points given by lx and ly, variable x, degree d
+
+Example:
+spline([0,1,2],[1,3,0],x,3) returns [-5*x^3/4+13*x/4+1,5*(x-1)^3/4+-15*(x-1)^2/4+(x-1)/-2+3]

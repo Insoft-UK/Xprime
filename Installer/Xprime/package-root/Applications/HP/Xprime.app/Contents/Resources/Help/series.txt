@@ -1,0 +1,8 @@
+Syntax:
+series(Expr,Equal(var=limit_point),[Order],[Dir(1,0,-1)])
+
+Returns the series expansion of an expression in the vicinity of a given equality variable. With the optional third and fourth arguments you can specify the order and direction of the series expansion. If no order is specified the series returned is
+fifth order. If no direction is specified, the series is bidirectional.
+
+Example:
+series((x^4+x+2)/(x^2+1),x=0,5) returns 2+x-2x^2-x^3+3x^4+x^5+x^6*order_size(x)

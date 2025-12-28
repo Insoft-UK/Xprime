@@ -1,0 +1,9 @@
+Syntax:
+hyperbola(Point1, Point2, Point3) or hyperbola(Point1, Point2, Realk)
+
+Draws a hyperbola, given the foci and either a point on the hyperbola or a scalar that is one half the constant difference of the distances from a point on the hyperbola to each of the foci.
+
+Example:
+hyperbola(GA, GB, GC) draws the hyperbola whose foci are points A and B and which passes through point C.
+
+hyperbola(GA, GB, 3) draws a hyperbola whose foci are points A and B. For any point P on the hyperbola, |AP-BP|=6.

@@ -255,6 +255,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    
     // MARK: - Action Handlers
     
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
@@ -480,7 +481,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         var requiredFiles: [String] = []
         var cleanedText = text
         
-        let basePath = HPServices.sdkURL
+        let basePath = ToolchainPaths.developerRoot.appendingPathComponent("usr")
             .appendingPathComponent("hpprgm")
             .path
 
@@ -515,7 +516,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         var requiredApps: [String] = []
         var cleanedText = text
         
-        let basePath = HPServices.sdkURL
+        let basePath = ToolchainPaths.developerRoot.appendingPathComponent("usr")
             .appendingPathComponent("hpappdir")
             .path
 
@@ -744,43 +745,117 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         saveDocumentAs()
     }
     
-    @IBAction func exportAsHPPrgm(_ sender: Any) {
-        if let _ = currentURL {
-            saveDocument()
-        } else {
-            saveDocumentAs()
-        }
-        
-        guard let currentURL = currentURL,
-              FileManager.default.fileExists(atPath: currentURL.path) else { return }
-        
-        let defaultName = currentURL.deletingPathExtension().lastPathComponent + ".hpprgm"
-        let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
+    private func exportHPProgram(from sourceURL: URL) {
+        let defaultName = sourceURL
+            .deletingPathExtension()
+            .lastPathComponent + ".hpprgm"
+
+        let compression = UserDefaults.standard.bool(forKey: "compression")
+
         runExport(
             allowedExtensions: ["hpprgm"],
             defaultName: defaultName
         ) { outputURL in
-            HPServices.preProccess(at: currentURL, to: outputURL, compress: compression)
+            HPServices.preProccess(
+                at: sourceURL,
+                to: outputURL,
+                compress: compression
+            )
         }
     }
     
-    @IBAction func exportAsPrgm(_ sender: Any) {
-        if let _ = currentURL {
-            saveDocument()
-        } else {
-            saveDocumentAs()
+    @IBAction func exportAsHPPrgm(_ sender: Any) {
+        guard let window = view.window else { return }
+
+        func proceedWithExport() {
+            guard let url = currentURL else { return }
+            exportHPProgram(from: url)
         }
-        
-        guard let currentURL = currentURL,
-              FileManager.default.fileExists(atPath: currentURL.path) else { return }
-        
-        let defaultName = currentURL.deletingPathExtension().lastPathComponent + ".prgm"
-        
+
+        // Document already exists
+        if currentURL != nil {
+
+            if documentIsModified {
+                AlertPresenter.presentYesNo(
+                    on: window,
+                    title: "Save Changes",
+                    message: "Do you want to save your changes before exporting as HPPRGM?",
+                    primaryActionTitle: "Save"
+                ) { confirmed in
+                    guard confirmed else { return }
+                    self.saveDocument()
+                    proceedWithExport()
+                }
+            } else {
+                proceedWithExport()
+            }
+
+        } else {
+            // First-time save required
+            saveDocumentAs()
+
+            guard let url = currentURL,
+                  FileManager.default.fileExists(atPath: url.path) else {
+                return
+            }
+
+            exportHPProgram(from: url)
+        }
+    }
+    
+    private func exportPRGM(from sourceURL: URL) {
+        let defaultName = sourceURL
+            .deletingPathExtension()
+            .lastPathComponent + ".prgm"
+
         runExport(
             allowedExtensions: ["prgm"],
             defaultName: defaultName
         ) { outputURL in
-            HPServices.preProccess(at: currentURL, to: outputURL)
+            HPServices.preProccess(
+                at: sourceURL,
+                to: outputURL
+            )
+        }
+    }
+    
+    @IBAction func exportAsPrgm(_ sender: Any) {
+
+        guard let window = view.window else { return }
+
+        func proceedWithExport() {
+            guard let url = currentURL else { return }
+            exportPRGM(from: url)
+        }
+
+        // Document already exists
+        if currentURL != nil {
+
+            if documentIsModified {
+                AlertPresenter.presentYesNo(
+                    on: window,
+                    title: "Save Changes",
+                    message: "Do you want to save your changes before exporting as PRGM?",
+                    primaryActionTitle: "Save"
+                ) { confirmed in
+                    guard confirmed else { return }
+                    self.saveDocument()
+                    proceedWithExport()
+                }
+            } else {
+                proceedWithExport()
+            }
+
+        } else {
+            // First save required
+            saveDocumentAs()
+
+            guard let url = currentURL,
+                  FileManager.default.fileExists(atPath: url.path) else {
+                return
+            }
+
+            exportPRGM(from: url)
         }
     }
     
@@ -803,16 +878,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let result = HPServices.archiveHPAppDirectory(in: parentURL, named: projectName, to: destination)
             
             if let out = result.out, !out.isEmpty {
-                return (out, nil, 0)
+                return result
             }
             
-            // Show error alert
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.informativeText = "Failed to save file: \(url.lastPathComponent)"
-            alert.runModal()
+            AlertPresenter.showInfo(
+                on: self.view.window,
+                title: "Export Failed",
+                message: "Could not export the archive “\(url.lastPathComponent)”."
+            )
             
-            return (nil, "Failed to save!", -1)
+            return result
         }
     }
     
@@ -908,10 +983,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
             try HPServices.installHPPrgm(at: programURL, forUser: calculator)
         } catch {
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.informativeText = "Installing file: \(error)"
-            alert.runModal()
+            AlertPresenter.showInfo(
+                on: self.view.window,
+                title: "Installing Failed",
+                message: "Installing file: \(error)"
+            )
             return
         }
     }
@@ -927,10 +1003,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
             try HPServices.installHPAppDirectory(at: appDirURL, forUser: calculator)
         } catch {
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.informativeText = "Installing file: \(error)"
-            alert.runModal()
+            AlertPresenter.showInfo(
+                on: self.view.window,
+                title: "Installing Failed",
+                message: "Installing application directory: \(error)"
+            )
             return
         }
     }
@@ -981,7 +1058,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
-            let command = HPServices.sdkURL
+            let command = ToolchainPaths.developerRoot.appendingPathComponent("usr")
                 .appendingPathComponent("bin")
                 .appendingPathComponent("grob")
                 .path
@@ -1008,13 +1085,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         openPanel.begin { result in
             guard result == .OK, let url = openPanel.url else { return }
             
-            let command = HPServices.sdkURL
-                .appendingPathComponent("bin")
-                .appendingPathComponent("font")
-                .path
-            
-            let commandURL = URL(fileURLWithPath: command)
-            let contents = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
+            let contents = ProcessRunner.run(executable: ToolchainPaths.bin.appendingPathComponent("font"), arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
                 self.outputTextView.string = "Importing Adafruit GFX Font...\n"
                 self.codeEditorTextView.insertCode(contents.out ?? "")
@@ -1119,13 +1190,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        let command = HPServices.sdkURL
-            .appendingPathComponent("bin")
-            .appendingPathComponent("ppl+")
-            .path
         
-        let commandURL = URL(fileURLWithPath: command)
-        let contents = ProcessRunner.run(executable: commandURL, arguments: [currentURL.path, "--reformat", "-o", "/dev/stdout"])
+        let contents = ProcessRunner.run(executable: ToolchainPaths.bin.appendingPathComponent("ppl+"), arguments: [currentURL.path, "--reformat", "-o", "/dev/stdout"])
         if let out = contents.out, !out.isEmpty {
             codeEditorTextView.string = out
         }

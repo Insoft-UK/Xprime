@@ -1,0 +1,8 @@
+Syntax:
+isobarycenter(Point1, Point2, …, Pointn)
+
+Returns the hypothetical center of mass of a set of points. Works like barycenter but assumes all points have equal weight.
+
+Example:
+isobarycenter(–3,3,3*√3*i) returns 
+point(3*√3*i/3), which is equivalent to (0,√3).

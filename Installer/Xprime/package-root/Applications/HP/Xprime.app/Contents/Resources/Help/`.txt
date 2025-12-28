@@ -1,0 +1,5 @@
+Syntax:
+QUOTE(expression)
+
+Returns the expression unchanged and un-evaluated.
+This function is mostly used with the STO▶ command in order to store a function in a function variable. For example if you want to store SIN(X) in F1.you cannot do SIN(X)►F1 as SIN(X) would be evaluated and a numerical result would be stored into F1. QUOTE(SIN(X))►F1 will store SIN(X) in F1.

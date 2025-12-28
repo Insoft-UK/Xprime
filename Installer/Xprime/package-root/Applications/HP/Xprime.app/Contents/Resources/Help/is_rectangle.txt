@@ -1,0 +1,11 @@
+Syntax:
+is_rectangle(Point1, Point2, Point3, Point4)
+
+Tests whether or not a set of four points are vertices of a rectangle. Returns 0 if they are not, 1 if they are, and 2 if they are vertices of a square.
+
+Example:
+is_rectangle(point(0,0), point(4,2), point(2,6), point(-2,4)) returns 2.
+
+With a set of only three points as argument, tests whether or not they are vertices of a right triangle. Returns 0 if they are not. If they are, returns the number order of the common point of the two perpendicular sides (1, 2, or 3).
+
+is_rectangle(point(0,0), point(4,2), point(2,6)) returns 2.

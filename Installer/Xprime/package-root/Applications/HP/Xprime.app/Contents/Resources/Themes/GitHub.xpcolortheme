@@ -33,6 +33,12 @@
             }
         },
         {
+            "scope": ["Symbols"],
+            "settings": {
+                "foreground": "#be3536"
+            }
+        },
+        {
             "scope": ["Operators"],
             "settings": {
                 "foreground": "#214fa8"

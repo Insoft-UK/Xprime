@@ -1,0 +1,7 @@
+Syntax:
+odd(Intg(n))
+
+Returns 1 if the integer is odd, otherwise returns 0.
+
+Example:
+odd(6) returns 0

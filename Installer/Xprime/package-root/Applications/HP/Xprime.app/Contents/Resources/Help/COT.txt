@@ -1,0 +1,7 @@
+Syntax:
+COT(value)
+
+Cotangent. The Cotangent function; that is, cos(x)/sin(x).
+
+Example:
+COT(45) returns 1 in degree mode
