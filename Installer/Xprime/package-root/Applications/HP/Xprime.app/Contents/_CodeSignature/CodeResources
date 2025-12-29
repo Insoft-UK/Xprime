@@ -10,43 +10,43 @@
 		</data>
 		<key>Resources/Assets.car</key>
 		<data>
-		K6IZLhy01BG5Z+PVEcfx7INJkI8=
+		Ae6XCQdZWDoTQugAMT0u04LJEUY=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/HsO-bO-Dfd-view-1RK-mx-rDE.nib</key>
 		<data>
-		6E2pobkrNoDuq5pStVX/thXVdKE=
+		yc+psmR4FVZKX7XnkVuo3E/bNpg=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
-		goTbNyXc0+X/JPJGnH0nT4pypec=
+		fPL5WE7QygXGFFGIOibS5pUtaSs=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
-		BBSnjHWdvczkWg+Qk7LtSin+PWU=
+		ynbPDtdzpNhUn/B7fZtwIklFbpQ=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<data>
-		GAm402Myo7RhGsRdlVV253d276I=
+		QynRWVZlKIeoQJFwr09xcpXf3lY=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainWindowController.nib</key>
 		<data>
-		ya+JiMBJjCOOmi0erTiF78qidww=
+		gSnZoRd1FWMAsqIre4mbwr36PNs=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-CFc-li-Drx.nib</key>
 		<data>
-		dT/xeio9Ng8g1WyInrnX9YYu+hY=
+		f2P8fB7xsmWXUN94n9MEMBSz530=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-WAc-gE-cXI.nib</key>
 		<data>
-		6yyX0PkSBBPFCSXWWi0JAjjLXK0=
+		hzpjQgJAvr+IzYXhkhb+U7f/s1c=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<data>
-		XbwV1lKVqkoGZMlVK1pKkavjLkI=
+		0rCtDuHzPODelXS7qFR/m16TIgE=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/um3-nH-PU9-view-JPh-bh-aek.nib</key>
 		<data>
-		QpWPsTAmntm2n+gIGjl18UGVj8M=
+		cBwm2i1MrqbL4VdImVS7cw7ryFA=
 		</data>
 		<key>Resources/Credits.rtf</key>
 		<data>
@@ -150,15 +150,15 @@
 		</data>
 		<key>Resources/Developer/usr/bin/font</key>
 		<data>
-		bwN0BxFIgS865lLFYxrQZw4QI1w=
+		xHBUevClVQs8+lwQ/U9bXG2VYBE=
 		</data>
 		<key>Resources/Developer/usr/bin/grob</key>
 		<data>
-		JBOHkkV42PKotn/KdsS3c8Ji6WM=
+		L2isoUQwc/3G1LcQ65yPHbUev5I=
 		</data>
 		<key>Resources/Developer/usr/bin/ppl+</key>
 		<data>
-		IKGjF5rWKjqmz044X8YlkM8sGzA=
+		8S18T8KKdycfR28qJwplF/f2VFA=
 		</data>
 		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/Fonts.hpapp</key>
 		<data>
@@ -262,7 +262,7 @@
 		</data>
 		<key>Resources/Grammars/Prime Plus.xpgrammar</key>
 		<data>
-		AtP8LA4yrpv+Gc4bOmf34sG9yrI=
+		n4MB0qNtMts1DKETC+TH+88sdmw=
 		</data>
 		<key>Resources/Grammars/Prime.xpgrammar</key>
 		<data>
@@ -3048,25 +3048,33 @@
 		<data>
 		Pq371DI2m+/izzm/f6SCfF0XWOw=
 		</data>
+		<key>Resources/Themes/Blackboard.xpcolortheme</key>
+		<data>
+		ag7+xJ7msRL6cuoXmIVU93n1kPE=
+		</data>
 		<key>Resources/Themes/Catalog.xpcolortheme</key>
 		<data>
-		ibDxJMOTxgCIUmFXeccCZjyRBsk=
+		5VaPcveq1kP6CAmez9Ial99mGDg=
+		</data>
+		<key>Resources/Themes/DOS.xpcolortheme</key>
+		<data>
+		JM1KgoBlhz2muKpL95DnlA38gpI=
 		</data>
 		<key>Resources/Themes/Default (Dark).xpcolortheme</key>
 		<data>
-		VLnl7j3A1lLJpE6vCaPKRd1W9z8=
+		i8Qs7JcNcm1C9MO1frN6QqbTPOw=
 		</data>
 		<key>Resources/Themes/Default (Light).xpcolortheme</key>
 		<data>
-		xYrWRYayPK3ZDykn0T4HYJEZR50=
+		M+moemrS6/50z4aQqxL1RZkyd/4=
 		</data>
 		<key>Resources/Themes/GitHub.xpcolortheme</key>
 		<data>
-		KCDdS36SNzCHSrV73Qg8nIh5NuQ=
+		O8vpxyQMQV9ur9Zn1TqQFCE4eCg=
 		</data>
 		<key>Resources/Themes/HP Connectivity Kit.xpcolortheme</key>
 		<data>
-		gpvwOkTayEuZJL8LfbPgorFVTbU=
+		vyeQ998n59PqR9y1L5U8MtsZVyk=
 		</data>
 		<key>Resources/Untitled.prgm+</key>
 		<data>
@@ -3074,7 +3082,7 @@
 		</data>
 		<key>Resources/default.metallib</key>
 		<data>
-		9ycLNnfgsWN0flGT0ArmFh0vaAI=
+		i1DwX2YeRC4IL3Hh9mZMHqKS4rQ=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -3090,70 +3098,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0S9n9vZlcxXNi9xp66s79Yy5elFYL/B34dr3SyemyGg=
+			Q0hct/kl+/1MlG0yop1g44LFfWWklWefuYmlYPTw2HM=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/HsO-bO-Dfd-view-1RK-mx-rDE.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TZWlersNrszL0VIpwNHFaipi1rQtZu5vnZp6vh73Ckc=
+			gV07/dXmoAXojCH3ksMIzxLW4D/vG8KDA1lca4jcYqg=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+bexK52CYzTVhtOXWk/CWhVm0qLZawLcXXM0DR/lKpg=
+			vhCnIuF2aB4F//7St1ej0AwUecXYR6VwZmCa/ArsdRI=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lrcxisCSkkG/PT/qxVnWFSBIxToDIJHn+y7dUGcenLM=
+			WOui0UtmFjeeDhvftEhYSR3qvlR8HOP5b462Lle8jaI=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			I8/uc4TlIWVHJsjQGAfI6xsLPZ1khLzveqCJZnzM1Bw=
+			mFDpDSCPsTfSGNGuxFQHbqQJYeGSw3+4nkTxTyt2fy4=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainWindowController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZY8sS9Xu4H+tL6NMxKeSP9h9a/wEusSQUpMoHVftlq4=
+			s9SEPgABJI17sfnD3mWfMJvHD6JO4bqKCt+ZyW4gaKw=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-CFc-li-Drx.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GFgBJBvu2NfxeKUidmJ1t2fmWCg0SmvPsVWwKwyDE5U=
+			UJX7zxdqLhWEXA3X7DfGFv+9lHXGJO7ZWWlr3KM4cS8=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-WAc-gE-cXI.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mB0zYAW8v0yeTdHIdRZuC+WLXYIfLht0QUqi8i0AQ6k=
+			02u8vn6lSWmzkFOAMtI0gsrwwKFLJnhCTfO9kVbJ5dg=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			z05DcccD7xUsKr8vwM2h7QRlmLgAncAOhOFwiH82b20=
+			cKjaKhIdb4ENR0FwKaUf0UDu+wRKhcEiVRpR0QkjvaQ=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/um3-nH-PU9-view-JPh-bh-aek.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			bQ3NWf84EDWTb8kAsrPDOVsPBjd3MsSTsdTlJ9TGQoc=
+			WuUOSec8XtHK4fWoBf8jgSMx7sOjpZuvm3b8AJp7DYg=
 			</data>
 		</dict>
 		<key>Resources/Credits.rtf</key>
@@ -3335,21 +3343,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			85kJbXvDx2K4wWRln1VkK5J0w8wd5R+0MXb7pcXungo=
+			ZO70hghPPH9NbhAMvfZNcOeRylLkrAvpBbf2uhItOzo=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/bin/grob</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eWKtxVTaSzsHfhBlQOAAZn4Ccg6znqQLULeXqT46aQI=
+			ixitmoTkGpDfuPXvlxQEvwH3GyfcMTwBJZNhFi0iAQk=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/bin/ppl+</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			S7S9kYAwLvOTTzBdo+Ktc5N/qIDKxYWHzCitm9jKhCY=
+			lasyKii1FDMHj6mUvd02xBFMUA3hbuNz6mPo9N6AmGA=
 			</data>
 		</dict>
 		<key>Resources/Developer/usr/hpappdir/Fonts.hpappdir/Fonts.hpapp</key>
@@ -3531,7 +3539,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			lSGezc+pp4ig6JX4qtQ4Ixo427Dbb3ldT6a143bOCLM=
+			LkAFk+lMfpXtlP/Fjrb/RP2HGUWDBCWMAJQSQtJjY6w=
 			</data>
 		</dict>
 		<key>Resources/Grammars/Prime.xpgrammar</key>
@@ -8406,39 +8414,53 @@
 			x6hXN/UQf3DdH+E/lFByAp2yvKmlNGNJiO0Og6poVTo=
 			</data>
 		</dict>
+		<key>Resources/Themes/Blackboard.xpcolortheme</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8MlVqcatbTvO4me95us5egJrEsucFfaZOqASjX1f8u4=
+			</data>
+		</dict>
 		<key>Resources/Themes/Catalog.xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			CH/OaCmSMw4/gi19rA3BryETgEnHZI1IW8Zm8eRjvUY=
+			7zoqNGJ62tcA9Ut5TMqSDsfPID6H9WXYlhCQ+UUYstQ=
+			</data>
+		</dict>
+		<key>Resources/Themes/DOS.xpcolortheme</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6p8eEgdgCMRQcDdJXp1YbWrl6sqa8PTfVvEpzbfbONI=
 			</data>
 		</dict>
 		<key>Resources/Themes/Default (Dark).xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UEoVw5JLhmRbETy/lxzbCE4Zf7pZsBwWUErzr8wxMT4=
+			746ECtRAPPDU9SvojMMBavI4qrPrzHI2qOqtPjuqTWM=
 			</data>
 		</dict>
 		<key>Resources/Themes/Default (Light).xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			z7ZHditRuR0NDCIFRRAr4RWvCh+B6xYk61I3+ISEA+Y=
+			Apixq2pxMQVaMt7XUF7Ktho23wBBjuCPpoiGSNbuk3Y=
 			</data>
 		</dict>
 		<key>Resources/Themes/GitHub.xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			SrvcHif6yW3hQ3bDUt7ttVUdgaIfj8Ud77gwfFEjDI4=
+			nDrvRWvDXrSqggVnSeDotErTYjs/oROmcFnAiVuY0k8=
 			</data>
 		</dict>
 		<key>Resources/Themes/HP Connectivity Kit.xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/CzFF+qOTTbdp+ss0mtgX1CzQFf56w5G/SkHvwoAxN4=
+			+MyT14/92hOG0/6dXBE56nVH5Q6nzW95HQ4SX1Uoy3s=
 			</data>
 		</dict>
 		<key>Resources/Untitled.prgm+</key>
@@ -8452,7 +8474,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7B58VSl+I7bmRP4lTeFCwjU7v/cjTrnc45g70ZXCJAc=
+			VJ/H3EYWsT/Kg4gKJpVgICIL7m99CUHObsbQxRb1+wE=
 			</data>
 		</dict>
 	</dict>

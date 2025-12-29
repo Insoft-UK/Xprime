@@ -1,6 +1,7 @@
 {
     "name": "Light",
     "type": "light",
+    "weight": "regular",
     "colors": {
         "editor.background": "#FFFFFF",
         "editor.foreground": "#222222",

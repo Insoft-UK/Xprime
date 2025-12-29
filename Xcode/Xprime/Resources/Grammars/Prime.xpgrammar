@@ -8,7 +8,7 @@
     },
     {
       "name": "Functions",
-      "match": "(?mi)[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]*(?= *\\()"
+      "match": "(?mi)[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]*(?= *\\(|;)"
     },
     {
       "name": "Symbols",
