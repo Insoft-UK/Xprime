@@ -25,6 +25,8 @@ import Cocoa
 final class LineNumberRulerView: NSRulerView {
 
     weak var textView: NSTextView?
+    
+    var pointSize: CGFloat = 12
 
     init(textView: NSTextView) {
         self.textView = textView
@@ -88,7 +90,7 @@ final class LineNumberRulerView: NSRulerView {
             paragraphStyle.alignment = .right
 
             let attrs: [NSAttributedString.Key: Any] = [
-                .font: NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .regular),
+                .font: NSFont.monospacedDigitSystemFont(ofSize: pointSize, weight: .regular),
                 .foregroundColor: NSColor.gray,
                 .backgroundColor: NSColor.clear,
                 .paragraphStyle: paragraphStyle

@@ -1,6 +1,7 @@
 {
     "name": "Dark",
     "type": "dark",
+    "weight": "regular",
     "colors": {
         "editor.background": "#1F1F24",
         "editor.foreground": "#FFFFFF",

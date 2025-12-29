@@ -62,12 +62,19 @@ extension MainViewController: NSWindowRestoration {
 }
 
 final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
+    // MARK: - Outlets
     @IBOutlet weak var toolbar: NSToolbar!
     @IBOutlet weak var icon: NSImageView!
     
     @IBOutlet weak var splitView: NSSplitView!
     @IBOutlet weak var fixedPane: NSView!
     
+    @IBOutlet var codeEditorTextView: CodeEditorTextView!
+    @IBOutlet var outputTextView: NSTextView!
+    @IBOutlet var statusTextLabel: NSTextField!
+    @IBOutlet var outputScrollView: NSScrollView!
+    
+    // MARK: - Class Private Properties
     private var currentURL: URL?
     private var parentURL: URL? {
         guard let url = currentURL else { return nil }
@@ -98,17 +105,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return url
     }
     
-    @IBOutlet var codeEditorTextView: CodeEditorTextView!
-    @IBOutlet var outputTextView: NSTextView!
-    @IBOutlet var statusTextLabel: NSTextField!
-    @IBOutlet var outputScrollView: NSScrollView!
-    
+
     func splitView(_ splitView: NSSplitView, shouldHideDividerAt dividerIndex: Int) -> Bool {
         // Optionally hide the divider when the output is collapsed
         return outputScrollView.isHidden
     }
-   
-    
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -256,36 +257,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     
-    // MARK: - Action Handlers
+    // MARK: - Theme & Grammar Action Handlers
     
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
-        guard let mainVC = NSApp.mainWindow?.contentViewController as? MainViewController else { return }
-        guard let mainMenu = NSApp.mainMenu else { return }
-        
-        guard let fileURL = sender.representedObject as? URL else { return }
-        mainVC.codeEditorTextView.loadTheme(named: sender.title)
-      
-        UserDefaults.standard.set(sender.title, forKey: "theme")
-        
-        for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Theme")!.submenu!.items ?? [] {
-            menuItem.state = .off
-        }
-        sender.state = .on
+        guard ThemeLoader.shared.isThemeLoaded(named: sender.title) == false else { return }
+        codeEditorTextView.loadTheme(named: sender.title)
     }
     
     @objc func handleGrammarSelection(_ sender: NSMenuItem) {
-        guard let mainVC = NSApp.mainWindow?.contentViewController as? MainViewController else { return }
-        guard let mainMenu = NSApp.mainMenu else { return }
-        
-        guard let fileURL = sender.representedObject as? URL else { return }
-//        mainVC.codeEditorTextView.loadGrammar(at: fileURL)
-        mainVC.codeEditorTextView.loadGrammar(named: sender.title)
-        UserDefaults.standard.set(sender.title, forKey: "grammar")
-        
-        for menuItem in mainMenu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")!.submenu!.items ?? [] {
-            menuItem.state = .off
-        }
-        sender.state = .on
+        guard GrammarLoader.shared.isGrammarLoaded(named: sender.title) == false else { return }
+        codeEditorTextView.loadGrammar(named: sender.title)
     }
     
     
@@ -310,113 +291,69 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    // MARK: - Action-handling methods
+    private func loadDocumentContents(from url: URL) -> String? {
+        return HPServices.loadHPPrgm(at: url)
+    }
+        
+    private func loadProject(at directoryURL: URL, named projectName: String) {
+        XprimeProjectServices.load(at: directoryURL, named: projectName)
+    }
     
-    private func openDocument(url: URL) {
-        guard let contents = HPServices.loadHPPrgm(at: url) else { return }
-        
-        UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
-        
-        currentURL = url
-        codeEditorTextView.string = contents
-        
-        refreshQuickOpenToolbar()
-        
-        guard let projectName = projectName else { return }
-        guard let parentURL = parentURL else { return }
-        let folderURL = parentURL.appendingPathComponent("\(projectName).hpappdir")
-        
-        let ext = url.pathExtension.lowercased()
-        
-        if ext == "prgm+" || ext == "ppl+" {
+    private func loadAppropriateGrammar(forType fileExtension: String) {
+        switch fileExtension.lowercased() {
+        case "prgm+", "ppl+":
             codeEditorTextView.loadGrammar(named: "Prime Plus")
-        }
-        
-        if ext == "prgm" || ext == "ppl" || ext == "hpprgm" || ext == "hpappprgm" {
+            
+        case "prgm", "ppl", "hpprgm", "hpappprgm":
             codeEditorTextView.loadGrammar(named: "Prime")
-        }
-        
-        if ext == "py" {
+            
+        case "py":
             codeEditorTextView.loadGrammar(named: "Python")
+            
+        default:
+            break
+        }
+    }
+    
+    private func updateDocumentIcon(from folderURL: URL, parentURL: URL) {
+        let fm = FileManager.default
+        let iconFileName = "icon.png"
+        
+        let urlsToCheck: [URL] = [
+            folderURL.appendingPathComponent(iconFileName),
+            parentURL.appendingPathComponent(iconFileName),
+            Bundle.main.url(
+                forResource: "icon",
+                withExtension: "png",
+                subdirectory: "Developer/Library/Xprime/Templates/Application Template"
+            )!
+        ]
+        
+        if let existingURL = urlsToCheck.first(where: { fm.fileExists(atPath: $0.path) }) {
+            icon.image = NSImage(contentsOf: existingURL)
         }
         
         updateDocumentIconButtonImage()
-        
-        let fm = FileManager.default
-        
-        if fm.fileExists(atPath: folderURL.appendingPathComponent("icon.png").path) {
-            icon.image = NSImage(contentsOf: folderURL.appendingPathComponent("icon.png"))
-            return
-        }
-        
-        if fm.fileExists(atPath: parentURL.appendingPathComponent("icon.png").path) {
-            icon.image = NSImage(contentsOf: parentURL.appendingPathComponent("icon.png"))
-            return
-        }
-        
-        icon.image = NSImage(contentsOf: Bundle.main.url(forResource: "icon", withExtension: "png", subdirectory:"Developer/Library/Xprime/Templates/Application Template")!)
-        
-        
     }
+        
+//    private func saveDocumentAs() {
+//        let panel = NSSavePanel()
+//        panel.allowedContentTypes = [
+//            UTType(filenameExtension: "prgm+")!,
+//            UTType(filenameExtension: "prgm")!,
+//            .pythonScript
+//        ]
+//        panel.nameFieldStringValue = "MyProgram"
+//        panel.title = ""
+//        
+//
+//        panel.begin { result in
+//            guard result == .OK, let url = panel.url else { return }
+//            self.saveDocument(to: url)
+//        }
+//    }
     
-    private func saveDocumentAs() {
-        let savePanel = NSSavePanel()
-        let extensions = ["prgm+"]
-        let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
-        
-        savePanel.allowedContentTypes = contentTypes
-        savePanel.nameFieldStringValue = "Untitled.prgm+"
-        
-        if let window = self.view.window {
-            let url = URL(fileURLWithPath: window.title)
-            savePanel.nameFieldStringValue = url.deletingPathExtension().appendingPathExtension("prgm+").lastPathComponent
-        }
-        
-        savePanel.begin { result in
-            guard result == .OK, let url = savePanel.url else { return }
-
-            do {
-                try HPServices.savePrgm(at: url, content: self.codeEditorTextView.string)
-                self.currentURL = url
-                self.documentIsModified = false
-                
-                if let projectName = self.projectName {
-                    XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
-                }
-                
-            } catch {
-                let alert = NSAlert()
-                alert.messageText = "Error"
-                alert.informativeText = "Failed to save file: \(error)"
-                alert.runModal()
-            }
-        }
-    }
     
-    private func saveDocument() {
-        guard let url = currentURL else {
-            saveDocumentAs()
-            return
-        }
-        
-        if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased()  == "hpappprgm" {
-            saveDocumentAs()
-            return
-        }
-        
-        do {
-            try HPServices.savePrgm(at: url, content: codeEditorTextView.string)
-            currentURL = url
-            if let projectName = self.projectName {
-                XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
-            }
-        } catch {
-            let alert = NSAlert()
-            alert.messageText = "Error"
-            alert.informativeText = "Failed to save file: \(error)"
-            alert.runModal()
-        }
-    }
     
     private func prepareForArchive() {
         guard
@@ -650,7 +587,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         comboButton.title = currentURL?.lastPathComponent ?? ""
     }
     
-    // MARK: - Interface Builder Action Handlers
+    // MARK: - File IO Action Handlers
     
     @IBAction func newProject(_ sender: Any) {
         let savePanel = NSSavePanel()
@@ -716,34 +653,134 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    @IBAction func openDocument(_ sender: Any) {
-        if documentIsModified {
-            saveDocument()
-        }
-        let openPanel = NSOpenPanel()
-        let extensions = ["py", "prgm", "prgm+", "hpprgm", "hpappprgm", "ppl", "ppl+"]
-        let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
+    // MARK: - Opening Document
+    
+    private func openDocument(url: URL) {
+        guard let contents = loadDocumentContents(from: url) else { return }
         
-        openPanel.allowedContentTypes = contentTypes
-        openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = false
+        UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
+        currentURL = url
+        codeEditorTextView.string = contents
         
-        openPanel.begin { result in
-            guard result == .OK, let url = openPanel.url else { return }
+        
+        
+        guard let parentURL = parentURL, let projectName = projectName else { return }
+        let folderURL = parentURL.appendingPathComponent("\(projectName).hpappdir")
+        
+        loadProject(at: parentURL, named: projectName)
+        loadAppropriateGrammar(forType: url.pathExtension)
+        updateDocumentIcon(from: folderURL, parentURL: parentURL)
+        refreshQuickOpenToolbar()
+    }
+    
+    private func proceedWithOpeningDocument() {
+        let panel = NSOpenPanel()
+        
+        panel.allowedContentTypes = [
+            UTType(filenameExtension: "prgm+")!,
+            UTType(filenameExtension: "prgm")!,
+            UTType(filenameExtension: "hpprgm")!,
+            UTType(filenameExtension: "hpappprgm")!,
+            UTType(filenameExtension: "ppl")!,
+            UTType(filenameExtension: "ppl+")!,
+            UTType.pythonScript,
+            UTType.cHeader,
+            UTType.text
+        ]
+        
+        panel.begin { result in
+            guard result == .OK, let url = panel.url else { return }
             self.openDocument(url: url)
-            if let projectName = self.projectName {
-                XprimeProjectServices.load(at: url.deletingLastPathComponent(), named: projectName)
+        }
+    }
+    
+    @IBAction func openDocument(_ sender: Any) {
+        if let url = currentURL, documentIsModified {
+            AlertPresenter.presentYesNo(
+                on: view.window,
+                title: "Save Changes",
+                message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
+                primaryActionTitle: "Save"
+            ) { confirmed in
+                if confirmed {
+                    self.saveDocument(to: url)
+                    if let projectName = self.projectName {
+                        XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
+                    }
+                   
+                    self.proceedWithOpeningDocument()
+                } else {
+                    return
+                }
             }
+        } else {
+            proceedWithOpeningDocument()
+        }
+    }
+    
+    // MARK: - Saving Document
+    
+    private func saveDocument(to url: URL) {
+        do {
+            try self.codeEditorTextView.string.save(to: url)
+        } catch {
+            return
+        }
+        self.currentURL = url
+        self.documentIsModified = false
+        
+        if let projectName = self.projectName {
+            XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
+        }
+    }
+    
+    
+    private func proceedWithSavingDocument() {
+        guard let url = currentURL else {
+            proceedWithSavingDocumentAs()
+            return
+        }
+        
+        if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased()  == "hpappprgm" {
+            proceedWithSavingDocumentAs()
+            return
+        }
+        
+        self.saveDocument(to: url)
+        currentURL = url
+        if let projectName = self.projectName {
+            XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
         }
     }
     
     @IBAction func saveDocument(_ sender: Any) {
-        saveDocument()
+        proceedWithSavingDocument()
+    }
+    
+    // MARK: - Saving Document As
+    
+    private func proceedWithSavingDocumentAs() {
+        let panel = NSSavePanel()
+        panel.allowedContentTypes = [
+            UTType(filenameExtension: "prgm+")!,
+            UTType(filenameExtension: "prgm")!,
+            .pythonScript
+        ]
+        panel.nameFieldStringValue = "MyProgram"
+        panel.title = ""
+        
+
+        panel.begin { result in
+            guard result == .OK, let url = panel.url else { return }
+            self.saveDocument(to: url)
+        }
     }
     
     @IBAction func saveDocumentAs(_ sender: Any) {
-        saveDocumentAs()
+        proceedWithSavingDocumentAs()
     }
+    
+    // MARK: - Export as HP Prime Program
     
     private func exportHPProgram(from sourceURL: URL) {
         let defaultName = sourceURL
@@ -771,37 +808,27 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             guard let url = currentURL else { return }
             exportHPProgram(from: url)
         }
-
-        // Document already exists
-        if currentURL != nil {
-
-            if documentIsModified {
-                AlertPresenter.presentYesNo(
-                    on: window,
-                    title: "Save Changes",
-                    message: "Do you want to save your changes before exporting as HPPRGM?",
-                    primaryActionTitle: "Save"
-                ) { confirmed in
-                    guard confirmed else { return }
-                    self.saveDocument()
-                    proceedWithExport()
+        
+        if let url = currentURL, documentIsModified {
+            AlertPresenter.presentYesNo(
+                on: window,
+                title: "Save Changes",
+                message: "Do you want to save your changes before exporting as HPPRGM?",
+                primaryActionTitle: "Save"
+            ) { confirmed in
+                guard confirmed else { return }
+                try? HPServices.savePrgm(at: url, content: self.codeEditorTextView.string)
+                if let projectName = self.projectName {
+                    XprimeProjectServices.save(to: url.deletingLastPathComponent(), named: projectName)
                 }
-            } else {
                 proceedWithExport()
             }
-
         } else {
-            // First-time save required
-            saveDocumentAs()
-
-            guard let url = currentURL,
-                  FileManager.default.fileExists(atPath: url.path) else {
-                return
-            }
-
-            exportHPProgram(from: url)
+            proceedWithExport()
         }
     }
+    
+    // MARK: - Export as HP Prime Source Code UTF16-le
     
     private func exportPRGM(from sourceURL: URL) {
         let defaultName = sourceURL
@@ -839,7 +866,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     primaryActionTitle: "Save"
                 ) { confirmed in
                     guard confirmed else { return }
-                    self.saveDocument()
+                    self.proceedWithSavingDocument()
                     proceedWithExport()
                 }
             } else {
@@ -848,7 +875,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
         } else {
             // First save required
-            saveDocumentAs()
+            proceedWithSavingDocumentAs()
 
             guard let url = currentURL,
                   FileManager.default.fileExists(atPath: url.path) else {
@@ -859,6 +886,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    // MARK: - Export as HP Prime Application Archive
     
     @IBAction func exportAsArchive(_ sender: Any) {
         guard let parentURL = parentURL, let projectName = projectName else { return }
@@ -891,6 +919,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    // MARK: -
+    
     @IBAction func revertDocumentToSaved(_ sender: Any) {
         if let contents = HPServices.loadHPPrgm(at: currentURL!) {
             codeEditorTextView.string = contents
@@ -898,15 +928,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             updateDocumentIconButtonImage()
         }
     }
+    
+    // MARK: - Project Actions
+    
     @IBAction func stop(_ sender: Any) {
         HPServices.terminateVirtualCalculator()
     }
 
     @IBAction func run(_ sender: Any) {
         if let _ = currentURL {
-            saveDocument()
+            proceedWithSavingDocument()
         } else {
-            saveDocumentAs()
+            proceedWithSavingDocumentAs()
         }
         
         guard let parentURL = parentURL, let projectName = projectName else {
@@ -929,9 +962,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func archive(_ sender: Any) {
         if let _ = currentURL {
-            saveDocument()
+            proceedWithSavingDocument()
         } else {
-            saveDocumentAs()
+            proceedWithSavingDocumentAs()
         }
         prepareForArchive()
         archiveProcess()
@@ -939,9 +972,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func buildForRunning(_ sender: Any) {
         if let _ = currentURL {
-            saveDocument()
+            proceedWithSavingDocument()
         } else {
-            saveDocumentAs()
+            proceedWithSavingDocumentAs()
         }
         
         guard let parentURL = parentURL, let projectName = projectName else {
@@ -964,9 +997,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func buildForArchiving(_ sender: Any) {
         if let _ = currentURL {
-            saveDocument()
+            proceedWithSavingDocument()
         } else {
-            saveDocumentAs()
+            proceedWithSavingDocumentAs()
         }
         prepareForArchive()
     }
@@ -1020,9 +1053,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func convert(_ sender: Any) {
         if let _ = currentURL {
-            saveDocument()
+            proceedWithSavingDocument()
         } else {
-            saveDocumentAs()
+            proceedWithSavingDocumentAs()
         }
         guard let sourceURL = currentURL else {
             return
@@ -1039,9 +1072,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func build(_ sender: Any) {
         if let _ = currentURL {
-            saveDocument()
+            proceedWithSavingDocument()
         } else {
-            saveDocumentAs()
+            proceedWithSavingDocumentAs()
         }
         performBuild()
     }
@@ -1181,9 +1214,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func reformatCode(_ sender: Any) {
         if let _ = currentURL {
-            saveDocument()
+            proceedWithSavingDocument()
         } else {
-            saveDocumentAs()
+            proceedWithSavingDocumentAs()
         }
         
         guard let currentURL = currentURL else {
@@ -1315,6 +1348,22 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 return true
             }
             return false
+            
+        case #selector(handleThemeSelection(_:)):
+            if ThemeLoader.shared.isThemeLoaded(named: menuItem.title) {
+                menuItem.state = .on
+            } else {
+                menuItem.state = .off
+            }
+            return true
+            
+        case #selector(handleGrammarSelection(_:)):
+            if GrammarLoader.shared.isGrammarLoaded(named: menuItem.title) {
+                menuItem.state = .on
+            } else {
+                menuItem.state = .off
+            }
+            return true
             
         default:
             break

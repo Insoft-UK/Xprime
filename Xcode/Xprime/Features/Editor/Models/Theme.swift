@@ -25,6 +25,7 @@ import Cocoa
 struct Theme: Codable {
     let name: String
     let type: String
+    let weight: String
     let colors: [String: String]
     let tokenColors: [TokenColor]
 }

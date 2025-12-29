@@ -1,67 +1,74 @@
 {
-    "name": "HP Prime",
+    "name": "DOS",
     "type": "light",
     "weight": "bold",
     "colors": {
-        "editor.background": "#FFFFFF",
-        "editor.foreground": "#222222",
-        "editor.cursor": "#797979",
-        "editor.selectionBackground": "#E4F9FF"
+        "editor.background": "#0000a0",
+        "editor.foreground": "#ffffff",
+        "editor.cursor": "#ff0000",
+        "editor.selectionBackground": "#008080"
     },
     "tokenColors": [
         {
             "scope": ["Preprocessor Statements"],
             "settings": {
-                "foreground": "#008800"
+                "foreground": "#00ff00"
             }
         },
         {
             "scope": ["Comments"],
             "settings": {
-                "foreground": "#008800"
+                "foreground": "#008080"
             }
         },
         {
             "scope": ["Keywords"],
             "settings": {
-                "foreground": "#000088"
+                "foreground": "#ffffff"
             }
         },
         {
             "scope": ["Brackets"],
             "settings": {
-                "foreground": "#666666"
+                "foreground": "#ffff00"
             }
         },
         {
             "scope": ["Symbols"],
             "settings": {
-                "foreground": "#0044cc"
+                "foreground": "#ffee00"
             }
         },
         {
             "scope": ["Operators"],
             "settings": {
-                "foreground": "#000000"
+                "foreground": "#999999"
+            }
+        },        {
+            "scope": ["Numbers"],
+            "settings": {
+                "foreground": "#c0c0c0"
             }
         },
         {
             "scope": ["Strings"],
             "settings": {
-                "foreground": "#880000"
+                "foreground": "#a00000"
             }
         },
         {
-            "scope": ["Numbers"],
+            "scope": ["Backquotes"],
             "settings": {
-                "foreground": "#0044cc"
+                "foreground": "#ffee00"
             }
         },
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#0044cc"
+                "foreground": "#00ff00"
             }
         }
     ]
 }
+
+

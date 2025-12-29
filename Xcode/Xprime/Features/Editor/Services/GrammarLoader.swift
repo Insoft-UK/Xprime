@@ -26,6 +26,10 @@ final class GrammarLoader {
 
     static let shared = GrammarLoader()
     private init() {}
+    
+    func isGrammarLoaded(named name: String) -> Bool {
+        return name == UserDefaults.standard.string(forKey: "preferredGrammar")
+    }
 
     func loadGrammar(named name: String) -> Grammar? {
         guard let url = Bundle.main.url(
@@ -42,6 +46,8 @@ final class GrammarLoader {
             return nil
         }
 
+        UserDefaults.standard.set(name, forKey: "preferredGrammar")
+        
         return try? JSONDecoder().decode(Grammar.self, from: data)
     }
 

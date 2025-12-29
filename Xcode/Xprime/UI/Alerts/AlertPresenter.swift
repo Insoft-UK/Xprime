@@ -29,6 +29,7 @@ enum AlertPresenter {
         message: String,
         primaryActionTitle: String = "OK",
         secondaryActionTitle: String? = nil,
+        tertiaryActionTitle: String? = nil,
         style: NSAlert.Style = .warning,
         completion: @escaping (Bool) -> Void
     ) {
@@ -39,6 +40,9 @@ enum AlertPresenter {
         
         alert.addButton(withTitle: primaryActionTitle)
         alert.addButton(withTitle: secondaryActionTitle ?? "Cancel")
+        if let tertiaryActionTitle = tertiaryActionTitle {
+            alert.addButton(withTitle: tertiaryActionTitle)
+        }
         
         guard let window = window else {
             completion(false)
@@ -50,11 +54,11 @@ enum AlertPresenter {
         }
     }
     
-    static func showInfo(on window: NSWindow?, title: String, message: String) {
+    static func showInfo(on window: NSWindow?, title: String, message: String, style: NSAlert.Style = .informational) {
         let alert = NSAlert()
         alert.messageText = title
         alert.informativeText = message
-        alert.alertStyle = .informational
+        alert.alertStyle = style
         alert.addButton(withTitle: "OK")  // Single button
 
         guard let window = window else {

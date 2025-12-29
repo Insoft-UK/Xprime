@@ -69,4 +69,21 @@ extension String {
         
         return result
     }
+    
+    func save(to url: URL) throws {
+        if url.pathExtension.lowercased() != "prgm" {
+            try write(to: url, atomically: true, encoding: .utf8)
+            return
+        }
+        
+        // UTF-16 LE with BOM
+        guard let body = data(using: .utf16LittleEndian) else {
+            throw NSError(domain: "Error", code: 1, userInfo: [NSLocalizedDescriptionKey: "Unable to encode string as UTF-16LE"])
+        }
+        
+        var data = Data([0xFF, 0xFE]) // BOM
+        data.append(body)
+        try data.write(to: url, options: .atomic)
+    }
+    
 }

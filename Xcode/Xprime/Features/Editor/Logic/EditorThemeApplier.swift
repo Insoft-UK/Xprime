@@ -54,6 +54,35 @@ final class EditorThemeApplier {
 
         editor.insertionPointColor =
             NSColor(hex: theme.colors["editor.cursor"]!)!
+        
+        
+        
+        switch theme.weight {
+        case "ultraLight":
+            editor.weight = .ultraLight
+        case "thin":
+            editor.weight = .thin
+        case "light":
+            editor.weight = .light
+        case "regular":
+            editor.weight = .regular
+        case "medium":
+            editor.weight = .medium
+        case "semibold":
+            editor.weight = .semibold
+        case "bold":
+            editor.weight = .bold
+        case "heavy":
+            editor.weight = .heavy
+        case "black":
+            editor.weight = .black
+        default:
+            editor.weight = .regular
+        }
+        
+        
+        editor.font = .monospacedSystemFont(ofSize: 12 , weight: editor.weight)
+        
 
         editor.colors["Keywords"] = color(for: "Keywords")
         editor.colors["Symbols"] = color(for: "Symbols")
@@ -63,8 +92,7 @@ final class EditorThemeApplier {
         editor.colors["Strings"] = color(for: "Strings")
         editor.colors["Comments"] = color(for: "Comments")
         editor.colors["Backquotes"] = color(for: "Backquotes")
-        editor.colors["Preprocessor Statements"] =
-            color(for: "Preprocessor Statements")
+        editor.colors["Preprocessor Statements"] = color(for: "Preprocessor Statements")
         editor.colors["Functions"] = color(for: "Functions")
     }
 }

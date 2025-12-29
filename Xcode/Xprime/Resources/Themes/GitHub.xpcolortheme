@@ -1,6 +1,7 @@
 {
     "name": "GitHub",
     "type": "light",
+    "weight": "regular",
     "colors": {
         "editor.background": "#FFFFFF",
         "editor.foreground": "#202328",

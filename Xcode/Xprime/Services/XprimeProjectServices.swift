@@ -41,9 +41,9 @@ enum XprimeProjectServices {
         }
     }
     
-    static func load(at dirURL: URL, named name: String) {
+    static func load(at directoryURL: URL, named name: String) {
         var project: Project?
-        let projectURL = dirURL.appendingPathComponent(name + ".xprimeproj")
+        let projectURL = directoryURL.appendingPathComponent(name + ".xprimeproj")
         
         if let jsonString = loadJSONString(projectURL),
            let jsonData = jsonString.data(using: .utf8) {

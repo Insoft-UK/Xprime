@@ -1,6 +1,7 @@
 {
     "name": "Catalog",
     "type": "dark",
+    "weight": "regular",
     "colors": {
         "editor.background": "#000000",
         "editor.foreground": "#FFFFFF",

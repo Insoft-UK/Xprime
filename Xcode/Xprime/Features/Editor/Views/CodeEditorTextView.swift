@@ -45,23 +45,24 @@ final class CodeEditorTextView: NSTextView {
         "Preprocessor Statements": .black,
         "Functions": .black
     ]
+    var weight: NSFont.Weight = .medium
     var editorForegroundColor = NSColor(.white)
     
-    lazy var baseAttributes: [NSAttributedString.Key: Any] = {
-        let font = NSFont.monospacedSystemFont(ofSize: 12, weight: .medium)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 0
-        paragraphStyle.paragraphSpacing = 0
-        paragraphStyle.alignment = .left
-        
-        return [
-            .font: font,
-            .foregroundColor: NSColor.textColor,
-            .kern: 0,
-            .ligature: 0,
-            .paragraphStyle: paragraphStyle
-        ]
-    }()
+//    lazy var baseAttributes: [NSAttributedString.Key: Any] = {
+//        let font = NSFont.monospacedSystemFont(ofSize: 12, weight: weight)
+//        let paragraphStyle = NSMutableParagraphStyle()
+//        paragraphStyle.lineSpacing = 0
+//        paragraphStyle.paragraphSpacing = 0
+//        paragraphStyle.alignment = .left
+//        
+//        return [
+//            .font: font,
+//            .foregroundColor: NSColor.textColor,
+//            .kern: 0,
+//            .ligature: 0,
+//            .paragraphStyle: paragraphStyle
+//        ]
+//    }()
     
     private let syntaxHighlighter = SyntaxHighlighter()
     
@@ -84,7 +85,7 @@ final class CodeEditorTextView: NSTextView {
     
     // MARK: - Setup
     private func setupEditor() {
-        font = NSFont.monospacedSystemFont(ofSize: 13, weight: .regular)
+        font = NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .regular)
         isAutomaticQuoteSubstitutionEnabled = false
         isAutomaticDataDetectionEnabled = false
         isAutomaticDashSubstitutionEnabled = false
@@ -138,9 +139,11 @@ final class CodeEditorTextView: NSTextView {
     }
     
     func loadGrammar(named name: String) {
+        guard GrammarLoader.shared.isGrammarLoaded(named: name) == false else {
+            return
+        }
+        
         if let grammar = GrammarLoader.shared.loadGrammar(named: name) {
-            UserDefaults.standard.set(name, forKey: "preferredGrammar")
-            
             self.grammar = grammar
             applySyntaxHighlighting()
         }
@@ -150,13 +153,30 @@ final class CodeEditorTextView: NSTextView {
         self.grammar = GrammarLoader.shared.loadPreferredGrammar()
     }
     
+    private func baseAttributes() -> [NSAttributedString.Key: Any] {
+        let font = NSFont.monospacedSystemFont(ofSize: 12, weight: weight)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 0
+        paragraphStyle.paragraphSpacing = 0
+        paragraphStyle.alignment = .left
+        
+        return [
+            .font: font,
+            .foregroundColor: NSColor.textColor,
+            .kern: 0,
+            .ligature: 0,
+            .paragraphStyle: paragraphStyle
+        ]
+    }
+    
     private func applySyntaxHighlighting() {
         guard let grammar = grammar else { return }
-
+        guard let _ = theme else { return }
+        
         syntaxHighlighter.highlight(
             textView: self,
             grammar: grammar,
-            baseAttributes: baseAttributes,
+            baseAttributes: baseAttributes(),
             colors: colors,
             defaultColor: editorForegroundColor
         )
@@ -315,37 +335,8 @@ final class CodeEditorTextView: NSTextView {
         }
     }
     
-    // MARK: Syntax Highlighting
     
-//    private func applySyntaxHighlighting() {
-//        guard let textStorage = textStorage else { return }
-//        guard let grammar = grammar else { return }
-//        
-//        let text = string as NSString
-//        let fullRange = NSRange(location: 0, length: text.length)
-//        
-//        // Reset all text color first
-//        textStorage.beginEditing()
-//        textStorage.setAttributes(baseAttributes, range: fullRange)
-//        textStorage.foregroundColor = editorForegroundColor
-//        
-//        for pattern in grammar.patterns {
-//            if pattern.match.isEmpty {
-//                continue
-//            }
-//            let color = colors[pattern.name]!
-//            let regex = try! NSRegularExpression(pattern: pattern.match)
-//            regex.enumerateMatches(in: text as String, range: fullRange) { match, _, _ in
-//                if let match = match {
-//                    textStorage.addAttribute(.foregroundColor, value: color, range: match.range)
-//                }
-//            }
-//        }
-//        
-//        textStorage.endEditing()
-//    }
-    
-    //MARK: HELP
+    // MARK: - HELP
     override func mouseDown(with event: NSEvent) {
         if event.modifierFlags.contains(.option) {
             handleOptionClick(event)
@@ -442,7 +433,7 @@ final class CodeEditorTextView: NSTextView {
 }
 
 // Small helper to get a word range (you can customize)
-extension NSString {
+fileprivate extension NSString {
     func rangeOfWord(at index: Int) -> NSRange {
         _ = NSRange(location: 0, length: length)
         guard index >= 0 && index < length else { return NSRange(location: NSNotFound, length: 0) }

@@ -25,8 +25,11 @@ import Cocoa
 final class ThemeLoader {
     
     static let shared = ThemeLoader()
-
     private init() {}
+    
+    func isThemeLoaded(named name: String) -> Bool {
+        return name == UserDefaults.standard.string(forKey: "preferredTheme")
+    }
 
     func loadTheme(named name: String) -> Theme? {
         let fileManager = FileManager.default
@@ -45,6 +48,8 @@ final class ThemeLoader {
         else {
             return nil
         }
+        
+        UserDefaults.standard.set(name, forKey: "preferredTheme")
 
         return try? JSONDecoder().decode(Theme.self, from: data)
     }

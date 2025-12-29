@@ -1,67 +1,73 @@
 {
-    "name": "HP Prime",
-    "type": "light",
-    "weight": "bold",
+    "name": "ChatGPT",
+    "type": "dark",
+    "weight": "regular",
     "colors": {
-        "editor.background": "#FFFFFF",
-        "editor.foreground": "#222222",
-        "editor.cursor": "#797979",
-        "editor.selectionBackground": "#E4F9FF"
+        "editor.background": "#191919",
+        "editor.foreground": "#aab2bf",
+        "editor.cursor": "#aab2bf",
+        "editor.selectionBackground": "#5E5E5E"
     },
     "tokenColors": [
         {
             "scope": ["Preprocessor Statements"],
             "settings": {
-                "foreground": "#008800"
+                "foreground": "#68cf67"
             }
         },
         {
             "scope": ["Comments"],
             "settings": {
-                "foreground": "#008800"
+                "foreground": "#4e545e"
             }
         },
         {
             "scope": ["Keywords"],
             "settings": {
-                "foreground": "#000088"
+                "foreground": "#c678dd"
             }
         },
         {
             "scope": ["Brackets"],
             "settings": {
-                "foreground": "#666666"
+                "foreground": "#aab2bf"
             }
         },
         {
             "scope": ["Symbols"],
             "settings": {
-                "foreground": "#0044cc"
+                "foreground": "#aab2bf"
             }
         },
         {
             "scope": ["Operators"],
             "settings": {
-                "foreground": "#000000"
+                "foreground": "#aab2bf"
+            }
+        },        {
+            "scope": ["Numbers"],
+            "settings": {
+                "foreground": "#f0af73"
             }
         },
         {
             "scope": ["Strings"],
             "settings": {
-                "foreground": "#880000"
+                "foreground": "#afe18a"
             }
         },
         {
-            "scope": ["Numbers"],
+            "scope": ["Backquotes"],
             "settings": {
-                "foreground": "#0044cc"
+                "foreground": "#afe18a"
             }
         },
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#0044cc"
+                "foreground": "#f0af73"
             }
         }
     ]
 }
+
