@@ -1,0 +1,7 @@
+Syntax:
+midpoint(Segment) or midpoint(Point1, Point2)
+
+Returns the midpoint of a segment. The argument can be either the name of a segment or two points that define a segment. In the latter case, the segment need not actually be drawn.
+
+Example:
+midpoint(0,6+6i) returns point(3,3)

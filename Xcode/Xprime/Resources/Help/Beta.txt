@@ -1,0 +1,7 @@
+Syntax:
+Beta(Expr,Expr)
+
+Returns Gamma(x)*Gamma(y)/Gamma(x+y).
+
+Example:
+Beta(3,2) returns 1/12

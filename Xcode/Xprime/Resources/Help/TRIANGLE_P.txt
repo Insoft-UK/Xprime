@@ -1,0 +1,21 @@
+Syntax:
+TRIANGLE_P([G], x1, y1, x2, y2, x3, y3, c1, [c2, c3], [Alpha], ["ZString", z1, z2, z3]) or TRIANGLE_P([G], {x1, y1, [c1], [z1]}, {x2, y2, [c2], [z2]},{x3, y3, [c3], [z3]}, ["ZString"]) or TRIANGLE_P([G], [[x/y coordinate matrix]], [[color matrix]], {[[z matrix]], [zcode], [[[projection matrix]]], [zstring]) or TRIANGLE_P([G])
+
+Draws a triangle between specified pixel coordinates in the graphic using the specified color and transparency (0 ≤ Alpha ≤ 255). If 3 colors are specified, blends the colors in between the vertexes.
+
+The next form of TRIANGLE allows display of multiple triangles at a time.
+This is mostly used if you have a set of vertices and want to display them all at once.
+
+The first 2 matrices indicate the x/y coordinates and colors of each points. TRIANGLE_P will draw 1 quadrilateral for each set of 4 adjacent vertices and blends the colors associated with the 4 points.
+If a z and projection matrix are provided, for each point, this matrix is multiplied by the [x,y,z,1] vector to create the display x,y coordinates.
+If zcode is a list that contains 3 real numbers { ex, ey, ez } then x,y are further modified by doing x=ez/z*x-ex and y=ez/z*y-ey creating a perspective projection.
+If zstring is provided, z clipping will happen using the z value (see below).
+If zcode="N" or is a list that starts with "N", then each z is normalized to be between 0 and 255.
+
+About ZString
+TRIANGLE_P([G]) returns a string adapted for z clipping.
+
+To use Z clipping, call TRIANGLE_P to create a Z clipping string (initialized at 255 for each pixels). You can then call TRIANGLE_P with appropriate z (0-255) values for each of the triangle vertexes and TRIANGLE_P will not draw pixels further than the already drawn pixels. ZString is automatically updated as appropriate.
+
+Example:
+TRIANGLE_P(0,20,150,50,100,100,#FFh,#FF00h,#FF0000h,128)

@@ -1,0 +1,7 @@
+Syntax:
+power_regression(Lst|Mtrx(A),[Lst])
+
+Returns the coefficients (m,b) of y=b*x^m: it is the best monomial that approximates the points where the coordinates are the rows of A (or the 2 lists).
+
+Example:
+power_regression([[1.0,1.0],[2.0,4.0],[3.0,9.0],[4.0,16.0]]) returns 2.0,1.0

@@ -1,0 +1,46 @@
+{
+  "name": "PPL",
+  "scopeName": "source.swift",
+  "patterns": [
+    {
+      "name": "Functions",
+      "match": "(?mi)[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]*(?= *\\(|;)"
+    },
+    {
+      "name": "Keywords",
+      "match": "(?mi)\\b(begin|end|return|kill|if|then|else|xor|or|and|not|case|default|iferr|ifte|for|from|step|downto|to|do|while|repeat|until|break|continue|export|const|local|key)\\b"
+    },
+    {
+      "name": "Symbols",
+      "match": "[\\u0080-\\uFFFF]+"
+    },
+    {
+      "name": "Operators",
+      "match": "[▶:=+\\-*/<>≠≤≥]+"
+    },
+    {
+      "name": "Brackets",
+      "match": "[{}()\\[\\]]+"
+    },
+    {
+      "name": "Numbers",
+      "match": "(?:#(?:(?:[0-1]+(?::-?\\d+)?b)|(?:[0-7]+(?::-?\\d+)?o)|(?:[0-9A-F]+(?::-?\\d+)?h)|(?:[0-9]+(?::-?\\d+)?d?)|))|(?:(?<![a-zA-Z\\u0080-\\uFFFF])-?\\d+(?:\\.\\d+)?º?)"
+    },
+    {
+      "name": "Strings",
+      "match": "\"([^\"\\\\]|\\\\.)*\""
+    },
+    {
+        "name": "Backquotes",
+        "match": "`.*?`"
+    },
+    {
+        "name": "Preprocessor Statements",
+        "match": "(?m)^\\s*#[a-z]{2}.+"
+    },
+    {
+      "name": "Comments",
+      "match": "//.*"
+    }
+  ]
+}

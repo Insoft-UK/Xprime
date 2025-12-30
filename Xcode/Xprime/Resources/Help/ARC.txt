@@ -1,0 +1,4 @@
+Syntax:
+ARC(G, x, y, r, [[∠1, ∠2],[color]])
+
+Draws a circle on GROB G, centered at (x, y), with radius r. If ∠1 and ∠2 are specified, draws an arc from ∠1 to ∠2 using the current angle mode.

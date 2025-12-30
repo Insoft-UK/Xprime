@@ -1,0 +1,4 @@
+Syntax:
+is_coplanar(Point1, Point2, Point3, Point4)
+
+Tests if 4 points are in the same plane. Returns 1 if true or 0 if false.

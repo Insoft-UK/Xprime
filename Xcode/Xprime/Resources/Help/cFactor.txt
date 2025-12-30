@@ -1,0 +1,7 @@
+Syntax:
+cFactor(Expr)
+
+Factorisation of the expression in C (on the Gauss integers if there are more than 2 variables).
+
+Example:
+cFactor(x^2*y+y) returns (x+i)*(x-i)*y

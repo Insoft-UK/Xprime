@@ -1,0 +1,7 @@
+Syntax:
+ACOT(value)
+
+Arc cotangent. The function derived from the inverse of the Cotangent function.
+
+Example:
+ACOT(1) returns 45 in degree mode

@@ -1,0 +1,10 @@
+Syntax:
+MAKEMAT(expression, n, [m])
+
+Make Matrix. Creates a matrix of dimension n × m, using expression to calculate each element. If expression contains the variables I and J, then the calculation for each element substitutes the current row number for I and the current column number for J. With two arguments, this creates a vector of size n.
+
+Example:
+MAKEMAT(0,3,3) returns [[0,0,0],[0,0,0],[0,0,0]]
+MAKEMAT(√2,2,3) returns [[√2,√2,√2],[√2,√2,√2]]
+MAKEMAT(I+J–1,2,3) returns [[1,2,3],[2,3,4]] 
+MAKEMAT(√2,2) returns [√2,√2]

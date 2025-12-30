@@ -6,4 +6,3 @@ build
 make
 *.pkg
 ignore
-Xcode

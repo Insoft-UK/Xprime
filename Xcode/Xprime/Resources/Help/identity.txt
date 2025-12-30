@@ -1,0 +1,7 @@
+Syntax:
+identity(Intg(n))
+
+Returns the identity matrix of specified dimension n.
+
+Example:
+identity(3) returns [[1,0,0],[0,1,0],[0,0,1]]

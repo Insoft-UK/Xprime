@@ -1,0 +1,7 @@
+Syntax:
+slope(Line||Pnt||Cplx,[Pnt||Cplx])
+
+Returns the slope of the line defined in the argument
+
+Example:
+slope(line(1,2i)) returns -2

@@ -1,0 +1,7 @@
+Syntax:
+stddev(Lst||Mtrx,[Lst])
+
+Returns the standard deviation of the elements in a list or of the list of standard deviations
+
+Example:
+stddev([1,2,3]) returns (√6)/3

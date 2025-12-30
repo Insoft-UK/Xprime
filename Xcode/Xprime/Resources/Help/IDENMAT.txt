@@ -1,0 +1,7 @@
+Syntax:
+IDENMAT(n)
+
+Identity matrix. Creates a square matrix of dimension n x n whose diagonal elements are 1 and off-diagonal elements are zero.
+
+Example:
+IDENMAT(2) returns [[1,0],[0,1]]

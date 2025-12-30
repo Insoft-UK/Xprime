@@ -1,0 +1,7 @@
+Syntax:
+CROSS(vector1, vector2)
+
+Cross Product. Finds the cross product of vector1 with vector2.
+
+Example:
+CROSS([1,2],[3,4]) returns [0, 0, -2]

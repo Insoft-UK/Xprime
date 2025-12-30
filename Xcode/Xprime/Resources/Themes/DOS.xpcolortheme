@@ -1,0 +1,80 @@
+{
+    "name": "DOS",
+    "type": "light",
+    "weight": "bold",
+    "colors": {
+        "editor.background": "#0000a0",
+        "editor.foreground": "#ffffff",
+        "editor.cursor": "#ff0000",
+        "editor.selectionBackground": "#008080"
+    },
+    "tokenColors": [
+        {
+            "scope": ["Preprocessor Statements"],
+            "settings": {
+                "foreground": "#00ff00"
+            }
+        },
+        {
+            "scope": ["Comments"],
+            "settings": {
+                "foreground": "#008080"
+            }
+        },
+        {
+            "scope": ["Keywords"],
+            "settings": {
+                "foreground": "#ffffff"
+            }
+        },
+        {
+            "scope": ["Brackets"],
+            "settings": {
+                "foreground": "#ffff00"
+            }
+        },
+        {
+            "scope": ["Symbols"],
+            "settings": {
+                "foreground": "#ffee00"
+            }
+        },
+        {
+            "scope": ["Operators"],
+            "settings": {
+                "foreground": "#999999"
+            }
+        },        {
+            "scope": ["Numbers"],
+            "settings": {
+                "foreground": "#c0c0c0"
+            }
+        },
+        {
+            "scope": ["Strings"],
+            "settings": {
+                "foreground": "#a00000"
+            }
+        },
+        {
+            "scope": ["Backquotes"],
+            "settings": {
+                "foreground": "#ffee00"
+            }
+        },
+        {
+            "scope": ["Functions"],
+            "settings": {
+                "foreground": "#00ff00"
+            }
+        },
+        {
+            "scope": ["Namespace"],
+            "settings": {
+                "foreground": "#00ff00"
+            }
+        }
+    ]
+}
+
+

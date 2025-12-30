@@ -1,0 +1,7 @@
+Syntax:
+quadrilateral(Point1, Point2, Point3, Point4)
+
+Draws a quadrilateral from a set of four points.
+
+Example:
+quadrilateral(GA, GB, GC, GD) draws quadrilateral ABCD.

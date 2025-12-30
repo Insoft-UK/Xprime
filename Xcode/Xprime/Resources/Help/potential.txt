@@ -1,0 +1,7 @@
+Syntax:
+potential(Vect(V),VectVar)
+
+Returns U such as derive(U,Vector_of_variable)=V
+
+Example:
+potential([2*x*y+3,x^2-4*z,-4*y],[x,y,z]) returns 2*x^2*y/2+3*x-4*y*z

@@ -1,0 +1,7 @@
+Syntax:
+trigsin(Expr)
+
+Simplifies the argument Expr using the formulas sin(x)^2+cos(x)^2=1 and tan(x)=sin(x)/cos(x) (privileging sine)
+
+Example:
+trigsin(cos(x)^4+sin(x)^2) returns sin(x)^4-sin(x)^2+1

@@ -1,0 +1,7 @@
+Syntax:
+fMin(Expr,[Var])
+
+Returns the abscissa of the minimum of the expression.
+
+Example:
+fMin(x^2-2*x+1,x) returns 1

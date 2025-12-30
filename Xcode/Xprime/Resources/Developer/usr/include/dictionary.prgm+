@@ -1,0 +1,48 @@
+/// The MIT License (MIT)
+///
+/// Copyright (c) 2023-2025 Insoft.
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in all
+/// copies or substantial portions of the Software.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+/// SOFTWARE.
+
+#ifndef DICTIONARY_PPLIB
+#define DICTIONARY_PPLIB
+
+#define Event key, type[1], x[2], y[3], dx[4], dy[5]
+#define TouchEvent fngr1.x[1,1], fngr1.y[1,2], fngr1.originalX[1,3], fngr1.originalY[1,4], fngr1.mouseType[1,5], fngr1[1], fngr2.x[2,1], fngr2.y[2,2], fngr2.originalX[2,3], fngr2.originalY[2,4], fngr2.mouseType[2,5], fngr1[2]
+#define Point x[1], y[2]
+#define Size width[1], height[2]
+#define Rect x[1], y[2], width[3], height[4]
+
+dict color[1], shade[2] @theme;
+
+dict Dark := 0, Light := 1 @ThemeMode;
+dict New := 0, Complete := 1, Drag := 2, Stretch := 3, Rotate := 4, LongClick := 5 @MouseType;
+dict Real := 0, Integer := 1, String := 2, Complex := 3, Matrix := 4, Error := 5, List := 6, Function := 8, Unit := 9, Cas := 14 @ObjectType;
+dict MouseDown := 0, MouseMove := 1, MouseUp := 2, MouseClick := 3, MouseStretch := 5, MouseRotate := 6, MouseLongClick := 7 @EventType;
+dict Apps := 0, Symb := 1, Up := 2, Help := 3, Esc := 4, Home := 5, Plot := 6, Left := 7, Right := 8, View := 9, Cas := 10, Num := 11, Down := 12, Menu := 13, Vars := 14, Mem := 15, Unit := 16, Xttn := 17, Abc := 18, Bksp := 19, Power := 20, Sin := 21, Cos := 22, Tan := 23, Ln := 24, Log := 25, Sq := 26, Neg := 27, N := 28, Comma := 29, Enter := 30, Eex := 31, 7 := 32, 8 := 33, 9 := 34, Div := 35, Alpha := 36, 4 := 37, 5 := 38, 6 := 39, Mult := 40, Shift := 41, 1 := 42, 2 := 43, 3 := 44, Minus := 45, On := 46, 0 := 47, Dot := 48, Space := 49, Plus := 50 @KeyCode;
+dict System := 0, Bin := 1, Oct := 2, Dec := 3, Hex := 4 @Base;
+dict Symbolic := 0, Plot := 1, Numeric := 2, SymbolicSetup := 3, PlotSetup := 4, NumericSetup := 5, AppInfo := 6, ViewsMenu := 7, SplitScrPlotDetail := 8, SplitScrPlotTable := 9, AutoScale := 10, Decimal := 11, Integer := 12, Trig := 13, HomeScr := -1, HomeModes := -2, MemoryManager := -3, AppLibrary := -4, MatrixCatalog := -5, ListCatalog := -6, ProgramCatalog := -7, NotesCatalog := -8 @StartView;
+dict Black := 0, DarkGray := 1, LightGray := 2, White := 3 @SystemColor;
+dict Current := 0, Size10 := 1, Size12 := 2, Small := 2, Size14 := 3, Medium := 3, Size16 := 4, Large := 4, Size18 := 5, Size20 := 6, Size22 := 7 @Font;
+dict White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, Magenta := #FF00FF:32h, Cardinal := #D03020:32h, Coral := #F08070:32h, Pink := #FFC0C0:32h, Indigo := #400080:32h, Purple := #800080:32h, Violet := #8000FF:32h, Lavender := #C0C0FF:32h, NavyBlue := #000080:32h, Blue := #0000FF:32h, Denim := #1060C0:32h, Lochmara := #0070C0:32h, SkyBlue := #80D0FF:32h, PacificBlue := #00A0C0:32h, Teal := #008080:32h, Cyan := #00FFFF:32h, Aqua := #00FFFF:32h, FirGreen := #003000:32h, OfficeGreen := #008000:32h, Shamrock := #00A060:32h, Apple := #50B040:32h, LimeGreen := #00FF00:32h, Chocolate := #400808:32h, Brown := #905000:32h, Orange := #FF8000:32h, Olive := #808000:32h, Tangerine := #FFD000:32h, Yellow := #FFFF00:32h, Khaki := #F0E090:32h, Tan := #D0B090:32h, Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h @Color;
+
+regex @`\bK<([a-zA-Z]\w*)>` KeyCode.$1
+regex @`\bT<(Real|Integer|String|Complex|Matrix|Error|List|Function|Unit|Cas)>` ObjectType.$1
+
+#endif

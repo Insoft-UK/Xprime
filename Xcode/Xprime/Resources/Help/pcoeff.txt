@@ -1,0 +1,7 @@
+Syntax:
+pcoeff(Vect)
+
+Returns the polynomial coefficients having the roots specified in the vector Vect.
+
+Example:
+pcoeff([1,0,0,0,1]) returns poly1[1,-2,1,0,0,0]

@@ -1,0 +1,7 @@
+Syntax:
+tcollect(Expr)
+
+Collects trigonometric expressions.
+
+Example:
+tcollect(sin(x)+cos(x)) returns √2*cos(x-1/4*π)

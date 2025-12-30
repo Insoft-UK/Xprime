@@ -1,0 +1,79 @@
+{
+    "name": "ChatGPT",
+    "type": "dark",
+    "weight": "regular",
+    "colors": {
+        "editor.background": "#191919",
+        "editor.foreground": "#aab2bf",
+        "editor.cursor": "#aab2bf",
+        "editor.selectionBackground": "#5E5E5E"
+    },
+    "tokenColors": [
+        {
+            "scope": ["Preprocessor Statements"],
+            "settings": {
+                "foreground": "#68cf67"
+            }
+        },
+        {
+            "scope": ["Comments"],
+            "settings": {
+                "foreground": "#4e545e"
+            }
+        },
+        {
+            "scope": ["Keywords"],
+            "settings": {
+                "foreground": "#c678dd"
+            }
+        },
+        {
+            "scope": ["Brackets"],
+            "settings": {
+                "foreground": "#aab2bf"
+            }
+        },
+        {
+            "scope": ["Symbols"],
+            "settings": {
+                "foreground": "#aab2bf"
+            }
+        },
+        {
+            "scope": ["Operators"],
+            "settings": {
+                "foreground": "#aab2bf"
+            }
+        },        {
+            "scope": ["Numbers"],
+            "settings": {
+                "foreground": "#f0af73"
+            }
+        },
+        {
+            "scope": ["Strings"],
+            "settings": {
+                "foreground": "#afe18a"
+            }
+        },
+        {
+            "scope": ["Backquotes"],
+            "settings": {
+                "foreground": "#afe18a"
+            }
+        },
+        {
+            "scope": ["Functions"],
+            "settings": {
+                "foreground": "#f0af73"
+            }
+        },
+        {
+            "scope": ["Namespace"],
+            "settings": {
+                "foreground": "#f0af73"
+            }
+        }
+    ]
+}
+

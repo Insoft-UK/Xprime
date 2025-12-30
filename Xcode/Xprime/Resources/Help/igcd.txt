@@ -1,0 +1,7 @@
+Syntax:
+igcd(a, b)
+
+Greatest common divisor. Returns the integer that is the greatest common divisor of the integers a and b.
+
+Example:
+igcd(24, 36) returns 12

@@ -1,0 +1,7 @@
+Syntax:
+DIFFERENCE({list1}, ...{listN})
+
+Returns a list of the elements that are not common between 2 or more of the lists.
+
+Example:
+DIFFERENCE({1,2,3},{2,4,8}) returns {1,3,4,8}

@@ -1,0 +1,7 @@
+Syntax:
+fracmod(Expr(Xpr),Intg(n))
+
+Returns the fraction a/b such as a/b=Xpr mod n, -√n/2<a<=√n/2 and 0<=b<√n/2
+
+Example:
+fracmod(41,121) returns 2/3

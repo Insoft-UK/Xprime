@@ -1,0 +1,47 @@
+{
+  "name": "Python",
+  "scopeName": "source.swift",
+  "patterns": [
+    {
+      "name": "Functions",
+      "match": "(?mi)(?:def +)[a-z]\\w*"
+    },
+    {
+      "name": "Keywords",
+      "match": "(?mi)\\b(and|as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|raise|return|try|while|with|yield|True|False|None)\\b"
+    },
+    {
+      "name": "Symbols",
+      "match": "[\\u0080-\\uFFFF]+"
+    },
+    {
+      "name": "Operators",
+      "match": "[▶:=+\\-*/<>≠≤≥]+"
+    },
+    {
+      "name": "Brackets",
+      "match": "[{}()\\[\\]]+"
+    },
+    {
+      "name": "Numbers",
+      "match": "(?mi)(?:0x[0-7a-f]+)|(?:0[0-7]+)|(?:b[0-1]+)|(?:-?\\d+(?:\\.\\d+)?)"
+    },
+    {
+      "name": "Strings",
+      "match": "\"([^\"\\\\]|\\\\.)*\""
+    },
+    {
+        "name": "Backquotes",
+        "match": "`.*?`"
+    },
+    {
+        "name": "Preprocessor Statements",
+        "match": "(?m)^\\s*#[a-z]{2}.+"
+    },
+    {
+      "name": "Comments",
+      "match": "//.*"
+    }
+  ]
+}
+

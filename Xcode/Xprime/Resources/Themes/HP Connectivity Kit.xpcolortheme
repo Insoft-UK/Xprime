@@ -1,0 +1,73 @@
+{
+    "name": "HP Prime",
+    "type": "light",
+    "weight": "semibold",
+    "colors": {
+        "editor.background": "#FFFFFF",
+        "editor.foreground": "#222222",
+        "editor.cursor": "#797979",
+        "editor.selectionBackground": "#E4F9FF"
+    },
+    "tokenColors": [
+        {
+            "scope": ["Preprocessor Statements"],
+            "settings": {
+                "foreground": "#008800"
+            }
+        },
+        {
+            "scope": ["Comments"],
+            "settings": {
+                "foreground": "#008800"
+            }
+        },
+        {
+            "scope": ["Keywords"],
+            "settings": {
+                "foreground": "#000088"
+            }
+        },
+        {
+            "scope": ["Brackets"],
+            "settings": {
+                "foreground": "#666666"
+            }
+        },
+        {
+            "scope": ["Symbols"],
+            "settings": {
+                "foreground": "#0044cc"
+            }
+        },
+        {
+            "scope": ["Operators"],
+            "settings": {
+                "foreground": "#000000"
+            }
+        },
+        {
+            "scope": ["Strings"],
+            "settings": {
+                "foreground": "#880000"
+            }
+        },
+        {
+            "scope": ["Numbers"],
+            "settings": {
+                "foreground": "#0044cc"
+            }
+        },
+        {
+            "scope": ["Functions"],
+            "settings": {
+                "foreground": "#0044cc"
+            }
+        },
+        {
+            "scope": ["Namespace"],
+            "settings": {
+                "foreground": "#0044cc"
+            }
+        }
+    ]
+}

@@ -1,0 +1,4 @@
+Syntax:
+π
+
+The ratio of the circumference to the diameter of any circle. Internally represented as 3.14159265359.

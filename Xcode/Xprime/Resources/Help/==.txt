@@ -1,0 +1,8 @@
+Syntax:
+Value1 == Value2
+
+==: equal to. 
+Tests is Value1=Value2. Returns 1 if true, 0 if false.
+
+Example:
+3==2 returns 0

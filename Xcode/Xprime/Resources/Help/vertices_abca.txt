@@ -1,0 +1,4 @@
+Syntax:
+vertices_abca(Polygon or Polyedr(P))
+
+Returns the closed list [A,B,...A] of the vertices of the polygon or polyhedron P.

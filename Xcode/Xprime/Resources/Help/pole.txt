@@ -1,0 +1,4 @@
+Syntax:
+pole(Crcle,Line)
+
+Returns the point having the line as polar with respect to the circle.

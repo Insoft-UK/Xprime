@@ -1,0 +1,7 @@
+Syntax:
+CHAR(list or vector) or CHAR(integer)
+
+Returns the string corresponding to the ASCII character codes in vector, or the single character associated with integer.
+
+Example:
+CHAR(65) returns "A" and CHAR({82, 77, 72}) returns "RMH"

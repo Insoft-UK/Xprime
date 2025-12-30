@@ -1,0 +1,7 @@
+Syntax:
+MANT(value)
+
+Mantissa. Returns the significant digits of value.
+
+Example:
+MANT(21.2E34) returns 2.12

@@ -1,0 +1,8 @@
+Syntax:
+segment(Point1, Point2)
+
+Draws a segment defined by its endpoints.
+
+Example:
+segment(1+2i, 4) draws the segment defined by the points whose coordinates are (1, 2) and (4, 0).
+segment(GA, GB) draws segment AB.
