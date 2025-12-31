@@ -14,13 +14,3 @@ Xprime **26**
 <a href="https://insoft.uk/action/?method=downlink&path=macos&file=Xprime.pkg">Version 1.0.6 Preview (20251229)</a>
 
 
-### Lauching the HP Applications
-Launch the HP Connectivity Kit or HP Prime Virtual Calculator.
-
-<img width="25%" src="https://raw.githubusercontent.com/Insoft-UK/PrimeSDK/main/assets/screenshots/HP Connectivity Kit.png" />
-<img width="25%" src="https://raw.githubusercontent.com/Insoft-UK/PrimeSDK/main/assets/screenshots/HP Prime Virtual Calculator.png" />
-
-### Templates
-This section provides template snippets for common programming constructs (e.g., for loops, if statements) that you can insert directly into your code.
-
-<img width="50%" src="https://raw.githubusercontent.com/Insoft-UK/PrimeSDK/main/assets/screenshots/Templates.png" />
