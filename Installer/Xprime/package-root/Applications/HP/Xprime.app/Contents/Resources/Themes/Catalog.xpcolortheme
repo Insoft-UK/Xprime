@@ -67,6 +67,18 @@
             "settings": {
                 "foreground": "#f09748"
             }
+        },
+        {
+            "scope": ["Namespace"],
+            "settings": {
+                "foreground": "#f09748"
+            }
+        },
+        {
+            "scope": ["Units"],
+            "settings": {
+                "foreground": "#ffffff"
+            }
         }
     ]
 }

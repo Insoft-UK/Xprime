@@ -345,16 +345,41 @@ final class CodeEditorTextView: NSTextView {
     }
     
     private func showQuickHelp(for symbol: String, at point: NSPoint) {
-        let vc = QuickHelpViewController(symbol: symbol)
+        guard let url = Bundle.main.url(
+            forResource: symbol.uppercased(),
+            withExtension: "txt",
+            subdirectory: "Help"
+        ) else {
+            return
+        }
+
+        do {
+            let helpText = try String(contentsOf: url, encoding: .utf8)
+            
+            let vc = QuickLookViewController(text: helpText, withSizeOf: NSSize(width: 500, height: 250))
+
+            let popover = NSPopover()
+            popover.behavior = .transient
+            popover.contentViewController = vc
+            popover.show(
+                relativeTo: NSRect(origin: point, size: .zero),
+                of: self,
+                preferredEdge: .maxY
+            )
+        } catch {
+            return
+        }
         
-        let popover = NSPopover()
-        popover.behavior = .transient
-        popover.contentViewController = vc
-        popover.show(
-            relativeTo: NSRect(origin: point, size: .zero),
-            of: self,
-            preferredEdge: .maxY
-        )
+//        let vc = QuickHelpViewController(symbol: symbol, withSizeOf: NSSize(width: 500, height: 250))
+//
+//        let popover = NSPopover()
+//        popover.behavior = .transient
+//        popover.contentViewController = vc
+//        popover.show(
+//            relativeTo: NSRect(origin: point, size: .zero),
+//            of: self,
+//            preferredEdge: .maxY
+//        )
     }
     
     private var trackingArea: NSTrackingArea?

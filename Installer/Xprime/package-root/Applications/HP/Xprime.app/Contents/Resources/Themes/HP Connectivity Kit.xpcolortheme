@@ -1,7 +1,7 @@
 {
     "name": "HP Prime",
     "type": "light",
-    "weight": "bold",
+    "weight": "semibold",
     "colors": {
         "editor.background": "#FFFFFF",
         "editor.foreground": "#222222",
@@ -59,6 +59,12 @@
         },
         {
             "scope": ["Functions"],
+            "settings": {
+                "foreground": "#0044cc"
+            }
+        },
+        {
+            "scope": ["Namespace"],
             "settings": {
                 "foreground": "#0044cc"
             }

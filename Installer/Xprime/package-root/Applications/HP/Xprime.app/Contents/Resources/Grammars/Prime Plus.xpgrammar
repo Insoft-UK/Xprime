@@ -3,12 +3,16 @@
   "scopeName": "source.swift",
   "patterns": [
     {
+      "name": "Functions",
+      "match": "(?mi)[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]*(\\.[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]+)*(?= *\\()"
+    },
+    {
       "name": "Keywords",
       "match": "(?mi)\\b(alias|begin|end|return|kill|if|then|else|xor|or|and|not|case|default|iferr|ifte|for|from|step|downto|to|do|while|repeat|until|break|continue|export|const|local|key|var|endif|wend|next|switch|try|catch|catalog|private|dict|regex|dictionary|auto|freeze|eval)\\b"
     },
     {
-      "name": "Functions",
-      "match": "(?mi)[a-z\\u0080-\\uFFFF]\\w*(::[a-z_]\\w*)*(?= *\\()"
+      "name": "Namespace",
+      "match": "(?mi)[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]*(::[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]+)+\\b"
     },
     {
       "name": "Symbols",
@@ -16,15 +20,19 @@
     },
     {
       "name": "Operators",
-      "match": "[▶:=+\\-*/<>≠≤≥]+"
+      "match": "[▶:=+\\-*/<>≠≤≥!^]+"
     },
     {
       "name": "Brackets",
       "match": "[{}()\\[\\]]+"
     },
     {
+      "name": "Units",
+      "match": "(?<=[^a-zA-Z])(?:º|i|G\\d|e+?)(?![a-zA-Z])"
+    },
+    {
       "name": "Numbers",
-      "match": "?#[\\dA-F]+(:-?\\d+)?h|#\\d+(:-?\\d+)?d|#[0-7]+(:-?\\d+)?o|#[01]+(:-?\\d+)?b|\\b-?\\d+(\\.\\d+)?\\b"
+      "match": "(?:#(?:(?:[0-1]+(?::-?\\d+)?b)|(?:[0-7]+(?::-?\\d+)?o)|(?:[0-9A-F]+(?::-?\\d+)?h)|(?:[0-9]+(?::-?\\d+)?d?)|))|(?:(?<![a-zA-Z\\u0080-\\uFFFF$])-?\\d+(?:[\\.|e]\\d+)?)"
     },
     {
       "name": "Strings",

@@ -2,15 +2,11 @@
 
 dict White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, Magenta := #FF00FF:32h, Cardinal := #D03020:32h, Coral := #F08070:32h, Pink := #FFC0C0:32h, Indigo := #400080:32h, Purple := #800080:32h, Violet := #8000FF:32h, Lavender := #C0C0FF:32h, NavyBlue := #000080:32h, Blue := #0000FF:32h, Denim := #1060C0:32h, Lochmara := #0070C0:32h, SkyBlue := #80D0FF:32h, PacificBlue := #00A0C0:32h, Teal := #008080:32h, Cyan := #00FFFF:32h, Aqua := #00FFFF:32h, FirGreen := #003000:32h, OfficeGreen := #008000:32h, Shamrock := #00A060:32h, Apple := #50B040:32h, LimeGreen := #00FF00:32h, Chocolate := #400808:32h, Brown := #905000:32h, Orange := #FF8000:32h, Olive := #808000:32h, Tangerine := #FFD000:32h, Yellow := #FFFF00:32h, Khaki := #F0E090:32h, Tan := #D0B090:32h, Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h @Color;
 regex `\b([a-zA-Z_]\w*) *\: *([a-zA-Z]\w*(?:::[a-zA-Z]\w*)*)` alias $2:=$1;$1
-
 #define COPYRIGHT   "COPYRIGHT 1985 E.C. PUBLICATIONS"
 #define END_OF_DATA 999
-
 #define SCREEN_MIDDLE       120
 #define SCREEN_CENTRE       160
-
 #include "data.prgm"
-
 
 LnD: line;
 Scl: scale = 1.0;
@@ -19,7 +15,7 @@ Setup: MAD::Init()
 begin
     line = {0, 0, 0, 0};
     scale = 1.0;
-    
+
     RECT(Color.White);
     DIMGROB_P(G1,64,64,{
         #7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7BDE7FFF7FFF7FFF:64h,#7FFF7FFF7FFF5ED6:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,#7FFF7FFF7FFF7FFF:64h,
@@ -108,16 +104,16 @@ begin
     local FX: x1, FY: y1, LX: x2, LY: y2;
 
     I:=1;
-    while DATA[I] <> END_OF_DATA do
+    while DATA(I) <> END_OF_DATA do
         if I==1561 then
             color := Color.OfficeGreen;
         end;
         MAD::Read();
     
-        x1 = SCREEN_CENTRE + scale * line[1];
-        y1 = SCREEN_MIDDLE - scale * line[2];
-        x2 = SCREEN_CENTRE + scale * line[3];
-        y2 = SCREEN_MIDDLE - scale * line[4];
+        x1 = SCREEN_CENTRE + scale * line(1);
+        y1 = SCREEN_MIDDLE - scale * line(2);
+        x2 = SCREEN_CENTRE + scale * line(3);
+        y2 = SCREEN_MIDDLE - scale * line(4);
     
         LINE_P(x1, y1, x2, y2, color);
         LINE_P(x1+1, y1, x2+1, y2, color);

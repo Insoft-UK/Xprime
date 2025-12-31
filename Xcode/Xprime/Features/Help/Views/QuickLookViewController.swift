@@ -22,70 +22,76 @@
 
 import Cocoa
 
-final class QuickHelpViewController: NSViewController {
+final class QuickLookViewController: NSViewController {
 
-    let symbol: String
+    private var text: String
+    private var size: NSSize = .zero
+    private var hasHorizontalScroller: Bool = false
 
-    init(symbol: String) {
-        self.symbol = symbol
+    init(text: String, withSizeOf size: NSSize? = nil, hasHorizontalScroller: Bool = false) {
+        self.text = text
+        if let size = size {
+            self.size = size
+        }
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) { fatalError() }
-
+    
     override func loadView() {
-        guard let txtURL = Bundle.main.url(forResource: symbol.uppercased(), withExtension: "txt", subdirectory: "Help") else {
-            print("⚠️ No .txt file found.")
-            return
-        }
+        let textView = makeTextView(with: text)
+        applyHighlighting(to: textView)
 
-        // Create a scroll view
-        let scrollView = NSScrollView()
-        scrollView.hasVerticalScroller = true
-        scrollView.hasHorizontalScroller = false
-        scrollView.autohidesScrollers = true
-        scrollView.drawsBackground = false   // Make scroll view background transparent
+        let scrollView = makeScrollView(containing: textView)
 
-        // Create the text view
+        let rootView = makeRootView(with: scrollView)
+        self.view = rootView
+
+        preferredContentSize = self.size
+    }
+    
+    private func makeTextView(with text: String) -> NSTextView {
         let textView = NSTextView()
         textView.isEditable = false
         textView.isSelectable = false
-        textView.drawsBackground = false     // Make text view background transparent
-
-        do {
-            let text = try String(contentsOf: txtURL, encoding: .utf8)
-            textView.string = text
-        } catch {
-            #if DEBUG
-            NSLog("Failed to load TXT for symbol \(symbol): \(error.localizedDescription)")
-            #endif
-            return
-        }
-
-        // Apply highlighting
+        textView.drawsBackground = false
+        textView.string = text
+        return textView
+    }
+    
+    private func applyHighlighting(to textView: NSTextView) {
         textView.syntaxHighlight()
         textView.highlightBold("Syntax:", caseInsensitive: false)
         textView.highlightBold("Example:", caseInsensitive: false)
         textView.highlightBold("Note:", caseInsensitive: false)
-
-        // Embed text view in scroll view
+    }
+    
+    private func makeScrollView(containing textView: NSTextView) -> NSScrollView {
+        let scrollView = NSScrollView()
+        scrollView.hasVerticalScroller = true
+        scrollView.hasHorizontalScroller = self.hasHorizontalScroller
+        scrollView.autohidesScrollers = false
+        scrollView.drawsBackground = false
         scrollView.documentView = textView
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-
+        return scrollView
+    }
+    
+    private func makeRootView(with scrollView: NSScrollView) -> NSView {
         let view = NSView()
         view.wantsLayer = true
-        view.layer?.backgroundColor = NSColor.clear.cgColor   // Transparent background
+        view.layer?.backgroundColor = NSColor.clear.cgColor
+
         view.addSubview(scrollView)
 
         NSLayoutConstraint.activate([
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10)
         ])
 
-        self.view = view
-        preferredContentSize = NSSize(width: 500, height: 250)
+        return view
     }
 }
 

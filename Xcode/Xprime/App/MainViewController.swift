@@ -935,6 +935,35 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    @IBAction func quickLook(_ sender: Any) {
+        if let _ = currentURL {
+            proceedWithSavingDocument()
+        } else {
+            proceedWithSavingDocumentAs()
+        }
+        guard let sourceURL = currentURL else {
+            return
+        }
+        
+        let destinationURL = URL(fileURLWithPath: "/dev/stdout")
+        
+        let result = HPServices.preProccess(at: sourceURL, to: destinationURL)
+        guard let out = result.out, result.exitCode == 0 else {
+            return
+        }
+        
+        let vc = QuickLookViewController(text: out, withSizeOf: NSSize(width: 800, height: 400), hasHorizontalScroller: true)
+            
+            let popover = NSPopover()
+            popover.behavior = .transient
+            popover.contentViewController = vc
+            popover.show(
+                relativeTo: NSRect(origin: .zero, size: .zero),
+                of: self.view,
+                preferredEdge: .maxY
+            )
+    }
+    
     // MARK: - Project Actions
     
     @IBAction func stop(_ sender: Any) {
@@ -1236,6 +1265,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         self.outputTextView.string = contents.err ?? ""
     }
+    
+    // MARK: - Editor
     
     @IBAction func toggleSmartSubtitution(_ sender: NSMenuItem) {
         codeEditorTextView.smartSubtitution = !codeEditorTextView.smartSubtitution

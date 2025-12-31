@@ -60,7 +60,7 @@
         {
             "scope": ["Namespace"],
             "settings": {
-                "foreground": "#be3536"
+                "foreground": "#603bb3"
             }
         }
     ]
