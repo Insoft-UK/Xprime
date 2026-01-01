@@ -8,3 +8,11 @@
 *.ppl+ linguist-language=PPL+
 *.sh linguist-ignore
 assets/** linguist-ignore
+*.prgm linguist-detectable=false
+*.hpprgm linguist-detectable=false
+*.hpappprgm linguist-detectable=false
+*.ppl linguist-detectable=false
+*.prgm+ linguist-detectable=false
+*.ppl+ linguist-detectable=false
+*.sh linguist-detectable=false
+*.txt linguist-detectable=false
