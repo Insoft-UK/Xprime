@@ -16,3 +16,5 @@
 assets/** linguist-ignore
 *.sh      linguist-ignore
 *.txt     linguist-ignore
+*.xml     linguist-ignore
+*.json    linguist-ignore
