@@ -6,3 +6,5 @@
 *.hpappprgm linguist-language=PPL
 *.prgm+ linguist-language=PPL+
 *.ppl+ linguist-language=PPL+
+*.sh linguist-ignore
+assets/** linguist-ignore
