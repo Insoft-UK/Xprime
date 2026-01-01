@@ -1,2 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.ppl linguist-language=PPL
+*.prgm linguist-language=PPL
+*.hpprgm linguist-language=PPL
+*.hpappprgm linguist-language=PPL
+*.prgm+ linguist-language=PPL+
+*.ppl+ linguist-language=PPL+
