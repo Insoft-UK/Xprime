@@ -1,4 +1,4 @@
-<img src="https://github.com/Insoft-UK/Xprime/blob/main/assets/Icon.png?raw=true" width="128" />
+<img src="https://github.com/Insoft-UK/Xprime/blob/main/assets/icon.png?raw=true" width="128" />
 
 ## Xprime Code Editor for macOS
 - Edit your PPL or <a href="https://github.com/Insoft-UK/PrimePlus">**PPL+**</a> code for the HP Prime.
