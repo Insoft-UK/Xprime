@@ -1,7 +1,7 @@
 name: ppl
 type: programming
 extensions: [".ppl"]
-color: "#ff8c00"  # Customize the color as you'd like
+color: "#ff6600"  # Customize the color as you'd like
 tm_scope: source.ppl
 ace_mode: text
 group: ppl
