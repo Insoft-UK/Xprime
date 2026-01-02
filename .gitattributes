@@ -13,28 +13,6 @@
 *.prgm+      linguist-ignore=false linguist-language=PPL+
 
 # Ignore assets and scripts
-assets/** linguist-ignore
-Makefile  linguist-ignore
-*.sh      linguist-ignore
-*.txt     linguist-ignore
-*.rtf     linguist-ignore
-*.xml     linguist-ignore
-*.json    linguist-ignore
-# Normalize line endings
-* text=auto
-
-# Ignore everything by default
-* linguist-ignore
-
-# PPL files (count & highlight)
-*.ppl        linguist-ignore=false linguist-language=PPL
-*.prgm       linguist-ignore=false linguist-language=PPL
-*.hpprgm     linguist-ignore=false linguist-language=PPL
-*.hpappprgm  linguist-ignore=false linguist-language=PPL
-*.ppl+       linguist-ignore=false linguist-language=PPL+
-*.prgm+      linguist-ignore=false linguist-language=PPL+
-
-# Ignore assets and scripts
 assets/**    linguist-ignore
 Makefile     linguist-ignore
 *.sh         linguist-ignore
