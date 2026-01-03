@@ -40,11 +40,11 @@ extension NSColor {
             g = CGFloat((hexNumber & 0x00FF00) >> 8) / 255
             b = CGFloat(hexNumber & 0x0000FF) / 255
             a = 1.0
-        case 8: // AARRGGBB
-            a = CGFloat((hexNumber & 0xFF000000) >> 24) / 255
-            r = CGFloat((hexNumber & 0x00FF0000) >> 16) / 255
-            g = CGFloat((hexNumber & 0x0000FF00) >> 8) / 255
-            b = CGFloat(hexNumber & 0x000000FF) / 255
+        case 8: // RRGGBBAA
+            r = CGFloat((hexNumber & 0xFF000000) >> 24) / 255
+            g = CGFloat((hexNumber & 0x00FF0000) >> 16) / 255
+            b = CGFloat((hexNumber & 0x0000FF00) >> 8) / 255
+            a = CGFloat(hexNumber & 0x000000FF) / 255
         default:
             return nil
         }
