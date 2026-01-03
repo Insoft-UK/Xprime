@@ -51,8 +51,8 @@ final class QuickLookViewController: NSViewController {
     }
     
     
-    private func makeTextView(with text: String) -> NSTextView {
-        let textView = NSTextView()
+    private func makeTextView(with text: String) -> XprimeTextView {
+        let textView = XprimeTextView()
         textView.isEditable = false
         textView.isSelectable = false
         textView.drawsBackground = false
@@ -60,8 +60,8 @@ final class QuickLookViewController: NSViewController {
         return textView
     }
     
-    private func applyHighlighting(to textView: NSTextView) {
-        textView.syntaxHighlight()
+    private func applyHighlighting(to textView: XprimeTextView) {
+        textView.applySyntaxHighlighting()
         textView.highlightBold("Syntax:", caseInsensitive: false)
         textView.highlightBold("Example:", caseInsensitive: false)
         textView.highlightBold("Note:", caseInsensitive: false)

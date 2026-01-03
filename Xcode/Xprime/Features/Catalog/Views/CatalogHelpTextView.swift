@@ -23,7 +23,7 @@
 import Cocoa
 
 
-final class CatalogHelpTextView: NSTextView {
+final class CatalogHelpTextView: XprimeTextView {
     private var editorForegroundColor = NSColor(.black)
     
     // MARK: - Initializers
@@ -39,14 +39,11 @@ final class CatalogHelpTextView: NSTextView {
     
     // MARK: - Setup
     private func setupEditor() {
-        font = NSFont.systemFont(ofSize: 13, weight: .regular, width: .standard)
-        isAutomaticQuoteSubstitutionEnabled = false
-        isAutomaticDataDetectionEnabled = false
-        isAutomaticDashSubstitutionEnabled = false
-        isAutomaticLinkDetectionEnabled = false
-        isAutomaticSpellingCorrectionEnabled = false
-        isAutomaticTextReplacementEnabled = false
-        isContinuousSpellCheckingEnabled = false
+        isHorizontallyResizable = false      // Disable horizontal scrolling
+        autoresizingMask = [.width]          // Allow width to adjust with superview
+        textContainer?.widthTracksTextView = true
+        textContainer?.containerSize = NSSize(width: bounds.width, height: .greatestFiniteMagnitude)
+        textContainer?.lineBreakMode = .byWordWrapping
         
         textContainerInset = NSSize(width: 20, height: 20)
         backgroundColor = NSColor.clear

@@ -59,7 +59,11 @@ class XprimeTextView: NSTextView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupEditor()
-        theme = ThemeLoader.shared.loadTheme(named: Constants.defaultThemeName)
+    }
+    
+    convenience init() {
+        self.init(frame: .zero, textContainer: nil)
+        setupEditor()
     }
     
     // MARK: - Public Methods
@@ -69,10 +73,27 @@ class XprimeTextView: NSTextView {
         applySyntaxHighlighting()
     }
     
-    func setString(_ newValue: String) {
-        string = newValue
+    /// Appends text and scrolls reliably to the bottom
+    func appendTextAndScroll(_ newText: String) {
+        // Append text
+        self.string += newText
+        
+        // Force layout
+        self.layoutManager?.ensureLayout(for: self.textContainer!)
+        self.needsDisplay = true
+        
+        // Scroll to the very bottom
+        if let scrollView = self.enclosingScrollView {
+            scrollView.layoutSubtreeIfNeeded() // make sure scrollView layout is updated
+            let bottom = NSPoint(x: 0, y: self.bounds.height - scrollView.contentView.bounds.height)
+            scrollView.contentView.scroll(to: bottom)
+            scrollView.reflectScrolledClipView(scrollView.contentView)
+        }
+        
         applySyntaxHighlighting()
     }
+
+    
     
     func applySyntaxHighlighting() {
         guard let textStorage = textStorage, let theme = theme else { return }
@@ -102,6 +123,8 @@ class XprimeTextView: NSTextView {
         configureScrollView()
         configureTypingAttributes()
         configureBehavior()
+        
+        theme = ThemeLoader.shared.loadTheme(named: Constants.defaultThemeName)
     }
     
     private func configureTextViewAppearance() {

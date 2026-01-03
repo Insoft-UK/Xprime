@@ -24,6 +24,23 @@ import Cocoa
 
 
 final class OutputTextView: XprimeTextView {
+    // minHeightConstraint: added by Jozef Dekoninck
+    private var minHeightConstraint: NSLayoutConstraint?
+    
+    private func ensureMinHeightConstraint() {
+        if minHeightConstraint == nil {
+            minHeightConstraint = NSLayoutConstraint(
+                item: self,
+                attribute: .height,
+                relatedBy: .greaterThanOrEqual,
+                toItem: nil,
+                attribute: .notAnAttribute,
+                multiplier: 1.0,
+                constant: 100
+            )
+        }
+    }
+    
     // MARK: - Initializers
     override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
         super.init(frame: frameRect, textContainer: container)
@@ -31,5 +48,41 @@ final class OutputTextView: XprimeTextView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        textContainerInset = NSSize(width: 5, height: 5)
+    }
+    
+    func toggleVisability(_ sender: NSButton) {
+        guard let scrollView = self.enclosingScrollView else {
+            return
+        }
+        let shouldShow = scrollView.isHidden
+        ensureMinHeightConstraint()
+        
+        if shouldShow {
+            show()
+            sender.contentTintColor = .systemBlue
+        } else {
+            hide()
+            sender.contentTintColor = .systemGray
+        }
+        scrollView.updateLayer()
+    }
+    
+  
+    func hide() {
+        if let scrollView = self.enclosingScrollView {
+            scrollView.isHidden = true
+            scrollView.hasVerticalScroller = true
+        }
+        minHeightConstraint?.isActive = false
+    }
+    
+    func show() {
+        if let scrollView = self.enclosingScrollView {
+            scrollView.isHidden = false
+            scrollView.hasVerticalScroller = true
+        }
+        minHeightConstraint?.isActive = true
+        backgroundColor = NSColor(white: 0, alpha: 0.75)
     }
 }

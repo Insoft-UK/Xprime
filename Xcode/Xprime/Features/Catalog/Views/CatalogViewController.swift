@@ -72,7 +72,7 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
             let text = try String(contentsOf: txtURL, encoding: .utf8)
             catalogHelpTextView.string = text
             
-            catalogHelpTextView.syntaxHighlight()
+            catalogHelpTextView.applySyntaxHighlighting()
             catalogHelpTextView.highlightBold("Syntax:")
             catalogHelpTextView.highlightBold("Example:")
             catalogHelpTextView.highlightBold("Note:")
