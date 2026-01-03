@@ -1227,6 +1227,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         outputTextView.toggleVisability(sender)
     }
     
+    @IBAction func clearOutput(_ sender: NSButton) {
+        outputTextView.string = ""
+    }
+    
     
     // MARK: - Validation for Toolbar Items
     

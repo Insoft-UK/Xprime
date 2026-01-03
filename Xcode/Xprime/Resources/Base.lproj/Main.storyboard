@@ -1176,18 +1176,18 @@ Gw
                                         </scroller>
                                     </scrollView>
                                     <scrollView hidden="YES" fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="gM6-VC-kCh">
-                                        <rect key="frame" x="0.0" y="2" width="800" height="51"/>
+                                        <rect key="frame" x="0.0" y="2" width="800" height="42"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" id="fIY-XC-Rbg">
-                                            <rect key="frame" x="0.0" y="0.0" width="800" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="800" height="42"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView wantsLayer="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="fLO-1H-GKd" customClass="OutputTextView" customModule="Xprime" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="800" height="51"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="800" height="42"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="800" height="51"/>
+                                                    <size key="minSize" width="800" height="42"/>
                                                     <size key="maxSize" width="800" height="10000000"/>
                                                 </textView>
                                             </subviews>
@@ -1197,7 +1197,7 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ghm-47-T7K">
-                                            <rect key="frame" x="783" y="0.0" width="17" height="51"/>
+                                            <rect key="frame" x="783" y="0.0" width="17" height="42"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -1229,6 +1229,18 @@ Gw
                                                 <color key="contentTintColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
                                                     <action selector="toggleOutput:" target="XfG-lQ-9wD" id="yC4-br-6rK"/>
+                                                </connections>
+                                            </button>
+                                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Is1-v7-WGS">
+                                                <rect key="frame" x="49" y="255" width="24.5" height="27"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="trash" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="Ff0-fj-M5l">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <color key="contentTintColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                                                <connections>
+                                                    <action selector="clearOutput:" target="XfG-lQ-9wD" id="BUB-x1-ZJw"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -1289,19 +1301,20 @@ Gw
         <image name="long.text.page.and.pencil.fill" catalog="system" width="17" height="19"/>
         <image name="paintbrush" catalog="system" width="17" height="18"/>
         <image name="photo" catalog="system" width="18" height="14"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="play.fill" catalog="system" width="10" height="11"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="ppl" width="16" height="16"/>
         <image name="pplplus" width="16" height="16"/>
         <image name="questionmark.circle" catalog="system" width="15" height="15"/>
         <image name="shippingbox" catalog="system" width="16" height="17"/>
         <image name="shippingbox.fill" catalog="system" width="16" height="16"/>
-        <image name="square.and.arrow.down" catalog="system" width="15" height="17"/>
+        <image name="square.and.arrow.down" catalog="system" width="12" height="14"/>
         <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
         <image name="square.and.arrow.up.on.square" catalog="system" width="17" height="20"/>
         <image name="stop.fill" catalog="system" width="12" height="11"/>
         <image name="text.document" catalog="system" width="14" height="16"/>
         <image name="text.insert" catalog="system" width="16" height="13"/>
         <image name="text.page" catalog="system" width="14" height="16"/>
+        <image name="trash" catalog="system" width="15" height="17"/>
     </resources>
 </document>
