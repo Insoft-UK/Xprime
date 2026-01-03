@@ -1,8 +1,8 @@
 {
-  "include" : "$(SDK)\/include",
-  "lib" : "$(SDK)\/lib",
-  "bin" : "",
-  "calculator" : "Prime",
+  "archiveProjectAppOnly" : false,
   "compression" : false,
-  "archiveProjectAppOnly" : true
+  "bin" : "",
+  "lib" : "$(SDK)\/lib",
+  "calculator" : "Prime",
+  "include" : "$(SDK)\/include"
 }

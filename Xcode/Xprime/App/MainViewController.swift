@@ -919,16 +919,19 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        let vc = QuickLookViewController(text: out, withSizeOf: NSSize(width: 800, height: 400), hasHorizontalScroller: true)
-            
-            let popover = NSPopover()
-            popover.behavior = .transient
-            popover.contentViewController = vc
-            popover.show(
-                relativeTo: NSRect(origin: .zero, size: .zero),
-                of: self.view,
-                preferredEdge: .maxY
-            )
+        
+        let popover = NSPopover()
+        popover.behavior = .transient
+        popover.contentViewController = QuickLookViewController(
+            text: out,
+            withSizeOf: NSSize(width: 800, height: 400),
+            hasHorizontalScroller: true
+        )
+        popover.show(
+            relativeTo: NSRect(origin: .zero, size: .zero),
+            of: self.view,
+            preferredEdge: .maxY
+        )
     }
     
     // MARK: - Project Actions

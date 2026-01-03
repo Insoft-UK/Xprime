@@ -23,7 +23,23 @@
 import Cocoa
 
 
-extension NSTextView {    
+extension NSTextView {
+    func baseAttributes(defaultFontSize: CGFloat) -> [NSAttributedString.Key: Any] {
+        let font = NSFont.systemFont(ofSize: defaultFontSize, weight: .regular)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 0
+        paragraphStyle.paragraphSpacing = 0
+        paragraphStyle.alignment = .left
+        
+        return [
+            .font: font,
+            .foregroundColor: NSColor.textColor,
+            .kern: 0,
+            .ligature: 0,
+            .paragraphStyle: paragraphStyle
+        ]
+    }
+    
     func highlightBold(_ searchString: String, caseInsensitive: Bool = true) {
         guard let textStorage = self.textStorage, !searchString.isEmpty else { return }
         
@@ -51,6 +67,35 @@ extension NSTextView {
                 let nextLocation = foundRange.location + foundRange.length
                 if nextLocation >= nsString.length { break }
                 searchRange = NSRange(location: nextLocation, length: nsString.length - nextLocation)
+            }
+        }
+        
+        textStorage.endEditing()
+    }
+    
+    func applySyntaxHighlighting(theme : Theme?, syntaxPatterns: [(pattern: String, scope: String)]) {
+        guard let textStorage = textStorage, let theme = theme else { return }
+        let fullRange = NSRange(location: 0, length: textStorage.length)
+        
+        textStorage.beginEditing()
+        textStorage.setAttributes(baseAttributes(defaultFontSize: 13), range: fullRange)
+        
+        func color(for scope: String, theme: Theme) -> NSColor {
+            for token in theme.tokenColors {
+                if token.scope.contains(scope), let color = NSColor(hex: token.settings.foreground) {
+                    return color
+                }
+            }
+            return .black
+        }
+        
+        for (pattern, scope) in syntaxPatterns {
+            guard let regex = try? NSRegularExpression(pattern: pattern) else { continue }
+            let color = color(for: scope, theme: theme)
+            regex.enumerateMatches(in: textStorage.string, range: fullRange) { match, _, _ in
+                if let range = match?.range {
+                    textStorage.addAttribute(.foregroundColor, value: color, range: range)
+                }
             }
         }
         

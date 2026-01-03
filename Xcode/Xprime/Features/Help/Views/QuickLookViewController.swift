@@ -38,9 +38,24 @@ final class QuickLookViewController: NSViewController {
 
     required init?(coder: NSCoder) { fatalError() }
     
+    // Precompiled regex patterns and their theme scope
+    private let syntaxPatterns: [(pattern: String, scope: String)] = [
+        (#"(?mi)[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*(\.[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*)*(?=\()"#, "Functions"),
+        (#"(?m)\b(BEGIN|END|RETURN|KILL|IF|THEN|ELSE|XOR|OR|AND|NOT|CASE|DEFAULT|IFERR|IFTE|FOR|FROM|STEP|DOWNTO|TO|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|EXPORT|CONST|LOCAL|KEY)\b"#, "Keywords"),
+        (#"[\u0080-\uFFFF]+"#, "Symbols"),
+        (#"[▶:=+\-*/<>≠≤≥\.]+"#, "Operators"),
+        (#"[{}()\[\]]+"#, "Brackets"),
+        (#"(?:#(?:(?:[0-1]+(?::-?\d+)?b)|(?:[0-7]+(?::-?\d+)?o)|(?:[0-9A-F]+(?::-?\d+)?h)|(?:[0-9]+(?::-?\d+)?d?)|))|(?:(?<![a-zA-Z\u0080-\uFFFF$])-?\d+(?:[\.|e]\d+)?)"#, "Numbers"),
+        (#""([^"\\]|\\.)*""#, "Strings"),
+        (#"(?m)^\s*#[a-z]{2}.+"#, "Preprocessor Statements")
+    ]
+    
     override func loadView() {
         let textView = makeTextView(with: text)
-        applyHighlighting(to: textView)
+        if let theme = ThemeLoader.shared.loadTheme(named: "Catalog") {
+            textView.applySyntaxHighlighting(theme: theme, syntaxPatterns: syntaxPatterns)
+        }
+        
 
         let scrollView = makeScrollView(containing: textView)
 
@@ -51,12 +66,13 @@ final class QuickLookViewController: NSViewController {
     }
     
     
-    private func makeTextView(with text: String) -> XprimeTextView {
-        let textView = XprimeTextView()
+    private func makeTextView(with text: String) -> NSTextView {
+        let textView = NSTextView()
         textView.isEditable = false
         textView.isSelectable = false
         textView.drawsBackground = false
         textView.string = text
+
         return textView
     }
     

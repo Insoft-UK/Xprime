@@ -40,7 +40,7 @@ class XprimeTextView: NSTextView {
     // Precompiled regex patterns and their theme scope
     private let syntaxPatterns: [(pattern: String, scope: String)] = [
         (#"(?mi)[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*(\.[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*)*(?=\()"#, "Functions"),
-        (#"(?m)\b(BEGIN|END|RETURN|KILL|IF|THEN|ELSE|XOR|OR|AND|NOT|CASE|DEFAULT|IFERR|IFTE|FOR|FROM|STEP|DOWNTO|TO|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|EXPORT|CONST|LOCAL|KEY)\b"#, "Keyword"),
+        (#"(?m)\b(BEGIN|END|RETURN|KILL|IF|THEN|ELSE|XOR|OR|AND|NOT|CASE|DEFAULT|IFERR|IFTE|FOR|FROM|STEP|DOWNTO|TO|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|EXPORT|CONST|LOCAL|KEY)\b"#, "Keywords"),
         (#"[\u0080-\uFFFF]+"#, "Symbols"),
         (#"[▶:=+\-*/<>≠≤≥\.]+"#, "Operators"),
         (#"[{}()\[\]]+"#, "Brackets"),
