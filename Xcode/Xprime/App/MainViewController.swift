@@ -922,36 +922,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    @IBAction func quickLook(_ sender: Any) {
-        if let _ = currentURL {
-            proceedWithSavingDocument()
-        } else {
-            proceedWithSavingDocumentAs()
-        }
-        guard let sourceURL = currentURL else {
-            return
-        }
-        
-        let destinationURL = URL(fileURLWithPath: "/dev/stdout")
-        
-        let result = HPServices.preProccess(at: sourceURL, to: destinationURL)
-        guard let out = result.out, result.exitCode == 0 else {
-            return
-        }
-        
-        
-        let popover = NSPopover()
-        popover.behavior = .transient
-        popover.contentViewController = QuickLookViewController(
-            text: out,
-            hasHorizontalScroller: true
-        )
-        popover.show(
-            relativeTo: NSRect(origin: .zero, size: .zero),
-            of: self.view,
-            preferredEdge: .maxY
-        )
-    }
+  
     
     // MARK: - Project Actions
     
@@ -1263,16 +1234,21 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 return true
             }
             return false
-            
+       
          default :
             break
         }
+        
         return true
     }
     
     // MARK: - Validation for Menu Items
     
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+        if codeEditorTextView.isEditable == false {
+            return false
+        }
+        
         let ext = (currentURL != nil) ? currentURL!.pathExtension.lowercased() : ""
     
         switch menuItem.action {

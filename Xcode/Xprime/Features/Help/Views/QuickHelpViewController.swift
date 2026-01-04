@@ -22,12 +22,12 @@
 
 import Cocoa
 
-final class QuickLookViewController: NSViewController {
+final class QuickHelpViewController: NSViewController {
     
     // MARK: - Constants
     
     private enum Constants {
-        static let maxTextWidth: CGFloat = 480
+        static let maxTextWidth: CGFloat = 600
         static let minContentWidth: CGFloat = 200
         static let padding: CGFloat = 10
     }
@@ -55,8 +55,7 @@ final class QuickLookViewController: NSViewController {
         self.theme = ThemeLoader.shared.loadTheme(named: "Catalog")
         super.init(nibName: nil, bundle: nil)
     }
-
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

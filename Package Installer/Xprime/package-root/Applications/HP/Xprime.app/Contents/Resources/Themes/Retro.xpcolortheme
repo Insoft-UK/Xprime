@@ -1,0 +1,21 @@
+{
+    "name": "Catalog",
+    "type": "dark",
+    "weight": "semibold",
+    "colors": {
+        "editor.background": "#0044ff",
+        "editor.foreground": "#77bbff",
+        "editor.cursor": "#007eff",
+        "editor.selectionBackground": "#4ea4fc"
+    },
+    "lineNumberRuler": {
+        "foreground": "#77bbff",
+        "background": "#0033dd"
+    },
+    "window": {
+        "background": "#0044ff"
+    },
+    "tokenColors": [
+    ]
+}
+

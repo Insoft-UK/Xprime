@@ -68,6 +68,12 @@
             "settings": {
                 "foreground": "#0044cc"
             }
+        },
+        {
+            "scope": ["Commands"],
+            "settings": {
+                "foreground": "#000088"
+            }
         }
     ]
 }

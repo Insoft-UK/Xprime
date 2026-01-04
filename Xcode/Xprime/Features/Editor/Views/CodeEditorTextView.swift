@@ -359,7 +359,7 @@ final class CodeEditorTextView: NSTextView {
             
             let popover = NSPopover()
             popover.behavior = .transient
-            popover.contentViewController = QuickLookViewController(text: helpText, hasHorizontalScroller: false)
+            popover.contentViewController = QuickHelpViewController(text: helpText, hasHorizontalScroller: false)
             popover.show(
                 relativeTo: NSRect(origin: point, size: .zero),
                 of: self,

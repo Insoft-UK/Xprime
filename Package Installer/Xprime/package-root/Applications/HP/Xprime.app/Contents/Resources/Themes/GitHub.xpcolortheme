@@ -8,6 +8,9 @@
         "editor.cursor": "#797979",
         "editor.selectionBackground": "#E4F9FF"
     },
+    "window": {
+        "background": "#999999"
+    },
     "tokenColors": [
         {
             "scope": ["Preprocessor Statements"],
@@ -61,6 +64,12 @@
             "scope": ["Namespace"],
             "settings": {
                 "foreground": "#603bb3"
+            }
+        },
+        {
+            "scope": ["Commands"],
+            "settings": {
+                "foreground": "#be3536"
             }
         }
     ]
