@@ -263,6 +263,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if let window = view.window {
             let windowBackgroundColor = NSColor(hex: theme.window?["background"] ?? "") ?? defaultWindowColor
             window.backgroundColor = windowBackgroundColor
+            
+            let windowForegroundColor = NSColor(hex: theme.window?["foreground"] ?? "") ?? .systemGray
+            statusTextLabel.textColor = windowForegroundColor
         }
     }
     

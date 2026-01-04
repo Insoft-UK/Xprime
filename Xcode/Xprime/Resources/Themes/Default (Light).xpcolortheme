@@ -9,11 +9,12 @@
         "editor.selectionBackground": "#5E5E5E"
     },
     "lineNumberRuler": {
-        "foreground": "#FFFFFF",
+        "foreground": "#999999",
         "background": "#DDDDDD"
     },
     "window": {
-        "background": "#FFFFFF"
+        "background": "#999999",
+        "foreground": "#ffffff"
     },
     "tokenColors": [
         {
