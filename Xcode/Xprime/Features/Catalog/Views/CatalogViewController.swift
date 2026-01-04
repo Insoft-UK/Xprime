@@ -26,7 +26,7 @@ import Cocoa
 final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextFieldDelegate {
     @IBOutlet weak var catalogComboBox: NSComboBox!
     @IBOutlet weak var catalogHelpTextView: CatalogHelpTextView!
-   
+    
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -70,9 +70,9 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         
         do {
             let text = try String(contentsOf: txtURL, encoding: .utf8)
-            catalogHelpTextView.string = text
-            
-            catalogHelpTextView.applySyntaxHighlighting()
+            catalogHelpTextView.string = ""
+            catalogHelpTextView.appendTextAndScroll(text)
+
             catalogHelpTextView.highlightBold("Syntax:")
             catalogHelpTextView.highlightBold("Example:")
             catalogHelpTextView.highlightBold("Note:")

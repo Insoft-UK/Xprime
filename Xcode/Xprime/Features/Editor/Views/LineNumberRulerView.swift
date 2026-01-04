@@ -22,11 +22,31 @@
 
 import Cocoa
 
+//class ColoredRulerView: NSRulerView {
+//
+//    var backgroundColor: NSColor = .windowBackgroundColor
+//
+//    override func drawHashMarksAndLabels(in rect: NSRect) {
+//        backgroundColor.setFill()
+//        rect.fill()
+//
+//        super.drawHashMarksAndLabels(in: rect)
+//    }
+//}
+
 final class LineNumberRulerView: NSRulerView {
 
+    var backgroundColor: NSColor = .windowBackgroundColor
     weak var textView: NSTextView?
     
     var pointSize: CGFloat = 12
+    
+    
+
+        required init(coder: NSCoder) {
+            super.init(coder: coder)
+        }
+
 
     init(textView: NSTextView) {
         self.textView = textView
@@ -36,9 +56,10 @@ final class LineNumberRulerView: NSRulerView {
         self.registerObservers()
     }
 
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+
+//    required init(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 
     private func registerObservers() {
         NotificationCenter.default.addObserver(self,
@@ -59,14 +80,21 @@ final class LineNumberRulerView: NSRulerView {
     }
 
     override func drawHashMarksAndLabels(in rect: NSRect) {
+        backgroundColor.setFill()
+        let fillRect = NSRect(x: 0, y: 0, width: self.ruleThickness, height: rect.size.height)
+        fillRect.fill()
+
+      
         guard let textView = self.textView,
               let layoutManager = textView.layoutManager,
               let textContainer = textView.textContainer else { return }
         
+        
 
         // Clip to avoid drawing outside bounds
         NSGraphicsContext.current?.cgContext.clip(to: rect)
-
+        
+        
         let visibleRect = textView.enclosingScrollView?.contentView.bounds ?? textView.visibleRect
         let glyphRange = layoutManager.glyphRange(forBoundingRect: visibleRect, in: textContainer)
         

@@ -32,3 +32,9 @@ struct GrammarPattern: Codable {
     let name: String
     let match: String
 }
+
+enum GrammarManager {
+    static func syntaxPatterns(grammar: Grammar) -> [(scope: String, pattern: String)] {
+        return grammar.patterns.map { (scope: $0.name, pattern: $0.match) }
+    }
+}

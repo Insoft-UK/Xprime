@@ -27,6 +27,8 @@ final class ThemeLoader {
     static let shared = ThemeLoader()
     private init() {}
     
+    private(set) var theme: Theme?
+    
     func isThemeLoaded(named name: String) -> Bool {
         return name == UserDefaults.standard.string(forKey: "preferredTheme")
     }
@@ -50,7 +52,7 @@ final class ThemeLoader {
         }
         
         UserDefaults.standard.set(name, forKey: "preferredTheme")
-
+        
         return try? JSONDecoder().decode(Theme.self, from: data)
     }
 
@@ -58,6 +60,14 @@ final class ThemeLoader {
         let name = UserDefaults.standard.string(forKey: "preferredTheme")
             ?? "Default (Dark)"
         return loadTheme(named: name)
+    }
+    
+    func load(named name: String? = nil) {
+        if let name = name {
+            theme = loadTheme(named: name)
+            return
+        }
+        theme = loadPreferredTheme()
     }
 }
 

@@ -73,7 +73,7 @@ extension NSTextView {
         textStorage.endEditing()
     }
     
-    func applySyntaxHighlighting(theme : Theme?, syntaxPatterns: [(pattern: String, scope: String)]) {
+    func applySyntaxHighlighting(theme : Theme?, syntaxPatterns: [(scope: String, pattern: String)]) {
         guard let textStorage = textStorage, let theme = theme else { return }
         let fullRange = NSRange(location: 0, length: textStorage.length)
         
@@ -81,15 +81,20 @@ extension NSTextView {
         textStorage.setAttributes(baseAttributes(defaultFontSize: 13), range: fullRange)
         
         func color(for scope: String, theme: Theme) -> NSColor {
+            // Prefer token-specific color when scope matches
             for token in theme.tokenColors {
                 if token.scope.contains(scope), let color = NSColor(hex: token.settings.foreground) {
                     return color
                 }
             }
-            return .black
+            if let foregroundHex = theme.colors["editor.foreground"], let fallback = NSColor(hex: foregroundHex) {
+                return fallback
+            }
+            // Final fallback to system text color
+            return NSColor.textColor
         }
         
-        for (pattern, scope) in syntaxPatterns {
+        for (scope, pattern) in syntaxPatterns {
             guard let regex = try? NSRegularExpression(pattern: pattern) else { continue }
             let color = color(for: scope, theme: theme)
             regex.enumerateMatches(in: textStorage.string, range: fullRange) { match, _, _ in
@@ -102,3 +107,4 @@ extension NSTextView {
         textStorage.endEditing()
     }
 }
+

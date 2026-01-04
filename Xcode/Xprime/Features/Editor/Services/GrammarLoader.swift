@@ -27,6 +27,8 @@ final class GrammarLoader {
     static let shared = GrammarLoader()
     private init() {}
     
+    private(set) var grammar: Grammar?
+    
     func isGrammarLoaded(named name: String) -> Bool {
         return name == UserDefaults.standard.string(forKey: "preferredGrammar")
     }
@@ -55,5 +57,13 @@ final class GrammarLoader {
         let name = UserDefaults.standard.string(forKey: "preferredGrammar")
             ?? "Prime Plus"
         return loadGrammar(named: name)
+    }
+    
+    func load(named name: String? = nil) {
+        if let name = name {
+            grammar = loadGrammar(named: name)
+            return
+        }
+        grammar = loadPreferredGrammar()
     }
 }

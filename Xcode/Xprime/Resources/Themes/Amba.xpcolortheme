@@ -1,0 +1,26 @@
+{
+    "name": "Catalog",
+    "type": "dark",
+    "weight": "regular",
+    "colors": {
+        "editor.background": "#000000",
+        "editor.foreground": "#f09748",
+        "editor.cursor": "#797979",
+        "editor.selectionBackground": "#5E5E5E"
+    },
+    "tokenColors": [
+        {
+            "scope": ["Preprocessor Statements"],
+            "settings": {
+                "foreground": "#a36731"
+            }
+        },
+        {
+            "scope": ["Comments"],
+            "settings": {
+                "foreground": "#a36731"
+            }
+        }
+    ]
+}
+

@@ -8,8 +8,10 @@ regex `\b([a-zA-Z_]\w*) *\: *([a-zA-Z]\w*(?:::[a-zA-Z]\w*)*)` alias $2:=$1;$1
 #define SCREEN_CENTRE       160
 #include "data.prgm"
 
-LnD: line;
+LnD;
+alias line := LnD;
 Scl: scale = 1.0;
+alias scale := Scl;
 
 Setup: MAD::Init()
 begin
@@ -90,10 +92,10 @@ end;
 
 Read: MAD::Read()
 begin
-    line[1] = DATA[I];
-    line[2] = DATA[I+1];
-    line[3] = DATA[I+2];
-    line[4] = DATA[I+3];
+    line(1) = DATA(I);
+    line(2) = DATA(I+1);
+    line(3) = DATA(I+2);
+    line(4) = DATA(I+3);
     I = I + 4;
 end;
 
@@ -101,7 +103,7 @@ Draw: MAD::Draw()
 begin
     RECT(Color.LimeGreen);
     local C: color = Color.White;
-    local FX: x1, FY: y1, LX: x2, LY: y2;
+    local x1, y1, x2, y2;
 
     I:=1;
     while DATA(I) <> END_OF_DATA do

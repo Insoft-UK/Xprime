@@ -100,7 +100,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate, NSCom
         
         window.titleVisibility = .hidden
         window.isOpaque = false
-        window.backgroundColor = NSColor(white: 0, alpha: 0.75)
+        window.backgroundColor = NSColor(white: 0, alpha: 0.9)
         window.titlebarAppearsTransparent = true
         window.center()
         window.level = .floating

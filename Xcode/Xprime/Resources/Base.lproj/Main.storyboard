@@ -1176,18 +1176,18 @@ Gw
                                         </scroller>
                                     </scrollView>
                                     <scrollView hidden="YES" fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="gM6-VC-kCh">
-                                        <rect key="frame" x="0.0" y="2" width="800" height="42"/>
+                                        <rect key="frame" x="0.0" y="2" width="800" height="26"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" id="fIY-XC-Rbg">
-                                            <rect key="frame" x="0.0" y="0.0" width="800" height="42"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="800" height="26"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView wantsLayer="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="fLO-1H-GKd" customClass="OutputTextView" customModule="Xprime" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="800" height="42"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="800" height="26"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="800" height="42"/>
+                                                    <size key="minSize" width="800" height="13"/>
                                                     <size key="maxSize" width="800" height="10000000"/>
                                                 </textView>
                                             </subviews>
@@ -1197,7 +1197,7 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ghm-47-T7K">
-                                            <rect key="frame" x="783" y="0.0" width="17" height="42"/>
+                                            <rect key="frame" x="783" y="0.0" width="17" height="26"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -1206,7 +1206,7 @@ Gw
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <subviews>
                                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwT-Xi-9rw">
-                                                <rect key="frame" x="579" y="259" width="203" height="16"/>
+                                                <rect key="frame" x="579" y="260" width="203" height="16"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" userInterfaceLayoutDirection="rightToLeft" alignment="right" title="Line: 1 Col: 1" id="au9-yV-l0B">
                                                     <font key="font" metaFont="smallSystem"/>
@@ -1295,7 +1295,7 @@ Gw
         <image name="folder" catalog="system" width="18" height="14"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="15" height="14"/>
+        <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="icon" width="38" height="38"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
         <image name="long.text.page.and.pencil.fill" catalog="system" width="17" height="19"/>

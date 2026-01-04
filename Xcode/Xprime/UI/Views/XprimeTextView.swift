@@ -35,19 +35,9 @@ class XprimeTextView: NSTextView {
     
     // MARK: - Properties
     
-    private var theme: Theme?
-    
-    // Precompiled regex patterns and their theme scope
-    private let syntaxPatterns: [(pattern: String, scope: String)] = [
-        (#"(?mi)[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*(\.[%a-z\u0080-\uFFFF][\w\u0080-\uFFFF]*)*(?=\()"#, "Functions"),
-        (#"(?m)\b(BEGIN|END|RETURN|KILL|IF|THEN|ELSE|XOR|OR|AND|NOT|CASE|DEFAULT|IFERR|IFTE|FOR|FROM|STEP|DOWNTO|TO|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|EXPORT|CONST|LOCAL|KEY)\b"#, "Keywords"),
-        (#"[\u0080-\uFFFF]+"#, "Symbols"),
-        (#"[▶:=+\-*/<>≠≤≥\.]+"#, "Operators"),
-        (#"[{}()\[\]]+"#, "Brackets"),
-        (#"(?:#(?:(?:[0-1]+(?::-?\d+)?b)|(?:[0-7]+(?::-?\d+)?o)|(?:[0-9A-F]+(?::-?\d+)?h)|(?:[0-9]+(?::-?\d+)?d?)|))|(?:(?<![a-zA-Z\u0080-\uFFFF$])-?\d+(?:[\.|e]\d+)?)"#, "Numbers"),
-        (#""([^"\\]|\\.)*""#, "Strings"),
-        (#"(?m)^\s*#[a-z]{2}.+"#, "Preprocessor Statements")
-    ]
+    private var theme: Theme!
+    private var grammar: Grammar!
+
     
     // MARK: - Initializers
     
@@ -70,7 +60,7 @@ class XprimeTextView: NSTextView {
     
     func setTheme(_ theme: Theme) {
         self.theme = theme
-        applySyntaxHighlighting()
+        applySyntaxHighlighting(theme: self.theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: self.grammar))
     }
     
     /// Appends text and scrolls reliably to the bottom
@@ -90,30 +80,9 @@ class XprimeTextView: NSTextView {
             scrollView.reflectScrolledClipView(scrollView.contentView)
         }
         
-        applySyntaxHighlighting()
+        applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
     }
 
-    
-    
-    func applySyntaxHighlighting() {
-        guard let textStorage = textStorage, let theme = theme else { return }
-        let fullRange = NSRange(location: 0, length: textStorage.length)
-        
-        textStorage.beginEditing()
-        textStorage.setAttributes(baseAttributes(), range: fullRange)
-        
-        for (pattern, scope) in syntaxPatterns {
-            guard let regex = try? NSRegularExpression(pattern: pattern) else { continue }
-            let color = color(for: scope, theme: theme)
-            regex.enumerateMatches(in: textStorage.string, range: fullRange) { match, _, _ in
-                if let range = match?.range {
-                    textStorage.addAttribute(.foregroundColor, value: color, range: range)
-                }
-            }
-        }
-        
-        textStorage.endEditing()
-    }
     
     // MARK: - Private Methods
     
@@ -125,6 +94,7 @@ class XprimeTextView: NSTextView {
         configureBehavior()
         
         theme = ThemeLoader.shared.loadTheme(named: Constants.defaultThemeName)
+        grammar = GrammarLoader.shared.loadGrammar(named: "Prime")
     }
     
     private func configureTextViewAppearance() {
@@ -193,4 +163,5 @@ class XprimeTextView: NSTextView {
         }
         return Constants.defaultTextColor
     }
+    
 }

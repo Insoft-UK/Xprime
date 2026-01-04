@@ -78,6 +78,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return url
     }
     
+    private var rulerView: LineNumberRulerView!
+    
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -90,13 +93,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         // Add the Line Number Ruler
         if let scrollView = codeEditorTextView.enclosingScrollView {
-            let ruler = LineNumberRulerView(textView: codeEditorTextView)
-            scrollView.verticalRulerView = ruler
+            rulerView = LineNumberRulerView(textView: codeEditorTextView)
+    
+            
+            scrollView.verticalRulerView = rulerView
             scrollView.hasVerticalRuler = true
             scrollView.rulersVisible = true
-            
             // Force layout to avoid invisible window
             scrollView.tile()
+            
+            rulerView.backgroundColor = NSColor.black
         }
         
         NotificationCenter.default.addObserver(
@@ -161,10 +167,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let window = view.window else { return }
         
         window.isOpaque = false
-        window.backgroundColor = NSColor(white: 0, alpha: 0.75)
+        window.backgroundColor = NSColor(white: 0, alpha: 0.90)
         window.titlebarAppearsTransparent = true
         window.styleMask = [.resizable, .miniaturizable, .titled]
         window.hasShadow = true
+        
+        
+        
+        if let theme = ThemeLoader.shared.loadPreferredTheme() {
+            if let colorHex = theme.colors["editor.background"], let color = NSColor(hex: colorHex) {
+                guard let window = view.window else { return }
+                window.backgroundColor = color
+                rulerView.backgroundColor = color
+            }
+        }
     }
     
    
@@ -235,6 +251,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
         guard ThemeLoader.shared.isThemeLoaded(named: sender.title) == false else { return }
         codeEditorTextView.loadTheme(named: sender.title)
+        
+        if let theme = ThemeLoader.shared.loadPreferredTheme() {
+            if let colorHex = theme.colors["editor.background"], let color = NSColor(hex: colorHex) {
+                guard let window = view.window else { return }
+                window.backgroundColor = color
+                rulerView.backgroundColor = color
+            }
+        }
     }
     
     @objc func handleGrammarSelection(_ sender: NSMenuItem) {
