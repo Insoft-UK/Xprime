@@ -1,7 +1,0 @@
-Syntax:
-ifactor(a)
-
-Prime factorization. Returns the prime factorization of the integer a as a product. Can be used with STO▶.
-
-Example:
-ifactor(150) returns  2*3*5^2

@@ -1,7 +1,0 @@
-Syntax:
-BITAND(int1[, int2..,intn])
-
-Bitwise logical AND. Takes n integers as input and returns their bitwise logical AND.
-
-Example:
-BITAND(20, 13) returns 4

@@ -1,7 +1,0 @@
-Syntax:
-LNP1(value)
-
-Natural log plus 1. This is more accurate than the natural logarithm function when x is close to zero.
-
-Example:
-LNP1(.23) returns .207014169384

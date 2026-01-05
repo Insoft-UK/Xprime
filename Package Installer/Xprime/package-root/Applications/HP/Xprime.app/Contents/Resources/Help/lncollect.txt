@@ -1,7 +1,0 @@
-Syntax:
-lncollect(Expr)
-
-Collect logarithms. Applies ln(a)+n*ln(b)=ln(a*b^n) where n is an integer.
-
-Example:
-lncollect(ln(x)+2*ln(y)) returns ln(x*y^2)

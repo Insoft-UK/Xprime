@@ -1,7 +1,0 @@
-Syntax:
-size(Lst or Str or Seq)
-
-Returns the size of a list, a string or a sequence.
-
-Example:
-size([1,2,3]) returns 3

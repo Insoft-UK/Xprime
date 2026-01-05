@@ -1,7 +1,0 @@
-Syntax:
-fMax(Expr,[Var])
-
-Returns the abscissa of the maximum of the expression.
-
-Example:
-fMax(-x^2+2*x+1,x) returns 1

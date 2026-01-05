@@ -1,7 +1,0 @@
-Syntax:
-mat2list(Mtrx)
-
-Returns the list of the terms of the matrix.
-
-Example:
-mat2list([[1,8],[4,9]]) returns [1,8,4,9]

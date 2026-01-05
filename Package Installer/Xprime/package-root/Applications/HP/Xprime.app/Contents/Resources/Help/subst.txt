@@ -1,7 +1,0 @@
-Syntax:
-subst(Expr,Var=value)
-
-Substitutes a value for a variable in an expression.
-
-Example:
-subst(x/(4-x^2),x=3) returns -3/5

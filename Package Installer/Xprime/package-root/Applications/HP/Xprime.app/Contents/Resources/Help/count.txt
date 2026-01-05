@@ -1,7 +1,0 @@
-Syntax:
-count(Fnc(f),(Lst||Mtrx)(l),[Opt(row||col)])
-
-Returns f(l[0])+f(l[1])+...+f(l[size(l)-1]).
-
-Example:
-count((x)->x,[2,12,45,3,7,78]) returns 147

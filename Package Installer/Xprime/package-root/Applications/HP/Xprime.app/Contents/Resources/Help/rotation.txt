@@ -1,7 +1,0 @@
-Syntax:
-rotate(Point, Angle, Object)
-
-Rotates a geometric object, about a given center point, through a given angle.
-
-Example:
-rotate(GA, angle(GB, GC, GD),GK) rotates the geometric object labeled K, about point A, through an angle equal to ∡CBD.

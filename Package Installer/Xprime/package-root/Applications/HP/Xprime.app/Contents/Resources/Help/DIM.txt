@@ -1,7 +1,0 @@
-Syntax:
-DIM(string)
-
-Returns the number of characters in string.
-
-Example:
-DIM("12345") returns 5

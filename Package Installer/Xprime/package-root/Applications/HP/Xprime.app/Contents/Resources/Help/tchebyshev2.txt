@@ -1,7 +1,0 @@
-Syntax:
-tchebyshev2(Integer)
-
-Returns the nth Tchebyshev polynomial of the second kind.
-
-Example:
-tchebyshev2(3) returns 8*x^3-4*x

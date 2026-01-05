@@ -1,7 +1,0 @@
-Syntax:
-ASC("string")
-
-Returns a vector containing the ASCII codes of string.
-
-Example:
-ASC("AB") returns [65, 66]

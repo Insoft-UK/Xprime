@@ -1,7 +1,0 @@
-Syntax:
-expand(Expr )
-
-Full distribution of multiplication and division over addition and subtraction.
-
-Example:
-expand((x+y)*(z+1)) returns y*z+x*z+y+x

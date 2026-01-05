@@ -1,7 +1,0 @@
-Syntax:
-jacobi_symbol(Intg,Intg)
-
-Jacobi symbol.
-
-Example:
-jacobi_symbol(132,5) returns -1

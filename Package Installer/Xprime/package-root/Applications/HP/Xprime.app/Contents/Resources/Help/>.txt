@@ -1,8 +1,0 @@
-Syntax:
-Value1 > Value2
-
->: Greater than. 
-Tests whether or not Value1 is greater than Value 2. Returns 1 if true, 0 if false.
-
-Example:
-2 > 1 returns 1

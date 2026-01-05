@@ -1,7 +1,0 @@
-Syntax:
-valuation(Poly(P))
-
-Returns the valuation (degree of the term of lowest degree) of the polynomial P .
-
-Example:
-valuation(x^4+x^3) returns 3

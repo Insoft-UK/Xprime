@@ -1,7 +1,0 @@
-Syntax:
-LSQ(matrix1, matrix2)
-
-Least Squares. Displays the minimum norm least squares matrix (or vector).
-
-Example:
-LSQ([[1,2],[3,4]],[[5],[11]]) returns [[1],[2]]

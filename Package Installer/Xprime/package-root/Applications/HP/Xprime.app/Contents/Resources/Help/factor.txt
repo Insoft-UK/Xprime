@@ -1,7 +1,0 @@
-Syntax:
-factor(Expr)
-
-Factorizes a polynomial.
-
-Example:
-factor(x^4-1) returns (x-1)*(x+1)*(x^2+1)

@@ -1,4 +1,0 @@
-Syntax:
-e
-
-Natural logarithm base, internally represented as 2.71828182846

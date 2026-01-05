@@ -1,7 +1,0 @@
-Syntax:
-CHISQUARE(n, x)
-
-Chi-square probability density function. Computes the probability density of the Chi-squared distribution at x, given n degrees of freedom.
-
-Example:
-CHISQUARE(2, 3.2) returns 0.100948258997

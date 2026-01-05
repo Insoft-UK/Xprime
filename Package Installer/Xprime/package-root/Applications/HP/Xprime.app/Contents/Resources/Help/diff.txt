@@ -1,9 +1,0 @@
-Syntax:
-diff(Expr,[Var or ListVar])
-
-Returns the derivative of an expression with respect to a given variable. You can use the differentiation template in the Template menu as well.
-
-Example:
-diff(x^3-x) returns 3*x^2-1
-diff(sin(x)-cos(y), x) returns cos(x)
-diff(sin(x)-cos(y), y) returns sin(y)

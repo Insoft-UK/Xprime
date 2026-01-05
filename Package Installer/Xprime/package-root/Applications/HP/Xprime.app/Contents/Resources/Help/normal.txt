@@ -1,7 +1,0 @@
-Syntax:
-normal(Expr)
-
-Simplify the expression.
-
-Example:
-normal(2*x*2) returns 4*x

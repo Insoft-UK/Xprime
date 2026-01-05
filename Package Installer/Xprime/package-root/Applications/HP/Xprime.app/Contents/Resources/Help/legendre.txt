@@ -1,7 +1,0 @@
-Syntax:
-legendre(Integer)
-
-Returns the nth Legendre polynomial.
-
-Example:
-legendre(4) returns (35/8)*x^4+(-15/4)*x^2+3/8

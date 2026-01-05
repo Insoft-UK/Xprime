@@ -1,7 +1,0 @@
-Syntax:
-square(Point1, Point2)
-
-Draws a square, given two consecutive vertices as points.
-
-Example:
-square(0, 3+2i, p, q) draws a square with vertices at (0, 0), (3, 2), (1, 5), and (-2, 3). The last two vertices are computed automatically and are saved into the CAS variables p and q.

@@ -1,7 +1,0 @@
-Syntax:
-logistic_regression(Lst(L),Real(x0),Real(y0)  )
-
-Returns y,y&#39;,C,y&#39;max,xmax,R : y is a logistic function (sol of y&#39;/y=a*y+b), such that y(x0)=y0 and where [y&#39;(x0),y&#39;(x0+1)...] is the best approximation of L.
-
-Example:
-logistic_regression([0.0,1.0,2.0,3.0,4.0],0.0,1.0) returns [-17.77/(1+exp(-0.496893925384*x+2.82232341488+3.14159265359*i)),-2.48542227469/(1+cosh(-0.496893925384*x+2.82232341488+3.14159265359*i))]

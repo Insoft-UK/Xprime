@@ -1,2 +1,0 @@
-`\binteger *\(` IP(
-`\bstring *\(` STRING(

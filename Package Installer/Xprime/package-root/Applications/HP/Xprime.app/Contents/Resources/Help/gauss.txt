@@ -1,7 +1,0 @@
-Syntax:
-gauss(Expr,VectVar)
-
-Splits a quadratic form as a sum/difference of square.
-
-Example:
-gauss(x^2+2*a*x*y,[x,y]) returns (a*y+x)^2+(-y^2)*a^2

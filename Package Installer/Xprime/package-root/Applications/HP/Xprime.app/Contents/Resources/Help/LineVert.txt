@@ -1,4 +1,0 @@
-Syntax:
-LineVert(Expr(a))
-
-Draws the vertical line x=a

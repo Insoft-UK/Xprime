@@ -1,4 +1,0 @@
-Syntax:
-rhombus(Pnt(A)||Cplx,Pnt(B)||Cplx,Angle(a)||Pnt(P)||Lst(P,a)),[Var(C)],[Var(D)])
-
-Returns and draws the rhombus ABCD such that the angle (AB,AD)=a or such that in the plane ABP the angle(AB,AD)=angle(AB,AP)

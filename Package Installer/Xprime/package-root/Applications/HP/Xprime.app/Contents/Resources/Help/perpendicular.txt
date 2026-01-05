@@ -1,9 +1,0 @@
-Syntax:
-perpendicular(Point, Line) or perpendicular(Point1, Point2, Point3)
-
-Draws a line through a given point that is perpendicular to a given line. The line may be defined by its name, two points, or an expression in x and y.
-
-Example:
-perpendicular(GA, GD) draws a line perpendicular to line D through point A.
-perpendicular(3+2i, GB, GC) draws a line through the point whose coordinates are (3, 2) that is perpendicular to line BC.
-perpendicular(3+2i,line(x-y=1)) draws a line through the point whose coordinates are (3, 2) that is perpendicular to the line whose equation is x – y = 1; that is, the line whose equation is y=-x+5.

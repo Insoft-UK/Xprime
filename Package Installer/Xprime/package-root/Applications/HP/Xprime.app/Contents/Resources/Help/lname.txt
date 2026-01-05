@@ -1,7 +1,0 @@
-Syntax:
-lname(Expr )
-
-List of variables in the expression.
-
-Example:
-lname(exp(x)*2*sin(y)) returns [x,y]

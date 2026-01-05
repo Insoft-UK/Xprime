@@ -1,7 +1,0 @@
-Syntax:
-eigenvals(Mtrx)
-
-Returns the sequence of the (calculable) eigenvalues of a matrix.
-
-Example:
-eigenvals([[-2,-2,1],[-2,1,-2],[1,-2,-2]]) returns 3,-3,-3

@@ -1,7 +1,0 @@
-Syntax:
-JordanBlock(Expr(a),Intg(n))
-
-Returns a matrix n*n with a on the diagonal, 1 above, and 0 everywhere else.
-
-Example:
-JordanBlock(7,3) returns [[7,1,0],[0,7,1],[0,0,7]]

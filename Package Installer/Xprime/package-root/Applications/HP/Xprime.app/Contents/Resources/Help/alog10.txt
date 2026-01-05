@@ -1,7 +1,0 @@
-Syntax:
-alog10(Expr)
-
-Function x->10^x.
-
-Example:
-alog10(3) returns 1000

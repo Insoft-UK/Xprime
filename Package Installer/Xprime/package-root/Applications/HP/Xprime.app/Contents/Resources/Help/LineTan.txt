@@ -1,7 +1,0 @@
-Syntax:
-LineTan(f(x), [Var], Value)
-
-Draws the tangent to y=f(x) at x=Value.
-
-Example:
-LineTan(x^2-x, 1) draws the line whose equation is y=x-1, which is tangent to the graph of y=x^2-x at x=1.

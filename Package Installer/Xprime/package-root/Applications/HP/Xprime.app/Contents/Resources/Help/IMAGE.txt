@@ -1,8 +1,0 @@
-Syntax:
-HP.IMAGE(trgtG, [dx, dy], img, [scaleX, scaleY])
-HP.IMAGE(trgtG, [dx, dy], img)
-HP.IMAGE(trgtG, img)
-
-Draws the image img into the region of trgtG at dx, dy and scaled to scaleX, scaleY
-
-Note: HP.IMAGE requires the GROB library.

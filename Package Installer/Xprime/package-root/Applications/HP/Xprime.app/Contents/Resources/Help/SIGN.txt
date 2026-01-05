@@ -1,7 +1,0 @@
-Syntax:
-SIGN(value) or SIGN(x+yi)
-
-Sign. Returns the sign of value. If positive, the result is 1; if negative, -1. If zero, the result is zero. For complex inputs returns the unit vector.
-
-Example:
-SIGN (2) returns 1

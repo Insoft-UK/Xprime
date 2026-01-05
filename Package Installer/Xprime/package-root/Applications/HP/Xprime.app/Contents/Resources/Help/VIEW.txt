@@ -1,4 +1,0 @@
-Syntax:
-VIEW "text", Function()
-
-VIEW. Allows a programmer to customize the Views menu. Causes "text" to apear when VIEW key is pressed and Function to be executed when the OK menu key (or ENTER key) is pressed.

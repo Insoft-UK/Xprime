@@ -1,7 +1,0 @@
-Syntax:
-lcoeff(Poly||Lst)
-
-Returns the coefficient of the term of highest degree of a polynomial (l=leading).
-
-Example:
-lcoeff(-2*x^3+x^2+7*x) returns -2

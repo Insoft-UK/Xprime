@@ -1,7 +1,0 @@
-Syntax:
-mult_conjugate(Expr)
-
-Returns the expression after multiplication by the conjugated quantity of the denominator (or of the numerator if no denominator).
-
-Example:
-mult_conjugate(√3-√2) returns (√3-(√2))*(√3+√2)/(√3+√2)

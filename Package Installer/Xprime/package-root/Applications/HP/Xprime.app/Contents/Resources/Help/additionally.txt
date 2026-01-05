@@ -1,7 +1,0 @@
-Syntax:
-additionally(Expr)
-
-Make an additional assumption about a variable.
-
-Example:
-assume(n,integer);additionally(n>5) returns DOM_INT,n

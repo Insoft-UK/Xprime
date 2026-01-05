@@ -1,4 +1,0 @@
-Syntax:
-slopeatraw(Line, Pnt||Cplx(z0))
-
-slopeatraw(d,z0) displays the value of the slope of the line or segment d at point(z0)

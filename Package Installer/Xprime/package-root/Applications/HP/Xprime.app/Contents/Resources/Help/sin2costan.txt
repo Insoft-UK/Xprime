@@ -1,7 +1,0 @@
-Syntax:
-sin2costan(Expr)
-
-Rewrites Expr so that sin(x) is replaced by cos(x)*tan(x)
-
-Example:
-sin2costan(sin(x)) returns tan(x)*cos(x)

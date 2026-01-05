@@ -1,4 +1,0 @@
-Syntax:
-plotseq(Expr(f(Var)),Var=[a,xm,xM],Intg(p))
-
-For seeing the pth terms of the sequence u(0)=a,u(n)=f(u(n-1))

@@ -1,7 +1,0 @@
-Syntax:
-conic(Expr)
-
-Plots the graph of a conic section defined by an expression in x and y.
-
-Example:
-conic(x^2+y^2-81) draws a circle with center at (0,0) and radius of 9

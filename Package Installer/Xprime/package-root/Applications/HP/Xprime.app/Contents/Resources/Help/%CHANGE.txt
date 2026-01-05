@@ -1,5 +1,0 @@
-Syntax:
-%CHANGE(x, y)
-
-Percent change from x to y. Returns 100*(y-x)/x.
-%CHANGE(20,50) returns 150

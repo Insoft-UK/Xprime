@@ -1,7 +1,0 @@
-Syntax:
-quo((Vect or Poly),(Vect or Poly),[Var])
-
-Returns the Euclidean quotient of 2 polynomials
-
-Example:
-quo([1,2,3,4],[-1,2]) returns poly1[-1,-4,-11]

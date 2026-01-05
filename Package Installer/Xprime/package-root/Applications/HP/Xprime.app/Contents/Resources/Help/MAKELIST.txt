@@ -1,7 +1,0 @@
-Syntax:
-MAKELIST(expression, variable, begin, end, [increment])
-
-Make List. Calculates a sequence of elements for a new list. Evaluates expression, incrementing variable from begin to end values, using increment steps (default 1). The MAKELIST function generates a series by automatically producing a list from the repeated evaluation of an expression.
-
-Example:
-MAKELIST(2*X-1, X, 1, 5, 1) returns {1, 3, 5, 7, 9}

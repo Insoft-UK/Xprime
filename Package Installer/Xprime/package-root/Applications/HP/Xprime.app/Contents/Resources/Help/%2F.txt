@@ -1,8 +1,0 @@
-Syntax:
-Object1/Object2
-
-Division.
-Returns the result of dividing Object1 by Object2. The objects may be numerical values or expressions that return numerical results. The objects may also be lists or matrices of appropriate dimensions.
-
-Example:
-3÷2 returns 1.5

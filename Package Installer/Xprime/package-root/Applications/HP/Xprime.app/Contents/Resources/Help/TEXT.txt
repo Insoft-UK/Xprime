@@ -1,8 +1,0 @@
-Syntax:
-HP.TEXT([G], text, x, y, font, [color])
-HP.TEXT(text, x, y, font)
-HP.TEXT([G], text, x, y, font)
-
-Draws text using color in the graphics G at position x, y using font
-
-Note: HP.TEXT requires the HP library.

@@ -1,4 +1,0 @@
-Syntax:
-GETBITS(#integer)
-
-Returns the number of bits used for calculations with this integer.

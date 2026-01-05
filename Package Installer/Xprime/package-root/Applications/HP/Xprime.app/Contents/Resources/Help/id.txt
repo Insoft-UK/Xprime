@@ -1,7 +1,0 @@
-Syntax:
-id(Seq)
-
-The name of the identity function (R^n-> R^n)
-
-Example:
-id(1,2,3) returns 1,2,3

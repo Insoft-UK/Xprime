@@ -1,4 +1,0 @@
-Syntax:
-PX→C(x, y)  or PX→C({x, y})
-
-Transform pixel coordinates into cartesian coordinates. Returns a list.

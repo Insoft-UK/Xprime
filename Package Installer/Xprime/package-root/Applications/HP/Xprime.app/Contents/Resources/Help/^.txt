@@ -1,8 +1,0 @@
-Syntax:
-Value1^Value2
-
-Exponentiation.
-Returns the result of raising Value1 to the power of Value2.
-
-Example:
-2^3 returns 8

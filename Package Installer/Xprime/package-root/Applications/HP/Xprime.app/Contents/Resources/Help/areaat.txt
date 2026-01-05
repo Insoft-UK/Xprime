@@ -1,4 +1,0 @@
-Syntax:
-areaat(Polygon, Pnt||Cplx(z0))
-
-Displays at point(z0), with a legend, algebraic area of a circle or of a (star) polygon (e.g. triangle, square, ...).

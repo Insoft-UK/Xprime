@@ -1,7 +1,0 @@
-Syntax:
-rectangular_coordinates(LstPolCoord)
-
-Returns the list of the abscissa and of the ordinate of a point given by the list of its polar coordinates.
-
-Example:
-rectangular_coordinates([1,-1]) returns [cos(1),-sin(1)]

@@ -1,7 +1,0 @@
-Syntax:
-exp2pow(Expr)
-
-Transforms an expression of the form exp(n*ln(x)) to x^n.
-
-Example:
-exp2pow(exp(3*ln(x))) returns x^3

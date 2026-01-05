@@ -1,8 +1,0 @@
-Syntax:
-linear_regression(Lst||Mtrx(A),[Lst])
-
-Returns the coefficients a and b of y=a*x+b 
-It is the best line approximation to the points where the coordinates are the rows of A (or the 2 lists).
-
-Example:
-linear_regression([[0.0,0.0],[1.0,1.0],[2.0,4.0],[3.0,9.0],[4.0,16.0]]) returns 4.0,-2.0

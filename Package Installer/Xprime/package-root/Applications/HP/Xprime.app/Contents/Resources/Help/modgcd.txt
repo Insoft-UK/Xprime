@@ -1,7 +1,0 @@
-Syntax:
-modgcd(Poly,Poly)
-
-Returns the GCD of 2 polynomials, with the modular algorithm.
-
-Example:
-modgcd(x^4-1,(x-1)^2) returns x-1

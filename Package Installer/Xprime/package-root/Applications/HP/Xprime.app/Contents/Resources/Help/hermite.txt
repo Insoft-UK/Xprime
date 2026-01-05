@@ -1,7 +1,0 @@
-Syntax:
-hermite(Integer)
-
-Returns nth Hermite polynomial.
-
-Example:
-hermite(3) returns 8*x^3-12*x

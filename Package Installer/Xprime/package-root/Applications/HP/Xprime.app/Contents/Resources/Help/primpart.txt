@@ -1,7 +1,0 @@
-Syntax:
-primpart(Poly,[Var])
-
-Returns the polynomial P divided by the gcd of its coefficients.
-
-Example:
-primpart(2x^2+10x+6) returns x^2+5*x+3

@@ -1,4 +1,0 @@
-Syntax:
-is_rhombus(Pnt or Cplx,Pnt or Cplx,Pnt or Cplx,Pnt or Cplx)
-
-Returns 1 or 2 if the 4 points (or the object) build a rhombus (2 for a square) and 0 otherwise.

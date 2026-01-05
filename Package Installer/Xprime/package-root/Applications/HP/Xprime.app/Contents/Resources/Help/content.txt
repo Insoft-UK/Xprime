@@ -1,7 +1,0 @@
-Syntax:
-content(Poly,[Var])
-
-Returns the gcd of the coefficients of the polynomial Poly.
-
-Example:
-content(2*x^2+10*x+6) returns 2

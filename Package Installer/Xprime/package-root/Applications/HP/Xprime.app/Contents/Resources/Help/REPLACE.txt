@@ -1,6 +1,0 @@
-Syntax:
-REPLACE(object,start,object)
-
-Replaces portion of a matrix, vector or string starting at start by object.
-For a matrix, start is a list containing two numbers; for a vector or string it is a single number.
-Note: for strings, you can do: REPLACE("string", "sub_string", "replace_string")

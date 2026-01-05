@@ -1,7 +1,0 @@
-Syntax:
-LOG(Value, [Base])
-
-Returns the logarithm of Value in Base. By default, Base=10.
-
-Example:
-LOG(8,2) returns 3 while LOG(8) returns 0.903089986992

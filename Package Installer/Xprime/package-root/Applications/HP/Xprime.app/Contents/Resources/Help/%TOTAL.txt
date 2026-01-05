@@ -1,5 +1,0 @@
-Syntax:
-%TOTAL(x, y)
-
-Percent total; the percentage of x that is y. Returns 100*y/x.
-%TOTAL(20,50)  returns 250.

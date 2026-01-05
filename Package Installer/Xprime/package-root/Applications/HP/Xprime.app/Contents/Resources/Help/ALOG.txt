@@ -1,7 +1,0 @@
-Syntax:
-ALOG(value)
-
-The common antilogarithm. This is more accurate than 10^x due to limitations of the power function.
-
-Example:
-ALOG(2) returns 100

@@ -1,7 +1,0 @@
-Syntax:
-sto(arg1,Var)
-
-Stores the first argument in the variable given as second argument
-
-Example:
-sto("hello",b)

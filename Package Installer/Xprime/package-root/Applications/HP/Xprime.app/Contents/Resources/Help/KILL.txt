@@ -1,4 +1,0 @@
-Syntax:
-KILL;
-
-Stops the execution of the program.

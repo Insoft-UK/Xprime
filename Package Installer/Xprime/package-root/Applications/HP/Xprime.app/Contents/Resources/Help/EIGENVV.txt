@@ -1,7 +1,0 @@
-Syntax:
-EIGENVV(matrix)
-
-Eigenvectors and Eigenvalues for a square matrix. Displays a list of two arrays. The first contains the eigenvectors and the second contains the eigenvalues.
-
-Example:
-EIGENVV([[1,2],[3,4]]) returns { [[eigenvectors]],[[eigenvalues]] }

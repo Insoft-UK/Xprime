@@ -1,7 +1,0 @@
-Syntax:
-pade(Expr(Xpr), Var(x), (Intg(n) || Poly(N)), Intg(p))
-
-Pade approximation P/Q=Xpr mod x^(n+1) or mod N with degree(P)<p
-
-Example:
-pade(exp(x),x,10,6) returns (-x^5-30*x^4-420*x^3-3360*x^2-15120*x-30240)/(x^5-30*x^4+420*x^3-3360*x^2+15120*x-30240)

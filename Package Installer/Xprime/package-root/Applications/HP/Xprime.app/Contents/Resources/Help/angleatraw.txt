@@ -1,4 +1,0 @@
-Syntax:
-angleatraw(Pnt(A)),Pnt(B),Pnt(C),(Pnt or Cplx(z0)))
-
-angleatraw(A,B,C,z0) displays at point(z0), the value of the measure of the angle (AB,AC).

@@ -1,7 +1,0 @@
-Syntax:
-covariance_correlation(Lst||Mtrx,[Lst])
-
-Returns the list of the covariance and the correlation of the elements of its argument.
-
-Example:
-covariance_correlation([[1,2],[1,1],[4,7]]) returns [11/3,33/(6*√31)]

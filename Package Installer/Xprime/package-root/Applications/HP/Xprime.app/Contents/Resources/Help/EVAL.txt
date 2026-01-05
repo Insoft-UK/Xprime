@@ -1,4 +1,0 @@
-Syntax:
-EVAL(expression)
-
-Evaluates the expression. Usefull in programs where parameters are passed non evaluated with QUOTE

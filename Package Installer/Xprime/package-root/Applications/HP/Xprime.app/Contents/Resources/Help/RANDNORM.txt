@@ -1,7 +1,0 @@
-Syntax:
-randnorm(Real(mu),Real(sigma))
-
-Returns a random real with normal distribution N(mu,sigma)
-
-Example:
-randnorm(0,1) returns -0.860967215689

@@ -1,7 +1,0 @@
-Syntax:
-rowAdd(Mtrx(A),Intg(n1),Intg(n2))
-
-Returns the matrix obtained from matrix A when the n2th row is replaced by the sum of the n1th and n2th rows
-
-Example:
-rowAdd([[1,2],[3,4],[5,6]],1,2) returns [[1,2],[3,4],[8,10]]
