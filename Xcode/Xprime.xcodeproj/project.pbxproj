@@ -15,7 +15,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
-				Resources/Release.xcassets,
 			);
 			target = 13EE0F612DF9DEDE004F3D7E /* Xprime */;
 		};
