@@ -72,7 +72,7 @@
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#f09748"
+                "foreground": "#ff6600"
             }
         },
         {
@@ -90,7 +90,7 @@
         {
             "scope": ["Commands"],
             "settings": {
-                "foreground": "#ff6600"
+                "foreground": "#f09748"
             }
         }
     ]

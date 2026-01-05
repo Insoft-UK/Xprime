@@ -165,7 +165,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let window = view.window else { return }
         
         window.isOpaque = false
-        window.backgroundColor = NSColor(white: 0, alpha: 0.90)
         window.titlebarAppearsTransparent = true
         window.styleMask = [.resizable, .miniaturizable, .titled]
         window.hasShadow = true
@@ -195,24 +194,39 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func populateThemesMenu(menu: NSMenu) {
-        guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpcolortheme", subdirectory: "Themes") else {
+        guard let resourceURLs = Bundle.main.urls(
+            forResourcesWithExtension: "xpcolortheme",
+            subdirectory: "Themes"
+        ) else {
             print("⚠️ No .xpcolortheme files found.")
             return
         }
 
-        for fileURL in resourceURLs {
-            let name = fileURL.deletingPathExtension().lastPathComponent
-            if name.first == "." { continue }
-
-            let menuItem = NSMenuItem(title: name, action: #selector(handleThemeSelection(_:)), keyEquivalent: "")
-            menuItem.representedObject = fileURL
-            menuItem.target = self  // or another target if needed
-            let theme = UserDefaults.standard.object(forKey: "theme") as? String ?? "Default (Dark)"
-            if name == theme {
-                menuItem.state = .on
+        let sortedURLs = resourceURLs
+            .filter { !$0.lastPathComponent.hasPrefix(".") }
+            .sorted {
+                $0.deletingPathExtension().lastPathComponent
+                    .localizedCaseInsensitiveCompare(
+                        $1.deletingPathExtension().lastPathComponent
+                    ) == .orderedAscending
             }
 
-            menu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Theme")?.submenu?.addItem(menuItem)
+        for fileURL in sortedURLs {
+            let name = fileURL.deletingPathExtension().lastPathComponent
+
+            let menuItem = NSMenuItem(
+                title: name,
+                action: #selector(handleThemeSelection(_:)),
+                keyEquivalent: ""
+            )
+            menuItem.representedObject = fileURL
+            menuItem.target = self
+
+            menu.item(withTitle: "Editor")?
+                .submenu?
+                .item(withTitle: "Theme")?
+                .submenu?
+                .addItem(menuItem)
         }
     }
     
@@ -229,21 +243,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let menuItem = NSMenuItem(title: name, action: #selector(handleGrammarSelection(_:)), keyEquivalent: "")
             menuItem.representedObject = fileURL
             menuItem.target = self  // or another target if needed
-            let grammar = UserDefaults.standard.object(forKey: "grammar") as? String ?? "Language"
-            
-
             menu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")?.submenu?.addItem(menuItem)
         }
     }
     
     
     // MARK: - Theme & Grammar Action Handlers
+    @IBOutlet private weak var outputButton: NSButton!
+    @IBOutlet private weak var clearOutputButton: NSButton!
     
     private func proceedWithThemeSection(named name: String) {
         // Load the editor theme
         codeEditorTextView.loadTheme(named: name)
         
-        guard let theme = ThemeLoader.shared.loadTheme(named: ThemeLoader.shared.preferredTheme) else { return }
+        guard let theme = codeEditorTextView.theme else { return }
         
         // MARK: - Update Gutter (Line Numbers)
         if let lineNumberGutter = theme.lineNumberRuler {
@@ -256,6 +269,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             // Defaults if no gutter info in theme
             gutterView.gutterNumberAttributes[.foregroundColor] = .gray
             gutterView.gutterNumberAttributes[.backgroundColor] = .clear
+            
         }
         
         // MARK: - Update Window Background
@@ -266,15 +280,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
             let windowForegroundColor = NSColor(hex: theme.window?["foreground"] ?? "") ?? .systemGray
             statusTextLabel.textColor = windowForegroundColor
+            
+            outputButton.contentTintColor = windowBackgroundColor.contrastColor()
+            clearOutputButton.contentTintColor = windowBackgroundColor.contrastColor()
+            statusTextLabel.textColor = windowBackgroundColor.contrastColor()
         }
     }
     
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
-        ThemeLoader.shared.setPreferredTheme(to: sender.title)
+        UserDefaults.standard.set(sender.title, forKey: "preferredTheme")
         proceedWithThemeSection(named: sender.title)
     }
     
     @objc func handleGrammarSelection(_ sender: NSMenuItem) {
+        UserDefaults.standard.set(sender.title, forKey: "preferredGrammar")
         codeEditorTextView.loadGrammar(named: sender.title)
     }
     
@@ -312,12 +331,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         switch fileExtension.lowercased() {
         case "prgm+", "ppl+":
             codeEditorTextView.loadGrammar(named: "Prime Plus")
+            UserDefaults.standard.set("Prime Plus", forKey: "preferredGrammar")
             
         case "prgm", "ppl", "hpprgm", "hpappprgm":
             codeEditorTextView.loadGrammar(named: "Prime")
+            UserDefaults.standard.set("Prime", forKey: "preferredGrammar")
             
         case "py":
             codeEditorTextView.loadGrammar(named: "Python")
+            UserDefaults.standard.set("Python", forKey: "preferredGrammar")
             
         default:
             break
@@ -577,6 +599,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         comboButton.menu = menu
         comboButton.title = currentURL?.lastPathComponent ?? ""
+        comboButton.action = #selector(revertDocumentToSaved(_:))
     }
     
     // MARK: - File IO Action Handlers
@@ -653,8 +676,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
         currentURL = url
         codeEditorTextView.string = contents
-        
-        
         
         guard let parentURL = parentURL, let projectName = projectName else { return }
         let folderURL = parentURL.appendingPathComponent("\(projectName).hpappdir")
@@ -914,14 +935,29 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: -
     
     @IBAction func revertDocumentToSaved(_ sender: Any) {
-        if let contents = HPServices.loadHPPrgm(at: currentURL!) {
-            codeEditorTextView.string = contents
-            self.documentIsModified = false
-            updateDocumentIconButtonImage()
+        guard let url = currentURL, documentIsModified else { return }
+        
+        AlertPresenter.presentYesNo(
+            on: view.window,
+            title: "Revert to Original",
+            message: "All changes to '\(url.lastPathComponent)' will be lost.",
+            primaryActionTitle: "Revert"
+        ) { confirmed in
+            if confirmed {
+                self.openDocument(url: url)
+            } else {
+                return
+            }
         }
     }
     
-  
+//    private func revertToSavedDocument(at url: URL) {
+//        guard let contents = HPServices.loadHPPrgm(at: url) else { return }
+//        
+//        codeEditorTextView.string = contents
+//        self.documentIsModified = false
+//        updateDocumentIconButtonImage()
+//    }
     
     // MARK: - Project Actions
     
@@ -1331,6 +1367,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
         case #selector(handleThemeSelection(_:)):
             if ThemeLoader.shared.preferredTheme == menuItem.title {
+                menuItem.state = .on
+            } else {
+                menuItem.state = .off
+            }
+            return true
+            
+        case #selector(handleGrammarSelection(_:)):
+            if GrammarLoader.shared.preferredGrammar == menuItem.title {
                 menuItem.state = .on
             } else {
                 menuItem.state = .off

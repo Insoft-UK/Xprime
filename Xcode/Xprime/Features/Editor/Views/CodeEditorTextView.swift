@@ -23,8 +23,8 @@
 import Cocoa
 
 final class CodeEditorTextView: NSTextView {
-    var theme: Theme?
-    var grammar: Grammar?
+    private(set) var theme: Theme?
+    private(set) var grammar: Grammar?
     
     
     private var _smartSubtitution: Bool = false
@@ -67,8 +67,8 @@ final class CodeEditorTextView: NSTextView {
     
     private func commonInit() {
         setupEditor()
-        loadInitialTheme()
-        loadInitialGrammar()
+        loadTheme(named: ThemeLoader.shared.preferredTheme)
+        loadGrammar(named: GrammarLoader.shared.preferredGrammar)
     }
     
     // MARK: - Setup
@@ -110,16 +110,6 @@ final class CodeEditorTextView: NSTextView {
     
     func loadTheme(named name: String) {
         if let theme = ThemeLoader.shared.loadTheme(named: name) {
-            UserDefaults.standard.set(name, forKey: "preferredTheme")
-            
-            self.theme = theme
-            EditorThemeApplier.apply(theme, to: self)
-            applySyntaxHighlighting()
-        }
-    }
-    
-    private func loadInitialTheme() {
-        if let theme = ThemeLoader.shared.loadTheme(named: ThemeLoader.shared.preferredTheme) {
             self.theme = theme
             EditorThemeApplier.apply(theme, to: self)
             applySyntaxHighlighting()
@@ -133,9 +123,6 @@ final class CodeEditorTextView: NSTextView {
         }
     }
     
-    private func loadInitialGrammar() {
-        self.grammar = GrammarLoader.shared.grammar
-    }
     
     private func baseAttributes() -> [NSAttributedString.Key: Any] {
         let font = NSFont.monospacedSystemFont(ofSize: 12, weight: weight)

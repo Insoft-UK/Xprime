@@ -8,6 +8,9 @@
         "editor.cursor": "#797979",
         "editor.selectionBackground": "#E4F9FF"
     },
+    "window": {
+        "background": "#191919"
+    },
     "tokenColors": [
         {
             "scope": ["Preprocessor Statements"],

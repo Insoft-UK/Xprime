@@ -1,0 +1,63 @@
+{
+    "name": "Modern retro",
+    "type": "light",
+    "weight": "semibold",
+    "colors": {
+        "editor.background": "#1c40bb",
+        "editor.foreground": "#82a6ff",
+        "editor.cursor": "#82a6ff",
+        "editor.selectionBackground": "#000000"
+    },
+    "lineNumberRuler": {
+        "foreground": "#82a6ff",
+        "background": "#1c40bb"
+    },
+    "window": {
+        "background": "#1c40bb"
+    },
+    "tokenColors": [
+        {
+            "scope": ["Preprocessor Statements", "Comments", "Keywords"],
+            "settings": {
+                "foreground": "#82a6ff"
+            }
+        },
+        {
+            "scope": ["Brackets", "Symbols"],
+            "settings": {
+                "foreground": "#ffffff"
+            }
+        },
+        {
+            "scope": ["Operators", "Numbers", "Strings", "Backquotes"],
+            "settings": {
+                "foreground": "#82a6ff"
+            }
+        },
+        {
+            "scope": ["Functions"],
+            "settings": {
+                "foreground": "#b7ccff"
+            }
+        },
+        {
+            "scope": ["Namespace"],
+            "settings": {
+                "foreground": "#b7ccff"
+            }
+        },
+        {
+            "scope": ["Units"],
+            "settings": {
+                "foreground": "#82a6ff"
+            }
+        },
+        {
+            "scope": ["Commands"],
+            "settings": {
+                "foreground": "#b7ccff"
+            }
+        }
+    ]
+}
+

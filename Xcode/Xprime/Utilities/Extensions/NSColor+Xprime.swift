@@ -49,6 +49,31 @@ extension NSColor {
             return nil
         }
         
-        self.init(calibratedRed: r, green: g, blue: b, alpha: a)
+        self.init(red: r, green: g, blue: b, alpha: a)
+    }
+    
+    /// Returns either black or white, whichever has higher contrast
+    func contrastColor() -> NSColor {
+        guard let color = self.usingColorSpace(.deviceRGB) else {
+            return .black
+        }
+        
+        func linearize(_ c: CGFloat) -> CGFloat {
+            (c <= 0.03928) ? (c / 12.92) : pow((c + 0.055) / 1.055, 2.4)
+        }
+        
+        let r = linearize(color.redComponent)
+        let g = linearize(color.greenComponent)
+        let b = linearize(color.blueComponent)
+        
+        let backgroundLuminance =
+        0.2126 * r +
+        0.7152 * g +
+        0.0722 * b
+        
+        let whiteContrast = (1.0 + 0.05) / (backgroundLuminance + 0.05)
+        let blackContrast = (backgroundLuminance + 0.05) / 0.05
+        
+        return whiteContrast >= blackContrast ? .white : .black
     }
 }

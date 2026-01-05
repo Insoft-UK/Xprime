@@ -25,11 +25,12 @@ import Cocoa
 final class GrammarLoader {
 
     static let shared = GrammarLoader()
-    private init() {
-        grammar = loadGrammar(named: "Prime Plus")
-    }
     
-    private(set) var grammar: Grammar?
+    var preferredGrammar: String {
+        let name = UserDefaults.standard.string(forKey: "preferredTheme")
+            ?? "Default (Dark)"
+        return name
+    }
 
 
     func loadGrammar(named name: String) -> Grammar? {

@@ -1,5 +1,5 @@
 {
-    "name": "ChatGPT",
+    "name": "Blackboard",
     "type": "dark",
     "weight": "regular",
     "colors": {
@@ -7,6 +7,9 @@
         "editor.foreground": "#aab2bf",
         "editor.cursor": "#aab2bf",
         "editor.selectionBackground": "#5E5E5E"
+    },
+    "window": {
+        "background": "#191919"
     },
     "tokenColors": [
         {

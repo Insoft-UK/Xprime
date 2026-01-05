@@ -8,10 +8,8 @@ regex `\b([a-zA-Z_]\w*) *\: *([a-zA-Z]\w*(?:::[a-zA-Z]\w*)*)` alias $2:=$1;$1
 #define SCREEN_CENTRE       160
 #include "data.prgm"
 
-LnD;
-alias line := LnD;
+LnD: line;
 Scl: scale = 1.0;
-alias scale := Scl;
 
 Setup: MAD::Init()
 begin
@@ -112,7 +110,7 @@ begin
         end;
         MAD::Read();
     
-        x1 = SCREEN_CENTRE + scale * line(1);
+        x1 = SCREEN_CENTRE + scale * lline(1);
         y1 = SCREEN_MIDDLE - scale * line(2);
         x2 = SCREEN_CENTRE + scale * line(3);
         y2 = SCREEN_MIDDLE - scale * line(4);

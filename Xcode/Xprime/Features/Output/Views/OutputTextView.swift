@@ -63,7 +63,11 @@ final class OutputTextView: XprimeTextView {
             sender.contentTintColor = .systemBlue
         } else {
             hide()
-            sender.contentTintColor = .systemGray
+            if let window = sender.subviews.first?.window {
+                sender.contentTintColor = window.backgroundColor?.contrastColor()
+            } else {
+                sender.contentTintColor = .systemGray
+            }
         }
         scrollView.updateLayer()
     }

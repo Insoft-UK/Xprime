@@ -1,0 +1,80 @@
+{
+    "name": "GitHub",
+    "type": "dark",
+    "weight": "regular",
+    "colors": {
+        "editor.background": "#0e1116",
+        "editor.foreground": "#ffffff",
+        "editor.cursor": "#797979",
+        "editor.selectionBackground": "#E4F9FF"
+    },
+    "lineNumberRuler": {
+        "foreground": "#9298a0",
+        "background": "#0e1116"
+    },
+    "window": {
+        "background": "#161b22"
+    },
+    "tokenColors": [
+        {
+            "scope": ["Preprocessor Statements"],
+            "settings": {
+                "foreground": "#ee8277"
+            }
+        },
+        {
+            "scope": ["Comments"],
+            "settings": {
+                "foreground": "#9298a0"
+            }
+        },
+        {
+            "scope": ["Keywords"],
+            "settings": {
+                "foreground": "#ee8277"
+            }
+        },
+        {
+            "scope": ["Brackets"],
+            "settings": {
+                "foreground": "#afd5fb"
+            }
+        },
+        {
+            "scope": ["Symbols"],
+            "settings": {
+                "foreground": "#afd5fb"
+            }
+        },
+        {
+            "scope": ["Operators"],
+            "settings": {
+                "foreground": "#afd5fb"
+            }
+        },
+        {
+            "scope": ["Numbers", "Strings", "Backquotes"],
+            "settings": {
+                "foreground": "#afd5fb"
+            }
+        },
+        {
+            "scope": ["Functions"],
+            "settings": {
+                "foreground": "#cbaaf9"
+            }
+        },
+        {
+            "scope": ["Namespace"],
+            "settings": {
+                "foreground": "#cbaaf9"
+            }
+        },
+        {
+            "scope": ["Commands"],
+            "settings": {
+                "foreground": "#cbaaf9"
+            }
+        }
+    ]
+}
