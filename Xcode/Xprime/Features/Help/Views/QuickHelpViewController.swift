@@ -124,16 +124,23 @@ final class QuickHelpViewController: NSViewController {
         // Constrain wrapping width
         textContainer.containerSize = NSSize(
             width: maxWidth,
-            height: .greatestFiniteMagnitude + 10
+            height: .greatestFiniteMagnitude
         )
-        textContainer.widthTracksTextView = true
-        textContainer.heightTracksTextView = true
+        textContainer.widthTracksTextView = false
+        textContainer.heightTracksTextView = false
         // Force layout
-        layoutManager.ensureLayout(for: textContainer)
+        let glyphRange = layoutManager.glyphRange(
+            for: textContainer
+        )
+        layoutManager.ensureLayout(forGlyphRange: glyphRange)
 
-        let usedSize = layoutManager.usedRect(for: textContainer).integral.size
+        var usedRect = layoutManager.usedRect(for: textContainer)
 
-        return usedSize
+        //Add height for the last line fragment if needed
+        if layoutManager.extraLineFragmentTextContainer != nil {
+            usedRect.size.height += layoutManager.extraLineFragmentRect.height
+        }
+        return usedRect.integral.size
     }
 
     
