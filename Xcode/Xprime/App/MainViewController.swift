@@ -31,7 +31,11 @@ extension MainViewController: NSWindowRestoration {
     }
 }
 
+
 final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
+        
+    
+    
     // MARK: - Outlets
     @IBOutlet weak var toolbar: NSToolbar!
     @IBOutlet weak var icon: NSImageView!
@@ -169,28 +173,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         window.styleMask = [.resizable, .miniaturizable, .titled]
         window.hasShadow = true
         
-        
         proceedWithThemeSection(named: ThemeLoader.shared.preferredTheme)
     }
     
-   
+    
+    
     var documentIsModified: Bool = false {
         didSet {
-            if let window = self.view.window {
-                if documentIsModified {
-//                    if let url = currentURL {
-//                        window.title = url.lastPathComponent + " — Edited"
-//                    }
-                    updateQuickOpenComboButton()
-                } else {
-                    // When saved, show current file name or default title
-//                    if let url = currentURL {
-//                        window.title = url.lastPathComponent
-//                    } else {
-//                        window.title = "Untitled"
-//                    }
-                    updateQuickOpenComboButton()
-                }
+            if documentIsModified {
+                
+                updateQuickOpenComboButton()
+            } else {
+                updateQuickOpenComboButton()
             }
         }
     }
@@ -250,6 +244,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    
     private func populateGrammarMenu(menu: NSMenu) {
         guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: "Grammars") else {
             print("⚠️ No .xpgrammar files found.")
@@ -267,44 +262,48 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    
     // MARK: - Theme & Grammar Action Handlers
     @IBOutlet private weak var outputButton: NSButton!
     @IBOutlet private weak var clearOutputButton: NSButton!
     
+    private func updateGutterApperance(usingTheme theme: Theme) {
+        if let lineNumberGutter = theme.lineNumberRuler {
+            gutterView.gutterNumberAttributes[.foregroundColor] =
+            NSColor(hex: lineNumberGutter["foreground"] ?? "") ?? .gray
+            
+            gutterView.gutterNumberAttributes[.backgroundColor] =
+            NSColor(hex: lineNumberGutter["background"] ?? "") ?? .clear
+            return
+        }
+        
+        // Defaults if no gutter info in theme
+        gutterView.gutterNumberAttributes[.foregroundColor] = .gray
+        gutterView.gutterNumberAttributes[.backgroundColor] = .clear
+    }
+    
+    private func updateWindowApperance(usingTheme theme: Theme) {
+        guard let window = view.window else { return }
+        
+        let defaultWindowColor = NSColor(white: 0, alpha: 0.9)
+        
+        let windowBackgroundColor = NSColor(hex: theme.window?["background"] ?? "") ?? defaultWindowColor
+        window.backgroundColor = windowBackgroundColor
+        
+        let windowForegroundColor = NSColor(hex: theme.window?["foreground"] ?? "") ?? .systemGray
+        statusTextLabel.textColor = windowForegroundColor
+        
+        outputButton.contentTintColor = windowBackgroundColor.contrastColor()
+        clearOutputButton.contentTintColor = windowBackgroundColor.contrastColor()
+        statusTextLabel.textColor = windowBackgroundColor.contrastColor()
+    }
+    
     private func proceedWithThemeSection(named name: String) {
-        // Load the editor theme
         codeEditorTextView.loadTheme(named: name)
         
         guard let theme = codeEditorTextView.theme else { return }
         
-        // MARK: - Update Gutter (Line Numbers)
-        if let lineNumberGutter = theme.lineNumberRuler {
-            gutterView.gutterNumberAttributes[.foregroundColor] =
-                NSColor(hex: lineNumberGutter["foreground"] ?? "") ?? .gray
-            
-            gutterView.gutterNumberAttributes[.backgroundColor] =
-                NSColor(hex: lineNumberGutter["background"] ?? "") ?? .clear
-        } else {
-            // Defaults if no gutter info in theme
-            gutterView.gutterNumberAttributes[.foregroundColor] = .gray
-            gutterView.gutterNumberAttributes[.backgroundColor] = .clear
-            
-        }
-        
-        // MARK: - Update Window Background
-        let defaultWindowColor = NSColor(white: 0, alpha: 0.9)
-        if let window = view.window {
-            let windowBackgroundColor = NSColor(hex: theme.window?["background"] ?? "") ?? defaultWindowColor
-            window.backgroundColor = windowBackgroundColor
-            
-            let windowForegroundColor = NSColor(hex: theme.window?["foreground"] ?? "") ?? .systemGray
-            statusTextLabel.textColor = windowForegroundColor
-            
-            outputButton.contentTintColor = windowBackgroundColor.contrastColor()
-            clearOutputButton.contentTintColor = windowBackgroundColor.contrastColor()
-            statusTextLabel.textColor = windowBackgroundColor.contrastColor()
-        }
+        updateGutterApperance(usingTheme: theme)
+        updateWindowApperance(usingTheme: theme)
     }
     
     @objc func handleThemeSelection(_ sender: NSMenuItem) {

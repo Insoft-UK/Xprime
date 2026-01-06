@@ -44,8 +44,6 @@ final class QuickLookTextView: XprimeTextView {
         textContainer?.widthTracksTextView = true
         textContainer?.containerSize = NSSize(width: bounds.width, height: .greatestFiniteMagnitude)
         textContainer?.lineBreakMode = .byWordWrapping
-        
-        textContainerInset = NSSize(width: 20, height: 0)
         backgroundColor = NSColor.clear
     }
 

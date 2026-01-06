@@ -24,6 +24,7 @@ import Cocoa
 
 
 final class QuickLookViewController: NSViewController {
+    
     @IBOutlet weak var quickLookTextView: QuickLookTextView!
     
     
@@ -46,8 +47,8 @@ final class QuickLookViewController: NSViewController {
         
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
-//        window.styleMask = [.closable]
-//        window.styleMask.insert(.fullSizeContentView)
+        window.styleMask = [.nonactivatingPanel, .titled]
+        window.styleMask.insert(.fullSizeContentView)
       
         
         window.center()
@@ -57,9 +58,7 @@ final class QuickLookViewController: NSViewController {
         if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath") {
             let url = URL(fileURLWithPath: path)
                 .deletingLastPathComponent()
-            
-//            let destinationURL = URL(fileURLWithPath: "/dev/stdout")
-//            
+
             loadText(from: url.appendingPathComponent(url.lastPathComponent + ".prgm+"))
         } else {
             self.view.window?.close()
@@ -83,3 +82,4 @@ final class QuickLookViewController: NSViewController {
         quickLookTextView.changeText(out)
     }
 }
+
