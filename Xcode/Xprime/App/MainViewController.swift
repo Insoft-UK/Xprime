@@ -178,18 +178,38 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         didSet {
             if let window = self.view.window {
                 if documentIsModified {
-                    if let url = currentURL {
-                        window.title = url.lastPathComponent + " — Edited"
-                    }
+//                    if let url = currentURL {
+//                        window.title = url.lastPathComponent + " — Edited"
+//                    }
+                    updateQuickOpenComboButton()
                 } else {
                     // When saved, show current file name or default title
-                    if let url = currentURL {
-                        window.title = url.lastPathComponent
-                    } else {
-                        window.title = "Untitled"
-                    }
+//                    if let url = currentURL {
+//                        window.title = url.lastPathComponent
+//                    } else {
+//                        window.title = "Untitled"
+//                    }
+                    updateQuickOpenComboButton()
                 }
             }
+        }
+    }
+    
+    private func updateQuickOpenComboButton() {
+        guard
+            let toolbar = view.window?.toolbar,
+            let item = toolbar.items.first(where: {
+                $0.paletteLabel == "Quick Open"
+            }),
+            let comboButton = item.view as? NSComboButton
+        else {
+            return
+        }
+        
+        if documentIsModified {
+            comboButton.action = #selector(revertDocumentToSaved(_:))
+        } else {
+            comboButton.action = nil
         }
     }
     
@@ -588,14 +608,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
   
         guard
-                let toolbar = view.window?.toolbar,
-                let item = toolbar.items.first(where: {
-                    $0.paletteLabel == "Quick Open"
-                }),
-                let comboButton = item.view as? NSComboButton
-            else {
-                return
-            }
+            let toolbar = view.window?.toolbar,
+            let item = toolbar.items.first(where: {
+                $0.paletteLabel == "Quick Open"
+            }),
+            let comboButton = item.view as? NSComboButton
+        else {
+            return
+        }
         
         comboButton.menu = menu
         comboButton.title = currentURL?.lastPathComponent ?? ""
@@ -673,6 +693,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func openDocument(url: URL) {
         guard let contents = loadDocumentContents(from: url) else { return }
         
+        documentIsModified = false
         UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
         currentURL = url
         codeEditorTextView.string = contents
@@ -684,6 +705,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         loadAppropriateGrammar(forType: url.pathExtension)
         updateDocumentIcon(from: folderURL, parentURL: parentURL)
         refreshQuickOpenToolbar()
+        
+        updateQuickOpenComboButton()
     }
     
     private func proceedWithOpeningDocument() {

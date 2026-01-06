@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <capability name="Combo buttons" minToolsVersion="14.0" minSystemVersion="13.0"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -120,17 +119,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPt-bq-BuX">
-                                <rect key="frame" x="0.0" y="0.0" width="960" height="720"/>
+                                <rect key="frame" x="0.0" y="20" width="960" height="700"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" drawsBackground="NO" id="M8o-Kl-vcq">
-                                    <rect key="frame" x="0.0" y="0.0" width="960" height="720"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="960" height="700"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView wantsLayer="YES" focusRingType="none" editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="Xu9-Iu-AWI" customClass="QuickLookTextView" customModule="Xprime" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="960" height="720"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="960" height="700"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="960" height="720"/>
+                                            <size key="minSize" width="960" height="700"/>
                                             <size key="maxSize" width="960" height="10000000"/>
                                         </textView>
                                     </subviews>
@@ -140,12 +139,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Yvf-2P-DCW">
-                                    <rect key="frame" x="943" y="0.0" width="17" height="720"/>
+                                    <rect key="frame" x="943" y="0.0" width="17" height="700"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jN2-lv-r6t">
-                                <rect key="frame" x="470" y="17" width="21.5" height="30"/>
+                                <rect key="frame" x="470" y="694" width="21.5" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="eye.slash" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="gpW-L7-KQ4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -154,6 +153,7 @@
 DQ
 </string>
                                 </buttonCell>
+                                <color key="contentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="close:" target="7SS-eL-SDp" id="Ri2-De-4na"/>
                                 </connections>
@@ -1226,25 +1226,25 @@ Gw
             <objects>
                 <viewController storyboardIdentifier="MainViewController" id="XfG-lQ-9wD" customClass="MainViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" appearanceType="darkAqua" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="800" height="500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="640"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <splitView focusRingType="none" misplaced="YES" arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="VTQ-i6-i8i">
-                                <rect key="frame" x="0.0" y="1" width="800" height="500"/>
+                            <splitView focusRingType="none" arrangesAllSubviews="NO" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="VTQ-i6-i8i">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="640"/>
                                 <subviews>
                                     <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" id="Ec1-A6-M9f">
-                                        <rect key="frame" x="0.0" y="0.0" width="800" height="1"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="319"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" id="jPC-kg-cD0">
-                                            <rect key="frame" x="0.0" y="0.0" width="800" height="1"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="319"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView wantsLayer="YES" importsGraphics="NO" richText="NO" verticallyResizable="NO" baseWritingDirection="leftToRight" allowsUndo="YES" id="09p-Rf-tgR" customClass="CodeEditorTextView" customModule="Xprime" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="201"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="224" height="519"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" red="0.99131000000000002" green="0.56076000000000004" blue="0.24611" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <color key="backgroundColor" red="0.16078431372549018" green="0.16470588235294117" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <size key="minSize" width="0.0" height="1"/>
+                                                    <size key="minSize" width="1024" height="319"/>
                                                     <size key="maxSize" width="10000" height="10000000"/>
                                                 </textView>
                                             </subviews>
@@ -1255,24 +1255,24 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Zy3-AM-W93">
-                                            <rect key="frame" x="783" y="0.0" width="17" height="1"/>
+                                            <rect key="frame" x="1007" y="0.0" width="17" height="319"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
                                     <scrollView hidden="YES" fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="gM6-VC-kCh">
-                                        <rect key="frame" x="0.0" y="2" width="800" height="15"/>
+                                        <rect key="frame" x="0.0" y="320" width="1024" height="319"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" id="fIY-XC-Rbg">
-                                            <rect key="frame" x="0.0" y="0.0" width="800" height="15"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="319"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <textView wantsLayer="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="fLO-1H-GKd" customClass="OutputTextView" customModule="Xprime" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="800" height="15"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="1024" height="319"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="800" height="15"/>
-                                                    <size key="maxSize" width="800" height="10000000"/>
+                                                    <size key="minSize" width="1024" height="319"/>
+                                                    <size key="maxSize" width="1024" height="10000000"/>
                                                 </textView>
                                             </subviews>
                                         </clipView>
@@ -1281,16 +1281,16 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ghm-47-T7K">
-                                            <rect key="frame" x="783" y="0.0" width="17" height="15"/>
+                                            <rect key="frame" x="1007" y="0.0" width="17" height="319"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
                                     <customView id="JSg-5W-Jz5">
-                                        <rect key="frame" x="0.0" y="3" width="800" height="497"/>
+                                        <rect key="frame" x="0.0" y="321" width="1024" height="319"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <subviews>
                                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwT-Xi-9rw">
-                                                <rect key="frame" x="579" y="260" width="203" height="16"/>
+                                                <rect key="frame" x="803" y="164" width="203" height="16"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" userInterfaceLayoutDirection="rightToLeft" alignment="right" title="Line: 1 Col: 1" id="au9-yV-l0B">
                                                     <font key="font" metaFont="smallSystem"/>
@@ -1299,12 +1299,12 @@ Gw
                                                 </textFieldCell>
                                             </textField>
                                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tyO-qu-7vx">
-                                                <rect key="frame" x="381" y="248" width="38" height="38"/>
+                                                <rect key="frame" x="493" y="152" width="38" height="38"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="icon" id="3v8-6I-Ist"/>
                                             </imageView>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o4M-ON-b8V">
-                                                <rect key="frame" x="17" y="255.5" width="24" height="24"/>
+                                                <rect key="frame" x="22" y="159.5" width="24" height="24"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="inset.filled.bottomthird.square" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AfA-QU-4Ov">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1316,7 +1316,7 @@ Gw
                                                 </connections>
                                             </button>
                                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Is1-v7-WGS">
-                                                <rect key="frame" x="49" y="255" width="24.5" height="27"/>
+                                                <rect key="frame" x="63" y="159" width="24.5" height="27"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="trash" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="Ff0-fj-M5l">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1336,7 +1336,7 @@ Gw
                                 <holdingPriorities>
                                     <real value="250"/>
                                     <real value="250"/>
-                                    <real value="250"/>
+                                    <real value="102"/>
                                 </holdingPriorities>
                                 <connections>
                                     <outlet property="delegate" destination="XfG-lQ-9wD" id="SQ9-kE-1Pg"/>
@@ -1344,10 +1344,10 @@ Gw
                             </splitView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="VTQ-i6-i8i" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="YZ4-G6-Q5s"/>
-                            <constraint firstAttribute="bottom" secondItem="VTQ-i6-i8i" secondAttribute="bottom" id="aws-bD-GhQ"/>
-                            <constraint firstAttribute="trailing" secondItem="VTQ-i6-i8i" secondAttribute="trailing" id="sH7-Kw-TVV"/>
-                            <constraint firstItem="VTQ-i6-i8i" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="yaC-bB-dkD"/>
+                            <constraint firstItem="VTQ-i6-i8i" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="0nl-dg-BfT"/>
+                            <constraint firstAttribute="trailing" secondItem="VTQ-i6-i8i" secondAttribute="trailing" id="Rlf-2r-VYa"/>
+                            <constraint firstItem="VTQ-i6-i8i" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="qCX-Uo-nnd"/>
+                            <constraint firstAttribute="bottom" secondItem="VTQ-i6-i8i" secondAttribute="bottom" id="sdI-z0-TxF"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1388,7 +1388,7 @@ Gw
         <image name="long.text.page.and.pencil.fill" catalog="system" width="17" height="19"/>
         <image name="paintbrush" catalog="system" width="17" height="18"/>
         <image name="photo" catalog="system" width="18" height="14"/>
-        <image name="play.fill" catalog="system" width="10" height="11"/>
+        <image name="play.fill" catalog="system" width="12" height="13"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="ppl" width="16" height="16"/>
         <image name="questionmark.circle" catalog="system" width="15" height="15"/>

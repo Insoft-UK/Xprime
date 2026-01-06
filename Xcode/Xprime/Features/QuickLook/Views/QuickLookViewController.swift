@@ -46,8 +46,8 @@ final class QuickLookViewController: NSViewController {
         
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true
-        window.styleMask = []
-        window.styleMask.insert(.fullSizeContentView)
+//        window.styleMask = [.closable]
+//        window.styleMask.insert(.fullSizeContentView)
       
         
         window.center()

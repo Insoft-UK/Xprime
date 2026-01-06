@@ -28,7 +28,7 @@ class XprimeTextView: NSTextView {
     
     private struct Constants {
         static let defaultFontSize: CGFloat = 13
-        static let defaultThemeName = "Catalog"
+        static let defaultThemeName = ".Help"
         static let defaultBackgroundColor = NSColor(white: 0, alpha: 0.75)
         static let defaultTextColor = NSColor.white
     }

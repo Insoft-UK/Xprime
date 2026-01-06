@@ -52,7 +52,7 @@ final class QuickHelpViewController: NSViewController {
         self.text = text
         self.hasHorizontalScroller = hasHorizontalScroller
         self.grammar = GrammarLoader.shared.loadGrammar(named: ".Help")
-        self.theme = ThemeLoader.shared.loadTheme(named: "Catalog")
+        self.theme = ThemeLoader.shared.loadTheme(named: ".Help")
         super.init(nibName: nil, bundle: nil)
     }
     

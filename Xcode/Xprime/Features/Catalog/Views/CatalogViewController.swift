@@ -146,6 +146,13 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         let index = catalogComboBox.indexOfItem(withObjectValue: lastOpenedCatalogHelpFile)
         catalogComboBox.selectItem(at: index)
         loadHelp(for: lastOpenedCatalogHelpFile)
+        
+        DispatchQueue.main.async {
+            if let editor = self.catalogComboBox.currentEditor() {
+                let length = editor.string.count
+                editor.selectedRange = NSRange(location: length, length: 0)
+            }
+        }
     }
 }
 
