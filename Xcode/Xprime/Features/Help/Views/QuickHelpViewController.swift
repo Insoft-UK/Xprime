@@ -29,7 +29,7 @@ final class QuickHelpViewController: NSViewController {
     private enum Constants {
         static let maxTextWidth: CGFloat = 600
         static let minContentWidth: CGFloat = 200
-        static let padding: CGFloat = 10
+        static let padding: CGFloat = 5
     }
     
     // MARK: - Properties
@@ -173,7 +173,7 @@ final class QuickHelpViewController: NSViewController {
             ),
             scrollView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -Constants.padding
+                constant: Constants.padding
             ),
             scrollView.topAnchor.constraint(
                 equalTo: view.topAnchor,
