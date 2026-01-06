@@ -621,6 +621,49 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         comboButton.action = #selector(revertDocumentToSaved(_:))
     }
     
+    // MARK: - Checking for Updates
+    
+    @IBAction func checkForUpdates(_ sender: Any) {
+        let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json")!
+
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard
+                let data,
+                let json = try? JSONSerialization.jsonObject(with: data) as? [String: String],
+                let latest = json["latestVersion"],
+                let current = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            else {
+                return
+            }
+
+            if latest.compare(current, options: .numeric) == .orderedDescending {
+                DispatchQueue.main.async {
+                    AlertPresenter.presentYesNo(
+                        on: self.view.window,
+                        title: "Update Available",
+                        message: "A newer version of the app is available.",
+                        primaryActionTitle: "Download",
+                        secondaryActionTitle: "Lator"
+                    ) { confirmed in
+                        if confirmed {
+                            /// Download
+                            NSWorkspace.shared.open(URL(string: "http://insoft.uk/action/?method=downlink&path=macos&file=xprime.pkg")!)
+                        } else {
+                            return
+                        }
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    if let current = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
+                        AlertPresenter.showInfo(on: self.view.window, title: "You’re up to date!", message: "Xprime \(current) is currently the newest version available.")
+                    }
+                }
+            }
+        }.resume()
+    }
+    
+    
     // MARK: - File IO Action Handlers
     
     @IBAction func newProject(_ sender: Any) {

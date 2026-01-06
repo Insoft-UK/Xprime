@@ -7,35 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Window Controller-->
-        <scene sceneID="ny5-wf-xwW">
-            <objects>
-                <windowController showSeguePresentationStyle="single" id="WAc-gE-cXI" sceneMemberID="viewController">
-                    <window key="window" title="Catalog" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="Cje-Vg-2ry">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
-                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="211" y="269" width="480" height="270"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1512" height="948"/>
-                        <view key="contentView" id="Zo5-Xd-bvg">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </view>
-                        <connections>
-                            <outlet property="delegate" destination="WAc-gE-cXI" id="2JD-Vj-PCk"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="um3-nH-PU9" kind="relationship" relationship="window.shadowedContentViewController" id="4Tf-HF-qQX"/>
-                    </connections>
-                </windowController>
-                <customObject id="VFJ-i8-dZe" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-500" y="-986"/>
-        </scene>
         <!--Catalog View Controller-->
         <scene sceneID="zVY-pL-kJE">
             <objects>
-                <viewController id="um3-nH-PU9" customClass="CatalogViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController showSeguePresentationStyle="single" id="um3-nH-PU9" customClass="CatalogViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="JPh-bh-aek">
                         <rect key="frame" x="0.0" y="0.0" width="500" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -84,52 +59,28 @@
                 </viewController>
                 <customObject id="0qd-iU-jch" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="217" y="-1021"/>
-        </scene>
-        <!--Window Controller-->
-        <scene sceneID="8Ot-V0-u2G">
-            <objects>
-                <windowController showSeguePresentationStyle="single" id="O2d-a5-ToZ" sceneMemberID="viewController">
-                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" deferred="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="IDX-jb-ZT5">
-                        <windowStyleMask key="styleMask" titled="YES"/>
-                        <rect key="contentRect" x="211" y="269" width="480" height="98"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1512" height="948"/>
-                        <view key="contentView" id="6CG-Tp-2mQ">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="98"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </view>
-                        <connections>
-                            <outlet property="delegate" destination="O2d-a5-ToZ" id="WNG-B8-5Fp"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="7SS-eL-SDp" kind="relationship" relationship="window.shadowedContentViewController" id="08a-Mi-3u8"/>
-                    </connections>
-                </windowController>
-                <customObject id="zQE-v8-Nex" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1497" y="-1635"/>
+            <point key="canvasLocation" x="-110" y="-1059"/>
         </scene>
         <!--Quick Look View Controller-->
         <scene sceneID="xyL-Ar-WVQ">
             <objects>
-                <viewController id="7SS-eL-SDp" customClass="QuickLookViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController showSeguePresentationStyle="single" id="7SS-eL-SDp" customClass="QuickLookViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="v9D-OZ-1Lt">
                         <rect key="frame" x="0.0" y="0.0" width="960" height="720"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SPt-bq-BuX">
-                                <rect key="frame" x="20" y="20" width="920" height="680"/>
+                                <rect key="frame" x="0.0" y="0.0" width="960" height="720"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" drawsBackground="NO" id="M8o-Kl-vcq">
-                                    <rect key="frame" x="0.0" y="0.0" width="920" height="680"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="960" height="720"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView wantsLayer="YES" focusRingType="none" editable="NO" selectable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" spellingCorrection="YES" id="Xu9-Iu-AWI" customClass="QuickLookTextView" customModule="Xprime" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="920" height="680"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="960" height="720"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="minSize" width="920" height="680"/>
+                                            <size key="minSize" width="960" height="720"/>
                                             <size key="maxSize" width="960" height="10000000"/>
                                         </textView>
                                     </subviews>
@@ -139,7 +90,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Yvf-2P-DCW">
-                                    <rect key="frame" x="903" y="0.0" width="17" height="680"/>
+                                    <rect key="frame" x="943" y="0.0" width="17" height="720"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -166,7 +117,7 @@ DQ
                 </viewController>
                 <customObject id="8bA-lJ-Dfy" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1624" y="-1083"/>
+            <point key="canvasLocation" x="-1434" y="-298"/>
         </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
@@ -187,7 +138,13 @@ DQ
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Settings..." image="gear" catalog="system" keyEquivalent="," id="36R-ZF-jrv">
                                             <connections>
-                                                <segue destination="CFc-li-Drx" kind="show" id="rs1-pK-ahC"/>
+                                                <segue destination="HsO-bO-Dfd" kind="show" id="W6P-l3-VSo"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Check for Updates..." id="fYr-Rq-ysS">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="checkForUpdates:" target="Ady-hI-5gd" id="6NU-cz-Znw"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Dlo-Hf-EQO"/>
@@ -910,7 +867,7 @@ DQ
                                         <menuItem title="Catalog" image="questionmark.circle" catalog="system" id="UPB-8x-f9F">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <segue destination="WAc-gE-cXI" kind="show" id="uwI-Zl-qVd"/>
+                                                <segue destination="um3-nH-PU9" kind="show" id="yWT-sy-q8s"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -930,36 +887,12 @@ DQ
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-745" y="-766"/>
-        </scene>
-        <!--Window Controller-->
-        <scene sceneID="0zq-Fv-lwY">
-            <objects>
-                <customObject id="yqd-22-Lvs" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <windowController showSeguePresentationStyle="single" id="CFc-li-Drx" sceneMemberID="viewController">
-                    <window key="window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SUG-Wu-9FC">
-                        <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
-                        <rect key="contentRect" x="190" y="269" width="580" height="42"/>
-                        <rect key="screenRect" x="0.0" y="0.0" width="1512" height="948"/>
-                        <view key="contentView" id="31E-id-5Da">
-                            <rect key="frame" x="0.0" y="0.0" width="580" height="42"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </view>
-                        <connections>
-                            <outlet property="delegate" destination="CFc-li-Drx" id="hAb-LX-OtS"/>
-                        </connections>
-                    </window>
-                    <connections>
-                        <segue destination="HsO-bO-Dfd" kind="relationship" relationship="window.shadowedContentViewController" id="3o6-O0-edv"/>
-                    </connections>
-                </windowController>
-            </objects>
-            <point key="canvasLocation" x="-980" y="-508"/>
+            <point key="canvasLocation" x="-956" y="-1395"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="3zb-e1-bF9">
             <objects>
-                <viewController id="HsO-bO-Dfd" customClass="SettingsViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController showSeguePresentationStyle="single" id="HsO-bO-Dfd" customClass="SettingsViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="1RK-mx-rDE">
                         <rect key="frame" x="0.0" y="0.0" width="476" height="333"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1133,12 +1066,12 @@ Gw
                 </viewController>
                 <customObject id="57P-ye-oRC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1032" y="-203.5"/>
+            <point key="canvasLocation" x="-667" y="-1028"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="MainWindowController" id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="MainWindowController" showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Untitled.prgm+ (UNSAVED)" separatorStyle="shadow" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" toolbarStyle="compact" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="620" y="417" width="912" height="240"/>
@@ -1200,7 +1133,7 @@ Gw
                                 <toolbarItem implicitItemIdentifier="CB3D1596-E579-40B5-AD3B-809B658F66B0" label="Quick Look" paletteLabel="Quick Look" tag="-1" bordered="YES" sizingBehavior="auto" id="GHV-4x-s3H">
                                     <imageReference key="image" image="eye" catalog="system" symbolScale="small"/>
                                     <connections>
-                                        <segue destination="O2d-a5-ToZ" kind="show" id="aDQ-sA-q3N"/>
+                                        <segue destination="7SS-eL-SDp" kind="popover" popoverAnchorView="GHV-4x-s3H" popoverBehavior="t" preferredEdge="maxY" id="bf4-sH-1b7"/>
                                     </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -1219,12 +1152,12 @@ Gw
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="65" y="-607"/>
+            <point key="canvasLocation" x="-1393" y="-982"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="XfG-lQ-9wD" customClass="MainViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainViewController" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="MainViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" appearanceType="darkAqua" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="640"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1244,7 +1177,7 @@ Gw
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" red="0.99131000000000002" green="0.56076000000000004" blue="0.24611" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <color key="backgroundColor" red="0.16078431372549018" green="0.16470588235294117" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <size key="minSize" width="1024" height="319"/>
+                                                    <size key="minSize" width="224" height="319"/>
                                                     <size key="maxSize" width="10000" height="10000000"/>
                                                 </textView>
                                             </subviews>
@@ -1363,7 +1296,7 @@ Gw
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4" y="-34"/>
+            <point key="canvasLocation" x="-393" y="-338"/>
         </scene>
     </scenes>
     <resources>
@@ -1382,7 +1315,7 @@ Gw
         <image name="folder" catalog="system" width="15" height="12"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="15" height="14"/>
+        <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="icon" width="38" height="38"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
         <image name="long.text.page.and.pencil.fill" catalog="system" width="17" height="19"/>
@@ -1394,7 +1327,7 @@ Gw
         <image name="questionmark.circle" catalog="system" width="15" height="15"/>
         <image name="shippingbox" catalog="system" width="16" height="17"/>
         <image name="shippingbox.fill" catalog="system" width="16" height="16"/>
-        <image name="square.and.arrow.down" catalog="system" width="12" height="14"/>
+        <image name="square.and.arrow.down" catalog="system" width="15" height="17"/>
         <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
         <image name="square.and.arrow.up.on.square" catalog="system" width="17" height="20"/>
         <image name="stop.fill" catalog="system" width="12" height="11"/>

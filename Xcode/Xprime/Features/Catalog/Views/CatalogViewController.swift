@@ -50,7 +50,7 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         
         // Make window background transparent
         window.isOpaque = false
-        window.backgroundColor = NSColor(white: 0, alpha: 0.75)
+        window.backgroundColor = NSColor(white: 0, alpha: 0.9)
         
         // Optional: remove title bar / standard window decorations
         window.titleVisibility = .hidden

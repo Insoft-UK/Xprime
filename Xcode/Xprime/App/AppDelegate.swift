@@ -61,6 +61,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
     @IBAction func launchHPPrimeVirtualCalculator(_ sender: Any) {
         HPServices.launchVirtualCalculator()
     }
+    
+    
 
     // MARK: - Action Handlers
 
