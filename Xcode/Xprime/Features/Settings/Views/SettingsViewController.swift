@@ -98,13 +98,20 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate, NSCom
         
         guard let window = view.window else { return }
         
+        // Make window background transparent
         window.titleVisibility = .hidden
         window.isOpaque = false
         window.backgroundColor = NSColor(white: 0, alpha: 0.9)
         window.titlebarAppearsTransparent = true
+        
         window.center()
         window.level = .floating
         window.hasShadow = true
+        
+       
+        window.titlebarAppearsTransparent = true
+        window.styleMask = [.nonactivatingPanel, .titled]
+        window.styleMask.insert(.fullSizeContentView)
     }
     
     // MARK: - Calculator Selection
