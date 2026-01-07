@@ -12,16 +12,15 @@
 *.ppl+       linguist-ignore=false linguist-language=PPL+
 *.prgm+      linguist-ignore=false linguist-language=PPL+
 
-# Ignore assets and scripts
-assets/**    linguist-ignore
-Makefile     linguist-ignore
-*.sh         linguist-ignore
-*.txt        linguist-ignore
-*.rtf        linguist-ignore
-*.xml        linguist-ignore
-*.json       linguist-ignore
-*.png        linguist-ignore
-*.storyboard linguist-ignore
-*.png        linguist-ignore
-*.bmp        linguist-ignore
+assets/**    linguist-generated=true
+Makefile     linguist-generated=true
+*.sh         linguist-generated=true
+*.txt        linguist-generated=true
+*.rtf        linguist-generated=true
+*.xml        linguist-generated=true
+*.json       linguist-generated=true
+*.png        linguist-generated=true
+*.storyboard linguist-generated=true
+*.png        linguist-generated=true
+*.bmp        linguist-generated=true
 
