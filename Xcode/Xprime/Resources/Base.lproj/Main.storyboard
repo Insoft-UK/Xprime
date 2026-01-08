@@ -37,7 +37,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="PCL-sB-g9k">
-                                    <rect key="frame" x="483" y="0.0" width="17" height="218"/>
+                                    <rect key="frame" x="484" y="0.0" width="16" height="218"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -45,7 +45,7 @@
                                 <rect key="frame" x="19" y="215" width="242" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="2Z9-bZ-lPp">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </comboBoxCell>
@@ -90,7 +90,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Yvf-2P-DCW">
-                                    <rect key="frame" x="943" y="0.0" width="17" height="720"/>
+                                    <rect key="frame" x="944" y="0.0" width="16" height="720"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
@@ -99,7 +99,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="eye.slash" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="gpW-L7-KQ4">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -901,7 +901,7 @@ DQ
                                 <rect key="frame" x="19" y="296" width="168" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Header Search Path" id="4di-eM-BP7">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -910,7 +910,7 @@ DQ
                                 <rect key="frame" x="194" y="293" width="264" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" usesSingleLineMode="YES" id="Mt1-UK-btJ">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -919,7 +919,7 @@ DQ
                                 <rect key="frame" x="194" y="251" width="264" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" usesSingleLineMode="YES" id="4ax-mM-IWZ">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -929,7 +929,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NuY-Ke-2Vm">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -943,7 +943,7 @@ DQ
                                 <rect key="frame" x="19" y="254" width="168" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Library Search Path" id="ekG-ux-mY7">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -952,7 +952,7 @@ DQ
                                 <rect key="frame" x="19" y="212" width="168" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="HP Prime Virtual Calculator" id="1Yk-68-aer">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -961,7 +961,7 @@ DQ
                                 <rect key="frame" x="19" y="170" width="168" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Compression" id="NIO-oZ-cuX">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -970,7 +970,7 @@ DQ
                                 <rect key="frame" x="19" y="128" width="168" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Calculator Name" id="aRm-Ky-IbX">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -979,7 +979,7 @@ DQ
                                 <rect key="frame" x="18" y="86" width="168" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Archive Project App Only" id="e0k-DQ-k9Z">
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -994,7 +994,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="radio" title="macOS" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="large" inset="2" id="iMM-UH-cRP">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="platform:" target="HsO-bO-Dfd" id="hth-3T-Yo1"/>
@@ -1005,7 +1005,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="radio" title="Wine" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="large" inset="2" id="vqI-t6-XaB">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                 </buttonCell>
                                 <connections>
                                     <action selector="platform:" target="HsO-bO-Dfd" id="7Sw-Rt-960"/>
@@ -1023,7 +1023,7 @@ DQ
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Default Settings" bezelStyle="rounded" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4Pe-7T-HdA">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="smallSystem" size="13"/>
                                     <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
@@ -1043,8 +1043,8 @@ Gw
                             <comboBox focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mxv-Wr-GZm">
                                 <rect key="frame" x="196" y="122" width="264" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <comboBoxCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="EEJ-1g-6TJ">
-                                    <font key="font" metaFont="system"/>
+                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" buttonBordered="NO" completes="NO" numberOfVisibleItems="5" id="EEJ-1g-6TJ">
+                                    <font key="font" metaFont="system" size="14"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <objectValues>
@@ -1242,7 +1242,7 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="Zy3-AM-W93">
-                                            <rect key="frame" x="1007" y="0.0" width="17" height="319"/>
+                                            <rect key="frame" x="1008" y="0.0" width="16" height="319"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -1268,7 +1268,7 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="ghm-47-T7K">
-                                            <rect key="frame" x="1007" y="0.0" width="17" height="319"/>
+                                            <rect key="frame" x="1008" y="0.0" width="16" height="319"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
@@ -1280,7 +1280,7 @@ Gw
                                                 <rect key="frame" x="803" y="164" width="203" height="16"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" userInterfaceLayoutDirection="rightToLeft" alignment="right" title="Line: 1 Col: 1" id="au9-yV-l0B">
-                                                    <font key="font" metaFont="smallSystem"/>
+                                                    <font key="font" metaFont="system" size="11"/>
                                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
@@ -1295,7 +1295,7 @@ Gw
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="inset.filled.bottomthird.square" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AfA-QU-4Ov">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
+                                                    <font key="font" metaFont="smallSystem" size="13"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
@@ -1307,7 +1307,7 @@ Gw
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="trash" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="Ff0-fj-M5l">
                                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                    <font key="font" metaFont="system"/>
+                                                    <font key="font" metaFont="smallSystem" size="13"/>
                                                 </buttonCell>
                                                 <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
@@ -1356,40 +1356,40 @@ Gw
     <resources>
         <image name="About" width="560" height="420"/>
         <image name="ConnectivityKit" width="32" height="32"/>
-        <image name="NSIconViewTemplate" width="19" height="18"/>
-        <image name="NSTouchBarNewFolderTemplate" width="25" height="20"/>
-        <image name="NSTouchBarPlayTemplate" width="15" height="17"/>
-        <image name="NSTouchBarTextLeftAlignTemplate" width="21" height="17"/>
+        <image name="NSIconViewTemplate" width="22" height="20"/>
+        <image name="NSTouchBarNewFolderTemplate" width="28" height="21"/>
+        <image name="NSTouchBarPlayTemplate" width="16" height="18"/>
+        <image name="NSTouchBarTextLeftAlignTemplate" width="23" height="19"/>
         <image name="VirtualCalculator" width="32" height="32"/>
-        <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
-        <image name="bubbles.and.sparkles" catalog="system" width="17" height="15"/>
-        <image name="character.book.closed" catalog="system" width="14" height="16"/>
-        <image name="document" catalog="system" width="14" height="16"/>
-        <image name="eye" catalog="system" width="16" height="11"/>
-        <image name="eye.slash" catalog="system" width="21" height="16"/>
-        <image name="folder" catalog="system" width="18" height="14"/>
-        <image name="gear" catalog="system" width="17" height="16"/>
-        <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="arrow.uturn.backward" catalog="system" width="16" height="15"/>
+        <image name="bubbles.and.sparkles" catalog="system" width="18" height="16"/>
+        <image name="character.book.closed" catalog="system" width="15" height="17"/>
+        <image name="document" catalog="system" width="15" height="17"/>
+        <image name="eye" catalog="system" width="17" height="12"/>
+        <image name="eye.slash" catalog="system" width="22" height="17"/>
+        <image name="folder" catalog="system" width="19" height="15"/>
+        <image name="gear" catalog="system" width="18" height="17"/>
+        <image name="hammer" catalog="system" width="21" height="19"/>
+        <image name="hammer.fill" catalog="system" width="16" height="16"/>
         <image name="icon" width="38" height="38"/>
-        <image name="info.circle" catalog="system" width="15" height="15"/>
-        <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
-        <image name="long.text.page.and.pencil.fill" catalog="system" width="17" height="19"/>
-        <image name="paintbrush" catalog="system" width="17" height="18"/>
-        <image name="photo" catalog="system" width="18" height="14"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
-        <image name="plus" catalog="system" width="14" height="13"/>
+        <image name="info.circle" catalog="system" width="16" height="16"/>
+        <image name="inset.filled.bottomthird.square" catalog="system" width="16" height="15"/>
+        <image name="long.text.page.and.pencil.fill" catalog="system" width="18" height="21"/>
+        <image name="paintbrush" catalog="system" width="19" height="19"/>
+        <image name="photo" catalog="system" width="20" height="15"/>
+        <image name="play.fill" catalog="system" width="10" height="12"/>
+        <image name="plus" catalog="system" width="15" height="14"/>
         <image name="ppl" width="16" height="16"/>
-        <image name="questionmark.circle" catalog="system" width="15" height="15"/>
-        <image name="shippingbox" catalog="system" width="16" height="17"/>
-        <image name="shippingbox.fill" catalog="system" width="16" height="16"/>
-        <image name="square.and.arrow.down" catalog="system" width="15" height="17"/>
-        <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
-        <image name="square.and.arrow.up.on.square" catalog="system" width="17" height="20"/>
+        <image name="questionmark.circle" catalog="system" width="16" height="16"/>
+        <image name="shippingbox" catalog="system" width="17" height="18"/>
+        <image name="shippingbox.fill" catalog="system" width="17" height="17"/>
+        <image name="square.and.arrow.down" catalog="system" width="13" height="15"/>
+        <image name="square.and.arrow.up" catalog="system" width="16" height="19"/>
+        <image name="square.and.arrow.up.on.square" catalog="system" width="19" height="22"/>
         <image name="stop.fill" catalog="system" width="12" height="11"/>
-        <image name="text.document" catalog="system" width="14" height="16"/>
-        <image name="text.insert" catalog="system" width="16" height="13"/>
-        <image name="text.page" catalog="system" width="14" height="16"/>
-        <image name="trash" catalog="system" width="15" height="17"/>
+        <image name="text.document" catalog="system" width="15" height="17"/>
+        <image name="text.insert" catalog="system" width="17" height="14"/>
+        <image name="text.page" catalog="system" width="15" height="17"/>
+        <image name="trash" catalog="system" width="16" height="18"/>
     </resources>
 </document>
