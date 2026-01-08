@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// MARK: - ⚠️ Refactoring Required
 
 import Cocoa
 import UniformTypeIdentifiers
@@ -34,20 +35,24 @@ extension MainViewController: NSWindowRestoration {
 
 final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
         
-    
-    
-    // MARK: - Outlets
-    @IBOutlet weak var toolbar: NSToolbar!
-    @IBOutlet weak var icon: NSImageView!
-    
+    // MARK: - IBOutlets
     @IBOutlet weak var splitView: NSSplitView!
-    @IBOutlet weak var fixedPane: NSView!
-    
+//    @IBOutlet weak var fixedPane: NSView!
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
-    @IBOutlet var statusTextLabel: NSTextField!
+    @IBOutlet var statusLabel: NSTextField!
     @IBOutlet var outputTextView: OutputTextView!
     @IBOutlet var outputScrollView: NSScrollView!
+    @IBOutlet private weak var outputButton: NSButton!
+    @IBOutlet private weak var clearOutputButton: NSButton!
     
+    // MARK: - Managers
+    private var themeManager: ThemeManager!
+    private var updateManager: UpdateManager!
+    private var statusManager: StatusManager!
+    
+    // MARK: - Outlets
+//    @IBOutlet weak var toolbar: NSToolbar!
+    @IBOutlet weak var icon: NSImageView!
     
     
     // MARK: - Class Private Properties
@@ -84,16 +89,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private var gutterView: LineNumberGutterView!
     
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        codeEditorTextView.delegate = self
-        splitView.delegate = self
+        setupEditor()
         
         // Add the Line Number Ruler
         if let scrollView = codeEditorTextView.enclosingScrollView {
@@ -106,13 +105,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             // Force layout to avoid invisible window
             scrollView.tile()
         }
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(updateStatus),
-            name: NSTextView.didChangeSelectionNotification,
-            object: codeEditorTextView
-        )
         
         NotificationCenter.default.addObserver(
             forName: NSText.didChangeNotification,
@@ -128,31 +120,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    @objc private func updateStatus() {
-        if let editor = codeEditorTextView {
-            let text = editor.string as NSString
-            let selectedRange = editor.selectedRange
-            let cursorLocation = selectedRange.location
-            
-            // Find line number
-            var lineNumber = 1
-            var columnNumber = 1
-            
-            // Count newlines up to the cursor
-            for i in 0..<cursorLocation {
-                if text.character(at: i) == 10 { // '\n'
-                    lineNumber += 1
-                    columnNumber = 1
-                } else {
-                    columnNumber += 1
-                }
-            }
-            statusTextLabel.stringValue = "Line: \(lineNumber) Col: \(columnNumber)"
-        }
-    }
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        setupManagers()
+        setupObservers()
         
         if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath") {
             let url = URL(fileURLWithPath: path)
@@ -173,10 +145,36 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         window.styleMask = [.resizable, .miniaturizable, .titled]
         window.hasShadow = true
         
-        proceedWithThemeSection(named: ThemeLoader.shared.preferredTheme)
+        themeManager.applySavedTheme()
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
+    // MARK: - Setup
+    private func setupManagers() {
+        themeManager = ThemeManager(editor: codeEditorTextView,
+                                    statusLabel: statusLabel,
+                                    outputButtons: [outputButton, clearOutputButton],
+                                    window: view.window)
+        updateManager = UpdateManager(presenterWindow: view.window)
+        statusManager = StatusManager(editor: codeEditorTextView, statusLabel: statusLabel)
+    }
+    
+    private func setupEditor() {
+        codeEditorTextView.delegate = self
+        splitView.delegate = self
+    }
+    
+    private func setupObservers() {
+        NotificationCenter.default.addObserver(
+            statusManager!,
+            selector: #selector(StatusManager.textDidChange(_:)),
+            name: NSTextView.didChangeSelectionNotification,
+            object: codeEditorTextView
+        )
+    }
     
     var documentIsModified: Bool = false {
         didSet {
@@ -245,6 +243,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     
+    
     private func populateGrammarMenu(menu: NSMenu) {
         guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: "Grammars") else {
             print("⚠️ No .xpgrammar files found.")
@@ -263,8 +262,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Theme & Grammar Action Handlers
-    @IBOutlet private weak var outputButton: NSButton!
-    @IBOutlet private weak var clearOutputButton: NSButton!
     
     private func updateGutterApperance(usingTheme theme: Theme) {
         if let lineNumberGutter = theme.lineNumberRuler {
@@ -290,25 +287,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         window.backgroundColor = windowBackgroundColor
         
         let windowForegroundColor = NSColor(hex: theme.window?["foreground"] ?? "") ?? .systemGray
-        statusTextLabel.textColor = windowForegroundColor
+        statusLabel.textColor = windowForegroundColor
         
         outputButton.contentTintColor = windowBackgroundColor.contrastColor()
         clearOutputButton.contentTintColor = windowBackgroundColor.contrastColor()
-        statusTextLabel.textColor = windowBackgroundColor.contrastColor()
+        statusLabel.textColor = windowBackgroundColor.contrastColor()
     }
     
-    private func proceedWithThemeSection(named name: String) {
-        codeEditorTextView.loadTheme(named: name)
-        
-        guard let theme = codeEditorTextView.theme else { return }
-        
-        updateGutterApperance(usingTheme: theme)
-        updateWindowApperance(usingTheme: theme)
-    }
+   
     
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
         UserDefaults.standard.set(sender.title, forKey: "preferredTheme")
-        proceedWithThemeSection(named: sender.title)
+        themeManager.applySavedTheme()
     }
     
     @objc func handleGrammarSelection(_ sender: NSMenuItem) {
@@ -621,52 +611,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         comboButton.action = #selector(revertDocumentToSaved(_:))
     }
     
-    // MARK: - Checking for Updates
-    
+    // MARK: - Actions
     @IBAction func checkForUpdates(_ sender: Any) {
-        let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json")!
-
-        var request = URLRequest(url: url)
-        request.cachePolicy = .reloadIgnoringLocalCacheData
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard
-                let data,
-                let json = try? JSONSerialization.jsonObject(with: data) as? [String: String],
-                let latest = json["latestVersion"],
-                let downloadURLString = json["downloadURL"],
-                let downloadURL = URL(string: downloadURLString)
-            else {
-                return
-            }
-
-            let current = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "26.0") + "." + (Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "20260101")
-          
-            if latest.compare(current, options: .numeric) == .orderedDescending {
-                DispatchQueue.main.async {
-                    AlertPresenter.presentYesNo(
-                        on: self.view.window,
-                        title: "Update Available",
-                        message: "A newer version of the app is available.",
-                        primaryActionTitle: "Download",
-                        secondaryActionTitle: "Lator"
-                    ) { confirmed in
-                        if confirmed {
-                            /// Download
-                            NSWorkspace.shared.open(downloadURL)
-                        } else {
-                            return
-                        }
-                    }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    if let current = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
-                        AlertPresenter.showInfo(on: self.view.window, title: "You’re up to date!", message: "Xprime \(current) is currently the newest version available.")
-                    }
-                }
-            }
-        }.resume()
+        updateManager.checkForUpdates()
     }
     
     
