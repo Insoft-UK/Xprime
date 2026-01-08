@@ -633,7 +633,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             guard
                 let data,
                 let json = try? JSONSerialization.jsonObject(with: data) as? [String: String],
-                let latest = json["latestVersion"]
+                let latest = json["latestVersion"],
+                let downloadURLString = json["downloadURL"],
+                let downloadURL = URL(string: downloadURLString)
             else {
                 return
             }
@@ -651,7 +653,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     ) { confirmed in
                         if confirmed {
                             /// Download
-                            NSWorkspace.shared.open(URL(string: "http://insoft.uk/action/?method=downlink&path=macos&file=xprime.pkg")!)
+                            NSWorkspace.shared.open(downloadURL)
                         } else {
                             return
                         }
