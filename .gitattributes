@@ -5,12 +5,12 @@
 * linguist-ignore
 
 # PPL files (count & highlight)
-*.ppl        linguist-ignore=false linguist-language=PPL
-*.prgm       linguist-ignore=false linguist-language=PPL
-*.hpprgm     linguist-ignore=false linguist-language=PPL
-*.hpappprgm  linguist-ignore=false linguist-language=PPL
-*.ppl+       linguist-ignore=false linguist-language=PPL+
-*.prgm+      linguist-ignore=false linguist-language=PPL+
+*.ppl        linguist-language=PPL
+*.prgm       linguist-language=PPL
+*.hpprgm     linguist-language=PPL
+*.hpappprgm  linguist-language=PPL
+*.ppl+       linguist-language=PPL+
+*.prgm+      linguist-language=PPL+
 
 assets/**    linguist-generated=true
 Makefile     linguist-generated=true
@@ -23,8 +23,6 @@ Makefile     linguist-generated=true
 *.storyboard linguist-generated=true
 *.png        linguist-generated=true
 *.bmp        linguist-generated=true
-*.prgm       linguist-generated=true
-*.prgm+      linguist-generated=true
 /Apps/*      linguist-vendored=true
 /Examples/*  linguist-vendored=true
 /Xcode/Xprime.xcodeproj/* linguist-vendored=true
