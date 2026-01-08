@@ -1,10 +1,7 @@
 # Normalize line endings
 * text=auto
 
-# Ignore everything by default
-* linguist-ignore
-
-# PPL files (count & highlight)
+# PPL files
 *.ppl        linguist-language=PPL
 *.prgm       linguist-language=PPL
 *.hpprgm     linguist-language=PPL
@@ -12,25 +9,24 @@
 *.ppl+       linguist-language=PPL+
 *.prgm+      linguist-language=PPL+
 
-assets/**    linguist-generated=true
-Makefile     linguist-generated=true
+# Generated files
+/assets/**   linguist-generated=true
 *.sh         linguist-generated=true
 *.txt        linguist-generated=true
 *.rtf        linguist-generated=true
 *.xml        linguist-generated=true
 *.json       linguist-generated=true
 *.png        linguist-generated=true
-*.storyboard linguist-generated=true
-*.png        linguist-generated=true
 *.bmp        linguist-generated=true
-/Apps/*      linguist-vendored=true
-/Examples/*  linguist-vendored=true
-/Xcode/Xprime.xcodeproj/* linguist-vendored=true
-/Xcode/Xprime/Resources/* linguist-vendored=true
-/assets/*    linguist-vendored=true
+*.storyboard linguist-generated=true
 *.plist      linguist-generated=true
 *.metal      linguist-generated=true
-*.entitlements            linguist-generated=true
+*.entitlements linguist-generated=true
 *.yml        linguist-generated=true
-*.md         linguist-generated=true
+
+# Vendored / external
+/Apps/**                     linguist-vendored=true
+/Examples/**                 linguist-vendored=true
+/Xcode/Xprime.xcodeproj/**   linguist-vendored=true
+/Xcode/Xprime/Resources/**   linguist-vendored=true
 
