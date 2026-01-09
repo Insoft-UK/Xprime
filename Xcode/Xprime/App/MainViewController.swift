@@ -119,6 +119,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         documentManager.openLastOrUntitled()
         
         themeManager.applySavedTheme()
+        
+        registerWindowFocusObservers()
     }
     
     deinit {
@@ -163,10 +165,44 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
     
     func textDidChange(_ notification: Notification) {
-#if Debug
+#if DEBUG
         print("Text did change!")
 #endif
         documentManager.documentIsModified = true
+    }
+    
+    private func registerWindowFocusObservers() {
+        guard let window = view.window else { return }
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(windowDidBecomeKey),
+            name: NSWindow.didBecomeKeyNotification,
+            object: window
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(windowDidResignKey),
+            name: NSWindow.didResignKeyNotification,
+            object: window
+        )
+    }
+    
+    @objc private func windowDidBecomeKey() {
+        // window gained focus
+#if DEBUG
+        print("Window gained focus")
+#endif
+        refreshQuickOpenToolbar()
+        projectManager.saveProject()
+    }
+    
+    @objc private func windowDidResignKey() {
+        // window lost focus
+#if DEBUG
+        print("Window lost focus")
+#endif
     }
     
     // MARK: -
@@ -176,7 +212,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             forResourcesWithExtension: "xpcolortheme",
             subdirectory: "Themes"
         ) else {
-#if Debug
+#if DEBUG
             print("⚠️ No .xpcolortheme files found.")
 #endif
             return
@@ -213,7 +249,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func populateGrammarMenu(menu: NSMenu) {
         guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: "Grammars") else {
-#if Debug
+#if DEBUG
             print("⚠️ No .xpgrammar files found.")
 #endif
             return
@@ -1044,7 +1080,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBAction func insertTemplate(_ sender: Any) {
         func traceMenuItem(_ item: NSMenuItem) -> String {
             if let parentMenu = item.menu {
-#if Debug
+#if DEBUG
                 print("Item '\(item.title)' is in menu: \(parentMenu.title)")
 #endif
                 
@@ -1279,30 +1315,33 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 // MARK: - 🤝 DocumentManagerDelegate
 extension MainViewController: DocumentManagerDelegate {
     func documentManagerDidSave(_ manager: DocumentManager) {
-#if Debug
+#if DEBUG
         print("Saved successfully")
 #endif
         projectManager.saveProject()
     }
     
     func documentManager(_ manager: DocumentManager, didFailWith error: Error) {
-#if Debug
+#if DEBUG
         print("Save failed:", error)
 #endif
     }
     
     func documentManagerDidOpen(_ manager: DocumentManager) {
-#if Debug
+#if DEBUG
         print("Opened successfully")
 #endif
         refreshQuickOpenToolbar()
         projectManager.openProject()
-        loadAppropriateGrammar(forType: documentManager.currentDocumentURL!.pathExtension)
+        if let url = documentManager.currentDocumentURL {
+            loadAppropriateGrammar(forType: url.pathExtension.lowercased())
+        }
+        
         refreshProjectIconImage()
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {
-#if Debug
+#if DEBUG
         print("Open failed:", error)
 #endif
     }

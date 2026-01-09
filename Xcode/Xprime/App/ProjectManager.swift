@@ -84,7 +84,7 @@ final class ProjectManager {
             let jsonString = try String(contentsOf: url, encoding: .utf8)
             return jsonString
         } catch {
-#if Debug
+#if DEBUG
         print("Loading JSON from \(url) failed:", error)
 #endif
             return nil
