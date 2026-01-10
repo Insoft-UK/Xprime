@@ -128,6 +128,7 @@ final class QuickHelpViewController: NSViewController {
         )
         textContainer.widthTracksTextView = false
         textContainer.heightTracksTextView = false
+        textContainer.lineFragmentPadding = 12 
         // Force layout
         let glyphRange = layoutManager.glyphRange(
             for: textContainer
