@@ -31,7 +31,6 @@ fileprivate struct Project: Codable {
     let calculator: String
     let bin: String
     let archiveProjectAppOnly: Bool
-    let baseApplicationName: String?
 }
 
 final class ProjectManager {
@@ -40,12 +39,10 @@ final class ProjectManager {
     private(set) var currentDirectoryURL: URL?
     
     var baseApplicationName: String {
-        get {
-            return (UserDefaults.standard.string(forKey: "baseApplicationName")) ?? "None"
-        } set {
-            UserDefaults.standard.set(newValue, forKey: "baseApplicationName")
-            saveProject()
+        guard let currentDirectoryURL else {
+            return "None"
         }
+        return HPServices.baseApplicationName(at: currentDirectoryURL, named: currentDirectoryURL.lastPathComponent)
     }
     
     init(documentManager: DocumentManager) {
@@ -66,6 +63,7 @@ final class ProjectManager {
             .appendingPathComponent("\(name).xprimeproj")
         
         
+        
         var project: Project?
         
         if let jsonString = loadJSONString(projectFileURL),
@@ -83,8 +81,7 @@ final class ProjectManager {
         UserDefaults.standard.set(project.calculator, forKey: "calculator")
         UserDefaults.standard.set(project.bin, forKey: "bin")
         UserDefaults.standard.set(project.archiveProjectAppOnly, forKey: "archiveProjectAppOnly")
-        UserDefaults.standard.set(project.baseApplicationName, forKey: "baseApplicationName")
-        
+    
         currentDirectoryURL = url
             .deletingLastPathComponent()
     }
@@ -120,7 +117,6 @@ final class ProjectManager {
             calculator: UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime",
             bin: UserDefaults.standard.object(forKey: "bin") as? String ?? "$(SDK)/bin",
             archiveProjectAppOnly: UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true,
-            baseApplicationName: UserDefaults.standard.object(forKey: "baseApplicationName") as? String ?? "None"
         )
         do {
             let encoder = JSONEncoder()

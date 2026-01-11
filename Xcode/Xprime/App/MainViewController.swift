@@ -103,7 +103,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             populateThemesMenu(menu: menu)
             populateGrammarMenu(menu: menu)
         }
-        populateBaseApplicationMenu()
     }
     
     
@@ -119,7 +118,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         setupWindowAppearance()
         documentManager.openLastOrUntitled()
-        
+        populateBaseApplicationMenu()
         themeManager.applySavedTheme()
         
         registerWindowFocusObservers()
@@ -293,7 +292,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         ]
 
         let menu = NSMenu()
-
+        let baseApplicationName = projectManager.baseApplicationName
         for application in applications {
             let item = NSMenuItem(
                 title: application,
@@ -311,7 +310,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     item.image = image
                 }
             }
-            item.state = projectManager.baseApplicationName == application ? .on: .off
+            item.state = baseApplicationName == application ? .on: .off
             menu.addItem(item)
         }
 
@@ -320,8 +319,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Base Application Action Handler
     @objc func handleBaseApplicationSelection(_ sender: NSMenuItem) {
-        projectManager.baseApplicationName = sender.title
-        
         guard let currentDocumentURL = documentManager.currentDocumentURL else { return }
         
         let name = currentDocumentURL.deletingLastPathComponent().lastPathComponent
