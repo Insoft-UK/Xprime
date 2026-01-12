@@ -30,7 +30,8 @@ MyApp/
 ├── MyApp.hpappdir/
 │   │── icon.png
 │   │── MyApp.hpapp
-│   └── MyApp.hpappnote
+│   │── MyApp.hpappnote
+│   └── MyApp.hpappprgm
 │── MyApp.xprimeproj
 │── MyApp.prgm+
 └── other.ppl+
