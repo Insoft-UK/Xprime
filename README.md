@@ -22,3 +22,29 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.hpappprgm|HP Prime application (exported/packaged)|Binary|
 |.prgm+|HP Prime PRGM+ extended program source code|UTF8|
 |.ppl+|HP Prime PPL+ extended program source code|UTF8|
+
+Typical File Structure for an HP Prime **Application**
+
+```
+MyApp/
+├── MyApp.hpappdir/
+│   │── icon.png
+│   │── MyApp.hpapp
+│   └── MyApp.hpappnote
+│── MyApp.xprimeproj
+│── MyApp.prgm+
+└── other.ppl+
+```
+
+Typical File Structure for an HP Prime **Program**
+
+```
+MyProgram/
+│── MyProgram.xprimeproj
+│── MyProgram.prgm+
+└── other.ppl+
+```
+
+>[!NOTE]
+Use the **.ppl+** extension for extended program source code and **.prgm+** for the main application or program source code.
+For standard PPL source code, use **.ppl** and never **.prgm**, as **.prgm** is reserved for the main application or program source file in projects that do not use extended PPL.
