@@ -103,6 +103,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             populateThemesMenu(menu: menu)
             populateGrammarMenu(menu: menu)
         }
+        populateBaseApplicationMenu()
     }
     
     
@@ -115,12 +116,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                                     outputButtons: [outputButton, clearOutputButton],
                                     window: view.window)
         updateManager = UpdateManager(presenterWindow: view.window)
-        
         setupWindowAppearance()
         documentManager.openLastOrUntitled()
-        populateBaseApplicationMenu()
         themeManager.applySavedTheme()
-        
         registerWindowFocusObservers()
     }
     
@@ -198,6 +196,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         refreshQuickOpenToolbar()
         projectManager.saveProject()
         refreshProjectIconImage()
+        populateBaseApplicationMenu()
     }
     
     @objc private func windowDidResignKey() {
@@ -247,8 +246,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 .addItem(menuItem)
         }
     }
-    
-    
+
     private func populateGrammarMenu(menu: NSMenu) {
         guard let resourceURLs = Bundle.main.urls(forResourcesWithExtension: "xpgrammar", subdirectory: "Grammars") else {
 #if Debug
@@ -315,6 +313,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
 
         baseApp.menu = menu
+        
+        baseApp.isEnabled = documentManager.currentDocumentURL != nil
     }
     
     // MARK: - Base Application Action Handler
@@ -324,7 +324,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let name = currentDocumentURL.deletingLastPathComponent().lastPathComponent
         let directoryURL = currentDocumentURL.deletingLastPathComponent()
         
+        if directoryURL.appendingPathComponent("\(name).hpappdir").isDirectory {
+            outputTextView.appendTextAndScroll("⚠️ Changing base application \"\(projectManager.baseApplicationName)\" to \"\(sender.title)\".\n")
+        } else {
+            outputTextView.appendTextAndScroll("🔨 Create application directory.\n")
+        }
+        
         try? HPServices.resetHPAppContents(at: directoryURL, named: name, fromBaseApplicationNamed: sender.title)
+        outputTextView.appendTextAndScroll("Base application is \"\(projectManager.baseApplicationName)\"\n")
         refreshProjectIconImage()
     }
     
@@ -415,8 +422,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         updateWindowDocumentIcon()
     }
-    
-    
     
     private func buildForArchive() {
         guard
@@ -1437,6 +1442,7 @@ extension MainViewController: DocumentManagerDelegate {
         }
         
         refreshProjectIconImage()
+        populateBaseApplicationMenu()
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {
