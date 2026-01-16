@@ -2,7 +2,13 @@
   "images" : [
     {
       "filename" : "Note.png",
-      "idiom" : "universal"
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Note@2x.png",
+      "idiom" : "mac",
+      "scale" : "2x"
     }
   ],
   "info" : {

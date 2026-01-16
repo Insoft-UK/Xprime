@@ -38,6 +38,14 @@ final class ProjectManager {
     private var documentManager: DocumentManager
     private(set) var currentDirectoryURL: URL?
     
+    var projectName: String {
+        guard let currentDirectoryURL else {
+            return "Untitled"
+        }
+        return currentDirectoryURL
+            .lastPathComponent
+    }
+    
     var baseApplicationName: String {
         guard let currentDirectoryURL else {
             return "None"

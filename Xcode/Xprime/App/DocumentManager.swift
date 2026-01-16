@@ -98,8 +98,16 @@ final class DocumentManager {
         }
         
         // Handle normal text-based documents
-        let encoding: String.Encoding = ext == "prgm" || ext == "app" ? .utf16 : .utf8
-        
+        let encoding: String.Encoding
+        switch ext {
+        case "prgm", "app", "note":
+            encoding = .utf16
+        case "hpnote":
+            encoding = .utf16LittleEndian
+        default:
+            encoding = .utf8
+        }
+       
         do {
             let content = try String(contentsOf: url, encoding: encoding)
             editor.string = content
@@ -122,10 +130,30 @@ final class DocumentManager {
     
     @discardableResult
     func saveDocumentAs(to url: URL) -> Bool {
-        let encoding: String.Encoding = url.pathExtension.lowercased() == "prgm" || url.pathExtension.lowercased() == "app" ? .utf16 : .utf8
+        let encoding: String.Encoding
+        switch url.pathExtension.lowercased() {
+        case "prgm", "app", "note":
+            encoding = .utf16
+        case "hpnote":
+            encoding = .utf16LittleEndian
+        default:
+            encoding = .utf8
+        }
         
         do {
-            try editor.string.write(to: url, atomically: true, encoding: encoding)
+            guard var data = editor.string.data(using: encoding) else {
+                throw NSError(domain: "EncodingError", code: 1)
+            }
+
+            if url.pathExtension.lowercased() == "hpnote" {
+                // Append 0x0000 (two zero bytes)
+                data.append(contentsOf: [0x00, 0x00])
+            }
+
+            try data.write(to: url, options: .atomic)
+            
+//            try editor.string.write(to: url, atomically: true, encoding: encoding)
+            
             documentIsModified = false
             delegate?.documentManagerDidSave(self)
             return true

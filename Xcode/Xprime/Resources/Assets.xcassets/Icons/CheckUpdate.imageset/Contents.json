@@ -2,7 +2,13 @@
   "images" : [
     {
       "filename" : "CheckUpdate.png",
-      "idiom" : "universal"
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "CheckUpdate@2x.png",
+      "idiom" : "mac",
+      "scale" : "2x"
     }
   ],
   "info" : {

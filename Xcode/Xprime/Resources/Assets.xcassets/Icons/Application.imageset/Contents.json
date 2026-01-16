@@ -2,7 +2,13 @@
   "images" : [
     {
       "filename" : "Application.png",
-      "idiom" : "universal"
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Application@2x.png",
+      "idiom" : "mac",
+      "scale" : "2x"
     }
   ],
   "info" : {
