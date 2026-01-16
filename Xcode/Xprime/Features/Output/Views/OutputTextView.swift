@@ -49,6 +49,20 @@ final class OutputTextView: XprimeTextView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         textContainerInset = NSSize(width: 5, height: 5)
+        applyLineSpacingToExistingText()
+    }
+    
+    private func applyLineSpacingToExistingText() {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 16
+
+        let range = NSRange(location: 0, length: string.count)
+
+        textStorage?.addAttribute(
+            .paragraphStyle,
+            value: paragraphStyle,
+            range: range
+        )
     }
     
     func toggleVisability(_ sender: NSButton) {

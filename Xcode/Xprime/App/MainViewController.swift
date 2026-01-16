@@ -1162,6 +1162,39 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         archiveProcess()
     }
     
+    @IBAction private func markdownToNote(_ sender: Any) {
+        guard let sourceURL = documentManager.currentDocumentURL else {
+            return
+        }
+        
+        guard sourceURL.pathExtension.lowercased() == "md" else {
+            return
+        }
+        
+        guard let projectDirectoryURL = projectManager.currentDirectoryURL else {
+            return
+        }
+    
+        
+        let destinationURL: URL
+        destinationURL = projectDirectoryURL
+            .appendingPathComponent("\(projectManager.projectName).hpappdir/\(projectManager.projectName).hpappnote")
+
+       
+        let command = ToolchainPaths.bin.appendingPathComponent("note").path
+        let arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
+        try? FileManager.default.removeItem(at: destinationURL)
+        
+        let commandURL = URL(fileURLWithPath: command)
+        let result = ProcessRunner.run(executable: commandURL, arguments: arguments)
+        
+        guard result.exitCode == 0 else {
+            outputTextView.appendTextAndScroll("🛑 Required Markdown to Note conversion tool not installed.\n")
+            return
+        }
+        outputTextView.appendTextAndScroll(result.err ?? "")
+    }
+    
     @IBAction func build(_ sender: Any) {
         if let _ = documentManager.currentDocumentURL {
             documentManager.saveDocument()
@@ -1462,6 +1495,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 menuItem.state = .off
             }
             return true
+            
+        case #selector(markdownToNote(_:)):
+            if ext == "md" {
+                return true
+            }
+            return false
             
         default:
             break

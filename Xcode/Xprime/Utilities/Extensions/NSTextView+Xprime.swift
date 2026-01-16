@@ -30,6 +30,7 @@ extension NSTextView {
         paragraphStyle.lineSpacing = 0
         paragraphStyle.paragraphSpacing = 0
         paragraphStyle.alignment = .left
+        paragraphStyle.lineHeightMultiple = 1.2
         
         return [
             .font: font,
