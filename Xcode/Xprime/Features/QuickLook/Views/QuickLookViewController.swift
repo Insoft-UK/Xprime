@@ -59,7 +59,22 @@ final class QuickLookViewController: NSViewController {
             let url = URL(fileURLWithPath: path)
                 .deletingLastPathComponent()
             
-            loadText(from: url.appendingPathComponent(url.lastPathComponent + ".prgm+"))
+            // Prioritize main.prgm+
+            if FileManager.default.fileExists(
+                atPath: url
+                    .appendingPathComponent("main.prgm+")
+                    .path
+            ) {
+                loadText(
+                    from: url
+                        .appendingPathComponent("main.prgm+")
+                )
+            } else {
+                loadText(
+                    from: url
+                        .appendingPathComponent(url.lastPathComponent + ".prgm+")
+                )
+            }
         } else {
             self.view.window?.close()
         }

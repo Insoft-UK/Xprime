@@ -102,7 +102,7 @@ final class DocumentManager {
         switch ext {
         case "prgm", "app", "note":
             encoding = .utf16
-        case "hpnote":
+        case "hpnote", "hpappnote":
             encoding = .utf16LittleEndian
         default:
             encoding = .utf8
@@ -134,7 +134,7 @@ final class DocumentManager {
         switch url.pathExtension.lowercased() {
         case "prgm", "app", "note":
             encoding = .utf16
-        case "hpnote":
+        case "hpnote", "hpappnote":
             encoding = .utf16LittleEndian
         default:
             encoding = .utf8

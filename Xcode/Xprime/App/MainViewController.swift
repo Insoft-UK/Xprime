@@ -813,6 +813,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             UTType(filenameExtension: "ppl+")!,
             UTType(filenameExtension: "md")!,
             UTType(filenameExtension: "note")!,
+            UTType(filenameExtension: "hpnote")!,
+            UTType(filenameExtension: "hpappnote")!,
             UTType.pythonScript,
             UTType.cHeader,
             UTType.text
