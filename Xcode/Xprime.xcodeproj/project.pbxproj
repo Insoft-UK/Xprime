@@ -140,7 +140,6 @@
 				"    BUILD=$(date +\"%Y%m%d\")",
 				"    #agvtool new-version -all $BUILD",
 				"",
-				"",
 				"    VERSION=$(/usr/libexec/PlistBuddy \\",
 				"        -c \"Print :CFBundleShortVersionString\" \\",
 				"        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")",
