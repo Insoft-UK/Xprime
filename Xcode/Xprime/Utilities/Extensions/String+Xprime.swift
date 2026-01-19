@@ -86,4 +86,7 @@ extension String {
         try data.write(to: url, options: .atomic)
     }
     
+    var shellEscaped: String {
+        "'" + self.replacingOccurrences(of: "'", with: "'\\''") + "'"
+    }
 }

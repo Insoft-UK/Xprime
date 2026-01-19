@@ -20,8 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// MARK: ✅ Done
-
 import Cocoa
 
 fileprivate struct Project: Codable {
@@ -34,23 +32,26 @@ fileprivate struct Project: Codable {
 }
 
 final class ProjectManager {
-    
     private var documentManager: DocumentManager
-    private(set) var currentDirectoryURL: URL?
+    private(set) var projectDirectoryURL: URL?
+    @available(*, deprecated, renamed: "projectDirectoryURL")
+    var currentDirectoryURL: URL? {
+        projectDirectoryURL
+    }
     
     var projectName: String {
-        guard let currentDirectoryURL else {
+        guard let projectDirectoryURL else {
             return "Untitled"
         }
-        return currentDirectoryURL
+        return projectDirectoryURL
             .lastPathComponent
     }
     
     var baseApplicationName: String {
-        guard let currentDirectoryURL else {
+        guard let projectDirectoryURL else {
             return "None"
         }
-        return HPServices.hpPrimeBaseApplicationName(for: currentDirectoryURL.lastPathComponent, in: currentDirectoryURL)
+        return HPServices.hpPrimeBaseApplicationName(for: projectDirectoryURL.lastPathComponent, in: projectDirectoryURL)
     }
     
     init(documentManager: DocumentManager) {
@@ -58,15 +59,15 @@ final class ProjectManager {
     }
     
     func openProject() {
-        guard let url = documentManager.currentDocumentURL else {
+        guard let currentDocumentURL = documentManager.currentDocumentURL else {
             return
         }
         
-        let name = url
+        let name = currentDocumentURL
             .deletingLastPathComponent()
             .lastPathComponent
         
-        let projectFileURL = url
+        let projectFileURL = currentDocumentURL
             .deletingLastPathComponent()
             .appendingPathComponent("\(name).xprimeproj")
         
@@ -80,6 +81,7 @@ final class ProjectManager {
         }
         
         guard let project = project else {
+            projectDirectoryURL = nil
             return
         }
         
@@ -89,9 +91,8 @@ final class ProjectManager {
         UserDefaults.standard.set(project.calculator, forKey: "calculator")
         UserDefaults.standard.set(project.bin, forKey: "bin")
         UserDefaults.standard.set(project.archiveProjectAppOnly, forKey: "archiveProjectAppOnly")
-    
-        currentDirectoryURL = url
-            .deletingLastPathComponent()
+        
+        projectDirectoryURL = currentDocumentURL.deletingLastPathComponent()
     }
     
     
@@ -109,14 +110,10 @@ final class ProjectManager {
     
     @discardableResult
     func saveProject() -> Bool {
-        guard let url = documentManager.currentDocumentURL else { return false }
-        let name = url
-            .deletingLastPathComponent()
-            .lastPathComponent
+        guard let projectDirectoryURL else { return false }
         
-        let projectFileURL = url
-            .deletingLastPathComponent()
-            .appendingPathComponent("\(name).xprimeproj")
+        let projectFileURL = projectDirectoryURL
+            .appendingPathComponent("\(projectName).xprimeproj")
         
         let project = Project(
             compression: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false,
@@ -158,8 +155,8 @@ final class ProjectManager {
                 )
                 documentManager.openDocument(url: directoryURL.appendingPathComponent("\(name)/\(name).prgm+"))
                 defaultSettings()
+                projectDirectoryURL = directoryURL.appendingPathComponent(name)
                 saveProject()
-                currentDirectoryURL = directoryURL
             }
         } catch {
             return false

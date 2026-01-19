@@ -20,8 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// MARK: ✅ Done
-
 import Cocoa
 
 protocol DocumentManagerDelegate: AnyObject {
@@ -69,41 +67,60 @@ final class DocumentManager {
         currentDocumentURL = nil
         documentIsModified = false
     }
-
-    func openDocument(url: URL) {
-        let ext = url.pathExtension.lowercased()
+    
+    private func openNote(url: URL) {
+        let path = ToolchainPaths.bin.appendingPathComponent("note")
+        let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
         
-        // Handle HPPRGM / HPAPPRGM files
-        if ext == "hpprgm" || ext == "hpappprgm" {
-            let pplPath = ToolchainPaths.bin.appendingPathComponent("ppl+")
-            let result = ProcessRunner.run(executable: pplPath, arguments: [url.path, "-o", "/dev/stdout"])
-            
-            guard let output = result.out, !output.isEmpty else {
-                let error = NSError(
-                    domain: "Error",
-                    code: 0,
-                    userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]
-                )
-                delegate?.documentManager(self, didFailToOpen: error)
-                return
-            }
-            
-            editor.string = output
-            currentDocumentURL = url.deletingPathExtension().appendingPathExtension("prgm")
-            documentIsModified = false
-            UserDefaults.standard.set(url.deletingPathExtension().appendingPathExtension("prgm").path, forKey: "lastOpenedFilePath")
-            delegate?.documentManagerDidOpen(self)
-            FileManager.default.changeCurrentDirectoryPath(url.deletingLastPathComponent().path)
+        guard result.exitCode == 0, let out = result.out else {
+            let error = NSError(
+                domain: "Error",
+                code: 0,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to read from the note file."]
+            )
+            delegate?.documentManager(self, didFailToOpen: error)
             return
         }
         
-        // Handle normal text-based documents
+        editor.string = out
+        currentDocumentURL = nil
+        documentIsModified = false
+        delegate?.documentManagerDidOpen(self)
+    }
+    
+    private func openProgram(url: URL) {
+        let path = ToolchainPaths.bin.appendingPathComponent("ppl+")
+        let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
+        
+        guard result.exitCode == 0, let out = result.out else {
+            let error = NSError(
+                domain: "Error",
+                code: 0,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]
+            )
+            delegate?.documentManager(self, didFailToOpen: error)
+            return
+        }
+        
+        editor.string = out
+        currentDocumentURL = nil
+        documentIsModified = false
+        delegate?.documentManagerDidOpen(self)
+    }
+
+    func openDocument(url: URL) {
         let encoding: String.Encoding
-        switch ext {
+        switch url.pathExtension.lowercased() {
         case "prgm", "app", "note":
             encoding = .utf16
         case "hpnote", "hpappnote":
-            encoding = .utf16LittleEndian
+            openNote(url: url)
+            return
+            
+        case "hpprgm", "hpappprgm":
+            openProgram(url: url)
+            return
+            
         default:
             encoding = .utf8
         }

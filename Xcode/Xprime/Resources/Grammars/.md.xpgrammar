@@ -1,34 +1,14 @@
 {
-  "name": "PPL",
-  "scopeName": "source.swift",
+  "name": "Markdown",
+  "scopeName": "source.md",
   "patterns": [
     {
-      "name": "Functions",
-      "match": "(?mi)[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]*(\\.[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]+)?(?=\\()"
-    },
-    {
-      "name": "Keywords",
-      "match": "(?m)\\b(BEGIN|END|RETURN|KILL|IF|THEN|ELSE|XOR|OR|AND|NOT|CASE|DEFAULT|IFERR|IFTE|FOR|FROM|STEP|DOWNTO|TO|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|EXPORT|CONST|LOCAL|KEY)\\b"
-    },
-    {
       "name": "Symbols",
-      "match": "[\\u0080-\\uFFFF]+"
-    },
-    {
-      "name": "Operators",
-      "match": "[▶:=+\\-*/<>≠≤≥!^%]+"
+      "match": "[*#-]+"
     },
     {
       "name": "Brackets",
-      "match": "[{}()\\[\\]]+"
-    },
-    {
-      "name": "Units",
-      "match": "(?<=[^a-zA-Z])(?:º|i)(?![a-zA-Z])"
-    },
-    {
-      "name": "Numbers",
-      "match": "(?:#(?:(?:[0-1]+(?::-?\\d+)?b)|(?:[0-7]+(?::-?\\d+)?o)|(?:[0-9A-F]+(?::-?\\d+)?h)|(?:[0-9]+(?::-?\\d+)?d?)|))|(?:(?<![_a-zA-Z\\u0080-\\uFFFF$])-?\\d+(?:[\\.|e]\\d+)?)"
+      "match": "[{}]+"
     },
     {
       "name": "Strings",
@@ -37,14 +17,6 @@
     {
         "name": "Backquotes",
         "match": "`.*?`"
-    },
-    {
-        "name": "Preprocessor Statements",
-        "match": "(?m)^\\s*#[a-z]{2}.+"
-    },
-    {
-      "name": "Comments",
-      "match": "//.*"
     }
   ]
 }

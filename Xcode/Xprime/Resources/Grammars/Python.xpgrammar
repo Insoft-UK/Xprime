@@ -1,6 +1,6 @@
 {
   "name": "Python",
-  "scopeName": "source.swift",
+  "scopeName": "source.py",
   "patterns": [
     {
       "name": "Functions",

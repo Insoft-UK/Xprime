@@ -1,6 +1,6 @@
 {
   "name": "PPL",
-  "scopeName": "source.swift",
+  "scopeName": "source.ppl",
   "patterns": [
     {
       "name": "Functions",

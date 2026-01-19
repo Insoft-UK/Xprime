@@ -362,7 +362,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let grammar:[String : [String]] = [
             "Prime Plus": ["prgm+", "ppl+"],
             "Prime": ["prgm", "ppl", "hpprgm", "hpappprgm"],
-            "Python": ["py"]
+            "Python": ["py"],
+            ".md": ["md"]
         ]
         
         for (grammarName, ext) in grammar where ext.contains(fileExtension.lowercased()) {
@@ -411,7 +412,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func buildForArchive() {
         guard
-            let currentDirectoryURL = projectManager.currentDirectoryURL
+            let currentDirectoryURL = projectManager.projectDirectoryURL
         else { return }
         
         let sourceURL: URL
@@ -451,7 +452,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func archiveProcess() {
-        guard let currentDirectoryURL = projectManager.currentDirectoryURL else { return }
+        guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
         
         let url: URL
         
@@ -634,7 +635,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @objc private func quickOpen(_ sender: NSMenuItem) {
-        guard let url = documentManager.currentDocumentURL else {
+        guard let currentDocumentURL = documentManager.currentDocumentURL else {
             return
         }
         
@@ -642,18 +643,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             AlertPresenter.presentYesNo(
                 on: view.window,
                 title: "Save Changes",
-                message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
+                message: "Do you want to save changes to '\(currentDocumentURL.lastPathComponent)' before opening another document",
                 primaryActionTitle: "Save"
             ) { confirmed in
                 if confirmed {
                     self.documentManager.saveDocument()
-                    self.documentManager.openDocument(url: url.deletingLastPathComponent().appendingPathComponent(sender.title))
+                    self.documentManager.openDocument(url: currentDocumentURL.deletingLastPathComponent().appendingPathComponent(sender.title))
                 } else {
                     return
                 }
             }
         } else {
-            self.documentManager.openDocument(url: url.deletingLastPathComponent().appendingPathComponent(sender.title))
+            self.documentManager.openDocument(url: currentDocumentURL.deletingLastPathComponent().appendingPathComponent(sender.title))
         }
         
         guard
@@ -670,8 +671,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func refreshQuickOpenToolbar() {
-        let currentDirectoryPath = FileManager.default.currentDirectoryPath
-        let currentDirectoryURL = URL(fileURLWithPath: currentDirectoryPath)
+        guard let currentDocumentURL = documentManager.currentDocumentURL else {
+            return
+        }
         
         guard
             let toolbar = view.window?.toolbar,
@@ -682,14 +684,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         else {
             return
         }
+        
 
         let menu = NSMenu()
         
         let contents = try? FileManager.default.contentsOfDirectory(
-            at: currentDirectoryURL,
+            at: currentDocumentURL.deletingLastPathComponent(),
             includingPropertiesForKeys: [.isDirectoryKey],
             options: [.skipsHiddenFiles]
         )
+        
         
         contents?
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
@@ -710,19 +714,60 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         keyEquivalent: ""
                     )
                     
+                    let config = NSImage.SymbolConfiguration(
+                        pointSize: 16,
+                        weight: .regular
+                    )
+                    
                     let image: NSImage
                     switch url.pathExtension.lowercased() {
-                    case "py": image = NSImage(imageLiteralResourceName: "Python")
-                    case "md": image = NSImage(imageLiteralResourceName: "Note")
-                    case "note": image = NSImage(imageLiteralResourceName: "Note")
-                    case "txt": image = NSImage(imageLiteralResourceName: "File")
-                    case "app": image = NSImage(imageLiteralResourceName: "Application")
-                    case "prgm", "ppl": image = NSImage(imageLiteralResourceName: "Program")
-                    case "prgm+", "ppl+": image = NSImage(imageLiteralResourceName: "Program")
+                    case "py":
+                        let img = NSImage(
+                            systemSymbolName: "text.word.spacing",
+                            accessibilityDescription: nil
+                        )?.withSymbolConfiguration(config)
+                        image = img ?? NSImage(imageLiteralResourceName: "File")
+                   
+                    case "txt":
+                        let img = NSImage(
+                            systemSymbolName: "text.document",
+                            accessibilityDescription: nil
+                        )?.withSymbolConfiguration(config)
+                        image = img ?? NSImage(imageLiteralResourceName: "File")
+                        
+                    case "md":
+                        let img = NSImage(
+                            systemSymbolName: "text.page",
+                            accessibilityDescription: nil
+                        )?.withSymbolConfiguration(config)
+                        image = img ?? NSImage(imageLiteralResourceName: "File")
+                        
+                    case "note":
+                        let img = NSImage(
+                            systemSymbolName: "text.rectangle",
+                            accessibilityDescription: nil
+                        )?.withSymbolConfiguration(config)
+                        image = img ?? NSImage(imageLiteralResourceName: "File")
+
+                    case "app":
+                        let img = NSImage(
+                            systemSymbolName: "folder",
+                            accessibilityDescription: nil
+                        )?.withSymbolConfiguration(config)
+                        image = img ?? NSImage(imageLiteralResourceName: "File")
+                        
+                    case "prgm", "ppl", "prgm+", "ppl+":
+                        let img = NSImage(
+                            systemSymbolName: "pad.header",
+                            accessibilityDescription: nil
+                        )?.withSymbolConfiguration(config)
+                        image = img ?? NSImage(imageLiteralResourceName: "File")
+                    
+                        
                     default:
                         image = NSImage(imageLiteralResourceName: "File")
                     }
-                    image.size = NSSize(width: 20, height: 20)
+                    
                     
                     menu.items.last?.image = image
                     if url == documentManager.currentDocumentURL {
@@ -999,7 +1044,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Export as HP Prime Application Archive
     
     @IBAction func exportAsArchive(_ sender: Any) {
-        guard let currentDirectoryURL = projectManager.currentDirectoryURL else { return }
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
         
         runExport(
             allowedExtensions: ["hpappdir.zip"],
@@ -1013,7 +1058,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             destination = destination.appendingPathExtension("hpappdir.zip")
             
-            let result = HPServices.archiveHPAppDirectory(in: currentDirectoryURL, named: self.projectManager.projectName, to: destination)
+            let result = HPServices.archiveHPAppDirectory(in: projectDirectoryURL, named: self.projectManager.projectName, to: destination)
             
             if let out = result.out, !out.isEmpty {
                 return result
@@ -1061,7 +1106,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             proceedWithSavingDocumentAs()
         }
         
-        guard let currentDirectoryURL = projectManager.currentDirectoryURL else {
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
             return
         }
         
@@ -1073,7 +1118,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         performBuild()
         
-        if HPServices.hpPrgmExists(atPath: currentDirectoryURL.path, named: projectManager.projectName) {
+        if HPServices.hpPrgmExists(atPath: projectDirectoryURL.path, named: projectManager.projectName) {
             installHPPrgmFileToCalculator(sender)
             HPServices.launchVirtualCalculator()
         }
@@ -1096,7 +1141,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             proceedWithSavingDocumentAs()
         }
         
-        guard let currentDirectoryURL = projectManager.currentDirectoryURL else {
+        guard let currentDirectoryURL = projectManager.projectDirectoryURL else {
             return
         }
         
@@ -1123,7 +1168,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func installHPPrgmFileToCalculator(_ sender: Any) {
-        guard let currentDirectoryURL = projectManager.currentDirectoryURL else { return }
+        guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
         
         let programURL = currentDirectoryURL
             .appendingPathComponent(projectManager.projectName)
@@ -1143,7 +1188,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func installHPAppDirectoryToCalculator(_ sender: Any) {
-        guard let currentDirectoryURL = projectManager.currentDirectoryURL else { return }
+        guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
         
         let appDirURL = currentDirectoryURL
             .appendingPathComponent(projectManager.projectName)
@@ -1167,33 +1212,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction private func markdownToNote(_ sender: Any) {
-        guard let sourceURL = documentManager.currentDocumentURL else {
+        guard let currentDocumentURL = documentManager.currentDocumentURL else {
             return
         }
         
-        guard sourceURL.pathExtension.lowercased() == "md" else {
+        guard currentDocumentURL.pathExtension.lowercased() == "md" else {
             return
         }
         
-        guard let projectDirectoryURL = projectManager.currentDirectoryURL else {
-            return
-        }
-    
-        guard projectDirectoryURL
-            .appendingPathComponent("\(projectManager.projectName).hpappdir").isDirectory else {
-            outputTextView.appendTextAndScroll("🛑 Application directory not found.\n")
-            return
-        }
-        
-        let destinationURL: URL
-        destinationURL = projectDirectoryURL
-            .appendingPathComponent("\(projectManager.projectName).hpappdir/\(projectManager.projectName).hpappnote")
-        
-
        
         let command = ToolchainPaths.bin.appendingPathComponent("note").path
-        let arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
-        try? FileManager.default.removeItem(at: destinationURL)
+        let arguments: [String] = [currentDocumentURL.path]
         
         let commandURL = URL(fileURLWithPath: command)
         let result = ProcessRunner.run(executable: commandURL, arguments: arguments)
@@ -1310,7 +1339,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func cleanBuildFolder(_ sender: Any) {
-        guard let currentDirectoryURL = projectManager.currentDirectoryURL else {
+        guard let currentDirectoryURL = projectManager.projectDirectoryURL else {
             return
         }
         
@@ -1333,10 +1362,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func showBuildFolderInFinder(_ sender: Any) {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else {
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
             return
         }
-        currentDocumentURL.revealInFinder()
+        projectDirectoryURL.revealInFinder()
     }
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
@@ -1388,13 +1417,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         switch item.action {
         case #selector(build(_:)), #selector(run(_:)):
-            if projectManager.currentDirectoryURL != nil  {
+            if projectManager.projectDirectoryURL != nil  {
                 return true
             }
             return false
             
         case #selector(showBuildFolderInFinder(_:)):
-            if projectManager.currentDirectoryURL != nil {
+            if projectManager.projectDirectoryURL != nil {
                 return true
             }
             return false
@@ -1427,7 +1456,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             if HPServices.hpPrgmIsInstalled(named: projectManager.projectName) {
                     menuItem.title = "Update Program"
             }
-            if let currentDirectoryURL = projectManager.currentDirectoryURL {
+            if let currentDirectoryURL = projectManager.projectDirectoryURL {
                 return HPServices.hpPrgmExists(atPath: currentDirectoryURL.path, named: projectManager.projectName)
             }
             return false
@@ -1437,7 +1466,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             if HPServices.hpAppDirectoryIsInstalled(named: projectManager.projectName) {
                 menuItem.title = "Update Application"
             }
-            if let currentDirectoryURL = projectManager.currentDirectoryURL {
+            if let currentDirectoryURL = projectManager.projectDirectoryURL {
                 return HPServices.hpAppDirIsComplete(atPath: currentDirectoryURL.path, named: projectManager.projectName)
             }
             return false
@@ -1455,13 +1484,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return false
             
         case #selector(exportAsArchive(_:)), #selector(archiveWithoutBuilding(_:)):
-            if let currentDirectoryURL = projectManager.currentDirectoryURL {
+            if let currentDirectoryURL = projectManager.projectDirectoryURL {
                 return HPServices.hpAppDirIsComplete(atPath: currentDirectoryURL.path, named: projectManager.projectName)
             }
             return false
             
         case #selector(run(_:)), #selector(archive(_:)), #selector(build(_:)), #selector(buildForRunning(_:)), #selector(buildForArchiving(_:)):
-            if projectManager.currentDirectoryURL != nil   {
+            if projectManager.projectDirectoryURL != nil   {
                 return true
             }
             return false
@@ -1479,13 +1508,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return documentManager.documentIsModified
             
         case #selector(cleanBuildFolder(_:)):
-            if projectManager.currentDirectoryURL != nil {
+            if projectManager.projectDirectoryURL != nil {
                 return true
             }
             return false
             
         case #selector(showBuildFolderInFinder(_:)):
-            if projectManager.currentDirectoryURL != nil {
+            if projectManager.projectDirectoryURL != nil {
                 return true
             }
             return false
@@ -1547,6 +1576,8 @@ extension MainViewController: DocumentManagerDelegate {
         
         refreshProjectIconImage()
         refreshBaseApplicationMenu()
+        gutterView.updateLines()
+        updateWindowDocumentIcon()
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {
