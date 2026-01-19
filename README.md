@@ -21,6 +21,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.note|*HP Prime note plain text|UTF16le|
 |.md|*Markdown Language|UTF8|
 |.hpnote|*HP Prime note (Plain Text without BOM)|UTF16le|
+|.hpappnote|*HP Prime note (Plain Text without BOM)|UTF16le|
 |.hpprgm|HP Prime program (exported/packaged)|Binary|
 |.hpappprgm|HP Prime application (exported/packaged)|Binary|
 |.prgm+|HP Prime PRGM+ extended program source code|UTF8|
