@@ -28,6 +28,7 @@
 *.metal      linguist-generated=true
 *.entitlements linguist-generated=true
 *.yml        linguist-generated=true
+Makefile     linguist-generated=true
 
 # Vendored / external
 /Apps/**                     linguist-vendored=true
