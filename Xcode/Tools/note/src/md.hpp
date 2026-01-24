@@ -31,35 +31,33 @@
 #include <cctype>
 
 namespace md {
-    enum class Style {
-        Normal,
-        Italic,
-        Bold,
-        BoldItalic,
-        Strikethrough,
-        Heading1,
-        Heading2,
-        Heading3,
-        Heading4,
-        Highlight
+    enum class Alignment {
+        Left,
+        Center,
+        Right
     };
-
-//    enum class Alignment {
-//        Left,
-//        Center,
-//        Right
-//    };
 
     struct Attributes {
         std::string foreground;
         std::string background;
-//        int fontSize = 0;          // 0 = inherit
-//        Alignment align = Alignment::Left;  // default left
+        int fontSize = 14;          // 0 = inherit
+        Alignment align = Alignment::Left;  // default left
     };
 
     enum class BulletType {
         None,
         Dash
+    };
+    
+    union Style {
+        unsigned flags;
+        struct {
+            unsigned Bold : 1;
+            unsigned Italic : 1;
+            unsigned Underline : 1;
+            unsigned Strikethrough : 1;
+            unsigned Highlight : 1;
+        };
     };
 
     struct Token {
@@ -68,7 +66,7 @@ namespace md {
         BulletType bullet;
         int bulletLevel = 0; // 0 = no bullet, 1 = main, 2 = sub, etc.
         std::string text;
-//        Alignment align = Alignment::Left; // optional override
+        Alignment align = Alignment::Left; // optional override
     };
     
     std::vector<Token> parseMarkdown(const std::string& input);

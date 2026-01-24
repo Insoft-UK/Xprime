@@ -24,6 +24,36 @@
 #include "md.hpp"
 #include "utf.hpp"
 
+#if __cplusplus >= 202302L
+    #include <bit>
+    using std::byteswap;
+#elif __cplusplus >= 201103L
+    #include <cstdint>
+    namespace std {
+        template <typename T>
+        T byteswap(T u)
+        {
+            
+            static_assert (CHAR_BIT == 8, "CHAR_BIT != 8");
+            
+            union
+            {
+                T u;
+                unsigned char u8[sizeof(T)];
+            } source, dest;
+            
+            source.u = u;
+            
+            for (size_t k = 0; k < sizeof(T); k++)
+                dest.u8[k] = source.u8[sizeof(T) - k - 1];
+            
+            return dest.u;
+        }
+    }
+#else
+    #error "C++11 or newer is required"
+#endif
+
 /*
  B 0000 01xx - xxxx xxxx
  I 0000 10xx - xxxx xxxx
@@ -63,31 +93,31 @@
 
 using namespace hpnote;
 
-//// Convert "#RRGGBB" or "RRGGBB" to ARGB1555 uint16_t
-//static uint16_t parseColorARGB1555(const std::string& hex) {
-//    std::string s = hex;
-//    if (!s.empty() && s[0] == '#') s = s.substr(1);
-//    if (s.size() != 6) throw std::invalid_argument("Invalid color string");
-//
-//    // Parse RGB as integers
-//    unsigned int r, g, b;
-//    std::istringstream(s.substr(0,2)) >> std::hex >> r;
-//    std::istringstream(s.substr(2,2)) >> std::hex >> g;
-//    std::istringstream(s.substr(4,2)) >> std::hex >> b;
-//
-//    // Convert 8-bit to 5-bit
-//    uint16_t r5 = (r * 31 + 127) / 255;
-//    uint16_t g5 = (g * 31 + 127) / 255;
-//    uint16_t b5 = (b * 31 + 127) / 255;
-//
-//    // Compose ARGB1555
-//    uint16_t color = 0;
-//    color |= (r5 & 0x1F) << 10;
-//    color |= (g5 & 0x1F) << 5;
-//    color |= (b5 & 0x1F);
-//
-//    return color;
-//}
+// Convert "#RRGGBB" or "RRGGBB" to ARGB1555 uint16_t
+static uint16_t parseColorARGB1555(const std::string& hex) {
+    std::string s = hex;
+    if (!s.empty() && s[0] == '#') s = s.substr(1);
+    if (s.size() != 6) throw std::invalid_argument("Invalid color string");
+
+    // Parse RGB as integers
+    unsigned int r, g, b;
+    std::istringstream(s.substr(0,2)) >> std::hex >> r;
+    std::istringstream(s.substr(2,2)) >> std::hex >> g;
+    std::istringstream(s.substr(4,2)) >> std::hex >> b;
+
+    // Convert 8-bit to 5-bit
+    uint16_t r5 = (r * 31 + 127) / 255;
+    uint16_t g5 = (g * 31 + 127) / 255;
+    uint16_t b5 = (b * 31 + 127) / 255;
+
+    // Compose ARGB1555
+    uint16_t color = 0;
+    color |= (r5 & 0x1F) << 10;
+    color |= (g5 & 0x1F) << 5;
+    color |= (b5 & 0x1F);
+
+    return color;
+}
 
 //static std::vector<std::string> splitPreservingSpaces(const std::string& line)
 //{
@@ -139,60 +169,43 @@ static std::wstring parseLine(const std::string& str) {
         }
         
         std::wstring ws;
-        ws = LR"(\oǿῠ\0\0ā\1\0\0 \)"; // Plain Text
+        ws = LR"(\oǿῠ\0\0Ā\1\0\0 \)"; // Plain Text
         
-        // \oǿῠ\0\0ā\1\0\0 \0\0 SPACE
-        // f = LR"(\oǿῠ\0罀ā\0\0\0 \)" b = LR"(\oǿῠ簀\0\1\1\0\0 \")  bf = LR"(\oǿῠ簀罀\1\0\0\0 \")
-        // bfB22 LR"(\o藿ΰ簀罀\0\0\0\0 ")
         uint32_t n = 0x1FE001FF;
         
         // MARK: - Bold & Italic
         
-        switch (t.style) {
-            case md::Style::Highlight:
-                ws.at(7) = L'罀';
-                ws.at(10) = L'0';
-                ws.erase(6, 1);
-                break;
-                
-            case md::Style::Bold:
-                n |= 1 << 10;
-                break;
-                
-            case md::Style::Italic:
-                n |= 1 << 11;
-                break;
-                
-            case md::Style::Strikethrough:
-                n |= 1 << 14;
-                break;
-                
-            case md::Style::BoldItalic:
-                n |= 3 << 10;
-                break;
-                
-            case md::Style::Heading1:
-                n |= 1 << 10;
+        if (t.style.Bold) n |= 1 << 10;
+        if (t.style.Italic) n |= 1 << 11;
+        if (t.style.Strikethrough) n |= 1 << 14;
+        
+        switch (t.attr.fontSize) {
+            case 22:
                 n |= 7 << 15;
-                ws.at(8) = L'Ā';
                 break;
                 
-            case md::Style::Heading2:
-                n |= 1 << 10;
+            case 20:
                 n |= 6 << 15;
-                ws.at(8) = L'Ā';
                 break;
                 
-            case md::Style::Heading3:
-                n |= 1 << 10;
+            case 18:
                 n |= 5 << 15;
-                ws.at(8) = L'Ā';
                 break;
                 
-            case md::Style::Heading4:
-                n |= 1 << 10;
+            case 16:
                 n |= 4 << 15;
-                ws.at(8) = L'Ā';
+                break;
+                
+            case 14:
+                n |= 3 << 15;
+                break;
+                
+            case 12:
+                n |= 2 << 15;
+                break;
+                
+            case 10:
+                n |= 1 << 15;
                 break;
                 
             default:
@@ -202,6 +215,26 @@ static std::wstring parseLine(const std::string& str) {
         
         ws.at(2) = n & 0xFFFF;
         ws.at(3) = n >> 16;
+        
+        if (t.attr.background.length()) {
+            if (t.attr.foreground.empty()) {
+                ws.erase(6,1);
+                ws.at(6) = parseColorARGB1555(t.attr.background);
+                ws.at(9) = L'0';
+            } else {
+                ws.erase(8,1);
+                ws.at(4) = parseColorARGB1555(t.attr.foreground);
+                ws.at(5) = parseColorARGB1555(t.attr.background);
+                ws.at(7) = L'1';
+                ws.at(9) = L'0';
+            }
+        } else if (t.attr.foreground.length()) {
+            ws.at(4) = parseColorARGB1555(t.attr.foreground);
+            ws.at(5) = L'\\';
+            ws.at(6) = L'0';
+            ws.at(7) = L'\\';
+            ws.at(8) = L'1';
+        }
         
         wstr += ws;
         

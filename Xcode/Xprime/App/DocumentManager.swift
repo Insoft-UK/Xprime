@@ -38,7 +38,7 @@ protocol DocumentManagerDelegate: AnyObject {
 }
 
 final class DocumentManager {
-    
+
     weak var delegate: DocumentManagerDelegate?
     
     private(set) var currentDocumentURL: URL?

@@ -68,7 +68,7 @@ static Attributes merge(const Attributes& parent, const Attributes& child) {
 std::vector<Token> md::parseMarkdown(const std::string& input) {
     std::vector<Token> output;
     std::vector<Frame> stack;
-    stack.push_back({Style::Normal, Attributes{}, ""});
+    stack.push_back({Style{}, Attributes{}, ""});
 
     BulletType currentBullet = BulletType::None;
     int bulletLevel = 0;
@@ -110,16 +110,23 @@ std::vector<Token> md::parseMarkdown(const std::string& input) {
                 flushFrame(stack.back(), false);
 
                 Attributes a = stack.back().attr;
-                Style s = Style::Bold;
-
-                if (hashCount == 1) {
-                    s = Style::Heading1;
-                } else if (hashCount == 2) {
-                    s = Style::Heading2;
-                } else if (hashCount == 3) {
-                    s = Style::Heading3;
-                } else if (hashCount == 4) {
-                    s = Style::Heading4;
+                Style s = { .Bold = 1 };
+                switch (hashCount) {
+                    case 1:
+                        a.fontSize = 22;
+                        break;
+                    case 2:
+                        a.fontSize = 20;
+                        break;
+                    case 3:
+                        a.fontSize = 18;
+                        break;
+                    case 4:
+                        a.fontSize = 16;
+                        break;
+                        
+                    default:
+                        break;
                 }
 
                 stack.push_back({s, a, ""});
@@ -180,11 +187,26 @@ std::vector<Token> md::parseMarkdown(const std::string& input) {
         count = 0;
         while (i + count < input.size() && input[i + count] == '*') ++count;
         if (count >= 1 && count <= 3) {
-            Style style = (count == 1) ? Style::Italic :
-                          (count == 2) ? Style::Bold :
-                                         Style::BoldItalic;
+            Style style{};
+            switch (count) {
+                case 1:
+                    style.Italic = 1;
+                    break;
+                    
+                case 2:
+                    style.Bold = 1;
+                    break;
+                    
+                case 3:
+                    style.Bold = 1;
+                    style.Italic = 1;
+                    break;
+                    
+                default:
+                    break;
+            }
 
-            if (stack.back().style == style) {
+            if (stack.back().style.flags == style.flags) {
                 Frame finished = stack.back();
                 stack.pop_back();
                 flushFrame(finished, !bulletAssigned);
@@ -200,9 +222,9 @@ std::vector<Token> md::parseMarkdown(const std::string& input) {
         count = 0;
         while (i + count < input.size() && input[i + count] == '~') ++count;
         if (count == 2) {
-            Style style = Style::Strikethrough;
+            Style style = { .Strikethrough = 1 };
 
-            if (stack.back().style == style) {
+            if (stack.back().style.Bold == 1) {
                 Frame finished = stack.back();
                 stack.pop_back();
                 flushFrame(finished, !bulletAssigned);
@@ -216,18 +238,18 @@ std::vector<Token> md::parseMarkdown(const std::string& input) {
         }
         
         count = 0;
+        
         while (i + count < input.size() && input[i + count] == '=') ++count;
         if (count == 2) {
-            Style style = Style::Highlight;
-
-            if (stack.back().style == style) {
+            Attributes attr = { .background = "#FFA500" };
+            if (stack.back().attr.background == "#FFA500") {
                 Frame finished = stack.back();
                 stack.pop_back();
                 flushFrame(finished, !bulletAssigned);
                 if (!stack.empty())
                     stack.back().buffer += finished.buffer;
             } else {
-                stack.push_back({style, stack.back().attr, ""});
+                stack.push_back({stack.back().style, attr, ""});
             }
             i += count;
             continue;
@@ -256,19 +278,24 @@ std::vector<Token> md::parseMarkdown(const std::string& input) {
 void md::printTokens(const std::vector<Token>& tokens) {
     for (const auto& t : tokens) {
         std::cerr << "Level " << t.bulletLevel << " | "
-                  << (
-                      (t.style == Style::Heading1) ? "Heading1" :
-                      (t.style == Style::Heading2) ? "Heading2" :
-                      (t.style == Style::Heading3) ? "Heading3" :
-                      (t.style == Style::Heading4) ? "Heading4" :
-                      (t.style == Style::Italic) ? "Highlight" :
-                      (t.style == Style::Italic) ? "Strikethrough" :
-                      (t.style == Style::Normal) ? "Normal" :
-                      (t.style == Style::Italic) ? "Italic" :
-                      (t.style == Style::Bold) ? "Bold" : "BoldItalic"
-                      )
+                  << ((t.style.Bold) ? "B" : "-")
+        << ((t.style.Italic) ? "I" : "-")
+        << ((t.style.Underline) ? "U" : "-")
+        << ((t.style.Strikethrough) ? "S" : "-") << " | "
+        << "Font Size: " << std::to_string(t.attr.fontSize) << " | "
+//        (
+//                      (t.style == Style::Heading1) ? "Heading1" :
+//                      (t.style == Style::Heading2) ? "Heading2" :
+//                      (t.style == Style::Heading3) ? "Heading3" :
+//                      (t.style == Style::Heading4) ? "Heading4" :
+//                      (t.style == Style::Italic) ? "Highlight" :
+//                      (t.style == Style::Italic) ? "Strikethrough" :
+//                      (t.style == Style::Normal) ? "Normal" :
+//                      (t.style.Italic) ? "Italic" :
+//                      (t.style.Bold) ? "Bold" : "BoldItalic"
+//                      )
                   << " | " << t.attr.foreground << " " << t.attr.background
-//                  << " | " << ((t.align == Alignment::Left) ? "Left" : (t.align == Alignment::Right) ? "Right" : "Center")
+                  << " | " << ((t.align == Alignment::Left) ? "Left" : (t.align == Alignment::Right) ? "Right" : "Center")
                   << " | [" << t.text << "]\n";
     }
 }
