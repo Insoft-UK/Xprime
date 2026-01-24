@@ -4,7 +4,7 @@
 #### Heading level 4
 ~~Strikethrough~~
 ==Highlight==
-Plain text
+*Plain* **text**
 *Italic*
 **Bold**
 ***ItalicBold***

@@ -162,8 +162,8 @@ static std::wstring parseLine(const std::string& str) {
 #endif
     
     
+    wstr += LR"(\0\m\0\0\0\0\n)";
     for (const auto& t : tokens) {
-        wstr += LR"(\0\m\0\0\0\0\n)";
         if (t.bulletLevel) {
             wstr.at(5) = L'0' + t.bulletLevel;
         }
@@ -247,8 +247,8 @@ static std::wstring parseLine(const std::string& str) {
         wstr += LR"(\0)";
         
         wstr += utf::utf16(t.text);
-        wstr += LR"(\0)";
     }
+    wstr += LR"(\0)";
     
     
     
