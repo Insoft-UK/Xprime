@@ -22,55 +22,44 @@
 
 #pragma once
 
-#include <cstdlib>
-#include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <iostream>
-#include <filesystem>
 #include <cctype>
 
-namespace md {
-    enum class Alignment {
-        Left,
-        Center,
-        Right
-    };
-
-    struct Attributes {
-        std::string foreground;
-        std::string background;
-        int fontSize = 14;          // 0 = inherit
-        Alignment align = Alignment::Left;  // default left
-    };
-
-    enum class BulletType {
-        None,
-        Dash
+namespace note {
+    enum FontSize : uint16_t {
+        FONT10 = 1, FONT12 = 2, SMALL = 2, FONT14 = 3, MEDIUM = 3, FONT16 = 4, LARGE = 4, FONT18 = 5, FONT20 = 6, FONT22 = 7
     };
     
-    union Style {
-        unsigned flags;
-        struct {
-            unsigned Bold : 1;
-            unsigned Italic : 1;
-            unsigned Underline : 1;
-            unsigned Strikethrough : 1;
-            unsigned Highlight : 1;
-        };
+    enum Align {
+        LEFT = 0, CENTER = 1, RIGHT = 2
     };
-
-    struct Token {
-        Style style;
-        Attributes attr;
-        BulletType bullet;
-        int bulletLevel = 0; // 0 = no bullet, 1 = main, 2 = sub, etc.
+    
+    typedef uint16_t Color;
+    
+    struct Format {
+        FontSize fontSize = MEDIUM;
+        Color foreground = 0xFFFF;
+        Color background = 0xFFFF;
+        Align align = LEFT;
+    };
+    
+    struct Style {
+        bool bold = false;
+        bool italic = false;
+        bool underline = false;
+        bool strikethrough = false;
+    };
+    
+    struct TextRun {
         std::string text;
-        Alignment align = Alignment::Left; // optional override
+        Format format;
+        Style style;
+        int level = 0;
     };
     
-    std::vector<Token> parseMarkdown(const std::string& input);
-    void printTokens(const std::vector<Token>& tokens);
+    std::vector<TextRun> parseNote(const std::string& input);
+    std::string ntf(const std::string md);
+    void printRuns(const std::vector<TextRun>& runs);
 }
-
-

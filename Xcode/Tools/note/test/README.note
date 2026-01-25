@@ -1,0 +1,12 @@
+\fs7 \b Heading level 1
+\fs6 \b Heading level 2
+\fs5 \b Heading level 3
+\fs4 \b Heading level 4
+\fs3 \s \b0 Strikethrough\s0
+\bg#7F40 Highlight
+\bg#FFFF Plain text
+Left \a Center \a Right
+\i Italic \i \b Bold \i ItalicBold
+\l First item
+\l \l Second item
+\l \l \l Third item

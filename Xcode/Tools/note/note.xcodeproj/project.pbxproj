@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		134B4A032F14685F00B7F659 /* utf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 134B4A022F14685F00B7F659 /* utf.cpp */; };
-		134B4A062F15BE6600B7F659 /* md.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 134B4A052F15BE6600B7F659 /* md.cpp */; };
 		134B4B752F17356400B7F659 /* hpnote.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 134B4B742F17356400B7F659 /* hpnote.cpp */; };
+		134E485B2F25B1E000FEE689 /* note.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 134E48582F25A76A00FEE689 /* note.cpp */; };
 		1352EDF62B4786BD003130E4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1352EDF42B4786BC003130E4 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -27,10 +27,10 @@
 /* Begin PBXFileReference section */
 		134B4A012F14685F00B7F659 /* utf.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = utf.hpp; sourceTree = "<group>"; };
 		134B4A022F14685F00B7F659 /* utf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utf.cpp; sourceTree = "<group>"; };
-		134B4A042F15BE6600B7F659 /* md.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = md.hpp; sourceTree = "<group>"; };
-		134B4A052F15BE6600B7F659 /* md.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = md.cpp; sourceTree = "<group>"; };
 		134B4B732F17356400B7F659 /* hpnote.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = hpnote.hpp; sourceTree = "<group>"; };
 		134B4B742F17356400B7F659 /* hpnote.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hpnote.cpp; sourceTree = "<group>"; };
+		134E48572F25A76A00FEE689 /* note.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = note.hpp; sourceTree = "<group>"; };
+		134E48582F25A76A00FEE689 /* note.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = note.cpp; sourceTree = "<group>"; };
 		1352EDF42B4786BC003130E4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		136A448D2EF5CB7A0017E5AF /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		136E64442D262CE90054E0CC /* version.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = version.txt; sourceTree = "<group>"; };
@@ -62,10 +62,10 @@
 			isa = PBXGroup;
 			children = (
 				1352EDF42B4786BC003130E4 /* main.cpp */,
+				134E48572F25A76A00FEE689 /* note.hpp */,
+				134E48582F25A76A00FEE689 /* note.cpp */,
 				134B4B732F17356400B7F659 /* hpnote.hpp */,
 				134B4B742F17356400B7F659 /* hpnote.cpp */,
-				134B4A042F15BE6600B7F659 /* md.hpp */,
-				134B4A052F15BE6600B7F659 /* md.cpp */,
 				134B4A012F14685F00B7F659 /* utf.hpp */,
 				134B4A022F14685F00B7F659 /* utf.cpp */,
 				13E40E602EE122A100AED5C4 /* timer.hpp */,
@@ -158,8 +158,8 @@
 			isa = PBXSourcesBuildPhase;
 			files = (
 				1352EDF62B4786BD003130E4 /* main.cpp in Sources */,
+				134E485B2F25B1E000FEE689 /* note.cpp in Sources */,
 				134B4B752F17356400B7F659 /* hpnote.cpp in Sources */,
-				134B4A062F15BE6600B7F659 /* md.cpp in Sources */,
 				134B4A032F14685F00B7F659 /* utf.cpp in Sources */,
 			);
 		};

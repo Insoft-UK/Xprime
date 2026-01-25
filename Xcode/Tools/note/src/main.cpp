@@ -28,8 +28,9 @@
 #include "timer.hpp"
 #include "extensions.hpp"
 #include "utf.hpp"
-#include "md.hpp"
+
 #include "hpnote.hpp"
+
 
 #define NAME "HP Note"
 #define COMMAND_NAME "note"
@@ -196,7 +197,7 @@ int main(int argc, const char * argv[]) {
     auto out_extension = std::lowercased(outpath.extension().string());
  
     if (in_extension == ".md") {
-        content = hpnote::convertToHpNote(inpath, minify);
+        content = hpnote::convertNote(inpath, minify);
     }
     
     if (in_extension == ".txt") {
@@ -204,7 +205,12 @@ int main(int argc, const char * argv[]) {
     }
     
     if (in_extension == ".note") {
-        content = utf::load(inpath, utf::BOMle);
+        auto bom = utf::bom(inpath);
+        if (bom == utf::BOMnone) {
+            content = hpnote::convertNote(inpath, minify);
+        } else {
+            content = utf::load(inpath, bom);
+        }
     }
     
     if (in_extension == ".hpnote" || in_extension == ".hpappnote") {

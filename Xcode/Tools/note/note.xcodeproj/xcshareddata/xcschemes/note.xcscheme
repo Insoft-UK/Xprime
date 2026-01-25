@@ -53,7 +53,11 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/readme.md"
+            argument = "$(PROJECT_DIR)/test/README.note"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(PROJECT_DIR)/test/README.md"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

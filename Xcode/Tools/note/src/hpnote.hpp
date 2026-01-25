@@ -33,7 +33,7 @@
 #include <iomanip>
 
 namespace hpnote {
-    std::wstring convertToHpNote(std::filesystem::path& path, bool minify);
+    std::wstring convertNote(std::filesystem::path& path, bool minify);
 }
 
 
