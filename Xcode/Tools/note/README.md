@@ -3,7 +3,8 @@
 |Type|Description|Format|
 |:-|:-|:-|
 |.note|HP Prime note plain text|UTF16le|
-|.note|Note text format|UTF8|
+|.note|NoteText Format|UTF8|
+|.ntf|NoteText Format|UTF8|
 |.md|Markdown Language|UTF8|
 |.hpnote|HP Prime note (Plain Text without BOM)|UTF16le|
 |.hpappnote|HP Prime note (Plain Text without BOM)|UTF16le|
@@ -12,24 +13,28 @@
 ```
 \b0 No Bold
 \b1 Bold
+\b Toggle Bold On/Off
 ```
 
 #### Italic Text
 ```
 \i0 No Italic
 \i1 Italic
+\i Toggle Italic On/Off
 ```
 
 #### Underlined Text
 ```
 \u0 No Underline
 \u1 Underline
+\u Toggle Underline On/Off
 ```
 
 #### Strikethrough Text
 ```
 \s0 No Strikethrough Text
 \s1 Strikethrough Text
+\s Toggle Strikethrough On/Off
 ```
 
 #### Text Alignment
@@ -42,18 +47,21 @@
 #### Font Size
 ```
 \fs7 FontSize 22
+\fs Default FontSize 14
 ```
 
 #### Foreground Color
 ```
 \fg7C00 Red Text
 \fgFFFF Default
+\fg Default
 ```
 
 #### Background Color
 ```
 \bg7C00 Red Background
 \bgFFFF Default
+\bg Default
 ```
 
 #### Bullets
@@ -62,4 +70,5 @@
 \l1 ●
 \l2   ○
 \l3     ▶
+\l None, ●, ○ or ▶
 ```
