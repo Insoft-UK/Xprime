@@ -46,12 +46,12 @@
 
 #### Foreground Color
 ```
-\fgFF0000 Red Text
+\fg7C00 Red Text
 ```
 
 #### Background Color
 ```
-\bgFF0000 Red Background
+\bg7C00 Red Background
 ```
 
 #### Bullets
