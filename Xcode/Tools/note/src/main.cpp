@@ -196,7 +196,7 @@ int main(int argc, const char * argv[]) {
     auto in_extension = std::lowercased(inpath.extension().string());
     auto out_extension = std::lowercased(outpath.extension().string());
  
-    if (in_extension == ".md") {
+    if (in_extension == ".md" || in_extension == ".ntf") {
         content = hpnote::convertNote(inpath, minify);
     }
     
