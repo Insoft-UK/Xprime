@@ -52,15 +52,15 @@
 
 #### Foreground Color
 ```
-\fg7C00 Red Text
-\fgFFFF Default
+\fg#7C00 Red Text
+\fg#FFFF Default
 \fg Default
 ```
 
 #### Background Color
 ```
-\bg7C00 Red Background
-\bgFFFF Default
+\bg#7C00 Red Background
+\bg#FFFF Default
 \bg Default
 ```
 
