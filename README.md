@@ -19,6 +19,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.prgm|HP Prime program source code|UTF16le|
 |.app|HP Prime application source code (PPL)|UTF16le|
 |.note|HP Prime note plain text|UTF16le|
+|.note|*HP Prime note text format|UTF8|
 |.md|Markdown Language|UTF8|
 |.hpnote|HP Prime note (Plain Text without BOM)|UTF16le|
 |.hpappnote|HP Prime note (Plain Text without BOM)|UTF16le|
@@ -27,6 +28,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.prgm+|HP Prime PRGM+ extended program source code|UTF8|
 |.ppl+|HP Prime PPL+ extended program source code|UTF8|
 
+*Ritch Text like format file for notes.
 
 Typical File Structure for an HP Prime **Application**
 
