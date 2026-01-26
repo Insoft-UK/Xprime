@@ -16,7 +16,7 @@
 
 # Generated files
 /assets/**   linguist-generated=true
-/test/**     linguist-generated=true
+/Xcode/Tools/note/test/**    linguist-generated=true
 *.sh         linguist-generated=true
 *.txt        linguist-generated=true
 *.rtf        linguist-generated=true
