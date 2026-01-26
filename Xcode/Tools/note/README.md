@@ -107,8 +107,8 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 - `\l0` — No bullet  
 - `\l1` — ●  
 - `\l2` — ○  
-- `\l3` — ▶  
-- `\l` — Toggle between: none, ●, ○, ▶
+- `\l3` — ■  
+- `\l` — Toggle between: none, ●, ○, ■
 
 >[!NOTE]
 >Markdown supports embedded NoteText Format commands to handle features it lacks, such as text alignment.
