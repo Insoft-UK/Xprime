@@ -104,7 +104,7 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 ### Bullets
 - `\l0` — No bullet  
 - `\l1` — ●  
-- `\l2` —   ○  
+- `\l2` — &mnbspc;○  
 - `\l3` —     ■  
 - `\l` — Toggle between: none, ●, ○, ■
 
