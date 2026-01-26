@@ -31,6 +31,7 @@
 *.utf        linguist-generated=true
 *.note       linguist-generated=true
 *.hpnote     linguist-generated=true
+*.md         linguist-generated=true
 Makefile     linguist-generated=true
 
 # Vendored / external
