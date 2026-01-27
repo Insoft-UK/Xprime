@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2024-2026 Insoft.
+// Copyright (c) 2026 Insoft.
 //
 // Created: 2025-05-27
 //
