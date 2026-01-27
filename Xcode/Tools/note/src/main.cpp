@@ -44,7 +44,7 @@ namespace fs = std::filesystem;
 void help(void)
 {
     std::cerr
-    << "Copyright (C) 2024-" << YEAR << " Insoft.\n"
+    << "Copyright (C) " << YEAR << " Insoft.\n"
     << "Insoft "<< NAME << " version, " << VERSION_NUMBER << " (BUILD " << BUNDLE_VERSION << ")\n"
     << "\n"
     << "Usage: " << COMMAND_NAME << " <input-file>\n"
