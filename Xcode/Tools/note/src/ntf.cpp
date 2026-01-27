@@ -143,10 +143,10 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input) {
             if (cmd == "fs") {
                 if (value != -1) format.fontSize = static_cast<FontSize>(value); else format.fontSize = MEDIUM;
             }
-            if (cmd == "fg" && !hex.empty()) {
+            if (cmd == "fg") {
                 format.foreground = parseHexColor(hex);
             }
-            if (cmd == "bg" && !hex.empty()) {
+            if (cmd == "bg") {
                 if (!hex.empty()) format.background = parseHexColor(hex); else format.background = 0xFFFF;
             }
             if (cmd == "a") {

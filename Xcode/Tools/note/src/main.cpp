@@ -93,7 +93,7 @@ fs::path resolveOutputExtension(const fs::path& inpath, const fs::path& outpath)
     fs::path path = outpath;
     auto in_extension = std::lowercased(inpath.extension().string());
     
-    if (in_extension == ".note" || in_extension == ".md" || in_extension == ".txt") {
+    if (in_extension == ".note" || in_extension == ".md" || in_extension == ".txt" || in_extension == ".ntf") {
         path.replace_extension("hpnote");
         return path;
     }
