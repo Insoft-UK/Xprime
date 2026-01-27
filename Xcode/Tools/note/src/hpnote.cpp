@@ -35,17 +35,17 @@
 
 using namespace hpnote;
 
-static std::wstring toBase36(uint64_t value)
+static std::wstring toBase48(uint64_t value)
 {
-    static constexpr wchar_t digits[] = L"0123456789abcdefghijklmnopqrstuvwxyz";
+    static constexpr wchar_t digits[] = LR"(0123456789abcdefghijklmnopqrstuv !"#$%&'()*+,-./)";
 
     if (value == 0)
         return L"0";
 
     std::wstring result;
     while (value > 0) {
-        result.push_back(digits[value % 36]);
-        value /= 36;
+        result.push_back(digits[value % 48]);
+        value /= 48;
     }
 
     std::reverse(result.begin(), result.end());
@@ -65,15 +65,15 @@ static std::wstring parseLine(const std::string& str) {
 #endif
     
     wstr.append(LR"(\0\)");
-    wstr.append(toBase36(22));
+    wstr.append(toBase48(22));
     wstr.append(LR"(\0\0\0\0\)");
-    wstr.append(toBase36(23));
+    wstr.append(toBase48(23));
     
     for (const auto& r : runs) {
-        wstr.at(5) = toBase36(r.level).at(0);
+        wstr.at(5) = toBase48(r.level).at(0);
         
         std::wstring ws;
-        ws = LR"(\oǿῠ\0\0Ā\1\0\0 \)"; // Plain Text
+        ws = LR"(\oǿῠ\0\0Ā\1\0\0 )"; // Plain Text
         
         uint32_t n = 0x1FE001FF;
         
@@ -144,7 +144,8 @@ static std::wstring parseLine(const std::string& str) {
         wstr += ws;
         
         // Line length
-        wstr.append(toBase36(r.text.length()));
+        if (r.text.length() < 32)  wstr.append(LR"(\)");
+        wstr.append(toBase48(r.text.length()));
         wstr.append(LR"(\0)");
         
         // Text
@@ -173,8 +174,8 @@ static std::wstring parseAllLines(std::istringstream& iss) {
     // Footer control bytes
     wstr.append(LR"(\0\0\3\0\)");
     
-    // Line count (base-36 style)
-    wstr.append(toBase36((uint64_t)lines));
+    // Line count (base-48 style)
+    wstr.append(toBase48((uint64_t)lines));
   
     // Footer control bytes
     wstr.append(LR"(\0\0\0\0\0\1\0)");
