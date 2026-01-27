@@ -57,6 +57,13 @@ static std::wstring parseLine(const std::string& str) {
     
     auto runs = ntf::parseNTF(str);
     
+#ifdef DEBUG
+    static int lines = 0;
+        std::cerr << ++lines << ":\n";
+        ntf::printRuns(runs);
+        std::cerr << "\n";
+#endif
+    
     wstr.append(LR"(\0\)");
     wstr.append(toBase36(22));
     wstr.append(LR"(\0\0\0\0\)");
@@ -155,16 +162,12 @@ static std::wstring parseAllLines(std::istringstream& iss) {
     std::string str;
     std::wstring wstr;
     
+    ntf::reset();
+    
     int lines = -1;
     while(getline(iss, str)) {
         wstr += parseLine(str);
         lines++;
-#ifdef DEBUG
-        auto runs = ntf::parseNTF(str);
-        std::cerr << lines + 1 << ":\n";
-        ntf::printRuns(runs);
-        std::cerr << "\n";
-#endif
     }
     
     // Footer control bytes

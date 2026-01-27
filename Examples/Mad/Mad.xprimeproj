@@ -1,8 +1,8 @@
 {
-  "archiveProjectAppOnly" : false,
   "bin" : "",
-  "lib" : "",
-  "calculator" : "Prime",
   "include" : "",
-  "compression" : false
+  "compression" : false,
+  "archiveProjectAppOnly" : false,
+  "lib" : "",
+  "calculator" : "Prime"
 }

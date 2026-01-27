@@ -27,6 +27,9 @@
 
 using namespace ntf;
 
+static Format format{};
+static Style style{};
+static int level = 0;
 
 static uint8_t hexByte(const std::string& s, size_t pos) {
     return static_cast<uint8_t>(std::stoi(s.substr(pos, 2), nullptr, 16));
@@ -76,13 +79,14 @@ static Color parseHexColor(const std::string& hex) {
     return c;
 }
 
+void ntf::reset(void) {
+    format = {};
+    style = {};
+    level = 0;
+}
+
 std::vector<TextRun> ntf::parseNTF(const std::string& input) {
     std::vector<TextRun> runs;
-
-    Format format;
-    Style style;
-    int level = 0;
-    
     std::string buffer;
 
     auto flush = [&]() {

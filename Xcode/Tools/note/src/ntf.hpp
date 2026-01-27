@@ -65,7 +65,61 @@ namespace ntf {
         int level = 0;
     };
     
+    /**
+     * @brief Resets the parser formatting state to defaults.
+     *
+     * Clears all active style flags and formatting attributes used during
+     * parsing (such as bold, italic, underline, strikethrough, and colors),
+     * returning the parser to its initial state. This does not modify any
+     * previously parsed output, only the internal state used for subsequent
+     * parsing.
+     */
+    void reset(void);
+    
+    /**
+     * @brief Parses a NoteText Format (NTF) string into styled text runs.
+     *
+     * This function scans the input string for embedded NTF control sequences
+     * (such as bold, italic, underline, strikethrough, and color commands) and
+     * converts the stream into a sequence of TextRun objects. Each TextRun
+     * represents a contiguous range of text sharing the same formatting state.
+     *
+     * Control sequences affect subsequent text until they are modified or
+     * reset by another control sequence. The control codes themselves are not
+     * included in the output text.
+     *
+     * @param input The raw NTF-formatted string to parse.
+     * @return A vector of TextRun objects representing the parsed text and
+     *         associated formatting.
+     */
     std::vector<TextRun> parseNTF(const std::string& input);
+    
+    /**
+     * @brief Converts a Markdown string into NoteText Format (NTF).
+     *
+     * Translates supported Markdown syntax into equivalent NTF control
+     * sequences, emitting an NTF-formatted string suitable for processing
+     * by the NTF parser. Formatting that is not representable in NTF may be
+     * ignored or approximated.
+     *
+     * The returned string contains NTF control codes embedded directly
+     * within the text stream.
+     *
+     * @param md The Markdown-formatted input string.
+     * @return A string encoded in NoteText Format (NTF).
+     */
     std::string markdownToNTF(const std::string md);
+    
+    /**
+     * @brief Prints a sequence of styled text runs to the console.
+     *
+     * Iterates through the provided vector of TextRun objects and outputs
+     * their text along with formatting information (such as bold, italic,
+     * underline, strikethrough, and colors). Primarily intended for
+     * debugging or inspecting parsed NoteText Format (NTF) content.
+     *
+     * @param runs A vector of TextRun objects representing parsed text and
+     *             their associated formatting.
+     */
     void printRuns(const std::vector<TextRun>& runs);
 }
