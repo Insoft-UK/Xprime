@@ -40,7 +40,7 @@ A command-line tool that converts .md and .ntf files into the HP Prime .hpnote f
   </tbody>
 </table>
 
-Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.zip">macOS</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note.exe.zip">Windows
+Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.zip">macOS</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note.exe.zip">Windows | <a href="http://insoft.uk/action/?method=downlink&path=linux&file=note.zip">Linux
 
 >[!NOTE]
 >This <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.pkg">package installer</a> upgrades the command-line tool for Xprime version 26.1 and later.
