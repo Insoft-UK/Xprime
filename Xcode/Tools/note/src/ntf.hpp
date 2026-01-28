@@ -29,6 +29,7 @@
 
 namespace ntf {
     enum FontSize : uint16_t {
+        FONT8  = 0,
         FONT10 = 1,
         FONT12 = 2, SMALL  = 2,
         FONT14 = 3, MEDIUM = 3,
@@ -40,6 +41,10 @@ namespace ntf {
     
     enum Align {
         LEFT = 0, CENTER = 1, RIGHT = 2
+    };
+    
+    enum Para {
+        NONE = 0, BOTTOM = 1, TOP = 2
     };
     
     typedef uint16_t Color;
@@ -56,6 +61,7 @@ namespace ntf {
         bool italic = false;
         bool underline = false;
         bool strikethrough = false;
+        Para para = NONE;
     };
     
     struct TextRun {

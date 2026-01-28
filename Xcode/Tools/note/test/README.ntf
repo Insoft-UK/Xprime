@@ -1,15 +1,16 @@
-\fs7\b Heading level 1
+\fs7\b1Heading level 1
 \fs6Heading level 2
 \fs5Heading level 3
 \fs4Heading level 4
-\fs3\s\b Strikethrough\s 
-\bg#7F40 Highlight\bg
+\fs3\s1\b0Strikethrough\s0
+\bg#7F40Highlight\bg
 Plain text
-Copyright (c) 2026 Insoft.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
-WARRANTY OF ANY KIND
-Left\a Center\a Right\a
-\i Italic \i\b Bold \i ItalicBold\i\b
+Left
+\a1Center
+\a2Right\a0
+\i1Italic
+\i0\b1Bold
+\i1\b1ItalicBold\i\b
 \l First item
 \l Second item
 \l Third item

@@ -173,38 +173,38 @@ std::string ntf::markdownToNTF(const std::string md) {
     
     std::regex re;
     
-    re = R"(#{4} )";
-    ntf = std::regex_replace(ntf, re, R"(\fs4 \b1 )");
+    re = R"(#{4} (.*))";
+    ntf = std::regex_replace(ntf, re, R"(\fs4\b1$1\b0\fs3)");
     
-    re = R"(#{3} )";
-    ntf = std::regex_replace(ntf, re, R"(\fs5 \b1 )");
+    re = R"(#{3} (.*))";
+    ntf = std::regex_replace(ntf, re, R"(\fs5\b1$1\b0\fs3)");
     
-    re = R"(#{2} )";
-    ntf = std::regex_replace(ntf, re, R"(\fs6 \b1 )");
+    re = R"(#{2} (.*))";
+    ntf = std::regex_replace(ntf, re, R"(\fs6\b1$1\b0\fs3)");
     
-    re = R"(#{1} )";
-    ntf = std::regex_replace(ntf, re, R"(\fs7 \b1 )");
+    re = R"(# (.*))";
+    ntf = std::regex_replace(ntf, re, R"(\fs7\b1$1\b0\fs3)");
     
     re = R"(\*{2}(.*)\*{2})";
-    ntf = std::regex_replace(ntf, re, R"(\b1 $1)");
+    ntf = std::regex_replace(ntf, re, R"(\b1$1\b0)");
     
     re = R"(\*(.*)\*)";
-    ntf = std::regex_replace(ntf, re, R"(\i1 $1)");
+    ntf = std::regex_replace(ntf, re, R"(\i1$1\i0)");
     
     re = R"(~~(.*)~~)";
-    ntf = std::regex_replace(ntf, re, R"(\s1 $1)");
+    ntf = std::regex_replace(ntf, re, R"(\s1$1\s0)");
     
     re = R"(==(.*)==)";
-    ntf = std::regex_replace(ntf, re, R"(\bg#7F40 $1)");
+    ntf = std::regex_replace(ntf, re, R"(\bg#7F40$1\bg )");
     
     re = R"( {4}- )";
-    ntf = std::regex_replace(ntf, re, R"(\l3 )");
+    ntf = std::regex_replace(ntf, re, R"(\l3)");
     
     re = R"( {2}- )";
-    ntf = std::regex_replace(ntf, re, R"(\l2 )");
+    ntf = std::regex_replace(ntf, re, R"(\l2)");
     
     re = R"(- )";
-    ntf = std::regex_replace(ntf, re, R"(\l1 )");
+    ntf = std::regex_replace(ntf, re, R"(\l1)");
     
     return ntf;
 }

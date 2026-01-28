@@ -76,13 +76,6 @@ static std::wstring parseLine(const std::string& str) {
         
         uint32_t n = 0x1FE001FF;
         
-        // MARK: - Bold & Italic
-        
-        if (r.style.bold) n |= 1 << 10;
-        if (r.style.italic) n |= 1 << 11;
-        if (r.style.underline) n |= 1 << 12;
-        if (r.style.strikethrough) n |= 1 << 14;
-        
         switch (r.format.fontSize) {
             case ntf::FONT22:
                 n |= 7 << 15;
@@ -116,9 +109,13 @@ static std::wstring parseLine(const std::string& str) {
                 break;
         }
         
-        
         ws.at(2) = n & 0xFFFF;
         ws.at(3) = n >> 16;
+        
+        if (r.style.bold) ws.at(2) = ws.at(2) | (1 << 10);
+        if (r.style.italic) ws.at(2) = ws.at(2) | (1 << 11);
+        if (r.style.underline) ws.at(2) = ws.at(2) | (1 << 12);
+        if (r.style.strikethrough) ws.at(2) = ws.at(2) | (1 << 14);
         
         if (r.format.background != 0xFFFF) {
             if (r.format.foreground == 0xFFFF) {
@@ -174,7 +171,7 @@ static std::wstring parseAllLines(std::istringstream& iss) {
     wstr.append(toBase48((uint64_t)lines));
   
     // Footer control bytes
-    wstr.append(LR"(\0\0\0\0\0\1\0)");
+    wstr.append(LR"(\0\0\0\0\0\0\0)");
     
     return wstr;
 }
