@@ -2,10 +2,10 @@
 \fs6Heading level 2
 \fs5Heading level 3
 \fs4Heading level 4
-\fs3\srike1\b0Strikethrough\strike0
+\fs3\strike1\b0Strikethrough\strike0
 \ul Underlined\ul0
 \bg#7F40Highlight\bg#FFFF
-Plain text
+\fg#0421Plain text\fg#FFFF
 \qc Center Alignment
 \qr Right Alignment\ql
 \i1Italic\i0

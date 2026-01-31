@@ -24,8 +24,11 @@
 
 #include <regex>
 #include <iomanip>
+#include <sstream>
 
 using namespace ntf;
+
+static std::vector<Color> colortbl;
 
 static Format format{};
 static Style style{};
@@ -41,7 +44,7 @@ static uint16_t rgb888ToArgb1555(uint8_t r, uint8_t g, uint8_t b, bool opaque = 
     uint16_t g5 = (g * 31 + 127) / 255;
     uint16_t b5 = (b * 31 + 127) / 255;
 
-    uint16_t a1 = opaque ? 1 : 0;
+    uint16_t a1 = opaque ? 0 : 1;
 
     return (a1 << 15) | (r5 << 10) | (g5 << 5) | b5;
 }
@@ -61,7 +64,8 @@ uint16_t rgba8888ToArgb1555(
     return (a1 << 15) | (r5 << 10) | (g5 << 5) | b5;
 }
 
-static Color parseHexColor(const std::string& hex) {
+static Color parseHexColor(const std::string& hex)
+{
     Color c = 0xFFFF;
     
     if (hex.size() == 4) {
@@ -79,13 +83,101 @@ static Color parseHexColor(const std::string& hex) {
     return c;
 }
 
-void ntf::reset(void) {
+static void parseColorTbl(const std::string& input)
+{
+    std::regex re;
+    std::smatch match;
+    
+    re = R"(\{\\colortbl *;([\\a-z\d\s ;]*)\})";
+
+    if (!std::regex_search(input, match, re)) return;
+    
+    auto s = match.str(1);
+    
+    re = R"((?:\\red(\d+) *\\green(\d+) *\\blue(\d+)))";
+    for (auto it = std::sregex_iterator(s.begin(), s.end(), re); it != std::sregex_iterator(); ++it) {
+        auto color = rgb888ToArgb1555(
+                                      std::stoi(it->str(1)), // Red
+                                      std::stoi(it->str(2)), // Green
+                                      std::stoi(it->str(3))  // Blue
+                                      );
+        
+        colortbl.push_back(color);
+    }
+}
+
+static void rewriteFontSizes(std::string& rtf)
+{
+    for (size_t i = 0; i + 3 < rtf.size(); ++i) {
+        // Look for "\fs"
+        if (rtf[i] == '\\' && rtf[i + 1] == 'f' && rtf[i + 2] == 's') {
+
+            size_t j = i + 3;
+            if (j >= rtf.size() || !std::isdigit(rtf[j]))
+                continue;
+
+            // Parse N
+            int value = 0;
+            size_t start = j;
+            while (j < rtf.size() && std::isdigit(rtf[j])) {
+                value = value * 10 + (rtf[j] - '0');
+                ++j;
+            }
+
+            // Transform N → N/4 - 4
+            int newValue = value / 4 - 4;
+            if (newValue < 0)
+                newValue = 0;
+
+            // Replace old number with new one
+            rtf.replace(start, j - start, std::to_string(newValue));
+
+            // Adjust index to continue safely
+            i = start + std::to_string(newValue).size() - 1;
+        }
+    }
+}
+
+static void clearColorTable(bool freeMemory = false)
+{
+    colortbl.clear();
+    if (freeMemory)
+        colortbl.shrink_to_fit();
+}
+
+static FontSize fontSize(const int value)
+{
+    if (value == -1) return FONT14;
+    if (value >= 0 && value <= 7) return static_cast<FontSize>(value);
+    if (value <= 22) return static_cast<FontSize>((value & ~1) / 2 - 4);
+    return static_cast<FontSize>((value & ~1) / 4 - 4);
+}
+
+static Color color(const int value, const std::string& hex)
+{
+    if (hex.empty()) {
+        switch (value) {
+            case -1:
+            case 0:
+                return 0xFFFF;
+                
+            default:
+                return colortbl[value - 1];
+        }
+    } else {
+        return parseHexColor(hex);
+    }
+}
+
+void ntf::reset(void)
+{
     format = {};
     style = {};
     level = 0;
 }
 
-std::vector<TextRun> ntf::parseNTF(const std::string& input) {
+std::vector<TextRun> ntf::parseNTF(const std::string& input)
+{
     std::vector<TextRun> runs;
     std::string buffer;
 
@@ -141,13 +233,13 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input) {
                 style.strikethrough = value != 0;
             }
             if (cmd == "fs") {
-                if (value != -1) format.fontSize = static_cast<FontSize>(value); else format.fontSize = MEDIUM;
+                format.fontSize = fontSize(value);
             }
             if (cmd == "fg") {
-                format.foreground = parseHexColor(hex);
+                format.foreground = color(value, hex);
             }
             if (cmd == "bg") {
-                if (!hex.empty()) format.background = parseHexColor(hex); else format.background = 0xFFFF;
+                format.background = color(value, hex);
             }
             if (cmd == "ql") {
                 format.align = LEFT;
@@ -160,6 +252,12 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input) {
             }
             if (cmd == "li" && value != -1) {
                 level = value % 4;
+            }
+            if (cmd == "cf" && value != -1) {
+                format.foreground = color(value, "");
+            }
+            if (cmd == "highlight" && value != -1) {
+                format.background = color(value, "");
             }
 
             // Skip optional space after control word
@@ -174,7 +272,26 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input) {
     return runs;
 }
 
-std::string ntf::markdownToNTF(const std::string md) {
+std::string ntf::richTextToNTF(const std::string rtf)
+{
+    std::string ntf = rtf;
+    
+    std::regex ex;
+    clearColorTable();
+    parseColorTbl(ntf);
+    
+    ntf = std::regex_replace(ntf, std::regex(R"(\{[^{}]*\})"), "");
+    ntf = ntf.substr(1, ntf.length() - 2);
+    
+    ntf = std::regex_replace(ntf, std::regex(R"(\\par )"), "\\ql \n");
+    
+    rewriteFontSizes(ntf);
+    
+    return ntf;
+}
+
+std::string ntf::markdownToNTF(const std::string& md)
+{
     std::string ntf = md;
     
     std::regex re;
@@ -215,8 +332,30 @@ std::string ntf::markdownToNTF(const std::string md) {
     return ntf;
 }
 
+Format ntf::currentFormatState(void)
+{
+    return format;
+}
 
-void ntf::printRuns(const std::vector<TextRun>& runs) {
+Style ntf::currentStyleState(void)
+{
+    return style;
+}
+
+void ntf::defaultColorTable(void)
+{
+    clearColorTable(true);
+    colortbl = {
+                0x0000, 0x7FFF, 0x0421,
+        0x4210, 0x294A, 0x7C00, 0x7D00,
+        0x7FE0, 0x7E80, 0x03E0, 0x03FF,
+        0x001F, 0x7C1F, 0x4000, 0x4200,
+        0x0200, 0x0210, 0x026A
+    };
+}
+
+void ntf::printRuns(const std::vector<TextRun>& runs)
+{
     for (const auto& r : runs) {
         std::cerr
         << (r.style.bold ? "B" : "-") << (r.style.italic ? "I" : "-") << (r.style.underline ? "U" : "-") << (r.style.strikethrough ? "S" : "-")

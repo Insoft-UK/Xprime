@@ -25,6 +25,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <list>
 #include <cctype>
 
 namespace ntf {
@@ -101,6 +102,22 @@ namespace ntf {
     std::vector<TextRun> parseNTF(const std::string& input);
     
     /**
+     * @brief Converts a RichText string into NoteText Format (NTF).
+     *
+     * Translates supported RichText format into equivalent NTF control
+     * sequences, emitting an NTF-formatted string suitable for processing
+     * by the NTF parser. Formatting that is not representable in NTF may be
+     * ignored or approximated.
+     *
+     * The returned string contains NTF control codes embedded directly
+     * within the text stream.
+     *
+     * @param rtf The RichText-formatted input string.
+     * @return A string encoded in NoteText Format (NTF).
+     */
+    std::string richTextToNTF(const std::string rtf);
+    
+    /**
      * @brief Converts a Markdown string into NoteText Format (NTF).
      *
      * Translates supported Markdown syntax into equivalent NTF control
@@ -114,7 +131,23 @@ namespace ntf {
      * @param md The Markdown-formatted input string.
      * @return A string encoded in NoteText Format (NTF).
      */
-    std::string markdownToNTF(const std::string md);
+    std::string markdownToNTF(const std::string& md);
+    
+    /**
+     * @brief Gets the current formatting state.
+     *
+     * @return Current formatting settings as a `Format` structure.
+     */
+    Format currentFormatState(void);
+    
+    /**
+     * @brief Gets the current style state.
+     *
+     * @return Current style settings as a `Style` structure.
+     */
+    Style currentStyleState(void);
+    
+    void defaultColorTable(void);
     
     /**
      * @brief Prints a sequence of styled text runs to the console.

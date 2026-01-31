@@ -51,6 +51,73 @@ static std::wstring toBase48(uint64_t value)
     return result;
 }
 
+static void applyFormat(const ntf::Format format, std::wstring& wstr) {
+    uint32_t n = 0x1FE001FF;
+    
+    switch (format.fontSize) {
+        case ntf::FONT22:
+            n |= 7 << 15;
+            break;
+            
+        case ntf::FONT20:
+            n |= 6 << 15;
+            break;
+            
+        case ntf::FONT18:
+            n |= 5 << 15;
+            break;
+            
+        case ntf::LARGE:
+            n |= 4 << 15;
+            break;
+            
+        case ntf::MEDIUM:
+            n |= 3 << 15;
+            break;
+            
+        case ntf::SMALL:
+            n |= 2 << 15;
+            break;
+            
+        case ntf::FONT10:
+            n |= 1 << 15;
+            break;
+            
+        default:
+            break;
+    }
+    
+    wstr.at(2) = n & 0xFFFF;
+    wstr.at(3) = n >> 16;
+    
+    if (format.background != 0xFFFF) {
+        if (format.foreground == 0xFFFF) {
+            wstr.erase(6,1);
+            wstr.at(6) = format.background;
+            wstr.at(9) = L'0';
+        } else {
+            wstr.erase(8,1);
+            wstr.at(4) = format.foreground;
+            wstr.at(5) = format.background;
+            wstr.at(7) = L'1';
+            wstr.at(9) = L'0';
+        }
+    } else if (format.foreground != 0xFFFF) {
+        wstr.at(4) = format.foreground;
+        wstr.at(5) = L'\\';
+        wstr.at(6) = L'0';
+        wstr.at(7) = L'\\';
+        wstr.at(8) = L'1';
+    }
+}
+
+static void applyStyle(const ntf::Style style, std::wstring& wstr) {
+    if (style.bold) wstr.at(2) = wstr.at(2) | (1 << 10);
+    if (style.italic) wstr.at(2) = wstr.at(2) | (1 << 11);
+    if (style.underline) wstr.at(2) = wstr.at(2) | (1 << 12);
+    if (style.strikethrough) wstr.at(2) = wstr.at(2) | (1 << 14);
+}
+
 static std::wstring parseLine(const std::string& str) {
     std::wstring wstr;
     
@@ -68,74 +135,23 @@ static std::wstring parseLine(const std::string& str) {
     wstr.append(LR"(\0\0\0\0\)");
     wstr.append(toBase48(23));
     
+    if (!runs.size()) {
+        std::wstring ws;
+        ws = LR"(\oǿῠ\0\0Ā\1\0\0 \0\0\0)"; // Plain Text
+        applyFormat(ntf::currentFormatState(), ws);
+        applyStyle(ntf::currentStyleState(), ws);
+        
+        return wstr += ws;
+    }
+    
     for (const auto& r : runs) {
         wstr.at(5) = toBase48(r.level).at(0);
         
         std::wstring ws;
         ws = LR"(\oǿῠ\0\0Ā\1\0\0 )"; // Plain Text
         
-        uint32_t n = 0x1FE001FF;
-        
-        switch (r.format.fontSize) {
-            case ntf::FONT22:
-                n |= 7 << 15;
-                break;
-                
-            case ntf::FONT20:
-                n |= 6 << 15;
-                break;
-                
-            case ntf::FONT18:
-                n |= 5 << 15;
-                break;
-                
-            case ntf::LARGE:
-                n |= 4 << 15;
-                break;
-                
-            case ntf::MEDIUM:
-                n |= 3 << 15;
-                break;
-                
-            case ntf::SMALL:
-                n |= 2 << 15;
-                break;
-                
-            case ntf::FONT10:
-                n |= 1 << 15;
-                break;
-                
-            default:
-                break;
-        }
-        
-        ws.at(2) = n & 0xFFFF;
-        ws.at(3) = n >> 16;
-        
-        if (r.style.bold) ws.at(2) = ws.at(2) | (1 << 10);
-        if (r.style.italic) ws.at(2) = ws.at(2) | (1 << 11);
-        if (r.style.underline) ws.at(2) = ws.at(2) | (1 << 12);
-        if (r.style.strikethrough) ws.at(2) = ws.at(2) | (1 << 14);
-        
-        if (r.format.background != 0xFFFF) {
-            if (r.format.foreground == 0xFFFF) {
-                ws.erase(6,1);
-                ws.at(6) = r.format.background;
-                ws.at(9) = L'0';
-            } else {
-                ws.erase(8,1);
-                ws.at(4) = r.format.foreground;
-                ws.at(5) = r.format.background;
-                ws.at(7) = L'1';
-                ws.at(9) = L'0';
-            }
-        } else if (r.format.foreground != 0xFFFF) {
-            ws.at(4) = r.format.foreground;
-            ws.at(5) = L'\\';
-            ws.at(6) = L'0';
-            ws.at(7) = L'\\';
-            ws.at(8) = L'1';
-        }
+        applyFormat(r.format, ws);
+        applyStyle(r.style, ws);
         
         wstr += ws;
         
@@ -217,7 +233,11 @@ std::wstring hpnote::ntfToHPNote(std::filesystem::path& path, bool minify) {
         // Markdown is first converted to NoteText Format
         std::string md = utf::load(path);
         ntf = ntf::markdownToNTF(md);
+    } else if (extension == ".rtf") {
+        std::string rtf = utf::load(path);
+        ntf = ntf::richTextToNTF(rtf);
     } else {
+        ntf::defaultColorTable();
         ntf = utf::load(path);
     }
     

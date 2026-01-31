@@ -29,6 +29,7 @@
 #include "extensions.hpp"
 #include "utf.hpp"
 
+#include "ntf.hpp"
 #include "hpnote.hpp"
 
 
@@ -93,7 +94,7 @@ fs::path resolveOutputExtension(const fs::path& inpath, const fs::path& outpath)
     fs::path path = outpath;
     auto in_extension = std::lowercased(inpath.extension().string());
     
-    if (in_extension == ".note" || in_extension == ".md" || in_extension == ".txt" || in_extension == ".ntf") {
+    if (in_extension == ".note" || in_extension == ".md" || in_extension == ".txt" || in_extension == ".ntf" || in_extension == ".rtf") {
         path.replace_extension("hpnote");
         return path;
     }
@@ -196,7 +197,7 @@ int main(int argc, const char * argv[]) {
     auto in_extension = std::lowercased(inpath.extension().string());
     auto out_extension = std::lowercased(outpath.extension().string());
  
-    if (in_extension == ".md" || in_extension == ".ntf") {
+    if (in_extension == ".md" || in_extension == ".ntf" || in_extension == ".rtf") {
         content = hpnote::ntfToHPNote(inpath, minify);
     }
     
