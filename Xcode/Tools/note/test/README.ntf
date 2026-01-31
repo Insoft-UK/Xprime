@@ -4,7 +4,7 @@
 \fs4Heading level 4
 \fs3\strike1\b0Strikethrough\strike0
 \ul Underlined\ul0
-\bg#7F40Highlight\bg#FFFF
+\bg#7F40\cf4Highlight\bg#FFFF
 \fg#0421Plain text\fg#FFFF
 \qc Center Alignment
 \qr Right Alignment\ql

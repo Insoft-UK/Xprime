@@ -5,7 +5,8 @@
 ~~Strikethrough~~
 \ul Underlined\ul0
 ==Highlight==
-Plain text
+
+\fg#0420Plain text\fg#FFFF
 \qc Center Alignment Text
 \qr Right Alignment Text\ql
 *Italic*

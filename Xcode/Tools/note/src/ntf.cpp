@@ -283,7 +283,7 @@ std::string ntf::richTextToNTF(const std::string rtf)
     ntf = std::regex_replace(ntf, std::regex(R"(\{[^{}]*\})"), "");
     ntf = ntf.substr(1, ntf.length() - 2);
     
-    ntf = std::regex_replace(ntf, std::regex(R"(\\par )"), "\\ql \n");
+    ntf = std::regex_replace(ntf, std::regex(R"(\\par )"), "\\ql ");
     
     rewriteFontSizes(ntf);
     
