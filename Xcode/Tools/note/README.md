@@ -51,14 +51,17 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 |.note|HP Prime note plain text|UTF16le|
 |.note|NoteText Format|UTF8|
 |.ntf|NoteText Format|UTF8|
+|.rtf|*RichText Format|UTF8|
 |.md|Markdown Language|UTF8|
 |.hpnote|HP Prime note (Plain Text without BOM)|UTF16le|
 |.hpappnote|HP Prime note (Plain Text without BOM)|UTF16le|
 
+***Support is planned but not implemented**
+
 ## Text Formatting Reference
 
 >[!WARNING]
->To support future RTF compatibility and RTF-to-NTF conversion, several changes have been made to NTF. Toggle-style formatting replaced with explicit state-setting control words, matching RTF semantics (for example, `\b` will be treated as shorthand for `\b1`). Additionally, `\u` will be replaced with `\ul` to avoid conflicts with RTF Unicode control words.
+>To support future RTF compatibility and RTF-to-NTF conversion, several changes have been made to NTF. Toggle-style formatting replaced with explicit state-setting control words, matching RTF semantics (for example, `\b` treated as shorthand for `\b1`). Additionally, `\u` replaced with `\ul` to avoid conflicts with RTF Unicode control words.
 
 ### Bold
 - `\b0` — Disable bold  
