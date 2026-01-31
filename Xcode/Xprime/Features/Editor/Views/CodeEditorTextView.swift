@@ -128,7 +128,7 @@ final class CodeEditorTextView: NSTextView {
         let font = NSFont.monospacedSystemFont(ofSize: 12, weight: weight)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 0
-        paragraphStyle.paragraphSpacing = 0
+        paragraphStyle.paragraphSpacing = 2.5
         paragraphStyle.alignment = .left
         
         return [

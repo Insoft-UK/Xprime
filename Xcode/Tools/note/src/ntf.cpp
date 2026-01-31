@@ -169,6 +169,89 @@ static Color color(const int value, const std::string& hex)
     }
 }
 
+static std::string removeNonNestedGroups(const std::string& rtf)
+{
+    std::string out;
+    out.reserve(rtf.size());
+
+    for (size_t i = 0; i < rtf.size(); ++i)
+    {
+        if (rtf[i] == '{')
+        {
+            size_t j = i + 1;
+            bool nested = false;
+
+            while (j < rtf.size() && rtf[j] != '}')
+            {
+                if (rtf[j] == '{')
+                {
+                    nested = true;
+                    break;
+                }
+                ++j;
+            }
+
+            // Skip flat group
+            if (!nested && j < rtf.size())
+            {
+                i = j;
+                continue;
+            }
+        }
+
+        out.push_back(rtf[i]);
+    }
+
+    return out;
+}
+
+static void normalizeParagraphs(std::string& text)
+{
+    std::string out;
+    out.reserve(text.size());
+
+    bool lastWasNewline = false;
+
+    for (size_t i = 0; i < text.size(); ++i)
+    {
+        // Handle \par
+        if (text.compare(i, 4, "\\par") == 0)
+        {
+            if (!lastWasNewline)
+            {
+                out.push_back('\n');
+                lastWasNewline = true;
+            }
+            i += 3;
+            continue;
+        }
+
+        char c = text[i];
+
+        // Normalize raw newlines
+        if (c == '\n' || c == '\r')
+        {
+            if (!lastWasNewline)
+            {
+                out.push_back('\n');
+                lastWasNewline = true;
+            }
+            continue;
+        }
+
+        out.push_back(c);
+        lastWasNewline = false;
+    }
+
+    // Trim leading/trailing newlines
+    if (!out.empty() && out.front() == '\n')
+        out.erase(0, out.find_first_not_of('\n'));
+    if (!out.empty() && out.back() == '\n')
+        out.erase(out.find_last_not_of('\n') + 1);
+
+    text.swap(out);
+}
+
 void ntf::reset(void)
 {
     format = {};
@@ -272,21 +355,22 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input)
     return runs;
 }
 
-std::string ntf::richTextToNTF(const std::string rtf)
+std::string ntf::richTextToNTF(const std::string& rtf)
 {
-    std::string ntf = rtf;
-    
-    std::regex ex;
     clearColorTable();
-    parseColorTbl(ntf);
-    
-    ntf = std::regex_replace(ntf, std::regex(R"(\{[^{}]*\})"), "");
-    ntf = ntf.substr(1, ntf.length() - 2);
-    
-    ntf = std::regex_replace(ntf, std::regex(R"(\\par )"), "\\ql ");
-    
+    parseColorTbl(rtf);
+
+    std::string ntf = removeNonNestedGroups(rtf);
+
+    // strip outer braces
+    if (!ntf.empty() && ntf.front() == '{')
+        ntf.erase(0, 1);
+    if (!ntf.empty() && ntf.back() == '}')
+        ntf.pop_back();
+
+    normalizeParagraphs(ntf);
     rewriteFontSizes(ntf);
-    
+
     return ntf;
 }
 

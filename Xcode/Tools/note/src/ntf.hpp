@@ -115,7 +115,7 @@ namespace ntf {
      * @param rtf The RichText-formatted input string.
      * @return A string encoded in NoteText Format (NTF).
      */
-    std::string richTextToNTF(const std::string rtf);
+    std::string richTextToNTF(const std::string& rtf);
     
     /**
      * @brief Converts a Markdown string into NoteText Format (NTF).
@@ -147,6 +147,9 @@ namespace ntf {
      */
     Style currentStyleState(void);
     
+    /**
+     * @brief Clears any custom color entries and restores the default color table.
+     */
     void defaultColorTable(void);
     
     /**
