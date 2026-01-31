@@ -94,14 +94,22 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 ---
 
 ### Foreground (Text Color)
+**NoteText**
 - `\fg#7C00` — Red text  
 - `\fg#FFFF` — Default text color  
-- `\fg` — Reset to default  
+- `\fg` — Reset to default
+
+**RichText** Control Word Supported
+- `\cfN` → N 0 Default 1-... Color Table  
 
 ### Background
+**NoteText**
 - `\bg#7C00` — Red background  
 - `\bg#FFFF` — Default background  
-- `\bg` — Reset to default  
+- `\bg` — Reset to default
+
+**RichText** Control Word Supported
+- `\highlightN` → N 0 Default 1-... Color Table 
 
 ---
 
