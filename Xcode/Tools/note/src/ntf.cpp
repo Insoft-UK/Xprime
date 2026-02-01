@@ -157,6 +157,9 @@ static void rewriteFontSizes(std::string& rtf)
             int newValue = value / 2;
             if (newValue < 0)
                 newValue = 0;
+            
+            if (newValue > 22)
+                newValue = 22;
 
             // Replace old number with new one
             rtf.replace(start, j - start, std::to_string(newValue));
