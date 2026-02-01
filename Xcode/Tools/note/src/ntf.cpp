@@ -34,7 +34,8 @@ static Format format{};
 static Style style{};
 static int level = 0;
 
-static uint8_t hexByte(const std::string& s, size_t pos) {
+static uint8_t hexByte(const std::string& s, size_t pos)
+{
     return static_cast<uint8_t>(std::stoi(s.substr(pos, 2), nullptr, 16));
 }
 
@@ -68,15 +69,18 @@ static Color parseHexColor(const std::string& hex)
 {
     Color c = 0xFFFF;
     
-    if (hex.size() == 4) {
+    if (hex.size() == 4)
+    {
         c = static_cast<Color>(hexByte(hex, 0)) << 8 | hexByte(hex, 2);
     }
     
-    if (hex.size() == 6) {
+    if (hex.size() == 6)
+    {
         c = rgb888ToArgb1555(hexByte(hex, 0), hexByte(hex, 2), hexByte(hex, 4));
     }
     
-    if (hex.size() == 8) {
+    if (hex.size() == 8)
+    {
         c = rgba8888ToArgb1555(hexByte(hex, 0), hexByte(hex, 2), hexByte(hex, 4), hexByte(hex, 6));
     }
     
@@ -108,10 +112,11 @@ static void parseColorTbl(const std::string& input)
 
 static void rewriteFontSizes(std::string& rtf)
 {
-    for (size_t i = 0; i + 3 < rtf.size(); ++i) {
+    for (size_t i = 0; i + 3 < rtf.size(); ++i)
+    {
         // Look for "\fs"
-        if (rtf[i] == '\\' && rtf[i + 1] == 'f' && rtf[i + 2] == 's') {
-
+        if (rtf[i] == '\\' && rtf[i + 1] == 'f' && rtf[i + 2] == 's')
+        {
             size_t j = i + 3;
             if (j >= rtf.size() || !std::isdigit(rtf[j]))
                 continue;
@@ -119,13 +124,14 @@ static void rewriteFontSizes(std::string& rtf)
             // Parse N
             int value = 0;
             size_t start = j;
-            while (j < rtf.size() && std::isdigit(rtf[j])) {
+            while (j < rtf.size() && std::isdigit(rtf[j]))
+            {
                 value = value * 10 + (rtf[j] - '0');
                 ++j;
             }
 
-            // Transform N → N/4 - 4
-            int newValue = value / 4 - 4;
+            // Transform N → N/2
+            int newValue = value / 2;
             if (newValue < 0)
                 newValue = 0;
 
@@ -143,30 +149,6 @@ static void clearColorTable(bool freeMemory = false)
     colortbl.clear();
     if (freeMemory)
         colortbl.shrink_to_fit();
-}
-
-static FontSize fontSize(const int value)
-{
-    if (value == -1) return FONT14;
-    if (value >= 0 && value <= 7) return static_cast<FontSize>(value);
-    if (value <= 22) return static_cast<FontSize>((value & ~1) / 2 - 4);
-    return static_cast<FontSize>((value & ~1) / 4 - 4);
-}
-
-static Color color(const int value, const std::string& hex)
-{
-    if (hex.empty()) {
-        switch (value) {
-            case -1:
-            case 0:
-                return 0xFFFF;
-                
-            default:
-                return colortbl[value - 1];
-        }
-    } else {
-        return parseHexColor(hex);
-    }
 }
 
 static std::string removeNonNestedGroups(const std::string& rtf)
@@ -205,6 +187,51 @@ static std::string removeNonNestedGroups(const std::string& rtf)
     return out;
 }
 
+static void removeNewlines(std::string& text)
+{
+    std::string out;
+    out.reserve(text.size());
+
+    for (char c: text)
+    {
+        if (c == '\n' || c == '\r')
+            continue;
+         
+        out.push_back(c);
+    }
+
+    text.swap(out);
+}
+
+static void normalizeNewlines(std::string& text)
+{
+    std::string out;
+    out.reserve(text.size());
+
+    for (size_t i = 0; i < text.size(); ++i)
+    {
+        char c = text[i];
+
+        if (c == '\n' || c == '\r')
+        {
+            // Preserve newline if previous character is '\'
+            if (i > 0 && text[i - 1] == '\\')
+            {
+                out.push_back('p');
+                out.push_back('a');
+                out.push_back('r');
+                out.push_back(' ');
+            }
+            // otherwise: drop it
+            continue;
+        }
+
+        out.push_back(c);
+    }
+
+    text.swap(out);
+}
+
 static void normalizeParagraphs(std::string& text)
 {
     std::string out;
@@ -215,21 +242,21 @@ static void normalizeParagraphs(std::string& text)
     for (size_t i = 0; i < text.size(); ++i)
     {
         // Handle \par
-        if (text.compare(i, 4, "\\par") == 0)
+        if (i + 4 < text.size() && text.compare(i, 4, "\\par") == 0 && !std::isalpha(text[i+4]))
         {
             if (!lastWasNewline)
             {
                 out.push_back('\n');
                 lastWasNewline = true;
             }
-            i += 3;
+            i += 4;
             continue;
         }
 
         char c = text[i];
 
         // Normalize raw newlines
-        if (c == '\n' || c == '\r')
+        if (i + 1 < text.size() && c == '\\' && (text[i+1] == '\n' || text[i+1] == '\r'))
         {
             if (!lastWasNewline)
             {
@@ -242,12 +269,6 @@ static void normalizeParagraphs(std::string& text)
         out.push_back(c);
         lastWasNewline = false;
     }
-
-    // Trim leading/trailing newlines
-    if (!out.empty() && out.front() == '\n')
-        out.erase(0, out.find_first_not_of('\n'));
-    if (!out.empty() && out.back() == '\n')
-        out.erase(out.find_last_not_of('\n') + 1);
 
     text.swap(out);
 }
@@ -264,83 +285,121 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input)
     std::vector<TextRun> runs;
     std::string buffer;
 
-    auto flush = [&]() {
-        if (!buffer.empty()) {
+    auto flush = [&]()
+    {
+        if (!buffer.empty())
+        {
             runs.push_back({ buffer, format, style, level });
             buffer.clear();
         }
     };
 
-    for (size_t i = 0; i < input.size(); ) {
-        if (input[i] == '\\') {
+    for (size_t i = 0; i < input.size(); )
+    {
+        if (input[i] == '\\')
+        {
             // Flush text before control word
             flush();
             i++;
 
             // Read control word name
             std::string cmd;
-            while (i < input.size() && std::isalpha(input[i])) {
+            while (i < input.size() && std::isalpha(input[i]))
+            {
                 cmd += input[i++];
             }
 
             
             // Hex color value (for fg#XXXX / bg#XXXX)
             std::string hex;
-            if (input[i] == '#') {
+            if (input[i] == '#')
+            {
                 i++;
-                while (i < input.size() && std::isxdigit(input[i])) {
+                while (i < input.size() && std::isxdigit(input[i]))
+                {
                     hex += input[i++];
                 }
             }
             
             // Read optional numeric value (e.g. 0 or 1)
             int value = -1;
-            if (i < input.size() && std::isdigit(input[i])) {
+            if (i < input.size() && std::isdigit(input[i]))
+            {
                 value = 0;
-                while (i < input.size() && std::isdigit(input[i])) {
+                while (i < input.size() && std::isdigit(input[i]))
+                {
                     value = value * 10 + (input[i++] - '0');
                 }
             }
+            
+            if (hex.length())
+            {
+                value = std::stoi(hex, nullptr, 16);
+            }
 
             // Apply command
-            if (cmd == "b") {
+            if (cmd == "b")
+            {
                 style.bold = value != 0;
             }
-            if (cmd == "i") {
+            
+            if (cmd == "i")
+            {
                 style.italic = value != 0;
             }
-            if (cmd == "ul") {
+            
+            if (cmd == "ul")
+            {
                 style.underline = value != 0;
             }
-            if (cmd == "strike") {
+            
+            if (cmd == "strike")
+            {
                 style.strikethrough = value != 0;
             }
-            if (cmd == "fs") {
-                format.fontSize = fontSize(value);
+            
+            if (cmd == "fs")
+            {
+                format.fontSize = value != -1 ? static_cast<FontSize>((value / 2 - 4) % 8) : FONT14;
             }
-            if (cmd == "fg") {
-                format.foreground = color(value, hex);
+            
+            if (cmd == "fg")
+            {
+                format.foreground = value;
             }
-            if (cmd == "bg") {
-                format.background = color(value, hex);
+            
+            if (cmd == "bg")
+            {
+                format.background = value;
             }
-            if (cmd == "ql") {
+            
+            if (cmd == "ql")
+            {
                 format.align = LEFT;
             }
-            if (cmd == "qc") {
+            
+            if (cmd == "qc")
+            {
                 format.align = CENTER;
             }
-            if (cmd == "qr") {
+            
+            if (cmd == "qr")
+            {
                 format.align = RIGHT;
             }
+            
             if (cmd == "li" && value != -1) {
                 level = value % 4;
             }
-            if (cmd == "cf" && value != -1) {
-                format.foreground = color(value, "");
+            
+            if (cmd == "cf" && value != -1)
+            {
+                format.foreground = value > 0 ? colortbl[value - 1] : 0xFFFF;
             }
-            if (cmd == "highlight" && value != -1) {
-                format.background = color(value, "");
+            
+            if (cmd == "highlight" && value != -1)
+            {
+                format.background = value > 0 ? colortbl[value - 1] : 0xFFFF;
             }
 
             // Skip optional space after control word
@@ -367,6 +426,9 @@ std::string ntf::richTextToNTF(const std::string& rtf)
         ntf.erase(0, 1);
     if (!ntf.empty() && ntf.back() == '}')
         ntf.pop_back();
+    
+    normalizeNewlines(ntf);
+    removeNewlines(ntf);
 
     normalizeParagraphs(ntf);
     rewriteFontSizes(ntf);
@@ -381,25 +443,25 @@ std::string ntf::markdownToNTF(const std::string& md)
     std::regex re;
     
     re = R"(#{4} (.*))";
-    ntf = std::regex_replace(ntf, re, R"(\fs4\b1 $1\b0\fs3 )");
+    ntf = std::regex_replace(ntf, re, R"(\fs16\b1 $1\b0\fs14 )");
     
     re = R"(#{3} (.*))";
-    ntf = std::regex_replace(ntf, re, R"(\fs5\b1 $1\b0\fs3 )");
+    ntf = std::regex_replace(ntf, re, R"(\fs18\b1 $1\b0\fs14 )");
     
     re = R"(#{2} (.*))";
-    ntf = std::regex_replace(ntf, re, R"(\fs6\b1 $1\b0\fs3 )");
+    ntf = std::regex_replace(ntf, re, R"(\fs20\b1 $1\b0\fs14 )");
     
     re = R"(# (.*))";
-    ntf = std::regex_replace(ntf, re, R"(\fs7\b1 $1\b0\fs3 )");
+    ntf = std::regex_replace(ntf, re, R"(\fs22\b1 $1\b0\fs14 )");
     
     re = R"(\*{2}(.*)\*{2})";
-    ntf = std::regex_replace(ntf, re, R"(\b1 $1\b0 )");
+    ntf = std::regex_replace(ntf, re, R"(\b $1\b0 )");
     
     re = R"(\*(.*)\*)";
-    ntf = std::regex_replace(ntf, re, R"(\i1 $1\i0 )");
+    ntf = std::regex_replace(ntf, re, R"(\i $1\i0 )");
     
     re = R"(~~(.*)~~)";
-    ntf = std::regex_replace(ntf, re, R"(\strike1 $1\strike0 )");
+    ntf = std::regex_replace(ntf, re, R"(\strike $1\strike0 )");
     
     re = R"(==(.*)==)";
     ntf = std::regex_replace(ntf, re, R"(\bg#7F40 $1\bg#FFFF )");
