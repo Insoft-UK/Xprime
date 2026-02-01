@@ -87,29 +87,34 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 ---
 
 ### Font Size
-`fsN` N = font size (N + 4) * 2
-- `\fs7` → 22-point font (7 + 4) * 2 = 22
-- `\fs0` → 8-point font (0 + 4) * 2 = 8
+`fsN` N = font size
+- `\fs22` → 22-point font
+- `\fs8` → 8-point font
+
+In RichText, the font size values are effectively doubled compared to what you might expect. That means:
+
+-	If a font is specified as \fs24 in RichText, it actually renders at 12 points, because the value in the RTF control word (\fsN) is twice the real point size.
+-	This doubling is part of the RTF specification: the \fsN value is always measured in half-points, not full points.
+
+So whenever you read a font size from RichText, you need to divide by 2 to get the actual point size, and when writing a font size, you multiply by 2 to encode it.
+
+>[!NOTE]
+>Unlike RichText, NoteText font sizes are specified in actual points, so no doubling is applied.
 
 ---
 
 ### Foreground (Text Color)
-**NoteText**
-- `\fg#7C00` — Red text  
-- `\fg#FFFF` — Default text color  
-- `\fg` — Reset to default
-
-**RichText** Control Word Supported
 - `\cfN` → N 0 Default 1-... Color Table  
 
-### Background
-**NoteText**
-- `\bg#7C00` — Red background  
-- `\bg#FFFF` — Default background  
-- `\bg` — Reset to default
+>[!IMPORTANT]
+>When specifying a hex value, e.g., `\cf#7FFF`, it is interpreted as an explicit RGB555 color rather than as an index into the default color table.
 
-**RichText** Control Word Supported
-- `\highlightN` → N 0 Default 1-... Color Table 
+### Background
+- `\cbN` → N 0 Default 1-... Color Table 
+- `\highlightN` → N 0 Default 1-... Color Table
+
+>[!IMPORTANT]
+>When specifying a hex value, e.g., `\cb#7FFF`, it is interpreted as an explicit RGB555 color rather than as an index into the default color table.
 
 ---
 
