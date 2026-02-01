@@ -3,9 +3,6 @@
 
 A command-line tool that converts .md and .ntf files into the HP Prime .hpnote format, preserving formatting such as bold and italic text, font sizes, and foreground and background colors.
 
->[!NOTE]
->A font size of 8 can be achieved using the control word `\fs0`. While this size is not accessible directly on the HP Prime calculator itself, it is supported when using the command-line tool.
-
 `Usage: note <input-file> [-o <output-file>]`
 
 <table>
