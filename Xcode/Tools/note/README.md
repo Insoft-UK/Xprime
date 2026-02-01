@@ -107,7 +107,7 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 - `\cfN` → N 0 Default 1-... Color Table  
 
 >[!IMPORTANT]
->When specifying a hex value, e.g., `\cb#7FFF`, it is interpreted as an explicit RGB555 color rather than as an index into the default color table.
+>When specifying a hex value, e.g., `\cf#7FFF`, it is interpreted as an explicit RGB555 color rather than as an index into the default color table.
 
 ### Background
 - `\cbN` → N 0 Default 1-... Color Table 
