@@ -223,7 +223,8 @@ int main(int argc, const char * argv[]) {
     if (in_extension == ".note") {
         auto bom = utf::bom(inpath);
         if (bom == utf::BOMnone) {
-            content = hpnote::ntfToHPNote(inpath, minify);
+            std::string ntf = utf::load(inpath);
+            content = hpnote::ntfToHPNote(ntf, minify);
         } else {
             content = utf::load(inpath, bom);
         }

@@ -140,7 +140,7 @@
 				"    # Get current date in YYYYMMDD format",
 				"    BUILD=$(date +\"%Y%m%d\")",
 				"    #agvtool new-version -all $BUILD",
-				"",
+				"    ",
 				"    VERSION=$(/usr/libexec/PlistBuddy \\",
 				"        -c \"Print :CFBundleShortVersionString\" \\",
 				"        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")",
@@ -162,8 +162,6 @@
 				"}\" > xprime-app-version.json",
 				"",
 				"fi",
-				"",
-				"",
 				"",
 				"",
 				"",
@@ -340,7 +338,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260131;
+				CURRENT_PROJECT_VERSION = 20260201;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
@@ -400,7 +398,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260131;
+				CURRENT_PROJECT_VERSION = 20260201;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
