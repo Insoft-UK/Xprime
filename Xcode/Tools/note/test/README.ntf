@@ -1,11 +1,11 @@
-\fs7\b1Heading level 1
-\fs6Heading level 2
-\fs5Heading level 3
-\fs4Heading level 4
-\fs3\strike1\b0Strikethrough\strike0
+\fs22\b1Heading level 1
+\fs20Heading level 2
+\fs18Heading level 3
+\fs16Heading level 4
+\fs14\strike1\b0Strikethrough\strike0
 \ul Underlined\ul0
-\bg#7F40\cf4Highlight\bg#FFFF
-\fg#0421Plain text\fg#FFFF
+\cb9Highlight\cb0
+Plain text
 \qc Center Alignment
 \qr Right Alignment\ql
 \i1Italic\i0

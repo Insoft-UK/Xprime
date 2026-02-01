@@ -6,7 +6,7 @@
 \ul Underlined\ul0
 ==Highlight==
 
-\fg#0420Plain text\fg#FFFF
+Plain text
 \qc Center Alignment Text
 \qr Right Alignment Text\ql
 *Italic*

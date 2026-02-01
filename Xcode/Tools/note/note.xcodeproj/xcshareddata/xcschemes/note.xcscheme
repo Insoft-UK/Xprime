@@ -58,11 +58,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/README.rtf"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/README.ntf"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o Note.hpappnote"

@@ -26,7 +26,7 @@
 #include <filesystem>
 
 namespace hpnote {
-    std::wstring ntfToHPNote(std::filesystem::path& path, bool minify);
+    std::wstring ntfToHPNote(const std::string& ntf, bool minify);
 }
 
 

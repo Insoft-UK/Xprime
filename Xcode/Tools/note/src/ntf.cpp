@@ -34,80 +34,103 @@ static Format format{};
 static Style style{};
 static int level = 0;
 
-static uint8_t hexByte(const std::string& s, size_t pos)
+static inline uint16_t to5(int v)
 {
-    return static_cast<uint8_t>(std::stoi(s.substr(pos, 2), nullptr, 16));
+    return static_cast<uint16_t>((v * 31 + 127) / 255);
 }
 
-static uint16_t rgb888ToArgb1555(uint8_t r, uint8_t g, uint8_t b, bool opaque = true)
+static inline uint16_t packRGB555(int r, int g, int b)
 {
-    uint16_t r5 = (r * 31 + 127) / 255;
-    uint16_t g5 = (g * 31 + 127) / 255;
-    uint16_t b5 = (b * 31 + 127) / 255;
-
-    uint16_t a1 = opaque ? 0 : 1;
-
-    return (a1 << 15) | (r5 << 10) | (g5 << 5) | b5;
+    return (to5(r) << 10) | (to5(g) << 5) | to5(b);
 }
 
-uint16_t rgba8888ToArgb1555(
-    uint8_t r,
-    uint8_t g,
-    uint8_t b,
-    uint8_t a
-) {
-    uint16_t r5 = (r * 31 + 127) / 255;
-    uint16_t g5 = (g * 31 + 127) / 255;
-    uint16_t b5 = (b * 31 + 127) / 255;
-
-    uint16_t a1 = (a >= 128) ? 1 : 0;
-
-    return (a1 << 15) | (r5 << 10) | (g5 << 5) | b5;
-}
-
-static Color parseHexColor(const std::string& hex)
+static std::vector<uint16_t> parseColorTable(const std::string& rtf)
 {
-    Color c = 0xFFFF;
-    
-    if (hex.size() == 4)
+    std::vector<uint16_t> colors;
+
+    // index 0 = default color (\cf0)
+    colors.push_back(0xFFFF);
+
+    size_t pos = rtf.find("\\colortbl");
+    if (pos == std::string::npos)
+        return colors;
+
+    // rewind to group start
+    while (pos > 0 && rtf[pos] != '{')
+        --pos;
+
+    int depth = 0;
+    int r = 0, g = 0, b = 0;
+    bool inTable = false;
+    bool firstEntry = true; // skip mandatory empty entry
+
+    for (size_t i = pos; i < rtf.size(); ++i)
     {
-        c = static_cast<Color>(hexByte(hex, 0)) << 8 | hexByte(hex, 2);
-    }
-    
-    if (hex.size() == 6)
-    {
-        c = rgb888ToArgb1555(hexByte(hex, 0), hexByte(hex, 2), hexByte(hex, 4));
-    }
-    
-    if (hex.size() == 8)
-    {
-        c = rgba8888ToArgb1555(hexByte(hex, 0), hexByte(hex, 2), hexByte(hex, 4), hexByte(hex, 6));
-    }
-    
-    return c;
-}
+        char c = rtf[i];
 
-static void parseColorTbl(const std::string& input)
-{
-    std::regex re;
-    std::smatch match;
-    
-    re = R"(\{\\colortbl *;([\\a-z\d\s ;]*)\})";
+        if (c == '{') {
+            depth++;
+            inTable = true;
+            continue;
+        }
 
-    if (!std::regex_search(input, match, re)) return;
-    
-    auto s = match.str(1);
-    
-    re = R"((?:\\red(\d+) *\\green(\d+) *\\blue(\d+)))";
-    for (auto it = std::sregex_iterator(s.begin(), s.end(), re); it != std::sregex_iterator(); ++it) {
-        auto color = rgb888ToArgb1555(
-                                      std::stoi(it->str(1)), // Red
-                                      std::stoi(it->str(2)), // Green
-                                      std::stoi(it->str(3))  // Blue
-                                      );
-        
-        colortbl.push_back(color);
+        if (c == '}') {
+            depth--;
+            if (depth == 0)
+                break; // end of colortbl
+            continue;
+        }
+
+        if (!inTable)
+            continue;
+
+        if (c == '\\') {
+            size_t start = ++i;
+            while (i < rtf.size() && std::isalpha(rtf[i]))
+                ++i;
+
+            std::string word = rtf.substr(start, i - start);
+
+            int value = 0;
+            bool hasValue = false;
+
+            if (i < rtf.size() && std::isdigit(rtf[i])) {
+                hasValue = true;
+                while (i < rtf.size() && std::isdigit(rtf[i])) {
+                    value = value * 10 + (rtf[i] - '0');
+                    ++i;
+                }
+            }
+
+            if (hasValue) {
+                if (word == "red")        r = value;
+                else if (word == "green") g = value;
+                else if (word == "blue")  b = value;
+            }
+
+            --i;
+        }
+        else if (c == ';') {
+            if (firstEntry) {
+                firstEntry = false; // skip leading empty entry
+            } else {
+                colors.push_back(packRGB555(r, g, b));
+            }
+            r = g = b = 0;
+        }
     }
+
+#if DEBUG
+    std::cerr << "Defined Color RGB555 Table:\n";
+    int i = 0;
+    for (uint16_t color : colors) {
+        std::cerr << i++ << ": 0x"
+                  << std::setw(4) << std::setfill('0')
+                  << std::hex << color << "\n";
+    }
+#endif
+
+    return colors;
 }
 
 static void rewriteFontSizes(std::string& rtf)
@@ -363,16 +386,6 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input)
                 format.fontSize = value != -1 ? static_cast<FontSize>((value / 2 - 4) % 8) : FONT14;
             }
             
-            if (cmd == "fg")
-            {
-                format.foreground = value;
-            }
-            
-            if (cmd == "bg")
-            {
-                format.background = value;
-            }
-            
             if (cmd == "ql")
             {
                 format.align = LEFT;
@@ -394,12 +407,22 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input)
             
             if (cmd == "cf" && value != -1)
             {
-                format.foreground = value > 0 ? colortbl[value - 1] : 0xFFFF;
+                if (hex.empty())
+                {
+                    format.foreground = value < colortbl.size() ? colortbl[value] : 0xFFFF;
+                } else {
+                    format.foreground = value;
+                }
             }
             
-            if (cmd == "highlight" && value != -1)
+            if ((cmd == "cb" || cmd == "highlight") && value != -1)
             {
-                format.background = value > 0 ? colortbl[value - 1] : 0xFFFF;
+                if (hex.empty())
+                {
+                    format.background = value < colortbl.size() ? colortbl[value] : 0xFFFF;
+                } else {
+                    format.foreground = value;
+                }
             }
 
             // Skip optional space after control word
@@ -417,7 +440,7 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input)
 std::string ntf::richTextToNTF(const std::string& rtf)
 {
     clearColorTable();
-    parseColorTbl(rtf);
+    colortbl = parseColorTable(rtf);
 
     std::string ntf = removeNonNestedGroups(rtf);
 
@@ -464,7 +487,7 @@ std::string ntf::markdownToNTF(const std::string& md)
     ntf = std::regex_replace(ntf, re, R"(\strike $1\strike0 )");
     
     re = R"(==(.*)==)";
-    ntf = std::regex_replace(ntf, re, R"(\bg#7F40 $1\bg#FFFF )");
+    ntf = std::regex_replace(ntf, re, R"(\cb8 $1\cb0 )");
     
     re = R"( {4}- )";
     ntf = std::regex_replace(ntf, re, R"(\li3 )");
@@ -492,17 +515,18 @@ void ntf::defaultColorTable(void)
 {
     clearColorTable(true);
     colortbl = {
-                0x0000, 0x7FFF, 0x0421,
-        0x4210, 0x294A, 0x7C00, 0x7D00,
-        0x7FE0, 0x7E80, 0x03E0, 0x03FF,
-        0x001F, 0x7C1F, 0x4000, 0x4200,
-        0x0200, 0x0210, 0x026A
+        0xFFFF, 0x0001, 0x7FFF, 0x6318,
+        0x4210, 0x294A, 0x7C00, 0x7E80,
+        0x7FE0, 0x7F40, 0x03E0, 0x03FF,
+        0x0076, 0x7C1F, 0x4000, 0x4200,
+        0x0200, 0x0210, 0x027A
     };
 }
 
 void ntf::printRuns(const std::vector<TextRun>& runs)
 {
-    for (const auto& r : runs) {
+    for (const auto& r : runs)
+    {
         std::cerr
         << (r.style.bold ? "B" : "-") << (r.style.italic ? "I" : "-") << (r.style.underline ? "U" : "-") << (r.style.strikethrough ? "S" : "-")
         << " pt:" << (static_cast<int>(r.format.fontSize) + 4) * 2

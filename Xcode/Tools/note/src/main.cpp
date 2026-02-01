@@ -197,8 +197,23 @@ int main(int argc, const char * argv[]) {
     auto in_extension = std::lowercased(inpath.extension().string());
     auto out_extension = std::lowercased(outpath.extension().string());
  
-    if (in_extension == ".md" || in_extension == ".ntf" || in_extension == ".rtf") {
-        content = hpnote::ntfToHPNote(inpath, minify);
+    if (in_extension == ".md") {
+        std::string md = utf::load(inpath);
+        std::string ntf = ntf::markdownToNTF(md);
+        ntf::defaultColorTable();
+        content = hpnote::ntfToHPNote(ntf, minify);
+    }
+    
+    if (in_extension == ".ntf") {
+        std::string ntf = utf::load(inpath);
+        ntf::defaultColorTable();
+        content = hpnote::ntfToHPNote(ntf, minify);
+    }
+    
+    if (in_extension == ".rtf") {
+        std::string rtf = utf::load(inpath);
+        std::string ntf = ntf::richTextToNTF(rtf);
+        content = hpnote::ntfToHPNote(ntf, minify);
     }
     
     if (in_extension == ".txt") {

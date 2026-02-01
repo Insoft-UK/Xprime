@@ -204,7 +204,7 @@ static std::wstring plainText(const std::string ntf) {
     return wstr;
 }
 
-static std::wstring convertNTF(const std::string& ntf, bool minify) {
+std::wstring hpnote::ntfToHPNote(const std::string& ntf, bool minify) {
     std::wstring wstr;
     wstr.reserve(ntf.size() * 2);
     
@@ -219,27 +219,4 @@ static std::wstring convertNTF(const std::string& ntf, bool minify) {
     wstr += parseAllLines(iss);
     
     return wstr;
-}
-
-std::wstring hpnote::ntfToHPNote(std::filesystem::path& path, bool minify) {
-    std::wstring wstr;
-    std::string ntf;
-    
-    std::string extension = path.extension().string();
-    std::transform(extension.begin(), extension.end(), extension.begin(),
-                   [](unsigned char c) { return std::tolower(c); });
-    
-    if (extension == ".md") {
-        // Markdown is first converted to NoteText Format
-        std::string md = utf::load(path);
-        ntf = ntf::markdownToNTF(md);
-    } else if (extension == ".rtf") {
-        std::string rtf = utf::load(path);
-        ntf = ntf::richTextToNTF(rtf);
-    } else {
-        ntf::defaultColorTable();
-        ntf = utf::load(path);
-    }
-    
-    return convertNTF(ntf, minify);
 }
