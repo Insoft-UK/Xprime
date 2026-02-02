@@ -130,7 +130,7 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
   → `\endianN` N 0 = big endian (Default), 1 = little endian
   → `0123456789ABCDEEF...` raw data, anything other than 0-9 A-F is noise and ignored.
   
-- `\pict`  → N 0-... Picture Table 
+- `\pictN`  → N 0-... Picture Table 
 
 ---
 
