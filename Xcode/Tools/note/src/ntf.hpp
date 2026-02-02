@@ -65,6 +65,13 @@ namespace ntf {
         Para para = NONE;
     };
     
+    struct Pict {
+        int width  = 0;
+        int height = 0;
+        bool endian = true;
+        std::vector<uint16_t> pixels;
+    };
+    
     struct TextRun {
         std::string text;
         Format format;
@@ -82,6 +89,39 @@ namespace ntf {
      * parsing.
      */
     void reset(void);
+    
+    /**
+     * @brief Extracts and removes all pict entries from the input text.
+     *
+     * Scans the input string for `{\pict ...}` groups, parses each pict entry,
+     * and removes the entire pict group from the returned string. The extracted
+     * pict data is decoded and stored internally for later use, while the
+     * resulting string contains only the non-pict content.
+     *
+     * This function preserves all other text and formatting unchanged and does
+     * not alter the relative order of non-pict content. It operates only on the
+     * pict entries encountered and does not perform any rendering.
+     *
+     * @param ntf The input text containing zero or more pict entries.
+     * @return A copy of the input text with all pict groups removed.
+     */
+    std::string extractPicts(const std::string& ntf);
+    
+    /**
+     * @brief Retrieves a parsed pict entry by index.
+     *
+     * Returns the `Pict` structure corresponding to the specified index `N`
+     * from the internal pict table populated during parsing. Each `Pict`
+     * contains the width, height, and pixel data (in RGB555 format) of a
+     * previously extracted pict entry.
+     *
+     * @param N The zero-based index of the pict entry to retrieve.
+     * @return The `Pict` object at the specified index.
+     *
+     * @note The index must be within the range of previously parsed picts.
+     *       Accessing an out-of-range index results in undefined behavior.
+     */
+    Pict pict(const int N);
     
     /**
      * @brief Parses a NoteText Format (NTF) string into styled text runs.

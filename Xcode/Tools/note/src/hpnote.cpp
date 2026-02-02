@@ -31,6 +31,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <iomanip>
+#include <bit>
 
 using namespace hpnote;
 
@@ -118,7 +119,56 @@ static void applyStyle(const ntf::Style style, std::wstring& wstr) {
     if (style.strikethrough) wstr.at(2) = wstr.at(2) | (1 << 14);
 }
 
-static std::wstring parseLine(const std::string& str) {
+static std::wstring parsePict(const std::string& str, int& lines)
+{
+    std::wstring wstr;
+    int value = -1;
+    
+    for (size_t i = 5; i < str.size(); )
+    {
+        if (i < str.size() && std::isdigit(str[i]))
+        {
+            value = 0;
+            while (i < str.size() && std::isdigit(str[i]))
+            {
+                value = value * 10 + (str[i++] - '0');
+            }
+        }
+    }
+    auto pict = ntf::pict(value);
+    
+    int i = 0;
+    for (int y=0; y<pict.height; y++)
+    {
+        wstr.append(LR"(\0\)");
+        wstr.append(toBase48(22));
+        wstr.append(LR"(\0\0\0\0\)");
+        wstr.append(toBase48(23));
+        
+        for (int x=0; x<pict.width; x++)
+        {
+            std::wstring ws;
+            ws = LR"(\o臿ῠ簀簀\0\0\0\0x\1\0*)"; // Plain Text
+            uint16_t color = pict.pixels[i];
+            
+            if (pict.endian)
+                color = std::byteswap(color);
+            
+            ws.at(4) = color;
+            ws.at(5) = color;
+            wstr.append(ws);
+            i++;
+        }
+        wstr.append(LR"(\0)");
+        
+        lines++;
+    }
+    
+    return wstr;
+}
+
+static std::wstring parseLine(const std::string& str)
+{
     std::wstring wstr;
     
     auto runs = ntf::parseNTF(str);
@@ -176,7 +226,13 @@ static std::wstring parseAllLines(std::istringstream& iss) {
     
     int lines = -1;
     while(getline(iss, str)) {
-        wstr += parseLine(str);
+        if (str.substr(0, 5) == "\\pict")
+        {
+            wstr += parsePict(str, lines);
+            continue;
+        } else
+            wstr += parseLine(str);
+        
         lines++;
     }
     
@@ -208,14 +264,16 @@ std::wstring hpnote::ntfToHPNote(const std::string& ntf, bool minify) {
     std::wstring wstr;
     wstr.reserve(ntf.size() * 2);
     
+    std::string input = ntf::extractPicts(ntf);
+    
     if (!minify) {
-        wstr.append(plainText(ntf));
+        wstr.append(plainText(input));
     }
     
     wstr.push_back(L'\0');
     wstr += L"CSWD110\xFFFF\xFFFF\\l\x013E";
     
-    std::istringstream iss(ntf);
+    std::istringstream iss(input);
     wstr += parseAllLines(iss);
     
     return wstr;

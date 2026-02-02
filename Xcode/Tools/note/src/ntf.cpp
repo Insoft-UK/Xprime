@@ -34,6 +34,104 @@ static Format format{};
 static Style style{};
 static int level = 0;
 
+std::vector<Pict> picttbl;
+
+static inline int hexVal(char c)
+{
+    if (c >= '0' && c <= '9') return c - '0';
+    if (c >= 'A' && c <= 'F') return c - 'A' + 10;
+    return -1; // everything else is noise (including a–f)
+}
+
+static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
+{
+    if (rtf.compare(startPos, 6, "{\\pict") != 0)
+        return false;
+
+    size_t i = startPos + 6;
+    int depth = 1;
+
+    uint16_t pixel = 0;
+    int nibbleCount = 0;
+
+    out.pixels.clear();
+
+    for (; i < rtf.size(); ++i)
+    {
+        char c = rtf[i];
+
+        if (c == '{') { depth++; continue; }
+        if (c == '}') {
+            if (--depth == 0)
+                break;
+            continue;
+        }
+
+        if (c == '\\') {
+            size_t s = ++i;
+            while (i < rtf.size() && std::isalpha(rtf[i]))
+                ++i;
+
+            std::string word = rtf.substr(s, i - s);
+
+            int value = 0;
+            bool hasValue = false;
+
+            if (i < rtf.size() && std::isdigit(rtf[i])) {
+                hasValue = true;
+                while (i < rtf.size() && std::isdigit(rtf[i])) {
+                    value = value * 10 + (rtf[i] - '0');
+                    ++i;
+                }
+            }
+
+            if (hasValue) {
+                if (word == "picw")  out.width  = value;
+                if (word == "pich")  out.height = value;
+                if (word == "endian")  out.endian = value == 1;
+            }
+
+            --i;
+            continue;
+        }
+
+        int v = hexVal(c);
+        if (v >= 0) {
+            pixel = (pixel << 4) | v;
+            if (++nibbleCount == 4) {
+                out.pixels.push_back(pixel);
+                pixel = 0;
+                nibbleCount = 0;
+            }
+        }
+        // EVERYTHING else is ignored by design
+    }
+
+    if (nibbleCount != 0)
+        return false; // half pixel left
+
+    if (out.width && out.height) {
+        size_t expected = static_cast<size_t>(out.width) * out.height;
+        if (out.pixels.size() != expected)
+            return false;
+    }
+
+    return true;
+}
+
+static size_t findGroupEnd(const std::string& s, size_t start)
+{
+    int depth = 0;
+    for (size_t i = start; i < s.size(); ++i) {
+        if (s[i] == '{') depth++;
+        else if (s[i] == '}') {
+            if (--depth == 0)
+                return i;
+        }
+    }
+    return std::string::npos;
+}
+
 static inline uint16_t to5(int v)
 {
     return static_cast<uint16_t>((v * 31 + 127) / 255);
@@ -306,11 +404,51 @@ void ntf::reset(void)
     level = 0;
 }
 
+std::string ntf::extractPicts(const std::string& ntf)
+{
+    std::string out;
+    out.reserve(ntf.size());
+
+    for (size_t i = 0; i < ntf.size(); )
+    {
+        if (ntf.compare(i, 6, "{\\pict") == 0)
+        {
+            size_t end = findGroupEnd(ntf, i);
+            if (end == std::string::npos)
+                break; // malformed RTF, bail safely
+
+            Pict pict;
+            if (parsePict(ntf, i, pict)) {
+                picttbl.push_back(std::move(pict));
+            }
+
+            // skip entire pict group (no output)
+            i = end + 1;
+            while (ntf.at(i) <= ' ') {
+                i++;
+            }
+            continue;
+        }
+
+        // normal text passes through unchanged
+        out.push_back(ntf[i++]);
+    }
+
+    return out;
+}
+
+Pict ntf::pict(const int N)
+{
+    if (N > -1 && N < picttbl.size())
+        return picttbl[N];
+    return {};
+}
+
 std::vector<TextRun> ntf::parseNTF(const std::string& input)
 {
     std::vector<TextRun> runs;
     std::string buffer;
-
+    
     auto flush = [&]()
     {
         if (!buffer.empty())
@@ -426,6 +564,11 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input)
                 } else {
                     format.foreground = value;
                 }
+            }
+            
+            if (cmd == "pict" && value != -1)
+            {
+                buffer.append("\\pict" + std::to_string(value));
             }
 
             // Skip optional space after control word
