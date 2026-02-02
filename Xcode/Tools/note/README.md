@@ -121,5 +121,18 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 - `\li2` — 　○  
 - `\li3` — 　　■
 
+---
+
+### Picture
+- `{\pict\picwN\pichN\endianN 0123456789ABCDEEF...}`
+  → `\picwN` N picture width
+  → `\pichN` N picture height
+  → `\endianN` N 0 = big endian (Default), 1 = little endian
+  → `0123456789ABCDEEF...` raw data, anything other than 0-9 A-F is noise and ignored.
+  
+- `\pict`  → N 0-... Picture Table 
+
+---
+
 >[!NOTE]
 >Markdown supports embedded NoteText Format commands to handle features it lacks, such as text alignment.
