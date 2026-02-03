@@ -92,7 +92,7 @@ static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
                 if (word == "pich")  out.height = value;
                 if (word == "endian")  out.endian = value == 1 ? Little : Big;
                 if (word == "aspect")  out.aspect = value > 0 && value <= 3 ? value : 1;
-                if (word == "keycolor") out.keycolor = value != -1 ? value : 0xFFFF;
+                if (word == "keycolor") out.keycolor = value != -1 ? value : 0x7C1F;
             }
 
             --i;

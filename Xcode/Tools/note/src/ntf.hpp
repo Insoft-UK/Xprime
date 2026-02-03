@@ -74,7 +74,7 @@ namespace ntf {
         int height = 0;
         Endian endian = Little;
         int aspect = 1;               // 1:1 (default), 2 = 1:2, 3 = 1:3
-        uint16_t keycolor = 0xFFFF;   // RGB555 (FFFF)
+        uint16_t keycolor = 0x7C1F;   // RGB555 (FFFF)
         std::vector<uint16_t> pixels;
     };
     
