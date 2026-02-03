@@ -126,12 +126,12 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 ### Picture
 `{\pict\picwN\pichN\endianN 0123456789ABCDEEF...}`
 
--	\picwN — Picture width (N)
--	\pichN — Picture height (N)
--	\endianN — Byte order
+-	`\picwN` — Picture width (N)
+-	`\pichN` — Picture height (N)
+-	`\endianN` — Byte order
 -	0 = big-endian (default)
 -	1 = little-endian
--	0123456789ABCDEEF... — Raw picture data. Any characters outside 0–9 and A–F are treated as noise and ignored.
+-	`0123456789ABCDEEF...` — Raw picture data. Any characters outside 0–9 and A–F are treated as noise and ignored.
 
 `\pictN`
 - N — Picture table index (0–…)
