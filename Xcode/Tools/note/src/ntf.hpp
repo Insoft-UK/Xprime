@@ -30,31 +30,31 @@
 
 namespace ntf {
     enum class FontSize : uint16_t {
-        FONT8  = 0,
-        FONT10 = 1,
-        FONT12 = 2, SMALL  = 2,
-        FONT14 = 3, MEDIUM = 3,
-        FONT16 = 4, LARGE  = 4,
-        FONT18 = 5,
-        FONT20 = 6,
-        FONT22 = 7
+        Font8  = 0,
+        Font10 = 1,
+        Font12 = 2, Small  = 2,
+        Font14 = 3, Medium = 3,
+        Font16 = 4, Large  = 4,
+        Font18 = 5,
+        Font20 = 6,
+        Font22 = 7
     };
     
     enum class Align {
-        LEFT = 0, CENTER = 1, RIGHT = 2
+        Left = 0, Center = 1, Right = 2
     };
     
     enum class Para {
-        NONE = 0, BOTTOM = 1, TOP = 2
+        None = 0, Bottom = 1, Top = 2
     };
     
     typedef uint16_t Color;
     
     struct Format {
-        FontSize fontSize = FontSize::MEDIUM;
+        FontSize fontSize = FontSize::Medium;
         Color foreground = 0xFFFF;
         Color background = 0xFFFF;
-        Align align = Align::LEFT;
+        Align align = Align::Left;
     };
     
     struct Style {
@@ -62,11 +62,11 @@ namespace ntf {
         bool italic = false;
         bool underline = false;
         bool strikethrough = false;
-        Para para = Para::NONE;
+        Para para = Para::None;
     };
     
     enum class Endian {
-        BIG = 0, LITTLE = 1
+        Big = 0, Little = 1
     };
     
     enum Aspect {
@@ -76,8 +76,8 @@ namespace ntf {
     struct Pict {
         int width  = 0;
         int height = 0;
-        Endian endian = Endian::LITTLE;
-        Align align = Align::LEFT;
+        Endian endian = Endian::Little;
+        Align align = Align::Left;
         int aspect = 1;
         uint16_t keycolor = 0x7C1F;
         std::vector<uint16_t> pixels;
@@ -102,19 +102,20 @@ namespace ntf {
     void reset(void);
     
     /**
-     * @brief Extracts and removes all pict entries from the input text.
+     * @brief Extracts embedded picture groups from an NTF string.
      *
-     * Scans the input string for `{\pict ...}` groups, parses each pict entry,
-     * and removes the entire pict group from the returned string. The extracted
-     * pict data is decoded and stored internally for later use, while the
-     * resulting string contains only the non-pict content.
+     * Scans the input NoteText Format (NTF) stream for `{\pict ...}` groups,
+     * parses each picture definition, and—if valid and within size limits—
+     * stores it in the internal picture table. Each accepted picture group
+     * is removed from the text stream and replaced with a `\pictN` marker
+     * referencing its index in the picture table.
      *
-     * This function preserves all other text and formatting unchanged and does
-     * not alter the relative order of non-pict content. It operates only on the
-     * pict entries encountered and does not perform any rendering.
+     * Malformed picture groups are skipped safely, and all non-picture
+     * content is passed through unchanged.
      *
-     * @param ntf The input text containing zero or more pict entries.
-     * @return A copy of the input text with all pict groups removed.
+     * @param ntf The raw NTF-formatted string to process.
+     * @return A rewritten NTF string with picture groups stripped and
+     *         replaced by `\pictN` references.
      */
     std::string extractPicts(const std::string& ntf);
     
@@ -146,11 +147,11 @@ namespace ntf {
      * reset by another control sequence. The control codes themselves are not
      * included in the output text.
      *
-     * @param input The raw NTF-formatted string to parse.
+     * @param ntf The raw NTF-formatted string to parse.
      * @return A vector of TextRun objects representing the parsed text and
      *         associated formatting.
      */
-    std::vector<TextRun> parseNTF(const std::string& input);
+    std::vector<TextRun> parseNTF(const std::string& ntf);
     
     /**
      * @brief Converts a RichText string into NoteText Format (NTF).

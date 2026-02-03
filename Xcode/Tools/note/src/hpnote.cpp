@@ -56,31 +56,31 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
     uint32_t n = 0x1FE001FF;
     
     switch (format.fontSize) {
-        case ntf::FontSize::FONT22:
+        case ntf::FontSize::Font22:
             n |= 7 << 15;
             break;
             
-        case ntf::FontSize::FONT20:
+        case ntf::FontSize::Font20:
             n |= 6 << 15;
             break;
             
-        case ntf::FontSize::FONT18:
+        case ntf::FontSize::Font18:
             n |= 5 << 15;
             break;
             
-        case ntf::FontSize::LARGE:
+        case ntf::FontSize::Font16:
             n |= 4 << 15;
             break;
             
-        case ntf::FontSize::MEDIUM:
+        case ntf::FontSize::Font14:
             n |= 3 << 15;
             break;
             
-        case ntf::FontSize::SMALL:
+        case ntf::FontSize::Font12:
             n |= 2 << 15;
             break;
             
-        case ntf::FontSize::FONT10:
+        case ntf::FontSize::Font10:
             n |= 1 << 15;
             break;
             
@@ -124,13 +124,10 @@ static std::wstring parsePict(const std::string& str, int& lines)
     std::wstring wstr;
     int value = -1;
     
-    for (size_t i = 5; i < str.size(); )
-    {
-        if (i < str.size() && std::isdigit(str[i]))
-        {
+    for (size_t i = 5; i < str.size(); ) {
+        if (i < str.size() && std::isdigit(str[i])) {
             value = 0;
-            while (i < str.size() && std::isdigit(str[i]))
-            {
+            while (i < str.size() && std::isdigit(str[i])) {
                 value = value * 10 + (str[i++] - '0');
             }
         }
@@ -159,7 +156,7 @@ static std::wstring parsePict(const std::string& str, int& lines)
         
         for (int x=0; x<pict.width; x++) {
             uint16_t c;
-            if (pict.endian == ntf::Endian::LITTLE) {
+            if (pict.endian == ntf::Endian::Little) {
                 c = std::byteswap(pict.pixels[i]);
             } else {
                 c = pict.pixels[i];
@@ -243,8 +240,7 @@ static std::wstring parseAllLines(std::istringstream& iss) {
     
     int lines = -1;
     while(getline(iss, str)) {
-        if (str.substr(0, 5) == "\\pict")
-        {
+        if (str.substr(0, 5) == "\\pict") {
             wstr += parsePict(str, lines);
             continue;
         } else

@@ -58,8 +58,7 @@ static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
 
     out.pixels.clear();
 
-    for (; i < rtf.size(); ++i)
-    {
+    for (; i < rtf.size(); ++i) {
         char c = rtf[i];
 
         if (c == '{') { depth++; continue; }
@@ -90,7 +89,7 @@ static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
             if (hasValue) {
                 if (word == "picw")  out.width  = value;
                 if (word == "pich")  out.height = value;
-                if (word == "endian")  out.endian = value == 1 ? Endian::LITTLE : Endian::BIG;
+                if (word == "endian")  out.endian = value == 1 ? Endian::Little : Endian::Big;
                 if (word == "aspect")  out.aspect = value > 0 && value <= 3 ? value : 1;
                 if (word == "keycolor") out.keycolor = value != -1 ? value : 0x7C1F;
                 if (word == "align")  out.align  = static_cast<Align>(value);
@@ -167,8 +166,7 @@ static std::vector<uint16_t> parseColorTable(const std::string& rtf)
     bool inTable = false;
     bool firstEntry = true; // skip mandatory empty entry
 
-    for (size_t i = pos; i < rtf.size(); ++i)
-    {
+    for (size_t i = pos; i < rtf.size(); ++i) {
         char c = rtf[i];
 
         if (c == '{') {
@@ -238,11 +236,9 @@ static std::vector<uint16_t> parseColorTable(const std::string& rtf)
 
 static void rewriteFontSizes(std::string& rtf)
 {
-    for (size_t i = 0; i + 3 < rtf.size(); ++i)
-    {
+    for (size_t i = 0; i + 3 < rtf.size(); ++i) {
         // Look for "\fs"
-        if (rtf[i] == '\\' && rtf[i + 1] == 'f' && rtf[i + 2] == 's')
-        {
+        if (rtf[i] == '\\' && rtf[i + 1] == 'f' && rtf[i + 2] == 's') {
             size_t j = i + 3;
             if (j >= rtf.size() || !std::isdigit(rtf[j]))
                 continue;
@@ -250,8 +246,7 @@ static void rewriteFontSizes(std::string& rtf)
             // Parse N
             int value = 0;
             size_t start = j;
-            while (j < rtf.size() && std::isdigit(rtf[j]))
-            {
+            while (j < rtf.size() && std::isdigit(rtf[j])) {
                 value = value * 10 + (rtf[j] - '0');
                 ++j;
             }
@@ -285,17 +280,13 @@ static std::string removeNonNestedGroups(const std::string& rtf)
     std::string out;
     out.reserve(rtf.size());
 
-    for (size_t i = 0; i < rtf.size(); ++i)
-    {
-        if (rtf[i] == '{')
-        {
+    for (size_t i = 0; i < rtf.size(); ++i) {
+        if (rtf[i] == '{') {
             size_t j = i + 1;
             bool nested = false;
 
-            while (j < rtf.size() && rtf[j] != '}')
-            {
-                if (rtf[j] == '{')
-                {
+            while (j < rtf.size() && rtf[j] != '}') {
+                if (rtf[j] == '{') {
                     nested = true;
                     break;
                 }
@@ -303,8 +294,7 @@ static std::string removeNonNestedGroups(const std::string& rtf)
             }
 
             // Skip flat group
-            if (!nested && j < rtf.size())
-            {
+            if (!nested && j < rtf.size()) {
                 i = j;
                 continue;
             }
@@ -321,8 +311,7 @@ static void removeNewlines(std::string& text)
     std::string out;
     out.reserve(text.size());
 
-    for (char c: text)
-    {
+    for (char c: text) {
         if (c == '\n' || c == '\r')
             continue;
          
@@ -337,15 +326,12 @@ static void normalizeNewlines(std::string& text)
     std::string out;
     out.reserve(text.size());
 
-    for (size_t i = 0; i < text.size(); ++i)
-    {
+    for (size_t i = 0; i < text.size(); ++i) {
         char c = text[i];
 
-        if (c == '\n' || c == '\r')
-        {
+        if (c == '\n' || c == '\r') {
             // Preserve newline if previous character is '\'
-            if (i > 0 && text[i - 1] == '\\')
-            {
+            if (i > 0 && text[i - 1] == '\\') {
                 out.push_back('p');
                 out.push_back('a');
                 out.push_back('r');
@@ -368,13 +354,10 @@ static void normalizeParagraphs(std::string& text)
 
     bool lastWasNewline = false;
 
-    for (size_t i = 0; i < text.size(); ++i)
-    {
+    for (size_t i = 0; i < text.size(); ++i) {
         // Handle \par
-        if (i + 4 < text.size() && text.compare(i, 4, "\\par") == 0 && !std::isalpha(text[i+4]))
-        {
-            if (!lastWasNewline)
-            {
+        if (i + 4 < text.size() && text.compare(i, 4, "\\par") == 0 && !std::isalpha(text[i+4])) {
+            if (!lastWasNewline) {
                 out.push_back('\n');
                 lastWasNewline = true;
             }
@@ -385,10 +368,8 @@ static void normalizeParagraphs(std::string& text)
         char c = text[i];
 
         // Normalize raw newlines
-        if (i + 1 < text.size() && c == '\\' && (text[i+1] == '\n' || text[i+1] == '\r'))
-        {
-            if (!lastWasNewline)
-            {
+        if (i + 1 < text.size() && c == '\\' && (text[i+1] == '\n' || text[i+1] == '\r')) {
+            if (!lastWasNewline) {
                 out.push_back('\n');
                 lastWasNewline = true;
             }
@@ -414,18 +395,21 @@ std::string ntf::extractPicts(const std::string& ntf)
     std::string out;
     out.reserve(ntf.size());
 
-    for (size_t i = 0; i < ntf.size(); )
-    {
-        if (ntf.compare(i, 6, "{\\pict") == 0)
-        {
+    for (size_t i = 0; i < ntf.size(); ) {
+        if (ntf.compare(i, 6, "{\\pict") == 0) {
             size_t end = findGroupEnd(ntf, i);
             if (end == std::string::npos)
                 break; // malformed RTF, bail safely
 
             Pict pict;
             if (parsePict(ntf, i, pict)) {
-                if (pict.width * (4 - pict.aspect) <= PICT_MAX_WIDTH)
+                if (pict.width * (4 - pict.aspect) <= PICT_MAX_WIDTH) {
                     picttbl.push_back(std::move(pict));
+                    if (out.size() && out[out.size() - 1] != '\n')
+                        out.push_back('\n');
+                    out.append("\\pict" + std::to_string(picttbl.size() - 1));
+                    out.push_back('\n');
+                }
             }
 
             // skip entire pict group (no output)
@@ -450,138 +434,121 @@ Pict ntf::pict(const int N)
     return {};
 }
 
-std::vector<TextRun> ntf::parseNTF(const std::string& input)
+std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
 {
     std::vector<TextRun> runs;
     std::string buffer;
     
-    auto flush = [&]()
-    {
-        if (!buffer.empty())
-        {
+    auto flush = [&]() {
+        if (!buffer.empty()) {
             runs.push_back({ buffer, format, style, level });
             buffer.clear();
         }
     };
 
-    for (size_t i = 0; i < input.size(); )
-    {
-        if (input[i] == '\\')
-        {
+    for (size_t i = 0; i < ntf.size(); ) {
+        if (ntf[i] == '{') {
+            // Ignore group
+            while (ntf[++i] != '}');
+            continue;
+        }
+        
+        if (ntf[i] == '\\') {
             // Flush text before control word
             flush();
             i++;
 
             // Read control word name
             std::string cmd;
-            while (i < input.size() && std::isalpha(input[i]))
-            {
-                cmd += input[i++];
+            while (i < ntf.size() && std::isalpha(ntf[i])) {
+                cmd += ntf[i++];
             }
 
             
             // Hex color value (for fg#XXXX / bg#XXXX)
             std::string hex;
-            if (input[i] == '#')
-            {
+            if (ntf[i] == '#') {
                 i++;
-                while (i < input.size() && std::isxdigit(input[i]))
-                {
-                    hex += input[i++];
+                while (i < ntf.size() && std::isxdigit(ntf[i])) {
+                    hex += ntf[i++];
                 }
             }
             
             // Read optional numeric value (e.g. 0 or 1)
             int value = -1;
-            if (i < input.size() && std::isdigit(input[i]))
-            {
+            if (i < ntf.size() && std::isdigit(ntf[i])) {
                 value = 0;
-                while (i < input.size() && std::isdigit(input[i]))
-                {
-                    value = value * 10 + (input[i++] - '0');
+                while (i < ntf.size() && std::isdigit(ntf[i])) {
+                    value = value * 10 + (ntf[i++] - '0');
                 }
             }
             
-            if (hex.length())
-            {
+            if (hex.length()) {
                 value = std::stoi(hex, nullptr, 16);
             }
 
             // Apply command
-            if (cmd == "b")
-            {
+            if (cmd == "b") {
                 style.bold = value != 0;
             }
             
-            if (cmd == "i")
-            {
+            if (cmd == "i") {
                 style.italic = value != 0;
             }
             
-            if (cmd == "ul")
-            {
+            if (cmd == "ul") {
                 style.underline = value != 0;
             }
             
-            if (cmd == "strike")
-            {
+            if (cmd == "strike") {
                 style.strikethrough = value != 0;
             }
             
-            if (cmd == "fs")
-            {
-                format.fontSize = value != -1 ? static_cast<FontSize>((value / 2 - 4) % 8) : FontSize::FONT14;
+            if (cmd == "fs") {
+                format.fontSize = value != -1 ? static_cast<FontSize>((value / 2 - 4) % 8) : FontSize::Font14;
             }
             
-            if (cmd == "ql")
-            {
-                format.align = Align::LEFT;
+            if (cmd == "ql") {
+                format.align = Align::Left;
             }
             
-            if (cmd == "qc")
-            {
-                format.align = Align::CENTER;
+            if (cmd == "qc") {
+                format.align = Align::Center;
             }
             
-            if (cmd == "qr")
-            {
-                format.align = Align::RIGHT;
+            if (cmd == "qr") {
+                format.align = Align::Right;
             }
             
             if (cmd == "li" && value != -1) {
                 level = value % 4;
             }
             
-            if (cmd == "cf" && value != -1)
-            {
-                if (hex.empty())
-                {
+            if (cmd == "cf" && value != -1) {
+                if (hex.empty()) {
                     format.foreground = value < colortbl.size() ? colortbl[value] : 0xFFFF;
                 } else {
                     format.foreground = value;
                 }
             }
             
-            if ((cmd == "cb" || cmd == "highlight") && value != -1)
-            {
-                if (hex.empty())
-                {
+            if ((cmd == "cb" || cmd == "highlight") && value != -1) {
+                if (hex.empty()) {
                     format.background = value < colortbl.size() ? colortbl[value] : 0xFFFF;
                 } else {
                     format.foreground = value;
                 }
             }
             
-            if (cmd == "pict" && value != -1)
-            {
+            if (cmd == "pict" && value != -1) {
                 buffer.append("\\pict" + std::to_string(value));
             }
 
             // Skip optional space after control word
-            if (i < input.size() && input[i] == ' ')
+            if (i < ntf.size() && ntf[i] == ' ')
                 i++;
         } else {
-            buffer += input[i++];
+            buffer += ntf[i++];
         }
     }
 
@@ -682,14 +649,13 @@ void ntf::defaultColorTable(void)
 
 void ntf::printRuns(const std::vector<TextRun>& runs)
 {
-    for (const auto& r : runs)
-    {
+    for (const auto& r : runs) {
         std::cerr
         << (r.style.bold ? "B" : "-") << (r.style.italic ? "I" : "-") << (r.style.underline ? "U" : "-") << (r.style.strikethrough ? "S" : "-")
         << " pt:" << (static_cast<int>(r.format.fontSize) + 4) * 2
         << " bg:#" << std::uppercase << std::setw(4) << std::hex << r.format.background << " fg:#" << r.format.foreground
         << std::dec
-        << " " << (r.format.align == Align::LEFT ? "L" : (r.format.align == Align::CENTER ? "C" : "R"))
+        << " " << (r.format.align == Align::Left ? "L" : (r.format.align == Align::Center ? "C" : "R"))
         << " " << (r.level == 0 ? " " : (r.level == 1 ? "●" : (r.level == 2 ? "○" : "▶")))
         << " \"" << r.text << "\" "
         << "\n";
