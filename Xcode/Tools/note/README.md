@@ -132,9 +132,9 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
   - 0 = big-endian (default)
   - 1 = little-endian
 - `\pixelwN` – pixel width
-  - 1 = Very Narrow 1:3
-  - 2 = Narrow      2:3
-  - 3 = Square      1:1
+  - 1 = very narrow 1:3
+  - 2 = narrow      2:3
+  - 3 = qquare      1:1
 - `\keycolorN` – color treated as transparent
 - `\alignN` – picture alignment
   - 0 = Left
@@ -144,9 +144,6 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 
 `\pictN`
 - N — Picture table index (0–…)
-
->[!WARNING]
->Picture support is still preliminary and not fully finalized. Behavior and implementation may change in future updates.
 
 ---
 
