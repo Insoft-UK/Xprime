@@ -26,6 +26,8 @@
 #include <iomanip>
 #include <sstream>
 
+#define PICT_MAX_WIDTH 105
+
 using namespace ntf;
 
 static std::vector<Color> colortbl;
@@ -88,7 +90,9 @@ static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
             if (hasValue) {
                 if (word == "picw")  out.width  = value;
                 if (word == "pich")  out.height = value;
-                if (word == "endian")  out.endian = value == 1;
+                if (word == "endian")  out.endian = value == 1 ? Little : Big;
+                if (word == "aspect")  out.aspect = value > 0 && value <= 3 ? value : 1;
+                if (word == "keycolor") out.keycolor = value != -1 ? value : 0xFFFF;
             }
 
             --i;
@@ -419,7 +423,8 @@ std::string ntf::extractPicts(const std::string& ntf)
 
             Pict pict;
             if (parsePict(ntf, i, pict)) {
-                picttbl.push_back(std::move(pict));
+                if (pict.width * (4 - pict.aspect) <= PICT_MAX_WIDTH)
+                    picttbl.push_back(std::move(pict));
             }
 
             // skip entire pict group (no output)

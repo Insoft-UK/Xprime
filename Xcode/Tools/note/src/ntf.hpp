@@ -65,10 +65,16 @@ namespace ntf {
         Para para = NONE;
     };
     
+    enum Endian {
+        Big = 0, Little = 1
+    };
+    
     struct Pict {
         int width  = 0;
         int height = 0;
-        bool endian = true;
+        Endian endian = Little;
+        int aspect = 1;               // 1:1 (default), 2 = 1:2, 3 = 1:3
+        uint16_t keycolor = 0xFFFF;   // RGB555 (FFFF)
         std::vector<uint16_t> pixels;
     };
     

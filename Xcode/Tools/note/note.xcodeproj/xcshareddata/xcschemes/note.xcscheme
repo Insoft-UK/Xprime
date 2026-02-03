@@ -65,6 +65,10 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "$(PROJECT_DIR)/test/LICENSE.ntf"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-o Note.hpappnote"
             isEnabled = "NO">
          </CommandLineArgument>

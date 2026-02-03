@@ -137,26 +137,40 @@ static std::wstring parsePict(const std::string& str, int& lines)
     }
     auto pict = ntf::pict(value);
     
+    if (pict.pixels.empty())
+        return wstr;
+    
+    std::wstring black = LR"(\o臿ῠ\0\0Ā\0\0\0x\3\0   )";
+    std::wstring color = LR"(\o臿ῠ\0纀Ā\0\0\0x\3\0   )";
+    
+    color.at(16) = '0' + 3 - pict.aspect + 1;
+    color.resize(color.size() - (pict.aspect - 1));
+    black.at(17) = '0' + 3 - pict.aspect + 1;
+    black.resize(black.size() - (pict.aspect - 1));
+    
     int i = 0;
-    for (int y=0; y<pict.height; y++)
-    {
+    for (int y=0; y<pict.height; y++) {
         wstr.append(LR"(\0\)");
         wstr.append(toBase48(22));
         wstr.append(LR"(\0\0\0\0\)");
         wstr.append(toBase48(23));
         
-        for (int x=0; x<pict.width; x++)
-        {
-            std::wstring ws;
-            ws = LR"(\o臿ῠ簀簀\0\0\0\0x\1\0*)"; // Plain Text
-            uint16_t color = pict.pixels[i];
+        for (int x=0; x<pict.width; x++) {
+            uint16_t c;
+            if (pict.endian == ntf::Little) {
+                c = std::byteswap(pict.pixels[i]);
+            } else {
+                c = pict.pixels[i];
+            }
+            if (c == 0) {
+                wstr.append(black);
+            } else {
+                if (c == pict.keycolor)
+                    c = 0xFFFF;
+                color.at(6) = c;
+                wstr.append(color);
+            }
             
-            if (pict.endian)
-                color = std::byteswap(color);
-            
-            ws.at(4) = color;
-            ws.at(5) = color;
-            wstr.append(ws);
             i++;
         }
         wstr.append(LR"(\0)");
