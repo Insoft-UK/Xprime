@@ -124,13 +124,19 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 ---
 
 ### Picture
-- `{\pict\picwN\pichN\endianN 0123456789ABCDEEF...}`
-  → `\picwN` N picture width
-  → `\pichN` N picture height
-  → `\endianN` N 0 = big endian (Default), 1 = little endian
-  → `0123456789ABCDEEF...` raw data, anything other than 0-9 A-F is noise and ignored.
-  
-- `\pictN`  → N 0-... Picture Table
+`{\pict\picwN\pichN\endianN 0123456789ABCDEEF...}`
+
+-	`\picwN` — Picture width (N)
+-	`\pichN` — Picture height (N)
+-	`\endianN` — Byte order
+  -	0 = big-endian (default)
+  -	1 = little-endian
+- `\aspectN` – pixel aspect ratio (1:N)
+- `\keycolorN` – color treated as transparent
+-	`0123456789ABCDEEF...` — Raw picture data. Any characters outside 0–9 and A–F are treated as noise and ignored.
+
+`\pictN`
+- N — Picture table index (0–…)
 
 >[!WARNING]
 >Picture support is still preliminary and not fully finalized. Behavior and implementation may change in future updates.
@@ -138,4 +144,4 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 ---
 
 >[!NOTE]
->Markdown supports embedded NoteText Format commands to handle features it lacks, such as text alignment.
+>Markdown supports embedded NoteText Format control words to handle features it lacks, such as text alignment.
