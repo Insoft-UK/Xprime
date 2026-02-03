@@ -126,13 +126,17 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 ### Picture
 `{\pict\picwN\pichN\endianN 0123456789ABCDEEF...}`
 
--	`\picwN` — Picture width (N)
--	`\pichN` — Picture height (N)
--	`\endianN` — Byte order
-  -	0 = big-endian (default)
-  -	1 = little-endian
+-	`\picwN` – picture width (N)
+-	`\pichN` — picture height (N)
+- `\endianN` – byte order
+  - 0 = big-endian (default)
+  - 1 = little-endian
 - `\aspectN` – pixel aspect ratio (1:N)
 - `\keycolorN` – color treated as transparent
+- `\alignN` – picture alignment
+  - 0 = Left
+  - 1 = Center
+  - 2 = Right
 -	`0123456789ABCDEEF...` — Raw picture data. Any characters outside 0–9 and A–F are treated as noise and ignored.
 
 `\pictN`
