@@ -142,4 +142,4 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 ---
 
 >[!NOTE]
->Markdown supports embedded NoteText Format commands to handle features it lacks, such as text alignment.
+>Markdown supports embedded NoteText Format control words to handle features it lacks, such as text alignment.
