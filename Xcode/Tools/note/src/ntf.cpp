@@ -90,7 +90,7 @@ static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
                 if (word == "picw")  out.width  = value;
                 if (word == "pich")  out.height = value;
                 if (word == "endian")  out.endian = value == 1 ? Endian::Little : Endian::Big;
-                if (word == "aspect")  out.aspect = value > 0 && value <= 3 ? value : 1;
+                if (word == "pixelw")  out.pixelWidth = value > 0 && value <= 3 ? static_cast<PixelWidth>(value) : PixelWidth::Square;
                 if (word == "keycolor") out.keycolor = value != -1 ? value : 0x7C1F;
                 if (word == "align")  out.align  = static_cast<Align>(value);
             }
@@ -403,7 +403,7 @@ std::string ntf::extractPicts(const std::string& ntf)
 
             Pict pict;
             if (parsePict(ntf, i, pict)) {
-                if (pict.width * (4 - pict.aspect) <= PICT_MAX_WIDTH) {
+                if (pict.width * (4 - static_cast<int>(pict.pixelWidth)) <= PICT_MAX_WIDTH) {
                     picttbl.push_back(std::move(pict));
                     if (out.size() && out[out.size() - 1] != '\n')
                         out.push_back('\n');

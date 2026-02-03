@@ -140,10 +140,10 @@ static std::wstring parsePict(const std::string& str, int& lines)
     std::wstring black = LR"(\o臿ῠ\0\0Ā\0\0\0x\3\0   )";
     std::wstring color = LR"(\o臿ῠ\0纀Ā\0\0\0x\3\0   )";
     
-    color.at(16) = '0' + 3 - pict.aspect + 1;
-    color.resize(color.size() - (pict.aspect - 1));
-    black.at(17) = '0' + 3 - pict.aspect + 1;
-    black.resize(black.size() - (pict.aspect - 1));
+    color.at(16) = '0' + static_cast<int>(pict.pixelWidth);
+    color.resize(color.size() - (3 - static_cast<int>(pict.pixelWidth)));
+    black.at(17) = '0' + static_cast<int>(pict.pixelWidth);
+    black.resize(black.size() - (3 - static_cast<int>(pict.pixelWidth)));
     
     int i = 0;
     for (int y=0; y<pict.height; y++) {

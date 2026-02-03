@@ -69,8 +69,8 @@ namespace ntf {
         Big = 0, Little = 1
     };
     
-    enum Aspect {
-        SQUARE = 1, THIN = 2, NARROW = 3
+    enum class PixelWidth {
+        VeryNarrow = 1, Narrow = 2, Square = 3
     };
     
     struct Pict {
@@ -78,7 +78,7 @@ namespace ntf {
         int height = 0;
         Endian endian = Endian::Little;
         Align align = Align::Left;
-        int aspect = 1;
+        PixelWidth pixelWidth = PixelWidth::Square;
         uint16_t keycolor = 0x7C1F;
         std::vector<uint16_t> pixels;
     };
