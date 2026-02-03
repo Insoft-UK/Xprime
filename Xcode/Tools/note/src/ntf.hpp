@@ -29,7 +29,7 @@
 #include <cctype>
 
 namespace ntf {
-    enum FontSize : uint16_t {
+    enum class FontSize : uint16_t {
         FONT8  = 0,
         FONT10 = 1,
         FONT12 = 2, SMALL  = 2,
@@ -40,21 +40,21 @@ namespace ntf {
         FONT22 = 7
     };
     
-    enum Align {
+    enum class Align {
         LEFT = 0, CENTER = 1, RIGHT = 2
     };
     
-    enum Para {
+    enum class Para {
         NONE = 0, BOTTOM = 1, TOP = 2
     };
     
     typedef uint16_t Color;
     
     struct Format {
-        FontSize fontSize = MEDIUM;
+        FontSize fontSize = FontSize::MEDIUM;
         Color foreground = 0xFFFF;
         Color background = 0xFFFF;
-        Align align = LEFT;
+        Align align = Align::LEFT;
     };
     
     struct Style {
@@ -62,19 +62,24 @@ namespace ntf {
         bool italic = false;
         bool underline = false;
         bool strikethrough = false;
-        Para para = NONE;
+        Para para = Para::NONE;
     };
     
-    enum Endian {
-        Big = 0, Little = 1
+    enum class Endian {
+        BIG = 0, LITTLE = 1
+    };
+    
+    enum Aspect {
+        SQUARE = 1, THIN = 2, NARROW = 3
     };
     
     struct Pict {
         int width  = 0;
         int height = 0;
-        Endian endian = Little;
-        int aspect = 1;               // 1:1 (default), 2 = 1:2, 3 = 1:3
-        uint16_t keycolor = 0x7C1F;   // RGB555 (FFFF)
+        Endian endian = Endian::LITTLE;
+        Align align = Align::LEFT;
+        int aspect = 1;
+        uint16_t keycolor = 0x7C1F;
         std::vector<uint16_t> pixels;
     };
     

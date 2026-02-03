@@ -56,31 +56,31 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
     uint32_t n = 0x1FE001FF;
     
     switch (format.fontSize) {
-        case ntf::FONT22:
+        case ntf::FontSize::FONT22:
             n |= 7 << 15;
             break;
             
-        case ntf::FONT20:
+        case ntf::FontSize::FONT20:
             n |= 6 << 15;
             break;
             
-        case ntf::FONT18:
+        case ntf::FontSize::FONT18:
             n |= 5 << 15;
             break;
             
-        case ntf::LARGE:
+        case ntf::FontSize::LARGE:
             n |= 4 << 15;
             break;
             
-        case ntf::MEDIUM:
+        case ntf::FontSize::MEDIUM:
             n |= 3 << 15;
             break;
             
-        case ntf::SMALL:
+        case ntf::FontSize::SMALL:
             n |= 2 << 15;
             break;
             
-        case ntf::FONT10:
+        case ntf::FontSize::FONT10:
             n |= 1 << 15;
             break;
             
@@ -155,9 +155,11 @@ static std::wstring parsePict(const std::string& str, int& lines)
         wstr.append(LR"(\0\0\0\0\)");
         wstr.append(toBase48(23));
         
+        wstr.at(wstr.size() - 5) = toBase48(static_cast<uint64_t>(pict.align)).at(0);
+        
         for (int x=0; x<pict.width; x++) {
             uint16_t c;
-            if (pict.endian == ntf::Little) {
+            if (pict.endian == ntf::Endian::LITTLE) {
                 c = std::byteswap(pict.pixels[i]);
             } else {
                 c = pict.pixels[i];
@@ -208,11 +210,10 @@ static std::wstring parseLine(const std::string& str)
         return wstr += ws;
     }
     
-    
-    wstr.at(9) = toBase48(ntf::currentFormatState().align).at(0);
-    wstr.at(5) = toBase48(ntf::currentLevelState()).at(0);
-    
     for (const auto& r : runs) {
+        wstr.at(9) = toBase48(static_cast<uint64_t>(r.format.align)).at(0);
+        wstr.at(5) = toBase48(r.level).at(0);
+        
         std::wstring ws;
         ws = LR"(\oǿῠ\0\0Ā\1\0\0 )"; // Plain Text
         

@@ -90,9 +90,10 @@ static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
             if (hasValue) {
                 if (word == "picw")  out.width  = value;
                 if (word == "pich")  out.height = value;
-                if (word == "endian")  out.endian = value == 1 ? Little : Big;
+                if (word == "endian")  out.endian = value == 1 ? Endian::LITTLE : Endian::BIG;
                 if (word == "aspect")  out.aspect = value > 0 && value <= 3 ? value : 1;
                 if (word == "keycolor") out.keycolor = value != -1 ? value : 0x7C1F;
+                if (word == "align")  out.align  = static_cast<Align>(value);
             }
 
             --i;
@@ -529,22 +530,22 @@ std::vector<TextRun> ntf::parseNTF(const std::string& input)
             
             if (cmd == "fs")
             {
-                format.fontSize = value != -1 ? static_cast<FontSize>((value / 2 - 4) % 8) : FONT14;
+                format.fontSize = value != -1 ? static_cast<FontSize>((value / 2 - 4) % 8) : FontSize::FONT14;
             }
             
             if (cmd == "ql")
             {
-                format.align = LEFT;
+                format.align = Align::LEFT;
             }
             
             if (cmd == "qc")
             {
-                format.align = CENTER;
+                format.align = Align::CENTER;
             }
             
             if (cmd == "qr")
             {
-                format.align = RIGHT;
+                format.align = Align::RIGHT;
             }
             
             if (cmd == "li" && value != -1) {
@@ -688,7 +689,7 @@ void ntf::printRuns(const std::vector<TextRun>& runs)
         << " pt:" << (static_cast<int>(r.format.fontSize) + 4) * 2
         << " bg:#" << std::uppercase << std::setw(4) << std::hex << r.format.background << " fg:#" << r.format.foreground
         << std::dec
-        << " " << (r.format.align == 0 ? "L" : (r.format.align == 1 ? "C" : "R"))
+        << " " << (r.format.align == Align::LEFT ? "L" : (r.format.align == Align::CENTER ? "C" : "R"))
         << " " << (r.level == 0 ? " " : (r.level == 1 ? "●" : (r.level == 2 ? "○" : "▶")))
         << " \"" << r.text << "\" "
         << "\n";
