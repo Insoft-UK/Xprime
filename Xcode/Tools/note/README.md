@@ -131,7 +131,10 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 - `\endianN` – byte order
   - 0 = big-endian (default)
   - 1 = little-endian
-- `\aspectN` – pixel aspect ratio (1:N)
+- `\pixelwN` – pixel width
+  - 1 = Very Narrow 1:3
+  - 2 = Narrow      2:3
+  - 3 = Square      1:1
 - `\keycolorN` – color treated as transparent
 - `\alignN` – picture alignment
   - 0 = Left
