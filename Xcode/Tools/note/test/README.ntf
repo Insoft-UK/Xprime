@@ -26,10 +26,10 @@
 \cb9Highlight\cb0
 Plain text
 \qc Center Alignment
-\qr Right Alignment\ql
-\i1Italic\i0
+\qr Right Alignment
+\ql\i1Italic\i0
 \b Bold
 \i ItalicBold\i0\b0
 \li1 First item
-\li1 Second item
-\li1 Third item
+\li2 Second item
+\li3 Third item

@@ -662,6 +662,11 @@ Style ntf::currentStyleState(void)
     return style;
 }
 
+int ntf::currentLevelState(void)
+{
+    return level;
+}
+
 void ntf::defaultColorTable(void)
 {
     clearColorTable(true);

@@ -194,6 +194,13 @@ namespace ntf {
     Style currentStyleState(void);
     
     /**
+     * @brief Gets the current level state.
+     *
+     * @return Current level setting.
+     */
+    int currentLevelState(void);
+    
+    /**
      * @brief Clears any custom color entries and restores the default color table.
      */
     void defaultColorTable(void);

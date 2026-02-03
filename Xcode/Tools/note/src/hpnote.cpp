@@ -208,9 +208,11 @@ static std::wstring parseLine(const std::string& str)
         return wstr += ws;
     }
     
+    
+    wstr.at(9) = toBase48(ntf::currentFormatState().align).at(0);
+    wstr.at(5) = toBase48(ntf::currentLevelState()).at(0);
+    
     for (const auto& r : runs) {
-        wstr.at(5) = toBase48(r.level).at(0);
-        
         std::wstring ws;
         ws = LR"(\oǿῠ\0\0Ā\1\0\0 )"; // Plain Text
         
