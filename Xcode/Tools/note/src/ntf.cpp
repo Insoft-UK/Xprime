@@ -403,7 +403,7 @@ std::string ntf::extractPicts(const std::string& ntf)
 
             Pict pict;
             if (parsePict(ntf, i, pict)) {
-                if (pict.width * (4 - static_cast<int>(pict.pixelWidth)) <= PICT_MAX_WIDTH) {
+                if (pict.width * static_cast<int>(pict.pixelWidth) <= PICT_MAX_WIDTH) {
                     picttbl.push_back(std::move(pict));
                     if (out.size() && out[out.size() - 1] != '\n')
                         out.push_back('\n');
