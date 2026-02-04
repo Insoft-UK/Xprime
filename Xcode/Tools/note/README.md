@@ -143,7 +143,7 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 -	`0123456789ABCDEEF...` — Raw picture data. Any characters outside 0–9 and A–F are treated as noise and ignored.
 
 >[!NOTE]
->The maximum supported picture width depends on pixel shape: 105 for very narrow pixels, 70 for narrow pixels, and 35 for square pixels.
+>The maximum supported picture width depends on pixel shape: 106 for very narrow pixels, 53 for narrow pixels, and 35 for square pixels.
 
 `\pictN`
 - N — Picture table index (0–…)
