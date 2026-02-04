@@ -26,7 +26,7 @@
 #include <iomanip>
 #include <sstream>
 
-#define PICT_MAX_WIDTH 105
+#define PICT_MAX_WIDTH 106
 
 using namespace ntf;
 
