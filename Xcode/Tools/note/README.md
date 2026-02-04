@@ -131,7 +131,10 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 - `\endianN` – byte order
   - 0 = big-endian (default)
   - 1 = little-endian
-- `\aspectN` – pixel aspect ratio (1:N)
+- `\pixelwN` – pixel width
+  - 1 = very narrow 1:3
+  - 2 = narrow      2:3
+  - 3 = square      1:1 (default)
 - `\keycolorN` – color treated as transparent
 - `\alignN` – picture alignment
   - 0 = Left
@@ -139,11 +142,11 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
   - 2 = Right
 -	`0123456789ABCDEEF...` — Raw picture data. Any characters outside 0–9 and A–F are treated as noise and ignored.
 
+>[!NOTE]
+>The maximum supported picture width depends on pixel shape: 105 for very narrow pixels, 70 for narrow pixels, and 35 for square pixels.
+
 `\pictN`
 - N — Picture table index (0–…)
-
->[!WARNING]
->Picture support is still preliminary and not fully finalized. Behavior and implementation may change in future updates.
 
 ---
 
