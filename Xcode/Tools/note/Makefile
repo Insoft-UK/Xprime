@@ -1,7 +1,7 @@
 PROJECT_NAME ?= note
 ARCH := $(shell arch)
 
-all: arm64 x86_64 universal win_x86_64 linux
+all: arm64 x86_64 universal win_x86_64 linux_x86_64
 
 arm64:
 	mkdir -p build/arm64
@@ -20,17 +20,18 @@ universal:
 	lipo -create -output build/$(PROJECT_NAME) build/arm64/$(PROJECT_NAME) build/x86_64/$(PROJECT_NAME)
 	
 win_x86_64:
+	mkdir -p build/win_x86_64
 	x86_64-w64-mingw32-g++ \
     -std=c++23 \
 	-Isrc src/*.cpp \
-    -o build/$(PROJECT_NAME).exe -static -O2 -s
+    -o build/win_x86_64/$(PROJECT_NAME).exe -static -O2 -s
     
 linux_x86_64:
-	mkdir -p build/linux
+	mkdir -p build/linux_x86_64
 	x86_64-linux-musl-g++ \
 	--std=c++23 \
 	src/*.cpp \
-	-static -o build/linux/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-x
+	-static -o build/linux_x86_64/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-x
 	
 clean:
 	rm -rf build/*

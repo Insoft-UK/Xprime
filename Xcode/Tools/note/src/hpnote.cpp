@@ -35,6 +35,13 @@
 
 using namespace hpnote;
 
+static constexpr std::wstring_view FONT_SIZE_AND_STYLE_DEFAULT = L"\\o  ";
+
+static constexpr uint16_t STYLE_BOLD = 1u << 10;
+static constexpr uint16_t STYLE_ITALIC = 1u << 11;
+static constexpr uint16_t STYLE_UNDERLINE = 1u << 12;
+static constexpr uint16_t STYLE_STRIKETHROUGH = 1u << 14;
+
 static std::wstring toBase48(uint64_t value)
 {
     static constexpr wchar_t digits[] = LR"(0123456789abcdefghijklmnopqrstuv !"#$%&'()*+,-./)";
@@ -52,8 +59,9 @@ static std::wstring toBase48(uint64_t value)
     return result;
 }
 
-static void applyFormat(const ntf::Format format, std::wstring& wstr) {
-    uint32_t n = 0x1FE001FF;
+// MARK: - New
+static void applyFontSize(const ntf::Format format, std::wstring& wstr) {
+    uint32_t n = 0b00011111111000000000000111111111;
     
     switch (format.fontSize) {
         case ntf::FontSize::Font22:
@@ -90,6 +98,18 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
     
     wstr.at(2) = n & 0xFFFF;
     wstr.at(3) = n >> 16;
+}
+// MARK: -
+
+static void applyStyle(const ntf::Style style, std::wstring& wstr) {
+    if (style.bold) wstr.at(2) = wstr.at(2) | STYLE_BOLD;
+    if (style.italic) wstr.at(2) = wstr.at(2) | STYLE_ITALIC;
+    if (style.underline) wstr.at(2) = wstr.at(2) | STYLE_UNDERLINE;
+    if (style.strikethrough) wstr.at(2) = wstr.at(2) | STYLE_STRIKETHROUGH;
+}
+
+static void applyFormat(const ntf::Format format, std::wstring& wstr) {
+    applyFontSize(format, wstr);
     
     // TODO: Cleaning up the code by factoring it, not patching in values.
     if (format.background != 0xFFFF) {
@@ -127,7 +147,7 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
             
             if (format.foreground && format.background == 0) {
                 // MARK: Background (BLACK)
-                /// \oǿῠ簀\0\1\0\0\0x
+                /// \oǿῠ簀\0\1\0\0\0
                 wstr.erase(8,1);
                 wstr.insert(4, L"0");
                 wstr.at(4) = format.foreground;
@@ -148,13 +168,6 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
             wstr.insert(8, L"\\");
         }
     }
-}
-
-static void applyStyle(const ntf::Style style, std::wstring& wstr) {
-    if (style.bold) wstr.at(2) = wstr.at(2) | (1 << 10);
-    if (style.italic) wstr.at(2) = wstr.at(2) | (1 << 11);
-    if (style.underline) wstr.at(2) = wstr.at(2) | (1 << 12);
-    if (style.strikethrough) wstr.at(2) = wstr.at(2) | (1 << 14);
 }
 
 static std::wstring parsePict(const std::string& str, int& lines)
@@ -238,7 +251,9 @@ static std::wstring parseLine(const std::string& str)
     
     if (!runs.size()) {
         std::wstring ws;
-        ws = LR"(\oǿῠ\0\0Ā\1\0\0 \0\0\0)"; // Plain Text
+        ws.append(FONT_SIZE_AND_STYLE_DEFAULT);
+        ws.append(LR"(\0\0Ā\1\0\0 \0\0\0)");
+//        ws = LR"(\oǿῠ\0\0Ā\1\0\0 \0\0\0)"; // Plain Text
         applyFormat(ntf::currentFormatState(), ws);
         applyStyle(ntf::currentStyleState(), ws);
         
@@ -250,7 +265,9 @@ static std::wstring parseLine(const std::string& str)
         wstr.at(5) = toBase48(r.level).at(0);
         
         std::wstring ws;
-        ws = LR"(\oǿῠ\0\0Ā\1\0\0 )"; // Plain Text
+        ws.append(FONT_SIZE_AND_STYLE_DEFAULT);
+        ws.append(LR"(\0\0Ā\1\0\0 )");
+//        ws = LR"(\oǿῠ\0\0Ā\1\0\0 )"; // Plain Text
         
         applyFormat(r.format, ws);
         applyStyle(r.style, ws);

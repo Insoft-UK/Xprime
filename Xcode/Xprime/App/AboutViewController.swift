@@ -27,6 +27,7 @@ import Cocoa
 
 final class AboutViewController: NSViewController {
     @IBOutlet weak var Version: NSTextField!
+    @IBOutlet weak var Tools: NSTextField!
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -36,6 +37,7 @@ final class AboutViewController: NSViewController {
         super.viewDidLoad()
         let bundleShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "26.0"
         Version.stringValue = "Version \(bundleShortVersion)"
+        toolsInfo()
     }
     
     override func viewDidAppear() {
@@ -63,6 +65,7 @@ final class AboutViewController: NSViewController {
             let bundleShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "26.0"
             let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
             Version.stringValue = "Version \(bundleShortVersion).\(bundleVersion)"
+            Tools.isHidden = false
             return
         }
         self.view.window?.close()
@@ -71,6 +74,32 @@ final class AboutViewController: NSViewController {
     override func mouseUp(with event: NSEvent) {
         let bundleShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "26.0"
         Version.stringValue = "Version \(bundleShortVersion)"
+        Tools.isHidden = true
+    }
+    
+    private func toolsInfo() {
+        let `ppl+` = version(forTool: "ppl+");
+        let grob = version(forTool: "GROB");
+        let font = version(forTool: "font");
+        let note = version(forTool: "note");
+        
+        Tools.stringValue = "PPL+ \(`ppl+`) - GROB+ \(grob) - FONT \(font) - NOTE \(note)"
+    }
+    
+    private func version(forTool tool: String) -> String {
+        let command = ToolchainPaths.bin.appendingPathComponent(tool).path
+        let version = ProcessRunner.run(
+            executable: URL(fileURLWithPath: command),
+            arguments: ["--version"]
+        )
+        
+        var text = version.out ?? ""
+        
+        if text.hasSuffix("\n") {
+            text.removeLast()
+        }
+        
+        return text
     }
 }
 
