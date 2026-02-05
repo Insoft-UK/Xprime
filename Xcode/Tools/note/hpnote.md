@@ -8,3 +8,4 @@
 ||U: Underlined [On/Off]|\0B\1\0\0\0 Foreground (BLACK), Background (COLOR)|
 ||S: Strikethrough [On/Off]|F\0\1\0\0\0 Foreground (COLOR), Background (BLACK)|
 |||F\0\1\1\0\0 Foreground (COLOR), Background (CLEAR)|
+|||\00\0\1\0\0 Foreground (BLACK), Background (CLEAR)|
