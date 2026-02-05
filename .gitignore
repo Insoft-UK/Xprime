@@ -7,4 +7,5 @@ build
 make
 *.pkg
 ignore
+Xcode/*.zip
 Dev

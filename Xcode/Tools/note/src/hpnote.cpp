@@ -111,17 +111,22 @@ static void applyStyle(const ntf::Style style, std::wstring& wstr) {
 static void applyFormat(const ntf::Format format, std::wstring& wstr) {
     applyFontSize(format, wstr);
     
+    // DEFAULT or CLEAR :- Forground is White/Black (DEFAULT), Background is Transparent (CLEAR)
+    
     // TODO: Cleaning up the code by factoring it, not patching in values.
     if (format.background != 0xFFFF) {
         if (format.foreground == 0xFFFF) {
             wstr.at(10) = L'0';
             if (format.background) {
-                // MARK: Background (NONE BLACK)
+                // MARK: Foreground (DEFAULT) & Background (COLOR)
+                /// \0簀Ā\0\0\0
                 wstr.erase(6,1);
                 wstr.at(6) = format.background;
             }
         } else {
             if (format.foreground && format.background ) {
+                // MARK: Foreground (COLOR), Background (COLOR)
+                /// 簀翠\1\0\0\0
                 wstr.erase(8,1);
                 wstr.at(4) = format.foreground;
                 wstr.at(5) = format.background;
@@ -130,15 +135,15 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
             }
             
             if (format.foreground == 0 && format.background == 0) {
-                // MARK: Foreground & Background (BLACK)
-                /// \oǿῠ\0\0\1\0\0\0
+                // MARK: Foreground (BLACK), Background (BLACK)
+                /// \0\0\1\0\0\0
                 wstr.erase(8,1);
                 wstr.insert(14, L"\\0");
             }
             
             if (format.foreground == 0 && format.background) {
-                // MARK: Foreground (BLACK)
-                /// \oǿῠ\0簀\1\0\0\0
+                // MARK: Foreground (BLACK), Background (COLOR)
+                /// \0簀\1\0\0\0
                 wstr.at(6) = format.background;
                 wstr.at(7) = L'\\';
                 wstr.at(8) = L'1';
@@ -146,8 +151,8 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
             }
             
             if (format.foreground && format.background == 0) {
-                // MARK: Background (BLACK)
-                /// \oǿῠ簀\0\1\0\0\0
+                // MARK: Foreground (COLOR), Background (BLACK)
+                /// 簀\0\1\0\0\0
                 wstr.erase(8,1);
                 wstr.insert(4, L"0");
                 wstr.at(4) = format.foreground;
@@ -157,17 +162,23 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
         }
     } else if (format.foreground != 0xFFFF) {
         if (format.foreground) {
+            // MARK: Foreground (COLOR), Background (CLEAR)
+            /// 簀\0\1\1\0\0
             wstr.at(4) = format.foreground;
             wstr.at(5) = L'\\';
             wstr.at(6) = L'0';
             wstr.at(7) = L'\\';
             wstr.at(8) = L'1';
         } else {
-            // MARK: Foreground (BLACK)
+            // MARK: Foreground (BLACK), Background (CLEAR)
+            /// \00\0\1\0\0
             wstr.at(8) = L'1';
             wstr.insert(8, L"\\");
         }
     }
+    
+    // MARK: Foreground (DEFAULT), Background (CLEAR)
+    /// \0\0Ā\1\0\0
 }
 
 static std::wstring parsePict(const std::string& str, int& lines)
