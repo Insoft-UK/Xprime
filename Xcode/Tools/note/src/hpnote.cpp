@@ -91,6 +91,7 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
     wstr.at(2) = n & 0xFFFF;
     wstr.at(3) = n >> 16;
     
+    // TODO: Cleaning up the code by factoring it, not patching in values.
     if (format.background != 0xFFFF) {
         if (format.foreground == 0xFFFF) {
             wstr.at(10) = L'0';
@@ -110,14 +111,14 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
             
             if (format.foreground == 0 && format.background == 0) {
                 // MARK: Foreground & Background (BLACK)
-                /// \o臿ῡ\0\0\1\0\0\0
+                /// \oǿῠ\0\0\1\0\0\0
                 wstr.erase(8,1);
                 wstr.insert(14, L"\\0");
             }
             
             if (format.foreground == 0 && format.background) {
                 // MARK: Foreground (BLACK)
-                /// \o臿ῡ\0簀\1\0\0\0
+                /// \oǿῠ\0簀\1\0\0\0
                 wstr.at(6) = format.background;
                 wstr.at(7) = L'\\';
                 wstr.at(8) = L'1';
@@ -142,6 +143,7 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
             wstr.at(7) = L'\\';
             wstr.at(8) = L'1';
         } else {
+            // MARK: Foreground (BLACK)
             wstr.at(8) = L'1';
             wstr.insert(8, L"\\");
         }
