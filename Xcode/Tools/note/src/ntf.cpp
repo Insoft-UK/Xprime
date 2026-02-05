@@ -483,7 +483,7 @@ std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
                 }
             }
             
-            if (hex.length()) {
+            if (!hex.empty()) {
                 value = std::stoi(hex, nullptr, 16);
             }
 
@@ -524,17 +524,17 @@ std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
                 level = value % 4;
             }
             
-            if (cmd == "cf" && value != -1) {
+            if (cmd == "cf") {
                 if (hex.empty()) {
-                    format.foreground = value < colortbl.size() ? colortbl[value] : 0xFFFF;
+                    format.foreground = value < colortbl.size() && value != -1 ? colortbl[value] : 0xFFFF;
                 } else {
                     format.foreground = value;
                 }
             }
             
-            if ((cmd == "cb" || cmd == "highlight") && value != -1) {
+            if (cmd == "cb" || cmd == "highlight") {
                 if (hex.empty()) {
-                    format.background = value < colortbl.size() ? colortbl[value] : 0xFFFF;
+                    format.background = value < colortbl.size() && value != -1 ? colortbl[value] : 0xFFFF;
                 } else {
                     format.background = value;
                 }
