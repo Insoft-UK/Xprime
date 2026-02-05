@@ -93,22 +93,58 @@ static void applyFormat(const ntf::Format format, std::wstring& wstr) {
     
     if (format.background != 0xFFFF) {
         if (format.foreground == 0xFFFF) {
-            wstr.erase(6,1);
-            wstr.at(6) = format.background;
-            wstr.at(9) = L'0';
+            wstr.at(10) = L'0';
+            if (format.background) {
+                // MARK: Background (NONE BLACK)
+                wstr.erase(6,1);
+                wstr.at(6) = format.background;
+            }
         } else {
-            wstr.erase(8,1);
-            wstr.at(4) = format.foreground;
-            wstr.at(5) = format.background;
-            wstr.at(7) = L'1';
-            wstr.at(9) = L'0';
+            if (format.foreground && format.background ) {
+                wstr.erase(8,1);
+                wstr.at(4) = format.foreground;
+                wstr.at(5) = format.background;
+                wstr.at(7) = L'1';
+                wstr.at(9) = L'0';
+            }
+            
+            if (format.foreground == 0 && format.background == 0) {
+                // MARK: Foreground & Background (BLACK)
+                /// \o臿ῡ\0\0\1\0\0\0
+                wstr.erase(8,1);
+                wstr.insert(14, L"\\0");
+            }
+            
+            if (format.foreground == 0 && format.background) {
+                // MARK: Foreground (BLACK)
+                /// \o臿ῡ\0簀\1\0\0\0
+                wstr.at(6) = format.background;
+                wstr.at(7) = L'\\';
+                wstr.at(8) = L'1';
+                wstr.at(10) = L'0';
+            }
+            
+            if (format.foreground && format.background == 0) {
+                // MARK: Background (BLACK)
+                /// \oǿῠ簀\0\1\0\0\0x
+                wstr.erase(8,1);
+                wstr.insert(4, L"0");
+                wstr.at(4) = format.foreground;
+                wstr.at(8) = L'1';
+                wstr.at(10) = L'0';
+            }
         }
     } else if (format.foreground != 0xFFFF) {
-        wstr.at(4) = format.foreground;
-        wstr.at(5) = L'\\';
-        wstr.at(6) = L'0';
-        wstr.at(7) = L'\\';
-        wstr.at(8) = L'1';
+        if (format.foreground) {
+            wstr.at(4) = format.foreground;
+            wstr.at(5) = L'\\';
+            wstr.at(6) = L'0';
+            wstr.at(7) = L'\\';
+            wstr.at(8) = L'1';
+        } else {
+            wstr.at(8) = L'1';
+            wstr.insert(8, L"\\");
+        }
     }
 }
 

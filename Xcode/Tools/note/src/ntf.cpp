@@ -536,7 +536,7 @@ std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
                 if (hex.empty()) {
                     format.background = value < colortbl.size() ? colortbl[value] : 0xFFFF;
                 } else {
-                    format.foreground = value;
+                    format.background = value;
                 }
             }
             
@@ -639,7 +639,7 @@ void ntf::defaultColorTable(void)
 {
     clearColorTable(true);
     colortbl = {
-        0xFFFF, 0x0001, 0x7FFF, 0x6318,
+        0xFFFF, 0x0000, 0x7FFF, 0x6318,
         0x4210, 0x294A, 0x7C00, 0x7E80,
         0x7FE0, 0x7F40, 0x03E0, 0x03FF,
         0x0076, 0x7C1F, 0x4000, 0x4200,
