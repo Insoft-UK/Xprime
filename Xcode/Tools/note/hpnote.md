@@ -5,7 +5,7 @@
 ||[000]: Font10 = 1, Font12 = 2, ... Font22 = 7|\0BĀ\0 Foreground (DEFAULT) & Background (COLOR)|
 ||B: Bold [On/Off]|FB\1\0 Foreground (COLOR), Background (COLOR)|
 ||I: Italic [On/Off]|F\0\1\0 Foreground (COLOR), Background (BLACK)|
-||U: Underlined [On/Off]|\0B\1\0 Foreground (BLACK), Background (COLOR)|
-||S: Strikethrough [On/Off]|\0\0\1\0 Foreground (BLACK), Background (BLACK)|
-|||F\0\1\1 Foreground (COLOR), Background (CLEAR)|
+||U: Underlined [On/Off]|F\0\1\1 Foreground (COLOR), Background (CLEAR)|
+||S: Strikethrough [On/Off]|\0B\1\0 Foreground (BLACK), Background (COLOR)|
 |||\00\0\1 Foreground (BLACK), Background (CLEAR)|
+|||\0\0\1\0 Foreground (BLACK), Background (BLACK)|
