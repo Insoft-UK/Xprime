@@ -59,27 +59,27 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 >To support future RTF compatibility and RTF-to-NTF conversion, several changes have been made to NTF. Toggle-style formatting replaced with explicit state-setting control words, matching RTF semantics (for example, `\b` treated as shorthand for `\b1`). Additionally, `\u` replaced with `\ul` to avoid conflicts with RTF Unicode control words.
 
 ### Bold
-- `\b0` — Disable bold  
-- `\b1` or `\b ` — Enable bold
+- `\b0` — disable bold  
+- `\b1` or `\b ` — enable bold
 
 ### Italic
 - `\i0` — Disable italic  
-- `\i1` or `\i ` — Enable italic
+- `\i1` or `\i ` — enable italic
 
 ### Underline
-- `\ul0` — Disable underline  
-- `\ul1` or `ul ` — Enable underline 
+- `\ul0` — disable underline  
+- `\ul1` or `ul ` — enable underline 
 
 ### Strikethrough
-- `\srike0` — Disable strikethrough  
-- `\strike1` or `\strike ` — Enable strikethrough 
+- `\srike0` — disable strikethrough  
+- `\strike1` or `\strike ` — enable strikethrough 
 
 ---
 
 ### Text Alignment
-- `\ql` — Left-aligned text (default)  
-- `\qc` — Center-aligned text  
-- `\qr` — Right-aligned text  
+- `\ql` — left-aligned text (default)  
+- `\qc` — center-aligned text  
+- `\qr` — right-aligned text  
 
 ---
 
@@ -101,14 +101,16 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 ---
 
 ### Foreground (Text Color)
-- `\cfN` → N 0 Default 1-... Color Table  
+- `\cfN` → N 0 default 1-... Color Table
+- `\cf0` or `\cf ` — default color (black/white) depending on theme
 
 >[!IMPORTANT]
 >When specifying a hex value, e.g., `\cf#7FFF`, it is interpreted as an explicit RGB555 color rather than as an index into the default color table.
 
 ### Background
-- `\cbN` → N 0 Default 1-... Color Table 
-- `\highlightN` → N 0 Default 1-... Color Table
+- `\cbN` → N 0 default 1-... Color Table
+- `\cb0` or `\cb ` — default color (transparent)
+- `\highlightN` → N 0 default 1-... Color Table
 
 >[!IMPORTANT]
 >When specifying a hex value, e.g., `\cb#7FFF`, it is interpreted as an explicit RGB555 color rather than as an index into the default color table.
