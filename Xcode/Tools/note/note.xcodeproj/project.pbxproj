@@ -31,6 +31,7 @@
 		134B4B742F17356400B7F659 /* hpnote.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hpnote.cpp; sourceTree = "<group>"; };
 		134E48572F25A76A00FEE689 /* ntf.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ntf.hpp; sourceTree = "<group>"; };
 		134E48582F25A76A00FEE689 /* ntf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ntf.cpp; sourceTree = "<group>"; };
+		134E4C952F36A06C00FEE689 /* hpnote.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = hpnote.md; sourceTree = "<group>"; };
 		1352EDF42B4786BC003130E4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		136A448D2EF5CB7A0017E5AF /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		136E64442D262CE90054E0CC /* version.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = version.txt; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 				138F54D42C977703009357F9 /* LICENSE.md */,
 				138F54D52C977708009357F9 /* README.md */,
 				136A448D2EF5CB7A0017E5AF /* Makefile */,
+				134E4C952F36A06C00FEE689 /* hpnote.md */,
 				134B4A682F15C33B00B7F659 /* test */,
 				1352EDEC2B4786BC003130E4 /* src */,
 				136A448E2EF5CCE60017E5AF /* Frameworks */,
