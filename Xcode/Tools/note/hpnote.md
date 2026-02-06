@@ -26,5 +26,3 @@
 |:-|
 |\0|
 
-**Background**
-Color RGB555 | Black \0 | Clear 0 if Foreground is not Color else \0
