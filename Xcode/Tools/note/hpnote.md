@@ -11,7 +11,7 @@
 ||\3 ▻||||
 
 |Text Formatting|Style & Font Size|Foreground & Background|?|Length|Start of Text|
-|:-|:-|:-|:-|:-|:-|
+|:-|:-|:----|:-|:-|:-|
 |\o|000111111110000[000][S]0[U][I][B]111111111|🔲🔲 `\0\0Ā\1`|"\0\0 " Include Spaces|\\[0...9a...v] Length < 32|\0|
 ||[000]: Font10 = 1, Font12 = 2, ... Font22 = 7|🔲⬛️ `\0\0Ā\0`|"\0\0x" Excludes Spaces|[ !"#$%&'()*+,-./0...9a...v]||
 ||B: Bold [On/Off]|🔲🟥 `\0**B**Ā\0`||||
