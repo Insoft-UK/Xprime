@@ -145,7 +145,7 @@ static std::wstring encodeColorAttributes(const ntf::Format format)
     }
 }
 
-static std::wstring parsePict(const std::string& str, int& lines)
+static std::wstring encodeNTFPict(const std::string& str, int& lines)
 {
     std::wstring wstr;
     int value = -1;
@@ -265,7 +265,7 @@ static std::wstring encodeNTFDocument(std::istringstream& iss) {
     int lines = -1;
     while(getline(iss, str)) {
         if (str.substr(0, 5) == "\\pict") {
-            wstr += parsePict(str, lines);
+            wstr += encodeNTFPict(str, lines);
             continue;
         } else
             wstr += encodeNTFLine(str);
