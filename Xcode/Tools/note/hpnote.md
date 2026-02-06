@@ -14,13 +14,13 @@
 |:-|:-|:----|:-|:-|:-|
 |\o|000111111110000[000][S]0[U][I][B]111111111|🔲🔲 `\0\0Ā\1`|"\0\0 " Include Spaces|\\[0...9a...v] Length < 32|\0|
 ||[000]: Font10 = 1, Font12 = 2, ... Font22 = 7|🔲⬛️ `\0\0Ā\0`|"\0\0x" Excludes Spaces|[ !"#$%&'()*+,-./0...9a...v]||
-||B: Bold [On/Off]|🔲🟥 `\0**B**Ā\0`||||
-||I: Italic [On/Off]|⬛️🔲 `\0\0\0\1`||||
-||U: Underlined [On/Off]|⬛️⬛️ `\0\0\0\0`||||
-||S: Strikethrough [On/Off]|⬛️🟩 `\0**B**\1\0`||||
+||B: [On/Off]|🔲🟧 `\0**B**Ā\0`||||
+||I: [On/Off]|⬛️🔲 `\0\0\0\1`||||
+||U: [On/Off]|⬛️⬛️ `\0\0\0\0`||||
+||S: [On/Off]|⬛️🟧 `\0**B**\1\0`||||
 |||🟥🔲 `**F**0\1\1`||||
 |||🟩⬛️ `**F**\0\1\0`||||
-|||🟦🟦 `**FB**\1\0`||||
+|||🟦🟧 `**FB**\1\0`||||
 
 |End of Line|
 |:-|
@@ -30,7 +30,7 @@
 ![#000000](https://placehold.co/15x15/FFFFFF/000000.png)
 
 >[!NOTE]
->The “*Default*“ color is ⚫️ black or ⚪️ white for foreground color, depending on whether the theme is light or dark. “*Clear*” is fully transparent, regardless of the theme.
+>The 🔲 *Default* color is ⬛️ *Black* or ⬜️ *White* for foreground color, depending on whether the theme is light or dark. 🔲 *Clear* is fully transparent, regardless of the theme.
 
 **F** = Foreground UInt16le
 
