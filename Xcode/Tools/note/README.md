@@ -121,7 +121,7 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 - `\li0` — No bullet  
 - `\li1` — ●  
 - `\li2` — 　○  
-- `\li3` — 　　■
+- `\li3` — 　　▷
 
 ---
 
