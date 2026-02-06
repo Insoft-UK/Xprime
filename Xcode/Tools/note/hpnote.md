@@ -1,6 +1,8 @@
 >[!IMPORTANT]
 >Draft documentation — incomplete and written as I document findings along the way. Mistakes are likely, so please don’t treat this as 100% accurate.
 
+## HPNote Format
+### UTF16le
 |Line Attributes|Level|?|Alignment|?|
 |:-|:-|:-|:-|:-|
 |\0\m|\0 None|\0|\0 Left|\0\0\n|
