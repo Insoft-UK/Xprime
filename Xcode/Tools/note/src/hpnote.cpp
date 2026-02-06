@@ -35,7 +35,8 @@
 
 using namespace hpnote;
 
-static constexpr std::wstring_view FONT_SIZE_AND_STYLE_DEFAULT = L"\\o  ";
+static constexpr std::wstring_view FONT_SIZE_AND_STYLE_DEFAULT = LR"(\oǿῠ)";
+static constexpr std::wstring_view FOREGROUND_AND_BACKGROUND_DEFAUL = LR"(\0\0Ā\1)";
 
 static constexpr uint16_t STYLE_BOLD = 1u << 10;
 static constexpr uint16_t STYLE_ITALIC = 1u << 11;
@@ -59,126 +60,89 @@ static std::wstring toBase48(uint64_t value)
     return result;
 }
 
-// MARK: - New
-static void applyFontSize(const ntf::Format format, std::wstring& wstr) {
-    uint32_t n = 0b00011111111000000000000111111111;
+static std::wstring encodeTextAttributes(const ntf::Style style, const ntf::FontSize fontSize)
+{
+    uint32_t attributeBits = 0x1FE001FF;
     
-    switch (format.fontSize) {
-        case ntf::FontSize::Font22:
-            n |= 7 << 15;
-            break;
+    if (style.bold) attributeBits |= STYLE_BOLD;
+    if (style.italic) attributeBits |= STYLE_ITALIC;
+    if (style.underline) attributeBits |= STYLE_UNDERLINE;
+    if (style.strikethrough) attributeBits |= STYLE_STRIKETHROUGH;
+    
+    attributeBits |= static_cast<uint32_t>(fontSize) << 15;
+    
+#ifdef DEBUG
+    auto wstr = LR"(\o)" +
+    std::wstring(1, static_cast<wchar_t>(attributeBits)) +
+    std::wstring(1, static_cast<wchar_t>(attributeBits >> 16));
+    
+    std::cerr << utf::utf8(wstr) << "\n";
+#endif // DEBUG
+    
+    return LR"(\o)" +
+           std::wstring(1, static_cast<wchar_t>(attributeBits)) +
+           std::wstring(1, static_cast<wchar_t>(attributeBits >> 16));
+}
+
+static std::wstring encodeColorAttributes(const ntf::Format format)
+{
+    switch (format.foreground) {
+        case 0xFFFF:
+            /// Default: Black for Light Mode, White for Dark Mode
+            switch (format.background) {
+                case 0xFFFF:
+                    /// Clear
+                    return LR"(\0\0Ā\1)";
+                    
+                case 0:
+                    /// Black
+                    return LR"(\0\0Ā\0)";
+                    
+                default:
+                    /// Color
+                    return LR"(\0)" +
+                           std::wstring(1, static_cast<wchar_t>(format.background)) +
+                           LR"(Ā\0)";
+            }
             
-        case ntf::FontSize::Font20:
-            n |= 6 << 15;
-            break;
-            
-        case ntf::FontSize::Font18:
-            n |= 5 << 15;
-            break;
-            
-        case ntf::FontSize::Font16:
-            n |= 4 << 15;
-            break;
-            
-        case ntf::FontSize::Font14:
-            n |= 3 << 15;
-            break;
-            
-        case ntf::FontSize::Font12:
-            n |= 2 << 15;
-            break;
-            
-        case ntf::FontSize::Font10:
-            n |= 1 << 15;
-            break;
+        case 0:
+            /// Black
+            switch (format.background) {
+                case 0xFFFF:
+                    /// Clear
+                    return LR"(\0\0\0\1)";
+                    
+                case 0:
+                    /// Black
+                    return LR"(\0\0\0\0)";
+                    
+                default:
+                    /// Color
+                    return LR"(\0)" +
+                           std::wstring(1, static_cast<wchar_t>(format.background)) +
+                           LR"(\1\0)";
+            }
             
         default:
-            break;
+            /// Color
+            switch (format.background) {
+                case 0xFFFF:
+                    /// Clear
+                    return std::wstring(1, static_cast<wchar_t>(format.foreground)) +
+                           LR"(0\1\1)";
+                    
+                case 0:
+                    /// Black
+                    return std::wstring(1, static_cast<wchar_t>(format.foreground)) +
+                           LR"(\0\1\0)";
+                    
+                default:
+                    /// Color
+                    return std::wstring(1, static_cast<wchar_t>(format.foreground)) +
+                           std::wstring(1, static_cast<wchar_t>(format.background)) +
+                           LR"(\1\0)";
+            }
     }
-    
-    wstr.at(2) = n & 0xFFFF;
-    wstr.at(3) = n >> 16;
-}
-// MARK: -
-
-static void applyStyle(const ntf::Style style, std::wstring& wstr) {
-    if (style.bold) wstr.at(2) = wstr.at(2) | STYLE_BOLD;
-    if (style.italic) wstr.at(2) = wstr.at(2) | STYLE_ITALIC;
-    if (style.underline) wstr.at(2) = wstr.at(2) | STYLE_UNDERLINE;
-    if (style.strikethrough) wstr.at(2) = wstr.at(2) | STYLE_STRIKETHROUGH;
-}
-
-static void applyFormat(const ntf::Format format, std::wstring& wstr) {
-    applyFontSize(format, wstr);
-    
-    // DEFAULT or CLEAR :- Forground is White/Black (DEFAULT), Background is Transparent (CLEAR)
-    
-    // TODO: Cleaning up the code by factoring it, not patching in values.
-    if (format.background != 0xFFFF) {
-        if (format.foreground == 0xFFFF) {
-            wstr.at(10) = L'0';
-            if (format.background) {
-                // MARK: Foreground (DEFAULT) & Background (COLOR)
-                /// \0簀Ā\0\0\0
-                wstr.erase(6,1);
-                wstr.at(6) = format.background;
-            }
-        } else {
-            if (format.foreground && format.background ) {
-                // MARK: Foreground (COLOR), Background (COLOR)
-                /// 簀翠\1\0\0\0
-                wstr.erase(8,1);
-                wstr.at(4) = format.foreground;
-                wstr.at(5) = format.background;
-                wstr.at(7) = L'1';
-                wstr.at(9) = L'0';
-            }
-            
-            if (format.foreground == 0 && format.background == 0) {
-                // MARK: Foreground (BLACK), Background (BLACK)
-                /// \0\0\1\0\0\0
-                wstr.erase(8,1);
-                wstr.insert(14, L"\\0");
-            }
-            
-            if (format.foreground == 0 && format.background) {
-                // MARK: Foreground (BLACK), Background (COLOR)
-                /// \0簀\1\0\0\0
-                wstr.at(6) = format.background;
-                wstr.at(7) = L'\\';
-                wstr.at(8) = L'1';
-                wstr.at(10) = L'0';
-            }
-            
-            if (format.foreground && format.background == 0) {
-                // MARK: Foreground (COLOR), Background (BLACK)
-                /// 簀\0\1\0\0\0
-                wstr.erase(8,1);
-                wstr.insert(4, L"0");
-                wstr.at(4) = format.foreground;
-                wstr.at(8) = L'1';
-                wstr.at(10) = L'0';
-            }
-        }
-    } else if (format.foreground != 0xFFFF) {
-        if (format.foreground) {
-            // MARK: Foreground (COLOR), Background (CLEAR)
-            /// 簀\0\1\1\0\0
-            wstr.at(4) = format.foreground;
-            wstr.at(5) = L'\\';
-            wstr.at(6) = L'0';
-            wstr.at(7) = L'\\';
-            wstr.at(8) = L'1';
-        } else {
-            // MARK: Foreground (BLACK), Background (CLEAR)
-            /// \00\0\1\0\0
-            wstr.at(8) = L'1';
-            wstr.insert(8, L"\\");
-        }
-    }
-    
-    // MARK: Foreground (DEFAULT), Background (CLEAR)
-    /// \0\0Ā\1\0\0
 }
 
 static std::wstring parsePict(const std::string& str, int& lines)
@@ -199,21 +163,21 @@ static std::wstring parsePict(const std::string& str, int& lines)
     if (pict.pixels.empty())
         return wstr;
     
-    std::wstring black = LR"(\o臿ῠ\0\0Ā\0\0\0x\3\0   )";
-    std::wstring color = LR"(\o臿ῠ\0纀Ā\0\0\0x\3\0   )";
+    auto pixelWidth = static_cast<int>(pict.pixelWidth);
     
-    color.at(16) = '0' + static_cast<int>(pict.pixelWidth);
-    color.resize(color.size() - (3 - static_cast<int>(pict.pixelWidth)));
-    black.at(17) = '0' + static_cast<int>(pict.pixelWidth);
-    black.resize(black.size() - (3 - static_cast<int>(pict.pixelWidth)));
+    std::wstring encodedPixel = LR"(\0\0x\)" +
+                                std::wstring(1, static_cast<wchar_t>(pixelWidth + '0')) +
+                                LR"(\0)" +
+                                std::wstring(pixelWidth, L' ');
+    
+    std::wstring encodedBlack = LR"(\o臿ῠ\0\0Ā\0)";
+    std::wstring encodedColor = LR"(\o臿ῠ\0 Ā\0)";
     
     int i = 0;
     for (int y=0; y<pict.height; y++) {
-        wstr.append(LR"(\0\)");
-        wstr.append(toBase48(22));
-        wstr.append(LR"(\0\0\0\0\)");
-        wstr.append(toBase48(23));
+        wstr.append(LR"(\0\m\0\0\0\0\n)");
         
+        /// encode the line length
         wstr.at(wstr.size() - 5) = toBase48(static_cast<uint64_t>(pict.align)).at(0);
         
         for (int x=0; x<pict.width; x++) {
@@ -224,14 +188,14 @@ static std::wstring parsePict(const std::string& str, int& lines)
                 c = pict.pixels[i];
             }
             if (c == 0) {
-                wstr.append(black);
+                wstr.append(encodedBlack);
             } else {
                 if (c == pict.keycolor)
                     c = 0xFFFF;
-                color.at(6) = c;
-                wstr.append(color);
+                encodedColor.at(6) = c;
+                wstr.append(encodedColor);
             }
-            
+            wstr.append(encodedPixel);
             i++;
         }
         wstr.append(LR"(\0)");
@@ -255,35 +219,29 @@ static std::wstring parseLine(const std::string& str)
         std::cerr << "\n";
 #endif
     
-    wstr.append(LR"(\0\)");
-    wstr.append(toBase48(22));
-    wstr.append(LR"(\0\0\0\0\)");
-    wstr.append(toBase48(23));
+    wstr.append(LR"(\0\m\0\0\0\0\n)");
     
     if (!runs.size()) {
         std::wstring ws;
-        ws.append(FONT_SIZE_AND_STYLE_DEFAULT);
-        ws.append(LR"(\0\0Ā\1\0\0 \0\0\0)");
-//        ws = LR"(\oǿῠ\0\0Ā\1\0\0 \0\0\0)"; // Plain Text
-        applyFormat(ntf::currentFormatState(), ws);
-        applyStyle(ntf::currentStyleState(), ws);
+        auto style = ntf::currentStyleState();
+        auto format = ntf::currentFormatState();
+        
+        ws.append(encodeTextAttributes(style, format.fontSize));
+        ws.append(encodeColorAttributes(format));
+        ws.append(LR"(\0\0 \0\0\0)");
         
         return wstr += ws;
     }
     
     for (const auto& r : runs) {
         wstr.at(9) = toBase48(static_cast<uint64_t>(r.format.align)).at(0);
-        wstr.at(5) = toBase48(r.level).at(0);
+        wstr.at(5) = toBase48(static_cast<uint64_t>(r.bullet)).at(0);
         
         std::wstring ws;
-        ws.append(FONT_SIZE_AND_STYLE_DEFAULT);
-        ws.append(LR"(\0\0Ā\1\0\0 )");
-//        ws = LR"(\oǿῠ\0\0Ā\1\0\0 )"; // Plain Text
+        ws.append(encodeTextAttributes(r.style, r.format.fontSize));
+        ws.append(encodeColorAttributes(r.format));
         
-        applyFormat(r.format, ws);
-        applyStyle(r.style, ws);
-        
-        wstr += ws;
+        wstr += ws + LR"(\0\0 )";
         
         // Line length
         if (r.text.length() < 32) wstr.append(LR"(\)");

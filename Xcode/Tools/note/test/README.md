@@ -1,4 +1,3 @@
-\cf#7C00Plain text\cf
 # Heading level 1
 ## Heading level 2
 ### Heading level 3

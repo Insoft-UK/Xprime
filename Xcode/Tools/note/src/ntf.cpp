@@ -31,12 +31,12 @@
 using namespace ntf;
 
 static std::vector<Color> colortbl;
+static std::vector<Pict> picttbl;
 
 static Format format{};
 static Style style{};
-static int level = 0;
+static Bullet bullet = Bullet::None;
 
-std::vector<Pict> picttbl;
 
 static inline int hexVal(char c)
 {
@@ -387,7 +387,7 @@ void ntf::reset(void)
 {
     format = {};
     style = {};
-    level = 0;
+    bullet = Bullet::None;
 }
 
 std::string ntf::extractPicts(const std::string& ntf)
@@ -441,7 +441,7 @@ std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
     
     auto flush = [&]() {
         if (!buffer.empty()) {
-            runs.push_back({ buffer, format, style, level });
+            runs.push_back({ buffer, format, style, bullet });
             buffer.clear();
         }
     };
@@ -505,7 +505,7 @@ std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
             }
             
             if (cmd == "fs") {
-                format.fontSize = value != -1 ? static_cast<FontSize>((value / 2 - 4) % 8) : FontSize::Font14;
+                format.fontSize = value != -1 ? static_cast<FontSize>((value / 2 - 4) % 8) : FontSize::Font14pt;
             }
             
             if (cmd == "ql") {
@@ -521,7 +521,7 @@ std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
             }
             
             if (cmd == "li" && value != -1) {
-                level = value % 4;
+                bullet = static_cast<Bullet>(value % 4);
             }
             
             if (cmd == "cf") {
@@ -630,11 +630,6 @@ Style ntf::currentStyleState(void)
     return style;
 }
 
-int ntf::currentLevelState(void)
-{
-    return level;
-}
-
 void ntf::defaultColorTable(void)
 {
     clearColorTable(true);
@@ -651,12 +646,12 @@ void ntf::printRuns(const std::vector<TextRun>& runs)
 {
     for (const auto& r : runs) {
         std::cerr
-        << (r.style.bold ? "B" : "-") << (r.style.italic ? "I" : "-") << (r.style.underline ? "U" : "-") << (r.style.strikethrough ? "S" : "-")
+        << (r.style.bold ? "B" : "-") << (r.style.italic ? "I" : "-") << (r.style.underline ? "U" : "-") << (r.style.strikethrough ? "S" : "-") << (r.style.superscript ? "s" : "-") << (r.style.subscript ? "s" : "-")
         << " pt:" << (static_cast<int>(r.format.fontSize) + 4) * 2
         << " bg:#" << std::uppercase << std::setw(4) << std::hex << r.format.background << " fg:#" << r.format.foreground
         << std::dec
         << " " << (r.format.align == Align::Left ? "L" : (r.format.align == Align::Center ? "C" : "R"))
-        << " " << (r.level == 0 ? " " : (r.level == 1 ? "●" : (r.level == 2 ? "○" : "▶")))
+        << " " << (r.bullet == Bullet::None ? " " : (r.bullet == Bullet::Primary ? "●" : (r.bullet == Bullet::Secondary ? "○" : "▶")))
         << " \"" << r.text << "\" "
         << "\n";
     }

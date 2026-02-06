@@ -30,22 +30,18 @@
 
 namespace ntf {
     enum class FontSize : uint16_t {
-        Font8  = 0,
-        Font10 = 1,
-        Font12 = 2, Small  = 2,
-        Font14 = 3, Medium = 3,
-        Font16 = 4, Large  = 4,
-        Font18 = 5,
-        Font20 = 6,
-        Font22 = 7
+        Font8pt  = 0,
+        Font10pt = 1,
+        Font12pt = 2, Small  = 2,
+        Font14pt = 3, Medium = 3,
+        Font16pt = 4, Large  = 4,
+        Font18pt = 5,
+        Font20pt = 6,
+        Font22pt = 7
     };
     
     enum class Align {
         Left = 0, Center = 1, Right = 2
-    };
-    
-    enum class Para {
-        None = 0, Bottom = 1, Top = 2
     };
     
     typedef uint16_t Color;
@@ -62,7 +58,12 @@ namespace ntf {
         bool italic = false;
         bool underline = false;
         bool strikethrough = false;
-        Para para = Para::None;
+        bool superscript = false;
+        bool subscript = false;
+    };
+    
+    enum class Bullet {
+        None = 0, Primary = 1, Secondary = 2, Tertiary = 3
     };
     
     enum class Endian {
@@ -87,7 +88,7 @@ namespace ntf {
         std::string text;
         Format format;
         Style style;
-        int level = 0;
+        Bullet bullet = Bullet::None;
     };
     
     /**
@@ -198,13 +199,6 @@ namespace ntf {
      * @return Current style settings as a `Style` structure.
      */
     Style currentStyleState(void);
-    
-    /**
-     * @brief Gets the current level state.
-     *
-     * @return Current level setting.
-     */
-    int currentLevelState(void);
     
     /**
      * @brief Clears any custom color entries and restores the default color table.
