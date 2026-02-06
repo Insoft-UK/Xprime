@@ -206,7 +206,7 @@ static std::wstring parsePict(const std::string& str, int& lines)
     return wstr;
 }
 
-static std::wstring parseLine(const std::string& str)
+static std::wstring encodeNTFLine(const std::string& str)
 {
     std::wstring wstr;
     
@@ -256,7 +256,7 @@ static std::wstring parseLine(const std::string& str)
     return wstr;
 }
 
-static std::wstring parseAllLines(std::istringstream& iss) {
+static std::wstring encodeNTFDocument(std::istringstream& iss) {
     std::string str;
     std::wstring wstr;
     
@@ -268,7 +268,7 @@ static std::wstring parseAllLines(std::istringstream& iss) {
             wstr += parsePict(str, lines);
             continue;
         } else
-            wstr += parseLine(str);
+            wstr += encodeNTFLine(str);
         
         lines++;
     }
@@ -297,7 +297,7 @@ static std::wstring plainText(const std::string ntf) {
     return wstr;
 }
 
-std::wstring hpnote::ntfToHPNote(const std::string& ntf, bool minify) {
+std::wstring hpnote::encodeHPNoteFromNTF(const std::string& ntf, bool minify) {
     std::wstring wstr;
     wstr.reserve(ntf.size() * 2);
     
@@ -311,7 +311,7 @@ std::wstring hpnote::ntfToHPNote(const std::string& ntf, bool minify) {
     wstr += L"CSWD110\xFFFF\xFFFF\\l\x013E";
     
     std::istringstream iss(input);
-    wstr += parseAllLines(iss);
+    wstr += encodeNTFDocument(iss);
     
     return wstr;
 }

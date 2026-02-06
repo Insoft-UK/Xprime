@@ -26,7 +26,7 @@
 #include <filesystem>
 
 namespace hpnote {
-    std::wstring ntfToHPNote(const std::string& ntf, bool minify);
+    std::wstring encodeHPNoteFromNTF(const std::string& ntf, bool minify);
 }
 
 

@@ -201,19 +201,19 @@ int main(int argc, const char * argv[]) {
         std::string md = utf::load(inpath);
         std::string ntf = ntf::markdownToNTF(md);
         ntf::defaultColorTable();
-        content = hpnote::ntfToHPNote(ntf, minify);
+        content = hpnote::encodeHPNoteFromNTF(ntf, minify);
     }
     
     if (in_extension == ".ntf") {
         std::string ntf = utf::load(inpath);
         ntf::defaultColorTable();
-        content = hpnote::ntfToHPNote(ntf, minify);
+        content = hpnote::encodeHPNoteFromNTF(ntf, minify);
     }
     
     if (in_extension == ".rtf") {
         std::string rtf = utf::load(inpath);
         std::string ntf = ntf::richTextToNTF(rtf);
-        content = hpnote::ntfToHPNote(ntf, minify);
+        content = hpnote::encodeHPNoteFromNTF(ntf, minify);
     }
     
     if (in_extension == ".txt") {
@@ -224,7 +224,7 @@ int main(int argc, const char * argv[]) {
         auto bom = utf::bom(inpath);
         if (bom == utf::BOMnone) {
             std::string ntf = utf::load(inpath);
-            content = hpnote::ntfToHPNote(ntf, minify);
+            content = hpnote::encodeHPNoteFromNTF(ntf, minify);
         } else {
             content = utf::load(inpath, bom);
         }
