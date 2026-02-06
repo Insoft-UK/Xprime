@@ -60,6 +60,15 @@ static std::wstring toBase48(uint64_t value)
     return result;
 }
 
+static std::wstring encodeParagraphAttributes(const ntf::Align align, const ntf::Bullet bullet)
+{
+    return LR"(\0\m\)" +
+           std::wstring(1, static_cast<wchar_t>(static_cast<char>(bullet) + '0')) +
+           LR"(\0\)" +
+           std::wstring(1, static_cast<wchar_t>(static_cast<char>(align) + '0')) +
+           LR"(\0\n)";
+}
+
 static std::wstring encodeTextAttributes(const ntf::Style style, const ntf::FontSize fontSize)
 {
     uint32_t attributeBits = 0x1FE001FF;
@@ -145,6 +154,13 @@ static std::wstring encodeColorAttributes(const ntf::Format format)
     }
 }
 
+static std::wstring encodeLineLength(const std::string& str)
+{
+    auto size = toBase48(str.size() % 48);
+    return str.size() < 32 ? LR"(\)" + size + LR"(\0)" : size + LR"(\0)";
+}
+
+// TODO: Compression of consecutive pixels sharing the same color.
 static std::wstring encodeNTFPict(const std::string& str, int& lines)
 {
     std::wstring wstr;
@@ -176,8 +192,6 @@ static std::wstring encodeNTFPict(const std::string& str, int& lines)
     int i = 0;
     for (int y=0; y<pict.height; y++) {
         wstr.append(LR"(\0\m\0\0\0\0\n)");
-        
-        /// encode the line length
         wstr.at(wstr.size() - 5) = toBase48(static_cast<uint64_t>(pict.align)).at(0);
         
         for (int x=0; x<pict.width; x++) {
@@ -208,7 +222,7 @@ static std::wstring encodeNTFPict(const std::string& str, int& lines)
 
 static std::wstring encodeNTFLine(const std::string& str)
 {
-    std::wstring wstr;
+    std::wstring encodedLine;
     
     auto runs = ntf::parseNTF(str);
     
@@ -219,41 +233,37 @@ static std::wstring encodeNTFLine(const std::string& str)
         std::cerr << "\n";
 #endif
     
-    wstr.append(LR"(\0\m\0\0\0\0\n)");
-    
     if (!runs.size()) {
-        std::wstring ws;
+        /// Blank line
         auto style = ntf::currentStyleState();
         auto format = ntf::currentFormatState();
         
-        ws.append(encodeTextAttributes(style, format.fontSize));
-        ws.append(encodeColorAttributes(format));
-        ws.append(LR"(\0\0 \0\0\0)");
+        encodedLine.append(encodeParagraphAttributes(ntf::Align::Left, ntf::Bullet::None));
+        encodedLine.append(encodeTextAttributes(style, format.fontSize));
+        encodedLine.append(encodeColorAttributes(format));
+        encodedLine.append(LR"(\0\0 \0\0\0)");
         
-        return wstr += ws;
+        return encodedLine;
     }
+    
+    std::wstring encodedParagraphAttributes;
+    
+    encodedLine = encodeParagraphAttributes(runs.back().format.align, runs.back().bullet);
     
     for (const auto& r : runs) {
-        wstr.at(9) = toBase48(static_cast<uint64_t>(r.format.align)).at(0);
-        wstr.at(5) = toBase48(static_cast<uint64_t>(r.bullet)).at(0);
+        encodedLine.append(encodeTextAttributes(r.style, r.format.fontSize));
+        encodedLine.append(encodeColorAttributes(r.format));
+        encodedLine += LR"(\0\0 )";
         
-        std::wstring ws;
-        ws.append(encodeTextAttributes(r.style, r.format.fontSize));
-        ws.append(encodeColorAttributes(r.format));
+        /// Length
+        encodedLine.append(encodeLineLength(r.text));
         
-        wstr += ws + LR"(\0\0 )";
-        
-        // Line length
-        if (r.text.length() < 32) wstr.append(LR"(\)");
-        wstr.append(toBase48(r.text.length() % 48));
-        wstr.append(LR"(\0)");
-        
-        // Text
-        wstr.append(utf::utf16(r.text));
+        /// Text
+        encodedLine.append(utf::utf16(r.text));
     }
-    wstr.append(LR"(\0)");
+    encodedLine.append(LR"(\0)");
     
-    return wstr;
+    return encodedLine;
 }
 
 static std::wstring encodeNTFDocument(std::istringstream& iss) {
@@ -285,7 +295,7 @@ static std::wstring encodeNTFDocument(std::istringstream& iss) {
     return wstr;
 }
 
-static std::wstring plainText(const std::string ntf) {
+static std::wstring extractPlainText(const std::string ntf) {
     std::wstring wstr;
     
     auto runs = ntf::parseNTF(ntf);
@@ -304,7 +314,7 @@ std::wstring hpnote::encodeHPNoteFromNTF(const std::string& ntf, bool minify) {
     std::string input = ntf::extractPicts(ntf);
     
     if (!minify) {
-        wstr.append(plainText(input));
+        wstr.append(extractPlainText(input));
     }
     
     wstr.push_back(L'\0');
