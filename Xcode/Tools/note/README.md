@@ -2,6 +2,8 @@
 **Command Line Tool**
 A command-line tool that converts .md and .ntf files into the HP Prime .hpnote format, preserving formatting such as bold and italic text, font sizes, and foreground and background colors.
 
+
+
 `Usage: note <input-file> [-o <output-file>]`
 
 <table>
