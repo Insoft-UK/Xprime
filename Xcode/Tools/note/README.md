@@ -2,7 +2,7 @@
 **Command Line Tool**
 A command-line tool that converts .md and .ntf files into the HP Prime .hpnote format, preserving formatting such as bold and italic text, font sizes, and foreground and background colors.
 
-
+<img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_1.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_2.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_3.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_4.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_5.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_6.png?raw=true" width="160" />
 
 `Usage: note <input-file> [-o <output-file>]`
 
