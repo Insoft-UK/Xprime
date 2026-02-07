@@ -293,7 +293,10 @@ static std::wstring encodeNTFDocument(std::istringstream& iss) {
     // Footer control bytes
     wstr.append(LR"(\0\0\3\0)");
     
-    // Line count, encoded in base-32 for values 0–31 (0–9, a–v), then standard integer notation for values 32 and higher.
+    /*
+     Values encoded in base-32 are marked with a leading escape character \.
+     Integer values are stored directly, without an escape prefix.
+     */
     wstr.append(encodeSize(lines));
   
     // Footer control bytes
