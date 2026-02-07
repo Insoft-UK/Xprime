@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2025-2026 Insoft.
+// Copyright (c) 2023-2026 Insoft.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,30 +20,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#pragma once
+#include "extensions.hpp"
 
-#include <sstream>
-#include <fstream>
-#include <cstdlib>
-#include <filesystem>
+std::string std::lowercased(const std::string& s) {
+    std::string result = s;
+    std::transform(result.begin(), result.end(), result.begin(),
+                   [](unsigned char c) { return std::tolower(c); });
+    return result;
+}
 
-namespace utf {
-    enum BOM {
-        BOMle,
-        BOMbe,
-        BOMnone
-    };
-    
-    std::string utf8(const std::wstring& wstr);
-    std::wstring utf16(const std::string& str);
-    std::string read(std::ifstream& is);
-    std::wstring read(std::ifstream& is, BOM bom);
-    std::string load(const std::filesystem::path& path);
-    std::wstring load(const std::filesystem::path& path, BOM bom);
-    size_t write(std::ofstream& os, const std::string& str);
-    size_t write(std::ofstream& os, const std::wstring& wstr, BOM bom = BOMle);
-    bool save(const std::filesystem::path& path, const std::string& str);
-    bool save(const std::filesystem::path& path, const std::wstring& wstr, BOM bom = BOMle);
-    BOM bom(std::ifstream& is);
-    BOM bom(const std::filesystem::path& path);
-};
+#if __cplusplus < 201103L
+    #include <cstdint>
+    template <typename T>
+    T std::byteswap(T u)
+    {
+        
+        static_assert (CHAR_BIT == 8, "CHAR_BIT != 8");
+        
+        union
+        {
+            T u;
+            unsigned char u8[sizeof(T)];
+        } source, dest;
+        
+        source.u = u;
+        
+        for (size_t k = 0; k < sizeof(T); k++)
+            dest.u8[k] = source.u8[sizeof(T) - k - 1];
+        
+        return dest.u;
+    }
+#endif // __cplusplus < 201103L
+
