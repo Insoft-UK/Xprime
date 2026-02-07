@@ -11,7 +11,7 @@
 ||\3 ▻||||
 
 |Text Formatting|Style & Font Size|Foreground & Background|?|?|Length|Start of Text|
-|:-|:-|:----|:-|:-|:-|
+|:-|:-|:----|:-|:-|:-|:-|
 |\o|000111111110000[000][S]0[U][I][B]111111111|🔲🔲 `\0\0Ā\1`|`\0\0`|` ` Spaces|Base-32 or Integer|`\0`|
 ||[000]: 10pt = 1 ... 22pt = 7|🔲⬛️ `\0\0Ā\0`|`\0\0`|`x` No Space after TEXT ?|||
 ||B: [On/Off]|🔲🟧 `\0BĀ\0`|||||
