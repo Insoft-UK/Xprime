@@ -39,6 +39,8 @@ static constexpr uint16_t STYLE_ITALIC = 1u << 11;
 static constexpr uint16_t STYLE_UNDERLINE = 1u << 12;
 static constexpr uint16_t STYLE_STRIKETHROUGH = 1u << 14;
 
+static constexpr std::wstring_view STYLE_SCRIPT = L"\\0\\m\\0\\0\\0\\0\\n\\o臿ῡ\\0\\0Ā\\1\\0\\0x\\0\\0\\0";
+
 // Base-32 values are preceded by the escape character (\), while integer values are not.
 static std::wstring encodeValue(uint64_t value)
 {
@@ -215,10 +217,10 @@ static std::wstring encodeNTFLine(const std::string& str)
         auto style = ntf::currentStyleState();
         auto format = ntf::currentFormatState();
         
-        encodedLine.append(encodeParagraphAttributes(ntf::Align::Left, ntf::Bullet::None));
-        encodedLine.append(encodeTextAttributes(style, format.fontSize));
-        encodedLine.append(encodeColorAttributes(format));
-        encodedLine.append(LR"(\0\0 \0\0\0)");
+        encodedLine += encodeParagraphAttributes(ntf::Align::Left, ntf::Bullet::None);
+        encodedLine += encodeTextAttributes(style, format.fontSize);
+        encodedLine += encodeColorAttributes(format);
+        encodedLine += L"\\0\\0x\\0\\0\\0";
         
         return encodedLine;
     }
@@ -228,9 +230,9 @@ static std::wstring encodeNTFLine(const std::string& str)
     encodedLine = encodeParagraphAttributes(runs.back().format.align, runs.back().bullet);
     
     for (const auto& r : runs) {
-        encodedLine.append(encodeTextAttributes(r.style, r.format.fontSize));
-        encodedLine.append(encodeColorAttributes(r.format));
-        encodedLine += LR"(\0\0 )";
+        encodedLine += encodeTextAttributes(r.style, r.format.fontSize);
+        encodedLine += encodeColorAttributes(r.format);
+        encodedLine += L"\\0\\0x";
         
         /// Length
         encodedLine.append(encodeValue(r.text.size()) + L"\\0");
@@ -238,7 +240,9 @@ static std::wstring encodeNTFLine(const std::string& str)
         /// Text
         encodedLine.append(utf::utf16(r.text));
     }
-    encodedLine.append(LR"(\0)");
+    encodedLine += L"\\0";
+    
+//    encodedLine += STYLE_SCRIPT;
     
     return encodedLine;
 }

@@ -15,17 +15,7 @@ THE AUTHORS OR  COPYRIGHT  HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR
 OTHER  LIABILITY,   WHETHER  IN  AN  ACTION  OF  CONTRACT,  TORT  OR  OTHERWISE,
 ARISING FROM,  OUT  OF  OR  IN  CONNECTION  WITH THE  SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.\fs14\b0
-Test
-Test
-Test
-Test
-Test
-Test
-Test
-Test
-Test
  
-Skiped Line
 \fs14\b0
 \cf#FFFF\cb#FFFFTest
 \cf#FFFF\cb#0000Test
@@ -37,7 +27,9 @@ Skiped Line
 \cf#7FE0\cb#0000Test
 \cf#7FE0\cb#7C00Test
 \cb\cf
+
 Skiped Line
+\cb3A\cb4b\cb5c\cb0
 {\pict\picw106\pich1\endian1\pixelw1
     #007C807CE07C207D, #407D807DA07DE07D, #007E407E607E807E,
     #A07EC07E007F207F, #407F607F807FA07F, #C07FE07FE07BE07B,
@@ -50,7 +42,7 @@ Skiped Line
     #FF48FF50FF54FF58, #DF60DF64BF6C9F70, #7F745F78
 }
 \b1B\b0\i1I\i0\ul1U\ul0\strike1S\strike0
-\fs10 10pt\fs12 12pt\fs14 14pt \fs16 16pt\fs18 18pt\fs20 20pt\fs22 22pt\fs
+\fs10 10pt\fs12 12pt\fs14 14pt\fs16 16pt\fs18 18pt\fs20 20pt\fs22 22pt\fs
 \li1Primary
 \li2Secondary
 \li3Tertiary\li0

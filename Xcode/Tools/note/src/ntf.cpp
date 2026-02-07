@@ -560,6 +560,14 @@ std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
             if (cmd == "pict" && value != -1) {
                 buffer.append("\\pict" + std::to_string(value));
             }
+            
+            if (cmd == "rs" && value != -1) {
+                style.superscript = value != 0;
+            }
+            
+            if (cmd == "bs" && value != -1) {
+                style.subscript = value != 0;
+            }
 
             // Skip optional space after control word
             if (i < ntf.size() && ntf[i] == ' ')

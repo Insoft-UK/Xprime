@@ -16,8 +16,8 @@
 
 |Text Formatting|Typography & Decorations|Color|?|?|Span Length|Text Offset|Text|
 |:-|:-|:----|:-|:-|:-|:-|:-|
-|\o|000111111110000[000][S]0[U][I][B]111111111|🔲🔲 `\0\0Ā\1`|`\0\0`|` ` Spaces|Base-32 or Integer|`\0`|Your Text...
-||[000]: 10pt = 1 ... 22pt = 7|🔲⬛️ `\0\0Ā\0`|`\0\0`|`x` No Space after TEXT ?
+|\o|000111111110000[000][S]0[U][I][B]111111111|🔲🔲 `\0\0Ā\1`|`\0\0`|` ` Ensures this text is spaced from the previous text.|Base-32 or Integer|`\0`|Your Text...
+||[000]: 10pt = 1 ... 22pt = 7|🔲⬛️ `\0\0Ā\0`|`\0\0`|`x` Ensures this text is not spaced from the previous text.
 ||B: [On/Off]|🔲🟧 `\0BĀ\0`
 ||I: [On/Off]|⬛️🔲 `\0\0\0\1`
 ||U: [On/Off]|⬛️⬛️ `\0\0\0\0`
