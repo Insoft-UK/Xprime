@@ -151,6 +151,8 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 `\pictN`
 - N — Picture table index (0–…)
 
+Reuse a previously added picture from the picture table.
+
 ---
 
 >[!NOTE]
