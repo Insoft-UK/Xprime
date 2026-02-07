@@ -39,21 +39,33 @@ static constexpr uint16_t STYLE_ITALIC = 1u << 11;
 static constexpr uint16_t STYLE_UNDERLINE = 1u << 12;
 static constexpr uint16_t STYLE_STRIKETHROUGH = 1u << 14;
 
-static std::wstring toBase48(uint64_t value)
+static std::wstring toBase32(uint64_t value)
 {
-    static constexpr wchar_t digits[] = LR"(0123456789abcdefghijklmnopqrstuv !"#$%&'()*+,-./)";
+    static constexpr wchar_t digits[] = LR"(0123456789abcdefghijklmnopqrstuv)";
 
     if (value == 0)
         return L"0";
 
     std::wstring result;
     while (value > 0) {
-        result.push_back(digits[value % 48]);
-        value /= 48;
+        result.push_back(digits[value % 32]);
+        value /= 32;
     }
 
     std::reverse(result.begin(), result.end());
     return result;
+}
+
+static std::wstring encodeSize(uint64_t value)
+{
+    static constexpr wchar_t digits[] = L"0123456789abcdefghijklmnopqrstuv";
+ 
+    if (value < 32)
+        return std::wstring{L'\\', digits[value]};
+    
+    return std::wstring{static_cast<wchar_t>(
+        static_cast<uint16_t>(value)
+    )};
 }
 
 static std::wstring encodeParagraphAttributes(const ntf::Align align, const ntf::Bullet bullet)
@@ -78,14 +90,14 @@ static std::wstring encodeTextAttributes(const ntf::Style style, const ntf::Font
     
 #ifdef DEBUG
     auto wstr = LR"(\o)" +
-    std::wstring(1, static_cast<wchar_t>(attributeBits)) +
+    std::wstring(1, static_cast<wchar_t>(attributeBits & 0xFFFF)) +
     std::wstring(1, static_cast<wchar_t>(attributeBits >> 16));
     
     std::cerr << utf::utf8(wstr) << "\n";
 #endif // DEBUG
     
     return LR"(\o)" +
-           std::wstring(1, static_cast<wchar_t>(attributeBits)) +
+           std::wstring(1, static_cast<wchar_t>(attributeBits & 0xFFFF)) +
            std::wstring(1, static_cast<wchar_t>(attributeBits >> 16));
 }
 
@@ -150,12 +162,6 @@ static std::wstring encodeColorAttributes(const ntf::Format format)
     }
 }
 
-static std::wstring encodeLineLength(const std::string& str)
-{
-    auto size = toBase48(str.size() % 48);
-    return str.size() < 32 ? LR"(\)" + size + LR"(\0)" : size + LR"(\0)";
-}
-
 static std::wstring encodePixel(const uint16_t color, const int run = 1)
 {
     return encodeTextAttributes({}, ntf::FontSize::Font10pt) +
@@ -189,7 +195,7 @@ static std::wstring encodeNTFPict(const std::string& str, int& lines)
     int i = 0;
     for (int y=0; y<pict.height; y++) {
         wstr.append(LR"(\0\m\0\0\0\0\n)");
-        wstr.at(wstr.size() - 5) = toBase48(static_cast<uint64_t>(pict.align)).at(0);
+        wstr.at(wstr.size() - 5) = toBase32(static_cast<uint64_t>(pict.align)).at(0);
         
         /// Compression of consecutive pixels sharing the same color.
         for (int x = 0; x < pict.width; ) {
@@ -256,7 +262,7 @@ static std::wstring encodeNTFLine(const std::string& str)
         encodedLine += LR"(\0\0 )";
         
         /// Length
-        encodedLine.append(encodeLineLength(r.text));
+        encodedLine.append(encodeSize(r.text.size()) + L"\\0");
         
         /// Text
         encodedLine.append(utf::utf16(r.text));
@@ -284,10 +290,10 @@ static std::wstring encodeNTFDocument(std::istringstream& iss) {
     }
     
     // Footer control bytes
-    wstr.append(LR"(\0\0\3\0\)");
+    wstr.append(LR"(\0\0\3\0)");
     
-    // Line count (base-48 style)
-    wstr.append(toBase48((uint64_t)lines));
+    // Line count, encoded in base-32 for values 0–31 (0–9, a–v), then standard integer notation for values 32 and higher.
+    wstr.append(encodeSize(lines));
   
     // Footer control bytes
     wstr.append(LR"(\0\0\0\0\0\0\0)");
