@@ -24,7 +24,7 @@
 
 |End of Line|
 |:-|
-|\0|
+|`\0`|
 
 >[!NOTE]
 >The 🔲 *Default* color is ⬛️ *Black* or ⬜️ *White* for foreground color, depending on whether the theme is light or dark. 🔲 *Clear* is fully transparent, regardless of the theme.
