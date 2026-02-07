@@ -3,34 +3,43 @@
 
 ## HPNote Format
 ### UTF16le
-|Line Attributes|Level|?|Alignment|?|
-|:-|:-|:-|:-|:-|
-|\0\m|\0 None|\0|\0 Left|\0\0\n|
-||\1 ●||\1 Center||
-||\2 ○||\2 Right||
-||\3 ▻||||
 
-|Text Formatting|Style & Font Size|Foreground & Background|?|?|Length|Start of Text|
-|:-|:-|:----|:-|:-|:-|
-|\o|000111111110000[000][S]0[U][I][B]111111111|🔲🔲 `\0\0Ā\1`|`\0\0`|` ` Spaces|Base-32 or Integer|`\0`|
-||[000]: 10pt = 1 ... 22pt = 7|🔲⬛️ `\0\0Ā\0`|`\0\0`|`x` No Space after TEXT ?|||
-||B: [On/Off]|🔲🟧 `\0BĀ\0`|||||
-||I: [On/Off]|⬛️🔲 `\0\0\0\1`|||||
-||U: [On/Off]|⬛️⬛️ `\0\0\0\0`|||||
-||S: [On/Off]|⬛️🟧 `\0B\1\0`|||||
-|||🟥🔲 `F0\1\1`|||||
-|||🟩⬛️ `F\0\1\0`|||||
-|||🟦🟧 `FB\1\0`|||||
+**Header**
+`CSWD110￿￿\lľ`
+
+|Start of Line|Level|?|Alignment|?|
+|:-|:-|:-|:-|:-|
+|`\0\m`|`\0` None|`\0`|`\0` Left|`\0\0\n`
+||`\1` ●||`\1` Center
+||`\2` ○||`\2` Right
+||`\3` ▻
+
+|Text Formatting|Typography & Decorations|Color|?|?|Span Length|Text Offset|Text|
+|:-|:-|:----|:-|:-|:-|:-|:-|
+|\o|000111111110000[000][S]0[U][I][B]111111111|🔲🔲 `\0\0Ā\1`|`\0\0`|` ` Spaces|Base-32 or Integer|`\0`|Your Text...
+||[000]: 10pt = 1 ... 22pt = 7|🔲⬛️ `\0\0Ā\0`|`\0\0`|`x` No Space after TEXT ?
+||B: [On/Off]|🔲🟧 `\0BĀ\0`
+||I: [On/Off]|⬛️🔲 `\0\0\0\1`
+||U: [On/Off]|⬛️⬛️ `\0\0\0\0`
+||S: [On/Off]|⬛️🟧 `\0B\1\0`
+|||🟥🔲 `F0\1\1`
+|||🟩⬛️ `F\0\1\0`
+|||🟦🟧 `FB\1\0`
 
 |End of Line|
 |:-|
-|\0|
+|`\0`|
+
+**Footer**
+|?|Base-32 or Integer|?|
+|:-|:-|:-|
+|`\0\0\3\0`|Number of Lines|`\0\0\0\0\0\0\0`
 
 >[!NOTE]
 >The 🔲 *Default* color is ⬛️ *Black* or ⬜️ *White* for foreground color, depending on whether the theme is light or dark. 🔲 *Clear* is fully transparent, regardless of the theme.
 
 >[!IMPORTANT]
->Values encoded in base-32 are marked with a leading escape character (\). Integer values are stored directly, without an escape prefix.
+>Values encoded in base-32 are marked with a leading escape character `\`. Integer values are stored directly, without an escape prefix.
 
 **F** :- Foreground UInt16le
 
