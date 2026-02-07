@@ -30,7 +30,7 @@
 >The 🔲 *Default* color is ⬛️ *Black* or ⬜️ *White* for foreground color, depending on whether the theme is light or dark. 🔲 *Clear* is fully transparent, regardless of the theme.
 
 >[!IMPORTANT]
->Values encoded in base-32 are marked with a leading escape character (\). Integer values are stored directly, without an escape prefix.
+>Values encoded in base-32 are marked with a leading escape character `\`. Integer values are stored directly, without an escape prefix.
 
 **F** :- Foreground UInt16le
 
