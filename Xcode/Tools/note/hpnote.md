@@ -5,10 +5,10 @@
 ### UTF16le
 |Start of Line|Level|?|Alignment|?|
 |:-|:-|:-|:-|:-|
-|\0\m|`\0` None|`\0`|`\0` Left|`\0\0\n`
-||\1 ●||`\1` Center
-||\2 ○||`\2` Right
-||\3 ▻
+|`\0\m`|`\0` None|`\0`|`\0` Left|`\0\0\n`
+||`\1` ●||`\1` Center
+||`\2` ○||`\2` Right
+||`\3` ▻
 
 |Text Formatting|Typography & Decorations|Color|?|?|Span Length|Text Offset|Text|
 |:-|:-|:----|:-|:-|:-|:-|:-|
