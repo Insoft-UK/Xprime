@@ -56,6 +56,7 @@ static std::wstring toBase32(uint64_t value)
     return result;
 }
 
+// Base-32 values are preceded by the escape character (\), while integer values are not.
 static std::wstring encodeSize(uint64_t value)
 {
     static constexpr wchar_t digits[] = L"0123456789abcdefghijklmnopqrstuv";
