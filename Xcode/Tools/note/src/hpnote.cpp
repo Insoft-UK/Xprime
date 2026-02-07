@@ -196,8 +196,8 @@ static std::wstring encodeNTFPict(const std::string& str, int& lines)
             int count = 1;
             int current = pict.pixels[i];
             
-            // Count consecutive occurrences
-            while (x + count < pict.width && pict.pixels[i + count] == current) {
+            
+            while (x + count < pict.width && pict.pixels[i + count] == current && count < 8) {
                 count++;
             }
             

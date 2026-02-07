@@ -46,9 +46,9 @@ static inline int hexVal(char c)
     return -1; // everything else is noise (including a–f)
 }
 
-static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
+static bool parsePict(const std::string& ntf, size_t startPos, Pict& out)
 {
-    if (rtf.compare(startPos, 6, "{\\pict") != 0)
+    if (ntf.compare(startPos, 6, "{\\pict") != 0)
         return false;
 
     size_t i = startPos + 6;
@@ -59,8 +59,8 @@ static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
 
     out.pixels.clear();
 
-    for (; i < rtf.size(); ++i) {
-        char c = rtf[i];
+    for (; i < ntf.size(); ++i) {
+        char c = ntf[i];
 
         if (c == '{') { depth++; continue; }
         if (c == '}') {
@@ -71,18 +71,32 @@ static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
 
         if (c == '\\') {
             size_t s = ++i;
-            while (i < rtf.size() && std::isalpha(rtf[i]))
+            while (i < ntf.size() && std::isalpha(ntf[i]))
                 ++i;
 
-            std::string word = rtf.substr(s, i - s);
+            std::string word = ntf.substr(s, i - s);
 
             int value = 0;
             bool hasValue = false;
-
-            if (i < rtf.size() && std::isdigit(rtf[i])) {
+            
+            // Hex color value (for fg#XXXX / bg#XXXX)
+            std::string hex;
+            if (ntf[i] == '#') {
+                i++;
+                while (i < ntf.size() && std::isxdigit(ntf[i])) {
+                    hex += ntf[i++];
+                }
+            }
+            
+            if (!hex.empty()) {
                 hasValue = true;
-                while (i < rtf.size() && std::isdigit(rtf[i])) {
-                    value = value * 10 + (rtf[i] - '0');
+                value = std::stoi(hex, nullptr, 16);
+            }
+
+            if (i < ntf.size() && std::isdigit(ntf[i])) {
+                hasValue = true;
+                while (i < ntf.size() && std::isdigit(ntf[i])) {
+                    value = value * 10 + (ntf[i] - '0');
                     ++i;
                 }
             }
@@ -418,7 +432,7 @@ std::string ntf::extractPicts(const std::string& ntf)
 
             // skip entire pict group (no output)
             i = end + 1;
-            while (ntf.at(i) <= ' ') {
+            while (i < ntf.size() && ntf.at(i) <= ' ') {
                 i++;
             }
             continue;
@@ -468,7 +482,6 @@ std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
                 cmd += ntf[i++];
             }
 
-            
             // Hex color value (for fg#XXXX / bg#XXXX)
             std::string hex;
             if (ntf[i] == '#') {
