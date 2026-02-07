@@ -3,6 +3,10 @@
 
 ## HPNote Format
 ### UTF16le
+
+**Header**
+`CSWD110￿￿\lľ`
+
 |Start of Line|Level|?|Alignment|?|
 |:-|:-|:-|:-|:-|
 |`\0\m`|`\0` None|`\0`|`\0` Left|`\0\0\n`
@@ -25,6 +29,11 @@
 |End of Line|
 |:-|
 |`\0`|
+
+**Footer**
+|?|Base-32 or Integer|?|
+|:-|:-|:-|
+|`\0\0\3\0`|Number of Lines|`\0\0\0\0\0\0\0`
 
 >[!NOTE]
 >The 🔲 *Default* color is ⬛️ *Black* or ⬜️ *White* for foreground color, depending on whether the theme is light or dark. 🔲 *Clear* is fully transparent, regardless of the theme.
