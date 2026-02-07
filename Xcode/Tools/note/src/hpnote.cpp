@@ -31,12 +31,8 @@
 #include <stdexcept>
 #include <sstream>
 #include <iomanip>
-#include <bit>
 
 using namespace hpnote;
-
-static constexpr std::wstring_view FONT_SIZE_AND_STYLE_DEFAULT = LR"(\oǿῠ)";
-static constexpr std::wstring_view FOREGROUND_AND_BACKGROUND_DEFAUL = LR"(\0\0Ā\1)";
 
 static constexpr uint16_t STYLE_BOLD = 1u << 10;
 static constexpr uint16_t STYLE_ITALIC = 1u << 11;
@@ -160,7 +156,16 @@ static std::wstring encodeLineLength(const std::string& str)
     return str.size() < 32 ? LR"(\)" + size + LR"(\0)" : size + LR"(\0)";
 }
 
-// TODO: Compression of consecutive pixels sharing the same color.
+static std::wstring encodePixel(const uint16_t color, const int run = 1)
+{
+    return encodeTextAttributes({}, ntf::FontSize::Font10pt) +
+           encodeColorAttributes({.foreground = 0xFFFF, .background = color}) +
+           LR"(\0\0x\)" +
+           std::wstring(1, static_cast<wchar_t>(run + '0')) +
+           LR"(\0)" +
+           std::wstring(run, L' ');
+}
+
 static std::wstring encodeNTFPict(const std::string& str, int& lines)
 {
     std::wstring wstr;
@@ -181,37 +186,32 @@ static std::wstring encodeNTFPict(const std::string& str, int& lines)
     
     auto pixelWidth = static_cast<int>(pict.pixelWidth);
     
-    std::wstring encodedPixel = LR"(\0\0x\)" +
-                                std::wstring(1, static_cast<wchar_t>(pixelWidth + '0')) +
-                                LR"(\0)" +
-                                std::wstring(pixelWidth, L' ');
-    
-    std::wstring encodedBlack = LR"(\o臿ῠ\0\0Ā\0)";
-    std::wstring encodedColor = LR"(\o臿ῠ\0 Ā\0)";
-    
     int i = 0;
     for (int y=0; y<pict.height; y++) {
         wstr.append(LR"(\0\m\0\0\0\0\n)");
         wstr.at(wstr.size() - 5) = toBase48(static_cast<uint64_t>(pict.align)).at(0);
         
-        for (int x=0; x<pict.width; x++) {
-            uint16_t c;
-            if (pict.endian == ntf::Endian::Little) {
-                c = std::byteswap(pict.pixels[i]);
-            } else {
-                c = pict.pixels[i];
+        /// Compression of consecutive pixels sharing the same color.
+        for (int x = 0; x < pict.width; ) {
+            int count = 1;
+            int current = pict.pixels[i];
+            
+            // Count consecutive occurrences
+            while (x + count < pict.width && pict.pixels[i + count] == current) {
+                count++;
             }
-            if (c == 0) {
-                wstr.append(encodedBlack);
-            } else {
-                if (c == pict.keycolor)
-                    c = 0xFFFF;
-                encodedColor.at(6) = c;
-                wstr.append(encodedColor);
-            }
-            wstr.append(encodedPixel);
-            i++;
+            
+            if (current == pict.keycolor)
+                current = 0xFFFF;
+            
+            // Encode the pixel with current color
+            wstr.append(encodePixel(current, count * pixelWidth));
+            
+            // Move to next different color
+            x += count;
+            i += count;
         }
+        
         wstr.append(LR"(\0)");
         
         lines++;
@@ -231,7 +231,7 @@ static std::wstring encodeNTFLine(const std::string& str)
         std::cerr << ++lines << ":\n";
         ntf::printRuns(runs);
         std::cerr << "\n";
-#endif
+#endif // DEBUG
     
     if (!runs.size()) {
         /// Blank line

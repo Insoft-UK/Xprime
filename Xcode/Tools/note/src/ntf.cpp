@@ -25,6 +25,7 @@
 #include <regex>
 #include <iomanip>
 #include <sstream>
+#include <bit>
 
 #define PICT_MAX_WIDTH 106
 
@@ -103,6 +104,9 @@ static bool parsePict(const std::string& rtf, size_t startPos, Pict& out)
         if (v >= 0) {
             pixel = (pixel << 4) | v;
             if (++nibbleCount == 4) {
+                if (out.endian == ntf::Endian::Little) {
+                    pixel = std::byteswap(pixel);
+                }
                 out.pixels.push_back(pixel);
                 pixel = 0;
                 nibbleCount = 0;
