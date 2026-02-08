@@ -11,6 +11,7 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 `blar blar blar blar ...` Ends with two zero bytes (0x00) as a termination marker.
 
 **Header**
+
 `CSWD110￿￿\lľ`
 
 |Start of Line|Level|?|Alignment|?|
