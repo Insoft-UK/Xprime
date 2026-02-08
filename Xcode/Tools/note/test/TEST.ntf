@@ -22,14 +22,13 @@ OTHER DEALINGS IN THE SOFTWARE.\fs14\b0\fs14\b0
 
 \cf#FFFF\cb#FFFFTest
 \cf#FFFF\cb#0000Test
-\cf#FFFF\cb#7C00Test
+\cf#FFFF\cb#7E80Test
 \cf#0000\cb#FFFFTest
 \cf#0000\cb#0000Test
-\cf#0000\cb#7C00Test
-\cf#7FE0\cb#FFFFTest
-\cf#7FE0\cb#0000Test
-\cf#7FE0\cb#7C00Test
-\cb\cf
+\cf#0000\cb#7E80Test
+\cf#7C00\cb#FFFFTest
+\cf#03E0\cb#0000Test
+\cf#001F\cb#7E80Test\cb\cf
 
 Skiped Line
 \cb3A\cb4b\cb5c\cb0

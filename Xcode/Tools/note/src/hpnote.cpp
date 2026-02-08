@@ -48,7 +48,7 @@ static constexpr std::u16string_view STYLE_SCRIPT = u"\\0\\m\\0\\0\\0\\0\\n\\oè‡
 #include <climits>
 
 // Base-32 values are preceded by the escape character (\), while integer values are not.
-static std::u16string encodeValue(uint64_t value)
+static std::u16string encodeValue(uint16_t value)
 {
     static constexpr char16_t digits[] = u"0123456789abcdefghijklmnopqrstuv";
  
@@ -85,16 +85,11 @@ static std::u16string encodeTextAttributes(const ntf::Style style, const ntf::Fo
            std::u16string(1, static_cast<char16_t>(attributeBits >> 16));
 }
 
-static std::u16string encodeColor(const ntf::Color color)
-{
-    return color ? std::u16string(1, static_cast<char16_t>(color)) : u"\\0";
-}
-
 static std::u16string encodeColorAttributes(const ntf::Format format)
 {
     return
-        (format.foreground == 0xFFFF || format.foreground == 0 ? u"\\0" : std::u16string(1, static_cast<char16_t>(format.foreground ))) +
-        (format.background == 0xFFFF || format.background == 0 ? u"\\0" : std::u16string(1, static_cast<char16_t>(format.background))) +
+        (format.foreground == 0xFFFF || format.foreground == 0 ? u"\\0" : encodeValue(format.foreground)) +
+        (format.background == 0xFFFF || format.background == 0 ? u"\\0" : encodeValue(format.background)) +
         (format.foreground == 0xFFFF ? u"Ä€" : format.foreground ? u"\\1" : u"\\0") +
         (format.background == 0xFFFF ? u"\\1" : u"\\0");
 }
