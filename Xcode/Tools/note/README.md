@@ -61,34 +61,43 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 >To support future RTF compatibility and RTF-to-NTF conversion, several changes have been made to NTF. Toggle-style formatting replaced with explicit state-setting control words, matching RTF semantics (for example, `\b` treated as shorthand for `\b1`). Additionally, `\u` replaced with `\ul` to avoid conflicts with RTF Unicode control words.
 
 ### Bold
-- `\b0` — disable bold  
-- `\b1` or `\b ` — enable bold
+- `\b0` – disable bold  
+- `\b1` or `\b ` – enable bold
 
 ### Italic
-- `\i0` — Disable italic  
-- `\i1` or `\i ` — enable italic
+- `\i0` – Disable italic  
+- `\i1` or `\i ` – enable italic
 
 ### Underline
-- `\ul0` — disable underline  
-- `\ul1` or `ul ` — enable underline 
+- `\ul0` – disable underline  
+- `\ul1` or `ul ` – enable underline 
 
 ### Strikethrough
-- `\srike0` — disable strikethrough  
-- `\strike1` or `\strike ` — enable strikethrough 
+- `\srike0` – disable strikethrough  
+- `\strike1` or `\strike ` — enable strikethrough
+
+### Superscript
+- `\super0` – disable superscript  
+- `\super1` or `\super ` — enable superscript
+
+### Subscript
+- `\sub0` – disable subscript  
+- `\sub1` or `\sub ` — enable subscript 
 
 ---
 
 ### Text Alignment
-- `\ql` — left-aligned text (default)  
-- `\qc` — center-aligned text  
-- `\qr` — right-aligned text  
+- `\ql` – left-aligned text (default)  
+- `\qc` – center-aligned text  
+- `\qr` – right-aligned text  
 
 ---
 
 ### Font Size
 `fsN` N = font size
-- `\fs22` → 22-point font
-- `\fs8` → 8-point font
+- `\fs22` – 22-point font
+- `\fs8` – 8-point font
+- `\fs ` – 14-point font (default)
 
 In RichText, the font size values are effectively doubled compared to what you might expect. That means:
 
@@ -103,16 +112,16 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 ---
 
 ### Foreground (Text Color)
-- `\cfN` → N 0 default 1-... Color Table
-- `\cf0` or `\cf ` — default color (black/white) depending on theme
+- `\cfN` – N 0 default 1-... Color Table
+- `\cf0` or `\cf ` – default color (black/white) depending on theme
 
 >[!IMPORTANT]
 >When specifying a hex value, e.g., `\cf#7FFF`, it is interpreted as an explicit RGB555 color rather than as an index into the default color table.
 
 ### Background
 - `\cbN` → N 0 default 1-... Color Table
-- `\cb0` or `\cb ` — default color (transparent)
-- `\highlightN` → N 0 default 1-... Color Table
+- `\cb0` or `\cb ` – default color (transparent)
+- `\highlightN` – N 0 default 1-... Color Table
 
 >[!IMPORTANT]
 >When specifying a hex value, e.g., `\cb#7FFF`, it is interpreted as an explicit RGB555 color rather than as an index into the default color table.
@@ -120,10 +129,10 @@ So whenever you read a font size from RichText, you need to divide by 2 to get t
 ---
 
 ### Bullets
-- `\li0` — No bullet  
-- `\li1` — ●  
-- `\li2` — 　○  
-- `\li3` — 　　▷
+- `\li0` – No bullet  
+- `\li1` – ●  
+- `\li2` – 　○  
+- `\li3` – 　　▷
 
 ---
 
