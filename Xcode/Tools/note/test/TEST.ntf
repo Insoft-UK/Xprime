@@ -1,4 +1,8 @@
-\fs8\b1Permission is hereby granted, free of charge, to any person obtaining a copy of this
+\fs14\b1The MIT License (MIT)
+\fs8
+\fs10Copyright (c) 2026 Insoft.
+\fs8
+\fs8Permission is hereby granted, free of charge, to any person obtaining a copy of this
 software  and  associated  documentation  files  (the "Software"),  to  deal  in the
 Software without restriction,  including  without  limitation  the rights  to  use,  copy,
 modify,  merge,  publish,  distribute,  sublicense, and/or sell copies of the Software,
@@ -30,6 +34,13 @@ OTHER DEALINGS IN THE SOFTWARE.\fs14\b0
 
 Skiped Line
 \cb3A\cb4b\cb5c\cb0
+
+\sup1Superscrip
+\sup0blar...blar...blar...
+...blar...blar...blar
+\sub1Subscript
+\sub0blar...blar...blar...
+
 {\pict\picw106\pich1\endian1\pixelw1
     #007C807CE07C207D, #407D807DA07DE07D, #007E407E607E807E,
     #A07EC07E007F207F, #407F607F807FA07F, #C07FE07FE07BE07B,
@@ -42,7 +53,7 @@ Skiped Line
     #FF48FF50FF54FF58, #DF60DF64BF6C9F70, #7F745F78
 }
 \b1B\b0\i1I\i0\ul1U\ul0\strike1S\strike0
-\fs10 10pt\fs12 12pt\fs14 14pt\fs16 16pt\fs18 18pt\fs20 20pt\fs22 22pt\fs
+\fs10 10pt \fs12 12pt \fs14 14pt \fs16 16pt \fs18 18pt \fs20 20pt \fs22 22pt \fs
 \li1Primary
 \li2Secondary
 \li3Tertiary\li0

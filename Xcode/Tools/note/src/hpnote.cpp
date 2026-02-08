@@ -211,12 +211,11 @@ static std::wstring encodeNTFLine(const std::string& str)
     std::wstring encodedLine;
     
     auto runs = ntf::parseNTF(str);
+    auto style = ntf::currentStyleState();
+    auto format = ntf::currentFormatState();
     
     if (!runs.size()) {
-        /// Blank line
-        auto style = ntf::currentStyleState();
-        auto format = ntf::currentFormatState();
-        
+        // Blank line
         encodedLine += encodeParagraphAttributes(ntf::Align::Left, ntf::Bullet::None);
         encodedLine += encodeTextAttributes(style, format.fontSize);
         encodedLine += encodeColorAttributes(format);
@@ -242,7 +241,10 @@ static std::wstring encodeNTFLine(const std::string& str)
     }
     encodedLine += L"\\0";
     
-//    encodedLine += STYLE_SCRIPT;
+    if (style.superscript)
+        encodedLine += STYLE_SCRIPT;
+    else if (style.subscript)
+        return encodedLine.insert(0, STYLE_SCRIPT);
     
     return encodedLine;
 }
