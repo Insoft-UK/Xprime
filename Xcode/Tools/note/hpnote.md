@@ -33,6 +33,11 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 |||🟩⬛️ `F\0\1\0`
 |||🟦🟧 `FB\1\0`
 
+**BASE-32**<\br>`0123456789abcdefghijklmnopqrstuv`
+
+**F** :- Foreground UInt16le</br>
+**B** :- Background UInt16le
+
 |End of Line|
 |:-|
 |`\0`|
@@ -48,6 +53,4 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 >[!IMPORTANT]
 >Values encoded in base-32 are marked with a leading escape character `\`. Integer values are stored directly, without an escape prefix.
 
-**F** :- Foreground UInt16le
 
-**B** :- Background UInt16le
