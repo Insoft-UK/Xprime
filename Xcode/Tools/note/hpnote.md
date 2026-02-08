@@ -8,7 +8,7 @@
 
 The plain text fallback is a duplicate of the note’s content stored at the start of the .hpnote file, with all formatting, styles, and colors removed. It is not normally displayed, but serves as a backup: if the main formatted content cannot be read or is invalid, the plain text version is used instead to ensure the note’s content remains accessible.
 
-`blar blar blar blar ...` Ends with four zero bytes (0x00) as a termination marker.
+`blar blar blar blar ...` Ends with two zero bytes (0x00) as a termination marker.
 
 **Header**
 `CSWD110￿￿\lľ`
