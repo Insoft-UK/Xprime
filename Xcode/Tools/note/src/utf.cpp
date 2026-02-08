@@ -123,12 +123,36 @@ std::wstring utf::utf16(const std::u16string& s)
 
 std::u16string utf::u16(const std::string& s)
 {
+    auto ws = utf16(s);
+    return u16(ws);
+}
+
+std::u16string utf::u16(const std::wstring& s)
+{
+#if WCHAR_MAX == 0xFFFF
+    // Windows: wchar_t is UTF-16
+    return std::u16string(s.begin(), s.end());
+#else
+    // macOS/Linux: wchar_t is UTF-32
     std::u16string out;
     out.reserve(s.size());
-    for (unsigned char c : s) {
-        out.push_back(static_cast<char16_t>(c));
+
+    for (wchar_t wc : s) {
+        char32_t cp = static_cast<char32_t>(wc);
+
+        if (cp <= 0xFFFF) {
+            // BMP character
+            out.push_back(static_cast<char16_t>(cp));
+        } else {
+            // Non-BMP character → surrogate pair
+            cp -= 0x10000;
+            out.push_back(static_cast<char16_t>(0xD800 + (cp >> 10)));
+            out.push_back(static_cast<char16_t>(0xDC00 + (cp & 0x3FF)));
+        }
     }
+
     return out;
+#endif
 }
 
 static uint16_t convertUTF8ToUTF16(const char* str)
@@ -392,3 +416,28 @@ size_t utf::size(const std::wstring& s)
     return s.size();
 #endif
 }
+
+size_t utf::size(const std::u16string& s)
+{
+    size_t count = 0;
+
+    for (size_t i = 0; i < s.size(); ++i) {
+        char16_t c = s[i];
+
+        // If this is a high surrogate and followed by a low surrogate,
+        // consume both but count only once
+        if (c >= 0xD800 && c <= 0xDBFF) {
+            if (i + 1 < s.size()) {
+                char16_t low = s[i + 1];
+                if (low >= 0xDC00 && low <= 0xDFFF) {
+                    ++i; // skip low surrogate
+                }
+            }
+        }
+
+        ++count;
+    }
+
+    return count;
+}
+

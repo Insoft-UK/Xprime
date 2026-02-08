@@ -38,6 +38,7 @@ namespace utf {
     std::wstring utf16(const std::string& s);
     std::wstring utf16(const std::u16string& s);
     std::u16string u16(const std::string& s);
+    std::u16string u16(const std::wstring& s);
     std::string read(std::ifstream& is);
     std::wstring read(std::ifstream& is, BOM bom);
     std::string load(const std::filesystem::path& path);
@@ -50,4 +51,5 @@ namespace utf {
     BOM bom(const std::filesystem::path& path);
     size_t size(const std::string& s);
     size_t size(const std::wstring& s);
+    size_t size(const std::u16string& s);
 };

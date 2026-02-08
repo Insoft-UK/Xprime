@@ -93,68 +93,10 @@ static std::u16string encodeColor(const ntf::Color color)
 static std::u16string encodeColorAttributes(const ntf::Format format)
 {
     return
-        (format.foreground ? std::u16string(1, static_cast<char16_t>(format.foreground )) : u"\\0") +
-        (format.background ? std::u16string(1, static_cast<char16_t>(format.background)) : u"\\0") +
+        (format.foreground == 0xFFFF || format.foreground == 0 ? u"\\0" : std::u16string(1, static_cast<char16_t>(format.foreground ))) +
+        (format.background == 0xFFFF || format.background == 0 ? u"\\0" : std::u16string(1, static_cast<char16_t>(format.background))) +
         (format.foreground == 0xFFFF ? u"Ā" : format.foreground ? u"\\1" : u"\\0") +
         (format.background == 0xFFFF ? u"\\1" : u"\\0");
-
-//    switch (format.foreground) {
-//        case 0xFFFF:
-//            /// Default: Black for Light Mode, White for Dark Mode
-//            switch (format.background) {
-//                case 0xFFFF:
-//                    /// Clear
-//                    return uR"(\0\0Ā\1)";
-//                    
-//                case 0:
-//                    /// Black
-//                    return uR"(\0\0Ā\0)";
-//                    
-//                default:
-//                    /// Color
-//                    return uR"(\0)" +
-//                           encodeColor(format.background) +
-//                           uR"(Ā\0)";
-//            }
-//            
-//        case 0:
-//            /// Black
-//            switch (format.background) {
-//                case 0xFFFF:
-//                    /// Clear
-//                    return uR"(\0\0\0\1)";
-//                    
-//                case 0:
-//                    /// Black
-//                    return uR"(\0\0\0\0)";
-//                    
-//                default:
-//                    /// Color
-//                    return uR"(\0)" +
-//                           encodeColor(format.background) +
-//                           uR"(\1\0)";
-//            }
-//            
-//        default:
-//            /// Color
-//            switch (format.background) {
-//                case 0xFFFF:
-//                    /// Clear
-//                    return encodeColor(format.foreground) +
-//                           uR"(0\1\1)";
-//                    
-//                case 0:
-//                    /// Black
-//                    return encodeColor(format.foreground) +
-//                           uR"(\0\1\0)";
-//                    
-//                default:
-//                    /// Color
-//                    return encodeColor(format.foreground) +
-//                           encodeColor(format.background) +
-//                           uR"(\1\0)";
-//            }
-//    }
 }
 
 static std::u16string encodePixel(const uint16_t color, const int run = 1)
