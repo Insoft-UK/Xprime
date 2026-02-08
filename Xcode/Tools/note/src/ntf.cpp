@@ -642,6 +642,10 @@ std::string ntf::markdownToNTF(const std::string& md)
     re = R"(- )";
     ntf = std::regex_replace(ntf, re, R"(\li1 )");
     
+    re = "-{3}";
+    ntf = std::regex_replace(ntf, re, R"(\fs10\qc———————————————————————————————\ql\fs14)");
+    
+     
     return ntf;
 }
 

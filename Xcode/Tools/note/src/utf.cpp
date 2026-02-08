@@ -309,3 +309,31 @@ utf::BOM utf::bom(const std::filesystem::path& path) {
     
     return bom;
 }
+
+size_t utf::size(const std::string& s) {
+    size_t count = 0;
+    for (unsigned char c : s) {
+        if ((c & 0b1100'0000) != 0b1000'0000) {
+            ++count; // start of a UTF-8 code point
+        }
+    }
+    return count;
+}
+
+size_t utf::size(const std::wstring& s) {
+#if WCHAR_MAX == 0xFFFF
+    // Windows → UTF-16
+    size_t count = 0;
+    for (size_t i = 0; i < s.size(); ++i) {
+        wchar_t c = s[i];
+        // count only non-surrogate code units
+        if (c < 0xD800 || c > 0xDBFF) {
+            ++count;
+        }
+    }
+    return count;
+#else
+    // Linux/macOS → UTF-32
+    return s.size();
+#endif
+}

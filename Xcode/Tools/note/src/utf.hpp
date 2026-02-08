@@ -46,4 +46,6 @@ namespace utf {
     bool save(const std::filesystem::path& path, const std::wstring& wstr, BOM bom = BOMle);
     BOM bom(std::ifstream& is);
     BOM bom(const std::filesystem::path& path);
+    size_t size(const std::string& s);
+    size_t size(const std::wstring& s);
 };

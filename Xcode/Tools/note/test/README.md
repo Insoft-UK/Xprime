@@ -7,6 +7,8 @@
 ==Highlight==
 
 Plain text
+Division
+---
 \qc Center Alignment Text
 \qr Right Alignment Text\ql
 *Italic*

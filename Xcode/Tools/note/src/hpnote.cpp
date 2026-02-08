@@ -234,7 +234,8 @@ static std::wstring encodeNTFLine(const std::string& str)
         encodedLine += L"\\0\\0x";
         
         /// Length
-        encodedLine.append(encodeValue(r.text.size()) + L"\\0");
+        auto length = utf::size(r.text);
+        encodedLine.append(encodeValue(length) + L"\\0");
         
         /// Text
         encodedLine.append(utf::utf16(r.text));
