@@ -22,12 +22,13 @@
 
 #include "utf.hpp"
 
-std::string utf::utf8(const std::wstring& wstr) {
+std::string utf::utf8(const std::wstring& s)
+{
     std::string utf8;
     uint16_t utf16 = 0;
 
-    for (size_t i = 0; i < wstr.size(); i++) {
-        utf16 = static_cast<uint16_t>(wstr[i]);
+    for (size_t i = 0; i < s.size(); i++) {
+        utf16 = static_cast<uint16_t>(s[i]);
 
         if (utf16 <= 0x007F) {
             // 1-byte UTF-8: 0xxxxxxx
@@ -47,13 +48,13 @@ std::string utf::utf8(const std::wstring& wstr) {
     return utf8;
 }
 
-
-std::wstring utf::utf16(const std::string& str) {
+std::wstring utf::utf16(const std::string& s)
+{
     std::wstring utf16;
     size_t i = 0;
 
-    while (i < str.size()) {
-        uint8_t byte1 = static_cast<uint8_t>(str[i]);
+    while (i < s.size()) {
+        uint8_t byte1 = static_cast<uint8_t>(s[i]);
 
         if ((byte1 & 0b10000000) == 0) {
             // 1-byte UTF-8: 0xxxxxxx
@@ -61,8 +62,8 @@ std::wstring utf::utf16(const std::string& str) {
             i += 1;
         } else if ((byte1 & 0b11100000) == 0b11000000) {
             // 2-byte UTF-8: 110xxxxx 10xxxxxx
-            if (i + 1 >= str.size()) break;
-            uint8_t byte2 = static_cast<uint8_t>(str[i + 1]);
+            if (i + 1 >= s.size()) break;
+            uint8_t byte2 = static_cast<uint8_t>(s[i + 1]);
 
             uint16_t ch = ((byte1 & 0b00011111) << 6) |
                           (byte2 & 0b00111111);
@@ -70,9 +71,9 @@ std::wstring utf::utf16(const std::string& str) {
             i += 2;
         } else if ((byte1 & 0b11110000) == 0b11100000) {
             // 3-byte UTF-8: 1110xxxx 10xxxxxx 10xxxxxx
-            if (i + 2 >= str.size()) break;
-            uint8_t byte2 = static_cast<uint8_t>(str[i + 1]);
-            uint8_t byte3 = static_cast<uint8_t>(str[i + 2]);
+            if (i + 2 >= s.size()) break;
+            uint8_t byte2 = static_cast<uint8_t>(s[i + 1]);
+            uint8_t byte3 = static_cast<uint8_t>(s[i + 2]);
 
             uint16_t ch = ((byte1 & 0b00001111) << 12) |
                           ((byte2 & 0b00111111) << 6) |
@@ -88,8 +89,50 @@ std::wstring utf::utf16(const std::string& str) {
     return utf16;
 }
 
+std::wstring utf::utf16(const std::u16string& s)
+{
+#if WCHAR_MAX == 0xFFFF
+    // Windows: wchar_t is UTF-16
+    return std::wstring(s.begin(), s.end());
+#else
+    // macOS/Linux: wchar_t is UTF-32, need surrogate pair decoding
+    std::wstring out;
+    out.reserve(s.size());
 
-static uint16_t convertUTF8ToUTF16(const char* str) {
+    for (size_t i = 0; i < s.size(); ++i) {
+        char16_t c = s[i];
+
+        // Check for high surrogate
+        if (c >= 0xD800 && c <= 0xDBFF && i + 1 < s.size()) {
+            char16_t low = s[++i];
+            if (low >= 0xDC00 && low <= 0xDFFF) {
+                char32_t codepoint =
+                    ((c - 0xD800) << 10) + (low - 0xDC00) + 0x10000;
+                out.push_back(static_cast<wchar_t>(codepoint));
+                continue;
+            }
+        }
+
+        // BMP character
+        out.push_back(static_cast<wchar_t>(c));
+    }
+
+    return out;
+#endif
+}
+
+std::u16string utf::u16(const std::string& s)
+{
+    std::u16string out;
+    out.reserve(s.size());
+    for (unsigned char c : s) {
+        out.push_back(static_cast<char16_t>(c));
+    }
+    return out;
+}
+
+static uint16_t convertUTF8ToUTF16(const char* str)
+{
     uint8_t *utf8 = (uint8_t *)str;
     uint16_t utf16 = *utf8;
     
@@ -113,7 +156,8 @@ static uint16_t convertUTF8ToUTF16(const char* str) {
     return utf16;
 }
 
-std::string utf::read(std::ifstream& is) {
+std::string utf::read(std::ifstream& is)
+{
     if (!is) throw std::runtime_error("Cannot open file");
 
     std::string str((std::istreambuf_iterator<char>(is)),
@@ -122,7 +166,8 @@ std::string utf::read(std::ifstream& is) {
     return str;
 }
 
-std::wstring utf::read(std::ifstream& is, BOM bom) {
+std::wstring utf::read(std::ifstream& is, BOM bom)
+{
     std::wstring wstr;
     
     if (bom != BOMnone) {
@@ -164,7 +209,8 @@ std::wstring utf::read(std::ifstream& is, BOM bom) {
     return wstr;
 }
 
-std::string utf::load(const std::filesystem::path& path) {
+std::string utf::load(const std::filesystem::path& path)
+{
     std::string str;
     std::ifstream is;
     
@@ -178,7 +224,8 @@ std::string utf::load(const std::filesystem::path& path) {
 }
 
 
-std::wstring utf::load(const std::filesystem::path& path, BOM bom) {
+std::wstring utf::load(const std::filesystem::path& path, BOM bom)
+{
     std::wstring wstr;
     std::ifstream is;
     
@@ -192,7 +239,8 @@ std::wstring utf::load(const std::filesystem::path& path, BOM bom) {
 }
 
 
-size_t utf::write(std::ofstream& os, const std::string& str) {
+size_t utf::write(std::ofstream& os, const std::string& str)
+{
     if (str.empty()) return 0;
 
     os.write(str.data(), str.size());
@@ -200,7 +248,8 @@ size_t utf::write(std::ofstream& os, const std::string& str) {
 }
 
 
-size_t utf::write(std::ofstream& os, const std::wstring& wstr, BOM bom) {
+size_t utf::write(std::ofstream& os, const std::wstring& wstr, BOM bom)
+{
     if (wstr.empty()) return 0;
     
     if (bom == BOMle) {
@@ -247,7 +296,8 @@ size_t utf::write(std::ofstream& os, const std::wstring& wstr, BOM bom) {
 }
 
 
-bool utf::save(const std::filesystem::path& path, const std::string& str) {
+bool utf::save(const std::filesystem::path& path, const std::string& str)
+{
     std::ofstream os;
     
     os.open(path, std::ios::out | std::ios::binary);
@@ -259,7 +309,8 @@ bool utf::save(const std::filesystem::path& path, const std::string& str) {
     return true;
 }
 
-bool utf::save(const std::filesystem::path& path, const std::wstring& wstr, BOM bom) {
+bool utf::save(const std::filesystem::path& path, const std::wstring& wstr, BOM bom)
+{
     std::ofstream os;
     
     os.open(path, std::ios::out | std::ios::binary);
@@ -271,7 +322,8 @@ bool utf::save(const std::filesystem::path& path, const std::wstring& wstr, BOM 
     return true;
 }
 
-utf::BOM utf::bom(std::ifstream& is) {
+utf::BOM utf::bom(std::ifstream& is)
+{
     if(!is.is_open()) return BOMnone;
     
     uint16_t byte_order_mark;
@@ -298,7 +350,8 @@ utf::BOM utf::bom(std::ifstream& is) {
     return BOMnone;
 }
 
-utf::BOM utf::bom(const std::filesystem::path& path) {
+utf::BOM utf::bom(const std::filesystem::path& path)
+{
     std::ifstream is;
     
     is.open(path, std::ios::in | std::ios::binary);
@@ -310,7 +363,8 @@ utf::BOM utf::bom(const std::filesystem::path& path) {
     return bom;
 }
 
-size_t utf::size(const std::string& s) {
+size_t utf::size(const std::string& s)
+{
     size_t count = 0;
     for (unsigned char c : s) {
         if ((c & 0b1100'0000) != 0b1000'0000) {
@@ -320,7 +374,8 @@ size_t utf::size(const std::string& s) {
     return count;
 }
 
-size_t utf::size(const std::wstring& s) {
+size_t utf::size(const std::wstring& s)
+{
 #if WCHAR_MAX == 0xFFFF
     // Windows → UTF-16
     size_t count = 0;

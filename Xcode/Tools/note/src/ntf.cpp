@@ -561,11 +561,11 @@ std::vector<TextRun> ntf::parseNTF(const std::string& ntf)
                 buffer.append("\\pict" + std::to_string(value));
             }
             
-            if (cmd == "sup" && value != -1) {
+            if (cmd == "super") {
                 style.superscript = value != 0;
             }
             
-            if (cmd == "sub" && value != -1) {
+            if (cmd == "sub") {
                 style.subscript = value != 0;
             }
 

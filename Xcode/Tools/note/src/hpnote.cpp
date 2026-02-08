@@ -39,31 +39,37 @@ static constexpr uint16_t STYLE_ITALIC = 1u << 11;
 static constexpr uint16_t STYLE_UNDERLINE = 1u << 12;
 static constexpr uint16_t STYLE_STRIKETHROUGH = 1u << 14;
 
-static constexpr std::wstring_view STYLE_SCRIPT = L"\\0\\m\\0\\0\\0\\0\\n\\o臿ῡ\\0\\0Ā\\1\\0\\0x\\0\\0\\0";
+static constexpr std::u16string_view STYLE_SCRIPT = u"\\0\\m\\0\\0\\0\\0\\n\\o臿ῡ\\0\\0Ā\\1\\0\\0x\\0\\0\\0";
+
+#include <string>
+#include <climits>
+
+#include <string>
+#include <climits>
 
 // Base-32 values are preceded by the escape character (\), while integer values are not.
-static std::wstring encodeValue(uint64_t value)
+static std::u16string encodeValue(uint64_t value)
 {
-    static constexpr wchar_t digits[] = L"0123456789abcdefghijklmnopqrstuv";
+    static constexpr char16_t digits[] = u"0123456789abcdefghijklmnopqrstuv";
  
     if (value < 32)
-        return std::wstring{L'\\', digits[value]};
+        return std::u16string{L'\\', digits[value]};
     
-    return std::wstring{static_cast<wchar_t>(
+    return std::u16string{static_cast<char16_t>(
         static_cast<uint16_t>(value)
     )};
 }
 
-static std::wstring encodeParagraphAttributes(const ntf::Align align, const ntf::Bullet bullet)
+static std::u16string encodeParagraphAttributes(const ntf::Align align, const ntf::Bullet bullet)
 {
-    return L"\\0\\m" +
+    return u"\\0\\m" +
            encodeValue(static_cast<uint64_t>(bullet)) +
-           L"\\0" +
+           u"\\0" +
            encodeValue(static_cast<uint64_t>(align)) +
-           L"\\0\\n";
+           u"\\0\\n";
 }
 
-static std::wstring encodeTextAttributes(const ntf::Style style, const ntf::FontSize fontSize)
+static std::u16string encodeTextAttributes(const ntf::Style style, const ntf::FontSize fontSize)
 {
     uint32_t attributeBits = 0x1FE001FF;
     
@@ -74,85 +80,96 @@ static std::wstring encodeTextAttributes(const ntf::Style style, const ntf::Font
     
     attributeBits |= static_cast<uint32_t>(fontSize) << 15;
     
-    return L"\\o" +
-           std::wstring(1, static_cast<wchar_t>(attributeBits & 0xFFFF)) +
-           std::wstring(1, static_cast<wchar_t>(attributeBits >> 16));
+    return u"\\o" +
+           std::u16string(1, static_cast<char16_t>(attributeBits & 0xFFFF)) +
+           std::u16string(1, static_cast<char16_t>(attributeBits >> 16));
 }
 
-static std::wstring encodeColorAttributes(const ntf::Format format)
+static std::u16string encodeColor(const ntf::Color color)
 {
-    switch (format.foreground) {
-        case 0xFFFF:
-            /// Default: Black for Light Mode, White for Dark Mode
-            switch (format.background) {
-                case 0xFFFF:
-                    /// Clear
-                    return LR"(\0\0Ā\1)";
-                    
-                case 0:
-                    /// Black
-                    return LR"(\0\0Ā\0)";
-                    
-                default:
-                    /// Color
-                    return LR"(\0)" +
-                           std::wstring(1, static_cast<wchar_t>(format.background)) +
-                           LR"(Ā\0)";
-            }
-            
-        case 0:
-            /// Black
-            switch (format.background) {
-                case 0xFFFF:
-                    /// Clear
-                    return LR"(\0\0\0\1)";
-                    
-                case 0:
-                    /// Black
-                    return LR"(\0\0\0\0)";
-                    
-                default:
-                    /// Color
-                    return LR"(\0)" +
-                           std::wstring(1, static_cast<wchar_t>(format.background)) +
-                           LR"(\1\0)";
-            }
-            
-        default:
-            /// Color
-            switch (format.background) {
-                case 0xFFFF:
-                    /// Clear
-                    return std::wstring(1, static_cast<wchar_t>(format.foreground)) +
-                           LR"(0\1\1)";
-                    
-                case 0:
-                    /// Black
-                    return std::wstring(1, static_cast<wchar_t>(format.foreground)) +
-                           LR"(\0\1\0)";
-                    
-                default:
-                    /// Color
-                    return std::wstring(1, static_cast<wchar_t>(format.foreground)) +
-                           std::wstring(1, static_cast<wchar_t>(format.background)) +
-                           LR"(\1\0)";
-            }
-    }
+    return color ? std::u16string(1, static_cast<char16_t>(color)) : u"\\0";
 }
 
-static std::wstring encodePixel(const uint16_t color, const int run = 1)
+static std::u16string encodeColorAttributes(const ntf::Format format)
+{
+    return
+        (format.foreground ? std::u16string(1, static_cast<char16_t>(format.foreground )) : u"\\0") +
+        (format.background ? std::u16string(1, static_cast<char16_t>(format.background)) : u"\\0") +
+        (format.foreground == 0xFFFF ? u"Ā" : format.foreground ? u"\\1" : u"\\0") +
+        (format.background == 0xFFFF ? u"\\1" : u"\\0");
+
+//    switch (format.foreground) {
+//        case 0xFFFF:
+//            /// Default: Black for Light Mode, White for Dark Mode
+//            switch (format.background) {
+//                case 0xFFFF:
+//                    /// Clear
+//                    return uR"(\0\0Ā\1)";
+//                    
+//                case 0:
+//                    /// Black
+//                    return uR"(\0\0Ā\0)";
+//                    
+//                default:
+//                    /// Color
+//                    return uR"(\0)" +
+//                           encodeColor(format.background) +
+//                           uR"(Ā\0)";
+//            }
+//            
+//        case 0:
+//            /// Black
+//            switch (format.background) {
+//                case 0xFFFF:
+//                    /// Clear
+//                    return uR"(\0\0\0\1)";
+//                    
+//                case 0:
+//                    /// Black
+//                    return uR"(\0\0\0\0)";
+//                    
+//                default:
+//                    /// Color
+//                    return uR"(\0)" +
+//                           encodeColor(format.background) +
+//                           uR"(\1\0)";
+//            }
+//            
+//        default:
+//            /// Color
+//            switch (format.background) {
+//                case 0xFFFF:
+//                    /// Clear
+//                    return encodeColor(format.foreground) +
+//                           uR"(0\1\1)";
+//                    
+//                case 0:
+//                    /// Black
+//                    return encodeColor(format.foreground) +
+//                           uR"(\0\1\0)";
+//                    
+//                default:
+//                    /// Color
+//                    return encodeColor(format.foreground) +
+//                           encodeColor(format.background) +
+//                           uR"(\1\0)";
+//            }
+//    }
+}
+
+static std::u16string encodePixel(const uint16_t color, const int run = 1)
 {
     return encodeTextAttributes({}, ntf::FontSize::Font10pt) +
            encodeColorAttributes({.foreground = 0xFFFF, .background = color}) +
-           L"\\0\\0x\\" +
-           std::wstring(1, static_cast<wchar_t>(run + '0')) +
-           L"\\0" +
-           std::wstring(run, L' ');
+           u"\\0\\0x\\" +
+           std::u16string(1, static_cast<char16_t>(run + '0')) +
+           u"\\0" +
+           std::u16string(run, L' ');
 }
 
-static std::wstring encodeNTFPict(const std::string& str, int& lines)
+static std::u16string encodeNTFPict(const std::string& str, int& lines)
 {
-    std::wstring wstr;
+    std::u16string wstr;
     int value = -1;
     
     for (size_t i = 5; i < str.size(); ) {
@@ -173,9 +190,9 @@ static std::wstring encodeNTFPict(const std::string& str, int& lines)
     int i = 0;
     for (int y=0; y<pict.height; y++) {
         // Alignment: Left | Center | Right
-        wstr += L"\\0\\m\\0\\0" +
+        wstr += u"\\0\\m\\0\\0" +
                 encodeValue(static_cast<uint64_t>(pict.align)) +
-                L"\\0\\n";
+                u"\\0\\n";
 
         // Compression of consecutive pixels sharing the same color.
         for (int x = 0; x < pict.width; ) {
@@ -198,7 +215,7 @@ static std::wstring encodeNTFPict(const std::string& str, int& lines)
             i += count;
         }
         
-        wstr += L"\\0";
+        wstr += u"\\0";
         
         lines++;
     }
@@ -206,9 +223,9 @@ static std::wstring encodeNTFPict(const std::string& str, int& lines)
     return wstr;
 }
 
-static std::wstring encodeNTFLine(const std::string& str)
+static std::u16string encodeNTFLine(const std::string& str)
 {
-    std::wstring encodedLine;
+    std::u16string encodedLine;
     
     auto runs = ntf::parseNTF(str);
     auto style = ntf::currentStyleState();
@@ -219,28 +236,26 @@ static std::wstring encodeNTFLine(const std::string& str)
         encodedLine += encodeParagraphAttributes(ntf::Align::Left, ntf::Bullet::None);
         encodedLine += encodeTextAttributes(style, format.fontSize);
         encodedLine += encodeColorAttributes(format);
-        encodedLine += L"\\0\\0x\\0\\0\\0";
+        encodedLine += u"\\0\\0x\\0\\0\\0";
         
         return encodedLine;
     }
     
-    std::wstring encodedParagraphAttributes;
+    std::u16string encodedParagraphAttributes;
     
     encodedLine = encodeParagraphAttributes(runs.back().format.align, runs.back().bullet);
     
     for (const auto& r : runs) {
         encodedLine += encodeTextAttributes(r.style, r.format.fontSize);
         encodedLine += encodeColorAttributes(r.format);
-        encodedLine += L"\\0\\0x";
+        encodedLine += u"\\0\\0x";
         
-        /// Length
         auto length = utf::size(r.text);
-        encodedLine.append(encodeValue(length) + L"\\0");
+        encodedLine += encodeValue(length) + u"\\0";
         
-        /// Text
-        encodedLine.append(utf::utf16(r.text));
+        encodedLine += utf::u16(r.text);
     }
-    encodedLine += L"\\0";
+    encodedLine += u"\\0";
     
     if (style.superscript)
         encodedLine += STYLE_SCRIPT;
@@ -250,9 +265,9 @@ static std::wstring encodeNTFLine(const std::string& str)
     return encodedLine;
 }
 
-static std::wstring encodeNTFDocument(std::istringstream& iss) {
+static std::u16string encodeNTFDocument(std::istringstream& iss) {
     std::string str;
-    std::wstring wstr;
+    std::u16string wstr;
     
     ntf::reset();
     
@@ -268,7 +283,7 @@ static std::wstring encodeNTFDocument(std::istringstream& iss) {
     }
     
     // Footer control bytes
-    wstr.append(LR"(\0\0\3\0)");
+    wstr.append(uR"(\0\0\3\0)");
     
     /*
      Values encoded in base-32 are marked with a leading escape character \.
@@ -277,25 +292,26 @@ static std::wstring encodeNTFDocument(std::istringstream& iss) {
     wstr.append(encodeValue(lines));
   
     // Footer control bytes
-    wstr.append(LR"(\0\0\0\0\0\0\0)");
+    wstr.append(uR"(\0\0\0\0\0\0\0)");
     
     return wstr;
 }
 
-static std::wstring extractPlainText(const std::string ntf) {
-    std::wstring wstr;
+static std::u16string extractPlainText(const std::string ntf) {
+    std::u16string wstr;
     
     auto runs = ntf::parseNTF(ntf);
     
     for (const auto& r : runs) {
-        wstr.append(utf::utf16(r.text));
+        
+        wstr.append(utf::u16(r.text));
     }
     
     return wstr;
 }
 
 std::wstring hpnote::encodeHPNoteFromNTF(const std::string& ntf, bool minify) {
-    std::wstring wstr;
+    std::u16string wstr;
     wstr.reserve(ntf.size() * 2);
     
     std::string input = ntf::extractPicts(ntf);
@@ -305,10 +321,10 @@ std::wstring hpnote::encodeHPNoteFromNTF(const std::string& ntf, bool minify) {
     }
     
     wstr.push_back(L'\0');
-    wstr += L"CSWD110\xFFFF\xFFFF\\l\x013E";
+    wstr += u"CSWD110\xFFFF\xFFFF\\l\x013E";
     
     std::istringstream iss(input);
     wstr += encodeNTFDocument(iss);
     
-    return wstr;
+    return utf::utf16(wstr);
 }

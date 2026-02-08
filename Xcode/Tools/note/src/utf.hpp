@@ -34,8 +34,10 @@ namespace utf {
         BOMnone
     };
     
-    std::string utf8(const std::wstring& wstr);
-    std::wstring utf16(const std::string& str);
+    std::string utf8(const std::wstring& s);
+    std::wstring utf16(const std::string& s);
+    std::wstring utf16(const std::u16string& s);
+    std::u16string u16(const std::string& s);
     std::string read(std::ifstream& is);
     std::wstring read(std::ifstream& is, BOM bom);
     std::string load(const std::filesystem::path& path);

@@ -18,9 +18,8 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
 THE AUTHORS OR  COPYRIGHT  HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR
 OTHER  LIABILITY,   WHETHER  IN  AN  ACTION  OF  CONTRACT,  TORT  OR  OTHERWISE,
 ARISING FROM,  OUT  OF  OR  IN  CONNECTION  WITH THE  SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.\fs14\b0
- 
-\fs14\b0
+OTHER DEALINGS IN THE SOFTWARE.\fs14\b0\fs14\b0
+
 \cf#FFFF\cb#FFFFTest
 \cf#FFFF\cb#0000Test
 \cf#FFFF\cb#7C00Test
@@ -35,8 +34,8 @@ OTHER DEALINGS IN THE SOFTWARE.\fs14\b0
 Skiped Line
 \cb3A\cb4b\cb5c\cb0
 
-\sup1Superscrip
-\sup0blar...blar...blar...
+\super Superscrip
+\super0blar...blar...blar...
 ...blar...blar...blar
 \sub1Subscript
 \sub0blar...blar...blar...
