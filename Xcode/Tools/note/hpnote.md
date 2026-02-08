@@ -29,7 +29,7 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 ||I: [On/Off]|⬛️🔲 `\0\0\0\1`
 ||U: [On/Off]|⬛️⬛️ `\0\0\0\0`
 ||S: [On/Off]|⬛️🟧 `\0B\0\0`
-|||🟥🔲 `F0\1\1`
+|||🟥🔲 `F\0\1\1`
 |||🟩⬛️ `F\0\1\0`
 |||🟦🟧 `FB\1\0`
 
