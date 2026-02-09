@@ -57,11 +57,11 @@ static std::u16string encodeValue(uint16_t value)
     
     /**
      ⚠️ Checks that the value to be encoded is not 0x5C. If 0x5C is encountered, it is
-     incremented by 1 before encoding, since 0x5C is the ASCII '\' escape character
+     encoded as escape '\', since 0x5C is the ASCII '\' escape character
      used to indicate that a number is encoded in base-32 rather than as a plain integer.
      */
     if (value == 0x5C)
-        value++;
+        return uR"(\\)";
     
     return std::u16string{static_cast<char16_t>(
         static_cast<uint16_t>(value)
