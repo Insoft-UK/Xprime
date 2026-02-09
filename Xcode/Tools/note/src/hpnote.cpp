@@ -88,20 +88,21 @@ static std::u16string encodeTextAttributes(const ntf::Style style, const ntf::Fo
 static std::u16string encodeColorAttributes(const ntf::Format format)
 {
     return
-        (format.foreground == 0xFFFF || format.foreground == 0 ? u"\\0" : encodeValue(format.foreground)) +
-        (format.background == 0xFFFF || format.background == 0 ? u"\\0" : encodeValue(format.background)) +
-        (format.foreground == 0xFFFF ? u"Ā" : format.foreground ? u"\\1" : u"\\0") +
-        (format.background == 0xFFFF ? u"\\1" : u"\\0");
+        encodeValue(format.foreground & 0x7FFF) +
+        encodeValue(format.background & 0x7FFF) +
+        (format.foreground & 0x8000 ? u"Ā" : encodeValue((format.foreground != 0))) +
+        encodeValue((format.background & 0x8000));
 }
 
 static std::u16string encodePixel(const uint16_t color, const int run = 1)
 {
-    return encodeTextAttributes({}, ntf::FontSize::Font10pt) +
-           encodeColorAttributes({.foreground = 0xFFFF, .background = color}) +
-           u"\\0\\0x\\" +
-           std::u16string(1, static_cast<char16_t>(run + '0')) +
-           u"\\0" +
-           std::u16string(run, L' ');
+    return
+        encodeTextAttributes({}, ntf::FontSize::Font10pt) +
+        encodeColorAttributes({.foreground = 0xFFFF, .background = color}) +
+        u"\\0\\0x" +
+        encodeValue(run) +
+        u"\\0" +
+        std::u16string(run, u' ');
 }
 
 static std::u16string encodeNTFPict(const std::string& str, int& lines)
@@ -124,21 +125,22 @@ static std::u16string encodeNTFPict(const std::string& str, int& lines)
     
     auto pixelWidth = static_cast<int>(pict.pixelWidth);
     
-    int i = 0;
     for (int y=0; y<pict.height; y++) {
         // Alignment: Left | Center | Right
         wstr += u"\\0\\m\\0\\0" +
                 encodeValue(static_cast<uint64_t>(pict.align)) +
                 u"\\0\\n";
-
+        
         // Compression of consecutive pixels sharing the same color.
         for (int x = 0; x < pict.width; ) {
+            int index = y * pict.width + x;
             int count = 1;
-            int current = pict.pixels[i];
+            int current = pict.pixels[index];
             
-            
-            while (x + count < pict.width && pict.pixels[i + count] == current && count < 8) {
-                count++;
+            while (x + count < pict.width &&
+                   pict.pixels[index + count] == current)
+            {
+                ++count;
             }
             
             if (current == pict.keycolor)
@@ -149,7 +151,6 @@ static std::u16string encodeNTFPict(const std::string& str, int& lines)
             
             // Move to next different color
             x += count;
-            i += count;
         }
         
         wstr += u"\\0";
