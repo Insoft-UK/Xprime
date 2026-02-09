@@ -256,13 +256,13 @@ static std::u16string extractPlainText(const std::string ntf) {
     return wstr;
 }
 
-std::wstring hpnote::encodeHPNoteFromNTF(const std::string& ntf, bool minify) {
+std::wstring hpnote::encodeHPNoteFromNTF(const std::string& ntf, bool cc) {
     std::u16string wstr;
     wstr.reserve(ntf.size() * 2);
     
     std::string input = ntf::extractPicts(ntf);
     
-    if (!minify) {
+    if (cc) {
         wstr.append(extractPlainText(input));
     }
     

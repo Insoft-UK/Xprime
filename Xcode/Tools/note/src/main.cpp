@@ -64,7 +64,8 @@ void help(void)
     << "Insoft "<< NAME << " version, " << VERSION_NUMBER << " (BUILD " << BUNDLE_VERSION << ")\n"
     << "\n"
     << "Usage: " << COMMAND_NAME << " <input-file>\n"
-    << "  -c or --compress        Specify if the note file should be compressed.\n"
+    << "  --cc                       Includes the plain-text carbon copy fallback used for recovery"
+    << "                             if the formatted content is unreadable.\n"
     << "\n"
     << "Additional Commands:\n"
     << "  " << COMMAND_NAME << " {--version | --help}\n"
@@ -153,7 +154,7 @@ int main(int argc, const char * argv[]) {
     std::string prefix, sufix, name;
     fs::path inpath, outpath;
     bool verbose = false;
-    bool minify = false;
+    bool cc = false;
 
     if ( argc == 1 )
     {
@@ -173,8 +174,8 @@ int main(int argc, const char * argv[]) {
             continue;
         }
         
-        if ( args == "-c" || args == "--compress" ) {
-            minify = true;
+        if ( args == "--cc" ) {
+            cc = true;
             continue;
         }
         
@@ -216,19 +217,19 @@ int main(int argc, const char * argv[]) {
         std::string md = utf::load(inpath);
         std::string ntf = ntf::markdownToNTF(md);
         ntf::defaultColorTable();
-        content = hpnote::encodeHPNoteFromNTF(ntf, minify);
+        content = hpnote::encodeHPNoteFromNTF(ntf, cc);
     }
     
     if (in_extension == ".ntf") {
         std::string ntf = utf::load(inpath);
         ntf::defaultColorTable();
-        content = hpnote::encodeHPNoteFromNTF(ntf, minify);
+        content = hpnote::encodeHPNoteFromNTF(ntf, cc);
     }
     
     if (in_extension == ".rtf") {
         std::string rtf = utf::load(inpath);
         std::string ntf = ntf::richTextToNTF(rtf);
-        content = hpnote::encodeHPNoteFromNTF(ntf, minify);
+        content = hpnote::encodeHPNoteFromNTF(ntf, cc);
     }
     
     if (in_extension == ".txt") {
@@ -239,7 +240,7 @@ int main(int argc, const char * argv[]) {
         auto bom = utf::bom(inpath);
         if (bom == utf::BOMnone) {
             std::string ntf = utf::load(inpath);
-            content = hpnote::encodeHPNoteFromNTF(ntf, minify);
+            content = hpnote::encodeHPNoteFromNTF(ntf, cc);
         } else {
             content = utf::load(inpath, bom);
         }
