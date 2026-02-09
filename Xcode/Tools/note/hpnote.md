@@ -34,7 +34,7 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 |||🟦🟧 `FB\1\0`
 
 **Base-32 or Integer**</br>
-*BASE-32* `0123456789abcdefghijklmnopqrstuv` *Integer* > 31...65535
+*BASE-32* `0123456789abcdefghijklmnopqrstuv` *Integer* > 32...65535
 
 **F** :- Foreground UInt16le</br>
 **B** :- Background UInt16le
