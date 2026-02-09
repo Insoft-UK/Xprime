@@ -24,7 +24,7 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
       <td>-o <output-file></td><td>Specify the filename for generated note</td>
     </tr>
     <tr>
-      <td>--cc</td><td>Includes the plain-text carbon copy fallback used for recovery</td>br >if the formatted content is unreadable.</td>
+      <td>--cc</td><td>Includes the plain-text carbon copy fallback used for recovery</br >if the formatted content is unreadable.</td>
     </tr>
     <tr>
       <td>-v or --verbose</td><td>Display detailed processing information</td>
