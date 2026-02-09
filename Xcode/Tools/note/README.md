@@ -4,6 +4,12 @@ A command-line tool that converts .md and .ntf files into the HP Prime .hpnote f
 
 <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_1.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_2.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_3.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_4.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_5.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_6.png?raw=true" width="160" />
 
+**RELEASE** v1.0.0.20260209</br>
+Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note_macOS.zip">macOS</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note_win_x86_64.zip">Windows</a> | <a href="http://insoft.uk/action/?method=downlink&path=linux&file=note_linux_x86_64.zip">Linux</a>
+
+>[!NOTE]
+>This <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.pkg">package installer</a> upgrades the command-line tool for Xprime version 26.1 and later.
+
 `Usage: note <input-file> [-o <output-file>]`
 
 <table>
@@ -37,12 +43,6 @@ A command-line tool that converts .md and .ntf files into the HP Prime .hpnote f
     </tr>
   </tbody>
 </table>
-
-**RELEASE** v1.0.0.20260208</br>
-Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note_macOS.zip">macOS</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note_win_x86_64.zip">Windows</a> | <a href="http://insoft.uk/action/?method=downlink&path=linux&file=note_linux_x86_64.zip">Linux</a>
-
->[!NOTE]
->This <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note.pkg">package installer</a> upgrades the command-line tool for Xprime version 26.1 and later.
 
 ### Supported File Types
 |Type|Description|Format|
