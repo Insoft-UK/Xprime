@@ -52,8 +52,8 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 |.ntf|NoteText Format|UTF8|
 |.rtf|RichText Format|UTF8|
 |.md|Markdown Language|UTF8|
-|.hpnote|HP Prime note (Plain Text without BOM)|UTF16le|
-|.hpappnote|HP Prime note (Plain Text without BOM)|UTF16le|
+|.hpnote|HP Prime note|UTF16le|
+|.hpappnote|HP Prime note|UTF16le|
 
 ## Text Formatting Reference
 

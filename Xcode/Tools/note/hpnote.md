@@ -16,7 +16,7 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 
 |Start of Line|Level|?|Alignment|?|
 |:-|:-|:-|:-|:-|
-|`\0\m`|`\0` None|`\0`|`\0` Left|`\0\0\n`
+|`\0\m`|`\0` None|`\0`|`\0` Left|`\0\n`
 ||`\1` ●||`\1` Center
 ||`\2` ○||`\2` Right
 ||`\3` ▻
