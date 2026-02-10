@@ -268,6 +268,83 @@ static std::u16string extractPlainText(const std::string& ntf)
 #ifdef DECODE
 // MARK: - Decode hpnote to ntf
 
+static bool isHex(char c)
+{
+    return std::isdigit(c) ||
+           (c >= 'A' && c <= 'F');
+}
+
+std::string normalizeControlWordSpacing(const std::string& input)
+{
+    std::string out;
+    size_t i = 0;
+
+    while (i < input.size()) {
+        if (input[i] != '\\') {
+            out += input[i++];
+            continue;
+        }
+
+        // Start of control word
+        size_t start = i++;
+        out += '\\';
+
+        // Read control word name (letters only)
+        while (i < input.size() && std::isalpha(static_cast<unsigned char>(input[i]))) {
+            out += input[i++];
+        }
+
+        bool hasDecimal = false;
+        bool hasHex = false;
+
+        // Hex parameter: #XXXX
+        if (i < input.size() && input[i] == '#') {
+            hasHex = true;
+            out += input[i++];
+
+            while (i < input.size() && isHex(input[i])) {
+                out += input[i++];
+            }
+        }
+        // Decimal parameter
+        else {
+            size_t digitStart = i;
+            while (i < input.size() && std::isdigit(static_cast<unsigned char>(input[i]))) {
+                out += input[i++];
+            }
+            hasDecimal = (i != digitStart);
+        }
+
+        // Check for a space after the control word
+        if (i < input.size() && input[i] == ' ') {
+            char next = (i + 1 < input.size()) ? input[i + 1] : '\0';
+
+            bool keepSpace = false;
+
+            if (hasHex) {
+                // Space not needed if next is non-hex
+                keepSpace = isHex(next);
+            }
+            else if (hasDecimal) {
+                // Space not needed if next is non-digit
+                keepSpace = std::isdigit(static_cast<unsigned char>(next));
+            }
+            else {
+                // No parameter → space required if text follows
+                keepSpace = (next != '\\' && next != '\0');
+            }
+
+            if (keepSpace) {
+                out += ' ';
+            }
+
+            ++i; // consume space
+        }
+    }
+
+    return out;
+}
+
 static uint16_t base32Value(char16_t c)
 {
     if (c >= u'0' && c <= u'9')
@@ -363,25 +440,41 @@ static std::string decodeTextAttributes(std::span<const uint16_t> data)
     
     uint32_t attributeBits = data[1] | data[2] << 16;
     
-    if (style.bold != (attributeBits & STYLE_BOLD)) {
-        style.bold = attributeBits & STYLE_BOLD;
-        s += style.bold ? "\\b " : "\\b0 ";
+    if (attributeBits & STYLE_BOLD) {
+        if (!style.bold)
+            s += "\\b ";
+    } else {
+        if (style.bold)
+            s += "\\b0 ";
     }
+    style.bold = attributeBits & STYLE_BOLD;
     
-    if (style.italic != (attributeBits & STYLE_ITALIC)) {
-        style.italic = attributeBits & STYLE_ITALIC;
-        s += style.italic ? "\\i " : "\\i0 ";
+    if (attributeBits & STYLE_ITALIC) {
+        if (!style.italic)
+            s += "\\i ";
+    } else {
+        if (style.italic)
+            s += "\\i0 ";
     }
+    style.italic = attributeBits & STYLE_ITALIC;
     
-    if (style.underline != (attributeBits & STYLE_UNDERLINE)) {
-        style.underline = attributeBits & STYLE_UNDERLINE;
-        s += style.underline ? "\\ul " : "\\ul0 ";
+    if (attributeBits & STYLE_UNDERLINE) {
+        if (!style.underline)
+            s += "\\ul ";
+    } else {
+        if (style.underline)
+            s += "\\ul0 ";
     }
+    style.italic = attributeBits & STYLE_UNDERLINE;
     
-    if (style.strikethrough != (attributeBits & STYLE_STRIKETHROUGH)) {
-        style.strikethrough = attributeBits & STYLE_STRIKETHROUGH;
-        s += style.underline ? "\\strike " : "\\strike ";
+    if (attributeBits & STYLE_STRIKETHROUGH) {
+        if (!style.strikethrough)
+            s += "\\strike ";
+    } else {
+        if (style.strikethrough)
+            s += "\\strike0 ";
     }
+    style.italic = attributeBits & STYLE_STRIKETHROUGH;
     
     fontSize = static_cast<ntf::FontSize>((attributeBits >> 15) & 7);
     
@@ -405,7 +498,7 @@ static std::string decodeColorAttributes(std::span<const uint16_t> data)
         foreground = 0xFFFF;
     }
     
-    if (data[3] == 0) {
+    if (data[3] == 1) {
         background = 0xFFFF;
     }
     
@@ -490,16 +583,26 @@ std::string decodeLine(std::span<const uint16_t> slice)
             s.push_back(static_cast<char>(slice[pos]));
             ++pos;
         }
-
-        // Trailing byte
-        ++pos;
-
-        // End markers
-        if (slice[pos] == 0 && slice[pos + 1] == 22)
+        
+        if (slice[pos] == 24)
+            continue;
+        
+        break;
+        
+        // End marker
+        if (slice[pos] == 0)
             break;
 
-        if (!(slice[pos] == 0 && slice[pos + 1] == 24))
-            break;
+        // Trailing word
+//        ++pos;
+//
+//        if (!(slice[pos] == 0 && slice[pos + 1] == 24))
+//            break;
+//        
+//        // End markers
+//        if (slice[pos] == 0 && slice[pos + 1] == 22)
+//            break;
+
     }
 
     return s;
@@ -564,7 +667,9 @@ std::string hpnote::decodeHPNoteToNTF(const std::u16string& u16s)
         return utf::utf8(utf::utf16(out));
     }
 #ifdef DECODE
-    return decodeHPNote(u16s.substr(i, u16s.size() - 1));
+    auto out = decodeHPNote(u16s.substr(i, u16s.size() - 1));
+    out = normalizeControlWordSpacing(out);
+    return out;
 #endif // DECODE
     return "";
 }

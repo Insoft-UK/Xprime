@@ -86,6 +86,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/TEST.hpnote"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(PROJECT_DIR)/test/NTEST.ntf"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -102,7 +106,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o ~/Documents/HP\ Prime/Calculators/Prime"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--version"

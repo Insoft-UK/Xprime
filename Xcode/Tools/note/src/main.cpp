@@ -254,9 +254,16 @@ int main(int argc, const char * argv[]) {
     if (outpath == "/dev/stdout") {
         std::cout << utf::utf8(utf::utf16(out));
     } else {
-        if (!utf::save(outpath, utf::utf16(out), (out_extension == ".hpnote" || out_extension == ".hpappnote") ? utf::BOMnone : utf::BOMle)) {
-            std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
-            return -1;
+        if (in_extension == ".hpnote" || in_extension == ".hpappnote") {
+            if (!utf::save(outpath, utf::utf8(utf::utf16(out)))) {
+                std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
+                return -1;
+            }
+        } else {
+            if (!utf::save(outpath, utf::utf16(out), (out_extension == ".hpnote" || out_extension == ".hpappnote") ? utf::BOMnone : utf::BOMle)) {
+                std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
+                return -1;
+            }
         }
     }
 
