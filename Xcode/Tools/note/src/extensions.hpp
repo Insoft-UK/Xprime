@@ -37,6 +37,7 @@
 
 namespace std {
     std::string lowercased(const std::string& s);
+    std::string uppercased(const std::string& s);
 
 #if __cplusplus < 201103L
     template <typename T>

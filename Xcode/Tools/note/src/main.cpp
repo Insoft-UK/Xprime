@@ -208,7 +208,7 @@ int main(int argc, const char * argv[]) {
     // Start measuring time
     Timer timer;
     
-    std::wstring content;
+    std::u16string out;
     
     auto in_extension = std::lowercased(inpath.extension().string());
     auto out_extension = std::lowercased(outpath.extension().string());
@@ -217,44 +217,44 @@ int main(int argc, const char * argv[]) {
         std::string md = utf::load(inpath);
         std::string ntf = ntf::markdownToNTF(md);
         ntf::defaultColorTable();
-        content = hpnote::encodeHPNoteFromNTF(ntf, cc);
+        out = hpnote::encodeHPNoteFromNTF(ntf, cc);
     }
     
     if (in_extension == ".ntf") {
         std::string ntf = utf::load(inpath);
         ntf::defaultColorTable();
-        content = hpnote::encodeHPNoteFromNTF(ntf, cc);
+        out = hpnote::encodeHPNoteFromNTF(ntf, cc);
     }
     
     if (in_extension == ".rtf") {
         std::string rtf = utf::load(inpath);
         std::string ntf = ntf::richTextToNTF(rtf);
-        content = hpnote::encodeHPNoteFromNTF(ntf, cc);
+        out = hpnote::encodeHPNoteFromNTF(ntf, cc);
     }
     
     if (in_extension == ".txt") {
-        content = utf::utf16(utf::load(inpath));
+        out = utf::u16(utf::load(inpath));
     }
     
     if (in_extension == ".note") {
         auto bom = utf::bom(inpath);
         if (bom == utf::BOMnone) {
             std::string ntf = utf::load(inpath);
-            content = hpnote::encodeHPNoteFromNTF(ntf, cc);
+            out = hpnote::encodeHPNoteFromNTF(ntf, cc);
         } else {
-            content = utf::load(inpath, bom);
+            out = utf::u16(utf::load(inpath, bom));
         }
     }
     
     if (in_extension == ".hpnote" || in_extension == ".hpappnote") {
-        content = utf::load(inpath, utf::BOMnone);
-        content += L'\0';
+        auto hpnote = utf::load(inpath, utf::BOMnone, true);
+        out = utf::u16(hpnote::decodeHPNoteToNTF(utf::u16(hpnote)));
     }
 
     if (outpath == "/dev/stdout") {
-        std::cout << utf::utf8(content);
+        std::cout << utf::utf8(utf::utf16(out));
     } else {
-        if (!utf::save(outpath, content, (out_extension == ".hpnote" || out_extension == ".hpappnote") ? utf::BOMnone : utf::BOMle)) {
+        if (!utf::save(outpath, utf::utf16(out), (out_extension == ".hpnote" || out_extension == ".hpappnote") ? utf::BOMnone : utf::BOMle)) {
             std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
             return -1;
         }

@@ -34,22 +34,22 @@ namespace utf {
         BOMnone
     };
     
-    std::string utf8(const std::wstring& s);
+    std::string utf8(const std::wstring& ws);
     std::wstring utf16(const std::string& s);
-    std::wstring utf16(const std::u16string& s);
+    std::wstring utf16(const std::u16string& u16s);
     std::u16string u16(const std::string& s);
-    std::u16string u16(const std::wstring& s);
+    std::u16string u16(const std::wstring& ws);
     std::string read(std::ifstream& is);
-    std::wstring read(std::ifstream& is, BOM bom);
+    std::wstring read(std::ifstream& is, BOM bom, bool eof = false);
     std::string load(const std::filesystem::path& path);
-    std::wstring load(const std::filesystem::path& path, BOM bom);
-    size_t write(std::ofstream& os, const std::string& str);
-    size_t write(std::ofstream& os, const std::wstring& wstr, BOM bom = BOMle);
-    bool save(const std::filesystem::path& path, const std::string& str);
-    bool save(const std::filesystem::path& path, const std::wstring& wstr, BOM bom = BOMle);
+    std::wstring load(const std::filesystem::path& path, BOM bom, bool eof = false);
+    size_t write(std::ofstream& os, const std::string& s);
+    size_t write(std::ofstream& os, const std::wstring& ws, BOM bom = BOMle);
+    bool save(const std::filesystem::path& path, const std::string& s);
+    bool save(const std::filesystem::path& path, const std::wstring& ws, BOM bom = BOMle);
     BOM bom(std::ifstream& is);
     BOM bom(const std::filesystem::path& path);
     size_t size(const std::string& s);
-    size_t size(const std::wstring& s);
-    size_t size(const std::u16string& s);
+    size_t size(const std::wstring& ws);
+    size_t size(const std::u16string& u16s);
 };
