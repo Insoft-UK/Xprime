@@ -54,25 +54,32 @@ static constexpr std::u16string_view STYLE_SCRIPT = u"\\0\\m\\0\\0\\0\\0\\n\\o�
 
 // MARK: - Encode ntf to hpnote
 
-// Base-32 values are preceded by the escape character (\), while integer values are not.
+static char16_t base32Char(uint16_t value)
+{
+    if (value < 10)
+        return u'0' + value;
+
+    if (value < 32)
+        return u'a' + (value - 10);
+
+    throw std::runtime_error("Invalid base32 value");
+}
+
 static std::u16string encodeValue(uint16_t value)
 {
-    static constexpr char16_t digits[] = u"0123456789abcdefghijklmnopqrstuv";
- 
-    if (value < 32)
-        return std::u16string{L'\\', digits[value]};
-    
-    /**
-     ⚠️ Checks that the value to be encoded is not 0x5C. If 0x5C is encountered, it is
-     encoded as escape '\', since 0x5C is the ASCII '\' escape character
-     used to indicate that a number is encoded in base-32 rather than as a plain integer.
-     */
-    if (value == 0x5C)
-        return uR"(\\)";
-    
-    return std::u16string{static_cast<char16_t>(
-        static_cast<uint16_t>(value)
-    )};
+    // Backslash must always be escaped
+    if (value == u'\\') {
+        return u"\\\\";
+    }
+
+    // Values that would be interpreted as escaped base32 digits
+    // must be escaped to preserve round-trip behavior.
+    if (value < 32) {
+        return std::u16string{ u'\\', base32Char(value) };
+    }
+
+    // Otherwise emit directly
+    return std::u16string{ static_cast<char16_t>(value) };
 }
 
 static std::u16string encodeParagraphAttributes(const ntf::Align align, const ntf::Bullet bullet)
@@ -102,18 +109,27 @@ static std::u16string encodeTextAttributes(const ntf::Style style, const ntf::Fo
 
 static std::u16string encodeColorAttributes(const ntf::Format format)
 {
-    return
-        encodeValue(format.foreground & 0x7FFF) +
-        encodeValue(format.background & 0x7FFF) +
-        (format.foreground & 0x8000 ? u"Ā" : encodeValue((format.foreground != 0))) +
-        encodeValue((format.background & 0x8000));
+    std::u16string out;
+    
+    out += format.foreground <= 0x7FFF ? encodeValue(format.foreground & 0x7FFF) : u"\\0";
+    out += format.background <= 0x7FFF ? encodeValue(format.background & 0x7FFF) : u"\\0";
+    
+    if (format.foreground > 0x7FFF)
+        out.push_back(format.fontSize == ntf::FontSize::Font14pt ? 257 : 256);
+    else {
+        out += format.foreground ? u"\\1" : u"\\0";
+    }
+    
+    out += format.background > 0x7FFF ? u"\\1" : u"\\0";
+    
+    return out;
 }
 
 static std::u16string encodePixel(const uint16_t color, const int run = 1)
 {
     return
         encodeTextAttributes({}, ntf::FontSize::Font10pt) +
-        encodeColorAttributes({.foreground = 0xFFFF, .background = color}) +
+        encodeColorAttributes({.foreground = 0xFFFF, .background = color, .fontSize = ntf::FontSize::Font10pt}) +
         u"\\0\\0x" +
         encodeValue(run) +
         u"\\0" +
@@ -494,9 +510,10 @@ static std::string decodeColorAttributes(std::span<const uint16_t> data)
     auto foreground = data[0];
     auto background = data[1];
     
-    if (data[2] > 1) {
+    if (data[2] == 256 || data[2] == 257) {
         foreground = 0xFFFF;
-    }
+    } else if (data[2] == 0)
+        foreground = 0;
     
     if (data[3] == 1) {
         background = 0xFFFF;
@@ -515,7 +532,7 @@ static std::string decodeColorAttributes(std::span<const uint16_t> data)
     return s;
 }
 
-std::vector<uint16_t> parseValues(const std::u16string& data)
+std::vector<uint16_t> decodeValues(const std::u16string& data)
 {
     std::vector<uint16_t> out;
     
@@ -588,21 +605,6 @@ std::string decodeLine(std::span<const uint16_t> slice)
             continue;
         
         break;
-        
-        // End marker
-        if (slice[pos] == 0)
-            break;
-
-        // Trailing word
-//        ++pos;
-//
-//        if (!(slice[pos] == 0 && slice[pos + 1] == 24))
-//            break;
-//        
-//        // End markers
-//        if (slice[pos] == 0 && slice[pos + 1] == 22)
-//            break;
-
     }
 
     return s;
@@ -612,7 +614,7 @@ std::string decodeHPNote(const std::u16string u16s)
 {
     std::string s;
     
-    auto data = parseValues(u16s);
+    auto data = decodeValues(u16s);
     auto lines = data[data.size() - 8];
     auto offsets = findOffsets(data, {0,22});
     
