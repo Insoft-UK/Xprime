@@ -330,7 +330,7 @@ final class CodeEditorTextView: NSTextView {
     
     private func showQuickHelp(for symbol: String, at point: NSPoint) {
         guard let url = Bundle.main.url(
-            forResource: symbol.uppercased(),
+            forResource: symbol,
             withExtension: "txt",
             subdirectory: "Help"
         ) else {

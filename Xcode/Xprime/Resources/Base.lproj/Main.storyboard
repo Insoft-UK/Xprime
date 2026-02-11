@@ -257,7 +257,7 @@ DQ
                                                     <menuItem title="Quick Export as HPNOTE" image="square.and.arrow.up" catalog="system" id="d8Y-St-vmh">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
-                                                            <action selector="markdownToNote:" target="Ady-hI-5gd" id="xhI-Bd-FoF"/>
+                                                            <action selector="exportAsHPNote:" target="Ady-hI-5gd" id="Pre-Wz-u6M"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Quick Export as PRGM" image="square.and.arrow.up" catalog="system" id="PQ7-pj-0wF">
@@ -914,7 +914,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="1" textCompletion="NO" contentType="url" translatesAutoresizingMaskIntoConstraints="NO" id="DNH-Ob-HLu" customClass="CustomTextField" customModule="Xprime" customModuleProvider="target">
-                                <rect key="frame" x="194" y="293" width="264" height="24"/>
+                                <rect key="frame" x="193" y="293" width="264" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" usesSingleLineMode="YES" id="Mt1-UK-btJ">
                                     <font key="font" metaFont="system"/>
@@ -923,7 +923,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="2" textCompletion="NO" contentType="url" translatesAutoresizingMaskIntoConstraints="NO" id="cz6-Uo-L19" customClass="CustomTextField" customModule="Xprime" customModuleProvider="target">
-                                <rect key="frame" x="194" y="251" width="264" height="24"/>
+                                <rect key="frame" x="193" y="251" width="264" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" usesSingleLineMode="YES" id="4ax-mM-IWZ">
                                     <font key="font" metaFont="system"/>
@@ -1401,10 +1401,10 @@ Gw
         <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
         <image name="bubbles.and.sparkles" catalog="system" width="17" height="15"/>
         <image name="character.book.closed" catalog="system" width="14" height="16"/>
-        <image name="document" catalog="system" width="12" height="13"/>
+        <image name="document" catalog="system" width="14" height="16"/>
         <image name="eye" catalog="system" width="16" height="11"/>
         <image name="eye.slash" catalog="system" width="21" height="16"/>
-        <image name="folder" catalog="system" width="15" height="12"/>
+        <image name="folder" catalog="system" width="18" height="14"/>
         <image name="folder.fill.badge.plus" catalog="system" width="20" height="15"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
@@ -1420,7 +1420,7 @@ Gw
         <image name="questionmark.circle" catalog="system" width="15" height="15"/>
         <image name="shippingbox" catalog="system" width="16" height="17"/>
         <image name="shippingbox.fill" catalog="system" width="16" height="16"/>
-        <image name="square.and.arrow.down" catalog="system" width="12" height="14"/>
+        <image name="square.and.arrow.down" catalog="system" width="15" height="17"/>
         <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
         <image name="square.and.arrow.up.on.square" catalog="system" width="17" height="20"/>
         <image name="stop.fill" catalog="system" width="12" height="11"/>

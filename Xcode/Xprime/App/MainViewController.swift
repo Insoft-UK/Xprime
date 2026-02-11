@@ -363,7 +363,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             "Prime Plus": ["prgm+", "ppl+"],
             "Prime": ["prgm", "ppl", "hpprgm", "hpappprgm"],
             "Python": ["py"],
-            ".md": ["md"]
+            ".md": ["md"], ".ntf": ["ntf"]
         ]
         
         for (grammarName, ext) in grammar where ext.contains(fileExtension.lowercased()) {
@@ -439,6 +439,39 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         } catch {
             outputTextView.appendTextAndScroll("Failed to build for archiving: \(error)\n")
             return
+        }
+        
+        // Convert README .ntf/.md to Application .hpappnote format
+        if FileManager.default.fileExists(
+            atPath: currentDirectoryURL
+                .appendingPathComponent("README.ntf")
+                .path) == true
+        {
+            convertFileToHPNote(
+                from: currentDirectoryURL
+                    .appendingPathComponent("README.ntf"),
+                to: currentDirectoryURL
+                    .appendingPathComponent(projectManager.projectName)
+                    .appendingPathExtension("hpappdir")
+                    .appendingPathComponent(projectManager.projectName)
+                    .appendingPathExtension("hpappnote")
+            )
+        } else {
+            if FileManager.default.fileExists(
+                atPath: currentDirectoryURL
+                    .appendingPathComponent("README.md")
+                    .path) == true
+            {
+                convertFileToHPNote(
+                    from: currentDirectoryURL
+                        .appendingPathComponent("README.md"),
+                    to: currentDirectoryURL
+                        .appendingPathComponent(projectManager.projectName)
+                        .appendingPathExtension("hpappdir")
+                        .appendingPathComponent(projectManager.projectName)
+                        .appendingPathExtension("hpappnote")
+                )
+            }
         }
         
         let result = HPServices.preProccess(at: sourceURL, to: currentDirectoryURL
@@ -705,6 +738,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     url.pathExtension == "ppl+" ||
                     url.pathExtension == "py"  ||
                     url.pathExtension == "md" ||
+                    url.pathExtension == "ntf" ||
                     url.pathExtension == "txt" ||
                     url.pathExtension == "note"
                 {
@@ -735,7 +769,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         )?.withSymbolConfiguration(config)
                         image = img ?? NSImage(imageLiteralResourceName: "File")
                         
-                    case "md":
+                    case "md", "ntf":
                         let img = NSImage(
                             systemSymbolName: "text.page",
                             accessibilityDescription: nil
@@ -857,6 +891,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             UTType(filenameExtension: "ppl+")!,
             UTType(filenameExtension: "ppl+")!,
             UTType(filenameExtension: "md")!,
+            UTType(filenameExtension: "ntf")!,
             UTType(filenameExtension: "note")!,
             UTType(filenameExtension: "hpnote")!,
             UTType(filenameExtension: "hpappnote")!,
@@ -910,6 +945,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 UTType(filenameExtension: "ppl")!,
                 UTType(filenameExtension: "app")!,
                 UTType(filenameExtension: "note")!,
+                UTType(filenameExtension: "ntf")!,
                 UTType(filenameExtension: "hpnote")!,
                 UTType(filenameExtension: "py")!,
                 UTType(filenameExtension: "md")!,
@@ -1060,6 +1096,50 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    // MARK: - Export as HP Note
+    private func convertFileToHPNote(
+        from sourceURL: URL,
+        to destinationURL: URL
+    ) {
+        let command = ToolchainPaths.bin.appendingPathComponent("note").path
+        let arguments: [String] = [
+            sourceURL.path,
+            "-o",
+            destinationURL.path
+        ]
+        
+        let commandURL = URL(fileURLWithPath: command)
+        let result = ProcessRunner.run(executable: commandURL, arguments: arguments)
+        
+        guard result.exitCode == 0 else {
+            outputTextView.appendTextAndScroll("🛑 Required Note conversion tool not installed.\n")
+            return
+        }
+        outputTextView.appendTextAndScroll(result.err ?? "")
+    }
+    
+    @IBAction private func exportAsHPNote(_ sender: Any) {
+        guard let currentDocumentURL = documentManager.currentDocumentURL else {
+            return
+        }
+        
+        documentManager.saveDocument()
+        
+        let panel = NSSavePanel()
+        panel.directoryURL = currentDocumentURL.deletingLastPathComponent()
+        panel.nameFieldStringValue = currentDocumentURL.deletingPathExtension().lastPathComponent
+        panel.allowedContentTypes = [
+            UTType(filenameExtension: "hpnote")!,
+            UTType(filenameExtension: "hpappnote")!
+        ]
+        panel.title = ""
+        
+        panel.begin { result in
+            guard result == .OK, let url = panel.url else { return }
+            self.convertFileToHPNote(from: currentDocumentURL, to: url)
+        }
+    }
+    
     // MARK: -
     
     @IBAction func revertDocumentToSaved(_ sender: Any) {
@@ -1195,50 +1275,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func archiveWithoutBuilding(_ sender: Any) {
         archiveProcess()
-    }
-    
-    // MARK: - Note
-    private func convertMarkdownFile(
-        from sourceURL: URL,
-        to destinationURL: URL
-    ) {
-        let command = ToolchainPaths.bin.appendingPathComponent("note").path
-        let arguments: [String] = [
-            sourceURL.path,
-            "-o",
-            destinationURL.path
-        ]
-        
-        let commandURL = URL(fileURLWithPath: command)
-        let result = ProcessRunner.run(executable: commandURL, arguments: arguments)
-        
-        guard result.exitCode == 0 else {
-            outputTextView.appendTextAndScroll("🛑 Required Markdown to Note conversion tool not installed.\n")
-            return
-        }
-        outputTextView.appendTextAndScroll(result.err ?? "")
-    }
-    
-    @IBAction private func markdownToNote(_ sender: Any) {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else {
-            return
-        }
-        
-        documentManager.saveDocument()
-        
-        let panel = NSSavePanel()
-        panel.directoryURL = currentDocumentURL.deletingLastPathComponent()
-        panel.nameFieldStringValue = currentDocumentURL.deletingPathExtension().lastPathComponent
-        panel.allowedContentTypes = [
-            UTType(filenameExtension: "hpnote")!,
-            UTType(filenameExtension: "hpappnote")!
-        ]
-        panel.title = ""
-        
-        panel.begin { result in
-            guard result == .OK, let url = panel.url else { return }
-            self.convertMarkdownFile(from: currentDocumentURL, to: url)
-        }
     }
     
     @IBAction func build(_ sender: Any) {
@@ -1542,8 +1578,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return true
             
-        case #selector(markdownToNote(_:)):
-            if ext == "md" {
+        case #selector(exportAsHPNote(_:)):
+            if ext == "md" || ext == "ntf" {
                 return true
             }
             return false

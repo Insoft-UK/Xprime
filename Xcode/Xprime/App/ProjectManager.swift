@@ -147,6 +147,13 @@ final class ProjectManager {
                     .appendingPathComponent(name),
                 withIntermediateDirectories: false
             )
+            
+            if let url = Bundle.main.url(forResource: "README", withExtension: "ntf") {
+                try FileManager.default.copyItem(
+                    at: url,
+                    to: directoryURL.appendingPathComponent("README.ntf")
+                )
+            }
 
             if let url = Bundle.main.url(forResource: "Untitled", withExtension: "prgm+") {
                 try FileManager.default.copyItem(
