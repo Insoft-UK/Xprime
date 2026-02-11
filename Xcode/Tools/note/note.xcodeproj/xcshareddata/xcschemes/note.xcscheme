@@ -54,7 +54,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/README.md"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/README.rtf"
@@ -66,7 +66,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/LICENSE.ntf"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/TEST.ntf"
@@ -105,7 +105,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-o ~/Documents/HP\ Prime/Calculators/Prime"
+            argument = "-o ~/Documents/HP\ Prime/Calculators/Prime/MyNote.hpappdir/MyNote.hpappnote"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

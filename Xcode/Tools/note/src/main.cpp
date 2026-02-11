@@ -260,6 +260,11 @@ int main(int argc, const char * argv[]) {
                 return -1;
             }
         } else {
+            auto pos = out.find(u"CSW?110");
+            if (pos != std::u16string::npos) {
+                out.at(pos + 3) = out_extension == ".hpappnote" ? u'T' : u'D';
+            }
+            
             if (!utf::save(outpath, utf::utf16(out), (out_extension == ".hpnote" || out_extension == ".hpappnote") ? utf::BOMnone : utf::BOMle)) {
                 std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
                 return -1;

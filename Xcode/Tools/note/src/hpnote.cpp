@@ -639,7 +639,8 @@ std::u16string hpnote::encodeHPNoteFromNTF(const std::string& ntf, bool cc)
     }
     
     wstr.push_back(L'\0');
-    wstr += u"CSWD110\xFFFF\xFFFF\\l\x013E";
+    // T for Apps, D for Programs ?
+    wstr += u"CSW?110\xFFFF\xFFFF\\l\x013E";
     
     std::istringstream iss(input);
     wstr += encodeNTFDocument(iss);
