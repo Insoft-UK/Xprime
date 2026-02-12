@@ -3,14 +3,14 @@
 ### Heading level 3
 #### Heading level 4
 ~~Strikethrough~~
-\ul Underlined\ul0
+Underlined
 ==Highlight==
 
 Plain text
 Division
 ---
-\qc Center Alignment Text
-\qr Right Alignment Text\ql
+Center Alignment Text
+Right Alignment Text\ql
 *Italic*
 **Bold**
 ***ItalicBold***

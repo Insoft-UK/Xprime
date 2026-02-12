@@ -28,28 +28,70 @@
 #include <filesystem>
 
 namespace utf {
-    enum BOM {
-        BOMle,
-        BOMbe,
-        BOMnone
+    enum class BOM {
+        le,
+        be,
+        none
     };
     
-    std::string utf8(const std::wstring& ws);
-    std::wstring utf16(const std::string& s);
-    std::wstring utf16(const std::u16string& u16s);
-    std::u16string u16(const std::string& s);
-    std::u16string u16(const std::wstring& ws);
+    enum class ReadMode
+    {
+        UntilNull,
+        FullFile
+    };
+
+    std::string to_string(std::u16string_view s);
+    
+    std::string to_string(std::wstring_view s);
+    [[deprecated("Use to_string instead")]]
+    inline std::string utf8(std::wstring_view s) {
+        return utf::to_string(s);
+    }
+    
+    std::u16string to_u16string(std::string_view s);
+    [[deprecated("Use utf::to_u16string instead")]]
+    inline std::u16string u16(std::string_view s) {
+        return utf::to_u16string(s);
+    }
+    
+    std::u16string to_u16string(std::wstring_view s);
+    [[deprecated("Use utf::to_u16string instead")]]
+    inline std::u16string u16(std::wstring_view s) {
+        return utf::to_u16string(s);
+    }
+    
+    std::wstring to_wstring(std::string_view s);
+    [[deprecated("Use to_wstring instead")]]
+    inline std::wstring utf16(std::string_view s) {
+        return utf::to_wstring(s);
+    }
+    
+    std::wstring to_wstring(std::u16string_view s);
+    [[deprecated("Use to_wstring instead")]]
+    inline std::wstring utf16(std::u16string_view s) {
+        return utf::to_wstring(s);
+    }
+    
     std::string read(std::ifstream& is);
-    std::wstring read(std::ifstream& is, BOM bom, bool eof = false);
+    std::wstring read(std::ifstream& is, const BOM bom, bool eof = false);
+    std::u16string read(std::ifstream& is, const ReadMode mode);
+    
     std::string load(const std::filesystem::path& path);
-    std::wstring load(const std::filesystem::path& path, BOM bom, bool eof = false);
-    size_t write(std::ofstream& os, const std::string& s);
-    size_t write(std::ofstream& os, const std::wstring& ws, BOM bom = BOMle);
-    bool save(const std::filesystem::path& path, const std::string& s);
-    bool save(const std::filesystem::path& path, const std::wstring& ws, BOM bom = BOMle);
+    std::wstring load(const std::filesystem::path& path, const BOM bom, bool eof = false);
+    std::u16string load(const std::filesystem::path& path, const ReadMode mode);
+    
+    size_t write(std::ofstream& os, std::string_view s);
+    size_t write(std::ofstream& os, std::wstring_view s, const BOM bom = BOM::le);
+    void write(std::ofstream& os, std::u16string_view data, const bool writeBOM = true);
+    
+    bool save(const std::filesystem::path& path, std::string_view s);
+    bool save(const std::filesystem::path& path, std::wstring_view s, const BOM bom = BOM::le);
+    bool save(const std::filesystem::path& path, std::u16string_view s, const bool writeBOM = true);
+    
     BOM bom(std::ifstream& is);
     BOM bom(const std::filesystem::path& path);
-    size_t size(const std::string& s);
-    size_t size(const std::wstring& ws);
-    size_t size(const std::u16string& u16s);
+    
+    size_t size(std::string_view s);
+    size_t size(std::wstring_view s);
+    size_t size(std::u16string_view s);
 };

@@ -217,58 +217,63 @@ int main(int argc, const char * argv[]) {
         std::string md = utf::load(inpath);
         std::string ntf = ntf::markdownToNTF(md);
         ntf::defaultColorTable();
-        out = hpnote::encodeHPNoteFromNTF(ntf, cc);
+        out = hpnote::ntf_to_hpnote(ntf, cc);
     }
     
     if (in_extension == ".ntf") {
         std::string ntf = utf::load(inpath);
         ntf::defaultColorTable();
-        out = hpnote::encodeHPNoteFromNTF(ntf, cc);
+        out = hpnote::ntf_to_hpnote(ntf, cc);
     }
     
     if (in_extension == ".rtf") {
         std::string rtf = utf::load(inpath);
         std::string ntf = ntf::richTextToNTF(rtf);
-        out = hpnote::encodeHPNoteFromNTF(ntf, cc);
+        out = hpnote::ntf_to_hpnote(ntf, cc);
     }
     
     if (in_extension == ".txt") {
-        out = utf::u16(utf::load(inpath));
+        out = utf::to_u16string(utf::load(inpath));
     }
     
     if (in_extension == ".note") {
         auto bom = utf::bom(inpath);
-        if (bom == utf::BOMnone) {
+        if (bom == utf::BOM::none) {
             std::string ntf = utf::load(inpath);
-            out = hpnote::encodeHPNoteFromNTF(ntf, cc);
+            out = hpnote::ntf_to_hpnote(ntf, cc);
         } else {
-            out = utf::u16(utf::load(inpath, bom));
+            out = utf::to_u16string(utf::load(inpath, bom));
         }
     }
     
     if (in_extension == ".hpnote" || in_extension == ".hpappnote") {
-        auto hpnote = utf::load(inpath, utf::BOMnone, true);
-        out = utf::u16(hpnote::decodeHPNoteToNTF(utf::u16(hpnote)));
+        if (out_extension == ".ntf") {
+            auto hpnote = utf::load(inpath, utf::BOM::none, true);
+            std::u16string s = utf::to_u16string(hpnote);
+            auto ntf = hpnote::to_ntf(s);
+            out = utf::to_u16string(ntf);
+        } else {
+            auto s = utf::load(inpath, utf::BOM::none, false);
+            out = utf::to_u16string(s);
+        }
     }
 
     if (outpath == "/dev/stdout") {
-        std::cout << utf::utf8(utf::utf16(out));
+        std::cout << utf::to_string(out);
     } else {
-        if (in_extension == ".hpnote" || in_extension == ".hpappnote") {
-            if (!utf::save(outpath, utf::utf8(utf::utf16(out)))) {
-                std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
-                return -1;
-            }
-        } else {
-            auto pos = out.find(u"CSW?110");
-            if (pos != std::u16string::npos) {
-                out.at(pos + 3) = out_extension == ".hpappnote" ? u'T' : u'D';
-            }
-            
-            if (!utf::save(outpath, utf::utf16(out), (out_extension == ".hpnote" || out_extension == ".hpappnote") ? utf::BOMnone : utf::BOMle)) {
-                std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
-                return -1;
-            }
+        if (out_extension == ".hpappnote")
+            hpnote::to_hpappnote(out);
+    
+        if (out_extension == ".hpnote" || out_extension == ".hpappnote")
+            utf::save(outpath, out, false);
+        
+        else
+            utf::save(outpath, utf::to_string(out));
+        
+        
+        if (!std::filesystem::exists(outpath)) {
+            std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
+            return -1;
         }
     }
 

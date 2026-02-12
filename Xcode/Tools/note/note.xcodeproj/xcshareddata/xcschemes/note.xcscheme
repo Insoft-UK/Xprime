@@ -66,10 +66,6 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/LICENSE.ntf"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/TEST.ntf"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -85,12 +81,16 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/TEST.hpnote"
+            argument = "$(PROJECT_DIR)/test/TEST.ntf"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/NTEST.ntf"
+            argument = "$(PROJECT_DIR)/test/TEST.hpnote -o NTF.ntf"
             isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(PROJECT_DIR)/test/NTF.ntf"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o /dev/stdout"
@@ -106,6 +106,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o ~/Documents/HP\ Prime/Calculators/Prime/MyNote.hpappdir/MyNote.hpappnote"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-o ~/Documents/HP\ Prime/Calculators/Prime/"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

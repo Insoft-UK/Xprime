@@ -1,0 +1,47 @@
+\b The MIT License (MIT)
+\fs8
+\fs10Copyright (c) 2026 Insoft.
+\fs8
+Permission is hereby granted, free of charge, to any person obtaining a copy of this
+software  and  associated  documentation  files  (the "Software"),  to  deal  in the
+Software without restriction,  including  without  limitation  the rights  to  use,  copy,
+modify,  merge,  publish,  distribute,  sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is  furnished to do so,  subject  to  the
+following conditions:
+  
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+  
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+THE AUTHORS OR  COPYRIGHT  HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR
+OTHER  LIABILITY,   WHETHER  IN  AN  ACTION  OF  CONTRACT,  TORT  OR  OTHERWISE,
+ARISING FROM,  OUT  OF  OR  IN  CONNECTION  WITH THE  SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+\b0\fs14
+Test
+\cb#0000Test
+\cb#7E80Test
+\cf#0000\cb#FFFFTest
+\cb#0000Test
+\cb#7E80Test
+\cf#7C00\cb#FFFFTest
+\cf#03E0\cb#0000Test
+\cf#001F\cb#7E80Test
+\cf#FFFF\cb#FFFF
+Skiped Line
+\fs18\cb#7E80One \fs14\cb#7C00Two
+\cb#FFFF
+Superscrip
+
+blar...blar...blar...
+...blar...blar...blar
+
+Subscript
+blar...blar...blar...
+
+\fs10\cb#7C00  \cb#7C80  \cb#7CE0  \cb#7D20  \cb#7D40  \cb#7D80  \cb#7DA0  \cb#7DE0  \cb#7E00  \cb#7E40  \cb#7E60  \cb#7E80  \cb#7EA0  \cb#7EC0  \cb#7F00  \cb#7F20  \cb#7F40  \cb#7F60  \cb#7F80  \cb#7FA0  \cb#7FC0  \cb#7FE0  \cb#7BE0   \cb#77E0  \cb#73E0  \cb#6FE0  \cb#6BE0  \cb#67E0  \cb#63E0  \cb#5FE0  \cb#5BE0  \cb#57E0  \cb#53E0  \cb#4FE0  \cb#4BE0  \cb#43E0  \cb#3BE0  \cb#37E0  \cb#2FE0  \cb#27E0  \cb#1BE0  \cb#0FE0  \cb#03E3  \cb#03E6  \cb#03E8  \cb#03EA  \cb#03EC  \cb#03EE  \cb#03EF  \cb#03F1  \cb#03F2  \cb#03F3  \cb#03F5  \cb#03F6  \cb#03F7  \cb#03F8  \cb#03F9  \cb#03FA  \cb#03FB  \cb#03FC  \cb#03FD  \cb#03FE   \cb#03FF  \cb#03DF  \cb#03BF  \cb#039F  \cb#037F  \cb#035F  \cb#033F  \cb#02FF  \cb#02DF  \cb#02BF  \cb#029F  \cb#025F  \cb#023F  \cb#021F  \cb#01DF  \cb#01BF  \cb#017F  \cb#013F  \cb#00FF  \cb#00BF  \cb#007F  \cb#041F  \cb#0C1F  \cb#141F  \cb#181F  \cb#203F  \cb#247F  \cb#2C9F  \cb#34BF  \cb#38DF  \cb#40DF  \cb#44FF  \cb#48FF  \cb#50FF  \cb#54FF  \cb#58FF  \cb#60DF  \cb#64DF  \cb#6CBF  \cb#709F  \cb#747F  \cb#785F  
+\b\fs14\cb#FFFF B\b0\i I\i0\ul U\ul0\strike S
+\strike0\fs10 10pt \fs12 12pt \fs14 14pt \fs16 16pt \fs18 18pt \fs20 20pt \fs22 22pt 
+\li1\fs14Primary
