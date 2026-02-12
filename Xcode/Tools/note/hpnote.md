@@ -12,18 +12,21 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 
 **Header**
 
-`CSWD110￿￿\lľ`
+`CSWD110￿￿` 
+Uknown  `\lľ\0`
 
 All data is encoded as Base-32/Integer
 
 Every line starts with data defining bullets and alignment.
-Data Size (7)
+Data Size (6)
 |Start of Line|Level|?|Alignment|?|
 |:-|:-|:-|:-|:-|
-|`\0\m`|`\0` None|`\0`|`\0` Left|`\0\n`
+|`\m`|`\0` None|`\0`|`\0` Left|`\0`
 ||`\1` ●||`\1` Center
 ||`\2` ○||`\2` Right
 ||`\3` ▻
+
+`\n`
 
 Every line cotains an entry.
 
@@ -48,7 +51,7 @@ Every line cotains an entry.
 The line ends with zero, no more line entries.
 |End of Line|
 |:-|
-|`\0`|
+|`\0\0`|
 
 **Footer**
 After all the lines comes the footer, that states the number of lines entries.
