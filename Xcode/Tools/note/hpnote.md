@@ -18,7 +18,7 @@ Uknown  `\lľ\0`
 All data is encoded as Base-32/Integer
 
 Every line starts with data defining bullets and alignment.
-Data Size (6)
+Data Size (5)
 |Start of Line|Level|?|Alignment|?|
 |:-|:-|:-|:-|:-|
 |`\m`|`\0` None|`\0`|`\0` Left|`\0`
@@ -55,10 +55,10 @@ The line ends with zero, no more line entries.
 
 **Footer**
 After all the lines comes the footer, that states the number of lines entries.
-Data Size (11)
+Data Size (10)
 |?|Base-32 or Integer|?|
 |:-|:-|:-|
-|`\0\0\3\0`|Number of Lines|`\0\0\0\0\0\0\0`
+|`\0\3\0`|Number of Lines|`\0\0\0\0\0\0\0`
 
 >[!NOTE]
 >The 🔲 *Default* color is ⬛️ *Black* or ⬜️ *White* for foreground color, depending on whether the theme is light or dark. 🔲 *Clear* is fully transparent, regardless of the theme.
