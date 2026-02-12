@@ -64,6 +64,6 @@ Data Size (10)
 >The 🔲 *Default* color is ⬛️ *Black* or ⬜️ *White* for foreground color, depending on whether the theme is light or dark. 🔲 *Clear* is fully transparent, regardless of the theme.
 
 >[!IMPORTANT]
->Values encoded in base-32 are marked with a leading escape character `\`. Integer values are stored directly, without an escape prefix.
+>Values encoded in base-32 are indicated by a leading escape character `\`. Integer values are stored directly, without any escape prefix. The only exception is the integer 92, which is also marked with a leading `\`, because 92 corresponds to `\` in ASCII.
 
 
