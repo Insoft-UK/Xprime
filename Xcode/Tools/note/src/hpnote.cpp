@@ -47,7 +47,7 @@ namespace hpnote {
     static constexpr uint16_t STYLE_UNDERLINE = 1u << 12;
     static constexpr uint16_t STYLE_STRIKETHROUGH = 1u << 14;
     
-    static constexpr std::u16string_view STYLE_SCRIPT = u"\\0\\m\\0\\0\\0\\0\\n\\o臿ῡ\\0\\0Ā\\1\\0\\0x\\0\\0\\0";
+    static constexpr std::u16string_view STYLE_SCRIPT = u"\\m\\0\\0\\0\\0\\n\\o臿ῡ\\0\\0Ā\\1\\0\\0x\\0\\0\\0\\0";
 
     // MARK: - Encode ntf to hpnote
     
@@ -62,7 +62,7 @@ namespace hpnote {
         throw std::runtime_error("Invalid base32 value");
     }
     
-    static std::u16string encodeValue(uint16_t value)
+    static std::u16string encodeValue(const uint16_t value)
     {
         // Backslash must always be escaped
         if (value == u'\\') {
@@ -81,7 +81,7 @@ namespace hpnote {
     
     static std::u16string encodeParagraphAttributes(const ntf::Align align, const ntf::Bullet bullet)
     {
-        return u"\\0\\m" +
+        return u"\\m" +
         encodeValue(static_cast<uint64_t>(bullet)) +
         u"\\0" +
         encodeValue(static_cast<uint64_t>(align)) +
@@ -133,7 +133,7 @@ namespace hpnote {
         std::u16string(run, u' ');
     }
     
-    static std::u16string encodeNTFPict(const std::string& str, int& lines)
+    static std::u16string encodeNTFPict(std::string_view str, int& lines)
     {
         std::u16string wstr;
         int value = -1;
@@ -155,7 +155,7 @@ namespace hpnote {
         
         for (int y=0; y<pict.height; y++) {
             // Alignment: Left | Center | Right
-            wstr += u"\\0\\m\\0\\0" +
+            wstr += u"\\m\\0\\0" +
             encodeValue(static_cast<uint64_t>(pict.align)) +
             u"\\0\\n";
             
@@ -181,7 +181,7 @@ namespace hpnote {
                 x += count;
             }
             
-            wstr += u"\\0";
+            wstr += u"\\0\\0";
             
             lines++;
         }
@@ -189,7 +189,7 @@ namespace hpnote {
         return wstr;
     }
     
-    static std::u16string encodeNTFLine(const std::string& str)
+    static std::u16string encodeNTFLine(std::string& str)
     {
         std::u16string encodedLine;
         
@@ -202,7 +202,7 @@ namespace hpnote {
             encodedLine += encodeParagraphAttributes(ntf::Align::Left, ntf::Bullet::None);
             encodedLine += encodeTextAttributes(style, format.fontSize);
             encodedLine += encodeColorAttributes(format);
-            encodedLine += u"\\0\\0x\\0\\0\\0";
+            encodedLine += u"\\0\\0x\\0\\0\\0\\0";
             
             return encodedLine;
         }
@@ -221,7 +221,7 @@ namespace hpnote {
             
             encodedLine += utf::to_u16string(r.text);
         }
-        encodedLine += u"\\0";
+        encodedLine += u"\\0\\0";
         
         if (style.superscript)
             encodedLine += STYLE_SCRIPT;
@@ -250,7 +250,7 @@ namespace hpnote {
         }
         
         // Footer control bytes
-        wstr.append(uR"(\0\0\3\0)");
+        wstr.append(uR"(\0\3\0)");
         
         /*
          Values encoded in base-32 are marked with a leading escape character \.
@@ -264,7 +264,7 @@ namespace hpnote {
         return wstr;
     }
     
-    static std::u16string extractPlainText(const std::string& ntf)
+    static std::u16string extractPlainText(std::string& ntf)
     {
         std::u16string wstr;
         
@@ -286,7 +286,7 @@ namespace hpnote {
         (c >= 'A' && c <= 'F');
     }
     
-    std::string normalizeControlWordSpacing(const std::string& input)
+    std::string normalizeControlWordSpacing(std::string_view input)
     {
         std::string out;
         size_t i = 0;
@@ -372,7 +372,7 @@ namespace hpnote {
         throw std::runtime_error("Invalid base32 digit");
     }
     
-    static uint16_t parseValue(const std::u16string& data, size_t& i)
+    static uint16_t parseValue(std::u16string_view data, size_t& i)
     {
         char16_t c = data[i];
         
@@ -407,7 +407,7 @@ namespace hpnote {
     static std::string decodeParagraphAttributes(std::span<const uint16_t> data)
     {
         std::string s;
-        auto bullet = static_cast<ntf::Bullet>(data[2]);
+        auto bullet = static_cast<ntf::Bullet>(data[1]);
         
         if (bullet != _bullet) {
             _bullet = bullet;
@@ -428,7 +428,7 @@ namespace hpnote {
             }
         }
         
-        auto align = static_cast<ntf::Align>(data[4]);
+        auto align = static_cast<ntf::Align>(data[3]);
         
         if (align != format.align) {
             format.align = align;
@@ -532,7 +532,7 @@ namespace hpnote {
         return s;
     }
     
-    std::vector<uint16_t> decodeValues(const std::u16string& data)
+    std::vector<uint16_t> decodeValues(std::u16string_view data)
     {
         std::vector<uint16_t> out;
         
@@ -543,27 +543,66 @@ namespace hpnote {
         return out;
     }
     
-    std::vector<size_t> findOffsets(const std::vector<uint16_t>& data, const std::vector<uint16_t>& pattern)
+    std::vector<size_t> findOffsets(std::span<const uint16_t> slice)
     {
         std::vector<size_t> offsets;
+        size_t pos = 0;
         
-        if (pattern.empty() || data.size() < pattern.size())
-            return offsets;
-        
-        for (size_t i = 0; i <= data.size() - pattern.size(); ++i) {
-            bool match = true;
-            
-            for (size_t j = 0; j < pattern.size(); ++j) {
-                if (data[i + j] != pattern[j]) {
-                    match = false;
-                    break;
-                }
+        while (slice[++pos] != 22);
+
+        auto remaining = [&]() -> size_t {
+            return pos <= slice.size() ? slice.size() - pos : 0;
+        };
+
+        auto take = [&](size_t n) -> std::optional<std::span<const uint16_t>> {
+            if (remaining() < n)
+                return std::nullopt;
+
+            auto sub = slice.subspan(pos, n);
+            pos += n;
+            return sub;
+        };
+
+        while (true)
+        {
+            // Need 6 words for the record header
+            auto record = take(6);
+            if (!record || (*record)[0] != 22)
+                break;
+
+            offsets.push_back(pos - 6);
+
+            while (true)
+            {
+                // Skip 3 + 4
+                if (!take(7))
+                    return offsets;
+
+                // Header before text (5 words)
+                auto header = take(5);
+                if (!header)
+                    return offsets;
+
+                uint16_t length = (*header)[3];
+
+                if (remaining() < length)
+                    return offsets;
+
+                pos += length;
+
+                if (remaining() == 0)
+                    return offsets;
+
+                if (slice[pos] == 24)
+                    continue;
+
+                if (!take(2))
+                    return offsets;
+
+                break;
             }
-            
-            if (match)
-                offsets.push_back(i);
         }
-        
+
         return offsets;
     }
     
@@ -578,8 +617,8 @@ namespace hpnote {
             return sub;
         };
         
-        // Paragraph attributes (7)
-        s += decodeParagraphAttributes(take(7));
+        // Paragraph attributes (6)
+        s += decodeParagraphAttributes(take(6));
         
         while (true) {
             // Text attributes (3)
@@ -610,20 +649,21 @@ namespace hpnote {
         return s;
     }
     
-    std::string decodeHPNote(const std::u16string u16s)
+    std::string decodeHPNote(std::u16string_view s)
     {
-        std::string s;
+        std::string out;
         
-        auto data = decodeValues(u16s);
-        auto lines = data[data.size() - 8];
-        auto offsets = findOffsets(data, {0,22});
+        auto data = decodeValues(s);
+        auto offsets = findOffsets(data);
+        auto lines = offsets.size();
         
         while (lines--) {
-            if (s.size()) s += "\n";
-            s += decodeLine(std::span(data).subspan(offsets.front()));
+            if (out.size()) out += "\n";
+            out += decodeLine(std::span(data).subspan(offsets.front()));
+            
             offsets.erase(offsets.begin(), offsets.begin() + 1);
         }
-        return s;
+        return out;
     }
     
     std::u16string ntf_to_hpnote(const std::string& ntf, bool cc)
@@ -638,7 +678,7 @@ namespace hpnote {
         }
         
         wstr.push_back(L'\0');
-        wstr += u"CSWD110\xFFFF\xFFFF\\l\x013E";
+        wstr += u"CSWD110\xFFFF\xFFFF\\l\x013E\\0";
         
         std::istringstream iss(input);
         wstr += encodeNTFDocument(iss);
@@ -669,9 +709,9 @@ namespace hpnote {
         note[pos + 4] = u'T';
     }
     
-    std::string to_ntf(const std::u16string& u16s)
+    std::string to_ntf(const std::u16string& s)
     {
-        auto i = u16s.find(u"CSWD110\xFFFF\xFFFF\\l\x013E");
+        auto i = s.find(u"CSWD110\xFFFF\xFFFF\\l\x013E\\0");
         
         if (i == std::u16string::npos) {
             std::u16string out;
@@ -681,14 +721,14 @@ namespace hpnote {
 #else
             out.push_back(u'\xFEFF');
 #endif
-            for (size_t i = 0; i < u16s.size() && u16s.at(i) != 0; i++) {
-                out.push_back(u16s.at(i));
+            for (size_t i = 0; i < s.size() && s.at(i) != 0; i++) {
+                out.push_back(s.at(i));
             }
             out.push_back(u'\0');
             return utf::to_string(out);
         }
 
-        auto out = decodeHPNote(u16s.substr(i, u16s.size() - 1));
+        auto out = decodeHPNote(s.substr(i, s.size() - 1));
         out = normalizeControlWordSpacing(out);
         return out;
     }

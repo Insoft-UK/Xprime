@@ -13,6 +13,7 @@ Center Alignment Text
 Right Alignment Text\ql
 *Italic*
 **Bold**
+
 ***ItalicBold***
 - First item
   - Second item

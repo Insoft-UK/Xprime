@@ -45,3 +45,6 @@ blar...blar...blar...
 \b\fs14\cb#FFFF B\b0\i I\i0\ul U\ul0\strike S
 \strike0\fs10 10pt \fs12 12pt \fs14 14pt \fs16 16pt \fs18 18pt \fs20 20pt \fs22 22pt 
 \li1\fs14Primary
+\li2Secondary
+\li3Tertiary
+\li0None

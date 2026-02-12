@@ -22,6 +22,7 @@ Plain text
 \ql\i1Italic\i0
 \b Bold
 \i ItalicBold\i0\b0
+
 \li1 First item
 \li2 Second item
 \li3 Third item
