@@ -686,9 +686,9 @@ namespace hpnote {
         return wstr;
     }
     
-    bool has_hpnote_signature(const std::u16string& note)
+    bool has_hpnote_signature(std::u16string_view s)
     {
-        auto pos = note.find(u"\0CSW");
+        auto pos = s.find(u"\0CSW");
         
         if (pos == std::u16string::npos)
             return false;
@@ -696,17 +696,17 @@ namespace hpnote {
         return true;
     }
     
-    void to_hpappnote(std::u16string& note)
+    void to_hpappnote(std::u16string& s)
     {
-        auto pos = note.find(u"\0CSW");
+        auto pos = s.find(u"\0CSW");
         
         if (pos == std::u16string::npos)
             return;
         
-        if (note[pos + 4] != u'D')
+        if (s[pos + 4] != u'D')
             return;
         
-        note[pos + 4] = u'T';
+        s[pos + 4] = u'T';
     }
     
     std::string to_ntf(const std::u16string& s)

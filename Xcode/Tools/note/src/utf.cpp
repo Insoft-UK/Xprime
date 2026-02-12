@@ -65,7 +65,7 @@ namespace utf {
     {
 #if WCHAR_MAX == 0xFFFF
         // Windows: wchar_t is UTF-16
-        return std::u16string(ws.begin(), ws.end());
+        return std::u16string(s.begin(), s.end());
 #else
         // macOS/Linux: wchar_t is UTF-32
         std::u16string out;

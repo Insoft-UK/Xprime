@@ -27,7 +27,7 @@
 
 namespace hpnote {
     std::u16string ntf_to_hpnote(const std::string& ntf, bool cc = true);
-    bool has_hpnote_signature(const std::u16string& note);
+    bool has_hpnote_signature(const std::u16string_view note);
     void to_hpappnote(std::u16string& note);
     std::string to_ntf(const std::u16string& hpnote);
 }
