@@ -416,18 +416,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         else { return }
         
         let sourceURL: URL
-        if FileManager.default.fileExists(
+        if !FileManager.default.fileExists(
             atPath: currentDirectoryURL
                 .appendingPathComponent("main.prgm+")
                 .path
         ) {
-            sourceURL = currentDirectoryURL
-                .appendingPathComponent("main.prgm+")
-        } else {
-            // Fall back to v26.0
-            sourceURL = currentDirectoryURL
-                .appendingPathComponent("\(projectManager.projectName).prgm+")
+            AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "File main.prgm+ Not Found.")
+            return
         }
+        
+        sourceURL = currentDirectoryURL
+            .appendingPathComponent("main.prgm+")
+  
         
         if FileManager.default.fileExists(atPath: sourceURL.path) == false {
             AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "Unable to find \(sourceURL.lastPathComponent) file.")
@@ -441,37 +441,29 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        // Convert README .ntf/.md to Application .hpappnote format
-        if FileManager.default.fileExists(
-            atPath: currentDirectoryURL
-                .appendingPathComponent("README.ntf")
-                .path) == true
-        {
+        for infoFile in [
+            "info.ntf",
+            "info.md"
+        ] {
+            if FileManager.default.fileExists(
+                atPath: currentDirectoryURL
+                    .appendingPathComponent(infoFile)
+                    .path) == false
+            {
+                continue
+            }
+            
             convertFileToHPNote(
                 from: currentDirectoryURL
-                    .appendingPathComponent("README.ntf"),
+                    .appendingPathComponent(infoFile),
                 to: currentDirectoryURL
                     .appendingPathComponent(projectManager.projectName)
                     .appendingPathExtension("hpappdir")
                     .appendingPathComponent(projectManager.projectName)
                     .appendingPathExtension("hpappnote")
-            )
-        } else {
-            if FileManager.default.fileExists(
-                atPath: currentDirectoryURL
-                    .appendingPathComponent("README.md")
-                    .path) == true
-            {
-                convertFileToHPNote(
-                    from: currentDirectoryURL
-                        .appendingPathComponent("README.md"),
-                    to: currentDirectoryURL
-                        .appendingPathComponent(projectManager.projectName)
-                        .appendingPathExtension("hpappdir")
-                        .appendingPathComponent(projectManager.projectName)
-                        .appendingPathExtension("hpappnote")
+                
                 )
-            }
+            break
         }
         
         let result = HPServices.preProccess(at: sourceURL, to: currentDirectoryURL

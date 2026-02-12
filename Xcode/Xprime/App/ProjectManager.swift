@@ -34,10 +34,6 @@ fileprivate struct Project: Codable {
 final class ProjectManager {
     private var documentManager: DocumentManager
     private(set) var projectDirectoryURL: URL?
-    @available(*, deprecated, renamed: "projectDirectoryURL")
-    var currentDirectoryURL: URL? {
-        projectDirectoryURL
-    }
     
     var projectName: String {
         guard let projectDirectoryURL else {
@@ -63,25 +59,21 @@ final class ProjectManager {
             return
         }
         
-        let name = currentDocumentURL
+        let url = currentDocumentURL
             .deletingLastPathComponent()
-            .lastPathComponent
-        
-        let projectFileURL = currentDocumentURL
-            .deletingLastPathComponent()
-            .appendingPathComponent("\(name).xprimeproj")
-        
-        
+            .appendingPathComponent(
+                currentDocumentURL .deletingLastPathComponent().lastPathComponent
+            )
+            .appendingPathExtension("xprimeproj")
         
         var project: Project?
         
-        if let jsonString = loadJSONString(projectFileURL),
+        if let jsonString = loadJSONString(url),
            let jsonData = jsonString.data(using: .utf8) {
             project = try? JSONDecoder().decode(Project.self, from: jsonData)
         }
         
-        guard let project = project else {
-            projectDirectoryURL = nil
+        guard let project else {
             return
         }
         
@@ -95,6 +87,21 @@ final class ProjectManager {
         projectDirectoryURL = currentDocumentURL.deletingLastPathComponent()
     }
     
+    private func firstHPAppDirFolder(from url: URL) -> String? {
+        for component in url.pathComponents {
+            let componentURL = URL(fileURLWithPath: component)
+            if componentURL.pathExtension == "hpappdir" {
+                return component
+            }
+        }
+        return nil
+    }
+    
+    private func firstXPrimeProj(from url: URL) -> String? {
+        return url.pathComponents.first {
+            ($0 as NSString).pathExtension == "xprimeproj"
+        }
+    }
     
     private func loadJSONString(_ url: URL) -> String? {
         do {
@@ -148,19 +155,19 @@ final class ProjectManager {
                 withIntermediateDirectories: false
             )
             
-            if let url = Bundle.main.url(forResource: "README", withExtension: "ntf") {
+            if let url = Bundle.main.url(forResource: "info", withExtension: "ntf") {
                 try FileManager.default.copyItem(
                     at: url,
-                    to: directoryURL.appendingPathComponent("README.ntf")
+                    to: directoryURL.appendingPathComponent("info.ntf")
                 )
             }
 
-            if let url = Bundle.main.url(forResource: "Untitled", withExtension: "prgm+") {
+            if let url = Bundle.main.url(forResource: "main", withExtension: "prgm+") {
                 try FileManager.default.copyItem(
                     at: url,
-                    to: directoryURL.appendingPathComponent("\(name)/\(name).prgm+")
+                    to: directoryURL.appendingPathComponent("\(name)/main.prgm+")
                 )
-                documentManager.openDocument(url: directoryURL.appendingPathComponent("\(name)/\(name).prgm+"))
+                documentManager.openDocument(url: directoryURL.appendingPathComponent("\(name)/main.prgm+"))
                 defaultSettings()
                 projectDirectoryURL = directoryURL.appendingPathComponent(name)
                 saveProject()
