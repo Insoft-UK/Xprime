@@ -12,14 +12,23 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 
 **Header**
 
-`CSWD110￿￿\lľ`
+`CSWD110￿￿` 
+Uknown  `\lľ\0`
 
+All data is encoded as Base-32/Integer
+
+Every line starts with data defining bullets and alignment.
+Data Size (5)
 |Start of Line|Level|?|Alignment|?|
 |:-|:-|:-|:-|:-|
-|`\0\m`|`\0` None|`\0`|`\0` Left|`\0\n`
+|`\m`|`\0` None|`\0`|`\0` Left|`\0`
 ||`\1` ●||`\1` Center
 ||`\2` ○||`\2` Right
 ||`\3` ▻
+
+`\n`
+
+Every line cotains an entry.
 
 |Text Formatting|Typography & Decorations|Color|?|?|Span Length|Text Offset|TXT|EOT
 |:-|:-|:----|:-|:-|:-|:-|:-|:-
@@ -39,19 +48,22 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 **F** :- Foreground UInt16le</br>
 **B** :- Background UInt16le
 
+The line ends with zero, no more line entries.
 |End of Line|
 |:-|
-|`\0`|
+|`\0\0`|
 
 **Footer**
+After all the lines comes the footer, that states the number of lines entries.
+Data Size (10)
 |?|Base-32 or Integer|?|
 |:-|:-|:-|
-|`\0\0\3\0`|Number of Lines|`\0\0\0\0\0\0\0`
+|`\0\3\0`|Number of Lines|`\0\0\0\0\0\0\0`
 
 >[!NOTE]
 >The 🔲 *Default* color is ⬛️ *Black* or ⬜️ *White* for foreground color, depending on whether the theme is light or dark. 🔲 *Clear* is fully transparent, regardless of the theme.
 
 >[!IMPORTANT]
->Values encoded in base-32 are marked with a leading escape character `\`. Integer values are stored directly, without an escape prefix.
+>Values encoded in base-32 are indicated by a leading escape character `\`. Integer values are stored directly, without any escape prefix. The only exception is the integer 92, which is also marked with a leading `\`, because 92 corresponds to `\` in ASCII.
 
 
