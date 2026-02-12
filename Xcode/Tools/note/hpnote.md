@@ -14,12 +14,18 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 
 `CSWD110￿￿\lľ`
 
+All data is encoded as Base-32/Integer
+
+Every line starts with data defining bullets and alignment.
+Data Size (7)
 |Start of Line|Level|?|Alignment|?|
 |:-|:-|:-|:-|:-|
 |`\0\m`|`\0` None|`\0`|`\0` Left|`\0\n`
 ||`\1` ●||`\1` Center
 ||`\2` ○||`\2` Right
 ||`\3` ▻
+
+Every line cotains an entry.
 
 |Text Formatting|Typography & Decorations|Color|?|?|Span Length|Text Offset|TXT|EOT
 |:-|:-|:----|:-|:-|:-|:-|:-|:-
@@ -39,11 +45,14 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 **F** :- Foreground UInt16le</br>
 **B** :- Background UInt16le
 
+The line ends with zero, no more line entries.
 |End of Line|
 |:-|
 |`\0`|
 
 **Footer**
+After all the lines comes the footer, that states the number of lines entries.
+Data Size (11)
 |?|Base-32 or Integer|?|
 |:-|:-|:-|
 |`\0\0\3\0`|Number of Lines|`\0\0\0\0\0\0\0`
