@@ -23,24 +23,52 @@
 #pragma once
 
 #include <string>
-#include <cstdlib>
-#include <filesystem>
+#include <string_view>
 #include <algorithm>
+#include <cctype>
 
-#if __cplusplus >= 202302L
+#if defined(__cpp_lib_byteswap)
     #include <bit>
-#elif __cplusplus < 201103L
-    #include <cstdint>
-#else
-    #error "C++11 or newer is required"
 #endif
 
-namespace std {
-    std::string lowercased(const std::string& s);
-    std::string uppercased(const std::string& s);
+namespace stdext {
+    inline std::string lowercased(std::string_view s)
+    {
+        std::string result{s};
+        std::transform(result.begin(), result.end(),
+                       result.begin(),
+                       [](unsigned char c) {
+            return static_cast<char>(std::tolower(c));
+        });
+        return result;
+    }
+    
+    inline std::string uppercased(std::string_view s)
+    {
+        std::string result{s};
+        std::transform(result.begin(), result.end(),
+                       result.begin(),
+                       [](unsigned char c) {
+            return static_cast<char>(std::toupper(c));
+        });
+        return result;
+    }
 
-#if __cplusplus < 201103L
+#if defined(__cpp_lib_byteswap)
+    using std::byteswap;
+#else
     template <typename T>
-    T byteswap(T u);
+    constexpr T byteswap(T value)
+    {
+        static_assert(std::is_integral_v<T>, "byteswap requires integral type");
+        
+        T result = 0;
+        for (size_t i = 0; i < sizeof(T); ++i) {
+            result <<= 8;
+            result |= (value & 0xFF);
+            value >>= 8;
+        }
+        return result;
+    }
 #endif
 }

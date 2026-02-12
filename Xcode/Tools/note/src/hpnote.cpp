@@ -521,12 +521,12 @@ namespace hpnote {
         
         if (foreground != format.foreground) {
             format.foreground = foreground;
-            s += "\\cf#" + std::uppercased(std::format("{:04x}", foreground)) + " ";
+            s += "\\cf#" + stdext::uppercased(std::format("{:04x}", foreground)) + " ";
         }
         
         if (background != format.background) {
             format.background = background;
-            s += "\\cb#" + std::uppercased(std::format("{:04x}", background)) + " ";
+            s += "\\cb#" + stdext::uppercased(std::format("{:04x}", background)) + " ";
         }
         
         return s;

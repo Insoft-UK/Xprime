@@ -108,7 +108,7 @@ fs::path resolveOutputFile(const char *output_file) {
 
 fs::path resolveOutputExtension(const fs::path& inpath, const fs::path& outpath) {
     fs::path path = outpath;
-    auto in_extension = std::lowercased(inpath.extension().string());
+    auto in_extension = stdext::lowercased(inpath.extension().string());
     
     if (in_extension == ".note" || in_extension == ".md" || in_extension == ".txt" || in_extension == ".ntf" || in_extension == ".rtf") {
         path.replace_extension("hpnote");
@@ -210,8 +210,8 @@ int main(int argc, const char * argv[]) {
     
     std::u16string out;
     
-    auto in_extension = std::lowercased(inpath.extension().string());
-    auto out_extension = std::lowercased(outpath.extension().string());
+    auto in_extension = stdext::lowercased(inpath.extension().string());
+    auto out_extension = stdext::lowercased(outpath.extension().string());
  
     if (in_extension == ".md") {
         std::string md = utf::load(inpath);
