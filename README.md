@@ -41,9 +41,13 @@ MyApp/
 │   └── MyApp.hpappprgm
 │── MyApp.xprimeproj
 │── MyApp.prgm+ or main.prgm+
-│── README.ntf or README.md
+│── README.ntf or README.md *info.ntf
+│── info.ntf or info.md
 └── other.ppl+
 ```
+
+>[!IMPORTANT]
+>The README.ntf/README.md files will be renamed to info.ntf/info.md in a future update.
 
 Typical File Structure for an HP Prime **Program**
 
