@@ -33,7 +33,7 @@ Next comes the first entry, all entries are terminated by `\0` (zero), Uknown wh
 
 Every line starts with data defining bullets and alignment.
 Data Size (5)
-|BEGIN|Level|?|Alignment|END
+|BEGIN|BULLET|?|ALIGNMENT|END
 |:-|:-|:-|:-|:-|
 |`\m`|`\0` None|`\0`|`\0` Left|`\0`
 ||`\1` ●||`\1` Center
@@ -44,7 +44,7 @@ Data Size (5)
 
 Every line cotains an entry.
 
-|BEGIN|Typography & Decorations|Color|?|?|Span Length|Text Offset|TXT|END
+|BEGIN|Typography & Decorations|COLORS|?|?|Span Length|-|TXT|END
 |:-|:-|:----|:-|:-|:-|:-|:-|:-
 |\o|000111111110000[000][S]0[U][I][B]111111111|🔲🔲 `\0\0Ā\1`|`\0\0`|` ` Ensures this text is spaced from the previous text.|Base-32 or Integer|`\0`|Your Text...|`\0`
 ||[000]: 10pt = 1 ... 22pt = 7|🔲⬛️ `\0\0Ā\0`|`\0\0`|`x` Ensures this text is not spaced from the previous text.
