@@ -96,15 +96,15 @@ final class ProjectManager {
             .deletingLastPathComponent()
             .appendingPathComponent("\(projectName).xprimeproj")
         
-        var project: Project?
+        var project: Project!
         
         if let jsonString = loadJSONString(url),
            let jsonData = jsonString.data(using: .utf8) {
-            project = try? JSONDecoder().decode(Project.self, from: jsonData)
-        }
-        
-        guard let project else {
-            return
+            do {
+                project = try JSONDecoder().decode(Project.self, from: jsonData)
+            } catch {
+                return
+            }
         }
         
         UserDefaults.standard.set(project.compression, forKey: "compression")
@@ -161,7 +161,7 @@ final class ProjectManager {
     }
     
     @discardableResult
-    func createProject(named name: String, at directoryURL: URL) -> Bool {
+    func createNewProject(named name: String, in directoryURL: URL) -> Bool {
         do {
             try FileManager.default.createDirectory(
                 at: directoryURL

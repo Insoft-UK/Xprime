@@ -363,7 +363,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             "Prime Plus": ["prgm+", "ppl+"],
             "Prime": ["prgm", "ppl", "hpprgm", "hpappprgm"],
             "Python": ["py"],
-            ".md": ["md"], ".ntf": ["ntf"]
+            ".note": ["note"], ".ntf": ["ntf"], ".md": ["md"]
         ]
         
         for (grammarName, ext) in grammar where ext.contains(fileExtension.lowercased()) {
@@ -498,7 +498,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func archiveProcess() {
-        guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
         
         let url: URL
         
@@ -506,7 +506,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
             .appendingPathComponent(projectManager.projectName)
             .appendingPathExtension("hpappdir")
-        let dirB = currentDirectoryURL
+        let dirB = projectDirectoryURL
             .appendingPathComponent(projectManager.projectName)
             .appendingPathExtension("hpappdir")
         
@@ -516,11 +516,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             url = dirA.deletingLastPathComponent()
             outputTextView.appendTextAndScroll("📦 Archiving from the virtual calculator directory.\n")
         } else {
-            url = currentDirectoryURL
+            url = projectDirectoryURL
             outputTextView.appendTextAndScroll("📦 Archiving from the current project directory.\n")
         }
         
-        let result = HPServices.archiveHPAppDirectory(in: url, named: projectManager.projectName, to: currentDirectoryURL)
+        let result = HPServices.archiveHPAppDirectory(in: url, named: projectManager.projectName, to: projectDirectoryURL)
         
         if let out = result.out, !out.isEmpty {
             outputTextView.appendTextAndScroll(out)
@@ -528,6 +528,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
     
+    // MARK: - Xprime #require extension to PPL+ for importing Programs
     @discardableResult
     private func processRequires(in text: String) -> (cleaned: String, requiredFiles: [String]) {
         let pattern = #"#require\s*"([^"<>]+)""#
@@ -563,6 +564,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return (cleanedText, requiredFiles)
     }
     
+    // MARK: - Xprime #require extension to PPL+ for importing Apps
     @discardableResult
     private func processAppRequires(in text: String) -> (cleaned: String, requiredApps: [String]) {
         let pattern = #"#require\s*<([^"<>]+)>"#
@@ -679,7 +681,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func refreshQuickOpenToolbar() {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else {
+        guard let url = projectManager.projectDirectoryURL else {
             return
         }
         
@@ -697,7 +699,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let menu = NSMenu()
         
         let contents = try? FileManager.default.contentsOfDirectory(
-            at: currentDocumentURL.deletingLastPathComponent(),
+            at: url,
             includingPropertiesForKeys: [.isDirectoryKey],
             options: [.skipsHiddenFiles]
         )
@@ -814,7 +816,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let projectName = url.deletingPathExtension().lastPathComponent
             let directoryURL = url.deletingLastPathComponent()
             
-            self.projectManager.createProject(named: projectName, at: directoryURL)
+            self.projectManager.createNewProject(named: projectName, in: directoryURL)
         }
     }
     
@@ -832,7 +834,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
             
-            guard let templateURL = Bundle.main.resourceURL?.appendingPathComponent("Untitled.prgm+") else { return }
+            guard let templateURL = Bundle.main.resourceURL?.appendingPathComponent("main.prgm+") else { return }
             do {
                 try FileManager.default.copyItem(at: templateURL, to: url)
                 self.documentManager.openDocument(url: url)
@@ -1163,12 +1165,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-//    @IBAction func buildForArchiving(_ sender: Any) {
-//        saveDocument(sender)
-//        guard let _ = documentManager.currentDocumentURL else { return }
-//        buildApplication()
-//    }
-    
     @IBAction func installHPPrgmFileToCalculator(_ sender: Any) {
         guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
         
@@ -1466,7 +1462,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return false
             
-        case #selector(run(_:)), #selector(archive(_:)), #selector(build(_:)), #selector(buildForRunning(_:)), #selector(buildForArchiving(_:)):
+        case #selector(run(_:)), #selector(archive(_:)), #selector(build(_:)), #selector(buildForRunning(_:)):
             if projectManager.projectDirectoryURL != nil   {
                 return true
             }
