@@ -37,6 +37,7 @@ MyApp/
 │   │── Example.hpapp
 │   │── Example.hpappnote
 │   └── Example.hpappprgm
+│── Example.hpappdir.zip
 │── Example.xprimeproj
 └── src/
     │── info.note, info.ntf or info.md
@@ -47,6 +48,7 @@ Typical File Structure for an HP Prime **Program**
 ```
 MyProgram/
 │── Example.xprimeproj
+│── Example.hpprgm
 └── src/
     │── info.note, info.ntf or info.md
     └── main.prgm+ or main.prgm
