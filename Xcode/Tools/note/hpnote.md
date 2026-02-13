@@ -41,7 +41,7 @@ Data Size (5)
 ||`\3` ▻
 
 Start of line
-
+|START|
 |:-|
 |`\n`|
 
