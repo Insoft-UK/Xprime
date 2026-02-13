@@ -16,7 +16,9 @@ Ends with a 16-bit integer value of zero **0x0000** as a termination marker.
 
 **Header**
 
-`CSWD110` for Program `CSWT110` for Application **Info**
+|MAGIC|TYPE|VERSION|
+|`CSW`|`D`|`110`
+||T
 
 After the header comes two 16-bit integers, values set to 0xFFFF (65535) for both.
 `￿￿`
