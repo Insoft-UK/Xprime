@@ -410,52 +410,42 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         updateWindowDocumentIcon()
     }
     
-    private func buildForArchive() {
-        guard
-            let currentDirectoryURL = projectManager.projectDirectoryURL
-        else { return }
-        
-        let sourceURL: URL
-        if !FileManager.default.fileExists(
-            atPath: currentDirectoryURL
-                .appendingPathComponent("main.prgm+")
-                .path
-        ) {
-            AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "File main.prgm+ Not Found.")
-            return
+    private func mainURL(at directoryURL: URL) -> URL? {
+        for main in [
+            "main.prgm+",
+            "main.prgm"
+        ] {
+            let url = directoryURL
+                .appendingPathComponent(main)
+            
+            if FileManager.default.fileExists(
+                atPath: url.path) == false
+            {
+                return url
+            }
         }
         
-        sourceURL = currentDirectoryURL
-            .appendingPathComponent("main.prgm+")
-  
-        if FileManager.default.fileExists(atPath: sourceURL.path) == false {
-            AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "Unable to find \(sourceURL.lastPathComponent) file.")
-            return
-        }
-        
-        do {
-            try HPServices.ensureHPAppDirectory(at: currentDirectoryURL, named: projectManager.projectName, fromBaseApplicationNamed: projectManager.baseApplicationName)
-        } catch {
-            outputTextView.appendTextAndScroll("Failed to build for archiving: \(error)\n")
-            return
-        }
-        
-        for infoFile in [
+        return nil
+    }
+    
+    private func ntfToHpNote(at url: URL) {
+        for file in [
+            "info.note",
             "info.ntf",
             "info.md"
         ] {
             if FileManager.default.fileExists(
-                atPath: currentDirectoryURL
-                    .appendingPathComponent(infoFile)
+                atPath: url
+                    .appendingPathComponent(file)
                     .path) == false
             {
                 continue
             }
             
             convertFileToHPNote(
-                from: currentDirectoryURL
-                    .appendingPathComponent(infoFile),
-                to: currentDirectoryURL
+                from: url
+                    .appendingPathComponent(file),
+                to: url
                     .appendingPathComponent(projectManager.projectName)
                     .appendingPathExtension("hpappdir")
                     .appendingPathComponent(projectManager.projectName)
@@ -464,8 +454,25 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 )
             break
         }
+    }
+    
+    private func buildForArchive() {
+        guard let url = projectManager.projectDirectoryURL else { return }
+        guard let sourceURL = mainURL(at: url) else {
+            AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "Unable to find main.prgm+ or main.prgm file.")
+            return
+        }
+    
+        do {
+            try HPServices.ensureHPAppDirectory(at: url, named: projectManager.projectName, fromBaseApplicationNamed: projectManager.baseApplicationName)
+        } catch {
+            outputTextView.appendTextAndScroll("Failed to build for archiving: \(error)\n")
+            return
+        }
         
-        let result = HPServices.preProccess(at: sourceURL, to: currentDirectoryURL
+        ntfToHpNote(at: url)
+        
+        let result = HPServices.preProccess(at: sourceURL, to: url
             .appendingPathComponent(projectManager.projectName)
             .appendingPathExtension("hpappdir")
             .appendingPathComponent(projectManager.projectName)
@@ -599,30 +606,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func performBuild() {
-        guard let url = documentManager.currentDocumentURL else {
+        guard let url = documentManager.currentDocumentURL else { return }
+        guard let sourceURL = mainURL(at: url) else {
+            AlertPresenter.showInfo(on: view.window, title: "Build Failed", message: "Unable to find main.prgm+ or main.prgm file.")
             return
         }
         
-        let sourceURL: URL
-        
-        if FileManager.default.fileExists(
-            atPath: url
-                .deletingLastPathComponent()
-                .appendingPathComponent("main.prgm+")
-                .path
-        ) {
-            sourceURL = url
-                .deletingLastPathComponent()
-                .appendingPathComponent("main.prgm+")
-        } else {
-            return
-        }
-        
-        if FileManager.default.fileExists(atPath: sourceURL.path) == false {
-            AlertPresenter.showInfo(on: view.window, title: "Build Failed", message: "Unable to find \(sourceURL.lastPathComponent) file.")
-            return
-        }
-       
         let destinationURL = sourceURL
             .deletingLastPathComponent()
             .appendingPathComponent("\(projectManager.projectName).hpprgm")
@@ -1554,7 +1543,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return true
             
         case #selector(exportAsHPNote(_:)):
-            if ext == "md" || ext == "ntf" {
+            if ext == "note" || ext == "ntf" || ext == "md" {
                 return true
             }
             return false
