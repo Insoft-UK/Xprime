@@ -363,7 +363,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             "Prime Plus": ["prgm+", "ppl+"],
             "Prime": ["prgm", "ppl", "hpprgm", "hpappprgm"],
             "Python": ["py"],
-            ".note": ["note"], ".ntf": ["ntf"], ".md": ["md"]
+            ".ntf": ["hpnote", "hpappnote", "note", "ntf"],
+            ".md": ["md"]
         ]
         
         for (grammarName, ext) in grammar where ext.contains(fileExtension.lowercased()) {

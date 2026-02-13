@@ -71,6 +71,30 @@ final class DocumentManager {
         documentIsModified = false
     }
     
+    private func saveNote(url: URL) {
+        saveDocument(to: url.appendingPathExtension("ntf"))
+        let path = ToolchainPaths.bin.appendingPathComponent("note")
+        let result = ProcessRunner.run(executable: path, arguments: [url.appendingPathExtension("ntf").path, "-o", url.path])
+        
+        guard result.exitCode == 0, let out = result.out else {
+            let error = NSError(
+                domain: "Error",
+                code: 0,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to write to file \"\(url.lastPathComponent)\""]
+            )
+            
+            try? FileManager.default.removeItem(at: url.appendingPathExtension("ntf"))
+            outputTextView.appendTextAndScroll(result.err ?? "")
+            delegate?.documentManager(self, didFailWith: error)
+            return
+        }
+        
+        try? FileManager.default.removeItem(at: url.appendingPathExtension("ntf"))
+        outputTextView.appendTextAndScroll(result.err ?? "")
+        documentIsModified = false
+        delegate?.documentManagerDidSave(self)
+    }
+    
     private func openNote(url: URL) {
         let path = ToolchainPaths.bin.appendingPathComponent("note")
         let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
@@ -103,12 +127,14 @@ final class DocumentManager {
                 code: 0,
                 userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]
             )
+            outputTextView.appendTextAndScroll(result.err ?? "")
             delegate?.documentManager(self, didFailToOpen: error)
             return
         }
         
+        outputTextView.appendTextAndScroll(result.err ?? "")
         editor.string = out
-        currentDocumentURL = url.deletingPathExtension().appendingPathExtension("prgm")
+        currentDocumentURL = url
         documentIsModified = false
         delegate?.documentManagerDidOpen(self)
     }
@@ -156,7 +182,8 @@ final class DocumentManager {
         case "prgm", "app":
             encoding = .utf16
         case "hpnote", "hpappnote":
-            encoding = .utf16LittleEndian
+            saveNote(url: url)
+            return true
         default:
             encoding = .utf8
         }

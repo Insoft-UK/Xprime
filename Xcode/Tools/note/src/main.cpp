@@ -151,6 +151,12 @@ fs::path resolveOutputPath(const fs::path& inpath, const fs::path& outpath) {
 // MARK: - Main
 
 int main(int argc, const char * argv[]) {
+    enum class Type {
+        AUTO, NTF
+    };
+    
+    Type type = Type::AUTO;
+    
     std::string prefix, sufix, name;
     fs::path inpath, outpath;
     bool verbose = false;
@@ -176,6 +182,17 @@ int main(int argc, const char * argv[]) {
         
         if ( args == "--cc" ) {
             cc = true;
+            continue;
+        }
+        
+        if (args == "-t" || args == "--type") {
+            if ( ++n >= argc ) {
+                error();
+                exit(0);
+            }
+            args = argv[n];
+            if (args == "ntf")
+                type = Type::NTF;
             continue;
         }
         
@@ -247,7 +264,7 @@ int main(int argc, const char * argv[]) {
     }
     
     if (in_extension == ".hpnote" || in_extension == ".hpappnote") {
-        if (out_extension == ".ntf" || outpath == "/dev/stdout") {
+        if (out_extension == ".ntf" || outpath == "/dev/stdout" || type == Type::NTF) {
             auto hpnote = utf::load(inpath, utf::BOM::none, true);
             std::u16string s = utf::to_u16string(hpnote);
             auto ntf = hpnote::to_ntf(s);
