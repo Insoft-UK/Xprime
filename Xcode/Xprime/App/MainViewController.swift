@@ -307,7 +307,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @objc func handleBaseApplicationSelection(_ sender: NSMenuItem) {
         guard let currentDocumentURL = documentManager.currentDocumentURL else { return }
         
-        let name = currentDocumentURL.deletingLastPathComponent().lastPathComponent
+        let name = projectManager.projectName
         let directoryURL = currentDocumentURL.deletingLastPathComponent()
         
         if directoryURL.appendingPathComponent("\(name).hpappdir").isDirectory {
@@ -410,7 +410,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         updateWindowDocumentIcon()
     }
     
-    private func mainURL(at directoryURL: URL) -> URL? {
+    private func mainURL(in directoryURL: URL) -> URL? {
         for main in [
             "main.prgm+",
             "main.prgm"
@@ -419,7 +419,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 .appendingPathComponent(main)
             
             if FileManager.default.fileExists(
-                atPath: url.path) == false
+                atPath: url.path) == true
             {
                 return url
             }
@@ -428,7 +428,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return nil
     }
     
-    private func ntfToHpNote(at url: URL) {
+    private func ntfToHpNote(in url: URL) {
         for file in [
             "info.note",
             "info.ntf",
@@ -456,9 +456,24 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    private func buildForArchive() {
+    private func buildProgram() {
         guard let url = projectManager.projectDirectoryURL else { return }
-        guard let sourceURL = mainURL(at: url) else {
+        guard let sourceURL = mainURL(in: url) else {
+            AlertPresenter.showInfo(on: view.window, title: "Build Failed", message: "Unable to find main.prgm+ or main.prgm file.")
+            return
+        }
+        
+        let destinationURL = url
+            .appendingPathComponent("\(projectManager.projectName).hpprgm")
+
+        let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
+        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: compression)
+        outputTextView.appendTextAndScroll(result.err ?? "")
+    }
+    
+    private func buildApplication() {
+        guard let url = projectManager.projectDirectoryURL else { return }
+        guard let sourceURL = mainURL(in: url) else {
             AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "Unable to find main.prgm+ or main.prgm file.")
             return
         }
@@ -470,7 +485,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        ntfToHpNote(at: url)
+        ntfToHpNote(in: url)
         
         let result = HPServices.preProccess(at: sourceURL, to: url
             .appendingPathComponent(projectManager.projectName)
@@ -603,22 +618,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 outputTextView.appendTextAndScroll("Error installing \(file).hpappdir: \(error)\n")
             }
         }
-    }
-    
-    private func performBuild() {
-        guard let url = documentManager.currentDocumentURL else { return }
-        guard let sourceURL = mainURL(at: url) else {
-            AlertPresenter.showInfo(on: view.window, title: "Build Failed", message: "Unable to find main.prgm+ or main.prgm file.")
-            return
-        }
-        
-        let destinationURL = sourceURL
-            .deletingLastPathComponent()
-            .appendingPathComponent("\(projectManager.projectName).hpprgm")
-
-        let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
-        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: compression)
-        outputTextView.appendTextAndScroll(result.err ?? "")
     }
     
     func runExport(
@@ -1134,50 +1133,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func run(_ sender: Any) {
-        if let _ = documentManager.currentDocumentURL {
-            documentManager.saveDocument()
-        } else {
-            proceedWithSavingDocumentAs()
-        }
-        
-        guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
-            return
-        }
-        
-        let programs = processRequires(in: codeEditorTextView.string)
-        installRequiredPrograms(requiredFiles: programs.requiredFiles)
-        
-        let apps = processAppRequires(in: codeEditorTextView.string)
-        installRequiredApps(requiredApps: apps.requiredApps)
-        
-        performBuild()
-        
-        if HPServices.hpPrgmExists(atPath: projectDirectoryURL.path, named: projectManager.projectName) {
-            installHPPrgmFileToCalculator(sender)
-            HPServices.launchVirtualCalculator()
-        }
+        buildForRunning(sender)
+        guard documentManager.currentDocumentURL != nil else { return }
+        HPServices.launchVirtualCalculator()
     }
     
     @IBAction func archive(_ sender: Any) {
-        if let _ = documentManager.currentDocumentURL {
-            documentManager.saveDocument()
-        } else {
-            proceedWithSavingDocumentAs()
-        }
-        buildForArchive()
+        build(sender)
+        guard let _ = documentManager.currentDocumentURL else { return }
         archiveProcess()
     }
     
     @IBAction func buildForRunning(_ sender: Any) {
-        if let _ = documentManager.currentDocumentURL {
-            documentManager.saveDocument()
-        } else {
-            proceedWithSavingDocumentAs()
-        }
-        
-        guard let currentDirectoryURL = projectManager.projectDirectoryURL else {
-            return
-        }
+        saveDocument(sender)
+        guard let _ = documentManager.currentDocumentURL else { return }
         
         let result = processRequires(in: codeEditorTextView.string)
         installRequiredPrograms(requiredFiles: result.requiredFiles)
@@ -1185,21 +1154,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let appsToInstall = processAppRequires(in: codeEditorTextView.string)
         installRequiredApps(requiredApps: appsToInstall.requiredApps)
         
-        performBuild()
-        
-        if HPServices.hpPrgmExists(atPath: currentDirectoryURL.path, named: projectManager.projectName) {
+        if projectManager.isProjectAnApplication {
+            buildApplication()
+            installHPAppDirectoryToCalculator(sender)
+        } else {
+            buildProgram()
             installHPPrgmFileToCalculator(sender)
         }
     }
     
-    @IBAction func buildForArchiving(_ sender: Any) {
-        if let _ = documentManager.currentDocumentURL {
-            documentManager.saveDocument()
-        } else {
-            proceedWithSavingDocumentAs()
-        }
-        buildForArchive()
-    }
+//    @IBAction func buildForArchiving(_ sender: Any) {
+//        saveDocument(sender)
+//        guard let _ = documentManager.currentDocumentURL else { return }
+//        buildApplication()
+//    }
     
     @IBAction func installHPPrgmFileToCalculator(_ sender: Any) {
         guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
@@ -1246,12 +1214,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func build(_ sender: Any) {
-        if let _ = documentManager.currentDocumentURL {
-            documentManager.saveDocument()
+        saveDocument(sender)
+        guard let _ = documentManager.currentDocumentURL else { return }
+        
+        if !projectManager.isProjectAnApplication {
+            buildProgram()
         } else {
-            proceedWithSavingDocumentAs()
+            buildApplication()
         }
-        performBuild()
     }
     
     @IBAction func importImage(_ sender: Any) {

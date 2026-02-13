@@ -1,6 +1,6 @@
 {
-    "latestVersion": "26.1.20260211",
-    "build": "20260211",
+    "latestVersion": "26.2.20260214",
+    "build": "20260214",
     "downloadURL": "http://insoft.uk/action/?method=downlink&path=macos&file=xprime.pkg",
     "minimumOS": "26.0",
     "releaseNotesURL": "http://insoft.uk/xprime-release-notes.txt"

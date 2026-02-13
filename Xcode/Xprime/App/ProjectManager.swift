@@ -36,11 +36,20 @@ final class ProjectManager {
     private(set) var projectDirectoryURL: URL?
     
     var projectName: String {
-        guard let projectDirectoryURL else {
+        guard let url = documentManager.currentDocumentURL else {
             return "Untitled"
         }
+        return xprimeProjectName(in: url.deletingLastPathComponent())
+    }
+    
+    var isProjectAnApplication: Bool {
+        guard let projectDirectoryURL else {
+            return false
+        }
         return projectDirectoryURL
-            .lastPathComponent
+            .appendingPathComponent(projectName)
+            .appendingPathExtension("hpappdir")
+            .isDirectory
     }
     
     var baseApplicationName: String {
@@ -54,17 +63,38 @@ final class ProjectManager {
         self.documentManager = documentManager
     }
     
+    private func xprimeProjectName(in directory: URL) -> String {
+        let fileManager = FileManager.default
+        
+        do {
+            let contents = try fileManager.contentsOfDirectory(
+                at: directory,
+                includingPropertiesForKeys: [.isRegularFileKey],
+                options: [.skipsHiddenFiles]
+            )
+            
+            for fileURL in contents {
+                if fileURL.pathExtension.lowercased() == "xprimeproj" {
+                    return fileURL.deletingPathExtension().lastPathComponent
+                }
+            }
+        } catch {
+            print("Error reading directory: \(error)")
+        }
+        
+        return directory.deletingLastPathComponent().lastPathComponent
+    }
+    
     func openProject() {
         guard let currentDocumentURL = documentManager.currentDocumentURL else {
             return
         }
         
+        let projectName = xprimeProjectName(in: currentDocumentURL.deletingLastPathComponent())
+        
         let url = currentDocumentURL
             .deletingLastPathComponent()
-            .appendingPathComponent(
-                currentDocumentURL .deletingLastPathComponent().lastPathComponent
-            )
-            .appendingPathExtension("xprimeproj")
+            .appendingPathComponent("\(projectName).xprimeproj")
         
         var project: Project?
         

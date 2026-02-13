@@ -758,12 +758,6 @@ DQ
                                                             <action selector="buildForRunning:" target="Ady-hI-5gd" id="UfM-bB-7Gx"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Archiving" image="shippingbox.fill" catalog="system" keyEquivalent="A" id="6iN-LO-z15">
-                                                        <modifierMask key="keyEquivalentModifierMask" option="YES"/>
-                                                        <connections>
-                                                            <action selector="buildForArchiving:" target="Ady-hI-5gd" id="MI1-gq-5aA"/>
-                                                        </connections>
-                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>
@@ -1404,7 +1398,7 @@ Gw
         <image name="document" catalog="system" width="12" height="13"/>
         <image name="eye" catalog="system" width="16" height="11"/>
         <image name="eye.slash" catalog="system" width="21" height="16"/>
-        <image name="folder" catalog="system" width="18" height="14"/>
+        <image name="folder" catalog="system" width="15" height="12"/>
         <image name="folder.fill.badge.plus" catalog="system" width="20" height="15"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
