@@ -19,10 +19,9 @@ Ends with a 16-bit integer value of zero **0x0000** as a termination marker.
 |MAGIC|TYPE|VERSION|
 |:-|:-|:-|
 |`CSW`|`D`|`110`|
-||T||
+||`T`||
 
-**D** Notes
-**T** Info
+**D** Notes | **T** Info
 
 After the header comes two 16-bit integers, values set to 0xFFFF (65535) for both.
 `￿￿`
