@@ -1,4 +1,4 @@
->[!IMPORTANT]
+>[!WARNING]
 >Draft documentation — incomplete and written as I document findings along the way. Mistakes are likely, so please don’t treat this as 100% accurate.
 
 >[!IMPORTANT]
