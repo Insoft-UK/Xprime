@@ -87,22 +87,6 @@ final class ProjectManager {
         projectDirectoryURL = currentDocumentURL.deletingLastPathComponent()
     }
     
-    private func firstHPAppDirFolder(from url: URL) -> String? {
-        for component in url.pathComponents {
-            let componentURL = URL(fileURLWithPath: component)
-            if componentURL.pathExtension == "hpappdir" {
-                return component
-            }
-        }
-        return nil
-    }
-    
-    private func firstXPrimeProj(from url: URL) -> String? {
-        return url.pathComponents.first {
-            ($0 as NSString).pathExtension == "xprimeproj"
-        }
-    }
-    
     private func loadJSONString(_ url: URL) -> String? {
         do {
             let jsonString = try String(contentsOf: url, encoding: .utf8)

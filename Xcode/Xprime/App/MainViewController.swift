@@ -617,10 +617,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 .deletingLastPathComponent()
                 .appendingPathComponent("main.prgm+")
         } else {
-            // Fall back to v26.0
-            sourceURL = url
-                .deletingLastPathComponent()
-                .appendingPathComponent("\(projectManager.projectName).prgm+")
+            return
         }
         
         if FileManager.default.fileExists(atPath: sourceURL.path) == false {
