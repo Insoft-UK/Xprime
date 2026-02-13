@@ -39,7 +39,7 @@ MyApp/
 │   │── MyApp.hpappnote
 │   └── MyApp.hpappprgm
 │── MyApp.xprimeproj
-│── main.prgm+
+│── main.prgm+ or main.prgm
 └── info.ntf or info.md
 ```
 
@@ -47,7 +47,7 @@ Typical File Structure for an HP Prime **Program**
 ```
 MyProgram/
 │── MyProgram.xprimeproj
-└── main.prgm+
+└── main.prgm+ or main.prgm
 ```
 
 >[!NOTE]
