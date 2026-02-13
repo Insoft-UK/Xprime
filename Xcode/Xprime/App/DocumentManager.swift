@@ -112,7 +112,7 @@ final class DocumentManager {
     func openDocument(url: URL) {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
-        case "prgm", "app", "note":
+        case "prgm", "app":
             encoding = .utf16
         case "hpnote", "hpappnote":
             openNote(url: url)
@@ -149,7 +149,7 @@ final class DocumentManager {
     func saveDocument(to url: URL) -> Bool {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
-        case "prgm", "app", "note":
+        case "prgm", "app":
             encoding = .utf16
         case "hpnote", "hpappnote":
             encoding = .utf16LittleEndian

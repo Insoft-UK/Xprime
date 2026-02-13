@@ -139,10 +139,10 @@ final class ProjectManager {
                 withIntermediateDirectories: false
             )
             
-            if let url = Bundle.main.url(forResource: "info", withExtension: "ntf") {
+            if let url = Bundle.main.url(forResource: "info", withExtension: "note") {
                 try FileManager.default.copyItem(
                     at: url,
-                    to: directoryURL.appendingPathComponent("info.ntf")
+                    to: directoryURL.appendingPathComponent("info.note")
                 )
             }
 
