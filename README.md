@@ -32,21 +32,30 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 Typical File Structure for an HP Prime **Application**
 ```
 MyApp/
-├── MyApp.hpappdir/
+├── Example.hpappdir/
 │   │── icon.png
-│   │── MyApp.hpapp
-│   │── MyApp.hpappnote
-│   └── MyApp.hpappprgm
-│── MyApp.xprimeproj
-│── main.prgm+ or main.prgm
+│   │── Example.hpapp
+│   │── Example.hpappnote
+│   └── Example.hpappprgm
+│── Example.hpappdir.zip
+│── Example.xprimeproj
+│── src/
+│   │── other.ppl+
+│   │── other.ppl
+│   └── main.prgm+ or main.prgm
 └── info.note, info.ntf or info.md
 ```
 
 Typical File Structure for an HP Prime **Program**
 ```
 MyProgram/
-│── MyProgram.xprimeproj
-└── main.prgm+ or main.prgm
+│── Example.xprimeproj
+│── Example.hpprgm
+│── src/
+│   │── other.ppl+
+│   │── other.ppl
+│   └── main.prgm+ or main.prgm
+└── info.note, info.ntf or info.md
 ```
 
 >[!NOTE]
