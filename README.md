@@ -31,7 +31,6 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 *Ritch Text like format file for notes.
 
 Typical File Structure for an HP Prime **Application**
-
 ```
 MyApp/
 ├── MyApp.hpappdir/
@@ -40,22 +39,15 @@ MyApp/
 │   │── MyApp.hpappnote
 │   └── MyApp.hpappprgm
 │── MyApp.xprimeproj
-│── MyApp.prgm+ or main.prgm+
-│── README.ntf or README.md
-│── info.ntf or info.md (NEW)
-└── other.ppl+
+│── main.prgm+
+└── info.ntf or info.md
 ```
 
->[!IMPORTANT]
->The README.ntf/README.md files will be renamed to info.ntf/info.md in a future update.
-
 Typical File Structure for an HP Prime **Program**
-
 ```
 MyProgram/
 │── MyProgram.xprimeproj
-│── MyProgram.prgm+ or main.prgm+
-└── other.ppl+
+└── main.prgm+
 ```
 
 >[!NOTE]
