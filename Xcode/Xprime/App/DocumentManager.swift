@@ -43,6 +43,7 @@ final class DocumentManager {
     
     private(set) var currentDocumentURL: URL?
     private var editor: CodeEditorTextView
+    private var outputTextView: OutputTextView
 
     var documentIsModified: Bool = false {
         didSet {
@@ -50,8 +51,9 @@ final class DocumentManager {
         }
     }
 
-    init(editor: CodeEditorTextView) {
+    init(editor: CodeEditorTextView, outputTextView output: OutputTextView) {
         self.editor = editor
+        self.outputTextView = output
     }
 
     func openLastOrUntitled() {
@@ -79,10 +81,12 @@ final class DocumentManager {
                 code: 0,
                 userInfo: [NSLocalizedDescriptionKey: "Failed to read from the note file."]
             )
+            outputTextView.appendTextAndScroll(result.err ?? "")
             delegate?.documentManager(self, didFailToOpen: error)
             return
         }
         
+        outputTextView.appendTextAndScroll(result.err ?? "")
         editor.string = out
         currentDocumentURL = url
         documentIsModified = false

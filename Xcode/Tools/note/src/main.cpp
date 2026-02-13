@@ -155,13 +155,13 @@ int main(int argc, const char * argv[]) {
     fs::path inpath, outpath;
     bool verbose = false;
     bool cc = false;
-
+    
     if ( argc == 1 )
     {
         error();
         exit( 0 );
     }
-   
+    
     for( int n = 1; n < argc; n++ ) {
         std::string args = argv[n];
         
@@ -212,7 +212,7 @@ int main(int argc, const char * argv[]) {
     
     auto in_extension = stdext::lowercased(inpath.extension().string());
     auto out_extension = stdext::lowercased(outpath.extension().string());
- 
+    
     if (in_extension == ".md") {
         std::string md = utf::load(inpath);
         std::string ntf = ntf::markdownToNTF(md);
@@ -247,7 +247,7 @@ int main(int argc, const char * argv[]) {
     }
     
     if (in_extension == ".hpnote" || in_extension == ".hpappnote") {
-        if (out_extension == ".ntf") {
+        if (out_extension == ".ntf" || outpath == "/dev/stdout") {
             auto hpnote = utf::load(inpath, utf::BOM::none, true);
             std::u16string s = utf::to_u16string(hpnote);
             auto ntf = hpnote::to_ntf(s);
@@ -257,13 +257,18 @@ int main(int argc, const char * argv[]) {
             out = utf::to_u16string(s);
         }
     }
-
+    
     if (outpath == "/dev/stdout") {
-        std::cout << utf::to_string(out);
+        if (out.size() > 2)
+            std::cout << utf::to_string(out);
+        else {
+            std::cerr << "❌ Unsuccessfull converting " << inpath.filename() << " to NoteText.\n";
+            return -1;
+        }
     } else {
         if (out_extension == ".hpappnote")
             hpnote::to_hpappnote(out);
-    
+        
         if (out_extension == ".hpnote" || out_extension == ".hpappnote")
             utf::save(outpath, out, false);
         
@@ -276,12 +281,15 @@ int main(int argc, const char * argv[]) {
             return -1;
         }
     }
-
+    
     // Stop measuring time and calculate the elapsed time.
     long long elapsed_time = timer.elapsed();
     
-    
-    std::cerr << "Successfully created " << outpath.filename() << "\n";
+    if (outpath == "/dev/stdout") {
+        std::cerr << "Successfully converted " << inpath.filename() << " to NoteText\n";
+    } else {
+        std::cerr << "Successfully created " << outpath.filename() << "\n";
+    }
     
     // Display elasps time in secononds.
     if (elapsed_time / 1e9 < 1.0) {

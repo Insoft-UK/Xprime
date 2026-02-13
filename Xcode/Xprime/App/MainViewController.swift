@@ -62,7 +62,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         super.viewDidLoad()
         
         // Managers that don’t depend on window
-        documentManager = DocumentManager(editor: codeEditorTextView)
+        documentManager = DocumentManager(editor: codeEditorTextView, outputTextView: outputTextView)
         documentManager.delegate = self
         projectManager = ProjectManager(documentManager: documentManager)
         statusManager = StatusManager(editor: codeEditorTextView, statusLabel: statusLabel)
@@ -88,10 +88,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                                     window: view.window)
         updateManager = UpdateManager(presenterWindow: view.window)
         setupWindowAppearance()
-        documentManager.openLastOrUntitled()
         themeManager.applySavedTheme()
         registerWindowFocusObservers()
         refreshBaseApplicationMenu()
+        
+        documentManager.openLastOrUntitled()
     }
     
     deinit {
@@ -166,7 +167,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         print("Window gained focus")
 #endif
         refreshQuickOpenToolbar()
-        projectManager.saveProject()
         refreshProjectIconImage()
         refreshBaseApplicationMenu()
     }
@@ -854,6 +854,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let panel = NSOpenPanel()
         
         panel.title = ""
+        panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         panel.allowedContentTypes = [
             UTType(filenameExtension: "prgm+")!,
             UTType(filenameExtension: "prgm")!,
@@ -1543,12 +1544,12 @@ extension MainViewController: DocumentManagerDelegate {
 #if Debug
         print("Opened successfully")
 #endif
-        refreshQuickOpenToolbar()
-        projectManager.openProject()
         if let url = documentManager.currentDocumentURL {
             loadAppropriateGrammar(forType: url.pathExtension.lowercased())
+            projectManager.openProject(in: url.deletingLastPathComponent())
         }
         
+        refreshQuickOpenToolbar()
         refreshProjectIconImage()
         refreshBaseApplicationMenu()
         gutterView.updateLines()

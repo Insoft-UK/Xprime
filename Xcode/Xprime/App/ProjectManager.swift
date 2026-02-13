@@ -36,10 +36,10 @@ final class ProjectManager {
     private(set) var projectDirectoryURL: URL?
     
     var projectName: String {
-        guard let url = documentManager.currentDocumentURL else {
+        guard let url = projectDirectoryURL else {
             return "Untitled"
         }
-        return xprimeProjectName(in: url.deletingLastPathComponent())
+        return xprimeProjectName(in: url)
     }
     
     var isProjectAnApplication: Bool {
@@ -85,12 +85,13 @@ final class ProjectManager {
         return directory.deletingLastPathComponent().lastPathComponent
     }
     
-    func openProject() {
+    func openProject(in directoryURL: URL) {
         guard let currentDocumentURL = documentManager.currentDocumentURL else {
             return
         }
         
-        let projectName = xprimeProjectName(in: currentDocumentURL.deletingLastPathComponent())
+        
+        let projectName = self.xprimeProjectName(in: directoryURL)
         
         let url = currentDocumentURL
             .deletingLastPathComponent()
@@ -105,6 +106,8 @@ final class ProjectManager {
             } catch {
                 return
             }
+        } else {
+            return
         }
         
         UserDefaults.standard.set(project.compression, forKey: "compression")
