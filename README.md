@@ -40,6 +40,8 @@ MyApp/
 │── Example.hpappdir.zip
 │── Example.xprimeproj
 │── src/
+│   │── other.ppl+
+│   │── other.ppl
 │   └── main.prgm+ or main.prgm
 └── info.note, info.ntf or info.md
 ```
@@ -50,6 +52,8 @@ MyProgram/
 │── Example.xprimeproj
 │── Example.hpprgm
 │── src/
+│   │── other.ppl+
+│   │── other.ppl
 │   └── main.prgm+ or main.prgm
 └── info.note, info.ntf or info.md
 ```
