@@ -428,7 +428,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         sourceURL = currentDirectoryURL
             .appendingPathComponent("main.prgm+")
   
-        
         if FileManager.default.fileExists(atPath: sourceURL.path) == false {
             AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "Unable to find \(sourceURL.lastPathComponent) file.")
             return
@@ -577,8 +576,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return (cleanedText, requiredApps)
     }
     
-    
-    
     private func installRequiredPrograms(requiredFiles: [String]) {
         for file in requiredFiles {
             do {
@@ -607,6 +604,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         let sourceURL: URL
+        
         if FileManager.default.fileExists(
             atPath: url
                 .deletingLastPathComponent()
@@ -716,7 +714,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             options: [.skipsHiddenFiles]
         )
         
-        
         contents?
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
             .forEach { url in
@@ -813,9 +810,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         updateManager.checkForUpdates()
     }
     
-    
     // MARK: - File IO Action Handlers
-    
     @IBAction func newProject(_ sender: Any) {
         let panel = NSSavePanel()
         if let url = documentManager.currentDocumentURL {
@@ -860,7 +855,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Opening Document
-    
     private func openDocument(url: URL) {
         guard FileManager.default.fileExists(atPath: url.path) else { return }
         documentManager.openDocument(url: url)
@@ -995,7 +989,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Export as HP Prime Source Code UTF16-le
-    
     private func exportPRGM(from sourceURL: URL) {
         let defaultName = sourceURL
             .deletingPathExtension()
@@ -1013,7 +1006,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func exportAsPrgm(_ sender: Any) {
-        
         guard let window = view.window else { return }
         
         func proceedWithExport() {
@@ -1130,7 +1122,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: -
-    
     @IBAction func revertDocumentToSaved(_ sender: Any) {
         guard let url = documentManager.currentDocumentURL, documentManager.documentIsModified else { return }
         
@@ -1149,7 +1140,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Project Actions
-    
     @IBAction func stop(_ sender: Any) {
         HPServices.terminateVirtualCalculator()
     }
@@ -1427,14 +1417,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Editor
-    
     @IBAction func toggleSmartSubtitution(_ sender: NSMenuItem) {
         codeEditorTextView.smartSubtitution = !codeEditorTextView.smartSubtitution
         sender.state = codeEditorTextView.smartSubtitution ? .on : .off
     }
     
     // MARK: - Output Information
-    
     @IBAction func toggleOutput(_ sender: NSButton) {
         outputTextView.toggleVisability(sender)
     }
@@ -1445,7 +1433,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     
     // MARK: - Validation for Toolbar Items
-    
     internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         switch item.action {
         case #selector(build(_:)), #selector(run(_:)):
@@ -1468,7 +1455,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Validation for Menu Items
-    
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if codeEditorTextView.isEditable == false {
             return false
