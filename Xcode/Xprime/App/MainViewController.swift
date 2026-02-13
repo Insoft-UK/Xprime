@@ -604,9 +604,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         for file in requiredFiles {
             do {
                 try HPServices.installHPPrgm(at: URL(fileURLWithPath: file))
-                outputTextView.appendTextAndScroll("Installed: \(file)\n")
+                outputTextView.appendTextAndScroll("Installed: \"\(file)\"\n")
             } catch {
-                outputTextView.appendTextAndScroll("Error installing \(file).hpprgm: \(error)\n")
+                outputTextView.appendTextAndScroll("Error installing \"\(file).hpprgm\": \(error)\n")
             }
         }
     }
@@ -615,9 +615,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         for file in requiredApps {
             do {
                 try HPServices.installHPAppDirectory(at: URL(fileURLWithPath: file))
-                outputTextView.appendTextAndScroll("Installed: \(file)\n")
+                outputTextView.appendTextAndScroll("Installed: \"\(file)\"\n")
             } catch {
-                outputTextView.appendTextAndScroll("Error installing \(file).hpappdir: \(error)\n")
+                outputTextView.appendTextAndScroll("Error installing \"\(file).hpappdir\": \(error)\n")
             }
         }
     }
@@ -1175,6 +1175,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         do {
             let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
             try HPServices.installHPPrgm(at: programURL, forUser: calculator)
+            outputTextView.appendTextAndScroll("✅ Successfully installed \"\(programURL.lastPathComponent)\" \n")
         } catch {
             AlertPresenter.showInfo(
                 on: self.view.window,
@@ -1195,6 +1196,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         do {
             let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
             try HPServices.installHPAppDirectory(at: appDirURL, forUser: calculator)
+            outputTextView.appendTextAndScroll("✅ Successfully installed \"\(appDirURL.lastPathComponent)\" \n")
         } catch {
             AlertPresenter.showInfo(
                 on: self.view.window,
@@ -1239,7 +1241,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let commandURL = URL(fileURLWithPath: command)
             let contents = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
             if let out = contents.out, !out.isEmpty {
-                self.outputTextView.appendTextAndScroll("Importing \(url.pathExtension.uppercased()) Image...\n")
+                self.outputTextView.appendTextAndScroll("Importing \"\(url.pathExtension.uppercased())\" Image...\n")
                 self.codeEditorTextView.insertCode(out)
             }
             self.outputTextView.appendTextAndScroll(contents.err ?? "")
