@@ -12,10 +12,20 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 
 **Header**
 
-`CSWD110￿￿` 
-Uknown  `\lľ\0`
+
+`CSWD110` for Program
+`CSWT110` for Application Info
 
 All data is encoded as Base-32/Integer
+**Base-32 or Integer**</br>
+*BASE-32* `0123456789abcdefghijklmnopqrstuv` *Integer* > 32...65535 (exluding `\`)
+
+?
+`￿￿`
+
+?
+
+`\lľ\0`
 
 Every line starts with data defining bullets and alignment.
 Data Size (5)
@@ -42,8 +52,6 @@ Every line cotains an entry.
 |||🟩⬛️ `F\0\1\0`
 |||🟦🟧 `FB\1\0`
 
-**Base-32 or Integer**</br>
-*BASE-32* `0123456789abcdefghijklmnopqrstuv` *Integer* > 32...65535
 
 **F** :- Foreground UInt16le</br>
 **B** :- Background UInt16le
