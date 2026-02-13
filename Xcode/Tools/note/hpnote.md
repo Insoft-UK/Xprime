@@ -1,6 +1,9 @@
 >[!IMPORTANT]
 >Draft documentation — incomplete and written as I document findings along the way. Mistakes are likely, so please don’t treat this as 100% accurate.
 
+>[!IMPORTANT]
+>Values encoded in base-32 are indicated by a leading escape character `\`. Integer values are stored directly, without any escape prefix. The only exception is the integer 92, which is also marked with a leading `\`, because 92 corresponds to `\` in ASCII.
+
 ## HPNote Format
 ### UTF16le
 
@@ -12,20 +15,15 @@ The plain text fallback is a duplicate of the note’s content stored at the sta
 
 **Header**
 
+`CSWD110` for Program `CSWT110` for Application **Info**
 
-`CSWD110` for Program
-`CSWT110` for Application Info
-
-All data is encoded as Base-32/Integer
-**Base-32 or Integer**</br>
-*BASE-32* `0123456789abcdefghijklmnopqrstuv` *Integer* > 32...65535 (exluding `\`)
-
-?
+After the header comes two 16-bit integers, values set to 0xFFFF (65535) for both.
 `￿￿`
 
-?
+Next comes the first entry, all entries are terminated by `\0` (zero), Uknown what `ľ` is for ?
 
-`\lľ\0`
+|:-|:-|:-|
+|`\l`|`ľ`|`\0`
 
 Every line starts with data defining bullets and alignment.
 Data Size (5)
@@ -71,7 +69,5 @@ Data Size (10)
 >[!NOTE]
 >The 🔲 *Default* color is ⬛️ *Black* or ⬜️ *White* for foreground color, depending on whether the theme is light or dark. 🔲 *Clear* is fully transparent, regardless of the theme.
 
->[!IMPORTANT]
->Values encoded in base-32 are indicated by a leading escape character `\`. Integer values are stored directly, without any escape prefix. The only exception is the integer 92, which is also marked with a leading `\`, because 92 corresponds to `\` in ASCII.
 
 
