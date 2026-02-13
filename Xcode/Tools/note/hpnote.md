@@ -21,7 +21,7 @@ After the header comes two 16-bit integers, values set to 0xFFFF (65535) for bot
 `￿￿`
 
 Next comes the first entry, all entries are terminated by `\0` (zero), Uknown what `ľ` is for ?
-|||
+||||
 |:-|:-|:-|
 |`\l`|`ľ`|`\0`
 
