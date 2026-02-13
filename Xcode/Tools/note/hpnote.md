@@ -41,8 +41,8 @@ Data Size (5)
 ||`\3` ▻
 
 Start of line
-|-|
-||
+
+|:-|
 |`\n`|
 
 Every line cotains an entry.
