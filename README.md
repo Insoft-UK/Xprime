@@ -7,7 +7,7 @@
 - Compress code to fit more programs on your HP Prime
 
 ### Xprime 26.2
-Read [Whats New](https://github.com/Insoft-UK/Xprime/blob/main/UPDATE.md)
+Read [Whats New](https://github.com/Insoft-UK/Xprime/blob/dev/UPDATE.md)
 
 ### Hidden Version Detail
 In Xprime, you can reveal the full version number from the About window.
