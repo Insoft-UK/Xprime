@@ -6,6 +6,9 @@
 - Export a G1 .hpprgm file for use on a real HP Prime or the Virtual Calculator.
 - Compress code to fit more programs on your HP Prime
 
+### Xprime 26.2
+Read [Whats New](https://github.com/Insoft-UK/Xprime/blob/main/UPDATE.md)
+
 ### Hidden Version Detail
 In Xprime, you can reveal the full version number from the About window.
 Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.1.20260131**.
