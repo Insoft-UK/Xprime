@@ -4,7 +4,7 @@ A command-line tool that converts .md and .ntf files into the HP Prime .hpnote f
 
 <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_1.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_2.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_3.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_4.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_5.png?raw=true" width="160" /> <img src="https://github.com/Insoft-UK/Xprime/blob/main/Xcode/Tools/note/assets/screenshots/screenshot_6.png?raw=true" width="160" />
 
-**RELEASE** v1.0.0.20260209</br>
+**RELEASE** v1.0.0.20260214</br>
 Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note_universal_mac.zip">macOS</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note_x86_64_win.zip">Windows</a> | <a href="http://insoft.uk/action/?method=downlink&path=linux&file=note_x86_64_win.zip">Linux</a>
 
 >[!NOTE]
