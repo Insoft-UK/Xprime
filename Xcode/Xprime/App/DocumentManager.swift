@@ -117,6 +117,29 @@ final class DocumentManager {
         delegate?.documentManagerDidOpen(self)
     }
     
+    private func saveProgram(url: URL) {
+        guard let currentDocumentURL else { return }
+        
+        let path = ToolchainPaths.bin.appendingPathComponent("ppl+")
+        let result = ProcessRunner.run(executable: path, arguments: [currentDocumentURL.path, "-o", url.path])
+        
+        guard result.exitCode == 0 else {
+            let error = NSError(
+                domain: "Error",
+                code: 0,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to write \"\(url.lastPathComponent)\" to file."]
+            )
+            outputTextView.appendTextAndScroll(result.err ?? "")
+            delegate?.documentManager(self, didFailWith: error)
+            return
+        }
+        
+        outputTextView.appendTextAndScroll(result.err ?? "")
+        self.currentDocumentURL = url
+        documentIsModified = false
+        delegate?.documentManagerDidSave(self)
+    }
+    
     private func openProgram(url: URL) {
         let path = ToolchainPaths.bin.appendingPathComponent("ppl+")
         let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
@@ -183,6 +206,9 @@ final class DocumentManager {
             encoding = .utf16
         case "hpnote", "hpappnote":
             saveNote(url: url)
+            return true
+        case "hpprgm", "hpappprgm":
+            saveProgram(url: url)
             return true
         default:
             encoding = .utf8

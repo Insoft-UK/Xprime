@@ -917,16 +917,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 UTType(filenameExtension: "prgm+")!,
                 UTType(filenameExtension: "ppl+")!,
                 UTType(filenameExtension: "prgm")!,
+                UTType(filenameExtension: "hpprgm")!,
+                UTType(filenameExtension: "hpappprgm")!,
                 UTType(filenameExtension: "ppl")!,
                 UTType(filenameExtension: "app")!,
                 UTType(filenameExtension: "note")!,
                 UTType(filenameExtension: "ntf")!,
                 UTType(filenameExtension: "hpnote")!,
+                UTType(filenameExtension: "hpappnote")!,
                 UTType(filenameExtension: "py")!,
                 UTType(filenameExtension: "md")!,
                 UTType(filenameExtension: "txt")!,
                 .pythonScript
-            ]
+            ],
+            defaultFileName: documentManager.currentDocumentURL?.lastPathComponent ?? "Untitled"
         )
     }
     
@@ -934,142 +938,139 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         proceedWithSavingDocumentAs()
     }
     
-    // MARK: - Export as HP Prime Program
+//    // MARK: - Export as HP Prime Program
+//    private func exportHPProgram(from sourceURL: URL) {
+//        let defaultName = sourceURL
+//            .deletingPathExtension()
+//            .lastPathComponent + ".hpprgm"
+//        
+//        let compression = UserDefaults.standard.bool(forKey: "compression")
+//        
+//        runExport(
+//            allowedExtensions: ["hpprgm"],
+//            defaultName: defaultName
+//        ) { outputURL in
+//            HPServices.preProccess(
+//                at: sourceURL,
+//                to: outputURL,
+//                compress: compression
+//            )
+//        }
+//    }
+//    
+//    @IBAction func exportAsHPPrgm(_ sender: Any) {
+//        guard let window = view.window else { return }
+//        
+//        func proceedWithExport() {
+//            guard let url = documentManager.currentDocumentURL else { return }
+//            exportHPProgram(from: url)
+//        }
+//        
+//        if let _ = documentManager.currentDocumentURL, documentManager.documentIsModified {
+//            AlertPresenter.presentYesNo(
+//                on: window,
+//                title: "Save Changes",
+//                message: "Do you want to save your changes before exporting as HPPRGM?",
+//                primaryActionTitle: "Save"
+//            ) { confirmed in
+//                guard confirmed else { return }
+//                self.documentManager.saveDocument()
+//
+//                proceedWithExport()
+//            }
+//        } else {
+//            proceedWithExport()
+//        }
+//    }
     
-    private func exportHPProgram(from sourceURL: URL) {
-        let defaultName = sourceURL
-            .deletingPathExtension()
-            .lastPathComponent + ".hpprgm"
-        
-        let compression = UserDefaults.standard.bool(forKey: "compression")
-        
-        runExport(
-            allowedExtensions: ["hpprgm"],
-            defaultName: defaultName
-        ) { outputURL in
-            HPServices.preProccess(
-                at: sourceURL,
-                to: outputURL,
-                compress: compression
-            )
-        }
-    }
+//    // MARK: - Export as HP Prime Source Code UTF16-le
+//    private func exportPRGM(from sourceURL: URL) {
+//        let defaultName = sourceURL
+//            .deletingPathExtension()
+//            .lastPathComponent + ".prgm"
+//        
+//        runExport(
+//            allowedExtensions: ["prgm"],
+//            defaultName: defaultName
+//        ) { outputURL in
+//            HPServices.preProccess(
+//                at: sourceURL,
+//                to: outputURL
+//            )
+//        }
+//    }
+//    
+//    @IBAction func exportAsPrgm(_ sender: Any) {
+//        guard let window = view.window else { return }
+//        
+//        func proceedWithExport() {
+//            guard let url = documentManager.currentDocumentURL else { return }
+//            exportPRGM(from: url)
+//        }
+//        
+//        // Document already exists
+//        if documentManager.currentDocumentURL != nil {
+//            
+//            if documentManager.documentIsModified {
+//                AlertPresenter.presentYesNo(
+//                    on: window,
+//                    title: "Save Changes",
+//                    message: "Do you want to save your changes before exporting as PRGM?",
+//                    primaryActionTitle: "Save"
+//                ) { confirmed in
+//                    guard confirmed else { return }
+//                    self.documentManager.saveDocument()
+//                    proceedWithExport()
+//                }
+//            } else {
+//                proceedWithExport()
+//            }
+//            
+//        } else {
+//            // First save required
+//            proceedWithSavingDocumentAs()
+//            
+//            guard let url = documentManager.currentDocumentURL,
+//                  FileManager.default.fileExists(atPath: url.path) else {
+//                return
+//            }
+//            
+//            exportPRGM(from: url)
+//        }
+//    }
     
-    @IBAction func exportAsHPPrgm(_ sender: Any) {
-        guard let window = view.window else { return }
-        
-        func proceedWithExport() {
-            guard let url = documentManager.currentDocumentURL else { return }
-            exportHPProgram(from: url)
-        }
-        
-        if let _ = documentManager.currentDocumentURL, documentManager.documentIsModified {
-            AlertPresenter.presentYesNo(
-                on: window,
-                title: "Save Changes",
-                message: "Do you want to save your changes before exporting as HPPRGM?",
-                primaryActionTitle: "Save"
-            ) { confirmed in
-                guard confirmed else { return }
-                self.documentManager.saveDocument()
-
-                proceedWithExport()
-            }
-        } else {
-            proceedWithExport()
-        }
-    }
+//    // MARK: - Export as HP Prime Application Archive
+//    @IBAction func exportAsArchive(_ sender: Any) {
+//        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
+//        
+//        runExport(
+//            allowedExtensions: ["hpappdir.zip"],
+//            defaultName: projectManager.projectName
+//        ) { url in
+//            
+//            // Ensure final extension is correct
+//            var destination = url
+//            while !destination.pathExtension.isEmpty {
+//                destination.deletePathExtension()
+//            }
+//            destination = destination.appendingPathExtension("hpappdir.zip")
+//            
+//            let result = HPServices.archiveHPAppDirectory(in: projectDirectoryURL, named: self.projectManager.projectName, to: destination)
+//            
+//            if let out = result.out, !out.isEmpty {
+//                return result
+//            }
+//            
+//            AlertPresenter.showInfo(
+//                on: self.view.window,
+//                title: "Export Failed",
+//                message: "Could not export the archive “\(url.lastPathComponent)”."
+//            )
+//            
+//            return result
+//        }
+//    }
     
-    // MARK: - Export as HP Prime Source Code UTF16-le
-    private func exportPRGM(from sourceURL: URL) {
-        let defaultName = sourceURL
-            .deletingPathExtension()
-            .lastPathComponent + ".prgm"
-        
-        runExport(
-            allowedExtensions: ["prgm"],
-            defaultName: defaultName
-        ) { outputURL in
-            HPServices.preProccess(
-                at: sourceURL,
-                to: outputURL
-            )
-        }
-    }
-    
-    @IBAction func exportAsPrgm(_ sender: Any) {
-        guard let window = view.window else { return }
-        
-        func proceedWithExport() {
-            guard let url = documentManager.currentDocumentURL else { return }
-            exportPRGM(from: url)
-        }
-        
-        // Document already exists
-        if documentManager.currentDocumentURL != nil {
-            
-            if documentManager.documentIsModified {
-                AlertPresenter.presentYesNo(
-                    on: window,
-                    title: "Save Changes",
-                    message: "Do you want to save your changes before exporting as PRGM?",
-                    primaryActionTitle: "Save"
-                ) { confirmed in
-                    guard confirmed else { return }
-                    self.documentManager.saveDocument()
-                    proceedWithExport()
-                }
-            } else {
-                proceedWithExport()
-            }
-            
-        } else {
-            // First save required
-            proceedWithSavingDocumentAs()
-            
-            guard let url = documentManager.currentDocumentURL,
-                  FileManager.default.fileExists(atPath: url.path) else {
-                return
-            }
-            
-            exportPRGM(from: url)
-        }
-    }
-    
-    // MARK: - Export as HP Prime Application Archive
-    
-    @IBAction func exportAsArchive(_ sender: Any) {
-        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
-        
-        runExport(
-            allowedExtensions: ["hpappdir.zip"],
-            defaultName: projectManager.projectName
-        ) { url in
-            
-            // Ensure final extension is correct
-            var destination = url
-            while !destination.pathExtension.isEmpty {
-                destination.deletePathExtension()
-            }
-            destination = destination.appendingPathExtension("hpappdir.zip")
-            
-            let result = HPServices.archiveHPAppDirectory(in: projectDirectoryURL, named: self.projectManager.projectName, to: destination)
-            
-            if let out = result.out, !out.isEmpty {
-                return result
-            }
-            
-            AlertPresenter.showInfo(
-                on: self.view.window,
-                title: "Export Failed",
-                message: "Could not export the archive “\(url.lastPathComponent)”."
-            )
-            
-            return result
-        }
-    }
-    
-    // MARK: - Export as HP Note
     private func convertFileToHPNote(
         from sourceURL: URL,
         to destinationURL: URL
@@ -1091,27 +1092,28 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
     
-    @IBAction private func exportAsHPNote(_ sender: Any) {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else {
-            return
-        }
-        
-        documentManager.saveDocument()
-        
-        let panel = NSSavePanel()
-        panel.directoryURL = currentDocumentURL.deletingLastPathComponent()
-        panel.nameFieldStringValue = currentDocumentURL.deletingPathExtension().lastPathComponent
-        panel.allowedContentTypes = [
-            UTType(filenameExtension: "hpnote")!,
-            UTType(filenameExtension: "hpappnote")!
-        ]
-        panel.title = ""
-        
-        panel.begin { result in
-            guard result == .OK, let url = panel.url else { return }
-            self.convertFileToHPNote(from: currentDocumentURL, to: url)
-        }
-    }
+    // MARK: - Export as HP Note
+//    @IBAction private func exportAsHPNote(_ sender: Any) {
+//        guard let currentDocumentURL = documentManager.currentDocumentURL else {
+//            return
+//        }
+//        
+//        documentManager.saveDocument()
+//        
+//        let panel = NSSavePanel()
+//        panel.directoryURL = currentDocumentURL.deletingLastPathComponent()
+//        panel.nameFieldStringValue = currentDocumentURL.deletingPathExtension().lastPathComponent
+//        panel.allowedContentTypes = [
+//            UTType(filenameExtension: "hpnote")!,
+//            UTType(filenameExtension: "hpappnote")!
+//        ]
+//        panel.title = ""
+//        
+//        panel.begin { result in
+//            guard result == .OK, let url = panel.url else { return }
+//            self.convertFileToHPNote(from: currentDocumentURL, to: url)
+//        }
+//    }
     
     // MARK: -
     @IBAction func revertDocumentToSaved(_ sender: Any) {
@@ -1448,23 +1450,23 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return false
             
-        case #selector(exportAsHPPrgm(_:)):
-            if let _ = documentManager.currentDocumentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+"  {
-                return true
-            }
-            return false
+//        case #selector(exportAsHPPrgm(_:)):
+//            if let _ = documentManager.currentDocumentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+"  {
+//                return true
+//            }
+//            return false
             
-        case #selector(exportAsPrgm(_:)):
-            if let _ = documentManager.currentDocumentURL, ext == "prgm+" || ext == "ppl+" {
-                return true
-            }
-            return false
+//        case #selector(exportAsPrgm(_:)):
+//            if let _ = documentManager.currentDocumentURL, ext == "prgm+" || ext == "ppl+" {
+//                return true
+//            }
+//            return false
             
-        case #selector(exportAsArchive(_:)), #selector(archiveWithoutBuilding(_:)):
-            if let currentDirectoryURL = projectManager.projectDirectoryURL {
-                return HPServices.hpAppDirIsComplete(atPath: currentDirectoryURL.path, named: projectManager.projectName)
-            }
-            return false
+//        case #selector(exportAsArchive(_:)), #selector(archiveWithoutBuilding(_:)):
+//            if let currentDirectoryURL = projectManager.projectDirectoryURL {
+//                return HPServices.hpAppDirIsComplete(atPath: currentDirectoryURL.path, named: projectManager.projectName)
+//            }
+//            return false
             
         case #selector(run(_:)), #selector(archive(_:)), #selector(build(_:)), #selector(buildForRunning(_:)):
             if projectManager.projectDirectoryURL != nil   {
@@ -1512,11 +1514,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return true
             
-        case #selector(exportAsHPNote(_:)):
-            if ext == "note" || ext == "ntf" || ext == "md" {
-                return true
-            }
-            return false
+//        case #selector(exportAsHPNote(_:)):
+//            if ext == "note" || ext == "ntf" || ext == "md" {
+//                return true
+//            }
+//            return false
             
         default:
             break
