@@ -76,7 +76,7 @@ final class DocumentManager {
         let path = ToolchainPaths.bin.appendingPathComponent("note")
         let result = ProcessRunner.run(executable: path, arguments: [url.appendingPathExtension("ntf").path, "-o", url.path])
         
-        guard result.exitCode == 0, let out = result.out else {
+        guard result.exitCode == 0 else {
             let error = NSError(
                 domain: "Error",
                 code: 0,
