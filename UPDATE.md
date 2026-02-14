@@ -1,8 +1,14 @@
 ### Xprime 26.2
-There have been some significant changes to Xprime in the upcoming 26.2 release. One of the biggest changes is the removal of Export. With the new way files are opened and saved in 26.2, exporting is no longer needed. For example, if you had a project written in PPL+ and wanted to save an HPPRGM version somewhere on disk, you previously had to use Export → Quick as HPPRGM. In the upcoming release, you can simply use Save As and choose the file type.
+- **Export feature removed**: The traditional Export menu is no longer needed because the new file handling makes it redundant.
 
-This doesn’t just apply to PRGM, PRGM+, and PPL files — you can also open an HPNOTE file, edit it, and save it as NTF, NOTE, HPNOTE, etc. This workflow has been significantly simplified.
+- **Improved Save workflow**: Instead of exporting to another file type (e.g., saving a PPL+ project as an HPPRGM), you can now use Save As and directly choose the file format you want. This works for all supported file types (PRGM, PPL, HPPRGM, etc.).
 
-You can now also easily change the project name. It’s no longer based on the parent folder; instead, whatever you name the .xprimeproj file becomes your project name.
+- **Editing and saving other file types simplified**: Files like HPNOTE can now be opened, edited, and saved as any other supported note format (NTF, NOTE, etc.) without extra steps.
 
-There have also been several build improvements. If you’re writing an application, the build option now produces an HPAPPPRGM file. If it’s a regular program (no HPAPPDIR folder), it builds an HPPRGM file.
+- **Project naming simplified**: The project name is no longer tied to the parent folder; instead, the .xprimeproj file name determines the project name.
+
+- **Improved build outputs**: When building code:
+  - Applications now build directly to HPAPPPRGM files.
+  - Regular programs (without an HPAPPDIR) build to HPPRGM.
+
+These changes greatly simplify the development workflow in Xprime, especially around file management and builds — moving away from the older export-centric process to a more intuitive open/save workflow.
