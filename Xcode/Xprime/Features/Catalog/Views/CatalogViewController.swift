@@ -50,7 +50,7 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         
         // Make window background transparent
         window.isOpaque = false
-        window.backgroundColor = NSColor(white: 0, alpha: 0.9)
+        window.backgroundColor = NSColor(white: 0, alpha: 0.70)
         
         // Optional: remove title bar / standard window decorations
         window.titleVisibility = .hidden
@@ -58,8 +58,10 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         window.styleMask = [.closable, .titled]
         window.styleMask.insert(.fullSizeContentView)
         window.hasShadow = true
+        window.level = .floating
     }
 
+    
     
     private func loadHelp(for command: String) {
         guard let txtURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help") else {
