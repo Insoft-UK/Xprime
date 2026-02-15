@@ -1,4 +1,4 @@
-<img src="https://github.com/Insoft-UK/Xprime/blob/main/assets/icon.png?raw=true" width="128" />
+<img src="assets/icon.png?raw=true" width="128" />
 
 ## Xprime Code Editor for macOS
 - Edit your PPL or <a href="https://github.com/Insoft-UK/PrimePlus">**PPL+**</a> code for the HP Prime.
@@ -13,9 +13,9 @@ Read [Whats New](https://github.com/Insoft-UK/Xprime/blob/dev/UPDATE.md)
 
 ### Hidden Version Detail
 In Xprime, you can reveal the full version number from the About window.
-Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.1.20260131**.
+Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.2.20260214**.
 
-<img src="https://github.com/Insoft-UK/Xprime/blob/main/assets/screenshots/xprime.png?raw=true" width="756" />
+<img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
 ### Supported File Types
 |Type|Description|Format|
