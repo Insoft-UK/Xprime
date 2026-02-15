@@ -313,11 +313,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if directoryURL.appendingPathComponent("\(name).hpappdir").isDirectory {
             outputTextView.appendTextAndScroll("⚠️ Changing base application \"\(projectManager.baseApplicationName)\" to \"\(sender.title)\".\n")
         } else {
-            outputTextView.appendTextAndScroll("🔨 Create application directory.\n")
+            outputTextView.appendTextAndScroll("🔨 Creating application directory\n")
         }
         
         try? HPServices.resetHPAppContents(at: directoryURL, named: name, fromBaseApplicationNamed: sender.title)
         outputTextView.appendTextAndScroll("Base application is \"\(projectManager.baseApplicationName)\"\n")
+        refreshQuickOpenToolbar()
         refreshProjectIconImage()
     }
     
@@ -659,13 +660,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             ) { confirmed in
                 if confirmed {
                     self.documentManager.saveDocument()
-                    self.documentManager.openDocument(url: projectDirectoryURL.appendingPathComponent(sender.title))
+                    self.documentManager.openDocument(at: projectDirectoryURL.appendingPathComponent(sender.title))
                 } else {
                     return
                 }
             }
         } else {
-            self.documentManager.openDocument(url: projectDirectoryURL.appendingPathComponent(sender.title))
+            self.documentManager.openDocument(at: projectDirectoryURL.appendingPathComponent(sender.title))
         }
         
         guard
@@ -725,61 +726,30 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         keyEquivalent: ""
                     )
                     
-                    let config = NSImage.SymbolConfiguration(
-                        pointSize: 16,
-                        weight: .regular
-                    )
-                    
                     let image: NSImage
                     switch url.pathExtension.lowercased() {
-                    case "py":
-                        let img = NSImage(
-                            systemSymbolName: "text.word.spacing",
-                            accessibilityDescription: nil
-                        )?.withSymbolConfiguration(config)
-                        image = img ?? NSImage(imageLiteralResourceName: "File")
-                   
-                    case "txt":
-                        let img = NSImage(
-                            systemSymbolName: "text.document",
-                            accessibilityDescription: nil
-                        )?.withSymbolConfiguration(config)
-                        image = img ?? NSImage(imageLiteralResourceName: "File")
-                        
-                    case "md", "ntf":
-                        let img = NSImage(
-                            systemSymbolName: "text.page",
-                            accessibilityDescription: nil
-                        )?.withSymbolConfiguration(config)
-                        image = img ?? NSImage(imageLiteralResourceName: "File")
-                        
-                    case "note":
-                        let img = NSImage(
-                            systemSymbolName: "text.rectangle",
-                            accessibilityDescription: nil
-                        )?.withSymbolConfiguration(config)
-                        image = img ?? NSImage(imageLiteralResourceName: "File")
+                    case "note", "md", "ntf", "txt":
+                        image = NSImage(imageLiteralResourceName: "Notes")
 
                     case "app":
-                        let img = NSImage(
-                            systemSymbolName: "folder",
-                            accessibilityDescription: nil
-                        )?.withSymbolConfiguration(config)
-                        image = img ?? NSImage(imageLiteralResourceName: "File")
+                        image = NSImage(imageLiteralResourceName: "Apps")
                         
-                    case "prgm", "ppl", "prgm+", "ppl+":
-                        let img = NSImage(
-                            systemSymbolName: "pad.header",
-                            accessibilityDescription: nil
-                        )?.withSymbolConfiguration(config)
-                        image = img ?? NSImage(imageLiteralResourceName: "File")
+                    case "ppl", "ppl+", "py":
+                        image = NSImage(imageLiteralResourceName: "Program")
+                        
+                    case "prgm", "prgm+":
+                        if projectManager.isProjectAnApplication, url.deletingPathExtension().lastPathComponent == "main" {
+                            image = NSImage(imageLiteralResourceName: "Apps")
+                        } else {
+                            image = NSImage(imageLiteralResourceName: "Program")
+                        }
                     
                         
                     default:
                         image = NSImage(imageLiteralResourceName: "File")
                     }
                     
-                    
+                    image.size = NSSize(width: 20, height: 12)
                     menu.items.last?.image = image
                     if url == documentManager.currentDocumentURL {
                         menu.items.last?.state = .on
@@ -838,7 +808,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             guard let templateURL = Bundle.main.resourceURL?.appendingPathComponent("main.prgm+") else { return }
             do {
                 try FileManager.default.copyItem(at: templateURL, to: url)
-                self.documentManager.openDocument(url: url)
+                self.documentManager.openDocument(at: url)
             } catch {
                 print("❌ copyItem failed:", error)
             }
@@ -848,7 +818,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Opening Document
     private func openDocument(url: URL) {
         guard FileManager.default.fileExists(atPath: url.path) else { return }
-        documentManager.openDocument(url: url)
+        documentManager.openDocument(at: url)
     }
     
     private func proceedWithOpeningDocument() {
@@ -877,7 +847,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
-            self.documentManager.openDocument(url: url)
+            self.documentManager.openDocument(at: url)
         }
     }
     
@@ -938,139 +908,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         proceedWithSavingDocumentAs()
     }
     
-//    // MARK: - Export as HP Prime Program
-//    private func exportHPProgram(from sourceURL: URL) {
-//        let defaultName = sourceURL
-//            .deletingPathExtension()
-//            .lastPathComponent + ".hpprgm"
-//        
-//        let compression = UserDefaults.standard.bool(forKey: "compression")
-//        
-//        runExport(
-//            allowedExtensions: ["hpprgm"],
-//            defaultName: defaultName
-//        ) { outputURL in
-//            HPServices.preProccess(
-//                at: sourceURL,
-//                to: outputURL,
-//                compress: compression
-//            )
-//        }
-//    }
-//    
-//    @IBAction func exportAsHPPrgm(_ sender: Any) {
-//        guard let window = view.window else { return }
-//        
-//        func proceedWithExport() {
-//            guard let url = documentManager.currentDocumentURL else { return }
-//            exportHPProgram(from: url)
-//        }
-//        
-//        if let _ = documentManager.currentDocumentURL, documentManager.documentIsModified {
-//            AlertPresenter.presentYesNo(
-//                on: window,
-//                title: "Save Changes",
-//                message: "Do you want to save your changes before exporting as HPPRGM?",
-//                primaryActionTitle: "Save"
-//            ) { confirmed in
-//                guard confirmed else { return }
-//                self.documentManager.saveDocument()
-//
-//                proceedWithExport()
-//            }
-//        } else {
-//            proceedWithExport()
-//        }
-//    }
-    
-//    // MARK: - Export as HP Prime Source Code UTF16-le
-//    private func exportPRGM(from sourceURL: URL) {
-//        let defaultName = sourceURL
-//            .deletingPathExtension()
-//            .lastPathComponent + ".prgm"
-//        
-//        runExport(
-//            allowedExtensions: ["prgm"],
-//            defaultName: defaultName
-//        ) { outputURL in
-//            HPServices.preProccess(
-//                at: sourceURL,
-//                to: outputURL
-//            )
-//        }
-//    }
-//    
-//    @IBAction func exportAsPrgm(_ sender: Any) {
-//        guard let window = view.window else { return }
-//        
-//        func proceedWithExport() {
-//            guard let url = documentManager.currentDocumentURL else { return }
-//            exportPRGM(from: url)
-//        }
-//        
-//        // Document already exists
-//        if documentManager.currentDocumentURL != nil {
-//            
-//            if documentManager.documentIsModified {
-//                AlertPresenter.presentYesNo(
-//                    on: window,
-//                    title: "Save Changes",
-//                    message: "Do you want to save your changes before exporting as PRGM?",
-//                    primaryActionTitle: "Save"
-//                ) { confirmed in
-//                    guard confirmed else { return }
-//                    self.documentManager.saveDocument()
-//                    proceedWithExport()
-//                }
-//            } else {
-//                proceedWithExport()
-//            }
-//            
-//        } else {
-//            // First save required
-//            proceedWithSavingDocumentAs()
-//            
-//            guard let url = documentManager.currentDocumentURL,
-//                  FileManager.default.fileExists(atPath: url.path) else {
-//                return
-//            }
-//            
-//            exportPRGM(from: url)
-//        }
-//    }
-    
-//    // MARK: - Export as HP Prime Application Archive
-//    @IBAction func exportAsArchive(_ sender: Any) {
-//        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
-//        
-//        runExport(
-//            allowedExtensions: ["hpappdir.zip"],
-//            defaultName: projectManager.projectName
-//        ) { url in
-//            
-//            // Ensure final extension is correct
-//            var destination = url
-//            while !destination.pathExtension.isEmpty {
-//                destination.deletePathExtension()
-//            }
-//            destination = destination.appendingPathExtension("hpappdir.zip")
-//            
-//            let result = HPServices.archiveHPAppDirectory(in: projectDirectoryURL, named: self.projectManager.projectName, to: destination)
-//            
-//            if let out = result.out, !out.isEmpty {
-//                return result
-//            }
-//            
-//            AlertPresenter.showInfo(
-//                on: self.view.window,
-//                title: "Export Failed",
-//                message: "Could not export the archive “\(url.lastPathComponent)”."
-//            )
-//            
-//            return result
-//        }
-//    }
-    
     private func convertFileToHPNote(
         from sourceURL: URL,
         to destinationURL: URL
@@ -1091,29 +928,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
-    
-    // MARK: - Export as HP Note
-//    @IBAction private func exportAsHPNote(_ sender: Any) {
-//        guard let currentDocumentURL = documentManager.currentDocumentURL else {
-//            return
-//        }
-//        
-//        documentManager.saveDocument()
-//        
-//        let panel = NSSavePanel()
-//        panel.directoryURL = currentDocumentURL.deletingLastPathComponent()
-//        panel.nameFieldStringValue = currentDocumentURL.deletingPathExtension().lastPathComponent
-//        panel.allowedContentTypes = [
-//            UTType(filenameExtension: "hpnote")!,
-//            UTType(filenameExtension: "hpappnote")!
-//        ]
-//        panel.title = ""
-//        
-//        panel.begin { result in
-//            guard result == .OK, let url = panel.url else { return }
-//            self.convertFileToHPNote(from: currentDocumentURL, to: url)
-//        }
-//    }
     
     // MARK: -
     @IBAction func revertDocumentToSaved(_ sender: Any) {
@@ -1450,24 +1264,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return false
             
-//        case #selector(exportAsHPPrgm(_:)):
-//            if let _ = documentManager.currentDocumentURL, ext == "prgm" || ext == "prgm+" || ext == "ppl" || ext == "ppl+"  {
-//                return true
-//            }
-//            return false
-            
-//        case #selector(exportAsPrgm(_:)):
-//            if let _ = documentManager.currentDocumentURL, ext == "prgm+" || ext == "ppl+" {
-//                return true
-//            }
-//            return false
-            
-//        case #selector(exportAsArchive(_:)), #selector(archiveWithoutBuilding(_:)):
-//            if let currentDirectoryURL = projectManager.projectDirectoryURL {
-//                return HPServices.hpAppDirIsComplete(atPath: currentDirectoryURL.path, named: projectManager.projectName)
-//            }
-//            return false
-            
         case #selector(run(_:)), #selector(archive(_:)), #selector(build(_:)), #selector(buildForRunning(_:)):
             if projectManager.projectDirectoryURL != nil   {
                 return true
@@ -1513,12 +1309,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 menuItem.state = .off
             }
             return true
-            
-//        case #selector(exportAsHPNote(_:)):
-//            if ext == "note" || ext == "ntf" || ext == "md" {
-//                return true
-//            }
-//            return false
             
         default:
             break

@@ -43,7 +43,7 @@ final class DocumentManager {
     
     private(set) var currentDocumentURL: URL?
     private var editor: CodeEditorTextView
-    private var outputTextView: OutputTextView
+    private(set) var outputTextView: OutputTextView
 
     var documentIsModified: Bool = false {
         didSet {
@@ -59,7 +59,7 @@ final class DocumentManager {
     func openLastOrUntitled() {
         if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath"),
            FileManager.default.fileExists(atPath: path) {
-            openDocument(url: URL(fileURLWithPath: path))
+            openDocument(at: URL(fileURLWithPath: path))
         } else {
             openUntitled()
         }
@@ -162,7 +162,7 @@ final class DocumentManager {
         delegate?.documentManagerDidOpen(self)
     }
 
-    func openDocument(url: URL) {
+    func openDocument(at url: URL) {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
         case "prgm", "app":
@@ -249,7 +249,7 @@ final class DocumentManager {
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
             self.saveDocument(to: url)
-            self.openDocument(url: url)
+            self.openDocument(at: url)
         }
     }
     
