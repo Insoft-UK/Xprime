@@ -17,6 +17,8 @@ In Xprime, you can reveal the full version number from the About window.
 Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.2.20260214**.
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
+<img src="assets/screenshots/project-settings.png?raw=true" width="294" />
+<img src="assets/screenshots/advance-project-settings.png?raw=true" width="294" />
 
 ### Supported File Types
 |Type|Description|Format|
