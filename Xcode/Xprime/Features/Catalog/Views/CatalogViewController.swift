@@ -26,6 +26,7 @@ import Cocoa
 final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextFieldDelegate {
     @IBOutlet weak var catalogComboBox: NSComboBox!
     @IBOutlet weak var catalogHelpTextView: CatalogHelpTextView!
+    @IBOutlet weak var catalogSlider: NSSlider!
     
     
     required init?(coder: NSCoder) {
@@ -50,7 +51,8 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         
         // Make window background transparent
         window.isOpaque = false
-        window.backgroundColor = NSColor(white: 0, alpha: 0.70)
+        let sliderValue = UserDefaults.standard.object(forKey: "Catalog Window Opacity") as? CGFloat ?? 0.70
+        window.backgroundColor = NSColor(white: 0, alpha: sliderValue)
         
         // Optional: remove title bar / standard window decorations
         window.titleVisibility = .hidden
@@ -59,10 +61,20 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         window.styleMask.insert(.fullSizeContentView)
         window.hasShadow = true
         window.level = .floating
+        
+        catalogSlider?.isContinuous = true
+        catalogSlider?.target = self
+        catalogSlider?.action = #selector(sliderDidChangeValue(_:))
+    }
+    
+    @objc func sliderDidChangeValue(_ sender: NSSlider) {
+        guard let window = view.window else { return }
+        let sliderValue = CGFloat(sender.floatValue)
+        window.backgroundColor = NSColor(white: 0, alpha: sliderValue)
+        
+        UserDefaults.standard.set(sliderValue, forKey: "Catalog Window Opacity")
     }
 
-    
-    
     private func loadHelp(for command: String) {
         guard let txtURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help") else {
             // ⚠️ No .txt file found.

@@ -65,6 +65,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         documentManager = DocumentManager(editor: codeEditorTextView, outputTextView: outputTextView)
         documentManager.delegate = self
         projectManager = ProjectManager(documentManager: documentManager)
+        projectManager.delegate = self
         statusManager = StatusManager(editor: codeEditorTextView, statusLabel: statusLabel)
         
         setupObservers()
@@ -92,7 +93,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         registerWindowFocusObservers()
         refreshBaseApplicationMenu()
         
-        documentManager.openLastOrUntitled()
+        projectManager.openLastOrUntitled()
     }
     
     deinit {
@@ -306,8 +307,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Base Application Action Handler
     @objc func handleBaseApplicationSelection(_ sender: NSMenuItem) {
         guard let currentDocumentURL = documentManager.currentDocumentURL else { return }
+        guard let name = projectManager.projectName else { return }
         
-        let name = projectManager.projectName
         let directoryURL = currentDocumentURL.deletingLastPathComponent()
         
         if directoryURL.appendingPathComponent("\(name).hpappdir").isDirectory {
@@ -350,7 +351,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         window.titlebarAppearsTransparent = true
         
         // 2️⃣ Set document identity
-        window.title = projectManager.projectName
+        window.title = projectManager.projectName ?? ""
         window.representedURL = url
         
         // 3️⃣ Re-apply icon AFTER AppKit finishes layout
@@ -431,6 +432,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func ntfToHpNote(in url: URL) {
+        guard let projectName = projectManager.projectName else { return }
+        
         for file in [
             "info.note",
             "info.ntf",
@@ -448,9 +451,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 from: url
                     .appendingPathComponent(file),
                 to: url
-                    .appendingPathComponent(projectManager.projectName)
+                    .appendingPathComponent(projectName)
                     .appendingPathExtension("hpappdir")
-                    .appendingPathComponent(projectManager.projectName)
+                    .appendingPathComponent(projectName)
                     .appendingPathExtension("hpappnote")
                 
                 )
@@ -464,9 +467,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             AlertPresenter.showInfo(on: view.window, title: "Build Failed", message: "Unable to find main.prgm+ or main.prgm file.")
             return
         }
+        guard let projectName = projectManager.projectName else { return }
         
         let destinationURL = url
-            .appendingPathComponent("\(projectManager.projectName).hpprgm")
+            .appendingPathComponent("\(projectName).hpprgm")
 
         let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
         let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: compression)
@@ -479,9 +483,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "Unable to find main.prgm+ or main.prgm file.")
             return
         }
-    
+        guard let projectName = projectManager.projectName else { return }
+        
         do {
-            try HPServices.ensureHPAppDirectory(at: url, named: projectManager.projectName, fromBaseApplicationNamed: projectManager.baseApplicationName)
+            try HPServices.ensureHPAppDirectory(at: url, named: projectName, fromBaseApplicationNamed: projectManager.baseApplicationName)
         } catch {
             outputTextView.appendTextAndScroll("Failed to build for archiving: \(error)\n")
             return
@@ -490,9 +495,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         ntfToHpNote(in: url)
         
         let result = HPServices.preProccess(at: sourceURL, to: url
-            .appendingPathComponent(projectManager.projectName)
+            .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
-            .appendingPathComponent(projectManager.projectName)
+            .appendingPathComponent(projectName)
             .appendingPathExtension("hpappprgm"),
                                             compress: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
         )
@@ -501,15 +506,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func archiveProcess() {
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
+        guard let projectName = projectManager.projectName else { return }
         
         let url: URL
         
         let dirA = FileManager.default.homeDirectoryForCurrentUser
             .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
-            .appendingPathComponent(projectManager.projectName)
+            .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
         let dirB = projectDirectoryURL
-            .appendingPathComponent(projectManager.projectName)
+            .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
         
         
@@ -522,7 +528,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             outputTextView.appendTextAndScroll("📦 Archiving from the current project directory.\n")
         }
         
-        let result = HPServices.archiveHPAppDirectory(in: url, named: projectManager.projectName, to: projectDirectoryURL)
+        let result = HPServices.archiveHPAppDirectory(in: url, named: projectName, to: projectDirectoryURL)
         
         if let out = result.out, !out.isEmpty {
             outputTextView.appendTextAndScroll(out)
@@ -827,6 +833,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         panel.title = ""
         panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         panel.allowedContentTypes = [
+            UTType(filenameExtension: "xprimeproj")!,
             UTType(filenameExtension: "prgm+")!,
             UTType(filenameExtension: "prgm")!,
             UTType(filenameExtension: "app")!,
@@ -847,7 +854,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
-            self.documentManager.openDocument(at: url)
+            if url.lastPathComponent.hasSuffix(".xprimeproj") {
+                self.projectManager.openProject(at: url)
+            } else {
+                self.documentManager.openDocument(at: url)
+            }
         }
     }
     
@@ -985,9 +996,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func installHPPrgmFileToCalculator(_ sender: Any) {
         guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
+        guard let projectName = projectManager.projectName else { return }
         
         let programURL = currentDirectoryURL
-            .appendingPathComponent(projectManager.projectName)
+            .appendingPathComponent(projectName)
             .appendingPathExtension("hpprgm")
         outputTextView.appendTextAndScroll("Installing: \(programURL.lastPathComponent)\n")
         do {
@@ -1006,9 +1018,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     @IBAction func installHPAppDirectoryToCalculator(_ sender: Any) {
         guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
+        guard let projectName = projectManager.projectName else { return }
         
         let appDirURL = currentDirectoryURL
-            .appendingPathComponent(projectManager.projectName)
+            .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
         outputTextView.appendTextAndScroll("Installing: \(appDirURL.lastPathComponent)\n")
         do {
@@ -1136,16 +1149,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func cleanBuildFolder(_ sender: Any) {
-        guard let currentDirectoryURL = projectManager.projectDirectoryURL else {
+        guard let currentDirectoryURL = projectManager.projectDirectoryURL, let projectName = projectManager.projectName else {
             return
         }
         
         outputTextView.appendTextAndScroll("Cleaning...\n")
         
         let files: [URL] = [
-            currentDirectoryURL.appendingPathComponent("\(projectManager.projectName).hpprgm"),
-            currentDirectoryURL.appendingPathComponent("\(projectManager.projectName).hpappdir/\(projectManager.projectName).hpappprgm"),
-            currentDirectoryURL.appendingPathComponent("\(projectManager.projectName).hpappdir.zip")
+            currentDirectoryURL.appendingPathComponent("\(projectName).hpprgm"),
+            currentDirectoryURL.appendingPathComponent("\(projectName).hpappdir/\(projectName).hpappprgm"),
+            currentDirectoryURL.appendingPathComponent("\(projectName).hpappdir.zip")
         ]
         
         for file in files {
@@ -1162,7 +1175,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
             return
         }
-        projectDirectoryURL.revealInFinder()
+        projectDirectoryURL.revealInFinderIfNeeded()
     }
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
@@ -1170,7 +1183,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let url = HPServices.hpPrimeDirectory(forUser: calculator) else {
             return
         }
-        url.revealInFinder()
+        url.revealInFinderIfNeeded()
     }
     
     @IBAction func reformatCode(_ sender: Any) {
@@ -1246,21 +1259,21 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
         case #selector(installHPPrgmFileToCalculator(_:)):
             menuItem.title = "Install Program"
-            if HPServices.hpPrgmIsInstalled(named: projectManager.projectName) {
+            if let projectName = projectManager.projectName, HPServices.hpPrgmIsInstalled(named: projectName) {
                     menuItem.title = "Update Program"
             }
-            if let currentDirectoryURL = projectManager.projectDirectoryURL {
-                return HPServices.hpPrgmExists(atPath: currentDirectoryURL.path, named: projectManager.projectName)
+            if let currentDirectoryURL = projectManager.projectDirectoryURL, let projectName = projectManager.projectName  {
+                return HPServices.hpPrgmExists(atPath: currentDirectoryURL.path, named: projectName)
             }
             return false
             
         case #selector(installHPAppDirectoryToCalculator(_:)):
             menuItem.title = "Install Application"
-            if HPServices.hpAppDirectoryIsInstalled(named: projectManager.projectName) {
+            if let projectName = projectManager.projectName, HPServices.hpAppDirectoryIsInstalled(named: projectName) {
                 menuItem.title = "Update Application"
             }
-            if let currentDirectoryURL = projectManager.projectDirectoryURL {
-                return HPServices.hpAppDirIsComplete(atPath: currentDirectoryURL.path, named: projectManager.projectName)
+            if let projectName = projectManager.projectName, let currentDirectoryURL = projectManager.projectDirectoryURL {
+                return HPServices.hpAppDirIsComplete(atPath: currentDirectoryURL.path, named: projectName)
             }
             return false
             
@@ -1324,7 +1337,13 @@ extension MainViewController: DocumentManagerDelegate {
 #if Debug
         print("Saved successfully")
 #endif
-        projectManager.saveProject()
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
+        guard let projectName = projectManager.projectName else { return }
+        
+        let projectFileURL = projectDirectoryURL
+            .appendingPathComponent("\(projectName).xprimeproj")
+        
+        projectManager.saveProjectAs(at: projectFileURL)
     }
     
     func documentManager(_ manager: DocumentManager, didFailWith error: Error) {
@@ -1339,13 +1358,13 @@ extension MainViewController: DocumentManagerDelegate {
 #endif
         if let url = documentManager.currentDocumentURL {
             loadAppropriateGrammar(forType: url.pathExtension.lowercased())
-            projectManager.openProject(in: url.deletingLastPathComponent())
         }
+        
+        gutterView.updateLines()
         
         refreshQuickOpenToolbar()
         refreshProjectIconImage()
         refreshBaseApplicationMenu()
-        gutterView.updateLines()
         updateWindowDocumentIcon()
     }
     
@@ -1356,3 +1375,41 @@ extension MainViewController: DocumentManagerDelegate {
     }
 }
 
+// MARK: - 🤝 DocumentManagerDelegate
+extension MainViewController: ProjectManagerDelegate {
+    func projectManagerDidSave(_ manager: ProjectManager) {
+#if Debug
+        print("Saved successfully project settings")
+#endif
+    }
+    
+    func projectManager(_ manager: ProjectManager, didFailWith error: any Error) {
+        AlertPresenter.showInfo(
+            on: self.view.window,
+            title: "Saving Project Failed",
+            message: "\(error)"
+        )
+    }
+    
+    func projectManagerDidOpen(_ manager: ProjectManager) {
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
+        
+        if let url = mainURL(in: projectDirectoryURL) {
+            documentManager.openDocument(at: url)
+        }
+        
+        refreshQuickOpenToolbar()
+        refreshProjectIconImage()
+        refreshBaseApplicationMenu()
+        updateWindowDocumentIcon()
+    }
+    
+    func projectManager(_ manager: ProjectManager, didFailToOpen error: any Error) {
+        AlertPresenter.showInfo(
+            on: self.view.window,
+            title: "Opening Project Failed",
+            message: "\(error)"
+        )
+    }
+    
+}

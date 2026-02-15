@@ -22,6 +22,20 @@
 
 import Cocoa
 
+protocol ProjectManagerDelegate: AnyObject {
+    // Called when a document is successfully saved
+    func projectManagerDidSave(_ manager: ProjectManager)
+    
+    // Called when saving fails
+    func projectManager(_ manager: ProjectManager, didFailWith error: Error)
+    
+    // Called when a project is successfully opened
+    func projectManagerDidOpen(_ manager: ProjectManager)
+    
+    // Optional: called when opening fails
+    func projectManager(_ manager: ProjectManager, didFailToOpen error: Error)
+}
+
 fileprivate struct Project: Codable {
     let compression: Bool
     let include: String
@@ -32,10 +46,12 @@ fileprivate struct Project: Codable {
 }
 
 final class ProjectManager {
+    weak var delegate: ProjectManagerDelegate?
+    
     private var documentManager: DocumentManager
     private(set) var projectDirectoryURL: URL?
     
-    var projectName: String {
+    var projectName: String? {
         guard let url = projectDirectoryURL else {
             return "Untitled"
         }
@@ -43,11 +59,11 @@ final class ProjectManager {
     }
     
     var isProjectAnApplication: Bool {
-        guard let projectDirectoryURL else {
+        guard let projectDirectoryURL, let name = projectName else {
             return false
         }
         return projectDirectoryURL
-            .appendingPathComponent(projectName)
+            .appendingPathComponent(name)
             .appendingPathExtension("hpappdir")
             .isDirectory
     }
@@ -63,7 +79,16 @@ final class ProjectManager {
         self.documentManager = documentManager
     }
     
-    private func xprimeProjectName(in directory: URL) -> String {
+    func openLastOrUntitled() {
+        guard let path = UserDefaults.standard.string(forKey: "lastOpenedProjectPath"),
+           FileManager.default.fileExists(atPath: path) else {
+            return
+        }
+        
+        openProject(at: URL(fileURLWithPath: path))
+    }
+    
+    private func xprimeProjectName(in directory: URL) -> String? {
         let fileManager = FileManager.default
         
         do {
@@ -82,20 +107,10 @@ final class ProjectManager {
             print("Error reading directory: \(error)")
         }
         
-        return directory.deletingLastPathComponent().lastPathComponent
+        return nil
     }
     
-    func openProject(in directoryURL: URL) {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else {
-            return
-        }
-
-        let projectName = self.xprimeProjectName(in: directoryURL)
-        
-        let url = currentDocumentURL
-            .deletingLastPathComponent()
-            .appendingPathComponent("\(projectName).xprimeproj")
-        
+    func openProject(at url: URL) {
         var project: Project!
         
         if let jsonString = loadJSONString(url),
@@ -103,9 +118,19 @@ final class ProjectManager {
             do {
                 project = try JSONDecoder().decode(Project.self, from: jsonData)
             } catch {
-                return
+                // Project is invalid/outdated
+                defaultProjectSettings()
+                project = .init(
+                    compression: false,
+                    include: "$(SDK)/include",
+                    lib: "$(SDK)/lib",
+                    calculator: "Prime",
+                    bin: "$(SDK)/bin",
+                    archiveProjectAppOnly: true
+                )
             }
         } else {
+            delegate?.projectManager(self, didFailToOpen: NSError(domain: "XcodeProjectManager", code: 0, userInfo: nil))
             return
         }
         
@@ -116,7 +141,17 @@ final class ProjectManager {
         UserDefaults.standard.set(project.bin, forKey: "bin")
         UserDefaults.standard.set(project.archiveProjectAppOnly, forKey: "archiveProjectAppOnly")
         
-        projectDirectoryURL = currentDocumentURL.deletingLastPathComponent()
+        projectDirectoryURL = url.deletingLastPathComponent()
+        UserDefaults.standard.set(url.path, forKey: "lastOpenedProjectPath")
+        delegate?.projectManagerDidOpen(self)
+    }
+    
+    func openProject(in url: URL) {
+        guard let projectName = self.xprimeProjectName(in: url) else {
+            delegate?.projectManager(self, didFailToOpen: NSError(domain: "XcodeProjectManager", code: 0, userInfo: nil))
+            return
+        }
+        openProject(at: url.appendingPathComponent("\(projectName).xprimeproj"))
     }
     
     private func loadJSONString(_ url: URL) -> String? {
@@ -152,20 +187,26 @@ final class ProjectManager {
                 try data.write(to: url)
             }
             documentManager.outputTextView.appendTextAndScroll("✅ Successful in saving project \"\(url.deletingPathExtension().lastPathComponent)\"\n")
+            UserDefaults.standard.set(url.path, forKey: "lastOpenedProjectPath")
+            delegate?.projectManagerDidSave(self)
             return true
         } catch {
             documentManager.outputTextView.appendTextAndScroll("❌ Unsuccessful in saving project \"\(url.deletingPathExtension().lastPathComponent)\"\n")
+            delegate?.projectManager(self, didFailWith: error)
             return false
         }
     }
-    func saveProject() -> Bool {
-        guard let projectDirectoryURL else { return false }
-        
-        let projectFileURL = projectDirectoryURL
-            .appendingPathComponent("\(projectName).xprimeproj")
-        
-        return saveProjectAs(at: projectFileURL)
-    }
+    
+//    @discardableResult
+//    func saveProject() -> Bool {
+//        guard let projectDirectoryURL else { return false }
+//        guard let projectName else { return false }
+//        
+//        let projectFileURL = projectDirectoryURL
+//            .appendingPathComponent("\(projectName).xprimeproj")
+//        
+//        return saveProjectAs(at: projectFileURL)
+//    }
     
     @discardableResult
     func createNewProject(named name: String, in directoryURL: URL) -> Bool {

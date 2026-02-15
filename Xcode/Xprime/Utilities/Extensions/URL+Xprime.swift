@@ -23,18 +23,33 @@
 import Cocoa
 
 extension URL {
+    // Track the last revealed path
+    private static var lastRevealedPath: String?
+    
+    /// Reveal in Finder only if this URL is different from the last revealed URL
+    func revealInFinderIfNeeded() {
+        let path = standardizedFileURL.path
+        
+        // Skip if this path is the same as the last revealed URL
+        if URL.lastRevealedPath == path {
+            return
+        }
+        
+        // Skip if Finder is already frontmost
+        let workspace = NSWorkspace.shared
+        if workspace.frontmostApplication?.bundleIdentifier == "com.apple.finder" {
+            return
+        }
+        
+        // Record this path as last revealed and reveal in Finder
+        URL.lastRevealedPath = path
+        workspace.activateFileViewerSelecting([self])
+    }
+    
     var isDirectory: Bool {
         var isDir: ObjCBool = false
         FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
         return isDir.boolValue
-    }
-    
-    func revealInFinder() {
-        NSWorkspace.shared.selectFile(self.path, inFileViewerRootedAtPath: "")
-    }
-    
-    func openInFinder() {
-        NSWorkspace.shared.open(self)
     }
     
     var modificationDate: Date? {

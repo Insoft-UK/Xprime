@@ -23,19 +23,13 @@
 import Cocoa
 
 
-final class SettingsViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
+final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     
     
     @IBOutlet weak var librarySearchPath: NSTextField!
     @IBOutlet weak var headerSearchPath: NSTextField!
-    @IBOutlet weak var macOS: NSButton!
-    @IBOutlet weak var Wine: NSButton!
-    @IBOutlet weak var compressionSwitch: NSSwitch!
     @IBOutlet weak var calculator: NSImageView!
-    @IBOutlet weak var archiveProjectAppOnly: NSSwitch!
-    
     @IBOutlet weak var calculatorComboBox: NSComboBox!
-    
     @IBOutlet weak var defaultButton: NSButton!
     @IBOutlet weak var doneButton: NSButton!
     
@@ -47,42 +41,20 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate, NSCom
         librarySearchPath.delegate = self
         headerSearchPath.delegate = self
         
-        let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
-        let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
         let include = UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDK)/include"
         let lib = UserDefaults.standard.object(forKey: "lib") as? String ?? "$(SDK)/lib"
         let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
-//        let bin = "" // Reserved!
-        let archiveProjectAppOnly = UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
+
         
         librarySearchPath.stringValue = lib
         headerSearchPath.stringValue = include
         
-        if !FileManager.default.fileExists(atPath: "/Applications/Wine.app/Contents/MacOS/wine") {
-            macOS.isEnabled = false
-            Wine.isEnabled = false
-            UserDefaults.standard.set("macOS", forKey: "platform")
-        } else {
-            if platform == "macOS" {
-                macOS.state = .on
-                Wine.state = .off
-            } else {
-                macOS.state = .off
-                Wine.state = .on
-            }
-        }
-        
-        compressionSwitch.state = compression ? .on : .off
-        self.archiveProjectAppOnly.state = archiveProjectAppOnly ? .on : .off
         
         if HPServices.hpPrimeCalculatorExists(named: calculator) {
             self.calculator.image = NSImage(named: "ConnectivityKit")
         } else {
             self.calculator.image = NSImage(named: "VirtualCalculator")
         }
-        
-       
-        
         
         populateCalculatorComboBoxItems()
         
@@ -103,18 +75,14 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate, NSCom
         
         // Make window background transparent
         window.titleVisibility = .hidden
-        window.isOpaque = false
-        window.backgroundColor = NSColor(white: 0, alpha: 0.9)
-        window.titlebarAppearsTransparent = true
-        
+
         window.center()
-        window.level = .floating
+        window.level = .modalPanel
         window.hasShadow = true
-        
-       
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
+        
         
         if let theme = ThemeLoader.shared.loadTheme(named: ThemeLoader.shared.preferredTheme) {
             if let color = NSColor(hex: theme.settings?["background"] ?? "") {
@@ -218,34 +186,13 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate, NSCom
         }
     }
     
-
-    
-    @IBAction func platform(_ sender: NSButton) {
-        if sender.title == "macOS" {
-            UserDefaults.standard.set(sender.state == .on ? "macOS" : "Wine", forKey: "platform")
-        } else {
-            UserDefaults.standard.set(sender.state == .on ? "Wine" : "macOS", forKey: "platform")
-        }
-    }
-    
-    @IBAction func compressionSwitchToggled(_ sender: NSSwitch) {
-        UserDefaults.standard.set(sender.state == .on, forKey: "compression")
-    }
-    
-    @IBAction func archiveProjectAppOnlySwitchToggled(_ sender: NSSwitch) {
-        UserDefaults.standard.set(sender.state == .on, forKey: "archiveProjectAppOnly")
-    }
-    
     @IBAction func defaultSettings(_ sender: Any) {
         headerSearchPath.stringValue = "$(SDK)/include"
         librarySearchPath.stringValue = "$(SDK)/lib"
-        macOS.state = .on
-        Wine.state = .off
-        archiveProjectAppOnly.state = .on
-        compressionSwitch.state = .off
         calculatorComboBox.selectItem(withObjectValue: "Virtual Calculator")
         calculator.image = NSImage(named: "VirtualCalculator")
         
+        UserDefaults.standard.set("macOS", forKey: "platform")
         UserDefaults.standard.set(false, forKey: "compression")
         UserDefaults.standard.set("$(SDK)/include", forKey: "include")
         UserDefaults.standard.set("$(SDK)/lib", forKey: "lib")
