@@ -31,6 +31,9 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.note|NoteText format|UTF8|
 |.ntf|NoteText format|UTF8|
 |.md|Markdown Language|UTF8|
+|.bmp|Bitmap|Image|
+|.png|Portable Network Graphic|Image|
+|.h|Adafruit GFX Font|UTF8|
 |.hpnote|HP Prime note|Binary|
 |.hpappnote|HP Prime note|Binary|
 |.hpprgm|HP Prime program (exported/packaged)|Binary|
