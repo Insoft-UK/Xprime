@@ -1455,7 +1455,7 @@ Gw
         <image name="folder.fill.badge.plus" catalog="system" width="20" height="15"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="hammer.fill" catalog="system" width="15" height="14"/>
         <image name="icon" width="38" height="38"/>
         <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
