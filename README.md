@@ -18,6 +18,9 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
+**NEW** Project Settings...</br>
+<img src="assets/screenshots/project-settings.png?raw=true" width="294" /><img src="assets/screenshots/advance-project-settings.png?raw=true" width="294" />
+
 ### Supported File Types
 |Type|Description|Format|
 |:-|:-|:-|
