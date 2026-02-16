@@ -88,6 +88,10 @@ final class ProjectManager {
         openProject(at: URL(fileURLWithPath: path))
     }
     
+    func doseProjectExist(at url: URL) -> Bool {
+        return xprimeProjectName(in: url) != nil
+    }
+    
     private func xprimeProjectName(in directory: URL) -> String? {
         let fileManager = FileManager.default
         
@@ -130,6 +134,7 @@ final class ProjectManager {
                 )
             }
         } else {
+            projectDirectoryURL = nil
             delegate?.projectManager(self, didFailToOpen: NSError(domain: "XcodeProjectManager", code: 0, userInfo: nil))
             return
         }
@@ -148,6 +153,7 @@ final class ProjectManager {
     
     func openProject(in url: URL) {
         guard let projectName = self.xprimeProjectName(in: url) else {
+            projectDirectoryURL = nil
             delegate?.projectManager(self, didFailToOpen: NSError(domain: "XcodeProjectManager", code: 0, userInfo: nil))
             return
         }

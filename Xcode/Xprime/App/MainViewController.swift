@@ -167,9 +167,34 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 #if Debug
         print("Window gained focus")
 #endif
-        refreshQuickOpenToolbar()
-        refreshProjectIconImage()
-        refreshBaseApplicationMenu()
+        
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
+        
+        if FileManager.default.currentDirectoryPath != projectDirectoryURL.path {
+            projectManager.openProject(in: URL(fileURLWithPath: FileManager.default.currentDirectoryPath))
+        } else {
+            refreshQuickOpenToolbar()
+            refreshProjectIconImage()
+            refreshBaseApplicationMenu()
+        }
+//        let newCreatedProject = UserDefaults.standard.object(forKey: "newCreatedProject") as? String ?? nil
+//        if let newCreatedProject {
+//            let projectDirectoryURL = URL(fileURLWithPath: newCreatedProject)
+//            
+//            UserDefaults.standard.set(nil, forKey: "newCreatedProject")
+//            if projectManager.doseProjectExist(at: projectDirectoryURL) {
+//                projectManager.openProject(in: projectDirectoryURL)
+//            } else {
+//                refreshQuickOpenToolbar()
+//                refreshProjectIconImage()
+//                refreshBaseApplicationMenu()
+//            }
+//        }
+//        else {
+//            refreshQuickOpenToolbar()
+//            refreshProjectIconImage()
+//            refreshBaseApplicationMenu()
+//        }
     }
     
     @objc private func windowDidResignKey() {
@@ -839,6 +864,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             UTType(filenameExtension: "note")!,
             UTType(filenameExtension: "hpnote")!,
             UTType(filenameExtension: "hpappnote")!,
+            UTType(filenameExtension: "bmp")!,
+            UTType(filenameExtension: "png")!,
             UTType.pythonScript,
             UTType.cHeader,
             UTType.text
@@ -854,16 +881,19 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             let selectedURLs = panel.urls
             
             for url in selectedURLs {
+                let destinationURL = projectDirectoryURL.appendingPathComponent(url.lastPathComponent)
                 self.copyFileHandlingDuplicates(
                     from: url,
-                    to: projectDirectoryURL.appendingPathComponent(url.lastPathComponent)
+                    to: destinationURL
                 )
+                if destinationURL == self.documentManager.currentDocumentURL {
+                    self.documentManager.openDocument(at: destinationURL)
+                }
             }
         }
     }
     
-    private func copyFileHandlingDuplicates(from url: URL, to projectDirectoryURL: URL) {
-        let destinationURL = projectDirectoryURL.appendingPathComponent(url.lastPathComponent)
+    private func copyFileHandlingDuplicates(from url: URL, to destinationURL: URL) {
         let fileManager = FileManager.default
 
         do {
