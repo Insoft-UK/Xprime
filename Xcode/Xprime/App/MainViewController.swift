@@ -821,6 +821,76 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    // MARK: - Add Files to Current Project
+    @IBAction private func addFilesTo(_ sender : Any) {
+        let panel = NSOpenPanel()
+        
+        panel.prompt = "Add"
+        panel.title = ""
+        panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        panel.allowedContentTypes = [
+            UTType(filenameExtension: "prgm+")!,
+            UTType(filenameExtension: "prgm")!,
+            UTType(filenameExtension: "app")!,
+            UTType(filenameExtension: "ppl")!,
+            UTType(filenameExtension: "ppl+")!,
+            UTType(filenameExtension: "md")!,
+            UTType(filenameExtension: "ntf")!,
+            UTType(filenameExtension: "note")!,
+            UTType(filenameExtension: "hpnote")!,
+            UTType(filenameExtension: "hpappnote")!,
+            UTType.pythonScript,
+            UTType.cHeader,
+            UTType.text
+        ]
+        panel.allowsMultipleSelection = true
+        panel.canChooseDirectories = false
+        panel.canChooseFiles = true
+        
+        panel.begin { result in
+            guard result == .OK else { return }
+            guard let projectDirectoryURL = self.projectManager.projectDirectoryURL else { return }
+            
+            let selectedURLs = panel.urls
+            
+            for url in selectedURLs {
+                self.copyFileHandlingDuplicates(
+                    from: url,
+                    to: projectDirectoryURL.appendingPathComponent(url.lastPathComponent)
+                )
+            }
+        }
+    }
+    
+    private func copyFileHandlingDuplicates(from url: URL, to projectDirectoryURL: URL) {
+        let destinationURL = projectDirectoryURL.appendingPathComponent(url.lastPathComponent)
+        let fileManager = FileManager.default
+
+        do {
+            try fileManager.copyItem(at: url, to: destinationURL)
+        } catch {
+            if (error as NSError).code == NSFileWriteFileExistsError {
+                let alert = NSAlert()
+                alert.messageText = "File Already Exists"
+                alert.informativeText = "\(url.lastPathComponent) already exists in the project. Replace it?"
+                alert.addButton(withTitle: "Replace")
+                alert.addButton(withTitle: "Cancel")
+
+                let response = alert.runModal()
+                if response == .alertFirstButtonReturn {
+                    do {
+                        try fileManager.removeItem(at: destinationURL)
+                        try fileManager.copyItem(at: url, to: destinationURL)
+                    } catch {
+                        print("❌ Failed to replace file:", error)
+                    }
+                }
+            } else {
+                print("❌ Copy failed:", error)
+            }
+        }
+    }
+    
     // MARK: - Opening Document
     private func openDocument(url: URL) {
         guard FileManager.default.fileExists(atPath: url.path) else { return }
@@ -841,10 +911,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             UTType(filenameExtension: "hpappprgm")!,
             UTType(filenameExtension: "ppl")!,
             UTType(filenameExtension: "ppl+")!,
-            UTType(filenameExtension: "ppl+")!,
             UTType(filenameExtension: "md")!,
             UTType(filenameExtension: "ntf")!,
             UTType(filenameExtension: "note")!,
+            UTType(filenameExtension: "bmp")!,
+            UTType(filenameExtension: "png")!,
+            UTType(filenameExtension: "h")!,
             UTType(filenameExtension: "hpnote")!,
             UTType(filenameExtension: "hpappnote")!,
             UTType.pythonScript,
@@ -854,6 +926,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
+            let ext = url.pathExtension.lowercased()
+            
+            if ext == "bmp" || ext == "png" || ext == "h" {
+                self.loadAppropriateGrammar(forType: "ppl")
+            }
+            
             if url.lastPathComponent.hasSuffix(".xprimeproj") {
                 self.projectManager.openProject(at: url)
             } else {
@@ -1053,70 +1131,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    @IBAction func importImage(_ sender: Any) {
-        let openPanel = NSOpenPanel()
-        let extensions = ["bmp"]
-        let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
-        
-        openPanel.allowedContentTypes = contentTypes
-        openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = false
-        
-        openPanel.begin { result in
-            guard result == .OK, let url = openPanel.url else { return }
-            let command = ToolchainPaths.developerRoot.appendingPathComponent("usr")
-                .appendingPathComponent("bin")
-                .appendingPathComponent("grob")
-                .path
-            
-            let commandURL = URL(fileURLWithPath: command)
-            let contents = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
-            if let out = contents.out, !out.isEmpty {
-                self.outputTextView.appendTextAndScroll("Importing \"\(url.pathExtension.uppercased())\" Image...\n")
-                self.codeEditorTextView.insertCode(out)
-            }
-            self.outputTextView.appendTextAndScroll(contents.err ?? "")
-        }
-    }
-    
-    @IBAction func importAdafruitGFXFont(_ sender: Any) {
-        let openPanel = NSOpenPanel()
-        let extensions = ["h"]
-        let contentTypes = extensions.compactMap { UTType(filenameExtension: $0) }
-        
-        openPanel.allowedContentTypes = contentTypes
-        openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = false
-        
-        openPanel.begin { result in
-            guard result == .OK, let url = openPanel.url else { return }
-            
-            let contents = ProcessRunner.run(executable: ToolchainPaths.bin.appendingPathComponent("font"), arguments: [url.path, "-o", "/dev/stdout"])
-            if let out = contents.out, !out.isEmpty {
-                self.outputTextView.appendTextAndScroll("Importing Adafruit GFX Font...\n")
-                self.codeEditorTextView.insertCode(contents.out ?? "")
-            }
-            self.outputTextView.appendTextAndScroll(contents.err ?? "")
-        }
-    }
-    
-    @IBAction func importCode(_ sender: Any) {
-        let openPanel = NSOpenPanel()
-        let contentTypes = ["prgm", "ppl", "prgm+", "ppl+"].compactMap { UTType(filenameExtension: $0) }
-        
-        openPanel.allowedContentTypes = contentTypes
-        openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = false
-        
-        openPanel.begin { result in
-            guard result == .OK, let url = openPanel.url else { return }
-            
-            if let contents = HPServices.loadHPPrgm(at: url) {
-                self.codeEditorTextView.insertCode(self.codeEditorTextView.removePragma(contents))
-            }
-        }
-    }
-    
     @IBAction func insertTemplate(_ sender: Any) {
         func traceMenuItem(_ item: NSMenuItem) -> String {
             if let parentMenu = item.menu {
@@ -1283,10 +1297,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return false
             
-        case #selector(importCode(_:)):
-            return true
-            
-        case #selector(insertTemplate(_:)), #selector(importImage(_:)), #selector(importAdafruitGFXFont(_:)):
+        case #selector(insertTemplate(_:)):
             if ext == "prgm" || ext == "prgm+" || ext == "hpprgm" || ext == "hpappprgm" || ext == "ppl" || ext == "ppl+" {
                 return true
             }
@@ -1322,6 +1333,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 menuItem.state = .off
             }
             return true
+            
+        case #selector(addFilesTo(_:)):
+            if projectManager.projectDirectoryURL != nil, let projectName = projectManager.projectName {
+                menuItem.title = "Add Files to \"\(projectName)\"…"
+                return true
+            }
+            menuItem.title = "Add Files to \"\"…"
+            return false
             
         default:
             break
@@ -1375,7 +1394,7 @@ extension MainViewController: DocumentManagerDelegate {
     }
 }
 
-// MARK: - 🤝 DocumentManagerDelegate
+// MARK: - 🤝 ProjectManagerDelegate
 extension MainViewController: ProjectManagerDelegate {
     func projectManagerDidSave(_ manager: ProjectManager) {
 #if Debug

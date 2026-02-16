@@ -38,33 +38,24 @@ protocol DocumentManagerDelegate: AnyObject {
 }
 
 final class DocumentManager {
-
+    
     weak var delegate: DocumentManagerDelegate?
     
     private(set) var currentDocumentURL: URL?
     private var editor: CodeEditorTextView
     private(set) var outputTextView: OutputTextView
-
+    
     var documentIsModified: Bool = false {
         didSet {
             NotificationCenter.default.post(name: .documentModificationChanged, object: nil)
         }
     }
-
+    
     init(editor: CodeEditorTextView, outputTextView output: OutputTextView) {
         self.editor = editor
         self.outputTextView = output
     }
-
-    func openLastOrUntitled() {
-        if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath"),
-           FileManager.default.fileExists(atPath: path) {
-            openDocument(at: URL(fileURLWithPath: path))
-        } else {
-            openUntitled()
-        }
-    }
-
+    
     private func openUntitled() {
         editor.string = ""
         currentDocumentURL = nil
@@ -93,6 +84,38 @@ final class DocumentManager {
         outputTextView.appendTextAndScroll(result.err ?? "")
         documentIsModified = false
         delegate?.documentManagerDidSave(self)
+    }
+    
+    private func openAdafruitGFXFont(url: URL) {
+        let contents = ProcessRunner.run(executable: ToolchainPaths.bin.appendingPathComponent("font"), arguments: [url.path, "-o", "/dev/stdout"])
+        if let out = contents.out, !out.isEmpty {
+            self.outputTextView.appendTextAndScroll("Importing Adafruit GFX Font...\n")
+            
+            editor.string = out
+            currentDocumentURL = nil
+            documentIsModified = false
+            delegate?.documentManagerDidOpen(self)
+        }
+        self.outputTextView.appendTextAndScroll(contents.err ?? "")
+    }
+    
+    private func openImage(url: URL) {
+        let command = ToolchainPaths.developerRoot.appendingPathComponent("usr")
+            .appendingPathComponent("bin")
+            .appendingPathComponent("grob")
+            .path
+        
+        let commandURL = URL(fileURLWithPath: command)
+        let contents = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
+        if let out = contents.out, !out.isEmpty {
+            self.outputTextView.appendTextAndScroll("Importing \"\(url.pathExtension.uppercased())\" Image...\n")
+            
+            editor.string = out
+            currentDocumentURL = nil
+            documentIsModified = false
+            delegate?.documentManagerDidOpen(self)
+        }
+        self.outputTextView.appendTextAndScroll(contents.err ?? "")
     }
     
     private func openNote(url: URL) {
@@ -161,23 +184,33 @@ final class DocumentManager {
         documentIsModified = false
         delegate?.documentManagerDidOpen(self)
     }
-
+    
     func openDocument(at url: URL) {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
         case "prgm", "app":
             encoding = .utf16
+            
         case "hpnote", "hpappnote":
             openNote(url: url)
             return
+            
         case "hpprgm", "hpappprgm":
             openProgram(url: url)
+            return
+            
+        case "bmp", "png":
+            openImage(url: url)
+            return
+            
+        case "h":
+            openAdafruitGFXFont(url: url)
             return
             
         default:
             encoding = .utf8
         }
-       
+        
         do {
             let content = try String(contentsOf: url, encoding: encoding)
             editor.string = content
@@ -224,7 +257,7 @@ final class DocumentManager {
             } else {
                 try editor.string.write(to: url, atomically: true, encoding: encoding)
             }
-      
+            
             documentIsModified = false
             delegate?.documentManagerDidSave(self)
             return true
@@ -238,35 +271,32 @@ final class DocumentManager {
         allowedContentTypes: [UTType],
         defaultFileName: String = "Untitled"
     ) {
-        let panel = NSSavePanel()
-        if let currentDocumentURL {
-            panel.directoryURL = currentDocumentURL.deletingLastPathComponent()
+        let allowedExtensions = allowedContentTypes.compactMap { type in
+            type.preferredFilenameExtension
         }
-        panel.allowedContentTypes = allowedContentTypes
-        panel.nameFieldStringValue = defaultFileName
-        panel.title = ""
         
-        panel.begin { result in
-            guard result == .OK, let url = panel.url else { return }
-            self.saveDocument(to: url)
-            self.openDocument(at: url)
+        saveAs(allowedExtensions: allowedExtensions, defaultFileName: defaultFileName) { outputURL in
+            self.saveDocument(to: outputURL)
+            self.openDocument(at: outputURL)
         }
     }
     
-//    func saveAs(
-//        allowedExtensions: [String],
-//        defaultFileName: String,
-//        action: @escaping (_ outputURL: URL)
-//    ) {
-//        let savePanel = NSSavePanel()
-//        savePanel.allowedContentTypes = allowedExtensions.compactMap { UTType(filenameExtension: $0) }
-//        savePanel.nameFieldStringValue = defaultFileName
-//        
-//        savePanel.begin { result in
-//            guard result == .OK, let outURL = savePanel.url else { return }
-//            let result = action(outURL)
-//        }
-//    }
+    private func saveAs(
+        allowedExtensions: [String],
+        defaultFileName: String,
+        action: @escaping (_ outputURL: URL) -> Void
+    ) {
+        let savePanel = NSSavePanel()
+        savePanel.allowedContentTypes = allowedExtensions.compactMap { UTType(filenameExtension: $0) }
+        savePanel.nameFieldStringValue = defaultFileName
+        savePanel.title = ""
+        savePanel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        
+        savePanel.begin { result in
+            guard result == .OK, let outURL = savePanel.url else { return }
+            action(outURL)
+        }
+    }
 }
 
 extension Notification.Name {

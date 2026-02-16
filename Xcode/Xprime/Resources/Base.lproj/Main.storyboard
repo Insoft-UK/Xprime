@@ -144,7 +144,7 @@ DQ
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Settings..." image="gear" catalog="system" keyEquivalent="," id="36R-ZF-jrv"/>
+                                        <menuItem title="Settings..." image="gear" catalog="system" hidden="YES" keyEquivalent="," id="36R-ZF-jrv"/>
                                         <menuItem title="Check for Updates..." image="CheckUpdate" id="fYr-Rq-ysS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -205,6 +205,13 @@ DQ
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                                        <menuItem title="Add Files to &quot;&quot;…" image="arrow.up.forward.app" catalog="system" keyEquivalent="a" id="rsG-wm-foA">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="addFilesTo:" target="Ady-hI-5gd" id="pgo-QO-BWV"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="k1T-F0-EUy"/>
                                         <menuItem title="Open…" keyEquivalent="o" id="lub-ID-MFY">
                                             <connections>
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="EKn-8H-hZl"/>
@@ -220,51 +227,6 @@ DQ
                                             <connections>
                                                 <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="NiY-yk-tWd"/>
                                             </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="XfC-ik-oAT"/>
-                                        <menuItem title="Import" image="square.and.arrow.down" catalog="system" id="nDy-gR-fEe">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Import" id="KSp-ZZ-Eb4">
-                                                <items>
-                                                    <menuItem title="Import PPL Code" image="text.insert" catalog="system" id="1OF-xl-3eV">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="importCode:" target="Ady-hI-5gd" id="AEV-qb-WiM"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Import Image" image="photo" catalog="system" id="Rjl-Nh-Ew5">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="importImage:" target="Ady-hI-5gd" id="Yug-aV-ZOI"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Import Adafruit GFX Font" image="character.book.closed" catalog="system" id="Lc7-JR-4Uo">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="importAdafruitGFXFont:" target="Ady-hI-5gd" id="hff-yu-WML"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
-                                        <menuItem title="Export" image="square.and.arrow.up.on.square" catalog="system" hidden="YES" id="r6P-WS-c2L">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Export" id="pia-c9-RVv">
-                                                <items>
-                                                    <menuItem title="Quick Export as HPPRGM" image="square.and.arrow.up" catalog="system" hidden="YES" id="lEh-6x-kCK">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Quick Export as HPNOTE" image="square.and.arrow.up" catalog="system" hidden="YES" id="d8Y-St-vmh">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Quick Export as PRGM" image="square.and.arrow.up" catalog="system" hidden="YES" id="PQ7-pj-0wF">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Quick Export as Archive" image="square.and.arrow.up" catalog="system" hidden="YES" id="F6J-Tn-Rha">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Ktx-1R-bVM"/>
                                         <menuItem title="Project Settings..." image="gear" catalog="system" id="XKP-pX-tAG">
@@ -918,7 +880,7 @@ DQ
                                 <rect key="frame" x="18" y="229" width="414" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Use the location specified project folder" id="No7-Zz-7ke">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -977,7 +939,7 @@ DQ
                                 <rect key="frame" x="18" y="66" width="414" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" enabled="NO" alignment="left" title="Compression of your code results in it taking up less storage of your HP Prime's storage memory" id="FRY-Hc-v8i">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1483,13 +1445,13 @@ Gw
         <image name="NSTouchBarPlayTemplate" width="15" height="17"/>
         <image name="NSTouchBarTextLeftAlignTemplate" width="21" height="17"/>
         <image name="VirtualCalculator" width="32" height="32"/>
+        <image name="arrow.up.forward.app" catalog="system" width="15" height="14"/>
         <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
         <image name="bubbles.and.sparkles" catalog="system" width="17" height="15"/>
-        <image name="character.book.closed" catalog="system" width="14" height="16"/>
         <image name="document" catalog="system" width="14" height="16"/>
         <image name="eye" catalog="system" width="16" height="11"/>
         <image name="eye.slash" catalog="system" width="21" height="16"/>
-        <image name="folder" catalog="system" width="18" height="14"/>
+        <image name="folder" catalog="system" width="15" height="12"/>
         <image name="folder.fill.badge.plus" catalog="system" width="20" height="15"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
@@ -1498,19 +1460,15 @@ Gw
         <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
         <image name="paintbrush" catalog="system" width="17" height="18"/>
-        <image name="photo" catalog="system" width="18" height="14"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="play.fill" catalog="system" width="10" height="11"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="ppl" width="16" height="16"/>
         <image name="questionmark.circle" catalog="system" width="15" height="15"/>
         <image name="shippingbox" catalog="system" width="16" height="17"/>
         <image name="shippingbox.fill" catalog="system" width="16" height="16"/>
-        <image name="square.and.arrow.down" catalog="system" width="15" height="17"/>
-        <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
-        <image name="square.and.arrow.up.on.square" catalog="system" width="17" height="20"/>
+        <image name="square.and.arrow.down" catalog="system" width="12" height="14"/>
         <image name="stop.fill" catalog="system" width="12" height="11"/>
         <image name="text.document" catalog="system" width="14" height="16"/>
-        <image name="text.insert" catalog="system" width="16" height="13"/>
         <image name="text.page" catalog="system" width="14" height="16"/>
         <image name="text.rectangle.page" catalog="system" width="14" height="16"/>
         <image name="text.rectangle.page.fill" catalog="system" width="14" height="16"/>

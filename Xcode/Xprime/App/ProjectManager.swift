@@ -84,7 +84,7 @@ final class ProjectManager {
            FileManager.default.fileExists(atPath: path) else {
             return
         }
-        
+    
         openProject(at: URL(fileURLWithPath: path))
     }
     
