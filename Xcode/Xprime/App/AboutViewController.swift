@@ -21,9 +21,7 @@
 // SOFTWARE.
 
 // MARK: ✅ Done
-
 import Cocoa
-
 
 final class AboutViewController: NSViewController {
     @IBOutlet weak var Version: NSTextField!
@@ -57,7 +55,6 @@ final class AboutViewController: NSViewController {
         window.center()
         window.level = .floating
         window.hasShadow = true
-        
     }
     
     override func mouseDown(with event: NSEvent) {

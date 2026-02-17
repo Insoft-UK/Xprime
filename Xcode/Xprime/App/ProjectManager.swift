@@ -22,6 +22,20 @@
 
 import Cocoa
 
+protocol ProjectManagerDelegate: AnyObject {
+    // Called when a document is successfully saved
+    func projectManagerDidSave(_ manager: ProjectManager)
+    
+    // Called when saving fails
+    func projectManager(_ manager: ProjectManager, didFailWith error: Error)
+    
+    // Called when a project is successfully opened
+    func projectManagerDidOpen(_ manager: ProjectManager)
+    
+    // Optional: called when opening fails
+    func projectManager(_ manager: ProjectManager, didFailToOpen error: Error)
+}
+
 fileprivate struct Project: Codable {
     let compression: Bool
     let include: String
@@ -32,19 +46,26 @@ fileprivate struct Project: Codable {
 }
 
 final class ProjectManager {
-    private var documentManager: DocumentManager
-    private(set) var projectDirectoryURL: URL?
-    @available(*, deprecated, renamed: "projectDirectoryURL")
-    var currentDirectoryURL: URL? {
-        projectDirectoryURL
-    }
+    weak var delegate: ProjectManagerDelegate?
     
-    var projectName: String {
-        guard let projectDirectoryURL else {
+    private var documentManager: DocumentManager
+    private(set) var projectDirectoryURL: URL? = nil
+    
+    var projectName: String? {
+        guard let url = projectDirectoryURL else {
             return "Untitled"
         }
+        return xprimeProjectName(in: url)
+    }
+    
+    var isProjectAnApplication: Bool {
+        guard let projectDirectoryURL, let name = projectName else {
+            return false
+        }
         return projectDirectoryURL
-            .lastPathComponent
+            .appendingPathComponent(name)
+            .appendingPathExtension("hpappdir")
+            .isDirectory
     }
     
     var baseApplicationName: String {
@@ -58,30 +79,63 @@ final class ProjectManager {
         self.documentManager = documentManager
     }
     
-    func openProject() {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else {
+    func openLastOrUntitled() {
+        guard let path = UserDefaults.standard.string(forKey: "lastOpenedProjectPath"),
+           FileManager.default.fileExists(atPath: path) else {
             return
         }
+    
+        openProject(at: URL(fileURLWithPath: path))
+    }
+    
+    func doseProjectExist(at url: URL) -> Bool {
+        return xprimeProjectName(in: url) != nil
+    }
+    
+    private func xprimeProjectName(in directory: URL) -> String? {
+        let fileManager = FileManager.default
         
-        let name = currentDocumentURL
-            .deletingLastPathComponent()
-            .lastPathComponent
-        
-        let projectFileURL = currentDocumentURL
-            .deletingLastPathComponent()
-            .appendingPathComponent("\(name).xprimeproj")
-        
-        
-        
-        var project: Project?
-        
-        if let jsonString = loadJSONString(projectFileURL),
-           let jsonData = jsonString.data(using: .utf8) {
-            project = try? JSONDecoder().decode(Project.self, from: jsonData)
+        do {
+            let contents = try fileManager.contentsOfDirectory(
+                at: directory,
+                includingPropertiesForKeys: [.isRegularFileKey],
+                options: [.skipsHiddenFiles]
+            )
+            
+            for fileURL in contents {
+                if fileURL.pathExtension.lowercased() == "xprimeproj" {
+                    return fileURL.deletingPathExtension().lastPathComponent
+                }
+            }
+        } catch {
+            print("Error reading directory: \(error)")
         }
         
-        guard let project = project else {
+        return nil
+    }
+    
+    func openProject(at url: URL) {
+        var project: Project!
+        
+        if let jsonString = loadJSONString(url),
+           let jsonData = jsonString.data(using: .utf8) {
+            do {
+                project = try JSONDecoder().decode(Project.self, from: jsonData)
+            } catch {
+                // Project is invalid/outdated
+                defaultProjectSettings()
+                project = .init(
+                    compression: false,
+                    include: "$(SDK)/include",
+                    lib: "$(SDK)/lib",
+                    calculator: "Prime",
+                    bin: "$(SDK)/bin",
+                    archiveProjectAppOnly: true
+                )
+            }
+        } else {
             projectDirectoryURL = nil
+            delegate?.projectManager(self, didFailToOpen: NSError(domain: "XcodeProjectManager", code: 0, userInfo: nil))
             return
         }
         
@@ -92,9 +146,20 @@ final class ProjectManager {
         UserDefaults.standard.set(project.bin, forKey: "bin")
         UserDefaults.standard.set(project.archiveProjectAppOnly, forKey: "archiveProjectAppOnly")
         
-        projectDirectoryURL = currentDocumentURL.deletingLastPathComponent()
+        projectDirectoryURL = url.deletingLastPathComponent()
+        UserDefaults.standard.set(url.path, forKey: "lastOpenedProjectPath")
+        FileManager.default.changeCurrentDirectoryPath(url.deletingLastPathComponent().path)
+        delegate?.projectManagerDidOpen(self)
     }
     
+    func openProject(in url: URL) {
+        guard let projectName = self.xprimeProjectName(in: url) else {
+            projectDirectoryURL = nil
+            delegate?.projectManager(self, didFailToOpen: NSError(domain: "XcodeProjectManager", code: 0, userInfo: nil))
+            return
+        }
+        openProject(at: url.appendingPathComponent("\(projectName).xprimeproj"))
+    }
     
     private func loadJSONString(_ url: URL) -> String? {
         do {
@@ -109,12 +174,7 @@ final class ProjectManager {
     }
     
     @discardableResult
-    func saveProject() -> Bool {
-        guard let projectDirectoryURL else { return false }
-        
-        let projectFileURL = projectDirectoryURL
-            .appendingPathComponent("\(projectName).xprimeproj")
-        
+    func saveProjectAs(at url: URL) -> Bool {
         let project = Project(
             compression: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false,
             include: UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDK)/include",
@@ -128,50 +188,71 @@ final class ProjectManager {
             encoder.outputFormatting = [.prettyPrinted]
             let data = try encoder.encode(project)
             if let jsonString = String(data: data, encoding: .utf8) {
-                try jsonString.write(to: projectFileURL, atomically: true, encoding: .utf8)
+                try jsonString.write(to: url, atomically: true, encoding: .utf8)
             } else {
                 // Fallback: write raw data if string conversion fails
-                try data.write(to: projectFileURL)
+                try data.write(to: url)
             }
+            documentManager.outputTextView.appendTextAndScroll("✅ Successful in saving project \"\(url.deletingPathExtension().lastPathComponent)\"\n")
+            UserDefaults.standard.set(url.path, forKey: "lastOpenedProjectPath")
+            delegate?.projectManagerDidSave(self)
             return true
         } catch {
+            documentManager.outputTextView.appendTextAndScroll("❌ Unsuccessful in saving project \"\(url.deletingPathExtension().lastPathComponent)\"\n")
+            delegate?.projectManager(self, didFailWith: error)
             return false
         }
     }
     
+//    @discardableResult
+//    func saveProject() -> Bool {
+//        guard let projectDirectoryURL else { return false }
+//        guard let projectName else { return false }
+//        
+//        let projectFileURL = projectDirectoryURL
+//            .appendingPathComponent("\(projectName).xprimeproj")
+//        
+//        return saveProjectAs(at: projectFileURL)
+//    }
+    
     @discardableResult
-    func createProject(named name: String, at directoryURL: URL) -> Bool {
+    func createNewProject(named name: String, in directoryURL: URL) -> Bool {
         do {
             try FileManager.default.createDirectory(
                 at: directoryURL
                     .appendingPathComponent(name),
                 withIntermediateDirectories: false
             )
+            FileManager.default.changeCurrentDirectoryPath(directoryURL.path)
             
-            if let url = Bundle.main.url(forResource: "README", withExtension: "ntf") {
+            if let url = Bundle.main.url(forResource: "info", withExtension: "note") {
                 try FileManager.default.copyItem(
                     at: url,
-                    to: directoryURL.appendingPathComponent("README.ntf")
+                    to: directoryURL.appendingPathComponent("\(name)/info.note")
                 )
             }
 
-            if let url = Bundle.main.url(forResource: "Untitled", withExtension: "prgm+") {
+            if let url = Bundle.main.url(forResource: "main", withExtension: "prgm+") {
                 try FileManager.default.copyItem(
                     at: url,
-                    to: directoryURL.appendingPathComponent("\(name)/\(name).prgm+")
+                    to: directoryURL.appendingPathComponent("\(name)/main.prgm+")
                 )
-                documentManager.openDocument(url: directoryURL.appendingPathComponent("\(name)/\(name).prgm+"))
-                defaultSettings()
-                projectDirectoryURL = directoryURL.appendingPathComponent(name)
-                saveProject()
             }
+            
+            defaultProjectSettings()
+            documentManager.outputTextView.appendTextAndScroll("⚠️ Default project settings applied\n")
+            saveProjectAs(at: directoryURL.appendingPathComponent("\(name)/\(name).xprimeproj"))
+            
+            projectDirectoryURL = directoryURL.appendingPathComponent(name)
+            documentManager.openDocument(at: directoryURL.appendingPathComponent("\(name)/main.prgm+"))
         } catch {
+            documentManager.outputTextView.appendTextAndScroll("❌ New Project Failed:-\n\(error).\n")
             return false
         }
         return false
     }
     
-    private func defaultSettings() {
+    private func defaultProjectSettings() {
         UserDefaults.standard.set(false, forKey: "compression")
         UserDefaults.standard.set("$(SDK)/include", forKey: "include")
         UserDefaults.standard.set("$(SDK)/lib", forKey: "lib")

@@ -25,50 +25,50 @@ import Cocoa
 @IBDesignable
 open class CustomTextField: NSTextField {
     
-    public required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        installCenteredCellIfNeeded()
-        setup()
-    }
+//    public required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//        installCenteredCellIfNeeded()
+//        setup()
+//    }
+//    
+//    public override init(frame frameRect: NSRect) {
+//        super.init(frame: frameRect)
+//        installCenteredCellIfNeeded()
+//        setup()
+//    }
     
-    public override init(frame frameRect: NSRect) {
-        super.init(frame: frameRect)
-        installCenteredCellIfNeeded()
-        setup()
-    }
+//    private func installCenteredCellIfNeeded() {
+//        // Replace default cell with our vertically-centering cell, preserving properties
+//        guard !(self.cell is CustomTextFieldCell) else { return }
+//        if let oldCell = self.cell {
+//            let newCell = CustomTextFieldCell(textCell: "")
+//            newCell.controlSize = oldCell.controlSize
+//            newCell.isEditable = (oldCell as? NSTextFieldCell)?.isEditable ?? self.isEditable
+//            newCell.isSelectable = (oldCell as? NSTextFieldCell)?.isSelectable ?? self.isSelectable
+//            newCell.isBezeled = (oldCell as? NSTextFieldCell)?.isBezeled ?? self.isBezeled
+//            newCell.isBordered = (oldCell as? NSTextFieldCell)?.isBordered ?? self.isBordered
+//            newCell.drawsBackground = (oldCell as? NSTextFieldCell)?.drawsBackground ?? self.drawsBackground
+//            newCell.backgroundColor = (oldCell as? NSTextFieldCell)?.backgroundColor ?? self.backgroundColor
+//            newCell.placeholderAttributedString = (oldCell as? NSTextFieldCell)?.placeholderAttributedString
+//            newCell.font = (oldCell as? NSTextFieldCell)?.font ?? self.font
+//            newCell.alignment = (oldCell as? NSTextFieldCell)?.alignment ?? self.alignment
+//            newCell.lineBreakMode = (oldCell as? NSTextFieldCell)?.lineBreakMode ?? self.lineBreakMode
+//            self.cell = newCell
+//        } else {
+//            self.cell = CustomTextFieldCell()
+//        }
+//    }
     
-    private func installCenteredCellIfNeeded() {
-        // Replace default cell with our vertically-centering cell, preserving properties
-        guard !(self.cell is CustomTextFieldCell) else { return }
-        if let oldCell = self.cell {
-            let newCell = CustomTextFieldCell(textCell: "")
-            newCell.controlSize = oldCell.controlSize
-            newCell.isEditable = (oldCell as? NSTextFieldCell)?.isEditable ?? self.isEditable
-            newCell.isSelectable = (oldCell as? NSTextFieldCell)?.isSelectable ?? self.isSelectable
-            newCell.isBezeled = (oldCell as? NSTextFieldCell)?.isBezeled ?? self.isBezeled
-            newCell.isBordered = (oldCell as? NSTextFieldCell)?.isBordered ?? self.isBordered
-            newCell.drawsBackground = (oldCell as? NSTextFieldCell)?.drawsBackground ?? self.drawsBackground
-            newCell.backgroundColor = (oldCell as? NSTextFieldCell)?.backgroundColor ?? self.backgroundColor
-            newCell.placeholderAttributedString = (oldCell as? NSTextFieldCell)?.placeholderAttributedString
-            newCell.font = (oldCell as? NSTextFieldCell)?.font ?? self.font
-            newCell.alignment = (oldCell as? NSTextFieldCell)?.alignment ?? self.alignment
-            newCell.lineBreakMode = (oldCell as? NSTextFieldCell)?.lineBreakMode ?? self.lineBreakMode
-            self.cell = newCell
-        } else {
-            self.cell = CustomTextFieldCell()
-        }
-    }
-    
-    private func setup() {
-        wantsLayer = true
-        if let layer = layer {
-            layer.masksToBounds = true
-            layer.cornerRadius = frame.height / 2.0
-            layer.borderWidth = 2.0
-            layer.borderColor = .init(red: 1, green: 1, blue: 1, alpha: 0.5)
-        }
-        needsDisplay = true
-    }
+//    private func setup() {
+//        wantsLayer = true
+//        if let layer = layer {
+//            layer.masksToBounds = true
+//            layer.cornerRadius = frame.height / 2.0
+//            layer.borderWidth = 1.5
+//            layer.borderColor = .init(red: 0.25, green: 0.25, blue: 0.25, alpha: 1.0)
+//        }
+//        needsDisplay = true
+//    }
 
     override open func drawFocusRingMask() {}
 }

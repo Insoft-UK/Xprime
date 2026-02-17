@@ -38,35 +38,84 @@ protocol DocumentManagerDelegate: AnyObject {
 }
 
 final class DocumentManager {
-
+    
     weak var delegate: DocumentManagerDelegate?
     
     private(set) var currentDocumentURL: URL?
     private var editor: CodeEditorTextView
-
+    private(set) var outputTextView: OutputTextView
+    
     var documentIsModified: Bool = false {
         didSet {
             NotificationCenter.default.post(name: .documentModificationChanged, object: nil)
         }
     }
-
-    init(editor: CodeEditorTextView) {
+    
+    init(editor: CodeEditorTextView, outputTextView output: OutputTextView) {
         self.editor = editor
+        self.outputTextView = output
     }
-
-    func openLastOrUntitled() {
-        if let path = UserDefaults.standard.string(forKey: "lastOpenedFilePath"),
-           FileManager.default.fileExists(atPath: path) {
-            openDocument(url: URL(fileURLWithPath: path))
-        } else {
-            openUntitled()
-        }
-    }
-
+    
     private func openUntitled() {
         editor.string = ""
         currentDocumentURL = nil
         documentIsModified = false
+    }
+    
+    private func saveNote(url: URL) {
+        saveDocument(to: url.appendingPathExtension("ntf"))
+        let path = ToolchainPaths.bin.appendingPathComponent("note")
+        let result = ProcessRunner.run(executable: path, arguments: [url.appendingPathExtension("ntf").path, "-o", url.path])
+        
+        guard result.exitCode == 0 else {
+            let error = NSError(
+                domain: "Error",
+                code: 0,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to write to file \"\(url.lastPathComponent)\""]
+            )
+            
+            try? FileManager.default.removeItem(at: url.appendingPathExtension("ntf"))
+            outputTextView.appendTextAndScroll(result.err ?? "")
+            delegate?.documentManager(self, didFailWith: error)
+            return
+        }
+        
+        try? FileManager.default.removeItem(at: url.appendingPathExtension("ntf"))
+        outputTextView.appendTextAndScroll(result.err ?? "")
+        documentIsModified = false
+        delegate?.documentManagerDidSave(self)
+    }
+    
+    private func openAdafruitGFXFont(url: URL) {
+        let contents = ProcessRunner.run(executable: ToolchainPaths.bin.appendingPathComponent("font"), arguments: [url.path, "-o", "/dev/stdout"])
+        if let out = contents.out, !out.isEmpty {
+            self.outputTextView.appendTextAndScroll("Importing Adafruit GFX Font...\n")
+            
+            editor.string = out
+            currentDocumentURL = nil
+            documentIsModified = false
+            delegate?.documentManagerDidOpen(self)
+        }
+        self.outputTextView.appendTextAndScroll(contents.err ?? "")
+    }
+    
+    private func openImage(url: URL) {
+        let command = ToolchainPaths.developerRoot.appendingPathComponent("usr")
+            .appendingPathComponent("bin")
+            .appendingPathComponent("grob")
+            .path
+        
+        let commandURL = URL(fileURLWithPath: command)
+        let contents = ProcessRunner.run(executable: commandURL, arguments: [url.path, "-o", "/dev/stdout"])
+        if let out = contents.out, !out.isEmpty {
+            self.outputTextView.appendTextAndScroll("Importing \"\(url.pathExtension.uppercased())\" Image...\n")
+            
+            editor.string = out
+            currentDocumentURL = nil
+            documentIsModified = false
+            delegate?.documentManagerDidOpen(self)
+        }
+        self.outputTextView.appendTextAndScroll(contents.err ?? "")
     }
     
     private func openNote(url: URL) {
@@ -79,14 +128,39 @@ final class DocumentManager {
                 code: 0,
                 userInfo: [NSLocalizedDescriptionKey: "Failed to read from the note file."]
             )
+            outputTextView.appendTextAndScroll(result.err ?? "")
             delegate?.documentManager(self, didFailToOpen: error)
             return
         }
         
+        outputTextView.appendTextAndScroll(result.err ?? "")
         editor.string = out
         currentDocumentURL = url
         documentIsModified = false
         delegate?.documentManagerDidOpen(self)
+    }
+    
+    private func saveProgram(url: URL) {
+        guard let currentDocumentURL else { return }
+        
+        let path = ToolchainPaths.bin.appendingPathComponent("ppl+")
+        let result = ProcessRunner.run(executable: path, arguments: [currentDocumentURL.path, "-o", url.path])
+        
+        guard result.exitCode == 0 else {
+            let error = NSError(
+                domain: "Error",
+                code: 0,
+                userInfo: [NSLocalizedDescriptionKey: "Failed to write \"\(url.lastPathComponent)\" to file."]
+            )
+            outputTextView.appendTextAndScroll(result.err ?? "")
+            delegate?.documentManager(self, didFailWith: error)
+            return
+        }
+        
+        outputTextView.appendTextAndScroll(result.err ?? "")
+        self.currentDocumentURL = url
+        documentIsModified = false
+        delegate?.documentManagerDidSave(self)
     }
     
     private func openProgram(url: URL) {
@@ -99,32 +173,44 @@ final class DocumentManager {
                 code: 0,
                 userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]
             )
+            outputTextView.appendTextAndScroll(result.err ?? "")
             delegate?.documentManager(self, didFailToOpen: error)
             return
         }
         
+        outputTextView.appendTextAndScroll(result.err ?? "")
         editor.string = out
-        currentDocumentURL = url.deletingPathExtension().appendingPathExtension("prgm")
+        currentDocumentURL = url
         documentIsModified = false
         delegate?.documentManagerDidOpen(self)
     }
-
-    func openDocument(url: URL) {
+    
+    func openDocument(at url: URL) {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
-        case "prgm", "app", "note":
+        case "prgm", "app":
             encoding = .utf16
+            
         case "hpnote", "hpappnote":
             openNote(url: url)
             return
+            
         case "hpprgm", "hpappprgm":
             openProgram(url: url)
+            return
+            
+        case "bmp", "png":
+            openImage(url: url)
+            return
+            
+        case "h":
+            openAdafruitGFXFont(url: url)
             return
             
         default:
             encoding = .utf8
         }
-       
+        
         do {
             let content = try String(contentsOf: url, encoding: encoding)
             editor.string = content
@@ -135,8 +221,6 @@ final class DocumentManager {
         } catch {
             delegate?.documentManager(self, didFailToOpen: error)
         }
-        
-        FileManager.default.changeCurrentDirectoryPath(url.deletingLastPathComponent().path)
     }
     
     @discardableResult
@@ -149,10 +233,14 @@ final class DocumentManager {
     func saveDocument(to url: URL) -> Bool {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
-        case "prgm", "app", "note":
+        case "prgm", "app":
             encoding = .utf16
         case "hpnote", "hpappnote":
-            encoding = .utf16LittleEndian
+            saveNote(url: url)
+            return true
+        case "hpprgm", "hpappprgm":
+            saveProgram(url: url)
+            return true
         default:
             encoding = .utf8
         }
@@ -167,7 +255,7 @@ final class DocumentManager {
             } else {
                 try editor.string.write(to: url, atomically: true, encoding: encoding)
             }
-      
+            
             documentIsModified = false
             delegate?.documentManagerDidSave(self)
             return true
@@ -181,35 +269,32 @@ final class DocumentManager {
         allowedContentTypes: [UTType],
         defaultFileName: String = "Untitled"
     ) {
-        let panel = NSSavePanel()
-        if let currentDocumentURL {
-            panel.directoryURL = currentDocumentURL.deletingLastPathComponent()
+        let allowedExtensions = allowedContentTypes.compactMap { type in
+            type.preferredFilenameExtension
         }
-        panel.allowedContentTypes = allowedContentTypes
-        panel.nameFieldStringValue = defaultFileName
-        panel.title = ""
         
-        panel.begin { result in
-            guard result == .OK, let url = panel.url else { return }
-            self.saveDocument(to: url)
-            self.openDocument(url: url)
+        saveAs(allowedExtensions: allowedExtensions, defaultFileName: defaultFileName) { outputURL in
+            self.saveDocument(to: outputURL)
+            self.openDocument(at: outputURL)
         }
     }
     
-//    func saveAs(
-//        allowedExtensions: [String],
-//        defaultFileName: String,
-//        action: @escaping (_ outputURL: URL)
-//    ) {
-//        let savePanel = NSSavePanel()
-//        savePanel.allowedContentTypes = allowedExtensions.compactMap { UTType(filenameExtension: $0) }
-//        savePanel.nameFieldStringValue = defaultFileName
-//        
-//        savePanel.begin { result in
-//            guard result == .OK, let outURL = savePanel.url else { return }
-//            let result = action(outURL)
-//        }
-//    }
+    private func saveAs(
+        allowedExtensions: [String],
+        defaultFileName: String,
+        action: @escaping (_ outputURL: URL) -> Void
+    ) {
+        let savePanel = NSSavePanel()
+        savePanel.allowedContentTypes = allowedExtensions.compactMap { UTType(filenameExtension: $0) }
+        savePanel.nameFieldStringValue = defaultFileName
+        savePanel.title = ""
+        savePanel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        
+        savePanel.begin { result in
+            guard result == .OK, let outURL = savePanel.url else { return }
+            action(outURL)
+        }
+    }
 }
 
 extension Notification.Name {

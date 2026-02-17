@@ -1,0 +1,6 @@
+#pragma mode( separator(.,;) integer(h64) )
+
+$(PRODUCT_NAME)():=
+begin
+    return;
+end;

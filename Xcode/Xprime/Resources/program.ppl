@@ -1,0 +1,6 @@
+#pragma mode( separator(.,;) integer(h64) )
+
+EXPORT $(PRODUCT_NAME)()
+BEGIN
+    RETURN 0;
+END;

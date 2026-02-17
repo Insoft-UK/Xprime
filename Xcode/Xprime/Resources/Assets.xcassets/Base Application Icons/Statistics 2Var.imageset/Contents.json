@@ -1,0 +1,18 @@
+{
+  "images" : [
+    {
+      "filename" : "Statistics 2Var.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Statistics 2Var@2x.png",
+      "idiom" : "mac",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

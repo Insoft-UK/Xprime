@@ -711,7 +711,7 @@ namespace hpnote {
     
     std::string to_ntf(const std::u16string& s)
     {
-        auto i = s.find(u"CSWD110\xFFFF\xFFFF\\l\x013E\\0");
+        auto i = s.find(u"CSW");
         
         if (i == std::u16string::npos) {
             std::u16string out;

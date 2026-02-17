@@ -1,4 +1,4 @@
-<img src="https://github.com/Insoft-UK/Xprime/blob/main/assets/icon.png?raw=true" width="128" />
+<img src="assets/icon.png?raw=true" width="128" />
 
 ## Xprime Code Editor for macOS
 - Edit your PPL or <a href="https://github.com/Insoft-UK/PrimePlus">**PPL+**</a> code for the HP Prime.
@@ -6,11 +6,20 @@
 - Export a G1 .hpprgm file for use on a real HP Prime or the Virtual Calculator.
 - Compress code to fit more programs on your HP Prime
 
+Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-dev_universal.pkg">Xprime 26.2</a></br>
+**Requires** macOS 15.6 or later
+
+### Xprime 26.2
+Read [Whats New](https://github.com/Insoft-UK/Xprime/blob/dev/UPDATE.md)
+
 ### Hidden Version Detail
 In Xprime, you can reveal the full version number from the About window.
-Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.1.20260131**.
+Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.2.20260214**.
 
-<img src="https://github.com/Insoft-UK/Xprime/blob/main/assets/screenshots/xprime.png?raw=true" width="756" />
+<img src="assets/screenshots/xprime.png?raw=true" width="756" />
+
+**NEW** Project Settings...</br>
+<img src="assets/screenshots/project-settings.png?raw=true" width="294" /><img src="assets/screenshots/advance-project-settings.png?raw=true" width="294" />
 
 ### Supported File Types
 |Type|Description|Format|
@@ -18,47 +27,44 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.ppl|HP Prime Programming Language source file|UTF8|
 |.prgm|HP Prime program source code|UTF16le|
 |.app|HP Prime application source code (PPL)|UTF16le|
-|.note|HP Prime note plain text|UTF16le|
-|.note|*HP Prime note text format|UTF8|
+|.note|HP Prime note plain fallback text|UTF16le|
+|.note|NoteText format|UTF8|
+|.ntf|NoteText format|UTF8|
 |.md|Markdown Language|UTF8|
-|.hpnote|HP Prime note (Plain Text without BOM)|UTF16le|
-|.hpappnote|HP Prime note (Plain Text without BOM)|UTF16le|
+|.bmp|Bitmap|Image|
+|.png|Portable Network Graphic|Image|
+|.h|Adafruit GFX Font|UTF8|
+|.hpnote|HP Prime note|Binary|
+|.hpappnote|HP Prime note|Binary|
 |.hpprgm|HP Prime program (exported/packaged)|Binary|
 |.hpappprgm|HP Prime application (exported/packaged)|Binary|
 |.prgm+|HP Prime PRGM+ extended program source code|UTF8|
 |.ppl+|HP Prime PPL+ extended program source code|UTF8|
 
-*Ritch Text like format file for notes.
-
 Typical File Structure for an HP Prime **Application**
-
 ```
 MyApp/
-├── MyApp.hpappdir/
+├── Example.hpappdir/
 │   │── icon.png
-│   │── MyApp.hpapp
-│   │── MyApp.hpappnote
-│   └── MyApp.hpappprgm
-│── MyApp.xprimeproj
-│── MyApp.prgm+ or main.prgm+
-│── README.ntf or README.md
-│── info.ntf or info.md (NEW)
-└── other.ppl+
+│   │── Example.hpapp
+│   │── Example.hpappnote
+│   └── Example.hpappprgm
+│── Example.hpappdir.zip
+│── Example.xprimeproj
+│── main.prgm+ or main.prgm
+└── info.note, info.ntf or info.md
 ```
-
->[!IMPORTANT]
->The README.ntf/README.md files will be renamed to info.ntf/info.md in a future update.
 
 Typical File Structure for an HP Prime **Program**
-
 ```
 MyProgram/
-│── MyProgram.xprimeproj
-│── MyProgram.prgm+ or main.prgm+
-└── other.ppl+
+│── Example.xprimeproj
+│── Example.hpprgm
+│── main.prgm+ or main.prgm
+└── info.note, info.ntf or info.md
 ```
 
 >[!NOTE]
->Use the **.ppl+** extension for extended program source code and **.prgm+** for the main application or program source code.
+>Use the .ppl+ extension for extended program source code and .prgm+ for the main application or program source code.
 >
->For standard PPL source code, use **.ppl** and never **.prgm**, as **.prgm** is reserved for the main application or program source file in projects that do not use extended PPL.
+>For standard PPL source code, use .ppl and never .prgm, as .prgm is reserved for the main application or program source file in projects that do not use extended PPL.

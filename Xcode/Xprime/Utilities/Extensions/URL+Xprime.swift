@@ -23,18 +23,34 @@
 import Cocoa
 
 extension URL {
+    private static var lastRevealedPath: String?
+    private static var lastRevealedTime: Date?
+    
+    func revealInFinderWithCooldown(timeout: TimeInterval = 5.0) {
+        let path = standardizedFileURL.path
+        let now = Date()
+        
+        // If same path was revealed recently → block and reset timer
+        if URL.lastRevealedPath == path,
+           let lastTime = URL.lastRevealedTime,
+           now.timeIntervalSince(lastTime) < timeout {
+            
+            // ⏱ Reset cooldown on spam click
+            URL.lastRevealedTime = now
+            return
+        }
+        
+        // Different path OR cooldown expired → allow reveal
+        URL.lastRevealedPath = path
+        URL.lastRevealedTime = now
+        NSWorkspace.shared.activateFileViewerSelecting([self])
+    }
+    
+    
     var isDirectory: Bool {
         var isDir: ObjCBool = false
         FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
         return isDir.boolValue
-    }
-    
-    func revealInFinder() {
-        NSWorkspace.shared.selectFile(self.path, inFileViewerRootedAtPath: "")
-    }
-    
-    func openInFinder() {
-        NSWorkspace.shared.open(self)
     }
     
     var modificationDate: Date? {

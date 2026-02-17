@@ -40,8 +40,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
         NSApp.helpMenu = nil
     }
     
-    
-    
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
@@ -50,10 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
         return true
     }
     
-    
-    
     // MARK: - Interface Builder Action Handlers
-    
     @IBAction func launchHPConnectiveKit(_ sender: Any) {
         HPServices.launchConnectivityKit()
     }
@@ -62,11 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
         HPServices.launchVirtualCalculator()
     }
     
-    
-
     // MARK: - Action Handlers
-
-    
     internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         switch item.action {
         case #selector(launchHPConnectiveKit(_:)):
