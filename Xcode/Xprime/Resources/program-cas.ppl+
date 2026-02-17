@@ -1,6 +1,6 @@
 #pragma mode( separator(.,;) integer(h64) )
 
-export $(PROJECT_NAME)()
+$(PRODUCT_NAME)():=
 begin
-    return 0;
+    return;
 end;

@@ -40,7 +40,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBOutlet var outputScrollView: NSScrollView!
     @IBOutlet private weak var outputButton: NSButton!
     @IBOutlet private weak var clearOutputButton: NSButton!
-    @IBOutlet private weak var baseApplicationPopUpButton: NSPopUpButton!
+    @IBOutlet private weak var baseApplication: NSPopUpButton!
     
     // MARK: - Managers
     private var documentManager: DocumentManager!
@@ -75,7 +75,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             populateThemesMenu(menu: menu)
             populateGrammarMenu(menu: menu)
         }
-        populateBaseApplicationMenu()
+        
+        configureBaseApplicationAction()
     }
     
     
@@ -177,24 +178,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             refreshProjectIconImage()
             refreshBaseApplicationMenu()
         }
-//        let newCreatedProject = UserDefaults.standard.object(forKey: "newCreatedProject") as? String ?? nil
-//        if let newCreatedProject {
-//            let projectDirectoryURL = URL(fileURLWithPath: newCreatedProject)
-//            
-//            UserDefaults.standard.set(nil, forKey: "newCreatedProject")
-//            if projectManager.doseProjectExist(at: projectDirectoryURL) {
-//                projectManager.openProject(in: projectDirectoryURL)
-//            } else {
-//                refreshQuickOpenToolbar()
-//                refreshProjectIconImage()
-//                refreshBaseApplicationMenu()
-//            }
-//        }
-//        else {
-//            refreshQuickOpenToolbar()
-//            refreshProjectIconImage()
-//            refreshBaseApplicationMenu()
-//        }
     }
     
     @objc private func windowDidResignKey() {
@@ -264,73 +247,28 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    private func populateBaseApplicationMenu() {
-        let applications: [String] = [
-            "None",
-            "Function",
-            "Advanced Graphing",
-            "Graph 3D",
-            "Geometry",
-            "Spreadsheet",
-            "Statistics 1Var",
-            "Statistics 2Var",
-            "Inference",
-            "Data Streamer",
-            "Solve",
-            "Linear Solver",
-            "Explorer",
-            "Triangle Solver",
-            "Finance",
-            "Python",
-            "Parametric",
-            "Polar",
-            "Sequence"
-        ]
-
-        let menu = NSMenu()
-        let baseApplicationName = projectManager.baseApplicationName
-        for application in applications {
-            let item = NSMenuItem(
-                title: application,
-                action: #selector(handleBaseApplicationSelection(_:)),
-                keyEquivalent: ""
-            )
-
-            if let url = Bundle.main.url(
-                forResource: application,
-                withExtension: "png",
-                subdirectory: "Developer/Library/Xprime/Templates/Base Applications/\(application).hpappdir"
-            ) {
-                if let image = NSImage(contentsOf: url) {
-                    image.size = NSSize(width: 16, height: 16) // standard menu icon size
-                    item.image = image
-                }
-            }
-            item.state = baseApplicationName == application ? .on: .off
-            menu.addItem(item)
-        }
-
-        baseApplicationPopUpButton.menu = menu
-        
-        baseApplicationPopUpButton.isEnabled = documentManager.currentDocumentURL != nil
-    }
-    
     private func refreshBaseApplicationMenu() {
-        guard let menu = baseApplicationPopUpButton.menu else { return }
+        guard let menu = baseApplication.menu else { return }
         let baseApplicationName = projectManager.baseApplicationName
         for item in menu.items {
             if item.title == baseApplicationName {
                 item.state = .on
-                baseApplicationPopUpButton.select(item)
+                baseApplication.select(item)
             } else {
                 item.state = .off
             }
+            item.image?.size = NSSize(width: 16, height: 16)
         }
-        baseApplicationPopUpButton.isEnabled = documentManager.currentDocumentURL != nil
+        baseApplication.isEnabled = documentManager.currentDocumentURL != nil
+    }
+    
+    private func configureBaseApplicationAction() {
+        baseApplication.target = self
+        baseApplication.action = #selector(preferBaseApplicationSelection(_:))
     }
     
     // MARK: - Base Application Action Handler
-    @objc func handleBaseApplicationSelection(_ sender: NSMenuItem) {
+    @objc func preferBaseApplicationSelection(_ sender: NSMenuItem) {
         guard let currentDocumentURL = documentManager.currentDocumentURL else { return }
         guard let name = projectManager.projectName else { return }
         
@@ -440,6 +378,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func mainURL(in directoryURL: URL) -> URL? {
         for main in [
+            "main.ppl+",
+            "main.ppl",
             "main.prgm+",
             "main.prgm"
         ] {
@@ -749,7 +689,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     url.pathExtension == "md" ||
                     url.pathExtension == "ntf" ||
                     url.pathExtension == "txt" ||
-                    url.pathExtension == "note"
+                    url.pathExtension == "note" ||
+                    url.pathExtension == "bmp" ||
+                    url.pathExtension == "png" ||
+                    url.pathExtension == "h"
                 {
                     menu.addItem(
                         withTitle: url.lastPathComponent,
@@ -765,7 +708,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     case "app":
                         image = NSImage(imageLiteralResourceName: "Apps")
                         
-                    case "ppl", "ppl+", "py":
+                    case "ppl", "ppl+", "py", "h", "bmp", "png":
                         image = NSImage(imageLiteralResourceName: "Program")
                         
                     case "prgm", "prgm+":
@@ -775,7 +718,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                             image = NSImage(imageLiteralResourceName: "Program")
                         }
                     
-                        
                     default:
                         image = NSImage(imageLiteralResourceName: "File")
                     }
@@ -800,50 +742,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Actions
     @IBAction func checkForUpdates(_ sender: Any) {
         updateManager.checkForUpdates()
-    }
-    
-    // MARK: - File IO Action Handlers
-    @IBAction func newProject(_ sender: Any) {
-        let panel = NSSavePanel()
-        if let url = documentManager.currentDocumentURL {
-            panel.directoryURL = url.deletingLastPathComponent()
-        }
-        panel.title = ""
-        panel.allowedContentTypes = ["xprimeproj"].compactMap { UTType(filenameExtension: $0) }
-        panel.nameFieldStringValue = "Untitled"
-        
-        panel.begin { result in
-            guard result == .OK, let url = panel.url else { return }
-            
-            let projectName = url.deletingPathExtension().lastPathComponent
-            let directoryURL = url.deletingLastPathComponent()
-            
-            self.projectManager.createNewProject(named: projectName, in: directoryURL)
-        }
-    }
-    
-    @IBAction func newDocument(_ sender: Any) {
-        let panel = NSSavePanel()
-        if let url = documentManager.currentDocumentURL {
-            panel.directoryURL = url.deletingLastPathComponent()
-        }
-        panel.title = ""
-        panel.allowedContentTypes = [
-            UTType(filenameExtension: "prgm+")!
-        ]
-        panel.nameFieldStringValue = "Untitled"
-        
-        panel.begin { result in
-            guard result == .OK, let url = panel.url else { return }
-            
-            guard let templateURL = Bundle.main.resourceURL?.appendingPathComponent("main.prgm+") else { return }
-            do {
-                try FileManager.default.copyItem(at: templateURL, to: url)
-                self.documentManager.openDocument(at: url)
-            } catch {
-                print("❌ copyItem failed:", error)
-            }
-        }
     }
     
     // MARK: - Add Files to Current Project

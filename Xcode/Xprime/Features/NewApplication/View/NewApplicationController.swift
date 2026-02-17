@@ -23,11 +23,9 @@
 import Cocoa
 
 final class NewApplicationViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
-    @IBOutlet private weak var baseApp: NSPopUpButton!
+    @IBOutlet private weak var baseApplication: NSPopUpButton!
     @IBOutlet private weak var language: NSPopUpButton!
     @IBOutlet private weak var productName: NSTextField!
-    
-    private var baseApps = "None"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,15 +44,10 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
     }
     
     private func setup() {
-        populateBaseAppMenu()
+        refreshBaseApplicationMenu()
     }
     
     // MARK: - Actions
-    @objc func preferBaseAppSeclection(_ sender: NSMenuItem) {
-        baseApps = sender.title
-    }
-    
-    
     @IBAction func create(_ sender: Any) {
         let panel = NSOpenPanel()
         panel.canChooseFiles = false
@@ -68,7 +61,7 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
             guard result == .OK, let folderURL = panel.url else { return }
 
             do {
-                let name = try self.fileSafeName(from: self.productName.stringValue)
+                let name = try self.safeName(from: self.productName.stringValue)
                 self.create(named: name, in: folderURL)
             } catch {
                 return
@@ -83,74 +76,42 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
     }
     
     // MARK: - Private Helpers
-    private func populateBaseAppMenu() {
-        let applications: [String] = [
-            "None",
-            "Function",
-            "Advanced Graphing",
-            "Graph 3D",
-            "Geometry",
-            "Spreadsheet",
-            "Statistics 1Var",
-            "Statistics 2Var",
-            "Inference",
-            "Data Streamer",
-            "Solve",
-            "Linear Solver",
-            "Explorer",
-            "Triangle Solver",
-            "Finance",
-            "Python",
-            "Parametric",
-            "Polar",
-            "Sequence"
-        ]
-
-        let menu = NSMenu()
-        for application in applications {
-            let item = NSMenuItem(
-                title: application,
-                action: #selector(preferBaseAppSeclection(_:)),
-                keyEquivalent: ""
-            )
-
-            if let url = Bundle.main.url(
-                forResource: application,
-                withExtension: "png",
-                subdirectory: "Developer/Library/Xprime/Templates/Base Applications/\(application).hpappdir"
-            ) {
-                if let image = NSImage(contentsOf: url) {
-                    image.size = NSSize(width: 16, height: 16) // standard menu icon size
-                    item.image = image
-                }
-            }
-            menu.addItem(item)
+    private func refreshBaseApplicationMenu() {
+        guard let menu = baseApplication.menu else { return }
+        for item in menu.items {
+            item.image?.size = NSSize(width: 16, height: 16)
         }
-
-        baseApp.menu = menu
     }
     
-    func create(named name: String, in directoryURL: URL) {
+    private func create(named name: String, in directoryURL: URL) {
+        guard let selectedLanguage = language.titleOfSelectedItem else { return }
+        
         do {
-            let ext = language.titleOfSelectedItem! == "PPL" ? "prgm" : "prgm+"
-            let appDirectoryURL = directoryURL.appendingPathComponent(name)
+            let sourceURL = Bundle.main.url(forResource: "application", withExtension: selectedLanguage == "PPL" ? "ppl" : "ppl+")
+            let destinationURL = directoryURL
+                .appendingPathComponent(name)
+                .appendingPathComponent("main")
+                .appendingPathExtension(selectedLanguage == "PPL" ? "prgm" : "prgm+")
+            
+            guard let sourceURL else { return }
             
             try FileManager.default.createDirectory(
-                at: appDirectoryURL,
+                at: directoryURL
+                    .appendingPathComponent(name),
                 withIntermediateDirectories: false
             )
-
-            if let url = Bundle.main.url(forResource: "application", withExtension: ext) {
-                try FileManager.default.copyItem(
-                    at: url,
-                    to: directoryURL.appendingPathComponent("\(name)/main.\(ext)")
-                )
-            }
+            
+            try FileManager.default.copyItem(
+                at: sourceURL,
+                to: destinationURL
+            )
             
             if let url = Bundle.main.url(forResource: "info", withExtension: "note") {
                 try FileManager.default.copyItem(
                     at: url,
-                    to: directoryURL.appendingPathComponent("\(name)/info.note")
+                    to: directoryURL
+                        .appendingPathComponent(name)
+                        .appendingPathComponent("info.note")
                 )
             }
             
@@ -159,12 +120,13 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
                     at: url,
                     to: directoryURL
                         .appendingPathComponent(name)
-                        .appendingPathComponent(name)
+                        .appendingPathComponent(name.replacingOccurrences(of: " ", with: "_"))
                         .appendingPathExtension("xprimeproj")
                 )
             }
             
-            try HPServices.resetHPAppContents(at: directoryURL.appendingPathComponent(name), named: name, fromBaseApplicationNamed: baseApps)
+            let baseApplicationName = baseApplication.selectedItem!.title
+            try HPServices.resetHPAppContents(at: directoryURL.appendingPathComponent(name), named: name.replacingOccurrences(of: " ", with: "_"), fromBaseApplicationNamed: baseApplicationName)
             
             FileManager.default.changeCurrentDirectoryPath(
                 directoryURL.appendingPathComponent(name).path
@@ -178,7 +140,7 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
         case invalidAppName
     }
     
-    private func fileSafeName(from name: String) throws -> String {
+    private func safeName(from name: String) throws -> String {
         let invalidCharacters = CharacterSet(charactersIn: "/:\\?%*|\"<>")
         let sanitized = name
             .components(separatedBy: invalidCharacters)

@@ -221,8 +221,6 @@ final class DocumentManager {
         } catch {
             delegate?.documentManager(self, didFailToOpen: error)
         }
-        
-        FileManager.default.changeCurrentDirectoryPath(url.deletingLastPathComponent().path)
     }
     
     @discardableResult

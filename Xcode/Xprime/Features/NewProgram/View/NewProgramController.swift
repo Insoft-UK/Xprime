@@ -60,7 +60,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
             guard result == .OK, let folderURL = panel.url else { return }
 
             do {
-                let name = try self.fileSafeName(from: self.productName.stringValue)
+                let name = try self.safeName(from: self.productName.stringValue)
                 self.create(named: name, in: folderURL)
             } catch {
                 return
@@ -75,16 +75,17 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
     }
     
     // MARK: - Private Helpers
-    func create(named name: String, in directoryURL: URL) {
+    private func create(named name: String, in directoryURL: URL) {
+        guard let selectedLanguage = language.titleOfSelectedItem else { return }
+        
         do {
-            let ext = language.titleOfSelectedItem! == "PPL" ? "prgm" : "prgm+"
-            let sourceURL = Bundle.main.url(forResource: "program", withExtension: ext)
+            let sourceURL = Bundle.main.url(forResource: CAS.state == .on ? "program-cas" : "program", withExtension: selectedLanguage == "PPL" ? "ppl" : "ppl+")
             let destinationURL = directoryURL
                 .appendingPathComponent(name)
-                .appendingPathComponent("main.\(ext)")
+                .appendingPathComponent("main")
+                .appendingPathExtension(selectedLanguage == "PPL" ? "prgm" : "prgm+")
             
             guard let sourceURL else { return }
-            
             
             try FileManager.default.createDirectory(
                 at: directoryURL.appendingPathComponent(name),
@@ -111,7 +112,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
                     at: url,
                     to: directoryURL
                         .appendingPathComponent(name)
-                        .appendingPathComponent(name)
+                        .appendingPathComponent(name.replacingOccurrences(of: " ", with: "_"))
                         .appendingPathExtension("xprimeproj")
                 )
             }
@@ -131,19 +132,22 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         newName: String
     ) throws {
         // Read file contents
-        let contents = try String(contentsOf: sourceURL, encoding: .utf8)
+        let sourceEncoding: String.Encoding = sourceURL.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
+        let destinationEncoding: String.Encoding = destinationURL.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
+        
+        let contents = try String(contentsOf: sourceURL, encoding: sourceEncoding)
 
         // Replace placeholder
         let updatedContents = contents.replacingOccurrences(
-            of: "$(PROJECT_NAME)",
-            with: newName
+            of: "$(PRODUCT_NAME)",
+            with: newName.replacingOccurrences(of: " ", with: "_")
         )
 
         // Write back to destination
         try updatedContents.write(
             to: destinationURL,
             atomically: true,
-            encoding: .utf8
+            encoding: destinationEncoding
         )
     }
     
@@ -151,7 +155,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         case invalidAppName
     }
     
-    private func fileSafeName(from name: String) throws -> String {
+    private func safeName(from name: String) throws -> String {
         let invalidCharacters = CharacterSet(charactersIn: "/:\\?%*|\"<>")
         let sanitized = name
             .components(separatedBy: invalidCharacters)

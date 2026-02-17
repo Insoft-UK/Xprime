@@ -49,7 +49,7 @@ final class ProjectManager {
     weak var delegate: ProjectManagerDelegate?
     
     private var documentManager: DocumentManager
-    private(set) var projectDirectoryURL: URL?
+    private(set) var projectDirectoryURL: URL? = nil
     
     var projectName: String? {
         guard let url = projectDirectoryURL else {
@@ -148,6 +148,7 @@ final class ProjectManager {
         
         projectDirectoryURL = url.deletingLastPathComponent()
         UserDefaults.standard.set(url.path, forKey: "lastOpenedProjectPath")
+        FileManager.default.changeCurrentDirectoryPath(url.deletingLastPathComponent().path)
         delegate?.projectManagerDidOpen(self)
     }
     

@@ -1,11 +1,6 @@
 #pragma mode( separator(.,;) integer(h64) )
 
-EXPORT START()
-begin
-    RETURN 0;
-END;
-
-EXPORT RESET()
+EXPORT $(PRODUCT_NAME)()
 BEGIN
     RETURN 0;
 END;
