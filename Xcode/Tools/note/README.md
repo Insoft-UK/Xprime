@@ -4,7 +4,7 @@ A command-line tool that converts .md and .ntf files into the HP Prime .hpnote f
 
 <img src="assets/screenshots/screenshot_1.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_2.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_3.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_4.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_5.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_6.png?raw=true" width="160" />
 
-**RELEASE** v1.0.0.20260214</br>
+**RELEASE** v1.0.0.20260209</br>
 Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=note-mac-universal.zip">macOS</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note-win-x86_64.zip">Windows</a> | <a href="http://insoft.uk/action/?method=downlink&path=linux&file=note-linux-x86_64.zip">Linux</a>
 
 >[!NOTE]
