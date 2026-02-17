@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24506"/>
         <capability name="Combo buttons" minToolsVersion="14.0" minSystemVersion="13.0"/>
         <capability name="Image references" minToolsVersion="12.0"/>
@@ -235,13 +234,13 @@ Gw
                             </textField>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="nGK-1p-Xy6">
                                 <rect key="frame" x="164" y="116" width="185" height="24"/>
-                                <popUpButtonCell key="cell" type="push" title="PPL" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wd7-4K-H8F" id="Ba4-PL-OeK" userLabel="Items">
+                                <popUpButtonCell key="cell" type="push" title="PPL" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wd7-4K-H8F" id="Ba4-PL-OeK" userLabel="Items">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="message"/>
                                     <menu key="menu" id="jMG-G9-BZ5">
                                         <items>
-                                            <menuItem title="PPL" id="wd7-4K-H8F"/>
-                                            <menuItem title="PPL Plus" state="on" id="c5W-Dq-X7F"/>
+                                            <menuItem title="PPL" state="on" id="wd7-4K-H8F"/>
+                                            <menuItem title="PPL Plus" id="c5W-Dq-X7F"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -365,7 +364,7 @@ Gw
                                 <rect key="frame" x="164" y="156" width="185" height="24"/>
                                 <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="CEX-Sa-7TO" id="pIg-5L-H4y" userLabel="Items">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="v7x-lp-W5z">
                                         <items>
                                             <menuItem title="None" state="on" image="None" id="CEX-Sa-7TO">
@@ -1821,7 +1820,7 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <customView id="JSg-5W-Jz5">
+                                    <customView misplaced="YES" id="JSg-5W-Jz5">
                                         <rect key="frame" x="0.0" y="321" width="1024" height="319"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <subviews>
@@ -2008,7 +2007,7 @@ Gw
         <image name="document" catalog="system" width="14" height="16"/>
         <image name="eye" catalog="system" width="16" height="11"/>
         <image name="eye.slash" catalog="system" width="21" height="16"/>
-        <image name="folder" catalog="system" width="18" height="14"/>
+        <image name="folder" catalog="system" width="15" height="12"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
         <image name="hammer.fill" catalog="system" width="15" height="14"/>
@@ -2016,7 +2015,7 @@ Gw
         <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
         <image name="paintbrush" catalog="system" width="17" height="18"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="play.fill" catalog="system" width="10" height="11"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="ppl" width="16" height="16"/>
         <image name="questionmark.circle" catalog="system" width="15" height="15"/>
