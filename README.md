@@ -7,7 +7,7 @@
 - Compress code to fit more programs on your HP Prime
 
 Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-dev_universal.pkg">Xprime 26.2</a></br>
-**Requires** macOS 14.6 or later
+**Requires** macOS 15.6 or later
 
 ### Xprime 26.2
 Read [Whats New](https://github.com/Insoft-UK/Xprime/blob/dev/UPDATE.md)
