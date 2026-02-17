@@ -171,8 +171,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
         
-        if FileManager.default.currentDirectoryPath != projectDirectoryURL.path {
-            projectManager.openProject(in: URL(fileURLWithPath: FileManager.default.currentDirectoryPath))
+        let currentDirectoryPath = FileManager.default.currentDirectoryPath
+        let currentDirectoryURL = URL(fileURLWithPath: currentDirectoryPath)
+        
+        if currentDirectoryPath != projectDirectoryURL.path && projectManager.doseProjectExist(at: currentDirectoryURL) == true {
+            projectManager.openProject(in: currentDirectoryURL)
         } else {
             refreshQuickOpenToolbar()
             refreshProjectIconImage()
@@ -247,6 +250,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    // MARK:- Base Application
     private func refreshBaseApplicationMenu() {
         guard let menu = baseApplication.menu else { return }
         let baseApplicationName = projectManager.baseApplicationName
@@ -282,6 +286,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         try? HPServices.resetHPAppContents(at: directoryURL, named: name, fromBaseApplicationNamed: sender.title)
         outputTextView.appendTextAndScroll("Base application is \"\(projectManager.baseApplicationName)\"\n")
+        
+        
         refreshQuickOpenToolbar()
         refreshProjectIconImage()
     }
@@ -378,10 +384,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func mainURL(in directoryURL: URL) -> URL? {
         for main in [
-            "main.ppl+",
-            "main.ppl",
             "main.prgm+",
-            "main.prgm"
+            "main.prgm",
+            "main.ppl+",
+            "main.ppl"
         ] {
             let url = directoryURL
                 .appendingPathComponent(main)
@@ -537,6 +543,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         return (cleanedText, requiredFiles)
     }
     
+    private func installRequiredApps(requiredApps: [String]) {
+        for file in requiredApps {
+            do {
+                try HPServices.installHPAppDirectory(at: URL(fileURLWithPath: file))
+                outputTextView.appendTextAndScroll("Installed: \"\(file)\"\n")
+            } catch {
+                outputTextView.appendTextAndScroll("Error installing \"\(file).hpappdir\": \(error)\n")
+            }
+        }
+    }
+    
     // MARK: - Xprime #require extension to PPL+ for importing Apps
     @discardableResult
     private func processAppRequires(in text: String) -> (cleaned: String, requiredApps: [String]) {
@@ -584,39 +601,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    private func installRequiredApps(requiredApps: [String]) {
-        for file in requiredApps {
-            do {
-                try HPServices.installHPAppDirectory(at: URL(fileURLWithPath: file))
-                outputTextView.appendTextAndScroll("Installed: \"\(file)\"\n")
-            } catch {
-                outputTextView.appendTextAndScroll("Error installing \"\(file).hpappdir\": \(error)\n")
-            }
-        }
-    }
-    
-    func runExport(
-        allowedExtensions: [String],
-        defaultName: String,
-        action: @escaping (_ outputURL: URL) -> (out: String?, err: String?, exitCode: Int32)
-    ) {
-        let savePanel = NSSavePanel()
-        savePanel.allowedContentTypes = allowedExtensions.compactMap { UTType(filenameExtension: $0) }
-        savePanel.nameFieldStringValue = defaultName
-        
-        savePanel.begin { result in
-            guard result == .OK, let outURL = savePanel.url else { return }
-            
-            let result = action(outURL)
-            
-            if let out = result.out, !out.isEmpty {
-                self.outputTextView.appendTextAndScroll(out)
-            } else {
-                self.outputTextView.appendTextAndScroll(result.err ?? "")
-            }
-        }
-    }
-    
+    // MARK: -
     @objc private func quickOpen(_ sender: NSMenuItem) {
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
             return
