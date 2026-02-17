@@ -23,28 +23,29 @@
 import Cocoa
 
 extension URL {
-    // Track the last revealed path
     private static var lastRevealedPath: String?
+    private static var lastRevealedTime: Date?
     
-    /// Reveal in Finder only if this URL is different from the last revealed URL
-    func revealInFinderIfNeeded() {
+    func revealInFinderWithCooldown(timeout: TimeInterval = 5.0) {
         let path = standardizedFileURL.path
+        let now = Date()
         
-        // Skip if this path is the same as the last revealed URL
-        if URL.lastRevealedPath == path {
+        // If same path was revealed recently → block and reset timer
+        if URL.lastRevealedPath == path,
+           let lastTime = URL.lastRevealedTime,
+           now.timeIntervalSince(lastTime) < timeout {
+            
+            // ⏱ Reset cooldown on spam click
+            URL.lastRevealedTime = now
             return
         }
         
-        // Skip if Finder is already frontmost
-        let workspace = NSWorkspace.shared
-        if workspace.frontmostApplication?.bundleIdentifier == "com.apple.finder" {
-            return
-        }
-        
-        // Record this path as last revealed and reveal in Finder
+        // Different path OR cooldown expired → allow reveal
         URL.lastRevealedPath = path
-        workspace.activateFileViewerSelecting([self])
+        URL.lastRevealedTime = now
+        NSWorkspace.shared.activateFileViewerSelecting([self])
     }
+    
     
     var isDirectory: Bool {
         var isDir: ObjCBool = false

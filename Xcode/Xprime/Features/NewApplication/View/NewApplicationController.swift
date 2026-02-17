@@ -37,10 +37,10 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
         
         // Make window background transparent
         window.titleVisibility = .hidden
-
         window.center()
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
+        window.styleMask.insert(.fullSizeContentView)
     }
     
     private func setup() {

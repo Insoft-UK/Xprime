@@ -1117,7 +1117,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
             return
         }
-        projectDirectoryURL.revealInFinderIfNeeded()
+        projectDirectoryURL.revealInFinderWithCooldown()
     }
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
@@ -1125,7 +1125,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let url = HPServices.hpPrimeDirectory(forUser: calculator) else {
             return
         }
-        url.revealInFinderIfNeeded()
+        url.revealInFinderWithCooldown()
     }
     
     @IBAction func reformatCode(_ sender: Any) {

@@ -82,19 +82,6 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
-        
-        
-        if let theme = ThemeLoader.shared.loadTheme(named: ThemeLoader.shared.preferredTheme) {
-            if let color = NSColor(hex: theme.settings?["background"] ?? "") {
-                window.backgroundColor = color
-            }
-            if let color = NSColor(hex: theme.settings?["default.color"] ?? "") {
-                defaultButton.bezelColor = color
-            }
-            if let color = NSColor(hex: theme.settings?["done.color"] ?? "") {
-                doneButton.bezelColor = color
-            }
-        }
     }
     
     // MARK: - Calculator Selection

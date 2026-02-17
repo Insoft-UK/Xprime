@@ -38,10 +38,10 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         
         // Make window background transparent
         window.titleVisibility = .hidden
-
         window.center()
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
+        window.styleMask.insert(.fullSizeContentView)
     }
     
     
