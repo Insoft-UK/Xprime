@@ -51,9 +51,7 @@ MyApp/
 │   └── Example.hpappprgm
 │── Example.hpappdir.zip
 │── Example.xprimeproj
-│── other.ppl+
-│── other.ppl
-│── main.prgm+ or main.prgm
+│── main.ppl+ or main.ppl
 └── info.note, info.ntf or info.md
 ```
 
@@ -62,13 +60,11 @@ Typical File Structure for an HP Prime **Program**
 MyProgram/
 │── Example.xprimeproj
 │── Example.hpprgm
-│── other.ppl+
-│── other.ppl
-│── main.prgm+ or main.prgm
+│── main.ppl+ or main.ppl
 └── info.note, info.ntf or info.md
 ```
 
 >[!NOTE]
->Use the **.ppl+** extension for extended program source code and **.prgm+** for the main application or program source code.
+>Use the .ppl+ extension for **PPL Plus** program source code and .ppl for **PPL** program source code.
 >
->For standard PPL source code, use **.ppl** and never **.prgm**, as **.prgm** is reserved for the main application or program source file in projects that do not use extended PPL.
+>For standard PPL source code, use **.ppl** and never **.prgm**, as **.prgm** is UTF16le.
