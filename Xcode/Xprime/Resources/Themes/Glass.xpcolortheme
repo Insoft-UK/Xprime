@@ -1,0 +1,98 @@
+{
+    "name": "Glass",
+    "type": "dark",
+    "weight": "regular",
+    "colors": {
+        "editor.background": "#000000CC",
+        "editor.foreground": "#FFFFFF",
+        "editor.cursor": "#797979",
+        "editor.selectionBackground": "#5E5E5E"
+    },
+    "lineNumberRuler": {
+        "foreground": "#888888",
+        "background": "#000000"
+    },
+    "window": {
+        "background": "#00000044"
+    },
+    "tokenColors": [
+        {
+            "scope": ["Preprocessor Statements"],
+            "settings": {
+                "foreground": "#68cf67"
+            }
+        },
+        {
+            "scope": ["Comments"],
+            "settings": {
+                "foreground": "#98999c"
+            }
+        },
+        {
+            "scope": ["Keywords"],
+            "settings": {
+                "foreground": "#408ff7"
+            }
+        },
+        {
+            "scope": ["Brackets"],
+            "settings": {
+                "foreground": "#CCCCCC"
+            }
+        },
+        {
+            "scope": ["Symbols"],
+            "settings": {
+                "foreground": "#f09748"
+            }
+        },
+        {
+            "scope": ["Operators"],
+            "settings": {
+                "foreground": "#98999c"
+            }
+        },        {
+            "scope": ["Numbers"],
+            "settings": {
+                "foreground": "#4ea4fc"
+            }
+        },
+        {
+            "scope": ["Strings"],
+            "settings": {
+                "foreground": "#68cf67"
+            }
+        },
+        {
+            "scope": ["Backquotes"],
+            "settings": {
+                "foreground": "#f09748"
+            }
+        },
+        {
+            "scope": ["Functions"],
+            "settings": {
+                "foreground": "#ff6600"
+            }
+        },
+        {
+            "scope": ["Namespace"],
+            "settings": {
+                "foreground": "#ff6600"
+            }
+        },
+        {
+            "scope": ["Units"],
+            "settings": {
+                "foreground": "#ffffff"
+            }
+        },
+        {
+            "scope": ["Commands"],
+            "settings": {
+                "foreground": "#f09748"
+            }
+        }
+    ]
+}
+

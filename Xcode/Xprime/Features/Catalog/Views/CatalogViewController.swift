@@ -53,6 +53,7 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         window.isOpaque = false
         let sliderValue = UserDefaults.standard.object(forKey: "Catalog Window Opacity") as? CGFloat ?? 0.70
         window.backgroundColor = NSColor(white: 0, alpha: sliderValue)
+        catalogSlider.floatValue = Float(sliderValue)
         
         // Optional: remove title bar / standard window decorations
         window.titleVisibility = .hidden
