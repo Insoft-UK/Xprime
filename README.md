@@ -68,3 +68,7 @@ MyProgram/
 >Use the .ppl+ extension for extended program source code and .prgm+ for the main application or program source code.
 >
 >For standard PPL source code, use .ppl and never .prgm, as .prgm is reserved for the main application or program source file in projects that do not use extended PPL.
+
+Recommended running HP Prime Virtual Calculator for Windows on macOS via **Wine Stable**.
+Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=wine.zip">Wine Stable</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=virtual_calculator_x64.zip">HP Prime</a>
+<img src="assets/screenshots/hp-prime-win.png?raw=true" width="191" /><img src="assets/screenshots/hp-prime-win-about.png?raw=true" width="440" />
