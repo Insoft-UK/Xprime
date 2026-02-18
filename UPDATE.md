@@ -10,5 +10,5 @@
 - **Improved build outputs**: When building code:
   - Applications now build directly to HPAPPPRGM files.
   - Regular programs (without an HPAPPDIR) build to HPPRGM.
-
+  
 These changes greatly simplify the development workflow in Xprime, especially around file management and builds — moving away from the older export-centric process to a more intuitive open/save workflow.
