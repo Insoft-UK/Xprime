@@ -156,7 +156,7 @@
 				"echo \"{\\n\\",
 				"    \\\"latestVersion\\\": \\\"${VERSION}.${BUILD}\\\",\\n\\",
 				"    \\\"build\\\": \\\"${BUILD}\\\",\\n\\",
-				"    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=xprime.pkg\\\",\\n\\",
+				"    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.pkg\\\",\\n\\",
 				"    \\\"minimumOS\\\": \\\"${MIN_OS}\\\",\\n\\",
 				"    \\\"releaseNotesURL\\\": \\\"http://insoft.uk/xprime-release-notes.txt\\\"\\n\\",
 				"}\" > xprime-app-version.json",
@@ -338,7 +338,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260218;
+				CURRENT_PROJECT_VERSION = 20260219;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
@@ -365,7 +365,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 26.2;
 				MTL_HEADER_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "";
@@ -398,7 +398,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260218;
+				CURRENT_PROJECT_VERSION = 20260219;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
@@ -425,7 +425,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 26.2;
 				MTL_HEADER_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.Xprime;

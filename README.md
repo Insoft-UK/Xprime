@@ -18,8 +18,9 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
-**NEW** Project Settings...</br>
-<img src="assets/screenshots/project-settings.png?raw=true" width="294" /><img src="assets/screenshots/advance-project-settings.png?raw=true" width="294" />
+<img src="assets/screenshots/xprime/settings.png?raw=true" width="294" /><img src="assets/screenshots/xprime/advance.png?raw=true" width="294" /></br>
+<img src="assets/screenshots/xprime/program.png?raw=true" width="281" /><img src="assets/screenshots/xprime/application.png?raw=true" width="281" /></br>
+<img src="assets/screenshots/xprime/recent.png?raw=true" width="318" />
 
 ### Supported File Types
 |Type|Description|Format|
@@ -68,3 +69,7 @@ MyProgram/
 >Use the .ppl+ extension for extended program source code and .prgm+ for the main application or program source code.
 >
 >For standard PPL source code, use .ppl and never .prgm, as .prgm is reserved for the main application or program source file in projects that do not use extended PPL.
+
+Recommended running HP Prime Virtual Calculator for Windows on macOS via **Wine Stable**.
+Download links: <a href="http://insoft.uk/downloads/macos/wine.zip">Wine Stable</a> | <a href="http://insoft.uk/downloads/pc/virtual_calculator_x64.zip">HP Prime</a>
+<img src="assets/screenshots/hp-prime-win.png?raw=true" width="191" /><img src="assets/screenshots/hp-prime-win-about.png?raw=true" width="440" />
