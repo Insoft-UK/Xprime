@@ -54,7 +54,7 @@ final class AboutViewController: NSViewController {
       
         window.center()
         window.level = .floating
-        window.hasShadow = true
+        window.hasShadow = false
     }
     
     override func mouseDown(with event: NSEvent) {
