@@ -35,6 +35,9 @@ protocol DocumentManagerDelegate: AnyObject {
     
     // Optional: called when opening fails
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error)
+    
+    // Called when a document is successfully closed
+    func documentManagerDidClose(_ manager: DocumentManager)
 }
 
 final class DocumentManager {
@@ -221,6 +224,12 @@ final class DocumentManager {
         } catch {
             delegate?.documentManager(self, didFailToOpen: error)
         }
+    }
+    
+    func closeDocument() {
+        currentDocumentURL = nil
+        documentIsModified = false
+        delegate?.documentManagerDidClose(self)
     }
     
     @discardableResult

@@ -97,7 +97,7 @@ final class LineNumberGutterView: NSRulerView {
             let lineRect = layoutManager.lineFragmentUsedRect(forGlyphAt: glyphRange.location, effectiveRange: nil)
             let yPosition = lineRect.minY - visibleRect.origin.y
 
-            let labelRect = NSRect(x: 0, y: yPosition, width: self.ruleThickness - 5, height: lineRect.height)
+            let labelRect = NSRect(x: 0, y: yPosition + 10, width: self.ruleThickness - 5, height: lineRect.height)
 
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .right

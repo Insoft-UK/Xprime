@@ -74,6 +74,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if let menu = NSApp.mainMenu {
             populateThemesMenu(menu: menu)
             populateGrammarMenu(menu: menu)
+            populateOpenRecentMenu(menu: menu)
         }
         
         configureBaseApplicationAction()
@@ -94,7 +95,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         registerWindowFocusObservers()
         refreshBaseApplicationMenu()
         
-        projectManager.openLastOrUntitled()
+        if let path = UserDefaults.standard.string(forKey: "lastOpenedProjectPath"), FileManager.default.fileExists(atPath: path) {
+            projectManager.openProject(at: URL(fileURLWithPath: path))
+        }
     }
     
     deinit {
@@ -174,11 +177,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let currentDirectoryPath = FileManager.default.currentDirectoryPath
         let currentDirectoryURL = URL(fileURLWithPath: currentDirectoryPath)
         
-        if currentDirectoryPath != projectDirectoryURL.path && projectManager.doseProjectExist(at: currentDirectoryURL) == true {
+        if currentDirectoryPath != projectDirectoryURL.path && ProjectManager.projectName(in: currentDirectoryURL) != nil {
             projectManager.openProject(in: currentDirectoryURL)
         } else {
             refreshQuickOpenToolbar()
             refreshProjectIconImage()
+            updateWindowDocumentIcon()
             refreshBaseApplicationMenu()
         }
     }
@@ -250,6 +254,73 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    private func populateOpenRecentMenu(menu: NSMenu) {
+        guard let submenu = menu.item(withTitle: "File")?.submenu?.item(withTitle: "Open Recent")?.submenu else { return }
+
+        guard let recents = UserDefaults.standard.stringArray(forKey: "recents") else {
+            submenu.removeAllItems()
+            return
+        }
+
+        submenu.removeAllItems()
+
+        for path in recents {
+            let name = URL(fileURLWithPath: path).lastPathComponent
+            
+            let menuItem = NSMenuItem(
+                title: name,
+                action: #selector(handleOpenRecent(_:)),
+                keyEquivalent: ""
+            )
+            menuItem.target = self   // Important so the selector fires
+            menuItem.representedObject = path
+            submenu.addItem(menuItem)
+        }
+        
+        submenu.addItem(NSMenuItem.separator())
+        submenu.addItem(NSMenuItem(title: "Clear Menu", action: recents.count != 0 ? #selector(clearRecentMenu) : nil, keyEquivalent: ""))
+        
+    }
+    
+    private func appendToRecentMenu(url: URL) {
+        let recentLimit = 10
+        let recentsKey = "recents"
+        
+        let path = url.path
+
+        var recents = UserDefaults.standard.stringArray(forKey: recentsKey) ?? []
+
+        // Remove duplicates (so the item can move to the top)
+        recents.removeAll { $0 == path }
+
+        // Insert most-recent at the top
+        recents.insert(path, at: 0)
+
+        // Enforce max limit
+        if recents.count > recentLimit {
+            recents = Array(recents.prefix(recentLimit))
+        }
+
+        UserDefaults.standard.set(recents, forKey: recentsKey)
+
+        if let menu = NSApp.mainMenu {
+            populateOpenRecentMenu(menu: menu)
+        }
+    }
+    
+    @objc private func clearRecentMenu(_ sender: NSMenuItem) {
+        let recentsKey = "recents"
+        UserDefaults.standard.set([], forKey: recentsKey)
+        if let menu = NSApp.mainMenu {
+            populateOpenRecentMenu(menu: menu)
+        }
+    }
+    
+    @objc private func handleOpenRecent(_ sender: NSMenuItem) {
+        let path = sender.representedObject as? String
+        documentManager.openDocument(at: URL(fileURLWithPath: path!))
+    }
+    
     // MARK:- Base Application
     private func refreshBaseApplicationMenu() {
         guard let menu = baseApplication.menu else { return }
@@ -273,23 +344,23 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Base Application Action Handler
     @objc func preferBaseApplicationSelection(_ sender: NSMenuItem) {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else { return }
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
         guard let name = projectManager.projectName else { return }
         
-        let directoryURL = currentDocumentURL.deletingLastPathComponent()
         
-        if directoryURL.appendingPathComponent("\(name).hpappdir").isDirectory {
+        if projectDirectoryURL.appendingPathComponent("\(name).hpappdir").isDirectory {
             outputTextView.appendTextAndScroll("⚠️ Changing base application \"\(projectManager.baseApplicationName)\" to \"\(sender.title)\".\n")
         } else {
             outputTextView.appendTextAndScroll("🔨 Creating application directory\n")
         }
         
-        try? HPServices.resetHPAppContents(at: directoryURL, named: name, fromBaseApplicationNamed: sender.title)
+        try? HPServices.resetHPAppContents(at: projectDirectoryURL, named: name, fromBaseApplicationNamed: sender.title)
         outputTextView.appendTextAndScroll("Base application is \"\(projectManager.baseApplicationName)\"\n")
         
         
         refreshQuickOpenToolbar()
         refreshProjectIconImage()
+        updateWindowDocumentIcon()
     }
     
     // MARK: - Theme & Grammar Action Handlers
@@ -309,19 +380,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Helper Functions
     
     private func updateWindowDocumentIcon() {
-        guard
-            let url = documentManager.currentDocumentURL,
-            url.isFileURL,
-            let window = view.window
-        else { return }
+        guard let window = view.window else { return }
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
+        
         
         // 1️⃣ Force document-style titlebar
         window.titleVisibility = .visible
         window.titlebarAppearsTransparent = true
         
         // 2️⃣ Set document identity
-        window.title = projectManager.projectName ?? ""
-        window.representedURL = url
+        window.title = ProjectManager.projectName(in: projectDirectoryURL) ?? "Untitled"
+        window.representedURL = projectDirectoryURL
         
         // 3️⃣ Re-apply icon AFTER AppKit finishes layout
         DispatchQueue.main.async {
@@ -346,23 +415,25 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func refreshProjectIconImage() {
-        guard let currentDocumentURL = documentManager.currentDocumentURL else { return }
-        
-        let name = currentDocumentURL
-            .deletingLastPathComponent()
-            .lastPathComponent
-        
-        let fm = FileManager.default
-        let iconFileName = "icon.png"
-        
+        guard let currentDirectoryURL = projectManager.projectDirectoryURL else {
+            let url = Bundle.main.url(
+                forResource: "icon",
+                withExtension: "png",
+                subdirectory: "Developer/Library/Xprime/Templates/Application Template"
+                )!
+            icon.image = NSImage(contentsOfFile: url.path)!
+            return
+        }
+        guard let projectURL = ProjectManager.projectURL(in: currentDirectoryURL) else { return }
+      
         let urlsToCheck: [URL] = [
-            currentDocumentURL
+            projectURL
+                .deletingPathExtension()
+                .appendingPathExtension("hpappdir")
+                .appendingPathComponent("icon.png"),
+            projectURL
                 .deletingLastPathComponent()
-                .appendingPathComponent("\(name).hpappdir")
-                .appendingPathComponent(iconFileName),
-            currentDocumentURL
-                .deletingLastPathComponent()
-                .appendingPathComponent(iconFileName),
+                .appendingPathComponent("icon.png"),
             Bundle.main.url(
                 forResource: "icon",
                 withExtension: "png",
@@ -370,7 +441,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             )!
         ]
         
-        if let existingURL = urlsToCheck.first(where: { fm.fileExists(atPath: $0.path) }) {
+        if let existingURL = urlsToCheck.first(where: { FileManager.default.fileExists(atPath: $0.path) }) {
             let targetSize = NSSize(width: 38, height: 38)
             
             if let image = NSImage(contentsOf: existingURL) {
@@ -378,8 +449,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 icon.image = image
             }
         }
-        
-        updateWindowDocumentIcon()
     }
     
     private func mainURL(in directoryURL: URL) -> URL? {
@@ -639,10 +708,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     private func refreshQuickOpenToolbar() {
-        guard let url = projectManager.projectDirectoryURL else {
-            return
-        }
-        
         guard
             let toolbar = view.window?.toolbar,
             let item = toolbar.items.first(where: {
@@ -650,6 +715,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }),
             let comboButton = item.view as? NSComboButton
         else {
+            return
+        }
+        
+        guard let url = projectManager.projectDirectoryURL else {
+            let menu = NSMenu()
+            comboButton.menu = menu
+            comboButton.image = nil
+            comboButton.title = ""
+            comboButton.action = nil
             return
         }
         
@@ -685,7 +759,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         keyEquivalent: ""
                     )
                     
-                    let image: NSImage
+                    var image: NSImage
                     switch url.pathExtension.lowercased() {
                     case "note", "md", "ntf", "txt":
                         image = NSImage(imageLiteralResourceName: "Notes")
@@ -697,7 +771,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         image = NSImage(imageLiteralResourceName: "Program")
                         
                     case "prgm", "prgm+":
-                        if projectManager.isProjectAnApplication, url.deletingPathExtension().lastPathComponent == "main" {
+                        if projectManager.isProjectApplication, url.deletingPathExtension().lastPathComponent == "main" {
                             image = NSImage(imageLiteralResourceName: "Apps")
                         } else {
                             image = NSImage(imageLiteralResourceName: "Program")
@@ -707,6 +781,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         image = NSImage(imageLiteralResourceName: "File")
                     }
                     
+                    comboButton.image = nil
                     image.size = NSSize(width: 20, height: 12)
                     menu.items.last?.image = image
                     if url == documentManager.currentDocumentURL {
@@ -882,6 +957,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         documentManager.saveDocument()
     }
     
+    @IBAction func closeDocument(_ sender: Any) {
+        documentManager.closeDocument()
+    }
+    
+    @IBAction func closeProject(_ sender: Any) {
+        projectManager.closeProject()
+    }
+    
     // MARK: - Saving Document As
     private func proceedWithSavingDocumentAs() {
         documentManager.saveDocumentAs(
@@ -976,7 +1059,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let appsToInstall = processAppRequires(in: codeEditorTextView.string)
         installRequiredApps(requiredApps: appsToInstall.requiredApps)
         
-        if projectManager.isProjectAnApplication {
+        if projectManager.isProjectApplication {
             buildApplication()
             installHPAppDirectoryToCalculator(sender)
         } else {
@@ -1037,7 +1120,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         saveDocument(sender)
         guard let _ = documentManager.currentDocumentURL else { return }
         
-        if !projectManager.isProjectAnApplication {
+        if !projectManager.isProjectApplication {
             buildProgram()
         } else {
             buildApplication()
@@ -1255,6 +1338,22 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             menuItem.title = "Add Files to \"\"…"
             return false
             
+        case #selector(closeDocument(_:)):
+            if let currentDocumentURL = documentManager.currentDocumentURL {
+                menuItem.title = "Close \"\(currentDocumentURL.lastPathComponent)\""
+                menuItem.isHidden = false
+                return true
+            }
+            menuItem.isHidden = true
+            return false
+            
+            
+        case #selector(closeProject(_:)):
+            if let _ = projectManager.projectDirectoryURL {
+                return true
+            }
+            return false
+            
         default:
             break
         }
@@ -1290,13 +1389,14 @@ extension MainViewController: DocumentManagerDelegate {
 #endif
         if let url = documentManager.currentDocumentURL {
             loadAppropriateGrammar(forType: url.pathExtension.lowercased())
+            appendToRecentMenu(url: url)
         }
         
         gutterView.updateLines()
         
-        refreshQuickOpenToolbar()
         refreshProjectIconImage()
-        refreshBaseApplicationMenu()
+        refreshQuickOpenToolbar()
+        
         updateWindowDocumentIcon()
     }
     
@@ -1304,6 +1404,15 @@ extension MainViewController: DocumentManagerDelegate {
 #if Debug
         print("Open failed:", error)
 #endif
+    }
+    
+    func documentManagerDidClose(_ manager: DocumentManager) {
+        codeEditorTextView.string = ""
+        
+        refreshProjectIconImage()
+        refreshQuickOpenToolbar()
+        
+        updateWindowDocumentIcon()
     }
 }
 
@@ -1326,14 +1435,19 @@ extension MainViewController: ProjectManagerDelegate {
     func projectManagerDidOpen(_ manager: ProjectManager) {
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
         
+        FileManager.default.changeCurrentDirectoryPath(projectDirectoryURL.path)
         if let url = mainURL(in: projectDirectoryURL) {
             documentManager.openDocument(at: url)
         }
         
-        refreshQuickOpenToolbar()
         refreshProjectIconImage()
         refreshBaseApplicationMenu()
+        
         updateWindowDocumentIcon()
+    
+        if let projectURL = ProjectManager.projectURL(in: projectDirectoryURL) {
+            appendToRecentMenu(url: projectURL)
+        }
     }
     
     func projectManager(_ manager: ProjectManager, didFailToOpen error: any Error) {
@@ -1344,4 +1458,13 @@ extension MainViewController: ProjectManagerDelegate {
         )
     }
     
+    func projectManagerDidClose(_ manager: ProjectManager) {
+        documentManager.closeDocument()
+        
+        refreshProjectIconImage()
+        refreshQuickOpenToolbar()
+        refreshBaseApplicationMenu()
+        
+        updateWindowDocumentIcon()
+    }
 }

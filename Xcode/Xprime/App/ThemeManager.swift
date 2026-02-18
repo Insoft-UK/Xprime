@@ -38,7 +38,7 @@ final class ThemeManager {
     }
 
     func applySavedTheme() {
-        let themeName = UserDefaults.standard.string(forKey: "preferredTheme") ?? "Default"
+        let themeName = UserDefaults.standard.string(forKey: "preferredTheme") ?? "Default (Dark)"
         applyTheme(named: themeName)
     }
 

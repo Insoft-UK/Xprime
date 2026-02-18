@@ -409,52 +409,52 @@ enum HPServices {
         )
     }
     
-    static func hpPrimeBaseApplicationName(
-        for appName: String,
-        in directory: URL
-    ) -> String {
-        let applications: [String] = [
-            "Function",
-            "Solve",
-            "Statistics 1Var",
-            "Statistics 2Var",
-            "Inference",
-            "Parametric",
-            "Polar",
-            "Sequence",
-            "Finance",
-            "Linear Solver",
-            "Triangle Solver",
-            "",
-            "",
-            "",
-            "Data Streamer",
-            "Geometry",
-            "Spreadsheet",
-            "Advanced Graphing",
-            "Graph 3D",
-            "Explorer",
-            "None",
-            "Python"
-        ]
-        
-        let fileURL = directory
-            .appendingPathComponent("\(appName).hpappdir")
-            .appendingPathComponent("\(appName).hpapp")
-        do {
-            let fileHandle = try FileHandle(forReadingFrom: fileURL)
-            if let data = try fileHandle.read(upToCount: 21), !data.isEmpty {
-                let name = applications[Int(data[20])]
-                return name.isEmpty ? "None" : name
-            }
-            return "None"
-        } catch {
-#if Debug
-            print("Base application name: None\n")
-#endif
-            return "None"
-        }
-    }
+//    static func hpPrimeBaseApplicationName(
+//        for appName: String,
+//        in directory: URL
+//    ) -> String {
+//        let applications: [String] = [
+//            "Function",
+//            "Solve",
+//            "Statistics 1Var",
+//            "Statistics 2Var",
+//            "Inference",
+//            "Parametric",
+//            "Polar",
+//            "Sequence",
+//            "Finance",
+//            "Linear Solver",
+//            "Triangle Solver",
+//            "",
+//            "",
+//            "",
+//            "Data Streamer",
+//            "Geometry",
+//            "Spreadsheet",
+//            "Advanced Graphing",
+//            "Graph 3D",
+//            "Explorer",
+//            "None",
+//            "Python"
+//        ]
+//        
+//        let fileURL = directory
+//            .appendingPathComponent("\(appName).hpappdir")
+//            .appendingPathComponent("\(appName).hpapp")
+//        do {
+//            let fileHandle = try FileHandle(forReadingFrom: fileURL)
+//            if let data = try fileHandle.read(upToCount: 21), !data.isEmpty {
+//                let name = applications[Int(data[20])]
+//                return name.isEmpty ? "None" : name
+//            }
+//            return "None"
+//        } catch {
+//#if Debug
+//            print("Base application name: None\n")
+//#endif
+//            return "None"
+//        }
+//    }
     
     // MARK: -
     
