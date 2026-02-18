@@ -263,6 +263,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
 
         submenu.removeAllItems()
+        
+        let icon = NSImage(contentsOf: Bundle.main.url(
+            forResource: "icon",
+            withExtension: "png",
+            subdirectory: "Developer/Library/Xprime/Templates/Application Template"
+        )!)
 
         for path in recents {
             let name = URL(fileURLWithPath: path).lastPathComponent
@@ -273,13 +279,28 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 keyEquivalent: ""
             )
             menuItem.target = self   // Important so the selector fires
-            menuItem.representedObject = path
+            menuItem.representedObject = URL(fileURLWithPath: path)
+            if path.hasSuffix(".xprimeproj") == true {
+                let url = URL(fileURLWithPath: path)
+                
+                if url.deletingPathExtension().appendingPathExtension("hpappdir").isDirectory == true {
+                    menuItem.image = NSImage(contentsOf: url
+                        .deletingPathExtension()
+                        .appendingPathExtension("hpappdir")
+                        .appendingPathComponent("icon.png")
+                    )
+                } else {
+                    menuItem.image = icon
+                }
+            } else {
+                menuItem.image = icon
+            }
+            menuItem.image?.size = NSSize(width: 16, height: 16)
             submenu.addItem(menuItem)
         }
         
         submenu.addItem(NSMenuItem.separator())
         submenu.addItem(NSMenuItem(title: "Clear Menu", action: recents.count != 0 ? #selector(clearRecentMenu) : nil, keyEquivalent: ""))
-        
     }
     
     private func appendToRecentMenu(url: URL) {
@@ -317,8 +338,33 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @objc private func handleOpenRecent(_ sender: NSMenuItem) {
-        let path = sender.representedObject as? String
-        documentManager.openDocument(at: URL(fileURLWithPath: path!))
+        guard let url = sender.representedObject as? URL else { return }
+        
+        if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
+            AlertPresenter.presentYesNo(
+                on: view.window,
+                title: "Save Changes",
+                message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
+                primaryActionTitle: "Save"
+            ) { confirmed in
+                if confirmed {
+                    self.documentManager.saveDocument()
+                    if url.lastPathComponent.hasSuffix(".xprimeproj") {
+                        self.projectManager.openProject(at: url)
+                    } else {
+                        self.documentManager.openDocument(at: url)
+                    }
+                } else {
+                    return
+                }
+            }
+        } else {
+            if url.lastPathComponent.hasSuffix(".xprimeproj") {
+                self.projectManager.openProject(at: url)
+            } else {
+                self.documentManager.openDocument(at: url)
+            }
+        }
     }
     
     // MARK:- Base Application
@@ -364,8 +410,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Theme & Grammar Action Handlers
-    
-    
     @objc func handleThemeSelection(_ sender: NSMenuItem) {
         UserDefaults.standard.set(sender.title, forKey: "preferredTheme")
         themeManager.applySavedTheme()
@@ -378,30 +422,45 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     
     // MARK: - Helper Functions
-    
     private func updateWindowDocumentIcon() {
         guard let window = view.window else { return }
-        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
-        
-        
-        // 1️⃣ Force document-style titlebar
+    
         window.titleVisibility = .visible
         window.titlebarAppearsTransparent = true
         
-        // 2️⃣ Set document identity
-        window.title = ProjectManager.projectName(in: projectDirectoryURL) ?? "Untitled"
-        window.representedURL = projectDirectoryURL
+        if let projectName = projectManager.projectName {
+            window.title = projectName
+            window.representedURL = documentManager.currentDocumentURL
+            // Re-apply icon AFTER AppKit finishes layout
+            DispatchQueue.main.async {
+                window.standardWindowButton(.documentIconButton)?.image = self.icon.image
+            }
+            return
+        }
         
-        // 3️⃣ Re-apply icon AFTER AppKit finishes layout
+        if let url = documentManager.currentDocumentURL {
+            window.title = url.lastPathComponent
+            window.representedURL = url
+        } else {
+            window.title = "Untitled"
+            window.representedURL = nil
+        }
+            
+        // Re-apply icon AFTER AppKit finishes layout
         DispatchQueue.main.async {
-            window.standardWindowButton(.documentIconButton)?.image = self.icon.image
+            let url = Bundle.main.url(
+                forResource: "icon",
+                withExtension: "png",
+                subdirectory: "Developer/Library/Xprime/Templates/Application Template"
+            )!
+            window.standardWindowButton(.documentIconButton)?.image = NSImage(contentsOfFile: url.path)!
         }
     }
 
     private func loadAppropriateGrammar(forType fileExtension: String) {
         let grammar:[String : [String]] = [
             "Prime Plus": ["prgm+", "ppl+"],
-            "Prime": ["prgm", "ppl", "hpprgm", "hpappprgm"],
+            "Prime": ["prgm", "ppl", "hpprgm", "hpappprgm", "bmp", "png", "h"],
             "Python": ["py"],
             ".ntf": ["hpnote", "hpappnote", "note", "ntf"],
             ".md": ["md"]
@@ -430,9 +489,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             projectURL
                 .deletingPathExtension()
                 .appendingPathExtension("hpappdir")
-                .appendingPathComponent("icon.png"),
-            projectURL
-                .deletingLastPathComponent()
                 .appendingPathComponent("icon.png"),
             Bundle.main.url(
                 forResource: "icon",
@@ -914,11 +970,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
-            let ext = url.pathExtension.lowercased()
-            
-            if ext == "bmp" || ext == "png" || ext == "h" {
-                self.loadAppropriateGrammar(forType: "ppl")
-            }
             
             if url.lastPathComponent.hasSuffix(".xprimeproj") {
                 self.projectManager.openProject(at: url)
