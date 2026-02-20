@@ -72,4 +72,4 @@ MyProgram/
 
 Recommended running HP Prime Virtual Calculator for Windows on macOS via **Wine Stable**.</br>
 <img src="assets/screenshots/hp-prime-win.png?raw=true" width="191" /><img src="assets/screenshots/hp-prime-win-about.png?raw=true" width="440" /></br>
-Download links: <a href="http://insoft.uk/downloads/macos/wine.zip">Wine Stable</a> | <a href="http://insoft.uk/downloads/pc/virtual_calculator_x64.zip">HP Prime</a>
+Download links: <a href="http://insoft.uk/downloads/macos/wine-mac-x86_64.zip">Wine Stable</a> | <a href="http://insoft.uk/downloads/pc/virtual_calculator-64.zip">HP Prime</a>
