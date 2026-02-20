@@ -13,7 +13,7 @@
         "background": "#DDDDDD"
     },
     "window": {
-        "background": "#999999",
+        "background": "#1F1F24",
         "foreground": "#ffffff"
     },
     "tokenColors": [

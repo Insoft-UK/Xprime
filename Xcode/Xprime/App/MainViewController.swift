@@ -263,12 +263,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
 
         submenu.removeAllItems()
-        
-        let icon = NSImage(contentsOf: Bundle.main.url(
-            forResource: "icon",
-            withExtension: "png",
-            subdirectory: "Developer/Library/Xprime/Templates/Application Template"
-        )!)
+    
+        let icon = NSImage(imageLiteralResourceName: "Icon")
+        let pythonIcon = NSImage(imageLiteralResourceName: "Python")
 
         for path in recents {
             let name = URL(fileURLWithPath: path).lastPathComponent
@@ -290,7 +287,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         .appendingPathComponent("icon.png")
                     )
                 } else {
-                    menuItem.image = icon
+                    switch url.pathExtension.lowercased() {
+                        case "py":
+                        menuItem.image = pythonIcon
+                    default:
+                        menuItem.image = icon
+                        break
+                    }
                 }
             } else {
                 menuItem.image = icon
@@ -815,30 +818,40 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         keyEquivalent: ""
                     )
                     
-                    var image: NSImage
+                    let image: NSImage
+                    
+
                     switch url.pathExtension.lowercased() {
                     case "note", "md", "ntf", "txt":
                         image = NSImage(imageLiteralResourceName: "Notes")
+                        image.size = NSSize(width: 35, height: 24)
 
                     case "app":
                         image = NSImage(imageLiteralResourceName: "Apps")
+                        image.size = NSSize(width: 35, height: 24)
                         
-                    case "ppl", "ppl+", "py", "h", "bmp", "png":
+                    case "ppl", "ppl+":
                         image = NSImage(imageLiteralResourceName: "Program")
+                        image.size = NSSize(width: 35, height: 24)
+                        
+                    case "py":
+                        image = NSImage(imageLiteralResourceName: "Python")
+                        image.size = NSSize(width: 24, height: 24)
                         
                     case "prgm", "prgm+":
-                        if projectManager.isProjectApplication, url.deletingPathExtension().lastPathComponent == "main" {
+                        if url.deletingPathExtension().lastPathComponent == "main" && projectManager.isProjectApplication == true {
                             image = NSImage(imageLiteralResourceName: "Apps")
                         } else {
                             image = NSImage(imageLiteralResourceName: "Program")
                         }
+                        image.size = NSSize(width: 35, height: 24)
                     
                     default:
-                        image = NSImage(imageLiteralResourceName: "File")
+                        image = NSImage(imageLiteralResourceName: "Icon")
+                        image.size = NSSize(width: 24, height: 24)
                     }
                     
-                    comboButton.image = nil
-                    image.size = NSSize(width: 20, height: 12)
+                    
                     menu.items.last?.image = image
                     if url == documentManager.currentDocumentURL {
                         menu.items.last?.state = .on
@@ -861,6 +874,26 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Add Files to Current Project
+    @IBAction private func newDocument(_ sender : Any) {
+        if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
+            AlertPresenter.presentYesNo(
+                on: view.window,
+                title: "Save Changes",
+                message: "Do you want to save changes to '\(url.lastPathComponent)' before creating another document",
+                primaryActionTitle: "Save"
+            ) { confirmed in
+                if confirmed {
+                    self.documentManager.saveDocument()
+                    self.proceedWithNewDocument()
+                } else {
+                    return
+                }
+            }
+        } else {
+            proceedWithNewDocument()
+        }
+    }
+    
     @IBAction private func addFilesTo(_ sender : Any) {
         let panel = NSOpenPanel()
         
@@ -932,6 +965,31 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             } else {
                 print("❌ Copy failed:", error)
             }
+        }
+    }
+    
+    
+    private func proceedWithNewDocument() {
+        let panel = NSSavePanel()
+        
+        panel.title = ""
+        panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        panel.allowedContentTypes = [
+            UTType(filenameExtension: "prgm+")!,
+            UTType(filenameExtension: "prgm")!,
+            UTType(filenameExtension: "ppl")!,
+            UTType(filenameExtension: "ppl+")!,
+            UTType(filenameExtension: "md")!,
+            UTType(filenameExtension: "ntf")!,
+            UTType(filenameExtension: "note")!,
+            UTType.pythonScript
+        ]
+        
+        panel.begin { result in
+            guard result == .OK, let url = panel.url else { return }
+            self.documentManager.closeDocument()
+            self.documentManager.saveDocument(to: url)
+            self.documentManager.openDocument(at: url)
         }
     }
     
@@ -1419,6 +1477,7 @@ extension MainViewController: DocumentManagerDelegate {
 #if Debug
         print("Saved successfully")
 #endif
+        
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
         guard let projectName = projectManager.projectName else { return }
         

@@ -75,6 +75,19 @@ final class ProjectManager {
             .isDirectory
     }
     
+    var projectIcon: NSImage? {
+        guard isProjectApplication, let projectDirectoryURL, let projectName = self.projectName else {
+            return NSImage(imageLiteralResourceName: "Icon")
+        }
+        
+        let url = projectDirectoryURL
+            .appendingPathComponent(projectName)
+            .appendingPathExtension("hpappdir")
+            .appendingPathComponent("icon.png")
+        
+        return NSImage(contentsOfFile: url.path)
+    }
+    
     var baseApplicationName: String {
         guard let projectDirectoryURL, let projectName = ProjectManager.projectName(in: projectDirectoryURL) else {
             return "None"
