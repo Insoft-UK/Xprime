@@ -264,8 +264,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
         submenu.removeAllItems()
     
-        let icon = NSImage(imageLiteralResourceName: "Icon")
-        let pythonIcon = NSImage(imageLiteralResourceName: "Python")
+        let icon = NSImage(named: "Icon")!
+        let pythonIcon = NSImage(named: "Python")!
 
         for path in recents {
             let name = URL(fileURLWithPath: path).lastPathComponent
@@ -287,16 +287,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         .appendingPathComponent("icon.png")
                     )
                 } else {
-                    switch url.pathExtension.lowercased() {
-                        case "py":
-                        menuItem.image = pythonIcon
-                    default:
-                        menuItem.image = icon
-                        break
-                    }
+                    menuItem.image = icon
                 }
             } else {
-                menuItem.image = icon
+                let url = URL(fileURLWithPath: path)
+                
+                switch url.pathExtension.lowercased() {
+                    case "py":
+                    menuItem.image = pythonIcon
+                default:
+                    menuItem.image = icon
+                    break
+                }
             }
             menuItem.image?.size = NSSize(width: 16, height: 16)
             submenu.addItem(menuItem)
@@ -374,14 +376,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func refreshBaseApplicationMenu() {
         guard let menu = baseApplication.menu else { return }
         let baseApplicationName = projectManager.baseApplicationName
+        
         for item in menu.items {
+            item.image?.size = NSSize(width: 16, height: 16)
             if item.title == baseApplicationName {
                 item.state = .on
                 baseApplication.select(item)
             } else {
                 item.state = .off
             }
-            item.image?.size = NSSize(width: 16, height: 16)
         }
         baseApplication.isEnabled = documentManager.currentDocumentURL != nil
     }
@@ -389,6 +392,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func configureBaseApplicationAction() {
         baseApplication.target = self
         baseApplication.action = #selector(preferBaseApplicationSelection(_:))
+        
+        guard let menu = baseApplication.menu else { return }
+        for item in menu.items {
+            item.image?.size = NSSize(width: 16, height: 16)
+        }
     }
     
     // MARK: - Base Application Action Handler
@@ -823,39 +831,34 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
                     switch url.pathExtension.lowercased() {
                     case "note", "md", "ntf", "txt":
-                        image = NSImage(imageLiteralResourceName: "Notes")
-                        image.size = NSSize(width: 35, height: 24)
+                        image = NSImage(named: "Notes")!
 
                     case "app":
-                        image = NSImage(imageLiteralResourceName: "Apps")
-                        image.size = NSSize(width: 35, height: 24)
+                        image = NSImage(named: "Apps")!
                         
                     case "ppl", "ppl+":
-                        image = NSImage(imageLiteralResourceName: "Program")
-                        image.size = NSSize(width: 35, height: 24)
+                        image = NSImage(named: "Program")!
                         
                     case "py":
-                        image = NSImage(imageLiteralResourceName: "Python")
-                        image.size = NSSize(width: 24, height: 24)
+                        image = NSImage(named: "Python Program")!
                         
                     case "prgm", "prgm+":
                         if url.deletingPathExtension().lastPathComponent == "main" && projectManager.isProjectApplication == true {
-                            image = NSImage(imageLiteralResourceName: "Apps")
+                            image = NSImage(named: "Apps")!
                         } else {
-                            image = NSImage(imageLiteralResourceName: "Program")
+                            image = NSImage(named: "Program")!
                         }
-                        image.size = NSSize(width: 35, height: 24)
                     
                     default:
-                        image = NSImage(imageLiteralResourceName: "Icon")
-                        image.size = NSSize(width: 24, height: 24)
+                        image = NSImage(named: "File")!
                     }
                     
-                    
                     menu.items.last?.image = image
+                    menu.items.last?.image?.size = NSSize(width: 35, height: 24)
                     if url == documentManager.currentDocumentURL {
                         menu.items.last?.state = .on
                         comboButton.image = image
+                        comboButton.image?.size = NSSize(width: 35, height: 24)
                     }
                 }
             }
