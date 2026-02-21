@@ -75,6 +75,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             populateThemesMenu(menu: menu)
             populateGrammarMenu(menu: menu)
             populateOpenRecentMenu(menu: menu)
+            populateTemplateMenu(menu: menu)
         }
         
         configureBaseApplicationAction()
@@ -251,6 +252,84 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             menuItem.representedObject = fileURL
             menuItem.target = self  // or another target if needed
             menu.item(withTitle: "Editor")?.submenu?.item(withTitle: "Grammar")?.submenu?.addItem(menuItem)
+        }
+    }
+    
+    // MARK: - Templates
+    private func populateTemplateMenu(menu: NSMenu) {
+        let url = Bundle.main.resourceURL!.appendingPathComponent("Developer/Library/Xprime/Templates/File Templates")
+        menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Template")?.submenu = populateTemplateMenu(url: url)
+//        menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Template")?.submenu = nil
+    }
+    
+    private func populateTemplateMenu(url: URL) -> NSMenu {
+        let menu = NSMenu()
+        
+        let contents = try? FileManager.default.contentsOfDirectory(
+            at: url,
+            includingPropertiesForKeys: [.isDirectoryKey],
+            options: [.skipsHiddenFiles]
+        )
+
+        contents?.forEach { itemURL in
+            if itemURL.isDirectory {
+                let submenu = populateTemplateMenu(url: itemURL)
+
+                let submenuItem = NSMenuItem(
+                    title: itemURL.lastPathComponent,
+                    action: nil,
+                    keyEquivalent: ""
+                )
+                submenuItem.submenu = submenu
+                submenuItem.image = NSImage(named: "Folder")
+                submenuItem.image?.size = NSSize(width: 16, height: 16)
+                menu.addItem(submenuItem)
+            } else {
+                let name = itemURL.deletingPathExtension().lastPathComponent
+
+                let menuItem = NSMenuItem(
+                    title: name,
+                    action: #selector(templateSelected(_:)),
+                    keyEquivalent: ""
+                )
+                menuItem.representedObject = itemURL
+                menuItem.image = NSImage(named: "Icon")
+                menuItem.image?.size = NSSize(width: 16, height: 16)
+                menu.addItem(menuItem)
+            }
+        }
+
+        return menu
+    }
+    
+    @objc private func templateSelected(_ sender: NSMenuItem) {
+        func traceMenuItem(_ item: NSMenuItem) -> String {
+            if let parentMenu = item.menu {
+#if Debug
+                print("Item '\(item.title)' is in menu: \(parentMenu.title)")
+#endif
+                
+                // Try to find the parent NSMenuItem that links to this menu
+                for superitem in parentMenu.supermenu?.items ?? [] {
+                    if superitem.submenu == parentMenu {
+                        return superitem.title
+                    }
+                }
+            }
+            return ""
+        }
+        
+        guard let menuItem = sender as? NSMenuItem else { return }
+        let url = Bundle.main.bundleURL
+            .appendingPathComponent(templatesBasePath)
+            .appendingPathComponent(traceMenuItem(menuItem))
+            .appendingPathComponent(menuItem.title)
+            .appendingPathExtension("prgm")
+        
+        
+        
+        if let contents = HPServices.loadHPPrgm(at: url) {
+            codeEditorTextView.insertCode(contents)
         }
     }
     
@@ -854,11 +933,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     }
                     
                     menu.items.last?.image = image
-                    menu.items.last?.image?.size = NSSize(width: 35, height: 24)
+                    menu.items.last?.image?.size = NSSize(width: 35, height: 19)
                     if url == documentManager.currentDocumentURL {
                         menu.items.last?.state = .on
                         comboButton.image = image
-                        comboButton.image?.size = NSSize(width: 35, height: 24)
+                        comboButton.image?.size = NSSize(width: 35, height: 19)
                     }
                 }
             }
@@ -1239,37 +1318,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
-    @IBAction func insertTemplate(_ sender: Any) {
-        func traceMenuItem(_ item: NSMenuItem) -> String {
-            if let parentMenu = item.menu {
-#if Debug
-                print("Item '\(item.title)' is in menu: \(parentMenu.title)")
-#endif
-                
-                // Try to find the parent NSMenuItem that links to this menu
-                for superitem in parentMenu.supermenu?.items ?? [] {
-                    if superitem.submenu == parentMenu {
-                        return superitem.title
-                    }
-                }
-            }
-            return ""
-        }
-        
-        guard let menuItem = sender as? NSMenuItem else { return }
-        let url = Bundle.main.bundleURL
-            .appendingPathComponent(templatesBasePath)
-            .appendingPathComponent(traceMenuItem(menuItem))
-            .appendingPathComponent(menuItem.title)
-            .appendingPathExtension("prgm")
-        
-        
-        
-        if let contents = HPServices.loadHPPrgm(at: url) {
-            codeEditorTextView.insertCode(contents)
-        }
-    }
-    
     @IBAction func cleanBuildFolder(_ sender: Any) {
         guard let currentDirectoryURL = projectManager.projectDirectoryURL, let projectName = projectManager.projectName else {
             return
@@ -1405,7 +1453,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             }
             return false
             
-        case #selector(insertTemplate(_:)):
+        case #selector(templateSelected(_:)):
             if ext == "prgm" || ext == "prgm+" || ext == "hpprgm" || ext == "hpappprgm" || ext == "ppl" || ext == "ppl+" {
                 return true
             }

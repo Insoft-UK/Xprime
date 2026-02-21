@@ -851,177 +851,6 @@ Gw
                                         <menuItem isSeparatorItem="YES" id="h12-3c-Pgi"/>
                                         <menuItem title="Template" image="ppl" id="dAk-Ox-0tv">
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Template" id="0gA-KS-KB6">
-                                                <items>
-                                                    <menuItem title="Block" image="text.rectangle.page.fill" catalog="system" id="2fR-lR-zPu">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <menu key="submenu" title="Block" id="XDM-c2-9YN">
-                                                            <items>
-                                                                <menuItem title="BEGIN END" image="text.rectangle.page" catalog="system" id="aNg-iF-5pJ">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="Frj-Uj-p5g"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="RETURN" image="text.rectangle.page" catalog="system" id="SKP-ac-Wf4">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="8X7-Hb-V4V"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="KILL" image="text.rectangle.page" catalog="system" id="Q5c-yC-JW8">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="klE-cQ-xLx"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                            </items>
-                                                        </menu>
-                                                    </menuItem>
-                                                    <menuItem title="Branch" image="text.rectangle.page.fill" catalog="system" id="5FS-px-VwR">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <menu key="submenu" title="Branch" id="yLe-R8-fcE">
-                                                            <items>
-                                                                <menuItem title="IF THEN" image="text.rectangle.page" catalog="system" id="yXQ-2z-JWY">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="Btw-0e-30O"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="IF THEN ELSE" image="text.rectangle.page" catalog="system" id="sAX-aQ-af3">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="Eeg-sb-cv8"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="CASE" image="text.rectangle.page" catalog="system" id="gxl-vi-3B7">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="lar-BZ-V5V"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="IFERR" image="text.rectangle.page" catalog="system" id="x0e-Hx-Kbu">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="2h9-uf-1ly"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="IFERR ELSE" image="text.rectangle.page" catalog="system" id="1Zd-pc-Dxp">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="MBI-L2-p8V"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                            </items>
-                                                        </menu>
-                                                    </menuItem>
-                                                    <menuItem title="Loop" image="text.rectangle.page.fill" catalog="system" id="H6v-PA-tkd">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <menu key="submenu" title="Loop" id="P1f-0B-Kpa">
-                                                            <items>
-                                                                <menuItem title="FOR" image="text.rectangle.page" catalog="system" id="SPP-ZN-Kwb">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="Gde-Bx-SQg"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="FOR STEP" image="text.rectangle.page" catalog="system" id="rjd-Ad-uRf">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="hp9-eE-epQ"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="FOR DOWNTO" image="text.rectangle.page" catalog="system" id="rVG-M9-7y8">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="jvx-dW-62S"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="FOR DOWNTO STEP" image="text.rectangle.page" catalog="system" id="6Bm-ct-qxr">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="lyQ-N3-w4o"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="WHILE" image="text.rectangle.page" catalog="system" id="v46-YC-vdG">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="bJ0-Nu-MDG"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="REPEAT" image="text.rectangle.page" catalog="system" id="ygr-Ca-Oib">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="PjD-ay-Hy3"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="BREAK" image="text.rectangle.page" catalog="system" id="AkL-zs-sTd">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="ZGy-rQ-IUJ"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="CONTINUE" image="text.rectangle.page" catalog="system" id="Z4Q-vv-SGl">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="Apu-Gr-uKg"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                            </items>
-                                                        </menu>
-                                                    </menuItem>
-                                                    <menuItem title="Variable" image="text.rectangle.page.fill" catalog="system" id="4I0-ZP-Ygi">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <menu key="submenu" title="Variable" id="Ja2-z5-wKj">
-                                                            <items>
-                                                                <menuItem title="LOCAL" image="text.rectangle.page" catalog="system" id="Qke-qD-0wL">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="p61-ff-M2x"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="EXPORT" image="text.rectangle.page" catalog="system" id="efl-wx-mzN">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="en3-8G-zND"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="CONST" image="text.rectangle.page" catalog="system" id="ErR-Hb-msS">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="5KB-FI-az8"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                            </items>
-                                                        </menu>
-                                                    </menuItem>
-                                                    <menuItem title="Function" image="text.rectangle.page.fill" catalog="system" id="dIv-Na-hLM">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <menu key="submenu" title="Function" id="T6d-pR-Hul">
-                                                            <items>
-                                                                <menuItem title="EXPORT" image="text.rectangle.page" catalog="system" id="g6k-QM-evm">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="q1n-FH-Wfx"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="VIEW" image="text.rectangle.page" catalog="system" id="cC0-eS-XQL">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="re9-01-VGf"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                                <menuItem title="KEY" image="text.rectangle.page" catalog="system" id="tVJ-w9-U2C">
-                                                                    <modifierMask key="keyEquivalentModifierMask"/>
-                                                                    <connections>
-                                                                        <action selector="insertTemplate:" target="Ady-hI-5gd" id="bsv-Si-6tg"/>
-                                                                    </connections>
-                                                                </menuItem>
-                                                            </items>
-                                                        </menu>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
                                         </menuItem>
                                         <menuItem title="Reformat Code" image="text.document" catalog="system" id="Bpw-YD-8pa">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -2037,7 +1866,7 @@ Gw
         <image name="document.badge.plus" catalog="system" width="16" height="18"/>
         <image name="eye" catalog="system" width="16" height="11"/>
         <image name="eye.slash" catalog="system" width="21" height="16"/>
-        <image name="folder" catalog="system" width="18" height="14"/>
+        <image name="folder" catalog="system" width="15" height="12"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
         <image name="hammer.fill" catalog="system" width="15" height="14"/>
@@ -2055,8 +1884,6 @@ Gw
         <image name="stop.fill" catalog="system" width="12" height="11"/>
         <image name="text.document" catalog="system" width="14" height="16"/>
         <image name="text.page" catalog="system" width="14" height="16"/>
-        <image name="text.rectangle.page" catalog="system" width="14" height="16"/>
-        <image name="text.rectangle.page.fill" catalog="system" width="14" height="16"/>
         <image name="trash" catalog="system" width="15" height="17"/>
         <image name="xmark" catalog="system" width="14" height="13"/>
         <namedColor name="Advance">
