@@ -90,12 +90,13 @@ namespace hpnote {
     
     static std::u16string encodeTextAttributes(const ntf::Style style, const ntf::FontSize fontSize)
     {
-        uint32_t attributeBits = 0x1FE001FF;
+        uint32_t attributeBits = 0x1FE001FF; // 0x00800100 seems to work as well ?
         
         if (style.bold) attributeBits |= STYLE_BOLD;
         if (style.italic) attributeBits |= STYLE_ITALIC;
         if (style.underline) attributeBits |= STYLE_UNDERLINE;
         if (style.strikethrough) attributeBits |= STYLE_STRIKETHROUGH;
+// TODO: - Superscript & Subscript
         
         attributeBits |= static_cast<uint32_t>(fontSize) << 15;
         
@@ -222,11 +223,6 @@ namespace hpnote {
             encodedLine += utf::to_u16string(r.text);
         }
         encodedLine += u"\\0\\0";
-        
-        if (style.superscript)
-            encodedLine += STYLE_SCRIPT;
-        else if (style.subscript)
-            return encodedLine.insert(0, STYLE_SCRIPT);
         
         return encodedLine;
     }

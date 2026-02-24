@@ -73,6 +73,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "$(PROJECT_DIR)/test/DEBUG.ntf"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-o Note.hpappnote"
             isEnabled = "NO">
          </CommandLineArgument>
@@ -86,7 +90,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/TEST.hpappnote -o NTF.ntf"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/NTF.ntf"
@@ -94,7 +98,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o /dev/stdout"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--compress"
@@ -110,7 +114,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o ~/Documents/HP\ Prime/Calculators/Prime/"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--version"

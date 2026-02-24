@@ -23,15 +23,16 @@
 import Cocoa
 
 
-final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
+final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate {
     
     
     @IBOutlet weak var librarySearchPath: NSTextField!
     @IBOutlet weak var headerSearchPath: NSTextField!
     @IBOutlet weak var calculator: NSImageView!
-    @IBOutlet weak var calculatorComboBox: NSComboBox!
     @IBOutlet weak var defaultButton: NSButton!
     @IBOutlet weak var doneButton: NSButton!
+    
+    @IBOutlet weak var calculators: NSPopUpButton!
     
     // MARK: - View
     
@@ -56,16 +57,7 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
             self.calculator.image = NSImage(named: "VirtualCalculator")
         }
         
-        populateCalculatorComboBoxItems()
-        
-        calculatorComboBox.delegate = self
-        calculatorComboBox.usesDataSource = false
-        calculatorComboBox.focusRingType = .none
-        calculatorComboBox.numberOfVisibleItems = 20
-        calculatorComboBox.isEditable = false
-        calculatorComboBox.isSelectable = false
-        
-        
+        populateCalculatorsMenu()
     }
     
     override func viewDidAppear() {
@@ -85,79 +77,80 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
     }
     
     // MARK: - Calculator Selection
+    private func populateCalculatorsMenu() {
+        let selectedCalculator = UserDefaults.standard.string(forKey: "calculator") ?? "Prime"
+
+        let menu = calculators.menu
+        menu?.removeAllItems()
+
+        func makeMenuItem(title: String, stateName: String) -> NSMenuItem {
+            let item = NSMenuItem(
+                title: title,
+                action: #selector(calculatorSelected(_:)),
+                keyEquivalent: ""
+            )
+
+            if let image = NSImage(named: stateName == "Prime" ? "VirtualCalculator" : "ConnectivityKit")?.copy() as? NSImage {
+                image.size = NSSize(width: 16, height: 16)
+                item.image = image
+            }
+
+            item.state = selectedCalculator == stateName ? .on : .off
+            return item
+        }
+
+        // Built-in calculators
+        menu?.addItem(makeMenuItem(title: "Virtual Calculator", stateName: "Prime"))
+        menu?.addItem(makeMenuItem(title: "Connectivity Kit", stateName: "HP Prime"))
+        menu?.addItem(.separator())
+
+        // User calculators from disk
+        let calculatorsURL = FileManager.default
+            .homeDirectoryForCurrentUser
+            .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
+
+        let contents = try? FileManager.default.contentsOfDirectory(
+            at: calculatorsURL,
+            includingPropertiesForKeys: [.isDirectoryKey],
+            options: [.skipsHiddenFiles]
+        )
+
+        contents?
+            .map { $0.deletingPathExtension().lastPathComponent }
+            .filter { $0 != "HP Prime" }
+            .forEach { name in
+                let item = makeMenuItem(title: name, stateName: name)
+                menu?.addItem(item)
+            }
+
+        // Selection
+        switch selectedCalculator {
+        case "Prime":
+            calculators.selectItem(withTitle: "Virtual Calculator")
+        case "HP Prime":
+            calculators.selectItem(withTitle: "Connectivity Kit")
+        default:
+            calculators.selectItem(withTitle: selectedCalculator)
+        }
+    }
+
     
-    
-    func handleInput(_ text: String) {
-        if text == "Virtual Calculator" {
+    @objc private func calculatorSelected(_ sender: NSMenuItem) {
+        if sender.title == "Virtual Calculator" {
             calculator.image = NSImage(named: "VirtualCalculator")
             UserDefaults.standard.set("Prime", forKey: "calculator")
         } else {
-            if text == "Connectivity Kit" {
+            if sender.title == "Connectivity Kit" {
                 UserDefaults.standard.set("HP Prime", forKey: "calculator")
             } else {
-                UserDefaults.standard.set(text, forKey: "calculator")
+                UserDefaults.standard.set(sender.title, forKey: "calculator")
             }
             calculator.image = NSImage(named: "ConnectivityKit")
         }
     }
-    
-    func comboBoxSelectionDidChange(_ notification: Notification) {
-        guard let comboBox = notification.object as? NSComboBox else { return }
 
-        let index = comboBox.indexOfSelectedItem
-        guard index >= 0 else { return }
-
-        let value = comboBox.itemObjectValue(at: index) as? String ?? ""
-        handleInput(value)
-
-        DispatchQueue.main.async {
-            if let editor = comboBox.currentEditor() {
-                let length = editor.string.count
-                editor.selectedRange = NSRange(location: length, length: 0)
-            }
-        }
-    }
-    
-    private func populateCalculatorComboBoxItems() {
-        let connectivityKitURL = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
-        
-
-        let content = try? FileManager.default.contentsOfDirectory(
-            at: connectivityKitURL,
-            includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles],
-        )
-            .map { $0.deletingPathExtension().lastPathComponent.customPercentDecoded() }
-            .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
-
-        guard var content = content else {
-            return
-        }
-        content.removeAll(where: { $0.contains("HP Prime") })
-        calculatorComboBox.addItems(withObjectValues: content)
-        
-        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
-        
-        switch calculator {
-        case "Prime":
-            let index = calculatorComboBox.indexOfItem(withObjectValue: "Virtual Calculator")
-            calculatorComboBox.selectItem(at: index)
-            break
-            
-        case "HP Prime":
-            let index = calculatorComboBox.indexOfItem(withObjectValue: "Connectivity Kit")
-            calculatorComboBox.selectItem(at: index)
-            break
-            
-        default:
-            let index = calculatorComboBox.indexOfItem(withObjectValue: calculator)
-            calculatorComboBox.selectItem(at: index)
-        }
-    }
     
     // MARK: - Include or Lib Paths
-  
     func controlTextDidChange(_ notification: Notification) {
         guard let textField = notification.object as? NSTextField else { return }
 
@@ -176,7 +169,7 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
     @IBAction func defaultSettings(_ sender: Any) {
         headerSearchPath.stringValue = "$(SDK)/include"
         librarySearchPath.stringValue = "$(SDK)/lib"
-        calculatorComboBox.selectItem(withObjectValue: "Virtual Calculator")
+        calculators.selectItem(withTitle: "Virtual Calculator")
         calculator.image = NSImage(named: "VirtualCalculator")
         
         UserDefaults.standard.set("macOS", forKey: "platform")

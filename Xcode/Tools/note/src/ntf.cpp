@@ -164,19 +164,19 @@ namespace ntf {
         return (to5(r) << 10) | (to5(g) << 5) | to5(b);
     }
     
-    static std::vector<uint16_t> parseColorTable(const std::string& rtf)
+    static std::vector<uint16_t> parseColorTable(const std::string& s)
     {
         std::vector<uint16_t> colors;
         
         // index 0 = default color (\cf0)
         colors.push_back(0xFFFF);
         
-        size_t pos = rtf.find("\\colortbl");
+        size_t pos = s.find("\\colortbl");
         if (pos == std::string::npos)
             return colors;
         
         // rewind to group start
-        while (pos > 0 && rtf[pos] != '{')
+        while (pos > 0 && s[pos] != '{')
             --pos;
         
         int depth = 0;
@@ -184,8 +184,8 @@ namespace ntf {
         bool inTable = false;
         bool firstEntry = true; // skip mandatory empty entry
         
-        for (size_t i = pos; i < rtf.size(); ++i) {
-            char c = rtf[i];
+        for (size_t i = pos; i < s.size(); ++i) {
+            char c = s[i];
             
             if (c == '{') {
                 depth++;
@@ -205,18 +205,18 @@ namespace ntf {
             
             if (c == '\\') {
                 size_t start = ++i;
-                while (i < rtf.size() && std::isalpha(rtf[i]))
+                while (i < s.size() && std::isalpha(s[i]))
                     ++i;
                 
-                std::string word = rtf.substr(start, i - start);
+                std::string word = s.substr(start, i - start);
                 
                 int value = 0;
                 bool hasValue = false;
                 
-                if (i < rtf.size() && std::isdigit(rtf[i])) {
+                if (i < s.size() && std::isdigit(s[i])) {
                     hasValue = true;
-                    while (i < rtf.size() && std::isdigit(rtf[i])) {
-                        value = value * 10 + (rtf[i] - '0');
+                    while (i < s.size() && std::isdigit(s[i])) {
+                        value = value * 10 + (s[i] - '0');
                         ++i;
                     }
                 }

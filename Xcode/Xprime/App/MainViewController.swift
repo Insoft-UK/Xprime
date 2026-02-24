@@ -259,7 +259,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func populateTemplateMenu(menu: NSMenu) {
         let url = Bundle.main.resourceURL!.appendingPathComponent("Developer/Library/Xprime/Templates/File Templates")
         menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Template")?.submenu = populateTemplateMenu(url: url)
-//        menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Template")?.submenu = nil
     }
     
     private func populateTemplateMenu(url: URL) -> NSMenu {
@@ -343,8 +342,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
         submenu.removeAllItems()
     
-        let icon = NSImage(named: "Icon")!
-        let pythonIcon = NSImage(named: "Python")!
+        let icon = NSImage(named: "Icon")?.copy() as? NSImage
+        let pythonIcon = NSImage(named: "Python")?.copy() as? NSImage
 
         for path in recents {
             let name = URL(fileURLWithPath: path).lastPathComponent
@@ -364,7 +363,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         .deletingPathExtension()
                         .appendingPathExtension("hpappdir")
                         .appendingPathComponent("icon.png")
-                    )
+                    )?.copy() as? NSImage
                 } else {
                     menuItem.image = icon
                 }
@@ -374,6 +373,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 switch url.pathExtension.lowercased() {
                     case "py":
                     menuItem.image = pythonIcon
+                        case "note", "md", "ntf":
+                        menuItem.image = NSImage(named: "Notes")?.copy() as? NSImage
                 default:
                     menuItem.image = icon
                     break
@@ -882,6 +883,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             options: [.skipsHiddenFiles]
         )
         
+        let apps = NSImage(named: "Apps")?.copy() as! NSImage
+        let program = NSImage(named: "Program")?.copy() as! NSImage
+//        let file = NSImage(named: "File")?.copy() as! NSImage
+        let python = NSImage(named: "Python")?.copy() as! NSImage
+        let notes = NSImage(named: "Notes")?.copy() as! NSImage
+        let icon = NSImage(named: "Icon")?.copy() as! NSImage
+        
         contents?
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
             .forEach { url in
@@ -904,40 +912,31 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         action: #selector(quickOpen(_:)),
                         keyEquivalent: ""
                     )
-                    
-                    let image: NSImage
-                    
-
+                
                     switch url.pathExtension.lowercased() {
                     case "note", "md", "ntf", "txt":
-                        image = NSImage(named: "Notes")!
-
-                    case "app":
-                        image = NSImage(named: "Apps")!
-                        
-                    case "ppl", "ppl+":
-                        image = NSImage(named: "Program")!
+                        menu.items.last?.image = notes
                         
                     case "py":
-                        image = NSImage(named: "Python Program")!
+                        menu.items.last?.image = python
                         
                     case "prgm", "prgm+":
-                        if url.deletingPathExtension().lastPathComponent == "main" && projectManager.isProjectApplication == true {
-                            image = NSImage(named: "Apps")!
+                        if url.deletingPathExtension().lastPathComponent == "main" {
+                            menu.items.last?.image = projectManager.projectIcon
                         } else {
-                            image = NSImage(named: "Program")!
+                            menu.items.last?.image = icon
                         }
+                        
                     
                     default:
-                        image = NSImage(named: "File")!
+                        menu.items.last?.image = icon
                     }
                     
-                    menu.items.last?.image = image
-                    menu.items.last?.image?.size = NSSize(width: 35, height: 19)
+                    menu.items.last?.image?.size = NSSize(width: 16, height: 16)
                     if url == documentManager.currentDocumentURL {
                         menu.items.last?.state = .on
-                        comboButton.image = image
-                        comboButton.image?.size = NSSize(width: 35, height: 19)
+                        comboButton.image = menu.items.last?.image
+                        comboButton.image?.size = NSSize(width: 16, height: 16)
                     }
                 }
             }

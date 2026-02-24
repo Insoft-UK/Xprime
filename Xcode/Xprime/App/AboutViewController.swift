@@ -45,12 +45,12 @@ final class AboutViewController: NSViewController {
         
         // Make window background transparent
         window.isOpaque = false
-        window.backgroundColor = NSColor(white: 0, alpha: 0.0)
-        
-        window.titleVisibility = .hidden
+        window.backgroundColor = .clear
         window.titlebarAppearsTransparent = true
-        window.styleMask = [.nonactivatingPanel, .titled]
+        window.titleVisibility = .hidden
         window.styleMask.insert(.fullSizeContentView)
+        
+        window.styleMask = [.nonactivatingPanel, .titled]
       
         window.center()
         window.level = .floating
