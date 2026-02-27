@@ -11,22 +11,30 @@ cd installer
 project_file=$(basename "$project_dir")
 PROJECT_NAME="${project_file%.xcodeproj}"
 
+echo 1️⃣ Build the flat package
+pkgbuild \
+  --root package-root \
+  --identifier uk.insoft.$PROJECT_NAME \
+  --version 1.0 \
+  $PROJECT_NAME.pkg
 
-pkgbuild --identifier uk.insoft.$PROJECT_NAME \
-         --root package-root \
-         --version 1.0 --install-location / \
-         $PROJECT_NAME.pkg
-         
-productsign --sign "Developer ID Installer: $YOUR_NAME ($TEAM_ID)" $PROJECT_NAME.pkg $PROJECT_NAME-signed.pkg
+echo 2️⃣ Sign the package
+productsign \
+  --sign "Developer ID Installer: $YOUR_NAME ($TEAM_ID)" \
+    $PROJECT_NAME.pkg \
+    $PROJECT_NAME-signed.pkg
 
-xcrun notarytool submit --apple-id $APPLE_ID \
-                        --password $PASSWORD \
-                        --team-id $TEAM_ID \
-                        --wait $NAME-signed.pkg
-                        
-# Staple
+echo 3️⃣ Submit for notarization using your keychain profile
+xcrun notarytool submit $PROJECT_NAME-signed.pkg \
+  --keychain-profile "mycreds" \
+  --wait \
+  --verbose
+
+# 4️⃣ Staple the notarization ticket
 xcrun stapler staple $PROJECT_NAME-signed.pkg
 
+echo ✅ font-signed.pkg is now signed, notarized, and ready for distribution
+   
 # Verify
 xcrun stapler validate $PROJECT_NAME-signed.pkg
 

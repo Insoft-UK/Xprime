@@ -1635,7 +1635,7 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <scrollView hidden="YES" fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="gM6-VC-kCh">
+                                    <scrollView hidden="YES" misplaced="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="gM6-VC-kCh">
                                         <rect key="frame" x="0.0" y="374" width="1024" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" id="fIY-XC-Rbg">
@@ -1652,6 +1652,9 @@ Gw
                                                 </textView>
                                             </subviews>
                                         </clipView>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="Tl9-Nu-gUa"/>
+                                        </constraints>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="mrc-Dy-261">
                                             <rect key="frame" x="-100" y="-100" width="240" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1851,11 +1854,11 @@ Gw
         <image name="folder" catalog="system" width="18" height="14"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="15" height="14"/>
+        <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="icon" width="38" height="38"/>
         <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
-        <image name="play.fill" catalog="system" width="10" height="11"/>
+        <image name="play.fill" catalog="system" width="12" height="13"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="ppl" width="16" height="16"/>
         <image name="questionmark.circle" catalog="system" width="15" height="15"/>

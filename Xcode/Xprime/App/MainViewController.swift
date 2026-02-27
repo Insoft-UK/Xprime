@@ -96,6 +96,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         if let path = UserDefaults.standard.string(forKey: "lastOpenedProjectPath"), FileManager.default.fileExists(atPath: path) {
             projectManager.openProject(at: URL(fileURLWithPath: path))
+        } else {
+            FileManager
+                .default
+                .changeCurrentDirectoryPath(
+                    UserDefaults
+                        .standard
+                        .string(forKey: "location") ?? FileManager
+                        .default
+                        .homeDirectoryForCurrentUser
+                        .appendingPathComponent("Xprime/Projects")
+                        .path
+                )
         }
     }
     
@@ -277,6 +289,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let pythonIcon = NSImage(named: "Python")?.copy() as? NSImage
 
         for path in recents {
+            if FileManager.default.fileExists(atPath: path) == false {
+                continue
+            }
             let name = URL(fileURLWithPath: path).lastPathComponent
             
             let menuItem = NSMenuItem(
@@ -654,96 +669,60 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
     
-    // MARK: - Xprime #require extension to PPL+ for importing Programs
-    @discardableResult
-    private func processRequires(in text: String) -> (cleaned: String, requiredFiles: [String]) {
-        let pattern = #"#require\s*"([^"<>]+)""#
+    // MARK: - Xprime `uses` support to PPL+ for importing Apps used by Program/App
+    private func processUses(in text: String) -> (cleaned: String, units: [String]) {
+        // Matches: uses A, B, C;
+        // Also supports multiline uses blocks
+        let pattern = #"(?is)\buses\s+([^;]+);"#
         let regex = try! NSRegularExpression(pattern: pattern)
-        
-        var requiredFiles: [String] = []
+
+        var units: [String] = []
         var cleanedText = text
-        
-        let basePath = ToolchainPaths.developerRoot.appendingPathComponent("usr")
-            .appendingPathComponent("hpprgm")
-            .path
-        
-        // Find matches
+
         let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
-        
+
         for match in matches.reversed() {
-            // Extract filename
+            // Capture group: everything between 'uses' and ';'
             if let range = Range(match.range(at: 1), in: text) {
-                let filePath = URL(fileURLWithPath: basePath)
-                    .appendingPathComponent(String(text[range]))
-                    .appendingPathExtension("hpprgm")
-                    .path
-                
-                requiredFiles.append(filePath)
+                let usesBody = text[range]
+
+                // Split by commas and trim whitespace/newlines
+                let extracted = usesBody
+                    .split(separator: ",")
+                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .filter { !$0.isEmpty }
+
+                units.append(contentsOf: extracted)
             }
-            
-            // Remove entire #require line from the output
+
+            // Remove the entire uses ...; block
             if let fullRange = Range(match.range, in: cleanedText) {
                 cleanedText.removeSubrange(fullRange)
             }
         }
         
-        return (cleanedText, requiredFiles)
+        cleanedText = cleanedText
+            .replacingOccurrences(of: "\n\n\n+", with: "\n\n", options: .regularExpression)
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        return (cleaned: cleanedText, units: units)
     }
     
-    private func installRequiredApps(requiredApps: [String]) {
-        for file in requiredApps {
-            do {
-                try HPServices.installHPAppDirectory(at: URL(fileURLWithPath: file))
-                outputTextView.appendTextAndScroll("Installed: \"\(file)\"\n")
-            } catch {
-                outputTextView.appendTextAndScroll("Error installing \"\(file).hpappdir\": \(error)\n")
-            }
-        }
-    }
-    
-    // MARK: - Xprime #require extension to PPL+ for importing Apps
-    @discardableResult
-    private func processAppRequires(in text: String) -> (cleaned: String, requiredApps: [String]) {
-        let pattern = #"#require\s*<([^"<>]+)>"#
-        let regex = try! NSRegularExpression(pattern: pattern)
-        
-        var requiredApps: [String] = []
-        var cleanedText = text
-        
-        let basePath = ToolchainPaths.developerRoot.appendingPathComponent("usr")
+    private func installRequiredUnits(units: [String]) {
+        let basePath = ToolchainPaths.developerRoot
+            .appendingPathComponent("usr")
             .appendingPathComponent("hpappdir")
-            .path
-        
-        // Find matches
-        let matches = regex.matches(in: text, range: NSRange(text.startIndex..., in: text))
-        
-        for match in matches.reversed() {
-            // Extract filename
-            if let range = Range(match.range(at: 1), in: text) {
-                let filePath = URL(fileURLWithPath: basePath)
-                    .appendingPathComponent(String(text[range]))
-                    .appendingPathExtension("hpappdir")
-                    .path
-                
-                requiredApps.append(filePath)
-            }
-            
-            // Remove entire #require line from the output
-            if let fullRange = Range(match.range, in: cleanedText) {
-                cleanedText.removeSubrange(fullRange)
-            }
-        }
-        
-        return (cleanedText, requiredApps)
-    }
-    
-    private func installRequiredPrograms(requiredFiles: [String]) {
-        for file in requiredFiles {
+
+        for unit in units {
+            let fileURL = basePath
+                .appendingPathComponent(unit)
+                .appendingPathExtension("hpappdir")
+
             do {
-                try HPServices.installHPPrgm(at: URL(fileURLWithPath: file))
-                outputTextView.appendTextAndScroll("Installed: \"\(file)\"\n")
+                try HPServices.installHPAppDirectory(at: fileURL)
+                outputTextView.appendTextAndScroll("Installed: \"\(unit)\"\n")
             } catch {
-                outputTextView.appendTextAndScroll("Error installing \"\(file).hpprgm\": \(error)\n")
+                outputTextView.appendTextAndScroll("Error installing \"\(unit)\": \(error)\n")
             }
         }
     }
@@ -1174,12 +1153,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         saveDocument(sender)
         guard let _ = documentManager.currentDocumentURL else { return }
         
-        let result = processRequires(in: codeEditorTextView.string)
-        installRequiredPrograms(requiredFiles: result.requiredFiles)
-        
-        let appsToInstall = processAppRequires(in: codeEditorTextView.string)
-        installRequiredApps(requiredApps: appsToInstall.requiredApps)
-        
+        installRequiredUnits(units: processUses(in: codeEditorTextView.string).units)
+       
         if projectManager.isProjectApplication {
             buildApplication()
             installHPAppDirectoryToCalculator(sender)

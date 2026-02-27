@@ -5,9 +5,22 @@
   "groups" : [
     {
       "layers" : [
+
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "layers" : [
         {
-          "image-name" : "Xprime 26 Developer.png",
-          "name" : "Xprime 26 Developer"
+          "image-name" : "Xprime 26.3.png",
+          "name" : "Xprime 26.3"
         }
       ],
       "shadow" : {
