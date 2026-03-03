@@ -1,7 +1,7 @@
 ### Xprime 26.3
--- **Settings**: Themes and other relating settings now handled in settings.
+- **Settings**: Themes and other relating settings now handled in settings.
 
--- **Tools**: PPL+, GROB, Font & Note updated to the current versions.
+- **Tools**: PPL+, GROB, Font & Note updated to the current versions.
 
 ### Xprime 26.2
 - **Export feature removed**: The traditional Export menu is no longer needed because the new file handling makes it redundant.
