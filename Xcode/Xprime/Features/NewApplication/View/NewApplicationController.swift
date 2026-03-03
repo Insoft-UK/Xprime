@@ -87,7 +87,7 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
         guard let selectedLanguage = language.titleOfSelectedItem else { return }
         
         do {
-            let sourceURL = Bundle.main.url(forResource: "application", withExtension: selectedLanguage == "PPL" ? "ppl" : "ppl+")
+            let sourceURL = Bundle.main.url(forResource: "application", withExtension: selectedLanguage == "PPL" ? "prgm" : "prgm+")
             let destinationURL = directoryURL
                 .appendingPathComponent(name)
                 .appendingPathComponent("main")

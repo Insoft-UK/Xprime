@@ -4,11 +4,11 @@
   "patterns": [
     {
       "name": "Functions",
-      "match": "(?mi)[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]*(\\.[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]+)*(?= *\\(|;)"
+      "match": "(?mi)[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]*(\\.[%a-z\\u0080-\\uFFFF][\\w\\u0080-\\uFFFF]+)*(?= *\\()"
     },
     {
       "name": "Keywords",
-      "match": "(?mi)\\b(alias|begin|end|return|kill|if|then|else|xor|or|and|not|case|default|iferr|ifte|for|from|step|downto|to|do|while|repeat|until|break|continue|export|const|local|key|var|endif|wend|next|switch|try|catch|catalog|private|dict|regex|dictionary|auto|freeze|eval)\\b"
+      "match": "(?mi)\\b(uses|alias|begin|end|return|kill|if|then|else|xor|or|and|not|case|default|iferr|ifte|for|from|step|downto|to|do|while|repeat|until|break|continue|export|const|local|key|var|endif|wend|next|switch|try|catch|catalog|private|dict|regex|dictionary|auto|freeze|eval)\\b"
     },
     {
       "name": "Namespace",

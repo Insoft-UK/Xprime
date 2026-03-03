@@ -79,7 +79,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         guard let selectedLanguage = language.titleOfSelectedItem else { return }
         
         do {
-            let sourceURL = Bundle.main.url(forResource: CAS.state == .on ? "program-cas" : "program", withExtension: selectedLanguage == "PPL" ? "ppl" : "ppl+")
+            let sourceURL = Bundle.main.url(forResource: CAS.state == .on ? "program-cas" : "program", withExtension: selectedLanguage == "PPL" ? "prgm" : "prgm+")
             let destinationURL = directoryURL
                 .appendingPathComponent(name)
                 .appendingPathComponent("main")
