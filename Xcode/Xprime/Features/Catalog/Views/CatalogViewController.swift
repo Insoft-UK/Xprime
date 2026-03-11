@@ -50,7 +50,6 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         
         // Make window background transparent
         window.isOpaque = false
-        let sliderValue = UserDefaults.standard.object(forKey: "Catalog Window Opacity") as? CGFloat ?? 0.70
         
         // Optional: remove title bar / standard window decorations
         window.titleVisibility = .hidden
