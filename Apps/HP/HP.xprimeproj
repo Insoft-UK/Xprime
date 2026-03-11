@@ -1,9 +1,9 @@
 {
-  "bin" : "\/usr\/local\/bin",
-  "lib" : "",
-  "compression" : false,
   "plainFallbackText" : true,
-  "include" : "",
+  "compression" : false,
+  "lib" : "",
   "calculator" : "Prime",
-  "archiveProjectAppOnly" : true
+  "archiveProjectAppOnly" : true,
+  "include" : "",
+  "bin" : "\/usr\/local\/bin"
 }

@@ -26,7 +26,7 @@ final class ProjectSettings {
     static let shared = ProjectSettings()
     private init() {}
 
-    @UserDefault(key: "compression", defaultValue: false)
+    @UserDefault(key: "Compression", defaultValue: false)
     var compression: Bool
 
     @UserDefault(key: "include", defaultValue: "$(SDKROOT)/include")
@@ -35,15 +35,15 @@ final class ProjectSettings {
     @UserDefault(key: "lib", defaultValue: "$(SDKROOT)/lib")
     var lib: String
 
-    @UserDefault(key: "calculator", defaultValue: "Prime")
+    @UserDefault(key: "Calculator", defaultValue: "Prime")
     var calculator: String
 
     @UserDefault(key: "bin", defaultValue: "/usr/local/bin")
     var bin: String
 
-    @UserDefault(key: "archiveProjectAppOnly", defaultValue: true)
+    @UserDefault(key: "Archive Project Application Only", defaultValue: true)
     var archiveProjectAppOnly: Bool
 
-    @UserDefault(key: "plainFallbackText", defaultValue: true)
+    @UserDefault(key: "Plain Fallback Text", defaultValue: true)
     var plainFallbackText: Bool
 }

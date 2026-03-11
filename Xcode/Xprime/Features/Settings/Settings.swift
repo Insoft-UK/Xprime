@@ -27,14 +27,14 @@ final class Settings {
     static let shared = Settings()
     private init() {}
 
-    @UserDefault(key: "SubtitutionEnabled", defaultValue: false)
+    @UserDefault(key: "Subtitution Enabled", defaultValue: false)
     var subtitutionEnabled: Bool
     
-    @UserDefault(key: "preferredTheme", defaultValue: "Default (Dark)")
+    @UserDefault(key: "Preferred Theme", defaultValue: "Default (Dark)")
     var preferredTheme: String
     
     @UserDefault(
-        key: "location",
+        key: "Location",
         defaultValue: FileManager
         .default
         .homeDirectoryForCurrentUser

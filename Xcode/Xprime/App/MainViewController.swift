@@ -437,18 +437,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         updateWindowDocumentIcon()
     }
     
-    // MARK: - Theme & Grammar Action Handlers
-//    @objc func handleThemeSelection(_ sender: NSMenuItem) {
-//        UserDefaults.standard.set(sender.title, forKey: "preferredTheme")
-//        themeManager.applySavedTheme()
-//    }
-    
-    @objc func handleGrammarSelection(_ sender: NSMenuItem) {
-        UserDefaults.standard.set(sender.title, forKey: "preferredGrammar")
-        codeEditorTextView.loadGrammar(named: sender.title)
-    }
-    
-    
     // MARK: - Helper Functions
     private func updateWindowDocumentIcon() {
         guard let window = view.window else { return }
@@ -537,10 +525,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     private func mainURL(in directoryURL: URL) -> URL? {
         for main in [
-            "main.prgm+",
-            "main.prgm",
             "main.ppl+",
-            "main.ppl"
+            "main.ppl",
+            "main.pas",
+            "main.prgm+",
+            "main.prgm"
         ] {
             let url = directoryURL
                 .appendingPathComponent(main)
@@ -1368,13 +1357,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 //            }
 //            return true
             
-        case #selector(handleGrammarSelection(_:)):
-            if GrammarLoader.shared.preferredGrammar == menuItem.title {
-                menuItem.state = .on
-            } else {
-                menuItem.state = .off
-            }
-            return true
+//        case #selector(handleGrammarSelection(_:)):
+//            if GrammarLoader.shared.preferredGrammar == menuItem.title {
+//                menuItem.state = .on
+//            } else {
+//                menuItem.state = .off
+//            }
+//            return true
             
         case #selector(addFilesTo(_:)):
             if projectManager.projectDirectoryURL != nil, let projectName = projectManager.projectName {

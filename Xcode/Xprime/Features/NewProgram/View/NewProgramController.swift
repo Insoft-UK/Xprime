@@ -29,8 +29,6 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
     
     private var vc: MainViewController!
     
-//    private var language = "prgm+"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -50,7 +48,6 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         }
         vc = window.contentViewController as? MainViewController
     }
-    
     
     // MARK: - Actions
     @IBAction func create(_ sender: Any) {
@@ -87,11 +84,11 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         guard let selectedLanguage = language.titleOfSelectedItem else { return }
         
         do {
-            let sourceURL = Bundle.main.url(forResource: CAS.state == .on ? "program-cas" : "program", withExtension: selectedLanguage == "PPL" ? "prgm" : "prgm+")
+            let sourceURL = Bundle.main.url(forResource: CAS.state == .on ? "program-cas" : "program", withExtension: selectedLanguage == "PPL" ? "ppl" : "ppl+")
             let destinationURL = directoryURL
                 .appendingPathComponent(name)
                 .appendingPathComponent("main")
-                .appendingPathExtension(selectedLanguage == "PPL" ? "prgm" : "prgm+")
+                .appendingPathExtension(selectedLanguage == "PPL" ? "ppl" : "ppl+")
             
             guard let sourceURL else { return }
             
@@ -133,17 +130,14 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         }
     }
     
-    
     private func replaceProjectName(
         in sourceURL: URL,
         to destinationURL: URL,
         newName: String
     ) throws {
         // Read file contents
-        let sourceEncoding: String.Encoding = sourceURL.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
-        let destinationEncoding: String.Encoding = destinationURL.pathExtension.lowercased() == "prgm" ? .utf16 : .utf8
         
-        let contents = try String(contentsOf: sourceURL, encoding: sourceEncoding)
+        let contents = try String(contentsOf: sourceURL, encoding: .utf8)
 
         // Replace placeholder
         let updatedContents = contents.replacingOccurrences(
@@ -155,7 +149,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         try updatedContents.write(
             to: destinationURL,
             atomically: true,
-            encoding: destinationEncoding
+            encoding: .utf8
         )
     }
     
