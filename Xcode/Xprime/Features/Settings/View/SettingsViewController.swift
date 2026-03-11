@@ -27,6 +27,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var theme: NSPopUpButton!
     @IBOutlet weak var location: NSTextField!
     
+    private var vc: MainViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,17 +43,19 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
+        
+        guard let window = NSApplication.shared.windows.first else {
+            self.view.window?.close(); return
+        }
+        vc = window.contentViewController as? MainViewController
     }
     
     private func setup() {
         configureThemeSelection()
         configureSubtitutionActions()
         
-        location.stringValue = UserDefaults.standard.string(forKey: "location") ?? FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Xprime")
-            .path
-        
         location.delegate = self
+        location.stringValue = Settings.shared.location
     }
     
     func controlTextDidChange(_ notification: Notification) {
@@ -60,7 +63,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
 
         switch textField.tag {
         case 1:
-            UserDefaults.standard.set(textField.stringValue, forKey: "location")
+            Settings.shared.location = textField.stringValue
             break;
         default:
             break
@@ -69,11 +72,12 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     
     // MARK: - Actions
     @objc private func preferSubtitutionSwitchToggled(_ sender: NSSwitch) {
-        UserDefaults.standard.set(sender.state == .on, forKey: "SubtitutionEnabled")
+        Settings.shared.subtitutionEnabled = sender.state == .on
     }
     
     @objc private func handleThemeSelection(_ sender: NSMenuItem) {
-        UserDefaults.standard.set(sender.title, forKey: "preferredTheme")
+        Settings.shared.preferredTheme = sender.title
+        vc.themeManager.applySavedTheme()
     }
     
     
@@ -82,25 +86,19 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func defaultSettings(_ sender: Any) {
-        UserDefaults.standard.set(false, forKey: "SubtitutionEnabled")
-        UserDefaults.standard.set("Default (Dark)", forKey: "preferredTheme")
-        UserDefaults.standard.set(
-            FileManager
-                .default
-                .homeDirectoryForCurrentUser
-                .appendingPathComponent("Xprime")
-                .path,
-            forKey: "location"
-        )
-            
-        location.stringValue = FileManager
+        Settings.shared.subtitutionEnabled = false
+        Settings.shared.preferredTheme = "Default (Dark)"
+        Settings.shared.location = FileManager
             .default
             .homeDirectoryForCurrentUser
             .appendingPathComponent("Xprime")
             .path
-        substitution.state = .off
-        theme.selectItem(withTitle: "Default (Dark)")
         
+        location.stringValue = Settings.shared.location
+        substitution.state = .off
+        theme.selectItem(withTitle: Settings.shared.preferredTheme)
+        
+        vc.themeManager.applySavedTheme()
     }
     
     // MARK: - Private Helpers
@@ -124,7 +122,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
                     ) == .orderedAscending
             }
         
-        let themeName = UserDefaults.standard.string(forKey: "preferredTheme") ?? "Default (Dark)"
+        let themeName = Settings.shared.preferredTheme
         
         for fileURL in sortedURLs {
             let name = fileURL.deletingPathExtension().lastPathComponent
@@ -147,6 +145,6 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     private func configureSubtitutionActions() {
         substitution.target = self
         substitution.action = #selector(preferSubtitutionSwitchToggled(_:))
-        substitution.state = UserDefaults.standard.bool(forKey: "SubtitutionEnabled") ? .on : .off
+        substitution.state = Settings.shared.subtitutionEnabled ? .on : .off
     }
 }

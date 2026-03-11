@@ -23,34 +23,8 @@
 import Cocoa
 
 
-final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate, ProjectManagerDelegate {
-    func projectManagerDidSave(_ manager: ProjectManager) {
-    }
-    
-    func projectManager(_ manager: ProjectManager, didFailWith error: any Error) {
-    }
-    
-    func projectManagerDidOpen(_ manager: ProjectManager) {
-        librarySearchPath.stringValue = ToolchainPaths.lib
-        headerSearchPath.stringValue = ToolchainPaths.include
-        
-        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
-
-        if HPServices.hpPrimeCalculatorExists(named: calculator) {
-            self.calculator.image = NSImage(named: "ConnectivityKit")
-        } else {
-            self.calculator.image = NSImage(named: "VirtualCalculator")
-        }
-        
-        populateCalculatorsMenu()
-    }
-    
-    func projectManager(_ manager: ProjectManager, didFailToOpen error: any Error) {
-    }
-    
-    func projectManagerDidClose(_ manager: ProjectManager) {
-    }
-    
+final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate {
+    private var vc: MainViewController!
     
     @IBOutlet weak var librarySearchPath: NSTextField!
     @IBOutlet weak var headerSearchPath: NSTextField!
@@ -60,20 +34,27 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
     
     @IBOutlet weak var calculators: NSPopUpButton!
     
-    // MARK: - Managers
-    private var projectManager: ProjectManager!
-    
+
     // MARK: - View
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        projectManager = ProjectManager()
-        projectManager.delegate = self
-
-        
         librarySearchPath.delegate = self
         headerSearchPath.delegate = self
+        
+        librarySearchPath.stringValue = ProjectSettings.shared.lib // ToolchainPaths.lib
+        headerSearchPath.stringValue = ProjectSettings.shared.include //ToolchainPaths.include
+        
+//        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
+
+        if HPServices.hpPrimeCalculatorExists(named: ProjectSettings.shared.calculator) {
+            self.calculator.image = NSImage(named: "ConnectivityKit")
+        } else {
+            self.calculator.image = NSImage(named: "VirtualCalculator")
+        }
+        
+        populateCalculatorsMenu()
     }
     
     override func viewDidAppear() {
@@ -91,15 +72,14 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
         
-        if let path = UserDefaults.standard.string(forKey: "lastOpenedProjectPath"), FileManager.default.fileExists(atPath: path) {
-            projectManager.openProject(at: URL(fileURLWithPath: path))
+        guard let window = NSApplication.shared.windows.first else {
+            self.view.window?.close(); return
         }
+        vc = window.contentViewController as? MainViewController
     }
     
     // MARK: - Calculator Selection
     private func populateCalculatorsMenu() {
-        let selectedCalculator = UserDefaults.standard.string(forKey: "calculator") ?? "Prime"
-
         let menu = calculators.menu
         menu?.removeAllItems()
 
@@ -115,7 +95,7 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
                 item.image = image
             }
 
-            item.state = selectedCalculator == stateName ? .on : .off
+            item.state = ProjectSettings.shared.calculator == stateName ? .on : .off
             return item
         }
 
@@ -144,13 +124,13 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
             }
 
         // Selection
-        switch selectedCalculator {
+        switch ProjectSettings.shared.calculator {
         case "Prime":
             calculators.selectItem(withTitle: "Virtual Calculator")
         case "HP Prime":
             calculators.selectItem(withTitle: "Connectivity Kit")
         default:
-            calculators.selectItem(withTitle: selectedCalculator)
+            calculators.selectItem(withTitle: ProjectSettings.shared.calculator)
         }
     }
 
@@ -176,10 +156,10 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
 
         switch textField.tag {
         case 1:
-            UserDefaults.standard.set(textField.stringValue, forKey: "include")
+            ProjectSettings.shared.include = textField.stringValue
             break;
         case 2:
-            UserDefaults.standard.set(textField.stringValue, forKey: "lib")
+            ProjectSettings.shared.lib = textField.stringValue
             break;
         default:
             break
@@ -187,24 +167,26 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
     }
     
     @IBAction func defaultSettings(_ sender: Any) {
-        UserDefaults.standard.set(false, forKey: "plainFallbackText")
-        UserDefaults.standard.set(false, forKey: "compression")
-        UserDefaults.standard.set("$(SDKROOT)/include", forKey: "include")
-        UserDefaults.standard.set("$(SDKROOT)/lib", forKey: "lib")
-        UserDefaults.standard.set("Prime", forKey: "calculator")
-        UserDefaults.standard.set("/usr/local/bin", forKey: "bin")
-        UserDefaults.standard.set(true, forKey: "archiveProjectAppOnly")
+        ProjectSettings.shared.calculator = "Prime"
+        ProjectSettings.shared.archiveProjectAppOnly = true
+        ProjectSettings.shared.plainFallbackText = true
+        ProjectSettings.shared.compression = false
+        ProjectSettings.shared.include = "$(SDKROOT)/include"
+        ProjectSettings.shared.lib = "$(SDKROOT)/lib"
+        ProjectSettings.shared.bin = "/usr/local/bin"
         
-        librarySearchPath.stringValue = ToolchainPaths.lib
-        headerSearchPath.stringValue = ToolchainPaths.include
+        
+        librarySearchPath.stringValue = ProjectSettings.shared.lib
+        headerSearchPath.stringValue = ProjectSettings.shared.include
         calculators.selectItem(withTitle: "Virtual Calculator")
         calculator.image = NSImage(named: "VirtualCalculator")
     }
     
  
     @IBAction func close(_ sender: Any) {
-        if let url = projectManager.projectDirectoryURL {
-            projectManager.saveProjectAs(at: url)
+        if let url = vc.projectManager.projectDirectoryURL, let projectName = vc.projectManager.projectName {
+            
+            vc.projectManager.saveProjectAs(at: url.appendingPathComponent(projectName + ".xcodeproj"))
         }
         
         self.view.window?.close()

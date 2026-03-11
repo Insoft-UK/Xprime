@@ -21,51 +21,29 @@
 // SOFTWARE.
 
 
-import Cocoa
+final class ProjectSettings {
 
-enum ToolchainPaths {
+    static let shared = ProjectSettings()
+    private init() {}
 
-    static var developerRoot: URL {
-        Bundle.main.bundleURL
-            .appendingPathComponent("Contents/Resources/Developer")
-    }
+    @UserDefault(key: "compression", defaultValue: false)
+    var compression: Bool
 
-    static var bin: String {
-        resolveUserPath(
-            key: "bin",
-            fallback: "/usr/local/bin",
-            bundled: developerRoot.appendingPathComponent("usr/bin")
-        )
-    }
+    @UserDefault(key: "include", defaultValue: "$(SDKROOT)/include")
+    var include: String
 
-    static var include: String {
-        resolveUserPath(
-            key: "include",
-            fallback: "$(SDKROOT)/include",
-            bundled: developerRoot.appendingPathComponent("usr/include")
-        )
-    }
+    @UserDefault(key: "lib", defaultValue: "$(SDKROOT)/lib")
+    var lib: String
 
-    static var lib: String {
-        resolveUserPath(
-            key: "lib",
-            fallback: "$(SDKROOT)/lib",
-            bundled: developerRoot.appendingPathComponent("usr/lib")
-        )
-    }
+    @UserDefault(key: "calculator", defaultValue: "Prime")
+    var calculator: String
 
-    private static func resolveUserPath(
-        key: String,
-        fallback: String,
-        bundled: URL
-    ) -> String {
+    @UserDefault(key: "bin", defaultValue: "/usr/local/bin")
+    var bin: String
 
-        let value = UserDefaults.standard.string(forKey: key) ?? fallback
+    @UserDefault(key: "archiveProjectAppOnly", defaultValue: true)
+    var archiveProjectAppOnly: Bool
 
-        if value == "~" {
-            return bundled.path
-        }
-
-        return value
-    }
+    @UserDefault(key: "plainFallbackText", defaultValue: true)
+    var plainFallbackText: Bool
 }

@@ -27,6 +27,8 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
     @IBOutlet private weak var productName: NSTextField!
     @IBOutlet private weak var CAS: NSSwitch!
     
+    private var vc: MainViewController!
+    
 //    private var language = "prgm+"
     
     override func viewDidLoad() {
@@ -42,6 +44,11 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
+        
+        guard let window = NSApplication.shared.windows.first else {
+            self.view.window?.close(); return
+        }
+        vc = window.contentViewController as? MainViewController
     }
     
     
@@ -62,6 +69,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
             do {
                 let name = try self.safeName(from: self.productName.stringValue)
                 self.create(named: name, in: folderURL)
+                self.vc.projectManager.openProject(in: folderURL.appendingPathComponent(name))
             } catch {
                 return
             }

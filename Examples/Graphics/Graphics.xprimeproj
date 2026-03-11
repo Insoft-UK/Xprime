@@ -1,8 +1,9 @@
 {
+  "include" : "$(SDKROOT)\/include",
+  "bin" : "\/usr\/local\/bin",
+  "plainFallbackText" : true,
+  "compression" : false,
   "calculator" : "Prime",
   "archiveProjectAppOnly" : true,
-  "compression" : false,
-  "include" : "$(SDKROOT)\/include",
-  "lib" : "$(SDKROOT)\/lib",
-  "bin" : "\/usr\/local\/bin"
+  "lib" : "$(SDKROOT)\/lib"
 }

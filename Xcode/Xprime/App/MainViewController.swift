@@ -46,7 +46,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     // MARK: - Managers
     private var documentManager: DocumentManager!
     var projectManager: ProjectManager!
-    private var themeManager: ThemeManager!
+    var themeManager: ThemeManager!
     private var updateManager: UpdateManager!
     private var statusManager: StatusManager!
     
@@ -176,22 +176,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         print("Window gained focus")
 #endif
         
-        themeManager.applySavedTheme()
         codeEditorTextView.smartSubtitution = UserDefaults.standard.bool(forKey: "SubtitutionEnabled")
         
-        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
-        
-        let currentDirectoryPath = FileManager.default.currentDirectoryPath
-        let currentDirectoryURL = URL(fileURLWithPath: currentDirectoryPath)
-        
-        if currentDirectoryPath != projectDirectoryURL.path && ProjectManager.projectName(in: currentDirectoryURL) != nil {
-            projectManager.openProject(in: currentDirectoryURL)
-        } else {
-            refreshQuickOpenToolbar()
-            refreshProjectIconImage()
-            updateWindowDocumentIcon()
-            refreshBaseApplicationMenu()
-        }
+        refreshQuickOpenToolbar()
+        refreshProjectIconImage()
+        updateWindowDocumentIcon()
+        refreshBaseApplicationMenu()
     }
     
     @objc private func windowDidResignKey() {

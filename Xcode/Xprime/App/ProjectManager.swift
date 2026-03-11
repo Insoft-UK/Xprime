@@ -47,6 +47,7 @@ fileprivate struct Project: Codable {
     let calculator: String
     let bin: String
     let archiveProjectAppOnly: Bool
+    let plainFallbackText: Bool
 }
 
 final class ProjectManager {
@@ -148,12 +149,13 @@ final class ProjectManager {
                 // Project is invalid/outdated
                 defaultProjectSettings()
                 project = .init(
-                    compression: false,
-                    include: "$(SDKROOT)/include",
-                    lib: "$(SDKROOT)/lib",
-                    calculator: "Prime",
-                    bin: "/usr/local/bin",
-                    archiveProjectAppOnly: true
+                    compression: ProjectSettings.shared.compression,
+                    include: ProjectSettings.shared.include,
+                    lib: ProjectSettings.shared.lib,
+                    calculator: ProjectSettings.shared.calculator,
+                    bin: ProjectSettings.shared.bin,
+                    archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
+                    plainFallbackText: ProjectSettings.shared.plainFallbackText
                 )
             }
         } else {
@@ -162,12 +164,13 @@ final class ProjectManager {
             return
         }
         
-        UserDefaults.standard.set(project.compression, forKey: "compression")
-        UserDefaults.standard.set(project.include, forKey: "include")
-        UserDefaults.standard.set(project.lib, forKey: "lib")
-        UserDefaults.standard.set(project.calculator, forKey: "calculator")
-        UserDefaults.standard.set(project.bin, forKey: "bin")
-        UserDefaults.standard.set(project.archiveProjectAppOnly, forKey: "archiveProjectAppOnly")
+        ProjectSettings.shared.compression = project.compression
+        ProjectSettings.shared.include = project.include
+        ProjectSettings.shared.lib = project.lib
+        ProjectSettings.shared.calculator = project.calculator
+        ProjectSettings.shared.bin = project.bin
+        ProjectSettings.shared.archiveProjectAppOnly = project.archiveProjectAppOnly
+        ProjectSettings.shared.plainFallbackText = project.plainFallbackText
         
         projectDirectoryURL = url.deletingLastPathComponent()
         UserDefaults.standard.set(url.path, forKey: "lastOpenedProjectPath")
@@ -192,14 +195,9 @@ final class ProjectManager {
         self.projectDirectoryURL = nil
         
         UserDefaults.standard.set("", forKey: "lastOpenedProjectPath")
-        let location = UserDefaults.standard.string(forKey: "localtion") ?? FileManager
-            .default
-            .homeDirectoryForCurrentUser
-            .appendingPathComponent("Xprime")
-            .path
         FileManager
             .default
-            .changeCurrentDirectoryPath(location)
+            .changeCurrentDirectoryPath(Settings.shared.location)
         
         delegate?.projectManagerDidClose(self)
     }
@@ -207,12 +205,13 @@ final class ProjectManager {
     @discardableResult
     func saveProjectAs(at url: URL) -> Bool {
         let project = Project(
-            compression: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false,
-            include: UserDefaults.standard.object(forKey: "include") as? String ?? "$(SDKROOT)/include",
-            lib: UserDefaults.standard.object(forKey: "lib") as? String ?? "$(SDKROOT)/lib",
-            calculator: UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime",
-            bin: UserDefaults.standard.object(forKey: "bin") as? String ?? "/usr/local/bin",
-            archiveProjectAppOnly: UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true,
+            compression: ProjectSettings.shared.compression,
+            include: ProjectSettings.shared.include,
+            lib: ProjectSettings.shared.lib,
+            calculator: ProjectSettings.shared.calculator,
+            bin: ProjectSettings.shared.bin,
+            archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
+            plainFallbackText: ProjectSettings.shared.plainFallbackText
         )
         do {
             let encoder = JSONEncoder()
@@ -312,11 +311,12 @@ final class ProjectManager {
     }
     
     private func defaultProjectSettings() {
-        UserDefaults.standard.set(false, forKey: "compression")
-        UserDefaults.standard.set("$(SDKROOT)/include", forKey: "include")
-        UserDefaults.standard.set("$(SDKROOT)/lib", forKey: "lib")
-        UserDefaults.standard.set("Prime", forKey: "calculator")
-        UserDefaults.standard.set("/usr/local/bin", forKey: "bin")
-        UserDefaults.standard.set(true, forKey: "archiveProjectAppOnly")
+        ProjectSettings.shared.compression = false
+        ProjectSettings.shared.include = "$(SDKROOT)/include"
+        ProjectSettings.shared.lib = "$(SDKROOT)/lib"
+        ProjectSettings.shared.calculator = "Prime"
+        ProjectSettings.shared.bin = "/usr/local/bin"
+        ProjectSettings.shared.archiveProjectAppOnly = true
+        ProjectSettings.shared.plainFallbackText = true
     }
 }

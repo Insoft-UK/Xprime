@@ -20,52 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
 import Cocoa
 
-enum ToolchainPaths {
-
-    static var developerRoot: URL {
-        Bundle.main.bundleURL
-            .appendingPathComponent("Contents/Resources/Developer")
-    }
-
-    static var bin: String {
-        resolveUserPath(
-            key: "bin",
-            fallback: "/usr/local/bin",
-            bundled: developerRoot.appendingPathComponent("usr/bin")
-        )
-    }
-
-    static var include: String {
-        resolveUserPath(
-            key: "include",
-            fallback: "$(SDKROOT)/include",
-            bundled: developerRoot.appendingPathComponent("usr/include")
-        )
-    }
-
-    static var lib: String {
-        resolveUserPath(
-            key: "lib",
-            fallback: "$(SDKROOT)/lib",
-            bundled: developerRoot.appendingPathComponent("usr/lib")
-        )
-    }
-
-    private static func resolveUserPath(
-        key: String,
-        fallback: String,
-        bundled: URL
-    ) -> String {
-
-        let value = UserDefaults.standard.string(forKey: key) ?? fallback
-
-        if value == "~" {
-            return bundled.path
+@propertyWrapper
+struct UserDefault<Value> {
+    
+    let key: String
+    let defaultValue: Value
+    let container: UserDefaults = .standard
+    
+    var wrappedValue: Value {
+        get {
+            container.object(forKey: key) as? Value ?? defaultValue
         }
-
-        return value
+        set {
+            container.set(newValue, forKey: key)
+        }
     }
 }

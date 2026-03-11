@@ -27,6 +27,8 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
     @IBOutlet private weak var language: NSPopUpButton!
     @IBOutlet private weak var productName: NSTextField!
     
+    private var vc: MainViewController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
@@ -41,6 +43,11 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
+        
+        guard let window = NSApplication.shared.windows.first else {
+            self.view.window?.close(); return
+        }
+        vc = window.contentViewController as? MainViewController
     }
     
     private func setup() {
@@ -63,6 +70,7 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
             do {
                 let name = try self.safeName(from: self.productName.stringValue)
                 self.create(named: name, in: folderURL)
+                self.vc.projectManager.openProject(in: folderURL.appendingPathComponent(name))
             } catch {
                 return
             }

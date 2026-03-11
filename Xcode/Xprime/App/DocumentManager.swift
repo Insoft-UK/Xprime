@@ -104,7 +104,7 @@ final class DocumentManager {
         successLog: String? = nil,
         printStdErrOnSuccess: Bool = false
     ) {
-        let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("executableName")
+        let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent(executableName)
         let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
         
         guard result.exitCode == 0, let out = result.out else {

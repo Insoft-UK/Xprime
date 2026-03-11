@@ -101,6 +101,6 @@ final class OutputTextView: XprimeTextView {
             scrollView.hasVerticalScroller = true
         }
         minHeightConstraint?.isActive = true
-        backgroundColor = NSColor(white: 0, alpha: 0.75)
+        backgroundColor = NSColor(white: 0.11, alpha: 1.0)
     }
 }

@@ -20,21 +20,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// MARK: ✅ Done
 import Cocoa
 
-final class SidebarViewController: NSViewController {
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
+final class Settings {
+
+    static let shared = Settings()
+    private init() {}
+
+    @UserDefault(key: "SubtitutionEnabled", defaultValue: false)
+    var subtitutionEnabled: Bool
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    @UserDefault(key: "preferredTheme", defaultValue: "Default (Dark)")
+    var preferredTheme: String
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
-    }
+    @UserDefault(
+        key: "location",
+        defaultValue: FileManager
+        .default
+        .homeDirectoryForCurrentUser
+        .appendingPathComponent("Xprime")
+        .path
+    )
+    var location: String
+
 }
-
-
