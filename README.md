@@ -18,9 +18,9 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
-<img src="assets/screenshots/xprime/settings.png?raw=true" width="294" /><img src="assets/screenshots/xprime/advance.png?raw=true" width="294" /></br>
+<img src="assets/screenshots/xprime/project.png?raw=true" width="294" /><img src="assets/screenshots/xprime/advance.png?raw=true" width="294" /></br>
 <img src="assets/screenshots/xprime/program.png?raw=true" width="281" /><img src="assets/screenshots/xprime/application.png?raw=true" width="281" /></br>
-<img src="assets/screenshots/xprime/recent.png?raw=true" width="318" />
+<img src="assets/screenshots/xprime/recent.png?raw=true" width="318" /><img src="assets/screenshots/xprime/settings.png?raw=true" width="294" /></br>
 
 ### Supported File Types
 |Type|Description|Format|
