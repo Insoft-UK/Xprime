@@ -14,7 +14,7 @@ Read [Whats New](UPDATE.md)
 
 ### Hidden Version Detail
 In Xprime, you can reveal the full version number from the About window.
-Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.2.20260218**.
+Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.3.20260311**.
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
@@ -51,7 +51,7 @@ MyApp/
 │   └── Example.hpappprgm
 │── Example.hpappdir.zip
 │── Example.xprimeproj
-│── main.prgm+ or main.prgm
+│── main.ppl+, main.ppl or main.pas
 └── info.note, info.ntf or info.md
 ```
 
@@ -60,7 +60,7 @@ Typical File Structure for an HP Prime **Program**
 MyProgram/
 │── Example.xprimeproj
 │── Example.hpprgm
-│── main.prgm+ or main.prgm
+│── main.ppl+, main.ppl or main.pas
 └── info.note, info.ntf or info.md
 ```
 
