@@ -41,9 +41,12 @@ final class ProjectSettings {
     @UserDefault(key: "bin", defaultValue: "/usr/local/bin")
     var bin: String
 
-    @UserDefault(key: "Archive Project Application Only", defaultValue: true)
+    @UserDefault(key: "ArchiveProjectApplicationOnly", defaultValue: true)
     var archiveProjectAppOnly: Bool
 
-    @UserDefault(key: "Plain Fallback Text", defaultValue: true)
+    @UserDefault(key: "PlainFallbackText", defaultValue: true)
     var plainFallbackText: Bool
+    
+    @UserDefault(key: "Language", defaultValue: "hpppl")
+    var language: String
 }

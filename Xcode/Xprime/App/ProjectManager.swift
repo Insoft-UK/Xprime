@@ -46,6 +46,7 @@ fileprivate struct Project: Codable {
     let lib: String
     let calculator: String
     let bin: String
+    let language: String
     let archiveProjectAppOnly: Bool
     let plainFallbackText: Bool
 }
@@ -154,6 +155,7 @@ final class ProjectManager {
                     lib: ProjectSettings.shared.lib,
                     calculator: ProjectSettings.shared.calculator,
                     bin: ProjectSettings.shared.bin,
+                    language: ProjectSettings.shared.language,
                     archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
                     plainFallbackText: ProjectSettings.shared.plainFallbackText
                 )
@@ -169,11 +171,12 @@ final class ProjectManager {
         ProjectSettings.shared.lib = project.lib
         ProjectSettings.shared.calculator = project.calculator
         ProjectSettings.shared.bin = project.bin
+        ProjectSettings.shared.language = project.language
         ProjectSettings.shared.archiveProjectAppOnly = project.archiveProjectAppOnly
         ProjectSettings.shared.plainFallbackText = project.plainFallbackText
         
         projectDirectoryURL = url.deletingLastPathComponent()
-        UserDefaults.standard.set(url.path, forKey: "lastOpenedProjectPath")
+        Settings.shared.lastOpenedProjectFile = url.path
         delegate?.projectManagerDidOpen(self)
     }
     
@@ -194,7 +197,7 @@ final class ProjectManager {
         saveProjectAs(at: url)
         self.projectDirectoryURL = nil
         
-        UserDefaults.standard.set("", forKey: "lastOpenedProjectPath")
+        Settings.shared.lastOpenedProjectFile = ""
         FileManager
             .default
             .changeCurrentDirectoryPath(Settings.shared.location)
@@ -210,6 +213,7 @@ final class ProjectManager {
             lib: ProjectSettings.shared.lib,
             calculator: ProjectSettings.shared.calculator,
             bin: ProjectSettings.shared.bin,
+            language: ProjectSettings.shared.language,
             archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
             plainFallbackText: ProjectSettings.shared.plainFallbackText
         )
@@ -232,39 +236,6 @@ final class ProjectManager {
         }
     }
     
-    @discardableResult
-    func createNewProject(named name: String, in directoryURL: URL) -> Bool {
-        do {
-            try FileManager.default.createDirectory(
-                at: directoryURL
-                    .appendingPathComponent(name),
-                withIntermediateDirectories: false
-            )
-            FileManager.default.changeCurrentDirectoryPath(directoryURL.path)
-            
-            if let url = Bundle.main.url(forResource: "info", withExtension: "note") {
-                try FileManager.default.copyItem(
-                    at: url,
-                    to: directoryURL.appendingPathComponent("\(name)/info.note")
-                )
-            }
-
-            if let url = Bundle.main.url(forResource: "main", withExtension: "prgm+") {
-                try FileManager.default.copyItem(
-                    at: url,
-                    to: directoryURL.appendingPathComponent("\(name)/main.prgm+")
-                )
-            }
-            
-            defaultProjectSettings()
-            saveProjectAs(at: directoryURL.appendingPathComponent("\(name)/\(name).xprimeproj"))
-            projectDirectoryURL = directoryURL.appendingPathComponent(name)
-        } catch {
-            delegate?.projectManager(self, didFailWith: "Failed to create new project." as! Error)
-            return false
-        }
-        return false
-    }
     
     // MARK: - Type Methods
     class func projectURL(in directory: URL) -> URL? {

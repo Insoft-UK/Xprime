@@ -67,5 +67,11 @@ enum ToolchainPaths {
         }
 
         return value
+            .replacingOccurrences(
+                of: "$(SDKROOT)",
+                with: developerRoot
+                    .appendingPathComponent("usr")
+                    .path
+            )
     }
 }

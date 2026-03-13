@@ -22,19 +22,37 @@
 
 import Cocoa
 
+fileprivate enum DefaultsKey {
+    static let subtitutionEnabled = "SubstitutionEnabled"
+    static let preferredTheme = "PreferredTheme"
+    static let lastOpenedFile = "LastOpenedFile"
+    static let lastOpenedProjectFile = "LastOpenedProjectFile"
+    static let location = "Location"
+    static let supportedDocumentExtensions = "SupportedDocumentExtensions"
+    static let allowedOpenFileExtensions = "AllowedOpenFileExtensions"
+    static let allowedSaveFileExtensions = "AllowedSaveFileExtensions"
+}
+
 final class Settings {
 
     static let shared = Settings()
     private init() {}
 
-    @UserDefault(key: "Subtitution Enabled", defaultValue: false)
+    @UserDefault(key: "SubstitutionEnabled", defaultValue: false)
     var subtitutionEnabled: Bool
     
-    @UserDefault(key: "Preferred Theme", defaultValue: "Default (Dark)")
+    @UserDefault(key: "PreferredTheme", defaultValue: "Default (Dark)")
     var preferredTheme: String
     
+    @UserDefault(key: DefaultsKey.lastOpenedFile, defaultValue: "")
+    var lastOpenedFile: String
+    
+    @UserDefault(key: DefaultsKey.lastOpenedProjectFile, defaultValue: "")
+    var lastOpenedProjectFile: String
+    
+    
     @UserDefault(
-        key: "Location",
+        key: DefaultsKey.location,
         defaultValue: FileManager
         .default
         .homeDirectoryForCurrentUser
@@ -42,5 +60,29 @@ final class Settings {
         .path
     )
     var location: String
+    
+    @UserDefault(
+        key: DefaultsKey.supportedDocumentExtensions,
+        defaultValue: [
+            "hpppl", "hppplplus", "ppl", "ppl+", "ntf", "py", "md", "txt"
+        ]
+    )
+    var supportedDocumentExtensions: [String]
+    
+    @UserDefault(
+        key: DefaultsKey.allowedOpenFileExtensions,
+        defaultValue: [
+            "xprimeproj", "hpppl", "hppplplus", "ppl", "ppl+", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "ntf", "py", "md", "txt", "h", "bmp", "png"
+        ]
+    )
+    var allowedOpenFileExtensions: [String]
+    
+    @UserDefault(
+        key: DefaultsKey.allowedSaveFileExtensions,
+        defaultValue: [
+            "hpppl", "hppplplus", "ppl", "ppl+", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "ntf", "py", "md", "txt"
+        ]
+    )
+    var allowedSaveFileExtensions: [String]
 
 }

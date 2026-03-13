@@ -130,6 +130,7 @@ final class DocumentManager {
         editor.undoManager?.removeAllActions()
         currentDocumentURL = nil
         documentIsModified = false
+        Settings.shared.lastOpenedFile = url.path
         
         delegate?.documentManagerDidOpen(self)
     }
@@ -211,7 +212,7 @@ final class DocumentManager {
     func openDocument(at url: URL) {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
-        case "prgm":
+        case "prgm", "note":
             encoding = .utf16
             
         case "hpnote", "hpappnote":
@@ -240,7 +241,7 @@ final class DocumentManager {
             editor.undoManager?.removeAllActions()
             currentDocumentURL = url
             documentIsModified = false
-            UserDefaults.standard.set(url.path, forKey: "lastOpenedFilePath")
+            Settings.shared.lastOpenedFile = url.path
             delegate?.documentManagerDidOpen(self)
         } catch {
             delegate?.documentManager(self, didFailToOpen: error)
@@ -263,7 +264,7 @@ final class DocumentManager {
     func saveDocument(to url: URL) -> Bool {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
-        case "prgm", "app":
+        case "prgm", "appprgm", "note", "appnote":
             encoding = .utf16
         case "hpnote", "hpappnote":
             saveNote(url: url)
@@ -276,7 +277,7 @@ final class DocumentManager {
         }
         
         do {
-            if url.pathExtension.lowercased() == "hpnote" || url.pathExtension.lowercased() == "hpappnote" {
+            if url.pathExtension.lowercased() == "note" || url.pathExtension.lowercased() == "appnote" {
                 guard var data = editor.string.data(using: encoding) else {
                     throw NSError(domain: "EncodingError", code: 1)
                 }

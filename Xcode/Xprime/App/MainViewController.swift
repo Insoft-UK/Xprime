@@ -32,7 +32,7 @@ extension MainViewController: NSWindowRestoration {
 
 final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
     
-    // MARK: - IBOutlets
+    // MARK: - Outlets
     @IBOutlet weak var splitView: NSSplitView!
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
     @IBOutlet var statusLabel: NSTextField!
@@ -49,13 +49,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     var themeManager: ThemeManager!
     private var updateManager: UpdateManager!
     private var statusManager: StatusManager!
-    
-    // MARK: - Outlets
-    @IBOutlet weak var icon: NSImageView!
-    
-    
+
     // MARK: - Class Private Properties
-    
     private var gutterView: LineNumberGutterView!
     
     // MARK: - Lifecycle
@@ -95,8 +90,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         registerWindowFocusObservers()
         refreshBaseApplicationMenu()
         
-        if let path = UserDefaults.standard.string(forKey: "lastOpenedProjectPath"), FileManager.default.fileExists(atPath: path) {
-            projectManager.openProject(at: URL(fileURLWithPath: path))
+        
+        if FileManager.default.fileExists(atPath: Settings.shared.lastOpenedProjectFile) {
+            projectManager.openProject(at: URL(fileURLWithPath: Settings.shared.lastOpenedProjectFile))
         } else {
             FileManager
                 .default
@@ -449,7 +445,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             window.representedURL = documentManager.currentDocumentURL
             // Re-apply icon AFTER AppKit finishes layout
             DispatchQueue.main.async {
-                window.standardWindowButton(.documentIconButton)?.image = self.icon.image
+                window.standardWindowButton(.documentIconButton)?.image = self.projectIcon.image
             }
             return
         }
@@ -475,16 +471,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
     private func loadAppropriateGrammar(forType fileExtension: String) {
         let grammar:[String : [String]] = [
-            "Prime Plus": ["prgm+", "ppl+"],
-            "Prime": ["prgm", "ppl", "hpprgm", "hpappprgm", "bmp", "png", "h"],
-            "Python": ["py"],
+            ".hppplplus": ["hppplplus", "ppl+"],
+            ".hpppl": ["hpppl", "ppl", "hpprgm", "hpappprgm", "bmp", "png", "h"],
+            ".py": ["py"],
             ".ntf": ["hpnote", "hpappnote", "note", "ntf"],
             ".md": ["md"]
         ]
         
         for (grammarName, ext) in grammar where ext.contains(fileExtension.lowercased()) {
             codeEditorTextView.loadGrammar(named: grammarName)
-            UserDefaults.standard.set(grammarName, forKey: "preferredGrammar")
             return
         }
     }
@@ -496,7 +491,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 withExtension: "png",
                 subdirectory: "Developer/Library/Xprime/Templates/Application Template"
                 )!
-            icon.image = NSImage(contentsOfFile: url.path)!
+            projectIcon.image = NSImage(contentsOfFile: url.path)!
             return
         }
         guard let projectURL = ProjectManager.projectURL(in: currentDirectoryURL) else { return }
@@ -518,18 +513,20 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             
             if let image = NSImage(contentsOf: existingURL) {
                 image.size = targetSize
-                icon.image = image
+                projectIcon.image = image
             }
         }
     }
     
     private func mainURL(in directoryURL: URL) -> URL? {
         for main in [
-            "main.ppl+",
-            "main.ppl",
+            "main.hpppl",
+            "main.hppplplus",
             "main.pas",
+            "main.prgm",
             "main.prgm+",
-            "main.prgm"
+            "main.ppl",
+            "main.ppl+"
         ] {
             let url = directoryURL
                 .appendingPathComponent(main)
@@ -577,7 +574,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func buildProgram() {
         guard let url = projectManager.projectDirectoryURL else { return }
         guard let sourceURL = mainURL(in: url) else {
-            AlertPresenter.showInfo(on: view.window, title: "Build Failed", message: "Unable to find main.prgm+ or main.prgm file.")
+            AlertPresenter.showInfo(on: view.window, title: "Build Failed", message: "Unable to find main.hpppl or main.hppplplus file.")
             return
         }
         guard let projectName = projectManager.projectName else { return }
@@ -593,7 +590,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func buildApplication() {
         guard let url = projectManager.projectDirectoryURL else { return }
         guard let sourceURL = mainURL(in: url) else {
-            AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "Unable to find main.prgm+ or main.prgm file.")
+            AlertPresenter.showInfo(on: view.window, title: "Archive Build Failed", message: "Unable to find main.hpppl or main.hppplplus file.")
             return
         }
         guard let projectName = projectManager.projectName else { return }
@@ -783,19 +780,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         contents?
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
             .forEach { url in
-                if url.pathExtension == "prgm" ||
-                    url.pathExtension == "app" ||
-                    url.pathExtension == "ppl" ||
-                    url.pathExtension == "prgm+" ||
-                    url.pathExtension == "ppl+" ||
-                    url.pathExtension == "py"  ||
-                    url.pathExtension == "md" ||
-                    url.pathExtension == "ntf" ||
-                    url.pathExtension == "txt" ||
-                    url.pathExtension == "note" ||
-                    url.pathExtension == "bmp" ||
-                    url.pathExtension == "png" ||
-                    url.pathExtension == "h"
+                if url.pathExtension == "hpppl" ||
+                   url.pathExtension == "hppplplus" ||
+                   url.pathExtension == "ppl" ||
+                   url.pathExtension == "ppl+" ||
+                   url.pathExtension == "py"  ||
+                   url.pathExtension == "md" ||
+                   url.pathExtension == "ntf" ||
+                   url.pathExtension == "txt" ||
+                   url.pathExtension == "bmp" ||
+                   url.pathExtension == "png" ||
+                   url.pathExtension == "h"
                 {
                     menu.addItem(
                         withTitle: url.lastPathComponent,
@@ -804,19 +799,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     )
                 
                     switch url.pathExtension.lowercased() {
-                    case "note", "md", "ntf", "txt":
+                    case "md", "ntf", "txt":
                         menu.items.last?.image = notes
                         
                     case "py":
                         menu.items.last?.image = python
                         
-                    case "prgm", "prgm+":
+                    case "hpppl", "hppplplus":
                         if url.deletingPathExtension().lastPathComponent == "main" {
                             menu.items.last?.image = projectManager.projectIcon
                         } else {
                             menu.items.last?.image = icon
                         }
-                        
                     
                     default:
                         menu.items.last?.image = icon
@@ -872,22 +866,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         panel.title = ""
         panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         panel.allowedContentTypes = [
-            UTType(filenameExtension: "prgm+")!,
-            UTType(filenameExtension: "prgm")!,
-            UTType(filenameExtension: "app")!,
-            UTType(filenameExtension: "ppl")!,
-            UTType(filenameExtension: "ppl+")!,
-            UTType(filenameExtension: "md")!,
-            UTType(filenameExtension: "ntf")!,
-            UTType(filenameExtension: "note")!,
-            UTType(filenameExtension: "hpnote")!,
-            UTType(filenameExtension: "hpappnote")!,
             UTType(filenameExtension: "bmp")!,
             UTType(filenameExtension: "png")!,
-            UTType.pythonScript,
-            UTType.cHeader,
-            UTType.text
+            UTType.cHeader
         ]
+        for `extension` in Settings.shared.supportedDocumentExtensions {
+            let allowedType = UTType(filenameExtension: `extension`)!
+            panel.allowedContentTypes.append(allowedType)
+        }
+        
         panel.allowsMultipleSelection = true
         panel.canChooseDirectories = false
         panel.canChooseFiles = true
@@ -945,16 +932,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         panel.title = ""
         panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        panel.allowedContentTypes = [
-            UTType(filenameExtension: "prgm+")!,
-            UTType(filenameExtension: "prgm")!,
-            UTType(filenameExtension: "ppl")!,
-            UTType(filenameExtension: "ppl+")!,
-            UTType(filenameExtension: "md")!,
-            UTType(filenameExtension: "ntf")!,
-            UTType(filenameExtension: "note")!,
-            UTType.pythonScript
-        ]
+        
+        for type in Settings.shared.supportedDocumentExtensions {
+            panel.allowedContentTypes.append(UTType(filenameExtension: type)!)
+        }
         
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
@@ -975,27 +956,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         panel.title = ""
         panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        panel.allowedContentTypes = [
-            UTType(filenameExtension: "xprimeproj")!,
-            UTType(filenameExtension: "prgm+")!,
-            UTType(filenameExtension: "prgm")!,
-            UTType(filenameExtension: "app")!,
-            UTType(filenameExtension: "hpprgm")!,
-            UTType(filenameExtension: "hpappprgm")!,
-            UTType(filenameExtension: "ppl")!,
-            UTType(filenameExtension: "ppl+")!,
-            UTType(filenameExtension: "md")!,
-            UTType(filenameExtension: "ntf")!,
-            UTType(filenameExtension: "note")!,
-            UTType(filenameExtension: "bmp")!,
-            UTType(filenameExtension: "png")!,
-            UTType(filenameExtension: "h")!,
-            UTType(filenameExtension: "hpnote")!,
-            UTType(filenameExtension: "hpappnote")!,
-            UTType.pythonScript,
-            UTType.cHeader,
-            UTType.text
-        ]
+        for type in Settings.shared.allowedOpenFileExtensions {
+            panel.allowedContentTypes.append(UTType(filenameExtension: type)!)
+        }
         
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
@@ -1047,24 +1010,13 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Saving Document As
     private func proceedWithSavingDocumentAs() {
+        var allowedContentTypes: [UTType] = []
+        
+        for type in Settings.shared.allowedSaveFileExtensions {
+            allowedContentTypes.append(UTType(filenameExtension: type)!)
+        }
         documentManager.saveDocumentAs(
-            allowedContentTypes: [
-                UTType(filenameExtension: "prgm+")!,
-                UTType(filenameExtension: "ppl+")!,
-                UTType(filenameExtension: "prgm")!,
-                UTType(filenameExtension: "hpprgm")!,
-                UTType(filenameExtension: "hpappprgm")!,
-                UTType(filenameExtension: "ppl")!,
-                UTType(filenameExtension: "app")!,
-                UTType(filenameExtension: "note")!,
-                UTType(filenameExtension: "ntf")!,
-                UTType(filenameExtension: "hpnote")!,
-                UTType(filenameExtension: "hpappnote")!,
-                UTType(filenameExtension: "py")!,
-                UTType(filenameExtension: "md")!,
-                UTType(filenameExtension: "txt")!,
-                .pythonScript
-            ],
+            allowedContentTypes: allowedContentTypes,
             defaultFileName: documentManager.currentDocumentURL?.lastPathComponent ?? "Untitled"
         )
     }
@@ -1316,7 +1268,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         switch menuItem.action {
         case #selector(reformatCode(_:)):
-            if let _ = documentManager.currentDocumentURL, ext == "prgm" || ext == "ppl" {
+            if let _ = documentManager.currentDocumentURL, ext == "prgm" || ext == "appprgm" || ext == "hpppl" {
                 return true
             }
             return false
@@ -1329,7 +1281,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return false
             
         case #selector(templateSelected(_:)):
-            if ext == "prgm" || ext == "prgm+" || ext == "hpprgm" || ext == "hpappprgm" || ext == "ppl" || ext == "ppl+" {
+            if ext == "prgm" || ext == "appprgm" || ext == "hpprgm" || ext == "hpappprgm" || ext == "hpppl" || ext == "hppplplus" {
                 return true
             }
             return false
@@ -1348,22 +1300,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 return true
             }
             return false
-            
-//        case #selector(handleThemeSelection(_:)):
-//            if ThemeLoader.shared.preferredTheme == menuItem.title {
-//                menuItem.state = .on
-//            } else {
-//                menuItem.state = .off
-//            }
-//            return true
-            
-//        case #selector(handleGrammarSelection(_:)):
-//            if GrammarLoader.shared.preferredGrammar == menuItem.title {
-//                menuItem.state = .on
-//            } else {
-//                menuItem.state = .off
-//            }
-//            return true
             
         case #selector(addFilesTo(_:)):
             if projectManager.projectDirectoryURL != nil, let projectName = projectManager.projectName {
@@ -1425,6 +1361,8 @@ extension MainViewController: DocumentManagerDelegate {
 #endif
         if let url = documentManager.currentDocumentURL {
             loadAppropriateGrammar(forType: url.pathExtension.lowercased())
+        } else {
+            loadAppropriateGrammar(forType:URL(fileURLWithPath: Settings.shared.lastOpenedFile).pathExtension.lowercased())
         }
         
         gutterView.updateLines()

@@ -249,13 +249,13 @@ Gw
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nGK-1p-Xy6">
                                 <rect key="frame" x="164" y="120" width="185" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="PPL" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wd7-4K-H8F" id="Ba4-PL-OeK" userLabel="Items">
+                                <popUpButtonCell key="cell" type="push" title="HP PPL" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="wd7-4K-H8F" id="Ba4-PL-OeK" userLabel="Items">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="message"/>
                                     <menu key="menu" id="jMG-G9-BZ5">
                                         <items>
-                                            <menuItem title="PPL" state="on" id="wd7-4K-H8F"/>
-                                            <menuItem title="PPL Plus" id="c5W-Dq-X7F"/>
+                                            <menuItem title="HP PPL" state="on" id="wd7-4K-H8F" userLabel="HP PPL"/>
+                                            <menuItem title="HP PPL Plus" id="c5W-Dq-X7F" userLabel="HP PPL Plus"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -416,13 +416,13 @@ Gw
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JYN-TA-s00">
                                 <rect key="frame" x="164" y="120" width="185" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="PPL" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Yhh-Im-MDy" id="03V-RE-uiv" userLabel="Items">
+                                <popUpButtonCell key="cell" type="push" title="HP PPL" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Yhh-Im-MDy" id="03V-RE-uiv" userLabel="Items">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="message"/>
                                     <menu key="menu" id="3rn-gj-lFh">
                                         <items>
-                                            <menuItem title="PPL" state="on" id="Yhh-Im-MDy"/>
-                                            <menuItem title="PPL Plus" id="M85-xv-c6B"/>
+                                            <menuItem title="HP PPL" state="on" id="Yhh-Im-MDy" userLabel="HP PPL"/>
+                                            <menuItem title="HP PPL Plus" id="M85-xv-c6B" userLabel="HP PPL Plus"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -1622,7 +1622,6 @@ Gw
                         <outlet property="baseApplication" destination="R0K-qm-g5R" id="aJP-2s-Atk"/>
                         <outlet property="clearOutputButton" destination="Is1-v7-WGS" id="kCv-BF-lPp"/>
                         <outlet property="codeEditorTextView" destination="09p-Rf-tgR" id="YQS-0U-lVp"/>
-                        <outlet property="icon" destination="tyO-qu-7vx" id="2tP-4F-uXu"/>
                         <outlet property="outputButton" destination="o4M-ON-b8V" id="mi0-Vd-HZK"/>
                         <outlet property="outputScrollView" destination="gM6-VC-kCh" id="Cbq-VN-EFd"/>
                         <outlet property="outputTextView" destination="fLO-1H-GKd" id="2zB-kY-Jtt"/>
@@ -1670,7 +1669,7 @@ Gw
         <image name="folder" catalog="system" width="15" height="12"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="hammer.fill" catalog="system" width="15" height="14"/>
         <image name="icon" width="38" height="38"/>
         <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>

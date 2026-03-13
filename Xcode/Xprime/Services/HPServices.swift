@@ -88,7 +88,6 @@ enum HPServices {
         
         return nil
     }
-    
 
     static var isVirtualCalculatorInstalled: Bool {
         let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
@@ -185,20 +184,6 @@ enum HPServices {
         return appDirURL.isDirectory
     }
     
-    static func prgmExists(atPath path: String, named name: String) -> Bool {
-        let programURL = URL(fileURLWithPath: path)
-            .appendingPathComponent(name)
-            .appendingPathExtension("prgm")
-        return FileManager.default.fileExists(atPath: programURL.path)
-    }
-    
-    static func prgmPlusExists(atPath path: String, named name: String) -> Bool {
-        let programURL = URL(fileURLWithPath: path)
-            .appendingPathComponent(name)
-            .appendingPathExtension("prgm+")
-        return FileManager.default.fileExists(atPath: programURL.path)
-    }
-    
     static func hpPrgmExists(atPath path: String, named name: String) -> Bool {
         let programURL = URL(fileURLWithPath: path)
             .appendingPathComponent(name)
@@ -206,7 +191,6 @@ enum HPServices {
         return FileManager.default.fileExists(atPath: programURL.path)
     }
 
-    
     static func hpAppDirIsComplete(atPath path: String, named name: String) -> Bool {
         let appDirURL = URL(fileURLWithPath: path)
             .appendingPathComponent(name)
@@ -276,7 +260,6 @@ enum HPServices {
         try setFileDates(at: fileURL, creationDate: seedDate, modificationDate: seedDate)
     }
         
-    
     private static func copyIfMissing(
         from source: URL,
         to destination: URL,
@@ -506,12 +489,12 @@ enum HPServices {
         }
         
         if ToolchainPaths.include.isEmpty == false {
-            let path = ToolchainPaths.include.replacingOccurrences(of: "$(SDKROOT)", with: ToolchainPaths.developerRoot.appendingPathComponent("usr").path)
+            let path = ToolchainPaths.include
             arguments.append(contentsOf: ["-I\(path)"])
         }
         
         if ToolchainPaths.lib.isEmpty == false {
-            let path = ToolchainPaths.lib.replacingOccurrences(of: "$(SDKROOT)", with: ToolchainPaths.developerRoot.appendingPathComponent("usr").path)
+            let path = ToolchainPaths.lib
             arguments.append(contentsOf: ["-L\(path)"])
         }
         

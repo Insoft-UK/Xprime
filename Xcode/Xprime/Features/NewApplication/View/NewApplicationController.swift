@@ -95,11 +95,13 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
         guard let selectedLanguage = language.titleOfSelectedItem else { return }
         
         do {
-            let sourceURL = Bundle.main.url(forResource: "application", withExtension: selectedLanguage == "PPL" ? "ppl" : "ppl+")
+            let hpppl: Bool = selectedLanguage == "HP PPL"
+            
+            let sourceURL = Bundle.main.url(forResource: "application", withExtension: hpppl ? "hpppl" : "hppplplus")
             let destinationURL = directoryURL
                 .appendingPathComponent(name)
                 .appendingPathComponent("main")
-                .appendingPathExtension(selectedLanguage == "PPL" ? "ppl" : "ppl+")
+                .appendingPathExtension(hpppl ? "hpppl" : "hppplplus")
             
             guard let sourceURL else { return }
             
@@ -114,16 +116,16 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
                 to: destinationURL
             )
             
-            if let url = Bundle.main.url(forResource: "info", withExtension: "note") {
+            if let url = Bundle.main.url(forResource: "info", withExtension: "ntf") {
                 try FileManager.default.copyItem(
                     at: url,
                     to: directoryURL
                         .appendingPathComponent(name)
-                        .appendingPathComponent("info.note")
+                        .appendingPathComponent("info.ntf")
                 )
             }
             
-            if let url = Bundle.main.url(forResource: "Xprime", withExtension: "xprimeproj") {
+            if let url = Bundle.main.url(forResource: hpppl ? "hpppl" : "hppplplus", withExtension: "xprimeproj") {
                 try FileManager.default.copyItem(
                     at: url,
                     to: directoryURL

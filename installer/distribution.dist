@@ -15,16 +15,52 @@
     <!-- Choices outline -->
     <choices-outline>
         <line choice="xprime"/>
+        <line choice="pplplus"/>
+        <line choice="font"/>
+        <line choice="grob"/>
+        <line choice="note"/>
         <line choice="hp"/>
     </choices-outline>
 
     <!-- Xprime choice (base component) -->
     <choice id="xprime"
-            title="Install Xprime Code Editor"
-            description="Installs the Xprime and Developer Tools."
+            title="Xprime Code Editor"
+            description="Installs the Xprime."
             selected="true"
             enabled="false">
         <pkg-ref id="uk.insoft.xprime"/>
+    </choice>
+    
+    <choice id="pplplus"
+            title="Prime Plus Tool"
+            description="Installs the Xprime PPL+ Tool."
+            selected="true"
+            enabled="false">
+        <pkg-ref id="uk.insoft.pplplus"/>
+    </choice>
+    
+    <choice id="grob"
+            title="GROB Tool"
+            description="Installs the Xprime GROB Tool."
+            selected="true"
+            enabled="false">
+        <pkg-ref id="uk.insoft.grob"/>
+    </choice>
+    
+    <choice id="font"
+            title="Font Tool"
+            description="Installs the Xprime Font Tool."
+            selected="true"
+            enabled="false">
+        <pkg-ref id="uk.insoft.font"/>
+    </choice>
+    
+    <choice id="note"
+            title="NoteText Tool"
+            description="Installs the Xprime NoteText Tool."
+            selected="true"
+            enabled="false">
+        <pkg-ref id="uk.insoft.note"/>
     </choice>
     
     <!-- HP -->
@@ -37,6 +73,10 @@
     </choice>
 
     <!-- Package references -->
-    <pkg-ref id="uk.insoft.xprime" installKBytes="3788" version="26.2">xprime.pkg</pkg-ref>
+    <pkg-ref id="uk.insoft.xprime" installKBytes="3136" version="26.4">xprime.pkg</pkg-ref>
+    <pkg-ref id="uk.insoft.pplplus" installKBytes="384" version="4.0.8">pplplus.pkg</pkg-ref>
+    <pkg-ref id="uk.insoft.grob" installKBytes="236" version="1.1.5">grob.pkg</pkg-ref>
+    <pkg-ref id="uk.insoft.font" installKBytes="112" version="1.0.1">font.pkg</pkg-ref>
+    <pkg-ref id="uk.insoft.note" installKBytes="188" version="1.0">note.pkg</pkg-ref>
     <pkg-ref id="uk.insoft.hp" installKBytes="20" version="1.0">hp.pkg</pkg-ref>
 </installer-gui-script>
