@@ -6,7 +6,10 @@
 - Export a G1 .hpprgm file for use on a real HP Prime or the Virtual Calculator.
 - Compress code to fit more programs on your HP Prime
 
-Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.pkg">Xprime 26</a></br>
+Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.pkg">Xprime 26.3</a></br>
+**Requires** macOS 14.6 or later
+
+Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-rc-universal.pkg">Xprime 26.4 RC</a></br>
 **Requires** macOS 14.6 or later
 
 ### Xprime 26
@@ -14,7 +17,7 @@ Read [Whats New](UPDATE.md)
 
 ### Hidden Version Detail
 In Xprime, you can reveal the full version number from the About window.
-Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.2.20260218**.
+Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.3.20260311**.
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
@@ -25,10 +28,6 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 ### Supported File Types
 |Type|Description|Format|
 |:-|:-|:-|
-|.ppl|HP Prime Programming Language source file|UTF8|
-|.prgm|HP Prime program source code|UTF16le|
-|.note|HP Prime note plain fallback text|UTF16le|
-|.note|NoteText format|UTF8|
 |.ntf|NoteText format|UTF8|
 |.md|Markdown Language|UTF8|
 |.bmp|Bitmap|Image|
@@ -38,8 +37,13 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.hpappnote|HP Prime note|Binary|
 |.hpprgm|HP Prime program (exported/packaged)|Binary|
 |.hpappprgm|HP Prime application (exported/packaged)|Binary|
-|.prgm+|HP Prime PRGM+ extended program source code|UTF8|
+|.prgm|HP Prime program source code|UTF16le|
+|.hpppl|HP Prime Programming Language source file|UTF8|
+|.hppplplus|HP Prime PPL+ extended program source code|UTF8|
+|.ppl|HP Prime Programming Language source file|UTF8|
 |.ppl+|HP Prime PPL+ extended program source code|UTF8|
+
+>In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/ite...de-hpprime)￼ support, Xprime will adopt the .hpppl and .hppplplus file types and discontinue .prgm+. This change will simplify development for those using either Visual Studio Code or Xprime.
 
 Typical File Structure for an HP Prime **Application**
 ```
@@ -51,8 +55,8 @@ MyApp/
 │   └── Example.hpappprgm
 │── Example.hpappdir.zip
 │── Example.xprimeproj
-│── main.prgm+ or main.prgm
-└── info.note, info.ntf or info.md
+│── main.hppplplus or main.hpppl
+└── info.ntf
 ```
 
 Typical File Structure for an HP Prime **Program**
@@ -60,14 +64,12 @@ Typical File Structure for an HP Prime **Program**
 MyProgram/
 │── Example.xprimeproj
 │── Example.hpprgm
-│── main.prgm+ or main.prgm
-└── info.note, info.ntf or info.md
+│── main.hppplplus or main.hpppl
+└── info.ntf
 ```
 
 >[!NOTE]
->Use the .ppl+ extension for extended program source code and .prgm+ for the main application or program source code.
->
->For standard PPL source code, use .ppl and never .prgm, as .prgm is reserved for the main application or program source file in projects that do not use extended PPL.
+>Use the .ppl+ extension for extended program source code and .hppplplus for the main application or program source code.
 
 Recommended running HP Prime Virtual Calculator for Windows on macOS via **Wine Stable**.</br>
 <img src="assets/screenshots/hp-prime-win.png?raw=true" width="191" /><img src="assets/screenshots/hp-prime-win-about.png?raw=true" width="440" /></br>
