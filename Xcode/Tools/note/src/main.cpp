@@ -292,7 +292,6 @@ int main(int argc, const char * argv[]) {
         
         if (out_extension == ".hpnote" || out_extension == ".hpappnote")
             utf::save(outpath, out, false);
-        
         else
             utf::save(outpath, utf::to_string(out));
         

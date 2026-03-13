@@ -31,6 +31,7 @@ fileprivate enum DefaultsKey {
     static let supportedDocumentExtensions = "SupportedDocumentExtensions"
     static let allowedOpenFileExtensions = "AllowedOpenFileExtensions"
     static let allowedSaveFileExtensions = "AllowedSaveFileExtensions"
+    static let recentFiles = "RecentFiles"
 }
 
 final class Settings {
@@ -84,5 +85,11 @@ final class Settings {
         ]
     )
     var allowedSaveFileExtensions: [String]
+    
+    @UserDefault(
+        key: DefaultsKey.recentFiles,
+        defaultValue: []
+    )
+    var recentFiles: [String]
 
 }

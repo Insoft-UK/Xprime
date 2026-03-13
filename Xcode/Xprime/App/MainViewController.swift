@@ -172,7 +172,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         print("Window gained focus")
 #endif
         
-        codeEditorTextView.smartSubtitution = UserDefaults.standard.bool(forKey: "SubtitutionEnabled")
+        codeEditorTextView.smartSubtitution = Settings.shared.subtitutionEnabled
         
         refreshQuickOpenToolbar()
         refreshProjectIconImage()
@@ -265,17 +265,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private func populateOpenRecentMenu(menu: NSMenu) {
         guard let submenu = menu.item(withTitle: "File")?.submenu?.item(withTitle: "Open Recent")?.submenu else { return }
 
-        guard let recents = UserDefaults.standard.stringArray(forKey: "recents") else {
-            submenu.removeAllItems()
-            return
-        }
-
         submenu.removeAllItems()
     
         let icon = NSImage(named: "Icon")?.copy() as? NSImage
         let pythonIcon = NSImage(named: "Python")?.copy() as? NSImage
 
-        for path in recents {
+        for path in Settings.shared.recentFiles {
             if FileManager.default.fileExists(atPath: path) == false {
                 continue
             }
@@ -318,16 +313,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         submenu.addItem(NSMenuItem.separator())
-        submenu.addItem(NSMenuItem(title: "Clear Menu", action: recents.count != 0 ? #selector(clearRecentMenu) : nil, keyEquivalent: ""))
+        submenu.addItem(NSMenuItem(title: "Clear Menu", action: Settings.shared.recentFiles.count != 0 ? #selector(clearRecentMenu) : nil, keyEquivalent: ""))
     }
     
     private func appendToRecentMenu(url: URL) {
         let recentLimit = 10
-        let recentsKey = "recents"
-        
+      
         let path = url.path
 
-        var recents = UserDefaults.standard.stringArray(forKey: recentsKey) ?? []
+        var recents = Settings.shared.recentFiles
 
         // Remove duplicates (so the item can move to the top)
         recents.removeAll { $0 == path }
@@ -340,7 +334,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             recents = Array(recents.prefix(recentLimit))
         }
 
-        UserDefaults.standard.set(recents, forKey: recentsKey)
+        Settings.shared.recentFiles = recents
 
         if let menu = NSApp.mainMenu {
             populateOpenRecentMenu(menu: menu)
@@ -348,8 +342,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @objc private func clearRecentMenu(_ sender: NSMenuItem) {
-        let recentsKey = "recents"
-        UserDefaults.standard.set([], forKey: recentsKey)
+        Settings.shared.recentFiles.removeAll()
         if let menu = NSApp.mainMenu {
             populateOpenRecentMenu(menu: menu)
         }
@@ -582,8 +575,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let destinationURL = url
             .appendingPathComponent("\(projectName).hpprgm")
 
-        let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
-        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: compression)
+        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: ProjectSettings.shared.compression)
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
     
@@ -609,8 +601,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpappdir")
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappprgm"),
-                                            compress: UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
+                                            compress: ProjectSettings.shared.compression
         )
+        
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
     
@@ -628,9 +621,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
         
-        
-        let archiveProjectAppOnly = UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
-        if dirA.isNewer(than: dirB), archiveProjectAppOnly == false {
+        if dirA.isNewer(than: dirB), ProjectSettings.shared.archiveProjectAppOnly == false {
             url = dirA.deletingLastPathComponent()
             outputTextView.appendTextAndScroll("📦 Archiving from the virtual calculator directory.\n")
         } else {
@@ -1035,7 +1026,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             "-o",
             destinationURL.path
         ]
-        if UserDefaults.standard.object(forKey: "plainFallbackText") as? Bool ?? false == true {
+        if ProjectSettings.shared.plainFallbackText == true {
             arguments.append("--plain-fallback")
         }
         
@@ -1108,8 +1099,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpprgm")
         outputTextView.appendTextAndScroll("Installing: \(programURL.lastPathComponent)\n")
         do {
-            let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
-            try HPServices.installHPPrgm(at: programURL, forUser: calculator)
+            try HPServices.installHPPrgm(at: programURL, forUser: ProjectSettings.shared.calculator)
             
             if let projectName = projectManager.projectName, HPServices.hpPrgmIsInstalled(named: projectName) {
                 outputTextView.appendTextAndScroll("✅ Successfully re-installed \"\(programURL.lastPathComponent)\" \n")
@@ -1135,8 +1125,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpappdir")
         outputTextView.appendTextAndScroll("Installing: \(appDirURL.lastPathComponent)\n")
         do {
-            let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
-            try HPServices.installHPAppDirectory(at: appDirURL, forUser: calculator)
+            try HPServices.installHPAppDirectory(at: appDirURL, forUser: ProjectSettings.shared.calculator)
             
             if let projectName = projectManager.projectName, HPServices.hpAppDirectoryIsInstalled(named: projectName) {
                 outputTextView.appendTextAndScroll("✅ Successfully re-installed \"\(appDirURL.lastPathComponent)\" \n")
@@ -1199,8 +1188,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
-        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
-        guard let url = HPServices.hpPrimeDirectory(forUser: calculator) else {
+        guard let url = HPServices.hpPrimeDirectory(forUser: ProjectSettings.shared.calculator) else {
             return
         }
         url.revealInFinderWithCooldown()

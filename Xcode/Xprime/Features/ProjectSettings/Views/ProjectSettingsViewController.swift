@@ -184,11 +184,7 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
     
  
     @IBAction func close(_ sender: Any) {
-        if let url = vc.projectManager.projectDirectoryURL, let projectName = vc.projectManager.projectName {
-            
-            vc.projectManager.saveProjectAs(at: url.appendingPathComponent(projectName + ".xcodeproj"))
-        }
-        
+        vc.projectManager.saveProject()
         self.view.window?.close()
     }
 }

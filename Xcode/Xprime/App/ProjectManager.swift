@@ -227,13 +227,22 @@ final class ProjectManager {
                 // Fallback: write raw data if string conversion fails
                 try data.write(to: url)
             }
-            UserDefaults.standard.set(url.path, forKey: "lastOpenedProjectPath")
+            Settings.shared.lastOpenedProjectFile = url.path
             delegate?.projectManagerDidSave(self)
             return true
         } catch {
             delegate?.projectManager(self, didFailWith: error)
             return false
         }
+    }
+    
+    @discardableResult
+    func saveProject() -> Bool {
+        guard let projectDirectoryURL, let url = ProjectManager.projectURL(in: projectDirectoryURL) else {
+            return false
+        }
+        
+        return saveProjectAs(at: url)
     }
     
     

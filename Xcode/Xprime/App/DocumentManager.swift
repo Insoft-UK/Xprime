@@ -70,9 +70,9 @@ final class DocumentManager {
         saveDocument(to: url.appendingPathExtension("ntf"))
         let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("note")
         
-        let fallback = UserDefaults.standard.object(forKey: "plainFallbackText") as? Bool ?? false
+        
         var arguments: [String] = [url.appendingPathExtension("ntf").path, "-o", url.path]
-        if fallback {
+        if ProjectSettings.shared.plainFallbackText == true {
             arguments.append("--plain-fallback")
         }
         

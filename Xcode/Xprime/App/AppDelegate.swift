@@ -48,7 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
             try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
             try? FileManager.default.createDirectory(at: url.appendingPathComponent("Projects"), withIntermediateDirectories: true)
             FileManager.default.changeCurrentDirectoryPath(url.appendingPathComponent("Projects").path)
-            UserDefaults.standard.set(url.path, forKey: "localtion")
+            Settings.shared.location = url.path
         }
     }
     

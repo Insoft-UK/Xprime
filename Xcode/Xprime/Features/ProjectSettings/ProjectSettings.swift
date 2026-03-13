@@ -20,33 +20,43 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+fileprivate enum DefaultsKey {
+    static let compression = "Compression"
+    static let include = "include"
+    static let lib = "lib"
+    static let calculator = "Calculator"
+    static let bin = "bin"
+    static let archiveProjectApplicationOnly = "ArchiveProjectApplicationOnly"
+    static let plainFallbackText = "PlainFallbackText"
+    static let language = "Language"
+}
 
 final class ProjectSettings {
 
     static let shared = ProjectSettings()
     private init() {}
 
-    @UserDefault(key: "Compression", defaultValue: false)
+    @UserDefault(key: DefaultsKey.compression, defaultValue: false)
     var compression: Bool
 
-    @UserDefault(key: "include", defaultValue: "$(SDKROOT)/include")
+    @UserDefault(key: DefaultsKey.include, defaultValue: "$(SDKROOT)/include")
     var include: String
 
-    @UserDefault(key: "lib", defaultValue: "$(SDKROOT)/lib")
+    @UserDefault(key: DefaultsKey.lib, defaultValue: "$(SDKROOT)/lib")
     var lib: String
 
-    @UserDefault(key: "Calculator", defaultValue: "Prime")
+    @UserDefault(key: DefaultsKey.calculator, defaultValue: "Prime")
     var calculator: String
 
-    @UserDefault(key: "bin", defaultValue: "/usr/local/bin")
+    @UserDefault(key: DefaultsKey.bin, defaultValue: "/usr/local/bin")
     var bin: String
 
-    @UserDefault(key: "ArchiveProjectApplicationOnly", defaultValue: true)
+    @UserDefault(key: DefaultsKey.archiveProjectApplicationOnly, defaultValue: true)
     var archiveProjectAppOnly: Bool
 
-    @UserDefault(key: "PlainFallbackText", defaultValue: true)
+    @UserDefault(key: DefaultsKey.plainFallbackText, defaultValue: true)
     var plainFallbackText: Bool
     
-    @UserDefault(key: "Language", defaultValue: "hpppl")
+    @UserDefault(key: DefaultsKey.language, defaultValue: "hpppl")
     var language: String
 }

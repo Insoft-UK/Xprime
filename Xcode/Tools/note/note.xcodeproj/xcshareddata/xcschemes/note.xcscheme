@@ -77,11 +77,11 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-o Note.hpappnote"
-            isEnabled = "NO">
+            argument = "-o Note.hpnote"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "--cc"
+            argument = "--plain-fallback"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -114,7 +114,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o ~/Documents/HP\ Prime/Calculators/Prime/"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--version"
