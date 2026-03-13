@@ -16,7 +16,7 @@
 
 # Generated files
 /assets/**   linguist-generated=true
-/installer/** linguist-vendored=true
+/installer/** linguist-generated=true
 *.sh         linguist-generated=true
 *.txt        linguist-generated=true
 *.rtf        linguist-generated=true
@@ -31,17 +31,19 @@
 *.yml        linguist-generated=true
 *.utf        linguist-generated=true
 *.note       linguist-generated=true
+*.ntf        linguist-generated=true
 *.hpnote     linguist-generated=true
 *.md         linguist-generated=true
 *.h          linguist-generated=true
 Makefile     linguist-generated=true
 
 # Vendored / external
-/Apps/**                     linguist-vendored=true
-/Examples/**                 linguist-vendored=true
-/Xcode/Xprime.xcodeproj/**   linguist-vendored=true
-/Xcode/Xprime/Resources/**   linguist-vendored=true
-/Xcode/Tools/note/test/**    linguist-vendored=true
+/Apps/**                          linguist-vendored=true
+/Examples/**                      linguist-vendored=true
+/Xcode/Xprime.xcodeproj/**        linguist-vendored=true
+/Xcode/Xprime/Resources/**        linguist-vendored=true
+/Xcode/Tools/note/test/**         linguist-vendored=true
 /Xcode/Tools/note/installer/**    linguist-vendored=true
+/installer/**                     linguist-vendored=true
 
 
