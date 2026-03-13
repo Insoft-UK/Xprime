@@ -30,8 +30,6 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |:-|:-|:-|
 |.ppl|HP Prime Programming Language source file|UTF8|
 |.prgm|HP Prime program source code|UTF16le|
-|.note|HP Prime note plain fallback text|UTF16le|
-|.note|NoteText format|UTF8|
 |.ntf|NoteText format|UTF8|
 |.md|Markdown Language|UTF8|
 |.bmp|Bitmap|Image|
@@ -41,7 +39,6 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.hpappnote|HP Prime note|Binary|
 |.hpprgm|HP Prime program (exported/packaged)|Binary|
 |.hpappprgm|HP Prime application (exported/packaged)|Binary|
-|.prgm+|HP Prime PRGM+ extended program source code|UTF8|
 |.ppl+|HP Prime PPL+ extended program source code|UTF8|
 
 >In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/ite...de-hpprime)￼ support, Xprime will adopt the .hpppl and .hppplplus file types and discontinue .prgm+. This change will simplify development for those using either Visual Studio Code or Xprime.
@@ -56,8 +53,8 @@ MyApp/
 │   └── Example.hpappprgm
 │── Example.hpappdir.zip
 │── Example.xprimeproj
-│── main.ppl+, main.ppl or main.pas
-└── info.note, info.ntf or info.md
+│── main.hppplplus or main.hpppl
+└── info.ntf
 ```
 
 Typical File Structure for an HP Prime **Program**
@@ -65,14 +62,12 @@ Typical File Structure for an HP Prime **Program**
 MyProgram/
 │── Example.xprimeproj
 │── Example.hpprgm
-│── main.ppl+, main.ppl or main.pas
-└── info.note, info.ntf or info.md
+│── main.hppplplus or main.hpppl
+└── info.ntf
 ```
 
 >[!NOTE]
->Use the .ppl+ extension for extended program source code and .prgm+ for the main application or program source code.
->
->For standard PPL source code, use .ppl and never .prgm, as .prgm is reserved for the main application or program source file in projects that do not use extended PPL.
+>Use the .ppl+ extension for extended program source code and .hppplplus for the main application or program source code.
 
 Recommended running HP Prime Virtual Calculator for Windows on macOS via **Wine Stable**.</br>
 <img src="assets/screenshots/hp-prime-win.png?raw=true" width="191" /><img src="assets/screenshots/hp-prime-win-about.png?raw=true" width="440" /></br>
