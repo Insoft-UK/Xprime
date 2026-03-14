@@ -28,20 +28,20 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 ### Supported File Types
 |Type|Description|Format|
 |:-|:-|:-|
-|.ntf|NoteText format|UTF8|
+|.ntf|NoteText|UTF8|
 |.md|Markdown Language|UTF8|
 |.bmp|Bitmap|Image|
 |.png|Portable Network Graphic|Image|
 |.h|Adafruit GFX Font|UTF8|
-|.hpnote|HP Prime note|Binary|
-|.hpappnote|HP Prime note|Binary|
-|.hpprgm|HP Prime program (exported/packaged)|Binary|
-|.hpappprgm|HP Prime application (exported/packaged)|Binary|
-|.prgm|HP Prime program source code|UTF16le|
-|.hpppl|HP Prime Programming Language source file|UTF8|
-|.hppplplus|HP Prime PPL+ extended program source code|UTF8|
-|.ppl|HP Prime Programming Language source file|UTF8|
-|.ppl+|HP Prime PPL+ extended program source code|UTF8|
+|.hpprgm|Standalone program binary|Binary|
+|.hpappprgm|App program binary (inside .hpappdir)|Binary|
+|.hpnote|Standalone note binary|Binary|
+|.hpappnote|App note binary (inside .hpappdir)|Binary|
+|.prgm|HP PPL source code|UTF16le|
+|.hpppl|HP PPL source code|UTF8|
+|.hppplplus|HP PPL Plus extended program source code|UTF8|
+|.ppl|HP PPL source code|UTF8|
+|.ppl+|HP PPL Plus source code|UTF8|
 
 >In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼ support, Xprime will adopt the .hpppl and .hppplplus file types and discontinue .prgm+. This change will simplify development for those using either Visual Studio Code or Xprime.
 
