@@ -18,7 +18,6 @@
 
 # Generated files
 /assets/**   linguist-generated=true
-/installer/** linguist-generated=true
 *.sh         linguist-generated=true
 *.txt        linguist-generated=true
 *.rtf        linguist-generated=true
