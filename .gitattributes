@@ -34,9 +34,11 @@
 *.note       linguist-generated=true
 *.ntf        linguist-generated=true
 *.hpnote     linguist-generated=true
+*.hpappnote  linguist-generated=true
 *.md         linguist-generated=true
 *.h          linguist-generated=true
 Makefile     linguist-generated=true
+*.xprimeproj linguist-generated=true
 
 # Vendored / external
 /Apps/**                          linguist-vendored=true
