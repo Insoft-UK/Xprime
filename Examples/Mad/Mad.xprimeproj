@@ -1,10 +1,10 @@
 {
-  "lib" : "$(SDKROOT)\/lib",
+  "bin" : "\/usr\/local\/bin",
   "calculator" : "Prime",
-  "plainFallbackText" : true,
+  "lib" : "$(SDKROOT)\/lib",
   "include" : "$(SDKROOT)\/include",
   "language" : "hppplplus",
+  "compression" : false,
   "archiveProjectAppOnly" : true,
-  "bin" : "\/usr\/local\/bin",
-  "compression" : false
+  "plainFallbackText" : true
 }

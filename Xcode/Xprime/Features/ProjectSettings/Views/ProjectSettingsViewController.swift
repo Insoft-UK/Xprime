@@ -45,8 +45,6 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib // ToolchainPaths.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include //ToolchainPaths.include
-        
-//        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
 
         if HPServices.hpPrimeCalculatorExists(named: ProjectSettings.shared.calculator) {
             self.calculator.image = NSImage(named: "ConnectivityKit")
@@ -138,12 +136,12 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
     @objc private func calculatorSelected(_ sender: NSMenuItem) {
         if sender.title == "Virtual Calculator" {
             calculator.image = NSImage(named: "VirtualCalculator")
-            UserDefaults.standard.set("Prime", forKey: "calculator")
+            ProjectSettings.shared.calculator = "Prime"
         } else {
             if sender.title == "Connectivity Kit" {
-                UserDefaults.standard.set("HP Prime", forKey: "calculator")
+                ProjectSettings.shared.calculator = "HP Prime"
             } else {
-                UserDefaults.standard.set(sender.title, forKey: "calculator")
+                ProjectSettings.shared.calculator = sender.title
             }
             calculator.image = NSImage(named: "ConnectivityKit")
         }

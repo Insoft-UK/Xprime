@@ -51,7 +51,6 @@ final class Settings {
     @UserDefault(key: DefaultsKey.lastOpenedProjectFile, defaultValue: "")
     var lastOpenedProjectFile: String
     
-    
     @UserDefault(
         key: DefaultsKey.location,
         defaultValue: FileManager
