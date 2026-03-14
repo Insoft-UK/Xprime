@@ -28,12 +28,12 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 ### Supported File Types
 |Type|Description|Format|
 |:-|:-|:-|
-|.xprimeproj|Xprime project json|UTF8|
+|.xprimeproj|Xprime project|JSON|
 |.ntf|NoteText|UTF8|
 |.md|Markdown Language|UTF8|
-|.bmp|Bitmap|Image|
-|.png|Portable Network Graphic|Image|
-|.h|Adafruit GFX Font|UTF8|
+|.bmp|Bitmap (.hpppl)|Image|
+|.png|Portable Network Graphic (.hpppl)|Image|
+|.h|Adafruit GFX Font (.hpppl)|UTF8|
 |.hpprgm|Standalone program binary|Binary|
 |.hpappprgm|App program binary (inside .hpappdir)|Binary|
 |.hpnote|Standalone note binary|Binary|
