@@ -13,6 +13,8 @@
 *.hpappprgm  linguist-language=PPL
 *.ppl+       linguist-language=PPL+
 *.prgm+      linguist-language=PPL+
+*.hpppl      linguist-language=PPL
+*.hppplplus  linguist-language=PPL+
 
 # Generated files
 /assets/**   linguist-generated=true
@@ -36,10 +38,6 @@
 *.md         linguist-generated=true
 *.h          linguist-generated=true
 Makefile     linguist-generated=true
-*.hpppl      linguist-generated=true
-*.hppplplus  linguist-generated=true
-*.ppl        linguist-generated=true
-*.ppl+       linguist-generated=true
 
 # Vendored / external
 /Apps/**                          linguist-vendored=true
