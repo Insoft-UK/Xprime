@@ -36,6 +36,10 @@
 *.md         linguist-generated=true
 *.h          linguist-generated=true
 Makefile     linguist-generated=true
+*.hpppl      linguist-generated=true
+*.hppplplus  linguist-generated=true
+*.ppl        linguist-generated=true
+*.ppl+       linguist-generated=true
 
 # Vendored / external
 /Apps/**                          linguist-vendored=true
