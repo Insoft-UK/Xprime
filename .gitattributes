@@ -39,6 +39,11 @@
 *.h          linguist-generated=true
 Makefile     linguist-generated=true
 *.xprimeproj linguist-generated=true
+preinstall   linguist-generated=true
+postinstall  linguist-generated=true
+*.dist       linguist-generated=true
+*.pkg        linguist-generated=true
+*.zip        linguist-generated=true
 
 # Vendored / external
 /Apps/**                          linguist-vendored=true
