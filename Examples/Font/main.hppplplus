@@ -1,13 +1,13 @@
 #pragma mode( separator(.,;) integer(h64) )
-#require <HP>
-#include "CGA.h"
+uses HP;
+var CGA := {$I "CGA.h"};
 
 #define WHITE #FFFFFF:32h
 #define BLACK 0
 export START()
 begin
 	RECT(BLACK);
-	Font.TEXTOUT("CGA Font Example", G0, 0, 0, CGA, WHITE);
+	HP.TEXTOUT("CGA Font Example", G0, 0, 0, CGA, WHITE);
 	WAIT(-1);
     return 0;
 end;

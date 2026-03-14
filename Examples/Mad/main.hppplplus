@@ -36,7 +36,7 @@ begin
 
     RECT(Color.White);
     
-    DIMGROB_P(G1,64,64,bmp(1));
+    DIMGROB_P(G1,bmp(2,1),bmp(2,2),bmp(1));
     BLIT_P(SCREEN_CENTRE - 32, SCREEN_MIDDLE - 32, G1);
     TEXTOUT_P("PRESS ANY KEY", 108, 208);
     TEXTOUT_P(COPYRIGHT, 76, 224, 1);

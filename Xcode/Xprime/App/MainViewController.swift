@@ -984,7 +984,12 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     // MARK: - Saving Document
     @IBAction func saveDocument(_ sender: Any) {
-        guard let _ = documentManager.currentDocumentURL else {
+        guard let url = documentManager.currentDocumentURL else {
+            proceedWithSavingDocumentAs()
+            return
+        }
+        
+        if !FileManager.default.fileExists(atPath: url.path) {
             proceedWithSavingDocumentAs()
             return
         }

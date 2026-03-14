@@ -1,8 +1,10 @@
 {
-  "lib" : "",
-  "archiveProjectAppOnly" : true,
-  "include" : "",
+  "include" : "$(SDKROOT)\/include",
   "calculator" : "Prime",
-  "compression" : true,
-  "bin" : "$(SDKROOT)\/bin"
+  "compression" : false,
+  "bin" : "\/usr\/local\/bin",
+  "archiveProjectAppOnly" : true,
+  "plainFallbackText" : true,
+  "language" : "hppplplus",
+  "lib" : "$(SDKROOT)\/lib"
 }

@@ -1,6 +1,6 @@
 #pragma mode( separator(.,;) integer(h64) assignment(=) indentation(2) )
 uses HP;
-local {$I "spectrum.ppl"}
+local spectrum := {$I "spectrum.bmp"};
 
 export START()
 begin

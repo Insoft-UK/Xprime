@@ -2,9 +2,9 @@
 
 uses HP;
 
-{$I "ARCADE.ppl"}
-{$I "BBC.ppl"}
-{$I "CGA.ppl"}
-{$I "EGA.ppl"}
-{$I "VGA.ppl"}
-{$I "HD44780.ppl"}
+var ARCADE := {$I "ARCADE.h"};
+var BBC := {$I "BBC.h"};
+var CGA := {$I "CGA.h"};
+var EGA := {$I "EGA.h"};
+var VGA := {$I "VGA.h"};
+var HD44780 := {$I "HD44780.h"};

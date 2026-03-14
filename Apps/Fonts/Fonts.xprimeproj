@@ -1,8 +1,10 @@
 {
   "calculator" : "Prime",
-  "bin" : "",
-  "compression" : true,
-  "lib" : "$(SDK)\/lib",
-  "archiveProjectAppOnly" : false,
-  "include" : "$(SDK)\/include"
+  "language" : "hppplplus",
+  "archiveProjectAppOnly" : true,
+  "lib" : "$(SDKROOT)\/lib",
+  "bin" : "\/usr\/local\/bin",
+  "include" : "$(SDKROOT)\/include",
+  "plainFallbackText" : true,
+  "compression" : false
 }

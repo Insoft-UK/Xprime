@@ -97,12 +97,43 @@ final class DocumentManager {
         delegate?.documentManagerDidSave(self)
     }
     
+    private func resolveDocumentURL(from url: URL) -> URL? {
+        let documentURL: URL
+        
+        switch url.pathExtension.lowercased() {
+        case "h", "bmp", "png", "hpprgm", "hpappprgm":
+            documentURL = url
+                .deletingPathExtension()
+                .appendingPathExtension("hpppl")
+            
+            if FileManager.default.fileExists(atPath: documentURL.path) {
+                return nil
+            } else {
+                return documentURL
+            }
+
+        case "hpnote", "hpappnote":
+            documentURL = url
+                .deletingPathExtension()
+                .appendingPathExtension("ntf")
+            
+            if FileManager.default.fileExists(atPath: documentURL.path) {
+                return nil
+            } else {
+                return documentURL
+            }
+
+        default:
+            return nil
+        }
+    }
+    
     private func openWithTool(
         executableName: String,
         url: URL,
         failureMessage: String,
         successLog: String? = nil,
-        printStdErrOnSuccess: Bool = false
+        printStdErrOnSuccess: Bool = false,
     ) {
         let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent(executableName)
         let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
@@ -128,9 +159,9 @@ final class DocumentManager {
         
         editor.string = out
         editor.undoManager?.removeAllActions()
-        currentDocumentURL = nil
         documentIsModified = false
         Settings.shared.lastOpenedFile = url.path
+        currentDocumentURL = resolveDocumentURL(from: url)
         
         delegate?.documentManagerDidOpen(self)
     }
@@ -187,26 +218,34 @@ final class DocumentManager {
     }
     
     private func openProgram(url: URL) {
-        let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("ppl+")
-        let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
+        openWithTool(
+            executableName: "ppl+",
+            url: url,
+            failureMessage: "Failed to read from the program file.",
+            successLog: "Importing \"\(url.lastPathComponent)\"\n",
+            printStdErrOnSuccess: true
+        )
         
-        guard result.exitCode == 0, let out = result.out else {
-            let error = NSError(
-                domain: "Error",
-                code: 0,
-                userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]
-            )
-            outputTextView.appendTextAndScroll(result.err ?? "")
-            delegate?.documentManager(self, didFailToOpen: error)
-            return
-        }
-        
-        outputTextView.appendTextAndScroll(result.err ?? "")
-        editor.string = out
-        editor.undoManager?.removeAllActions()
-        currentDocumentURL = url
-        documentIsModified = false
-        delegate?.documentManagerDidOpen(self)
+//        let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("ppl+")
+//        let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
+//        
+//        guard result.exitCode == 0, let out = result.out else {
+//            let error = NSError(
+//                domain: "Error",
+//                code: 0,
+//                userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]
+//            )
+//            outputTextView.appendTextAndScroll(result.err ?? "")
+//            delegate?.documentManager(self, didFailToOpen: error)
+//            return
+//        }
+//        
+//        outputTextView.appendTextAndScroll(result.err ?? "")
+//        editor.string = out
+//        editor.undoManager?.removeAllActions()
+//        currentDocumentURL = url
+//        documentIsModified = false
+//        delegate?.documentManagerDidOpen(self)
     }
     
     func openDocument(at url: URL) {
@@ -264,7 +303,7 @@ final class DocumentManager {
     func saveDocument(to url: URL) -> Bool {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
-        case "prgm", "appprgm", "note", "appnote":
+        case "prgm":
             encoding = .utf16
         case "hpnote", "hpappnote":
             saveNote(url: url)
