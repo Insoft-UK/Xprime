@@ -28,6 +28,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 ### Supported File Types
 |Type|Description|Format|
 |:-|:-|:-|
+|.xprimeproj|Xprime project json|UTF8|
 |.ntf|NoteText|UTF8|
 |.md|Markdown Language|UTF8|
 |.bmp|Bitmap|Image|
