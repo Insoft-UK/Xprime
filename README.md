@@ -6,10 +6,7 @@
 - Export a G1 .hpprgm file for use on a real HP Prime or the Virtual Calculator.
 - Compress code to fit more programs on your HP Prime
 
-Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.pkg">Xprime 26.3</a></br>
-**Requires** macOS 14.6 or later
-
-Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-rc-universal.pkg">Xprime 26.4 RC (20260318)</a></br>
+Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.pkg">Xprime 26.4</a></br>
 **Requires** macOS 14.6 or later
 
 ### Xprime 26
