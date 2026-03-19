@@ -9,7 +9,7 @@
 Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.pkg">Xprime 26.3</a></br>
 **Requires** macOS 14.6 or later
 
-Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-rc-universal.pkg">Xprime 26.4 RC</a></br>
+Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-rc-universal.pkg">Xprime 26.4 RC (20260318)</a></br>
 **Requires** macOS 14.6 or later
 
 ### Xprime 26
