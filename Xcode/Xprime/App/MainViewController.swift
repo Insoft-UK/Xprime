@@ -31,7 +31,6 @@ extension MainViewController: NSWindowRestoration {
 }
 
 final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
-    
     // MARK: - Outlets
     @IBOutlet weak var splitView: NSSplitView!
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
@@ -90,7 +89,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         registerWindowFocusObservers()
         refreshBaseApplicationMenu()
         
-        
+        let lastOpenedFile = Settings.shared.lastOpenedFile
         if FileManager.default.fileExists(atPath: Settings.shared.lastOpenedProjectFile) {
             projectManager.openProject(at: URL(fileURLWithPath: Settings.shared.lastOpenedProjectFile))
         } else {
@@ -105,6 +104,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         .appendingPathComponent("Xprime/Projects")
                         .path
                 )
+        }
+        
+        if FileManager.default.fileExists(atPath: lastOpenedFile) {
+            documentManager.openDocument(at: URL(fileURLWithPath: lastOpenedFile))
         }
     }
     
@@ -139,8 +142,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     // MARK: - Observers
-
-    
     func textDidChange(_ notification: Notification) {
 #if Debug
         print("Text did change!")
@@ -171,8 +172,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 #if Debug
         print("Window gained focus")
 #endif
-        
-        codeEditorTextView.smartSubtitution = Settings.shared.subtitutionEnabled
         
         refreshQuickOpenToolbar()
         refreshProjectIconImage()
@@ -258,7 +257,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("prgm")
         
         if let contents = HPServices.loadHPPrgm(at: url) {
-            codeEditorTextView.insertCode(contents)
+            codeEditorTextView.registerUndo(actionName: "Template")
+            if let selectedRange = codeEditorTextView.selectedRanges.first as? NSRange {
+                if let textStorage = codeEditorTextView.textStorage {
+                    textStorage.replaceCharacters(in: selectedRange, with: contents)
+                    codeEditorTextView.setSelectedRange(NSRange(location: selectedRange.location + contents.count, length: 0))
+                }
+            }
+            codeEditorTextView.applySyntaxHighlighting()
         }
     }
     
@@ -704,11 +710,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
        
-        if let currentDocumentURL = documentManager.currentDocumentURL, documentManager.documentIsModified {
+        if let url = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: url.path), documentManager.documentIsModified {
             AlertPresenter.presentYesNo(
                 on: view.window,
                 title: "Save Changes",
-                message: "Do you want to save changes to '\(currentDocumentURL.lastPathComponent)' before opening another document",
+                message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
                 primaryActionTitle: "Save"
             ) { confirmed in
                 if confirmed {
@@ -963,7 +969,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func openDocument(_ sender: Any) {
-        if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
+        if let url = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: url.path), documentManager.documentIsModified {
             AlertPresenter.presentYesNo(
                 on: view.window,
                 title: "Save Changes",

@@ -23,15 +23,7 @@
 import Cocoa
 
 final class GrammarLoader {
-
     static let shared = GrammarLoader()
-    
-    var preferredGrammar: String {
-        let name = UserDefaults.standard.string(forKey: "preferredTheme")
-            ?? "Default (Dark)"
-        return name
-    }
-
 
     func loadGrammar(named name: String) -> Grammar? {
         guard let url = Bundle.main.url(

@@ -25,17 +25,9 @@ import Cocoa
 final class ThemeLoader {
     
     static let shared = ThemeLoader()
-    
-    var preferredTheme: String {
-        let name = UserDefaults.standard.string(forKey: "preferredTheme")
-            ?? "Default (Dark)"
-        return name
-    }
 
     func loadTheme(named name: String? = nil) -> Theme? {
-        let fileManager = FileManager.default
-        
-        let name = name ?? self.preferredTheme
+        let name = name ?? Settings.shared.preferredTheme
 
         guard let url = Bundle.main.url(
             forResource: name,
@@ -45,7 +37,7 @@ final class ThemeLoader {
             return nil
         }
 
-        guard fileManager.fileExists(atPath: url.path),
+        guard FileManager.default.fileExists(atPath: url.path),
               let json = try? String(contentsOf: url, encoding: .utf8),
               let data = json.data(using: .utf8)
         else {

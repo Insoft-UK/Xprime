@@ -23,16 +23,6 @@
 import Cocoa
 
 class XprimeTextView: NSTextView {
-    
-    // MARK: - Constants
-    
-    private struct Constants {
-        static let defaultFontSize: CGFloat = 13
-        static let defaultThemeName = ".Help"
-        static let defaultBackgroundColor = NSColor(white: 0, alpha: 0.75)
-        static let defaultTextColor = NSColor.white
-    }
-    
     // MARK: - Properties
     
     private var theme: Theme!
@@ -101,19 +91,20 @@ class XprimeTextView: NSTextView {
     // MARK: - Private Methods
     
     private func setupEditor() {
+        theme = ThemeLoader.shared.loadTheme(named: Settings.shared.preferredTheme)
+        grammar = GrammarLoader.shared.loadGrammar(named: ".hpppl")
+        
         configureTextViewAppearance()
         configureTextContainer()
         configureScrollView()
         configureTypingAttributes()
         configureBehavior()
         
-        theme = ThemeLoader.shared.loadTheme(named: Constants.defaultThemeName)
-        grammar = GrammarLoader.shared.loadGrammar(named: ".Help")
     }
     
     private func configureTextViewAppearance() {
-        font = NSFont.monospacedSystemFont(ofSize: Constants.defaultFontSize, weight: .regular)
-        backgroundColor = Constants.defaultBackgroundColor
+        font = NSFont.monospacedSystemFont(ofSize: CGFloat(theme?.pointSize ?? 12), weight: .regular)
+        backgroundColor = NSColor(hex: theme.colors["editor.background"]!)!
         isRichText = false
     }
     
@@ -154,7 +145,7 @@ class XprimeTextView: NSTextView {
     }
     
     private func baseAttributes() -> [NSAttributedString.Key: Any] {
-        let font = NSFont.systemFont(ofSize: Constants.defaultFontSize, weight: .regular)
+        let font = NSFont.systemFont(ofSize: CGFloat(theme?.pointSize ?? 12), weight: .regular)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 0
         paragraphStyle.paragraphSpacing = 0
@@ -175,7 +166,7 @@ class XprimeTextView: NSTextView {
                 return color
             }
         }
-        return Constants.defaultTextColor
+        return .white
     }
     
 }

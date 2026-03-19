@@ -78,7 +78,7 @@
             }
         },
         {
-            "scope": ["Commands"],
+            "scope": ["Builtins"],
             "settings": {
                 "foreground": "#c678dd"
             }

@@ -1,18 +1,22 @@
 {
-  "name": "NoteText",
-  "scopeName": "source.ntf",
-  "patterns": [
-    {
-      "name": "Functions",
-      "match": "\\x5C[a-z]+((\\d+)|#[0-9A-F]+)?"
-    },
-    {
-      "name": "Operators",
-      "match": "\\x5C(?=[a-z])"
-    },
-    {
-      "name": "Brackets",
-      "match": "[{}]+"
-    }
-  ]
+    "name": "NoteText",
+    "scopeName": "source.ntf",
+    "patterns": [
+        {
+            "name": "Builtins",
+            "match": "(?m)(?<=\\{).*(?=\\})"
+        },
+        {
+            "name": "Numbers",
+            "match": "(?<=\\x5C)[a-z]+(#[0-9A-Fa-f]+|\\d+\\.?\\d*)"
+        },
+        {
+            "name": "Keywords",
+            "match": "(?m)\\x5C(b|i|ul|strike|super|sub|ql|qc|qr|fs|cf|cb|highlight|li|pict)"
+        },
+        {
+            "name": "Brackets",
+            "match": "[{}]+"
+        }
+    ]
 }

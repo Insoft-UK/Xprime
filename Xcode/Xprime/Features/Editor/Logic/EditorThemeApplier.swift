@@ -96,6 +96,8 @@ final class EditorThemeApplier {
         editor.colors["Backquotes"] = color(for: "Backquotes")
         editor.colors["Preprocessor Statements"] = color(for: "Preprocessor Statements")
         editor.colors["Comments"] = color(for: "Comments")
-        editor.colors["Commands"] = color(for: "Commands")
+        editor.colors["Builtins"] = color(for: "Builtins")
+        editor.colors["Constants"] = color(for: "Constants")
+        editor.colors["Storage"] = color(for: "Storage")
     }
 }

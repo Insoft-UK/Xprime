@@ -18,51 +18,51 @@
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/HsO-bO-Dfd-view-1RK-mx-rDE.nib</key>
 		<data>
-		LP4dWDyf4Y1XspjJcFTEOYgECic=
+		L+Pgui87E89M6AJ+/De935pgT1g=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<data>
-		8f8/sRsu/E3CgO8CjmUnE3FoOuY=
+		qheH/sgWBaO7acLsrKCoXv8dIGs=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<data>
-		jweb5wZJIUR1NjjPfS1rz5s8X0g=
+		m/3EovwXD+PPd6T8JawDPCIu418=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<data>
-		yVawMfbJ1Mofk8HjSkc7LtfbZTc=
+		JpdRcMFBw3kVSNI1bQ2ArIiB1j8=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-6N4-Ta-yVx.nib</key>
 		<data>
-		X8h4jaeECpHChFqlUBlsN7U9AU8=
+		y0eKZUAHR8twF8IFTflKJ9PVEGA=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-HsO-bO-Dfd.nib</key>
 		<data>
-		ur1E+lO8C6RUze91fTBsyDi0jdY=
+		/EY6/0oQIW//FkCrNcfSQd9Mg+c=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-Q8R-MK-74O.nib</key>
 		<data>
-		PzXtigd80qYuQrtsFvfLyz4z5Z8=
+		JOgFJv09jt5EFJx6PzoKerf8Fmk=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-RUs-SG-NT1.nib</key>
 		<data>
-		n4BO5y/cE/bID+m2LI967lRoQm4=
+		inn7YVt7Os2Y/VSnvs8oSLhWyho=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-mUd-ed-P1P.nib</key>
 		<data>
-		30ygqadtDmZfPhTFjoqqdw/Rttw=
+		DBz8xAdb8hoV3hKmqWvK7NzfLzc=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-r1K-n9-8QT.nib</key>
 		<data>
-		XcVuM2ugz6VvDAtmoqhKV/q+E7I=
+		KmvkwZrU9jb24xfb5GI0PX6A8yQ=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-um3-nH-PU9.nib</key>
 		<data>
-		+FsWkFfPbyqSWlyxiJmKc+7atD0=
+		NblGJ0rGZHZvlk8lco9cn9cm3WM=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-B8D-0N-5wS.nib</key>
 		<data>
-		XTsOVESw7RnsU3qr8pWOSvuDYpA=
+		yIYMxBPhremD0RJspzXNupMnGrM=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/Q8R-MK-74O-view-2jF-39-Lx7.nib</key>
 		<data>
@@ -74,19 +74,175 @@
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/XfG-lQ-9wD-view-m2S-Jp-Qdl.nib</key>
 		<data>
-		4ebjNabrWo4Gk+tFFb8t0Xz00no=
+		tAZq7whBe79i4xG1+T5Y1ad27cc=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/mUd-ed-P1P-view-ARQ-0U-uJY.nib</key>
 		<data>
-		8p/7a1amvLP0xyPoy7tRz3uPD18=
+		JSy1E60VnYXa/wXKabXnl77YinI=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/r1K-n9-8QT-view-qen-2T-vlw.nib</key>
 		<data>
-		emcXqkBtJDY6pDCJedlrkWsP588=
+		yZGN201HGKVHG4j/O5XX49ci7XY=
 		</data>
 		<key>Resources/Base.lproj/Main.storyboardc/um3-nH-PU9-view-JPh-bh-aek.nib</key>
 		<data>
 		brqZsY5zw6ko5e4BsVXCzkajVc0=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/centertext.xpsnippet</key>
+		<data>
+		akOsjplp/oXEJb0ErlpObaKe+jI=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/choosedialog.xpsnippet</key>
+		<data>
+		n7Xdv/kWS8LgWser0mAKpQZMDnI=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/clearscreen.xpsnippet</key>
+		<data>
+		3lFX8jIyrCcpHtF+gijdqGK1RRA=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/doublebuffer.xpsnippet</key>
+		<data>
+		HS2YK6KatwpZd76n9sQmZ5JOMBE=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/drawbutton.xpsnippet</key>
+		<data>
+		u79g0CIhDqmHxCDeCUTGiytUWDM=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/eventloop.xpsnippet</key>
+		<data>
+		dgkDNmzZJry9T+d/WK4+S39RMqY=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/exportfunc.xpsnippet</key>
+		<data>
+		m/RfQXIt1P+7GuEmBV4HNPfLq/M=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/fillscreen.xpsnippet</key>
+		<data>
+		ZgHsGx0tkFD0B/pqIr9iZx9/aDw=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/hline.xpsnippet</key>
+		<data>
+		IOHhnk+bDsEsjs/WuR5BD3EO0ws=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/inputmulti.xpsnippet</key>
+		<data>
+		drj0Va1ldIqwcs3C//OTcd/1bSA=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/inputsingle.xpsnippet</key>
+		<data>
+		HOILIOodLtZtEHAPz6hMd+Z2r1o=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/keydispatch.xpsnippet</key>
+		<data>
+		LMe2KoRkvvUDmoQr3H6Jlpgv2oQ=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/listfiles.xpsnippet</key>
+		<data>
+		hnqpvM94Z79OHWAVYZW7QP3mH6M=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/mouseclear.xpsnippet</key>
+		<data>
+		ptDyqacsDIycvRBoXlIzM6a0dz0=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/msgboxconfirm.xpsnippet</key>
+		<data>
+		c/p9e94S5fTKhbD5korYUJiNVrQ=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/program.xpsnippet</key>
+		<data>
+		L1/1ph2HsTCaUp1IOSMZH+ze6mY=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/pythonblock.xpsnippet</key>
+		<data>
+		UXFjBgIMxa3bSjO/J7Nl6eTo1b4=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/readfile.xpsnippet</key>
+		<data>
+		JNMYs9+J6p+y1Sio7UB3C9dRQcA=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/saverestore.xpsnippet</key>
+		<data>
+		ukGSY92HXHjURGfRcNg3Mb1wfDQ=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/scrollup.xpsnippet</key>
+		<data>
+		QeHev5d4cqfy75fOWxo/yL3lekc=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/softmenu.xpsnippet</key>
+		<data>
+		dsgS0jQc1gFUtOk41HNuzD1kcuU=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/statusbar.xpsnippet</key>
+		<data>
+		qnNGA3WiM4yYXxADg9uxArJAk20=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/titlebar.xpsnippet</key>
+		<data>
+		Vxh9OCHeVg+1S/qLW9vc4xljiXw=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/touchregion.xpsnippet</key>
+		<data>
+		6kmWD2NrI2Pn7wA9vUJZBst3Cg8=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/waittouch.xpsnippet</key>
+		<data>
+		mXyhS95Ul53z2Ucjkm5pAHgTUAg=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Snippets/whileloop.xpsnippet</key>
+		<data>
+		hWz/7H5dsfRGQTZ6+I1Q30DLozA=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/arith.pyi</key>
+		<data>
+		jLmADmDGiT1vUSovXn2Kj7YuQYg=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/cas.pyi</key>
+		<data>
+		JoCa+gj9d3MmhpE9ib0NnDIkRTs=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/graphic.pyi</key>
+		<data>
+		bHcvrMiSsLhKx9OMZ5I7UbmNSho=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/hpprime.pyi</key>
+		<data>
+		ZKS5CN44Po6AmtMYi+TSItnsGes=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/linalg.pyi</key>
+		<data>
+		JXDQXyH42XfBcyJ4Vi4KyfppdWg=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/micropython.pyi</key>
+		<data>
+		ECpLiDAFwPUHHqYOPXij6+dYkCk=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/ucollections.pyi</key>
+		<data>
+		WmlEbS7GYEuZnJzwJ12jfzVEEjs=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/uerrno.pyi</key>
+		<data>
+		D8vkdKu2NseiH6UX/+xuqhDMBLA=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/uhashlib.pyi</key>
+		<data>
+		LJ7IUtBOvLTC4UpgILWYrrsoeCs=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/uio.pyi</key>
+		<data>
+		fy41dKZBz5meUtaqpMf1idYcFs8=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/urandom.pyi</key>
+		<data>
+		qJ+4A8U8VPs3mhsQ9KglLgSntpc=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/ure.pyi</key>
+		<data>
+		QJFpEC9Lkp8gLB+NJYcV4EdHP7Y=
+		</data>
+		<key>Resources/Developer/Library/Xprime/Stubs/ustruct.pyi</key>
+		<data>
+		qLK9hTmukJvah7VZRpj2c4K8RGQ=
 		</data>
 		<key>Resources/Developer/Library/Xprime/Templates/Application Template/icon.png</key>
 		<data>
@@ -428,29 +584,25 @@
 		<data>
 		+lq/KM28Nf05N3QOk+qHPXtt7F0=
 		</data>
-		<key>Resources/Grammars/.Help.xpgrammar</key>
-		<data>
-		EdQTPmqSLx/rvNqsw/k0wCE/zVQ=
-		</data>
 		<key>Resources/Grammars/.hpppl.xpgrammar</key>
 		<data>
-		8657ryrKcVPmcF9nchvxjUBXF+w=
+		/iy943orvvzBqeFuUt2xFMlS36g=
 		</data>
 		<key>Resources/Grammars/.hppplplus.xpgrammar</key>
 		<data>
-		/+ujFnABghNE0Cz0JKcJPFw9kBs=
+		/Bl2qkPpjh2aafX8uSOz36McbpI=
 		</data>
 		<key>Resources/Grammars/.md.xpgrammar</key>
 		<data>
-		9PCO2f81EtjFFyworAvr3lqWEPE=
+		BdJAjv2DU9Ts/3Ef3ihSsql4VDM=
 		</data>
 		<key>Resources/Grammars/.ntf.xpgrammar</key>
 		<data>
-		5DD2wJF5+buboAdtF7szBMd8tkM=
+		CamSNcTNfJay3L/sYf3BDRT7Hso=
 		</data>
 		<key>Resources/Grammars/.py.xpgrammar</key>
 		<data>
-		+06739ODCvCy8malL5nSuvrOeKY=
+		LE4+rWRj3LtSgYdk+FIBjaT4G74=
 		</data>
 		<key>Resources/Help/!.txt</key>
 		<data>
@@ -3244,13 +3396,9 @@
 		<data>
 		bxfqQqqOKkkdeckJEleCtVSCN88=
 		</data>
-		<key>Resources/Themes/.Help.xpcolortheme</key>
-		<data>
-		Nx9qIMF9fWBFNh/A3RJ0urzcQWc=
-		</data>
 		<key>Resources/Themes/Blackboard.xpcolortheme</key>
 		<data>
-		UhmjmkiEJu3VpLkuOtxAV1XNKxk=
+		vR9paSPM8a+f6fwD2CGn3dm+gK4=
 		</data>
 		<key>Resources/Themes/C64.xpcolortheme</key>
 		<data>
@@ -3258,39 +3406,43 @@
 		</data>
 		<key>Resources/Themes/Catalog.xpcolortheme</key>
 		<data>
-		si/yl6I1voaXU0qXlXO/R0rzbc8=
+		CNDExrT7Iua9r3QGZV29rFrZu8s=
 		</data>
 		<key>Resources/Themes/DOS.xpcolortheme</key>
 		<data>
-		QtlFBfz9o52OIa/dH5MBNPp3Vzg=
+		PAkl6LLs3pMYlZqwoUFdpN9kJx0=
+		</data>
+		<key>Resources/Themes/Dark Modern.xpcolortheme</key>
+		<data>
+		2YsASeqZ1Yc5L7rVErZAQnX6z/I=
 		</data>
 		<key>Resources/Themes/Default (Dark).xpcolortheme</key>
 		<data>
-		X78cWPVZ8+PuUSAf7LJxRQZ93Yg=
+		krmspaM9Uw3+j7OGhXtI3ZZ2bgM=
 		</data>
 		<key>Resources/Themes/Default (Light).xpcolortheme</key>
 		<data>
-		nx3XsrXqkoJ8n6OpMUAOLs5+OFQ=
+		MGTab/mJRDn9wDbfPeFAsePsH+Q=
 		</data>
 		<key>Resources/Themes/GitHub (Dark).xpcolortheme</key>
 		<data>
-		ra0Wr1NOWOBUeQRyFlI6y+UnDyU=
+		qJQ7fslTGov42w7w83OzXaDRTCU=
 		</data>
 		<key>Resources/Themes/GitHub (Light).xpcolortheme</key>
 		<data>
-		f7hhh5iQtoSsoIHaeO4qmGLOgX4=
+		6xl8ZupzkKtsoHOnSVKFnbvZKlw=
 		</data>
 		<key>Resources/Themes/HP Connectivity Kit.xpcolortheme</key>
 		<data>
-		efrLtPZjv4UpPHZQRf7VVzPjjf0=
+		gnWzEtpFWg480+yurnx/bV5VOhU=
 		</data>
 		<key>Resources/Themes/Maroon.xpcolortheme</key>
 		<data>
-		8XApZfw3Gx79Shj6T5B7dWOaD0c=
+		v2KLbmxu09Mcu/shuOZeEG83d5g=
 		</data>
 		<key>Resources/Themes/Modern Retro.xpcolortheme</key>
 		<data>
-		JqslQjwMhmwKG2OMluxNAyN2Bbo=
+		mHiayTZXYUoBlIwTKZDX+t7n940=
 		</data>
 		<key>Resources/Themes/Retro.xpcolortheme</key>
 		<data>
@@ -3318,11 +3470,11 @@
 		</data>
 		<key>Resources/program.hpppl</key>
 		<data>
-		QxG4PrhbHhR/Tcoj4IQgeRL6fXs=
+		7LATb/ONHkcOIk4sG+eAcwxYPf8=
 		</data>
 		<key>Resources/program.hppplplus</key>
 		<data>
-		CY9p7rgW3+CVsM/vjzVcGQHMSJk=
+		qWnLiCz5kNCmR6GZKugGVePNAxc=
 		</data>
 		<key>Resources/program~cas.hpppl</key>
 		<data>
@@ -3332,7 +3484,7 @@
 		<data>
 		bVj8dx6k1VFuwV7AbGehlYYZ+Uc=
 		</data>
-		<key>Resources/subtitutions.json</key>
+		<key>Resources/substitutions.json</key>
 		<data>
 		DGvZ2yz9Wr/+SepY2UsHkqY/Gbo=
 		</data>
@@ -3364,84 +3516,84 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YPmZizuxNpIni0B3RSrlkUezUhKUaJVAxr8YHDMRP68=
+			PmbBeUIPKzAh2ZHJ7Qbf01dcnVkPuJyTzVCxL7EwTt8=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			TVjb+o4zPUNYwvI9m9CfHONGlGtId0MkSsuNwI4Ww1c=
+			RsH+4daEeEOFay1QNXF5jEnsqzDnXii2cF5RkTdCfYA=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainMenu.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0UwCxqoImmqA3W/Wa8L0BCupVuISzSBCXMvAjhpLpVw=
+			JBHjnP6YU9Xxr97Mi7tk8lEkxd0HP7Kjc8elU1ah22c=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/MainViewController.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Wme3/a4AHkLam0JpEXzgGGCgi1rL5ygZ0WJ3w7YobEs=
+			axrcKb+5wg5IWp5jf9g5ce23sosTJNpsPS7Umisf97M=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-6N4-Ta-yVx.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			RXB6Pu6pSGFcZMmSi0aaIL8KKjRn+75KhdPVZ+Th3L4=
+			sM5V/5NOTg27jtC+J2xCbc7h4HWcbc+pfdEGJh9BpYM=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-HsO-bO-Dfd.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5LaInGVAhHCTxUqJUCC/wfU+UUvZzOfZKuX7+q3f4BI=
+			H3ZXrrQW677yw4LGybW6C9U4m3Ri+n5SckJ+9rCavl8=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-Q8R-MK-74O.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Bkrq7ttjFzddEacXSTJ7PupYpKnfn4DFB/9q1ma1fvI=
+			3uou04xUXEe/7z906s264SIoxJDZVxAfOqJJNl3adIQ=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-RUs-SG-NT1.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			e7IqwSOe/yRmbi/IzGHWF4TXK5a1P/tzg/gSYC1JfFA=
+			MOzWf8IqFQDx72zjte6lTIOS8NyIup/nPfcA/oNCjF0=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-mUd-ed-P1P.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2MctI3Z9qzgAcq26vSf3xYPoZE6q1PYCTGMzUP0/Dzk=
+			UPZ0BwGew4G3b92BQwv3Op1cpUFxVZCItxhjsJSZfRo=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-r1K-n9-8QT.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			d9dsSxP14bdKI5LYmPXtBGq0eFiwfP/YDpTSYaZZfJ4=
+			YI1JvpyuhPBFaa1vXspV9VjYKyBnLvF/yqnPgtg5xn8=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSViewController-um3-nH-PU9.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sN+/wZUaZQbDRW6LnFzMUf9kRC7VVBKFJ43vBtHYMlQ=
+			/LPJ0nLR+hKr1oGc1lJT2MG+0H97ZEBQr23h+6ar2d8=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/NSWindowController-B8D-0N-5wS.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			n2h90qutcRzJ4N6xwOABOVvvUhFrtVE+8LfWY2p3Wjc=
+			gyb9TQTwjECyCsxJGXn8g6JjmQDFWyljt/9Z3/i0uus=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/Q8R-MK-74O-view-2jF-39-Lx7.nib</key>
@@ -3462,21 +3614,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cDhkdgAGGBk2AulVyMj/xCVQl5voSz8dBTxZWfE2wHo=
+			C21oEV82p1UNkVMv+QOJgazPBM4tGW44ZEpQp91pWQg=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/mUd-ed-P1P-view-ARQ-0U-uJY.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6a4D5okBGyyL+NLvdtQL/D7wFIJW6b7utnA2WHbQQXA=
+			rrxlte5AyNB5d3/TGWJ452Lfw7H8B4W4Gfi+UciVclU=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/r1K-n9-8QT-view-qen-2T-vlw.nib</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			tE9ftrPS0+D4dGb2+DpvHTYk1Y+Cf6M8BrY+G0bo+N4=
+			aw9vfYCJUD7hZgIywDpQ9uI2fAz+Ec5FjrEZPMyJAYE=
 			</data>
 		</dict>
 		<key>Resources/Base.lproj/Main.storyboardc/um3-nH-PU9-view-JPh-bh-aek.nib</key>
@@ -3484,6 +3636,279 @@
 			<key>hash2</key>
 			<data>
 			9Acj+dTweR8/B/lJ4gAJmGgzP03lmBe/JQg0JKeUS+o=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/centertext.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iodZoEkP1/t5Pat7z1vwtxbJQ9nuJkA8ik63b65Chp8=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/choosedialog.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			SCYojoPMeMQQauzUC2u6zd7iYH/9QTiSMTMXH+6yAc0=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/clearscreen.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o2Ob5Qz9BenqAKrERS97bUfUfhEsJUtiWq+15eDEKcE=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/doublebuffer.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			QwCJR+6SzsxoFgmJoO2vqXmhVJQQMbqO5dI+dWHPdcI=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/drawbutton.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JKHeONSh343cm3oGwfLOPfZ6bSTrpJNPNfmT+R/EOVo=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/eventloop.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			NCfH4RNNQ8QVHfyStHp7Ue+vRvxVsMEEj5OpA6/ZWNs=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/exportfunc.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eLg9/LL0IoqLbVwy5s2JaReu5JQrc0mIVal6ECnblP4=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/fillscreen.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wCJylq9N64ZvWnBbjnwUrW8FjeUXeTt7VvzCCS5zG8g=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/hline.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			MYrdO+5piBgEHBugxXME3xgmr9CKn/fMmIQQyG8JGCg=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/inputmulti.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			LWPsoADSPB9Ccu6FZ+9b26BZLqff44epHnXJgMy+RVs=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/inputsingle.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+q8DqJL37852ZeOO9LN7cMezIelfkGdmky2xQz9heE0=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/keydispatch.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eZdYFm5OpnhuFah3lDsKNKPa7MVZfE1ZDc+kvkD/3kY=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/listfiles.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			a7RtYo2k9FSA3dmMHhAiL9v+E9KAhTJnca1FClK3sao=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/mouseclear.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			AvOr9WFGTOVtpgYQwf5src84jF1W1szxCkUAffGoPsQ=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/msgboxconfirm.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DgcZfVjmoRiBJd61J/c4EI8mlTZv/u9Evptd7pmGieI=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/program.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OtcFF0MmT87qHO25EVe3yq/GnLE1KFfVJ6M28G0+RJg=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/pythonblock.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8uWxCrYBDVUqGer7NWz2GY6+2mW2fU0jNo8Z/Pqgeu8=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/readfile.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Q+zePR29IrRFEXlNYK/BWv5VJbGUtrRlR26WnKEXbd4=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/saverestore.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			gzLvnPUU8Vmvl/8DF2ebh8n8F9mLCeOp0/1J3NWyNsU=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/scrollup.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4e2aliXvZRluYZL8P2Nnc/s9JxQ0f1BzTjYiSBNV114=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/softmenu.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Mc07ukk34BPM7jCQt1//wC1yyai7Dfk7l+CnOkRyglQ=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/statusbar.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			zsG7t8T/Y1n2BtCBgTreS2rOqvVGta9mRv+0gWxVQZw=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/titlebar.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			n6lHFUOfg7BQiUBiBdJMs7rGsaJ2uccmMXfAvOq3rio=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/touchregion.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			prWa7Dw4VYjfZ/3kW4tiy8Z6EiPLwovOXtp4Bjo1oDo=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/waittouch.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BVD/6EQ2fH40KQSn3r1Hys8Asw0rtrqSHgA5bev83sE=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Snippets/whileloop.xpsnippet</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			nMWIiX9Eluq7rYilv/jNIExNO2lnbPuZwCFAg/b7Z3g=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/arith.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			1W3UqmwJFW4L22zCJn9ORCKVEY4mJ9e3LrpIP8wYmUU=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/cas.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Clj/MJFq7bo6K7PfTIrCvGX0KKRvd5s59tKrpSHyeaE=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/graphic.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			sNXHFDz9PZ3P8VvJKnReSHMqY1U16EghfUQ5oFbBuI4=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/hpprime.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			9QNstIU+fUOhOOcwEhg9WsIu4kAEaMniiOwgOKqT7Lc=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/linalg.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WYMdCJMClFjuckTlZMlI1lgbe7+9JOyoYUON12HzLnc=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/micropython.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			haTnKy+/0He/93Hy8A4uMvhQpfvWU4s7T7Eop/MZOmg=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/ucollections.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			LUUvzzBuibZrB7aCZMCzUjgSgAQnBPNIiL9MG1+fVLc=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/uerrno.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Xg3oZ6Jz8VF2C9CD1Vm+ygwwYcjqvGyqFK/gzQccOZs=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/uhashlib.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			UDisWXu5ebPrVnbxBQTKS3f9A5uoHDVgV83Yx8deESU=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/uio.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eoOMwxgLdObSMceWUevc48N1pN2p19+fPJ/cp4QI1DM=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/urandom.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			v3rNecdvqfgz4h1ub9oIm88Q1NsAxXv1S4YkmOZBX+Q=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/ure.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			iWVyIxVBIrTuw7ovGJXuNCQVQhv5m018ZaJAdp1XLKE=
+			</data>
+		</dict>
+		<key>Resources/Developer/Library/Xprime/Stubs/ustruct.pyi</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			V9kbWg7pLNYpc/ncOQzJ5EZ7DmuTdYwRLtny+gsertQ=
 			</data>
 		</dict>
 		<key>Resources/Developer/Library/Xprime/Templates/Application Template/icon.png</key>
@@ -4081,46 +4506,39 @@
 			RotWoTnwoeShSQCCxS8ukfL7ozXrc3M5oFfimOJA0rM=
 			</data>
 		</dict>
-		<key>Resources/Grammars/.Help.xpgrammar</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			7R0edcmhh/XqKX1aaxCAEaUXKq4kQbmZW6i+9DRoDaw=
-			</data>
-		</dict>
 		<key>Resources/Grammars/.hpppl.xpgrammar</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0BaUBoTzcg2M63ZICnEkowKvmjOkI39ytWRuiqrCpjQ=
+			JM3n7wQeFLc1wD/8yfAJbgB6psTj8gpYi6EJFrcnCsQ=
 			</data>
 		</dict>
 		<key>Resources/Grammars/.hppplplus.xpgrammar</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			kKhn4bemx9qbmQnToQdSr3FIl8fZGXK79FsCp3Ekko8=
+			jiNUdnbhk9MENakv9LPliVfnscOhmOYnBMmlLfL5aQ4=
 			</data>
 		</dict>
 		<key>Resources/Grammars/.md.xpgrammar</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			tehHmGlSXjUEy+R0eqmbXGlIFsQtnzXPuyDrrRHPm8w=
+			TiDtIBhMrOmdazPrQXhOJ9qZK8YSfvBGXFL0ob500Ts=
 			</data>
 		</dict>
 		<key>Resources/Grammars/.ntf.xpgrammar</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			DtmquvtMnUJfJcM5rlFnD9xwDUjHkd+xChE0t7MkHWQ=
+			0Vzpzu9aYMOoaFmZkzhytEh9YJiJyPLC5vKOtnvPv4w=
 			</data>
 		</dict>
 		<key>Resources/Grammars/.py.xpgrammar</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/m5UR8mBYWXpjXWs6QvRRF+G83+YrcEXe1WmFHFOLzo=
+			k1hkR/TLu/KqJ3pbWOs5UimyrWqGAb0Zf4HNBDh0AMs=
 			</data>
 		</dict>
 		<key>Resources/Help/!.txt</key>
@@ -9009,18 +9427,11 @@
 			U/3XCDqvicpv5IxiM7grciN1bzXRGULHbRwG2z0FFJI=
 			</data>
 		</dict>
-		<key>Resources/Themes/.Help.xpcolortheme</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ZydEGJtfzIBrnbjbDFxgTfx2dVxSeFfXpVOoxFijIu4=
-			</data>
-		</dict>
 		<key>Resources/Themes/Blackboard.xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2UUtM3sn0+8BmCP3VXIDRujqO24DUsuejE7e1uHGfjk=
+			0aG5j/rlpLfGIaEp7ArpOMncf2LqyV1VBzkA/l8L/8s=
 			</data>
 		</dict>
 		<key>Resources/Themes/C64.xpcolortheme</key>
@@ -9034,63 +9445,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			AmHZrEWdGNRRyjdqyplH5CHXkBHt3CPZzk/9ojCzmGQ=
+			HT5JTWsSjRQ85GD1Hu75DcVekAaw1OBuVb+hfBqe86U=
 			</data>
 		</dict>
 		<key>Resources/Themes/DOS.xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			njXW7aiN93YBFABMgwGoA46z4kPnK8vDrv/gDxF5xPA=
+			afZCFTqhfF7R1MqBdt0IkiPY3lsUTcqjFJBiJP/UDPE=
+			</data>
+		</dict>
+		<key>Resources/Themes/Dark Modern.xpcolortheme</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			B590yXra8ivIani+xquSjx/2lRMA9CwydO1gQzm7vGY=
 			</data>
 		</dict>
 		<key>Resources/Themes/Default (Dark).xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			t2WfLDUqTkqhY7iKs+JPwQGoppSnEaJHwbNIkUOC8PY=
+			qQWg0IGnMHSLtM6qPVkQzARqhHeano+ybqTpmNzP1Jo=
 			</data>
 		</dict>
 		<key>Resources/Themes/Default (Light).xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9avL/h6/xjn0MYRpiQ1wBxzK03rVDXv4srrvZgCFZZQ=
+			CdH86eus4O4wajUFedN0HjPRsUTIpgl4JziFlmoOciA=
 			</data>
 		</dict>
 		<key>Resources/Themes/GitHub (Dark).xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			SIXEnYA/FX5TvSS+nHsCw1Fp1c+A3xzlwzB5SeHkHMU=
+			V8O7w98SL1l/JHjWkgPX1llgaaz/hUhUcy8hvziHmMs=
 			</data>
 		</dict>
 		<key>Resources/Themes/GitHub (Light).xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Bym/as1FNo9GVtFH/P916Puo8Qi7eKWH71BlYxMABYQ=
+			aasuDX+6fcjvJ4zTRxYKQgEwh/g0sT0EuogbShyHWf0=
 			</data>
 		</dict>
 		<key>Resources/Themes/HP Connectivity Kit.xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ANP6gDD4Ol5UQ1NYXeLtJ4B4vRSCgNoVLocutI0JHwY=
+			a8HF2XdJeYvpg4/z+/GKhs1fwKKjsewV9OEzWlGv+CQ=
 			</data>
 		</dict>
 		<key>Resources/Themes/Maroon.xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sqhsKheTEpadzQjzWJ+0tk8Ue07upgN4/eOU7D5nzQQ=
+			ZhKF3aa38apcSByZoECmPNdJRCfRNnf82fb87KSAFjE=
 			</data>
 		</dict>
 		<key>Resources/Themes/Modern Retro.xpcolortheme</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			znGN1fWAaDf/s6M4GR4CTSv7+El4mHXGC6c9Jrra37k=
+			KtvgFy85Aax1vMg/oEsDN33XUbZB+JIlK4bXxM1xOtQ=
 			</data>
 		</dict>
 		<key>Resources/Themes/Retro.xpcolortheme</key>
@@ -9139,14 +9557,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cG9KC8c9Fk+0COsb90nAOFPCxikt+0V4zYN0w0bNvYc=
+			YuvXw2oa3Uy82PixfDEHBnDC3X5PvB54kC7NC78i+Ec=
 			</data>
 		</dict>
 		<key>Resources/program.hppplplus</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sdRf0jcAdAedfaFCFhqILvejs/1j8G7HlnfembHIehY=
+			S2HGC7atnfuJ8LADkpjVr7kYm2ClrB65v4F6BcxuRWU=
 			</data>
 		</dict>
 		<key>Resources/program~cas.hpppl</key>
@@ -9163,7 +9581,7 @@
 			jG2n+6aMCPqFSxl1b7jEZFmRMfTGF2Mne1o3IoKUvfg=
 			</data>
 		</dict>
-		<key>Resources/subtitutions.json</key>
+		<key>Resources/substitutions.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>

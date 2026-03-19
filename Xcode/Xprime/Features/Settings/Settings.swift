@@ -40,7 +40,7 @@ final class Settings {
     private init() {}
 
     @UserDefault(key: "SubstitutionEnabled", defaultValue: false)
-    var subtitutionEnabled: Bool
+    var substitutionEnabled: Bool
     
     @UserDefault(key: "PreferredTheme", defaultValue: "Default (Dark)")
     var preferredTheme: String

@@ -82,9 +82,15 @@
             }
         },
         {
-            "scope": ["Commands"],
+            "scope": ["Builtins"],
             "settings": {
                 "foreground": "#3399FF"
+            }
+        },
+        {
+            "scope": ["Constants"],
+            "settings": {
+                "foreground": "#44BBFF"
             }
         }
     ]

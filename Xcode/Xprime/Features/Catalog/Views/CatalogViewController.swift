@@ -24,8 +24,9 @@ import Cocoa
 
 
 final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextFieldDelegate {
-    @IBOutlet weak var catalogComboBox: NSComboBox!
     @IBOutlet weak var catalogHelpTextView: CatalogHelpTextView!
+    @IBOutlet weak var catalog: NSPopUpButton!
+    @IBOutlet weak var search: NSTextField!
     
     
     required init?(coder: NSCoder) {
@@ -35,12 +36,13 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        populateCatalogComboBoxItems()
-        
-        catalogComboBox.delegate = self
-        catalogComboBox.usesDataSource = false
-        catalogComboBox.focusRingType = .none
-        catalogComboBox.numberOfVisibleItems = 20
+        populateCatalogMenu()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(searchTextDidChange(_:)),
+                                               name: NSControl.textDidChangeNotification,
+                                               object: search)
+        loadHelp(for: Catalog.shared.lastOpenedCatalogHelpFile)
+        search.stringValue = Catalog.shared.lastOpenedCatalogHelpFile
     }
     
     override func viewDidAppear() {
@@ -53,10 +55,10 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         
         // Optional: remove title bar / standard window decorations
         window.titleVisibility = .hidden
+        window.center()
         window.titlebarAppearsTransparent = true
-        window.styleMask = [.closable, .titled]
+        window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
-        window.hasShadow = true
         window.level = .floating
     }
 
@@ -81,79 +83,83 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
             NSLog("Failed to load RTF for command \(command): \(error.localizedDescription)")
             #endif
         }
-        
     }
     
-    func controlTextDidChange(_ notification: Notification) {
-        guard let comboBox = notification.object as? NSComboBox else { return }
-
-        let text = comboBox.stringValue
-        handleInput(text)
-    }
+    
     
     func handleInput(_ text: String) {
         guard let file = searchCatalog(text) else { return }
         loadHelp(for: file)
-        UserDefaults.standard.set(file, forKey: "lastOpenedCatalogHelpFile")
+        Catalog.shared.lastOpenedCatalogHelpFile = file
     }
     
-    func comboBoxSelectionDidChange(_ notification: Notification) {
-        guard let comboBox = notification.object as? NSComboBox else { return }
-
-        let index = comboBox.indexOfSelectedItem
-        guard index >= 0 else { return }
-
-        let value = comboBox.itemObjectValue(at: index) as? String ?? ""
-        handleInput(value)
-
-        DispatchQueue.main.async {
-            if let editor = comboBox.currentEditor() {
-                let length = editor.string.count
-                editor.selectedRange = NSRange(location: length, length: 0)
-            }
-        }
-    }
+    
     
     private func searchCatalog(_ text: String) -> String? {
         guard !text.isEmpty,
-              let items = catalogComboBox.objectValues as? [String] else {
+              let items = self.catalog.menu?.items.map({ $0.title }),
+              !items.isEmpty else {
             return nil
         }
 
-        return items.first {
-            $0.localizedCaseInsensitiveContains(text)
-        }
+        return items.first { $0.localizedCaseInsensitiveContains(text) }
     }
     
-    private func populateCatalogComboBoxItems() {
+    
+    
+    private func populateCatalogMenu() {
+        let menu = NSMenu()
+        
         guard let resourceURLs = Bundle.main.urls(
             forResourcesWithExtension: "txt",
             subdirectory: "Help"
         ) else {
             return
         }
-
+        
         let catalog = resourceURLs
             .map { $0.deletingPathExtension().lastPathComponent.customPercentDecoded() }
             .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
 
-        catalogComboBox.removeAllItems()
-        catalogComboBox.addItems(withObjectValues: catalog)
-        
-        let lastOpenedCatalogHelpFile = UserDefaults.standard.object(forKey: "lastOpenedCatalogHelpFile") as? String ?? "-"
-        
-        let index = catalogComboBox.indexOfItem(withObjectValue: lastOpenedCatalogHelpFile)
-        if index >= 0 && index != Int64.max {
-            catalogComboBox.selectItem(at: index)
-        }
-        loadHelp(for: lastOpenedCatalogHelpFile)
-        
-        DispatchQueue.main.async {
-            if let editor = self.catalogComboBox.currentEditor() {
-                let length = editor.string.count
-                editor.selectedRange = NSRange(location: length, length: 0)
+        for name in catalog {
+            if let url = Bundle.main.url(
+                forResource: name.customPercentEncoded(),
+                withExtension: "txt",
+                subdirectory: "Help"
+            ) {
+                let menuItem = NSMenuItem(
+                    title: name,
+                    action: #selector(catalogSelected(_:)),
+                    keyEquivalent: ""
+                    
+                )
+                menuItem.representedObject = url as NSURL
+                menu.addItem(menuItem)
             }
         }
+        menu.item(withTitle: Catalog.shared.lastOpenedCatalogHelpFile)?.state = .on
+        self.catalog.menu = menu
+    }
+    
+    @objc private func catalogSelected(_ sender: NSMenuItem) {
+        if let url = sender.representedObject as? URL {
+            loadHelp(for: url.deletingPathExtension().lastPathComponent)
+        }
+    }
+    
+    @objc private func searchTextDidChange(_ notification: Notification) {
+        guard let textField = notification.object as? NSTextField else { return }
+
+        let text = textField.stringValue
+        handleInput(text)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSControl.textDidChangeNotification, object: search)
+    }
+    
+    @IBAction func close(_ sender: Any) {
+        self.view.window?.close()
     }
 }
 

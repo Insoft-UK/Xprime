@@ -225,27 +225,6 @@ final class DocumentManager {
             successLog: "Importing \"\(url.lastPathComponent)\"\n",
             printStdErrOnSuccess: true
         )
-        
-//        let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("ppl+")
-//        let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
-//        
-//        guard result.exitCode == 0, let out = result.out else {
-//            let error = NSError(
-//                domain: "Error",
-//                code: 0,
-//                userInfo: [NSLocalizedDescriptionKey: "Failed to read from the program file."]
-//            )
-//            outputTextView.appendTextAndScroll(result.err ?? "")
-//            delegate?.documentManager(self, didFailToOpen: error)
-//            return
-//        }
-//        
-//        outputTextView.appendTextAndScroll(result.err ?? "")
-//        editor.string = out
-//        editor.undoManager?.removeAllActions()
-//        currentDocumentURL = url
-//        documentIsModified = false
-//        delegate?.documentManagerDidOpen(self)
     }
     
     func openDocument(at url: URL) {

@@ -25,7 +25,8 @@ import Cocoa
 struct Theme: Codable {
     let name: String
     let type: String
-    let weight: String
+    let weight: String?
+    let pointSize: Float?
     let colors: [String: String]
     let lineNumberRuler: [String: String]?
     let window: [String: String]?

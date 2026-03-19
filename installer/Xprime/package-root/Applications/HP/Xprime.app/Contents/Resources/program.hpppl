@@ -1,7 +1,23 @@
-#pragma mode( separator(.,;) integer(h64) )
+#pragma mode( separator(.,;) integer(h32) )
+
+LOCAL state;
+
+Draw()
+BEGIN
+  RECT_P();  // Clear screen
+  TEXTOUT_P("Title", G0, 5, 5, 2, #000000h, 310, #FFFFFFh);
+  DRAWMENU("F1", "F2", "F3", "F4", "F5", "Exit");
+END;
 
 EXPORT $(PRODUCT_NAME)()
 BEGIN
-    RETURN 0;
+  LOCAL key, mx, my;
+  Draw();
+  REPEAT
+    WAIT(0.05);
+    key := GETKEY;
+    IF key == 4 THEN BREAK; END;  // ESC
+    MOUSE(mx, my);
+  UNTIL key == 4;
 END;
 

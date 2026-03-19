@@ -46,7 +46,7 @@ final class CatalogHelpTextView: XprimeTextView {
         textContainer?.lineBreakMode = .byWordWrapping
         
         textContainerInset = NSSize(width: 20, height: 20)
-        backgroundColor = NSColor.clear
+//        backgroundColor = NSColor.clear
     }
 
 }

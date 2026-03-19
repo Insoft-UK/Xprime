@@ -73,8 +73,8 @@
     </choice>
 
     <!-- Package references -->
-    <pkg-ref id="uk.insoft.xprime" installKBytes="3136" version="26.4">xprime.pkg</pkg-ref>
-    <pkg-ref id="uk.insoft.pplplus" installKBytes="384" version="4.0.8">pplplus.pkg</pkg-ref>
+    <pkg-ref id="uk.insoft.xprime" installKBytes="3184" version="26.4">xprime.pkg</pkg-ref>
+    <pkg-ref id="uk.insoft.pplplus" installKBytes="380" version="4.0.8">pplplus.pkg</pkg-ref>
     <pkg-ref id="uk.insoft.grob" installKBytes="236" version="1.1.5">grob.pkg</pkg-ref>
     <pkg-ref id="uk.insoft.font" installKBytes="112" version="1.0.1">font.pkg</pkg-ref>
     <pkg-ref id="uk.insoft.note" installKBytes="188" version="1.0">note.pkg</pkg-ref>

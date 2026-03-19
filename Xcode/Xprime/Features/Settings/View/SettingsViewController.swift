@@ -72,7 +72,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     
     // MARK: - Actions
     @objc private func preferSubtitutionSwitchToggled(_ sender: NSSwitch) {
-        Settings.shared.subtitutionEnabled = sender.state == .on
+        Settings.shared.substitutionEnabled = sender.state == .on
     }
     
     @objc private func handleThemeSelection(_ sender: NSMenuItem) {
@@ -86,7 +86,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     }
     
     @IBAction func defaultSettings(_ sender: Any) {
-        Settings.shared.subtitutionEnabled = false
+        Settings.shared.substitutionEnabled = false
         Settings.shared.preferredTheme = "Default (Dark)"
         Settings.shared.location = FileManager
             .default
@@ -145,6 +145,6 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     private func configureSubtitutionActions() {
         substitution.target = self
         substitution.action = #selector(preferSubtitutionSwitchToggled(_:))
-        substitution.state = Settings.shared.subtitutionEnabled ? .on : .off
+        substitution.state = Settings.shared.substitutionEnabled ? .on : .off
     }
 }
