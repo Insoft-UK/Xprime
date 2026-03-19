@@ -29,7 +29,7 @@
             }
         },
         {
-            "scope": ["Keywords"],
+            "scope": ["Keywords", "Storage"],
             "settings": {
                 "foreground": "#ee8277"
             }

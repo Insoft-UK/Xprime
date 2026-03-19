@@ -22,7 +22,7 @@
     },
     "tokenColors": [
         {
-            "scope": ["Preprocessor Statements", "Comments", "Keywords"],
+            "scope": ["Preprocessor Statements", "Comments", "Keywords", "Storage"],
             "settings": {
                 "foreground": "#82a6ff"
             }

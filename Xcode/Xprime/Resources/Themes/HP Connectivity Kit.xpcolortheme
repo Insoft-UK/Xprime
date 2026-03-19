@@ -25,7 +25,7 @@
             }
         },
         {
-            "scope": ["Keywords"],
+            "scope": ["Keywords", "Storage"],
             "settings": {
                 "foreground": "#000088"
             }
