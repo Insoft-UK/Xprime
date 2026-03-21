@@ -1,3 +1,8 @@
+### Xprime 26.4
+In light of HP Prime Development Tools, Xprime adopts the .hpppl and .hppplplus file types and discontinue .prgm+ and .note. This change will simplify development for those using either Visual Studio Code or Xprime.
+
+improvments under the hood.
+
 ### Xprime 26.3
 - **Settings**: Themes and other relating settings now handled in settings.
 
