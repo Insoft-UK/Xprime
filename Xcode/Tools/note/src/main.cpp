@@ -31,6 +31,7 @@
 
 #include "ntf.hpp"
 #include "hpnote.hpp"
+#include "html.hpp"
 
 #define NAME "HP Note"
 #define COMMAND_NAME "note"
@@ -161,6 +162,7 @@ int main(int argc, const char * argv[]) {
     fs::path inpath, outpath;
     bool verbose = false;
     bool cc = false;
+    bool html = false;
     
     if ( argc == 1 )
     {
@@ -183,6 +185,11 @@ int main(int argc, const char * argv[]) {
             
             if ( args == "--plain-fallback" ) {
                 cc = true;
+                continue;
+            }
+            
+            if ( args == "--html" ) {
+                html = true;
                 continue;
             }
             
@@ -234,6 +241,8 @@ int main(int argc, const char * argv[]) {
     auto in_extension = stdext::lowercased(inpath.extension().string());
     auto out_extension = stdext::lowercased(outpath.extension().string());
     
+    if (out_extension == ".html") html = true;
+    
     if (in_extension == ".md") {
         std::string md = utf::load(inpath);
         std::string ntf = ntf::markdownToNTF(md);
@@ -244,7 +253,10 @@ int main(int argc, const char * argv[]) {
     if (in_extension == ".ntf") {
         std::string ntf = utf::load(inpath);
         ntf::defaultColorTable();
-        out = hpnote::ntf_to_hpnote(ntf, cc);
+        if (html)
+            out = utf::to_u16string(html::ntf_to_html(ntf));
+        else
+            out = hpnote::ntf_to_hpnote(ntf, cc);
     }
     
     if (in_extension == ".rtf") {
@@ -272,7 +284,10 @@ int main(int argc, const char * argv[]) {
             auto hpnote = utf::load(inpath, utf::BOM::none, true);
             std::u16string s = utf::to_u16string(hpnote);
             auto ntf = hpnote::to_ntf(s);
-            out = utf::to_u16string(ntf);
+            if (html)
+                out = utf::to_u16string(html::ntf_to_html(ntf));
+            else
+                out = utf::to_u16string(ntf);
         } else {
             auto s = utf::load(inpath, utf::BOM::none, false);
             out = utf::to_u16string(s);

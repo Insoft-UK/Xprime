@@ -74,10 +74,14 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/DEBUG.ntf"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o Note.hpnote"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(PROJECT_DIR)/test/TEST.ntf --html -o Note.html"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
