@@ -81,7 +81,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/TEST.ntf --html -o Note.html"
+            argument = "$(PROJECT_DIR)/test/TEST.hpappnote --html -o Note.html"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

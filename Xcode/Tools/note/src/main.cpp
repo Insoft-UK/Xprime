@@ -280,7 +280,7 @@ int main(int argc, const char * argv[]) {
     }
     
     if (in_extension == ".hpnote" || in_extension == ".hpappnote") {
-        if (out_extension == ".ntf" || outpath == "/dev/stdout" || type == Type::NTF) {
+        if (out_extension == ".ntf" || outpath == "/dev/stdout" || type == Type::NTF || html) {
             auto hpnote = utf::load(inpath, utf::BOM::none, true);
             std::u16string s = utf::to_u16string(hpnote);
             auto ntf = hpnote::to_ntf(s);
