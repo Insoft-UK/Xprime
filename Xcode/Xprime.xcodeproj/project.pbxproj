@@ -367,7 +367,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 26.4;
+				MARKETING_VERSION = 26.4.1;
 				MTL_HEADER_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.Xprime;
@@ -427,7 +427,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 14.6;
-				MARKETING_VERSION = 26.4;
+				MARKETING_VERSION = 26.4.1;
 				MTL_HEADER_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.Xprime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
