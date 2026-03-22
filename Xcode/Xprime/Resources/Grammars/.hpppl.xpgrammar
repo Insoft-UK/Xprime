@@ -16,7 +16,7 @@
         },
         {
             "name": "Numbers",
-            "match": "(#[0-9A-Fa-f]+[hHoObBdD]?|#[01]+b|\\b\\d+\\.\\d*([eE][+-]?\\d+)?|\\b\\d+)\\b"
+            "match": "(#[0-9A-Fa-f]+(:-?\\d{1,2})?[hHoObBdD]?|#[01]+b|\\b\\d+\\.\\d*([eE][+-]?\\d+)?|\\b\\d+)\\b"
         },
         {
             "name": "Symbols",

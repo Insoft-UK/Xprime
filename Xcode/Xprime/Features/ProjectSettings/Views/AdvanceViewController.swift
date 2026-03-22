@@ -47,15 +47,15 @@ final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComb
     
     // MARK: - Actions
     @objc private func preferProjectBuildSwitchToggled(_ sender: NSSwitch) {
-        UserDefaults.standard.set(sender.state == .on, forKey: "archiveProjectAppOnly")
+        ProjectSettings.shared.archiveProjectAppOnly = sender.state == .on
     }
     
     @objc private func fallbackSwitchToggled(_ sender: NSSwitch) {
-        UserDefaults.standard.set(sender.state == .on, forKey: "plainFallbackText")
+        ProjectSettings.shared.plainFallbackText = sender.state == .on
     }
     
     @objc private func compressionSwitchToggled(_ sender: NSSwitch) {
-        UserDefaults.standard.set(sender.state == .on, forKey: "compression")
+        ProjectSettings.shared.compression = sender.state == .on
     }
     
     @IBAction func close(_ sender: Any) {
@@ -64,9 +64,7 @@ final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComb
     
     // MARK: - Private Helpers
     private func configureArchiveSourceSelection() {
-        let archiveProjectAppOnly = UserDefaults.standard.object(forKey: "archiveProjectAppOnly") as? Bool ?? true
-        
-        self.preferProjectBuild.state = archiveProjectAppOnly ? .on : .off
+        self.preferProjectBuild.state = ProjectSettings.shared.archiveProjectAppOnly ? .on : .off
     }
     
     private func configureArchiveSourceActions() {
@@ -75,8 +73,7 @@ final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComb
     }
     
     private func configureFallbackSelection() {
-        let fallback = UserDefaults.standard.object(forKey: "plainFallbackText") as? Bool ?? true
-        self.fallback.state = fallback ? .on : .off
+        self.fallback.state = ProjectSettings.shared.plainFallbackText ? .on : .off
     }
     
     private func configureFallbackActions() {
@@ -85,8 +82,7 @@ final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComb
     }
     
     private func configureCompressionSelection() {
-        let compression = UserDefaults.standard.object(forKey: "compression") as? Bool ?? false
-        self.compression.state = compression ? .on : .off
+        self.compression.state = ProjectSettings.shared.compression ? .on : .off
     }
     
     private func configureCompressionActions() {

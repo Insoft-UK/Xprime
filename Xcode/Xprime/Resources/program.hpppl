@@ -9,15 +9,25 @@ BEGIN
   DRAWMENU("F1", "F2", "F3", "F4", "F5", "Exit");
 END;
 
-EXPORT $(PRODUCT_NAME)()
+GetSelectedMenu(evt)
 BEGIN
-  LOCAL key, mx, my;
+  IF TYPE(evt) ≠ 6 THEN RETURN 0; END;
+  IF evt(1) ≠ 3 THEN RETURN 0; END;
+  RETURN IP((evt(2) / 53.3333) + 1);
+END;
+
+EXPORT Program()
+BEGIN
+  LOCAL evt, key, menu;
   Draw();
   REPEAT
-    WAIT(0.05);
-    key := GETKEY;
-    IF key == 4 THEN BREAK; END;  // ESC
-    MOUSE(mx, my);
-  UNTIL key == 4;
+    evt := WAIT(-1);
+    key := -1;
+    menu := GetSelectedMenu(evt);
+    IF TYPE(evt) == 0 THEN
+      key := evt;
+    END;
+  UNTIL key == 4 OR menu == 6;
+  RETURN 0;
 END;
 

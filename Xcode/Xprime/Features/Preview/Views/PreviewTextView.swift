@@ -23,7 +23,7 @@
 import Cocoa
 
 
-final class CatalogHelpTextView: XprimeTextView {
+final class PreviewTextView: XprimeTextView {
     // MARK: - Initializers
     override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
         super.init(frame: frameRect, textContainer: container)

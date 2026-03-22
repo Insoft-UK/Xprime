@@ -45,14 +45,13 @@ final class UpdateManager {
                 if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                    let latestVersion = json["latestVersion"] as? String,
                    let downloadString = json["downloadURL"] as? String,
+                   let buildString = json["build"] as? String,
                    let downloadURL = URL(string: downloadString) {
                     
                     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
                     let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
-                    let currentVersion = "\(version).\(build)"
-                    
-                    if self.isRemoteVersionNewer(latestVersion: latestVersion,
-                                                 currentVersion: currentVersion) {
+
+                    if self.isRemoteBuildNewer(latestBuild: buildString, currentBuild: build) {
                         self.promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
                     } else {
                         self.showInfo("You're up to date!", informationalText: "Xprime \(version) is currently the newest version available.")
@@ -71,6 +70,10 @@ final class UpdateManager {
     // MARK: - Version comparison
     private func isRemoteVersionNewer(latestVersion: String, currentVersion: String) -> Bool {
         return latestVersion.compare(currentVersion, options: .numeric) == .orderedDescending
+    }
+    
+    private func isRemoteBuildNewer(latestBuild: String, currentBuild: String) -> Bool {
+        return latestBuild.compare(currentBuild, options: .numeric) == .orderedDescending
     }
     
     // MARK: - Alerts

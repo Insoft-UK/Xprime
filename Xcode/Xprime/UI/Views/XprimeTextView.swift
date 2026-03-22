@@ -66,6 +66,19 @@ class XprimeTextView: NSTextView {
         }
     }
     
+    func ScrollToTop() {
+        // Force layout
+        self.layoutManager?.ensureLayout(for: self.textContainer!)
+        self.needsDisplay = true
+        
+        if let scrollView = self.enclosingScrollView {
+            scrollView.layoutSubtreeIfNeeded()
+            let top = NSPoint(x: 0, y: 0)
+            scrollView.contentView.scroll(to: top)
+            scrollView.reflectScrolledClipView(scrollView.contentView)
+        }
+    }
+    
     /// Appends text and scrolls reliably to the bottom
     func appendTextAndScroll(_ newText: String) {
         self.string += newText

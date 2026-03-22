@@ -21,10 +21,10 @@
 // SOFTWARE.
 
 import Cocoa
-import WebKit
 
-final class NotesViewController: NSViewController {
-    @IBOutlet weak var html: WKWebView!
+
+final class PreviewViewController: NSViewController {
+    @IBOutlet weak var previewTextView: PreviewTextView!
     private var vc: MainViewController!
     
     required init?(coder: NSCoder) {
@@ -33,49 +33,52 @@ final class NotesViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewDidAppear() {
-        super.viewDidAppear()
-    
+        
         guard let window = NSApplication.shared.windows.first else {
             self.view.window?.close(); return
         }
         vc = window.contentViewController as? MainViewController
-        loadHTMLString()
-    }
-    
-    private func loadHTMLString() {
         guard let url = vc.projectManager.projectDirectoryURL else { return }
-        let executable = URL(fileURLWithPath: ToolchainPaths.bin)
-            .appendingPathComponent("note")
-        let result = ProcessRunner.run(executable: executable, arguments: [url.appendingPathComponent("info.ntf").path, "--html", "-o", "/dev/stdout"])
+        
+        let executable = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("ppl+")
+        
+        var mainURL = url.appendingPathComponent("main.hppplplus")
+        if FileManager.default.fileExists(atPath: url.appendingPathComponent("main.hppplplus").path) == false {
+            mainURL = url.appendingPathComponent("main.hpppl")
+        }
+        
+        let result = ProcessRunner.run(
+            executable: executable,
+            arguments: [mainURL.path, "-o", "/dev/stdout"]
+        )
         
         guard result.exitCode == 0, let out = result.out else {
-            let errorHTML = """
-            <html>
-              <head>
-                <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-                <style>
-                  body { font-family: -apple-system, system-ui, Helvetica, Arial, sans-serif; color: #555; padding: 24px; }
-                  h1 { font-size: 18px; color: #c00; margin: 0 0 8px 0; }
-                  p { margin: 0; }
-                </style>
-              </head>
-              <body>
-                <h1>Failed to generate HTML</h1>
-                <p>Please check that <code>info.ntf</code> exists and the toolchain is configured.</p>
-              </body>
-            </html>
-            """
-            html.loadHTMLString(errorHTML, baseURL: nil)
             return
         }
-        html.loadHTMLString(out, baseURL: nil)
+        
+        previewTextView.appendTextAndScroll(out)
+        previewTextView.ScrollToTop()
+        previewTextView.backgroundColor = .clear
     }
     
-    @IBAction func close(_ sender: Any) {
-        self.view.window?.close()
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        guard let window = view.window else { return }
+        
+        // Make window background transparent
+        window.isOpaque = false
+        
+        // Optional: remove title bar / standard window decorations
+        window.titleVisibility = .hidden
+        window.center()
+        window.titlebarAppearsTransparent = true
+        window.styleMask = [.nonactivatingPanel, .titled]
+        window.styleMask.insert(.fullSizeContentView)
+        window.level = .floating
     }
+
+    
+    
 }
 
