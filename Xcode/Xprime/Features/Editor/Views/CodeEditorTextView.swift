@@ -196,6 +196,7 @@ final class CodeEditorTextView: NSTextView {
     // MARK: - Editor Setup
     private func setupEditor() {
         font = NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .regular)
+//        font = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
         isAutomaticQuoteSubstitutionEnabled = false
         isAutomaticDataDetectionEnabled = false
         isAutomaticDashSubstitutionEnabled = false
@@ -246,9 +247,11 @@ final class CodeEditorTextView: NSTextView {
         
         if event.keyCode == 48 { // Tab
             if jumpToNextPlaceholder() { return }
+            insertText("  ", replacementRange: selectedRange())
+            return
         }
         super.keyDown(with: event)
-        expandSnippetIfNeeded()
+        if Settings.shared.snippetsEnabled { expandSnippetIfNeeded() }
     }
     
     // MARK: - Snippet Expansion
@@ -465,6 +468,7 @@ final class CodeEditorTextView: NSTextView {
  
     override func didChangeText() {
         super.didChangeText()
+        applySyntaxHighlighting()
         
         if isDeleting {
             isDeleting = false
@@ -476,7 +480,7 @@ final class CodeEditorTextView: NSTextView {
             replaceLastTyped()
         }
         
-        guard !isCompleting else { return }
+        guard Settings.shared.completionsEnabled, !isCompleting else { return }
         
         let range = selectedRange()
         let text = string as NSString
@@ -531,10 +535,6 @@ final class CodeEditorTextView: NSTextView {
     override func replaceCharacters(in range: NSRange, with string: String) {
         super.replaceCharacters(in: range, with: string)
     }
-
-//    override func insertText(_ insertString: Any, replacementRange: NSRange) {
-//        super.insertText(insertString, replacementRange: replacementRange)
-//    }
     
     override func shouldChangeText(in affectedCharRange: NSRange, replacementString: String?) -> Bool {
         guard let replacement = replacementString, snippetSession != nil else {

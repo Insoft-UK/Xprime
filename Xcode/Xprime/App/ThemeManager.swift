@@ -50,11 +50,5 @@ final class ThemeManager {
             ruler.gutterNumberAttributes[.foregroundColor] = NSColor(hex: theme.lineNumberRuler?["foreground"] ?? "") ?? .gray
             ruler.gutterNumberAttributes[.backgroundColor] = NSColor(hex: theme.lineNumberRuler?["background"] ?? "") ?? .clear
         }
-
-        // Status & buttons
-        let bgColor = NSColor(hex: theme.window?["background"] ?? "") ?? .windowBackgroundColor
-        window?.backgroundColor = bgColor
-//        statusLabel?.textColor = bgColor.contrastColor()
-//        outputButtons.forEach { $0.contentTintColor = bgColor.contrastColor() }
     }
 }

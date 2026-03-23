@@ -24,6 +24,7 @@ import Cocoa
 
 final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var substitution: NSSwitch!
+    @IBOutlet weak var snippets: NSSwitch!
     @IBOutlet weak var theme: NSPopUpButton!
     @IBOutlet weak var location: NSTextField!
     
@@ -53,6 +54,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     private func setup() {
         configureThemeSelection()
         configureSubtitutionActions()
+        configureSnippetsActions()
         
         location.delegate = self
         location.stringValue = Settings.shared.location
@@ -75,6 +77,10 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         Settings.shared.substitutionEnabled = sender.state == .on
     }
     
+    @objc private func preferSnippetsSwitchToggled(_ sender: NSSwitch) {
+        Settings.shared.snippetsEnabled = sender.state == .on
+    }
+    
     @objc private func handleThemeSelection(_ sender: NSMenuItem) {
         Settings.shared.preferredTheme = sender.title
         vc.themeManager.applySavedTheme()
@@ -87,6 +93,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func defaultSettings(_ sender: Any) {
         Settings.shared.substitutionEnabled = false
+        Settings.shared.snippetsEnabled = false
         Settings.shared.preferredTheme = "Default (Dark)"
         Settings.shared.location = FileManager
             .default
@@ -96,6 +103,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         
         location.stringValue = Settings.shared.location
         substitution.state = .off
+        snippets.state = .off
         theme.selectItem(withTitle: Settings.shared.preferredTheme)
         
         vc.themeManager.applySavedTheme()
@@ -146,5 +154,11 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         substitution.target = self
         substitution.action = #selector(preferSubtitutionSwitchToggled(_:))
         substitution.state = Settings.shared.substitutionEnabled ? .on : .off
+    }
+    
+    private func configureSnippetsActions() {
+        snippets.target = self
+        snippets.action = #selector(preferSnippetsSwitchToggled(_:))
+        snippets.state = Settings.shared.snippetsEnabled ? .on : .off
     }
 }

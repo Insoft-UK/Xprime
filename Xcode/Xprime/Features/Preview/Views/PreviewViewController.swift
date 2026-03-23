@@ -47,9 +47,15 @@ final class PreviewViewController: NSViewController {
             mainURL = url.appendingPathComponent("main.hpppl")
         }
         
+        var arguments: [String] = [mainURL.path, "-o", "/dev/stdout"]
+        
+        if ProjectSettings.shared.compression {
+            arguments.append(contentsOf: ["--compress"])
+        }
+        
         let result = ProcessRunner.run(
             executable: executable,
-            arguments: [mainURL.path, "-o", "/dev/stdout"]
+            arguments: arguments
         )
         
         guard result.exitCode == 0, let out = result.out else {
