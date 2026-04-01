@@ -47,8 +47,8 @@ Start of line
 
 Every line cotains an entry.
 
-|BEGIN|Typography & Decorations|COLORS|?|?|Script|Span Length|-|TXT|END
-|:-|:-|:----|:-|:-|:-|:-|:-|:-|:-
+|BEGIN|Typography & Decorations|COLORS|?|Script|Span Length|-|TXT|END
+|:-|:-|:----|:-|:-|:-|:-|:-|:-
 |\o|00011111111[00]00[000][S]0[U][I][B]111111111|🔲🔲 `\0\0Ā\1`|`\0`|`\0` None|` ` Ensures this text is spaced from the previous text.|Base-32 or Integer|`\0`|Your Text...|`\0`
 ||[000]: 10pt = 1 ... 22pt = 7|🔲⬛️ `\0\0Ā\0`||`\1` Superscript|`x` Ensures this text is not spaced from the previous text.
 ||B: [On/Off]|🔲🟧 `\0BĀ\0`||`\2` Subscript
