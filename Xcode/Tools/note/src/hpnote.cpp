@@ -123,6 +123,18 @@ namespace hpnote {
         return out;
     }
     
+    static std::u16string encodeScript(const ntf::Style style)
+    {
+        std::u16string out;
+        
+        out = u"\\0";
+        
+        if (style.superscript) out = u"\\1";
+        if (style.subscript) out = u"\\2";
+        
+        return out;
+    }
+    
     static std::u16string encodePixel(const uint16_t color, const int run = 1)
     {
         return
@@ -215,7 +227,9 @@ namespace hpnote {
         for (const auto& r : runs) {
             encodedLine += encodeTextAttributes(r.style, r.format.fontSize);
             encodedLine += encodeColorAttributes(r.format);
-            encodedLine += u"\\0\\0x";
+            encodedLine += encodeScript(r.style);
+            
+            encodedLine += u"\\0x";
             
             auto length = utf::size(r.text);
             encodedLine += encodeValue(length) + u"\\0";
@@ -528,6 +542,31 @@ namespace hpnote {
         return s;
     }
     
+    static std::string decodeScript(std::span<const uint16_t> data)
+    {
+        std::string s;
+        
+        if (data[0] == 1) {
+            if (!style.superscript)
+                s += "\\super ";
+        } else {
+            if (style.superscript)
+                s += "\\super0 ";
+        }
+        style.superscript = data[0] == 1;
+        
+        if (data[0] == 2) {
+            if (!style.subscript)
+                s += "\\super ";
+        } else {
+            if (style.subscript)
+                s += "\\super0 ";
+        }
+        style.subscript = data[0] == 2;
+        
+        return s;
+    }
+    
     std::vector<uint16_t> decodeValues(std::u16string_view data)
     {
         std::vector<uint16_t> out;
@@ -623,11 +662,13 @@ namespace hpnote {
             // Color attributes (4)
             s += decodeColorAttributes(take(4));
             
-            // Header before text (5)
-            auto header = take(5);
-            uint16_t length = header[3];
+            // Script
+            s += decodeScript(take(1));
             
-            if (header[2] != 120 && length && !s.empty() && s.back() != ' ')
+            // Before text (4)
+            auto header = take(4);
+            uint16_t length = header[2];
+            if (header[1] != 120 && length && !s.empty() && s.back() != ' ')
                 s += ' ';
             
             // Text payload

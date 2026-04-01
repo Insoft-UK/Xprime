@@ -203,7 +203,7 @@ namespace html {
         std::string out;
         
         auto runs = ntf::parseNTF(str);
-//        auto style = ntf::currentStyleState();
+        auto style = ntf::currentStyleState();
         auto format = ntf::currentFormatState();
         
         if (!runs.size()) {

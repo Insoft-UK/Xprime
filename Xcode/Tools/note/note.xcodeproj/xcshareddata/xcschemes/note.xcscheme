@@ -77,12 +77,16 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "$(PROJECT_DIR)/test/DEBUG.hpnote --html"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-o Note.hpnote"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "$(PROJECT_DIR)/test/TEST.hpappnote --html -o Note.html"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--plain-fallback"
@@ -102,7 +106,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o /dev/stdout"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--compress"
