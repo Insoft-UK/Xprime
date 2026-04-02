@@ -88,6 +88,7 @@ namespace html {
                 break;
                 
             default:
+                break;
         }
         
         if (style.bold) out += "font-weight: bold;";

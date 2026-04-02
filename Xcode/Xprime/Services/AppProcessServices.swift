@@ -87,8 +87,9 @@ func launchApp(named name: String,
     if name.hasSuffix(".app") {
         let appURL = URL(fileURLWithPath: "/Applications/" + name)
 
-        if FileManager.default.fileExists(atPath: appURL.path) {
-            resolvedPath = appURL.appendingPathComponent("Contents/MacOS/" + name)
+        if let bundle = Bundle(url: appURL),
+           let executableName = bundle.executableURL?.lastPathComponent {
+            resolvedPath = appURL.appendingPathComponent("Contents/MacOS/" + executableName)
                 .deletingPathExtension()
                 .path
         }

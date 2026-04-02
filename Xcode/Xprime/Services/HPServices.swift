@@ -90,24 +90,11 @@ enum HPServices {
     }
 
     static var isVirtualCalculatorInstalled: Bool {
-        let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
-        
-        if platform == "macOS" {
-            return FileManager.default.fileExists(atPath: "/Applications/HP Prime.app/Contents/MacOS/HP Prime")
-        }
-        
-        let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
-        return FileManager.default.fileExists(atPath: homeDirectory.appendingPathComponent(".wine/drive_c/Program Files/HP/HP Prime Virtual Calculator/HPPrime.exe").path)
+        return URL(fileURLWithPath: "/Applications/HP Prime.app").isDirectory
     }
     
     static var isConnectivityKitInstalled: Bool {
-        let platform = UserDefaults.standard.object(forKey: "platform") as? String ?? "macOS"
-        
-        if platform == "macOS" {
-            return FileManager.default.fileExists(atPath: "/Applications/HP Connectivity Kit.app/Contents/MacOS/HP Connectivity Kit")
-        }
-        let homeDirectory = FileManager.default.homeDirectoryForCurrentUser
-        return FileManager.default.fileExists(atPath: homeDirectory.appendingPathComponent(".wine/drive_c/Program Files/HP/HP Connectivity Kit/ConnectivityKit.exe").path)
+        return URL(fileURLWithPath: "/Applications/HP Connectivity Kit.app").isDirectory
     }
     
     static func hpPrimeCalculatorExists(named name: String) -> Bool {
@@ -559,6 +546,8 @@ enum HPServices {
         }
         
         launchApplication(named: "HP Prime.app")
+//        launchApplication(named: "HP Prime 2.4.2 BETA (r15565).app")
+        
     }
     
     static func launchConnectivityKit() {
