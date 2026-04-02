@@ -545,7 +545,11 @@ enum HPServices {
             return
         }
         
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: url.deletingPathExtension().lastPathComponent) {
+        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime") {
+            terminateApp(withBundleIdentifier: targetBundleIdentifier)
+        }
+        
+        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime BETA") {
             terminateApp(withBundleIdentifier: targetBundleIdentifier)
         }
         
@@ -557,7 +561,11 @@ enum HPServices {
             return
         }
         
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: url.deletingPathExtension().lastPathComponent) {
+        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Connectivity Kit") {
+            terminateApp(withBundleIdentifier: targetBundleIdentifier)
+        }
+        
+        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Connectivity Kit BETA") {
             terminateApp(withBundleIdentifier: targetBundleIdentifier)
         }
         

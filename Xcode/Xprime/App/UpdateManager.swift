@@ -32,7 +32,7 @@ final class UpdateManager {
     }
     
     func checkForUpdates() {
-        guard let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json") else { return }
+        guard let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json?") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let self = self else { return }
@@ -68,9 +68,9 @@ final class UpdateManager {
     }
     
     // MARK: - Version comparison
-    private func isRemoteVersionNewer(latestVersion: String, currentVersion: String) -> Bool {
-        return latestVersion.compare(currentVersion, options: .numeric) == .orderedDescending
-    }
+//    private func isRemoteVersionNewer(latestVersion: String, currentVersion: String) -> Bool {
+//        return latestVersion.compare(currentVersion, options: .numeric) == .orderedDescending
+//    }
     
     private func isRemoteBuildNewer(latestBuild: String, currentBuild: String) -> Bool {
         return latestBuild.compare(currentBuild, options: .numeric) == .orderedDescending
