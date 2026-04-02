@@ -140,7 +140,7 @@ Gw
                                 </connections>
                             </button>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yVB-zB-biD">
-                                <rect key="frame" x="164" y="195" width="185" height="28"/>
+                                <rect key="frame" x="164" y="241" width="185" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="NeU-LU-U7W">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -149,7 +149,7 @@ Gw
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FNO-8j-yer">
-                                <rect key="frame" x="18" y="201" width="136" height="16"/>
+                                <rect key="frame" x="18" y="247" width="136" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Theme:" id="Daj-dV-NlS">
                                     <font key="font" metaFont="system"/>
@@ -158,11 +158,11 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="FPs-MI-mNq">
-                                <rect key="frame" x="164" y="162" width="54" height="24"/>
+                                <rect key="frame" x="164" y="208" width="54" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </switch>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NZO-Bs-MsJ">
-                                <rect key="frame" x="18" y="166" width="136" height="16"/>
+                                <rect key="frame" x="18" y="212" width="136" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Subtitution:" id="I4C-Z7-lsC">
                                     <font key="font" metaFont="system"/>
@@ -171,7 +171,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="1" textCompletion="NO" contentType="url" translatesAutoresizingMaskIntoConstraints="NO" id="1Fp-9q-ftS" customClass="CustomTextField" customModule="Xprime" customModuleProvider="target">
-                                <rect key="frame" x="164" y="88" width="185" height="24"/>
+                                <rect key="frame" x="164" y="134" width="185" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="Lbs-C0-mLY">
                                     <font key="font" metaFont="system"/>
@@ -180,7 +180,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcZ-cO-DR7">
-                                <rect key="frame" x="18" y="92" width="136" height="16"/>
+                                <rect key="frame" x="18" y="138" width="136" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Location:" id="2vR-94-ek3">
                                     <font key="font" metaFont="system"/>
@@ -189,13 +189,35 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="Cj3-Tv-ZAI">
-                                <rect key="frame" x="164" y="126" width="54" height="24"/>
+                                <rect key="frame" x="164" y="172" width="54" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </switch>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JRW-np-uLn">
-                                <rect key="frame" x="18" y="130" width="136" height="16"/>
+                                <rect key="frame" x="18" y="176" width="136" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Snippets:" id="IWJ-A9-me8">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="NhX-ZY-4co">
+                                <rect key="frame" x="164" y="96" width="54" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </switch>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="avF-MX-Lay">
+                                <rect key="frame" x="162" y="52" width="237" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" enabled="NO" alignment="left" title="Use the BETA versions of the HP Prime and HP Connectivity Kit applications." id="OXD-sw-QD8">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="S93-Um-Z5U">
+                                <rect key="frame" x="18" y="100" width="136" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="BETA Applications:" id="KZ9-om-Gfl">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -208,6 +230,7 @@ Gw
                         <outlet property="snippets" destination="Cj3-Tv-ZAI" id="0GT-nt-60M"/>
                         <outlet property="substitution" destination="FPs-MI-mNq" id="QY2-Q7-k5v"/>
                         <outlet property="theme" destination="yVB-zB-biD" id="0za-gl-qKf"/>
+                        <outlet property="useBetaApplications" destination="NhX-ZY-4co" id="0jn-HL-KAv"/>
                     </connections>
                 </viewController>
                 <customObject id="0ge-Ir-HeY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1820,12 +1843,12 @@ Gw
         <image name="folder" catalog="system" width="15" height="12"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="hammer.fill" catalog="system" width="15" height="14"/>
         <image name="icon" width="38" height="38"/>
         <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
         <image name="note.text" catalog="system" width="16" height="14"/>
-        <image name="play.fill" catalog="system" width="10" height="11"/>
+        <image name="play.fill" catalog="system" width="12" height="13"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="ppl" width="16" height="16"/>
         <image name="questionmark.circle" catalog="system" width="15" height="15"/>

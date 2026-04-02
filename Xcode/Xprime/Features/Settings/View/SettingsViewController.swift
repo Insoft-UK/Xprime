@@ -27,6 +27,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var snippets: NSSwitch!
     @IBOutlet weak var theme: NSPopUpButton!
     @IBOutlet weak var location: NSTextField!
+    @IBOutlet weak var useBetaApplications: NSSwitch!
     
     private var vc: MainViewController!
 
@@ -55,6 +56,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         configureThemeSelection()
         configureSubtitutionActions()
         configureSnippetsActions()
+        configureUseBetaApplicationsActions()
         
         location.delegate = self
         location.stringValue = Settings.shared.location
@@ -81,10 +83,15 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         Settings.shared.snippetsEnabled = sender.state == .on
     }
     
+    @objc private func preferUseBetaApplicationsSwitchToggled(_ sender: NSMenuItem) {
+        Settings.shared.useBetaApplications = sender.state == .on
+    }
+    
     @objc private func handleThemeSelection(_ sender: NSMenuItem) {
         Settings.shared.preferredTheme = sender.title
         vc.themeManager.applySavedTheme()
     }
+    
     
     
     @IBAction func close(_ sender: Any) {
@@ -94,6 +101,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func defaultSettings(_ sender: Any) {
         Settings.shared.substitutionEnabled = false
         Settings.shared.snippetsEnabled = false
+        Settings.shared.useBetaApplications = false
         Settings.shared.preferredTheme = "Default (Dark)"
         Settings.shared.location = FileManager
             .default
@@ -105,7 +113,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         substitution.state = .off
         snippets.state = .off
         theme.selectItem(withTitle: Settings.shared.preferredTheme)
-        
+        useBetaApplications.state = .off
         vc.themeManager.applySavedTheme()
     }
     
@@ -160,5 +168,11 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         snippets.target = self
         snippets.action = #selector(preferSnippetsSwitchToggled(_:))
         snippets.state = Settings.shared.snippetsEnabled ? .on : .off
+    }
+    
+    private func configureUseBetaApplicationsActions() {
+        useBetaApplications.target = self
+        useBetaApplications.action = #selector(preferUseBetaApplicationsSwitchToggled(_:))
+        useBetaApplications.state = Settings.shared.useBetaApplications ? .on : .off
     }
 }

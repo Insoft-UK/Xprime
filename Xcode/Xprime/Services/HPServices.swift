@@ -541,23 +541,57 @@ enum HPServices {
     }
     
     static func launchVirtualCalculator() {
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime") {
+        guard let url = applicationURL(forApp: "HP Prime") else {
+            return
+        }
+        
+        if let targetBundleIdentifier = getBundleIdentifier(forApp: url.deletingPathExtension().lastPathComponent) {
             terminateApp(withBundleIdentifier: targetBundleIdentifier)
         }
         
-        launchApplication(named: "HP Prime.app")
-//        launchApplication(named: "HP Prime 2.4.2 BETA (r15565).app")
-        
+        launchApplication(named: url.lastPathComponent)
     }
     
     static func launchConnectivityKit() {
-        let appName = "HP Connectivity Kit"
+        guard let url = applicationURL(forApp: "HP Connectivity Kit") else {
+            return
+        }
         
-        
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: appName) {
+        if let targetBundleIdentifier = getBundleIdentifier(forApp: url.deletingPathExtension().lastPathComponent) {
             terminateApp(withBundleIdentifier: targetBundleIdentifier)
         }
         
-        launchApplication(named: appName + ".app")
+        launchApplication(named: url.lastPathComponent)
+    }
+    
+    static func applicationURL(forApp appName: String) -> URL? {
+        let applicationsURL = URL(fileURLWithPath: "/Applications")
+        let fileManager = FileManager.default
+        
+        let targetName = appName.lowercased()
+        let requireBeta = Settings.shared.useBetaApplications
+
+        do {
+            let contents = try fileManager.contentsOfDirectory(
+                at: applicationsURL,
+                includingPropertiesForKeys: nil,
+                options: [.skipsHiddenFiles]
+            )
+
+            return contents.first { url in
+                let name = url.lastPathComponent.lowercased()
+                
+                guard name.hasSuffix(".app"),
+                      name.contains(targetName) else {
+                    return false
+                }
+                
+                return !requireBeta || name.contains("beta")
+            }
+            
+        } catch {
+            print("Error reading /Applications:", error)
+            return nil
+        }
     }
 }

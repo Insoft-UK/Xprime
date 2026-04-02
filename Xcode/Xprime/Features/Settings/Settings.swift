@@ -34,6 +34,7 @@ fileprivate enum DefaultsKey {
     static let recentFiles = "RecentFiles"
     static let completionsEnabled = "CompletionsEnabled"
     static let snippetsEnabled = "SnippetsEnabled"
+    static let useBetaApplications = "UseBetaApplications"
 }
 
 final class Settings {
@@ -99,4 +100,6 @@ final class Settings {
     @UserDefault(key: DefaultsKey.snippetsEnabled, defaultValue: false)
     var snippetsEnabled: Bool
 
+    @UserDefault(key: DefaultsKey.useBetaApplications, defaultValue: false)
+    var useBetaApplications: Bool
 }
