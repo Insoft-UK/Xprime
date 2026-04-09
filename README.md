@@ -23,23 +23,23 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 <img src="assets/screenshots/xprime/recent.png?raw=true" width="318" /><img src="assets/screenshots/xprime/settings.png?raw=true" width="294" /></br>
 
 ### Supported File Types
-|Type|Description|Format|
-|:-|:-|:-|
-|.xprimeproj|Xprime project|JSON|
-|.ntf|NoteText|UTF8|
-|.md|Markdown Language|UTF8|
-|.bmp|Bitmap|.hpppl|
-|.png|Portable Network Graphic|.hpppl|
-|.h|Adafruit GFX Font (.hpppl)|.hpppl|
-|.hpprgm|Standalone program binary|.hpppl|
-|.hpappprgm|App program binary (inside .hpappdir)|.hpppl|
-|.hpnote|Standalone note binary|.ntf|
-|.hpappnote|App note binary (inside .hpappdir)|.ntf|
-|.prgm|HP PPL source code|UTF16le|
-|.hpppl|HP PPL source code|UTF8|
-|.hppplplus|HP PPL Plus extended program source code|UTF8|
-|.ppl|HP PPL source code|UTF8|
-|.ppl+|HP PPL Plus source code|UTF8|
+|Type|Description|
+|:-|:-|
+|.xprimeproj|Xprime project|
+|.ntf|NoteText|
+|.md|Markdown Language|
+|.bmp|Bitmap (.hpppl)|
+|.png|Portable Network Graphic (.hpppl)|
+|.h|Adafruit GFX Font (.hpppl)|
+|.hpprgm|Standalone program binary|
+|.hpappprgm|App program binary (inside .hpappdir)|
+|.hpappnote|App note binary (inside .hpappdir)|
+|.hpnote|Standalone note binary|
+|.prgm|HP PPL source text (UTF16le)|
+|.hpppl|HP PPL source text|
+|.hppplplus|HP PPL+ source text|
+|.ppl|HP PPL source text|
+|.ppl+|HP PPL+ source text|
 
 >In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼ support, Xprime will adopt the .hpppl and .hppplplus file types and discontinue .prgm+. This change will simplify development for those using either Visual Studio Code or Xprime.
 
