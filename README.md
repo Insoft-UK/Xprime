@@ -65,6 +65,3 @@ MyProgram/
 │── main.hppplplus or main.hpppl
 └── info.ntf
 ```
-
->[!NOTE]
->Use the .ppl+ extension for extended program source code and .hppplplus for the main application or program source code.
