@@ -49,8 +49,6 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 ### Supported File Types
 |Type|Description|Format|
 |:-|:-|:-|
-|.note|HP Prime note plain text|UTF16le|
-|.note|NoteText Format|UTF8|
 |.ntf|NoteText Format|UTF8|
 |.rtf|RichText Format|UTF8|
 |.md|Markdown Language|UTF8|
