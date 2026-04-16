@@ -1,4 +1,4 @@
-<img src="https://github.com/Insoft-UK/PrimePlus/blob/main/add-ons/grob/assets/Icon.png" style="width: 128px" />
+<img src="assets/Icon.png" style="width: 128px" />
 
 ## GROB
 **Command Line Tool**
@@ -49,7 +49,7 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
   </tbody>
 </table>
 
-<img width="64" height="64" src="https://github.com/Insoft-UK/PrimePlus/blob/main/add-ons/grob/assets/spectrum-8bit.png" >
+<img width="64" height="64" src="assets/spectrum-8bit.png" >
 
 ```
 grob spectrum-8bit.bmp -G1
