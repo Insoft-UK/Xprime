@@ -531,11 +531,15 @@ enum HPServices {
     }
     
     static func terminateVirtualCalculator() {
-        guard isProcessRunning("HP Prime Virtual Calculator") else {
+        guard let url = applicationURL(forApp: "HP Prime") else {
             return
         }
         
         if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime") {
+            terminateApp(withBundleIdentifier: targetBundleIdentifier)
+        }
+        
+        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime BETA") {
             terminateApp(withBundleIdentifier: targetBundleIdentifier)
         }
     }

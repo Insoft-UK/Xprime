@@ -42,7 +42,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBOutlet private weak var baseApplication: NSPopUpButton!
 
     @IBOutlet private weak var projectIcon: NSButton!
-    @IBOutlet private weak var completions: NSButton!
     
     // MARK: - Managers
     private var documentManager: DocumentManager!
@@ -74,9 +73,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         configureBaseApplicationAction()
-        
-        completions.contentTintColor = Settings.shared.completionsEnabled ? .systemBlue : .systemGray
-        completions.action = #selector(toggleCompletions)
     }
     
     
@@ -118,11 +114,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc private func toggleCompletions(_ sender: Any) {
-        Settings.shared.completionsEnabled.toggle()
-        completions.contentTintColor = Settings.shared.completionsEnabled ? .systemBlue : .systemGray
     }
     
     // MARK: - Setup
@@ -234,7 +225,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     keyEquivalent: ""
                 )
                 menuItem.representedObject = itemURL
-                menuItem.image = NSImage(named: "Icon")
+                menuItem.image = NSImage(named: "code-block")
                 menuItem.image?.size = NSSize(width: 16, height: 16)
                 menu.addItem(menuItem)
             }

@@ -23,9 +23,9 @@
 import Cocoa
 
 final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
-    @IBOutlet weak var preferProjectBuild: NSSwitch!
-    @IBOutlet weak var fallback: NSSwitch!
-    @IBOutlet weak var compression: NSSwitch!
+    @IBOutlet weak var preferProjectBuild: NSButton!
+    @IBOutlet weak var fallback: NSButton!
+    @IBOutlet weak var compression: NSButton!
     
     private var projectManager: ProjectManager?
     

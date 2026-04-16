@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "Folder.png",
+      "filename" : "folder-grey 1.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "Folder@2x.png",
+      "filename" : "folder-grey.png",
       "idiom" : "mac",
       "scale" : "2x"
     }

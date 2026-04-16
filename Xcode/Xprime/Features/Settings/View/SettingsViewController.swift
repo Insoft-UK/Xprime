@@ -23,11 +23,11 @@
 import Cocoa
 
 final class SettingsViewController: NSViewController, NSTextFieldDelegate {
-    @IBOutlet weak var substitution: NSSwitch!
-    @IBOutlet weak var snippets: NSSwitch!
+    @IBOutlet weak var substitution: NSButton!
+    @IBOutlet weak var snippets: NSButton!
     @IBOutlet weak var theme: NSPopUpButton!
     @IBOutlet weak var location: NSTextField!
-    @IBOutlet weak var useBetaApplications: NSSwitch!
+    @IBOutlet weak var useBetaApplications: NSButton!
     
     private var vc: MainViewController!
 

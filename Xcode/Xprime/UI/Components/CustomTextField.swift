@@ -29,14 +29,8 @@ open class CustomTextField: NSTextField {
         super.init(coder: coder)
         installCenteredCellIfNeeded()
         setup()
-//        currentEditor()?.selectedRange = NSRange(location: 0, length: 0)
+        currentEditor()?.selectedRange = NSRange(location: 0, length: 0)
     }
-//    
-//    public override init(frame frameRect: NSRect) {
-//        super.init(frame: frameRect)
-//        installCenteredCellIfNeeded()
-//        setup()
-//    }
     
     private func installCenteredCellIfNeeded() {
         // Replace default cell with our vertically-centering cell, preserving properties
@@ -64,8 +58,8 @@ open class CustomTextField: NSTextField {
         wantsLayer = true
         if let layer = layer {
             layer.masksToBounds = true
-            layer.cornerRadius = frame.height / 2.0
-            layer.borderWidth = 1.5
+            layer.cornerRadius = 4.5
+            layer.borderWidth = 1
             layer.borderColor = .init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.25)
         }
         needsDisplay = true

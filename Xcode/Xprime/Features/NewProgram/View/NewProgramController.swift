@@ -25,7 +25,7 @@ import Cocoa
 final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBOutlet private weak var language: NSPopUpButton!
     @IBOutlet private weak var productName: NSTextField!
-    @IBOutlet private weak var CAS: NSSwitch!
+    @IBOutlet private weak var CAS: NSButton!
     
     private var vc: MainViewController!
     

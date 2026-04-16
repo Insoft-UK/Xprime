@@ -1,0 +1,34 @@
+#pragma mode( separator(.,;) integer(h64) )
+
+@alias Event := key,type(1),x(2),y(3),dx(4),dy(5);
+dictionary MouseDown := 0, MouseMove := 1, MouseUp := 2, MouseClick := 3, MouseStretch := 5, MouseRotate := 6, MouseLongClick := 7 EventType;
+
+//regex >`\bstruct;`i alias $0:=s{$I %COUNT%};local s{$I %COUNT%};\adictionary $0 s{$I %COUNTER%};
+
+regex >`\bstruct +([0-9a-z-#,:{}()[\] ]+) +([a-z_]\w*) *;`i\
+alias $2:=s{$I %COUNT%};\
+local s{$I %COUNT%};\a\
+dictionary $1 s{$I %COUNTER%};
+/// Switch
+/// Switch
+
+/// Switch
+fn()
+begin
+
+struct Event event;;
+//var event;
+//dictionary Event event;
+
+event.key;
+event.y;
+end;
+\`3+5`:1;
+KS_1
+begin
+
+LOOP
+end;
+end;
+
+

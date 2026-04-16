@@ -1,0 +1,8 @@
+name: ppl
+type: programming
+extensions: [".ppl"]
+color: "#ff6600"  # Customize the color as you'd like
+tm_scope: source.ppl
+ace_mode: text
+group: ppl
+encoding: utf-16le

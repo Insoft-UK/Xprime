@@ -135,10 +135,6 @@ fileprivate struct Substitutions: Codable {
 
 // MARK: - CodeEditorTextView
 final class CodeEditorTextView: NSTextView {
-    private var suggestions: [String] = [
-        "print", "private", "public", "protocol",
-        "func", "for", "if", "else", "while", "return"
-    ]
     
     private var snippets: [String: String] = [:]
     private var isUpdatingMirrors = false
@@ -170,6 +166,13 @@ final class CodeEditorTextView: NSTextView {
     private let syntaxHighlighter = SyntaxHighlighter()
     var snippetSession: SnippetSession?
     
+//    private let popup = AutocompletePopover()
+//
+//    var allItems: [AutocompleteItem] = [
+//        AutocompleteItem(title: "LOCAL", detail: "PPL", icon: NSImage(systemSymbolName: "book.closed", accessibilityDescription: nil))
+//    ]
+         
+    
     // MARK: - Init
     override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
         super.init(frame: frameRect, textContainer: container)
@@ -190,7 +193,7 @@ final class CodeEditorTextView: NSTextView {
             snippets = loadSnippets(from: url)
         }
         
-        loadSuggestions()
+//        loadAutocompleteItems()
     }
     
     // MARK: - Editor Setup
@@ -225,21 +228,6 @@ final class CodeEditorTextView: NSTextView {
         }
     }
     
-    //
-    private func loadSuggestions() {
-        guard let resourceURLs = Bundle.main.urls(
-            forResourcesWithExtension: "txt",
-            subdirectory: "Help"
-        ) else {
-            return
-        }
-
-        let catalog = resourceURLs
-            .map { $0.deletingPathExtension().lastPathComponent.customPercentDecoded() }
-            .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
-
-        suggestions = catalog
-    }
  
     // MARK: - Key Handling
     override func keyDown(with event: NSEvent) {
@@ -433,37 +421,6 @@ final class CodeEditorTextView: NSTextView {
     }
     
     // MARK: - Overrides
-    var isCompleting = false
-    override func completions(forPartialWordRange charRange: NSRange,
-                              indexOfSelectedItem index: UnsafeMutablePointer<Int>?) -> [String]? {
-        
-        let word = (string as NSString).substring(with: charRange)
-        let matches = suggestions.filter {
-            $0.hasPrefix(word)
-        }
-        return matches
-    }
-    
-    func filteredWordLength() -> Int {
-        let range = self.selectedRange()
-        let text = self.string as NSString
-        let prefix = text.substring(to: range.location)
-
-        let components = prefix.components(separatedBy: CharacterSet.whitespacesAndNewlines)
-        return components.last?.count ?? 0
-    }
-    
-    func currentWordLength() -> Int {
-        let cursor = selectedRange().location
-        guard cursor > 0 else { return 0 }
-
-        let text = string as NSString
-        let prefix = text.substring(to: cursor)
-
-        let components = prefix.components(separatedBy: CharacterSet.whitespacesAndNewlines)
-        return components.last?.count ?? 0
-    }
-    
     var isDeleting = false
  
     override func didChangeText() {
@@ -472,95 +429,18 @@ final class CodeEditorTextView: NSTextView {
         
         if isDeleting {
             isDeleting = false
-            handlePostProcessing()
             return
         }
         
         if Settings.shared.substitutionEnabled {
             replaceLastTyped()
         }
-        
-        guard Settings.shared.completionsEnabled, !isCompleting else { return }
-        
-        let range = selectedRange()
-        let text = string as NSString
-        
-        guard range.location > 0 else {
-            handlePostProcessing()
-            return
-        }
-        
-        let lastChar = text.substring(with: NSRange(location: range.location - 1, length: 1))
-        
-        if let scalar = lastChar.unicodeScalars.first,
-           CharacterSet.alphanumerics.contains(scalar),
-           currentWordLength() >= 2 {
-            
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.isCompleting = true
-                self.complete(nil)
-                
-                DispatchQueue.main.async {
-                    self.isCompleting = false
-                }
-            }
-        }
+    }
+    
 
-        handlePostProcessing()
-    }
-    
-    var highlightWorkItem: DispatchWorkItem?
-    func handlePostProcessing() {
-        highlightWorkItem?.cancel()
-        
-        let work = DispatchWorkItem { [weak self] in
-            guard let self = self else { return }
-            
-            if !self.isUpdatingMirrors {
-                if let _ = self.snippetSession,
-                   let selected = self.selectedRanges.first as? NSRange,
-                   let (placeholderIndex, _) = self.placeholder(at: selected.location) {
-                    self.updateMirrors(for: placeholderIndex)
-                }
-            }
-            
-            self.applySyntaxHighlighting()
-        }
-        
-        highlightWorkItem = work
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: work)
-    }
-    
-    override func replaceCharacters(in range: NSRange, with string: String) {
-        super.replaceCharacters(in: range, with: string)
-    }
-    
-    override func shouldChangeText(in affectedCharRange: NSRange, replacementString: String?) -> Bool {
-        guard let replacement = replacementString, snippetSession != nil else {
-            return super.shouldChangeText(in: affectedCharRange, replacementString: replacementString)
-        }
-        let allowed = super.shouldChangeText(in: affectedCharRange, replacementString: replacement)
-        if allowed { adjustRanges(after: affectedCharRange.location, delta: replacement.count - affectedCharRange.length) }
-        return allowed
-    }
-    
-    override func insertNewline(_ sender: Any?) {
-        super.insertNewline(sender)
-        autoIndentCurrentLine()
-    }
-    
-    private func autoIndentCurrentLine() {
-        let text = string as NSString
-        let sel = selectedRange().location
-        let prevLineRange = text.lineRange(for: NSRange(location: max(0, sel - 1), length: 0))
-        let prevLine = text.substring(with: prevLineRange)
-        var indent = String(prevLine.prefix { $0 == " " || $0 == "\t" })
-        let trimmed = prevLine.trimmingCharacters(in: .whitespacesAndNewlines)
-        if ["then","do","repeat","case"].contains(where: { trimmed.hasSuffix($0) }) { indent += "  " }
-        insertText(indent, replacementRange: selectedRange())
-    }
-    
+
+    // MARK: - MouseDown Event Handler
+  
     override func mouseDown(with event: NSEvent) {
         if event.modifierFlags.contains(.option) {
             handleOptionClick(event)

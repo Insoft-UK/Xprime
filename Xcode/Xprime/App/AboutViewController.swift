@@ -49,12 +49,13 @@ final class AboutViewController: NSViewController {
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
         window.styleMask.insert(.fullSizeContentView)
+        window.styleMask = [.borderless]
         
-        window.styleMask = [.nonactivatingPanel, .titled]
       
         window.center()
         window.level = .floating
         window.hasShadow = false
+
     }
     
     override func mouseDown(with event: NSEvent) {

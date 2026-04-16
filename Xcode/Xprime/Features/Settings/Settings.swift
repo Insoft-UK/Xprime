@@ -32,7 +32,6 @@ fileprivate enum DefaultsKey {
     static let allowedOpenFileExtensions = "AllowedOpenFileExtensions"
     static let allowedSaveFileExtensions = "AllowedSaveFileExtensions"
     static let recentFiles = "RecentFiles"
-    static let completionsEnabled = "CompletionsEnabled"
     static let snippetsEnabled = "SnippetsEnabled"
     static let useBetaApplications = "UseBetaApplications"
 }
@@ -93,9 +92,6 @@ final class Settings {
         defaultValue: []
     )
     var recentFiles: [String]
-    
-    @UserDefault(key: DefaultsKey.completionsEnabled, defaultValue: false)
-    var completionsEnabled: Bool
     
     @UserDefault(key: DefaultsKey.snippetsEnabled, defaultValue: false)
     var snippetsEnabled: Bool
