@@ -40,6 +40,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBOutlet private weak var outputButton: NSButton!
     @IBOutlet private weak var clearOutputButton: NSButton!
     @IBOutlet private weak var baseApplication: NSPopUpButton!
+    @IBOutlet private weak var snippets: NSPopUpButton!
 
     @IBOutlet private weak var projectIcon: NSButton!
     
@@ -71,6 +72,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             populateOpenRecentMenu(menu: menu)
             populateTemplateMenu(menu: menu)
         }
+        
+        populateSnippetsMenu()
         
         configureBaseApplicationAction()
     }
@@ -187,6 +190,51 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 #endif
     }
 
+    // MARK: - Snippets
+    private func populateSnippetsMenu() {
+        let url = Bundle.main.resourceURL!.appendingPathComponent("Developer/Library/Xprime/Snippets")
+        let menu = NSMenu()
+        
+        let contents = try? FileManager.default.contentsOfDirectory(
+            at: url,
+            includingPropertiesForKeys: [.isDirectoryKey],
+            options: [.skipsHiddenFiles]
+        )
+        
+        contents?.forEach { itemURL in
+            if itemURL.isDirectory == false {
+                let snippet = loadSnippet(at: itemURL)
+                
+                let menuItem = NSMenuItem(
+                    title: snippet.trigger,
+                    action: #selector(snippetSelected(_:)),
+                    keyEquivalent: ""
+                )
+                menuItem.subtitle = snippet.title
+                menuItem.representedObject = itemURL
+                menuItem.image = NSImage(named: "hpppl")?.copy() as? NSImage
+                menuItem.image?.size = NSSize(width: 16, height: 16)
+                menu.addItem(menuItem)
+            }
+        }
+        
+        snippets.menu = menu
+    }
+    
+    @objc private func snippetSelected(_ sender: NSMenuItem) {
+        
+        codeEditorTextView.insertText("$\(sender.title)", replacementRange: codeEditorTextView.selectedRange())
+    }
+    
+    private func loadSnippet(at file: URL) -> (title: String, trigger: String) {
+        let decoder = JSONDecoder()
+        
+        guard let data = try? Data(contentsOf: file),
+                let json = try? decoder.decode(JSONSnippet.self, from: data) else { return (file.deletingPathExtension().lastPathComponent, file.deletingPathExtension().lastPathComponent) }
+        
+        let trigger = file.deletingPathExtension().lastPathComponent
+        return (json.title, trigger)
+    }
     
     // MARK: - Templates
     private func populateTemplateMenu(menu: NSMenu) {

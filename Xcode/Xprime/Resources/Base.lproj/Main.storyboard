@@ -1606,8 +1606,43 @@ Gw
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G96-vy-5KC">
+                                        <rect key="frame" x="511" y="14" width="38" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="icon" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="fjV-P0-Abv">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent">V</string>
+                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                        </buttonCell>
+                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <segue destination="MWU-od-JlL" kind="popover" popoverAnchorView="G96-vy-5KC" popoverBehavior="t" preferredEdge="maxY" id="T60-D1-7MT"/>
+                                        </connections>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5PR-g4-Umd">
+                                        <rect key="frame" x="84" y="18.5" width="26.5" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="long.text.page.and.pencil" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AiF-KR-aFr">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <segue destination="SOo-ga-T53" kind="popover" popoverAnchorView="5PR-g4-Umd" popoverBehavior="t" preferredEdge="maxY" id="xff-ua-OdX"/>
+                                        </connections>
+                                    </button>
+                                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pct-AP-UV1">
+                                        <rect key="frame" x="736" y="21" width="196" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="fuo-VA-XLJ">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="menu"/>
+                                            <menu key="menu" id="dcE-MS-HXw"/>
+                                        </popUpButtonCell>
+                                    </popUpButton>
                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R0K-qm-g5R">
-                                        <rect key="frame" x="89" y="19" width="185" height="24"/>
+                                        <rect key="frame" x="129" y="21" width="185" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="eNv-pk-Zff" id="0ZL-C9-vNa">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1676,32 +1711,6 @@ Gw
                                             </menu>
                                         </popUpButtonCell>
                                     </popUpButton>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G96-vy-5KC">
-                                        <rect key="frame" x="511" y="14" width="38" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="icon" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="fjV-P0-Abv">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <string key="keyEquivalent">V</string>
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </buttonCell>
-                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                        <connections>
-                                            <segue destination="MWU-od-JlL" kind="popover" popoverAnchorView="G96-vy-5KC" popoverBehavior="t" preferredEdge="maxY" id="T60-D1-7MT"/>
-                                        </connections>
-                                    </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5PR-g4-Umd">
-                                        <rect key="frame" x="282" y="19.5" width="26.5" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="long.text.page.and.pencil" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AiF-KR-aFr">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                        <connections>
-                                            <segue destination="SOo-ga-T53" kind="popover" popoverAnchorView="5PR-g4-Umd" popoverBehavior="t" preferredEdge="maxY" id="xff-ua-OdX"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </visualEffectView>
                         </subviews>
@@ -1720,6 +1729,7 @@ Gw
                         <outlet property="outputScrollView" destination="gM6-VC-kCh" id="Cbq-VN-EFd"/>
                         <outlet property="outputTextView" destination="fLO-1H-GKd" id="2zB-kY-Jtt"/>
                         <outlet property="projectIcon" destination="G96-vy-5KC" id="fCS-dJ-BgK"/>
+                        <outlet property="snippets" destination="pct-AP-UV1" id="ve0-BL-ejv"/>
                         <outlet property="splitView" destination="VTQ-i6-i8i" id="hYA-ON-mGK"/>
                         <outlet property="statusLabel" destination="WwT-Xi-9rw" id="x8B-3n-gwE"/>
                     </connections>

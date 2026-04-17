@@ -199,7 +199,6 @@ final class CodeEditorTextView: NSTextView {
     // MARK: - Editor Setup
     private func setupEditor() {
         font = NSFont.monospacedDigitSystemFont(ofSize: 12, weight: .regular)
-//        font = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
         isAutomaticQuoteSubstitutionEnabled = false
         isAutomaticDataDetectionEnabled = false
         isAutomaticDashSubstitutionEnabled = false
@@ -437,7 +436,10 @@ final class CodeEditorTextView: NSTextView {
         }
     }
     
-
+    override func insertText(_ string: Any, replacementRange: NSRange) {
+        super.insertText(string, replacementRange: replacementRange)
+        if Settings.shared.snippetsEnabled { expandSnippetIfNeeded() }
+    }
 
     // MARK: - MouseDown Event Handler
   
