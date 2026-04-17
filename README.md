@@ -27,7 +27,6 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |:-|:-|
 |.xprimeproj|Xprime project|
 |.ntf|NoteText|
-|.md|Markdown Language|
 |.bmp|Bitmap (.hpppl)|
 |.png|Portable Network Graphic (.hpppl)|
 |.h|Adafruit GFX Font (.hpppl)|
@@ -38,8 +37,6 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.prgm|HP PPL source text (UTF16le)|
 |.hpppl|HP PPL source text|
 |.hppplplus|HP PPL+ source text|
-|.ppl|HP PPL source text|
-|.ppl+|HP PPL+ source text|
 
 >In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼ support, Xprime will adopt the .hpppl and .hppplplus file types and discontinue .prgm+. This change will simplify development for those using either Visual Studio Code or Xprime.
 
