@@ -31,6 +31,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        refreshLanguageMenu()
     }
     
     override func viewDidAppear() {
@@ -80,6 +81,13 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
     }
     
     // MARK: - Private Helpers
+    private func refreshLanguageMenu() {
+        guard let menu = language.menu else { return }
+        for item in menu.items {
+            item.image?.size = NSSize(width: 16, height: 16)
+        }
+    }
+    
     private func create(named name: String, in directoryURL: URL) {
         guard let selectedLanguage = language.titleOfSelectedItem else { return }
         

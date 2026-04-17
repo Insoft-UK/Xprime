@@ -413,7 +413,7 @@ enum HPServices {
     static func loadHPPrgm(at url: URL) -> String? {
         
         if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased() == "hpappprgm" {
-            let result = ProcessRunner.run(executable: URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("ppl+"), arguments: [url.path, "-o", "/dev/stdout"])
+            let result = ProcessRunner.run(executable: URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpppl+"), arguments: [url.path, "-o", "/dev/stdout"])
             if let out = result.out, !out.isEmpty {
                 return result.out
             }
@@ -468,7 +468,7 @@ enum HPServices {
     
     static func preProccess(at sourceURL: URL, to destinationURL: URL, compress: Bool = false) -> (out: String?, err: String?, exitCode: Int32) {
     
-        let command = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("ppl+").path
+        let command = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpppl+").path
         var arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
         
         if compress {

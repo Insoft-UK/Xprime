@@ -66,7 +66,7 @@ final class Settings {
     @UserDefault(
         key: DefaultsKey.supportedDocumentExtensions,
         defaultValue: [
-            "hpppl", "hppplplus", "ppl", "ppl+", "ntf", "py", "md", "txt"
+            "hpppl", "hppplplus", "ntf", "py"
         ]
     )
     var supportedDocumentExtensions: [String]
@@ -74,7 +74,7 @@ final class Settings {
     @UserDefault(
         key: DefaultsKey.allowedOpenFileExtensions,
         defaultValue: [
-            "xprimeproj", "hpppl", "hppplplus", "ppl", "ppl+", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "ntf", "py", "md", "txt", "h", "bmp", "png"
+            "xprimeproj", "hpppl", "hppplplus", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "ntf", "py", "h", "bmp", "png"
         ]
     )
     var allowedOpenFileExtensions: [String]
@@ -82,7 +82,7 @@ final class Settings {
     @UserDefault(
         key: DefaultsKey.allowedSaveFileExtensions,
         defaultValue: [
-            "hpppl", "hppplplus", "ppl", "ppl+", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "ntf", "py", "md", "txt"
+            "hpppl", "hppplplus", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "ntf", "py"
         ]
     )
     var allowedSaveFileExtensions: [String]

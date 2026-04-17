@@ -44,7 +44,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     @IBOutlet private weak var projectIcon: NSButton!
     
     // MARK: - Managers
-    private var documentManager: DocumentManager!
+    var documentManager: DocumentManager!
     var projectManager: ProjectManager!
     var themeManager: ThemeManager!
     private var updateManager: UpdateManager!
@@ -213,7 +213,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     keyEquivalent: ""
                 )
                 submenuItem.submenu = submenu
-                submenuItem.image = NSImage(named: "Folder")
+                submenuItem.image = NSImage(named: NSImage.folderName)
                 submenuItem.image?.size = NSSize(width: 16, height: 16)
                 menu.addItem(submenuItem)
             } else {
@@ -225,7 +225,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     keyEquivalent: ""
                 )
                 menuItem.representedObject = itemURL
-                menuItem.image = NSImage(named: "code-block")
+                menuItem.image = NSImage(named: "hpppl")?.copy() as? NSImage
                 menuItem.image?.size = NSSize(width: 16, height: 16)
                 menu.addItem(menuItem)
             }
@@ -474,7 +474,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             ".hppplplus": ["hppplplus", "ppl+"],
             ".hpppl": ["hpppl", "ppl", "hpprgm", "hpappprgm", "bmp", "png", "h"],
             ".py": ["py"],
-            ".ntf": ["hpnote", "hpappnote", "note", "ntf"],
+            ".ntf": ["hpnote", "hpappnote", "ntf"],
             ".md": ["md"]
         ]
         
@@ -739,7 +739,14 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        comboButton.image = sender.image
+        switch documentManager.currentDocumentURL?.pathExtension.lowercased() {
+        case "hpppl":
+            comboButton.image = NSImage(named: "hpppl")?.copy() as? NSImage
+            comboButton.image?.size = NSSize(width: 24, height: 24)
+        default:
+            comboButton.image = sender.image
+        }
+        
     }
     
     private func refreshQuickOpenToolbar() {
@@ -771,9 +778,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             options: [.skipsHiddenFiles]
         )
         
-        let python = NSImage(named: "Python")?.copy() as! NSImage
-        let notes = NSImage(named: "Notes")?.copy() as! NSImage
-        let icon = NSImage(named: "Icon")?.copy() as! NSImage
+        let python = NSImage(named: "py")?.copy() as! NSImage
+        let hpnote = NSImage(named: "hpnote")?.copy() as! NSImage
+        let file = NSImage(named: "file")?.copy() as! NSImage
+        let hpppl = NSImage(named: "hpppl")?.copy() as! NSImage
+        let hppplplus = NSImage(named: "hppplplus")?.copy() as! NSImage
         
         contents?
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
@@ -797,28 +806,27 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     )
                 
                     switch url.pathExtension.lowercased() {
-                    case "md", "ntf", "txt":
-                        menu.items.last?.image = notes
+                    case "hppplplus", "hpppl+":
+                        menu.items.last?.image = hppplplus
+                        
+                    case "hpnote", "ntf":
+                        menu.items.last?.image = hpnote
                         
                     case "py":
                         menu.items.last?.image = python
                         
-                    case "hpppl", "hppplplus":
-                        if url.deletingPathExtension().lastPathComponent == "main" {
-                            menu.items.last?.image = projectManager.projectIcon
-                        } else {
-                            menu.items.last?.image = icon
-                        }
+                    case "hpppl":
+                        menu.items.last?.image = hpppl
                     
                     default:
-                        menu.items.last?.image = icon
+                        menu.items.last?.image = file
                     }
                     
-                    menu.items.last?.image?.size = NSSize(width: 16, height: 16)
+                    menu.items.last?.image?.size = NSSize(width: 24, height: 24)
                     if url == documentManager.currentDocumentURL {
                         menu.items.last?.state = .on
                         comboButton.image = menu.items.last?.image
-                        comboButton.image?.size = NSSize(width: 16, height: 16)
+                        comboButton.image?.size = NSSize(width: 24, height: 24)
                     }
                 }
             }
@@ -1032,7 +1040,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         from sourceURL: URL,
         to destinationURL: URL
     ) {
-        let command = ToolchainPaths.bin + "/note"
+        let command = ToolchainPaths.bin + "/hpnote"
         var arguments: [String] = [
             sourceURL.path,
             "-o",
@@ -1217,7 +1225,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-        let contents = ProcessRunner.run(executable: URL(fileURLWithPath: ToolchainPaths.bin + "/ppl+"), arguments: [currentURL.path, "--reformat", "-o", "/dev/stdout"])
+        let contents = ProcessRunner.run(executable: URL(fileURLWithPath: ToolchainPaths.bin + "/hpppl+"), arguments: [currentURL.path, "--reformat", "-o", "/dev/stdout"])
         if let out = contents.out, !out.isEmpty {
             codeEditorTextView.string = out
         }

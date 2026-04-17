@@ -47,8 +47,10 @@ final class NotesViewController: NSViewController {
     
     private func loadHTMLString() {
         guard let url = vc.projectManager.projectDirectoryURL else { return }
+        vc.documentManager.saveDocument()
+        
         let executable = URL(fileURLWithPath: ToolchainPaths.bin)
-            .appendingPathComponent("note")
+            .appendingPathComponent("hpnote")
         let result = ProcessRunner.run(executable: executable, arguments: [url.appendingPathComponent("info.ntf").path, "--html", "-o", "/dev/stdout"])
         
         guard result.exitCode == 0, let out = result.out else {

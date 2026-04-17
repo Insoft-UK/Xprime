@@ -141,7 +141,7 @@ Gw
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="NeU-LU-U7W">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
+                                    <font key="font" metaFont="message"/>
                                     <menu key="menu" id="2DE-AE-Ruj"/>
                                 </popUpButtonCell>
                             </popUpButton>
@@ -326,8 +326,8 @@ Gw
                                     <font key="font" metaFont="message"/>
                                     <menu key="menu" id="jMG-G9-BZ5">
                                         <items>
-                                            <menuItem title="HP PPL" state="on" id="wd7-4K-H8F" userLabel="HP PPL"/>
-                                            <menuItem title="HP PPL Plus" id="c5W-Dq-X7F" userLabel="HP PPL Plus"/>
+                                            <menuItem title="HP PPL" state="on" image="hpppl" id="wd7-4K-H8F" userLabel="HP PPL"/>
+                                            <menuItem title="HP PPL Plus" image="hppplplus" id="c5W-Dq-X7F" userLabel="HP PPL Plus"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -502,8 +502,8 @@ Gw
                                     <font key="font" metaFont="message"/>
                                     <menu key="menu" id="3rn-gj-lFh">
                                         <items>
-                                            <menuItem title="HP PPL" state="on" id="Yhh-Im-MDy" userLabel="HP PPL"/>
-                                            <menuItem title="HP PPL Plus" id="M85-xv-c6B" userLabel="HP PPL Plus"/>
+                                            <menuItem title="HP PPL" state="on" image="hpppl" id="Yhh-Im-MDy" userLabel="HP PPL"/>
+                                            <menuItem title="HP PPL Plus" image="hppplplus" id="M85-xv-c6B" userLabel="HP PPL Plus"/>
                                         </items>
                                     </menu>
                                 </popUpButtonCell>
@@ -1516,7 +1516,7 @@ Gw
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" red="0.99131000000000002" green="0.56076000000000004" blue="0.24611" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <color key="backgroundColor" red="0.16078431372549018" green="0.16470588235294117" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <size key="minSize" width="260" height="505"/>
+                                                    <size key="minSize" width="1060" height="505"/>
                                                     <size key="maxSize" width="10000" height="10000000"/>
                                                 </textView>
                                             </subviews>
@@ -1837,6 +1837,8 @@ Gw
         <image name="hammer" catalog="system" width="20" height="18"/>
         <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="help-about" width="16" height="16"/>
+        <image name="hpppl" width="64" height="64"/>
+        <image name="hppplplus" width="64" height="64"/>
         <image name="icon" width="38" height="38"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
         <image name="long.text.page.and.pencil" catalog="system" width="17" height="19"/>

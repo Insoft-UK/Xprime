@@ -230,7 +230,7 @@ final class DocumentManager {
     func openDocument(at url: URL) {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
-        case "prgm", "note":
+        case "prgm":
             encoding = .utf16
             
         case "hpnote", "hpappnote":
@@ -295,15 +295,7 @@ final class DocumentManager {
         }
         
         do {
-            if url.pathExtension.lowercased() == "note" || url.pathExtension.lowercased() == "appnote" {
-                guard var data = editor.string.data(using: encoding) else {
-                    throw NSError(domain: "EncodingError", code: 1)
-                }
-                data.append(contentsOf: [0x00, 0x00])
-                try data.write(to: url, options: .atomic)
-            } else {
-                try editor.string.write(to: url, atomically: true, encoding: encoding)
-            }
+            try editor.string.write(to: url, atomically: true, encoding: encoding)
             
             documentIsModified = false
             delegate?.documentManagerDidSave(self)

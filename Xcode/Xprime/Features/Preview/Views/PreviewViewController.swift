@@ -40,7 +40,9 @@ final class PreviewViewController: NSViewController {
         vc = window.contentViewController as? MainViewController
         guard let url = vc.projectManager.projectDirectoryURL else { return }
         
-        let executable = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("ppl+")
+        vc.documentManager.saveDocument()
+        
+        let executable = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpppl+")
         
         var mainURL = url.appendingPathComponent("main.hppplplus")
         if FileManager.default.fileExists(atPath: url.appendingPathComponent("main.hppplplus").path) == false {

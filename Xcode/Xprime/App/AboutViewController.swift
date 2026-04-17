@@ -74,12 +74,12 @@ final class AboutViewController: NSViewController {
     }
     
     private func toolsInfo() {
-        let `ppl+` = version(forTool: "ppl+");
+        let `ppl+` = version(forTool: "hpppl+");
         let grob = version(forTool: "GROB");
         let font = version(forTool: "font");
-        let note = version(forTool: "note");
+        let note = version(forTool: "hpnote");
         
-        Tools.stringValue = "PPL+ \(`ppl+`) - GROB \(grob) - FONT \(font) - NOTE \(note)"
+        Tools.stringValue = "HP PPL+ \(`ppl+`) - GROB \(grob) - FONT \(font) - HP NOTE \(note)"
         Tools.isHidden = false
     }
     

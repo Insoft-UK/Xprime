@@ -52,6 +52,7 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
     
     private func setup() {
         refreshBaseApplicationMenu()
+        refreshLanguageMenu()
     }
     
     // MARK: - Actions
@@ -86,6 +87,13 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
     // MARK: - Private Helpers
     private func refreshBaseApplicationMenu() {
         guard let menu = baseApplication.menu else { return }
+        for item in menu.items {
+            item.image?.size = NSSize(width: 16, height: 16)
+        }
+    }
+    
+    private func refreshLanguageMenu() {
+        guard let menu = language.menu else { return }
         for item in menu.items {
             item.image?.size = NSSize(width: 16, height: 16)
         }
