@@ -2,7 +2,7 @@
 
 ## GROB
 **Command Line Tool**
-A utility for generating PPL code from an image file for use with the BLIT and BLIT_P functions on the HP Prime.
+A utility for generating HP PPL code from an image file for use with the BLIT and BLIT_P functions on the HP Prime.
 
 Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=grob-mac-universal.zip">macOS</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=grob-win-x86_64.zip">Windows</a> | <a href="http://insoft.uk/action/?method=downlink&path=linux&file=grob-linux-x86_64.zip">Linux</a>
 
