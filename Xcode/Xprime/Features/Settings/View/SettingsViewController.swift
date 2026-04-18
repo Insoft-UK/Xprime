@@ -24,7 +24,6 @@ import Cocoa
 
 final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var substitution: NSButton!
-    @IBOutlet weak var snippets: NSButton!
     @IBOutlet weak var theme: NSPopUpButton!
     @IBOutlet weak var location: NSTextField!
     @IBOutlet weak var useBetaApplications: NSButton!
@@ -55,7 +54,6 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     private func setup() {
         configureThemeSelection()
         configureSubtitutionActions()
-        configureSnippetsActions()
         configureUseBetaApplicationsActions()
         
         location.delegate = self
@@ -79,10 +77,6 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         Settings.shared.substitutionEnabled = sender.state == .on
     }
     
-    @objc private func preferSnippetsSwitchToggled(_ sender: NSSwitch) {
-        Settings.shared.snippetsEnabled = sender.state == .on
-    }
-    
     @objc private func preferUseBetaApplicationsSwitchToggled(_ sender: NSMenuItem) {
         Settings.shared.useBetaApplications = sender.state == .on
     }
@@ -100,7 +94,6 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     
     @IBAction func defaultSettings(_ sender: Any) {
         Settings.shared.substitutionEnabled = false
-        Settings.shared.snippetsEnabled = false
         Settings.shared.useBetaApplications = false
         Settings.shared.preferredTheme = "Default (Dark)"
         Settings.shared.location = FileManager
@@ -111,7 +104,6 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         
         location.stringValue = Settings.shared.location
         substitution.state = .off
-        snippets.state = .off
         theme.selectItem(withTitle: Settings.shared.preferredTheme)
         useBetaApplications.state = .off
         vc.themeManager.applySavedTheme()
@@ -162,12 +154,6 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         substitution.target = self
         substitution.action = #selector(preferSubtitutionSwitchToggled(_:))
         substitution.state = Settings.shared.substitutionEnabled ? .on : .off
-    }
-    
-    private func configureSnippetsActions() {
-        snippets.target = self
-        snippets.action = #selector(preferSnippetsSwitchToggled(_:))
-        snippets.state = Settings.shared.snippetsEnabled ? .on : .off
     }
     
     private func configureUseBetaApplicationsActions() {

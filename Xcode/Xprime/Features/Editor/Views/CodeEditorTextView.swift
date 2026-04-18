@@ -238,7 +238,7 @@ final class CodeEditorTextView: NSTextView {
             return
         }
         super.keyDown(with: event)
-        if Settings.shared.snippetsEnabled { expandSnippetIfNeeded() }
+        expandSnippetIfNeeded()
     }
     
     // MARK: - Snippet Expansion
@@ -438,7 +438,7 @@ final class CodeEditorTextView: NSTextView {
     
     override func insertText(_ string: Any, replacementRange: NSRange) {
         super.insertText(string, replacementRange: replacementRange)
-        if Settings.shared.snippetsEnabled { expandSnippetIfNeeded() }
+        expandSnippetIfNeeded()
     }
 
     // MARK: - MouseDown Event Handler
