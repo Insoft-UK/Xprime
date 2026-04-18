@@ -1,4 +1,7 @@
-### Xprime 26.4.1 (Plans)
+### Xprime 26.4.2
+AppleSilicon Only, dropping support for Intel for the command line tools used by Xprime
+
+### Xprime 26.4.1
 Preview for Notes
 
 ### Xprime 26.4
