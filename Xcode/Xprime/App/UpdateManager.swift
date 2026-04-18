@@ -46,14 +46,13 @@ final class UpdateManager {
                    let downloadString = json["downloadURL"] as? String,
                    let buildString = json["build"] as? String,
                    let downloadURL = URL(string: downloadString) {
-                    
-                    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
                     let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
-
+                    
                     if self.isRemoteBuildNewer(latestBuild: buildString, currentBuild: build) {
                         self.promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
                     }
                 }
+                
             } catch {
             }
         }

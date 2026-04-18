@@ -833,8 +833,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let file = NSImage(named: "file")?.copy() as! NSImage
         let hpppl = NSImage(named: "hpppl")?.copy() as! NSImage
         let hppplplus = NSImage(named: "hppplplus")?.copy() as! NSImage
+        let h = NSImage(named: "h")?.copy() as! NSImage
         let bmp = NSImage(named: "bmp")?.copy() as! NSImage
-//        let png = NSImage(named: "png")?.copy() as! NSImage
+        let png = NSImage(named: "png")?.copy() as! NSImage
         
         contents?
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
@@ -865,14 +866,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     case "py":
                         menu.items.last?.image = python
                         
+                    case "h":
+                        menu.items.last?.image = h
+                        
                     case "hpppl":
                         menu.items.last?.image = hpppl
                         
                     case "bmp":
                         menu.items.last?.image = bmp
-//                        
-//                    case "png":
-//                        menu.items.last?.image = png
+                        
+                    case "png":
+                        menu.items.last?.image = png
                     
                     default:
                         menu.items.last?.image = file
