@@ -113,19 +113,6 @@ BEGIN
 END;
 ```
 
-### Assignment Style
-
-In <b>HP PPL+</b>, the = operator is treated as := (assignment) by default, whereas in standard <b>HP PPL</b>, = is interpreted as == (equality). This behavior in PPL+ can be explicitly controlled using the directive:
-
-```#pragma mode( assignment(:=) )```
-
-This will inform HP PPL+ that HP PPL assignment is to be used only, allowing you to use = as equality.
-
-When = is used for assignment, the HP PPL := operator is still supported; however, using := is strongly recommended.
-
->[!IMPORTANT]
-In HP PPL+ by default `=` is treated as `:=` were in HP PPL `=` is treated as `==`
-
 ## Alias
 Added support for defining aliases that include a dot (e.g., alias hp::text := HP.Text).
 
