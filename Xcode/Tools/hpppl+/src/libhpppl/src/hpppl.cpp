@@ -333,33 +333,6 @@ std::string removeTripleSlashComment(const std::string& str) {
 }
 
 
-std::string convertAssignToColonEqual(const std::string& input) {
-    std::string output;
-    output.reserve(input.size() * 2);  // Conservative buffer size
-
-    for (size_t i = 0; i < input.size(); ++i) {
-        if (input[i] == '=') {
-            // Check for '=='
-            if (i + 1 < input.size() && input[i + 1] == '=') {
-                output += "==";
-                ++i;
-            }
-            // Check for ':=' (don't modify)
-            else if (i > 0 && input[i - 1] == ':') {
-                output += '=';
-            }
-            // Replace single '=' with ':='
-            else {
-                output += ":=";
-            }
-        } else {
-            output += input[i];
-        }
-    }
-
-    return output;
-}
-
 std::string expandAssignmentEquals(const std::string& input) {
     std::string output;
     output.reserve(input.size() * 2);  // Worst-case growth

@@ -88,14 +88,14 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
     private func refreshBaseApplicationMenu() {
         guard let menu = baseApplication.menu else { return }
         for item in menu.items {
-            item.image?.size = NSSize(width: 16, height: 16)
+            item.image?.size = NSSize(width: 18, height: 18)
         }
     }
     
     private func refreshLanguageMenu() {
         guard let menu = language.menu else { return }
         for item in menu.items {
-            item.image?.size = NSSize(width: 16, height: 16)
+            item.image?.size = NSSize(width: 22, height: 22)
         }
     }
     

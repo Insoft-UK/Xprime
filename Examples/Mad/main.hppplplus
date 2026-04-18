@@ -1,6 +1,6 @@
 #pragma mode( separator(.,;) integer(h64) indentation(4) operators(▶,*,/,-,+) )
 
-dict White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, \
+dictionary White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, \
 Magenta := #FF00FF:32h, Cardinal := #D03020:32h, Coral := #F08070:32h, Pink := #FFC0C0:32h, Indigo := #400080:32h, \
 Purple := #800080:32h, Violet := #8000FF:32h, Lavender := #C0C0FF:32h, NavyBlue := #000080:32h, Blue := #0000FF:32h, \
 Denim := #1060C0:32h, Lochmara := #0070C0:32h, SkyBlue := #80D0FF:32h, PacificBlue := #00A0C0:32h, Teal := #008080:32h, \
@@ -10,10 +10,10 @@ Olive := #808000:32h, Tangerine := #FFD000:32h, Yellow := #FFFF00:32h, Khaki := 
 Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h \
 @Color;
 
-#define COPYRIGHT   		"COPYRIGHT 1985 E.C. PUBLICATIONS"
-#define END_OF_DATA 		999
-#define SCREEN_MIDDLE		120
-#define SCREEN_CENTRE     	160
+#define COPYRIGHT   	    "COPYRIGHT 1985 E.C. PUBLICATIONS"
+#define END_OF_DATA      999
+#define SCREEN_MIDDLE    120
+#define SCREEN_CENTRE    160
 
 /// PPL Data from file.
 LOCAL DATA:={$I "data.hpppl"};

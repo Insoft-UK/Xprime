@@ -82,7 +82,6 @@ namespace fs = std::filesystem;
 namespace rc = std::regex_constants;
 
 static Preprocessor preprocessor = Preprocessor();
-static std::string assignment = "=";
 
 typedef struct {
     std::string command;
@@ -150,13 +149,8 @@ std::string translatePPLPlusLine(const std::string& input) {
     
     output = replaceOperators(output);
     output = fixUnaryMinus(output);
+    output = expandAssignmentEquals(output);
     
-    // PPL by default uses := instead of C's = for assignment. Converting all = to PPL style :=
-    if (assignment == "=") {
-        output = convertAssignToColonEqual(output);
-    } else {
-        output = expandAssignmentEquals(output);
-    }
     output = Singleton::shared()->aliases.resolveAllAliasesInText(output);
    
     /*
@@ -542,14 +536,6 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
             std::string s = input;
             input = "";
             for(auto it = sregex_iterator(s.begin(), s.end(), re); it != sregex_iterator(); ++it) {
-                if (it->str(1) == "assignment") {
-                    if (it->str(2) != ":=" && it->str(2) != "=") {
-                        std::cerr << MessageType::Warning << "#pragma mode: for '" << it->str() << "' invalid.\n";
-                    }
-                    if (it->str(2) == ":=") assignment = ":=";
-                    if (it->str(2) == "=") assignment = "=";
-                    continue;
-                }
                 if (it->str(1) == "indentation") {
                     indentation = atoi(it->str(2).c_str());
                     continue;
@@ -657,11 +643,8 @@ fs::path resolveAndValidateInputFile(const char *input_file) {
     std::string in_ext = std::lowercased(path.extension().string());
     std::array<std::string, 7> extensions = {
         ".hpppl",
-        ".hppplplus",
-        ".hpppl+",
-        ".ppl+",
+        ".hppplplus"
         ".prgm+",
-        ".pp",
         ".pas"
     };
     auto bom = utf::bom(path);
@@ -848,10 +831,9 @@ int main(int argc, char **argv) {
     
     std::string output;
     
-    std::array<std::string, 4> extensions = {
+    std::array<std::string, 2> extensions = {
         ".hppplplus",
-        ".hpppl+",
-        ".ppl+"
+        ".hpppl+"
     };
     for (auto extension : extensions) {
         if (in_ext == extension) {

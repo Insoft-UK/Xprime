@@ -183,7 +183,7 @@ Gw
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OB4-TE-B2S">
                                 <rect key="frame" x="164" y="102" width="266" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="check" title="Use BETA versions." bezelStyle="regularSquare" imagePosition="left" inset="2" id="N0M-cM-vbq">
+                                <buttonCell key="cell" type="check" title="Use BETA versions of the applications." bezelStyle="regularSquare" imagePosition="left" inset="2" id="N0M-cM-vbq">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -200,7 +200,7 @@ Gw
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iPU-V4-5j9">
                                 <rect key="frame" x="18" y="102" width="136" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="BETA Applications:" id="p36-fE-i8S">
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="BETA:" id="p36-fE-i8S">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1619,7 +1619,7 @@ Gw
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="fuo-VA-XLJ">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="menu"/>
+                                            <font key="font" metaFont="message"/>
                                             <menu key="menu" id="dcE-MS-HXw"/>
                                         </popUpButtonCell>
                                     </popUpButton>

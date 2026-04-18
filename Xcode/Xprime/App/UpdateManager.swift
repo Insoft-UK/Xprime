@@ -31,6 +31,36 @@ final class UpdateManager {
         self.presenterWindow = presenterWindow
     }
     
+    func checkForAvaliableUpdates() {
+        guard let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json?") else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let self = self else { return }
+            guard error == nil, let data = data else {
+                return
+            }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                   let latestVersion = json["latestVersion"] as? String,
+                   let downloadString = json["downloadURL"] as? String,
+                   let buildString = json["build"] as? String,
+                   let downloadURL = URL(string: downloadString) {
+                    
+                    let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
+                    let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+
+                    if self.isRemoteBuildNewer(latestBuild: buildString, currentBuild: build) {
+                        self.promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
+                    }
+                }
+            } catch {
+            }
+        }
+        
+        task.resume()
+    }
+    
     func checkForUpdates() {
         guard let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json?") else { return }
         

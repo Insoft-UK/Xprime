@@ -113,6 +113,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if FileManager.default.fileExists(atPath: lastOpenedFile) {
             documentManager.openDocument(at: URL(fileURLWithPath: lastOpenedFile))
         }
+        
+        updateManager.checkForAvaliableUpdates()
     }
     
     deinit {
@@ -213,7 +215,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 menuItem.subtitle = snippet.title
                 menuItem.representedObject = itemURL
                 menuItem.image = NSImage(named: "hpppl")?.copy() as? NSImage
-                menuItem.image?.size = NSSize(width: 16, height: 16)
+                menuItem.image?.size = NSSize(width: 22, height: 22)
                 menu.addItem(menuItem)
             }
         }
@@ -274,7 +276,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 )
                 menuItem.representedObject = itemURL
                 menuItem.image = NSImage(named: "hpppl")?.copy() as? NSImage
-                menuItem.image?.size = NSSize(width: 16, height: 16)
+                menuItem.image?.size = NSSize(width: 22, height: 22)
                 menu.addItem(menuItem)
             }
         }
@@ -439,7 +441,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let baseApplicationName = projectManager.baseApplicationName
         
         for item in menu.items {
-            item.image?.size = NSSize(width: 16, height: 16)
+            item.image?.size = NSSize(width: 18, height: 18)
             if item.title == baseApplicationName {
                 item.state = .on
                 baseApplication.select(item)
@@ -456,7 +458,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         guard let menu = baseApplication.menu else { return }
         for item in menu.items {
-            item.image?.size = NSSize(width: 16, height: 16)
+            item.image?.size = NSSize(width: 18, height: 18)
         }
     }
     
@@ -831,6 +833,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let file = NSImage(named: "file")?.copy() as! NSImage
         let hpppl = NSImage(named: "hpppl")?.copy() as! NSImage
         let hppplplus = NSImage(named: "hppplplus")?.copy() as! NSImage
+        let bmp = NSImage(named: "bmp")?.copy() as! NSImage
+//        let png = NSImage(named: "png")?.copy() as! NSImage
         
         contents?
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
@@ -840,9 +844,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                    url.pathExtension == "ppl" ||
                    url.pathExtension == "ppl+" ||
                    url.pathExtension == "py"  ||
-                   url.pathExtension == "md" ||
                    url.pathExtension == "ntf" ||
-                   url.pathExtension == "txt" ||
                    url.pathExtension == "bmp" ||
                    url.pathExtension == "png" ||
                    url.pathExtension == "h"
@@ -865,16 +867,22 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         
                     case "hpppl":
                         menu.items.last?.image = hpppl
+                        
+                    case "bmp":
+                        menu.items.last?.image = bmp
+//                        
+//                    case "png":
+//                        menu.items.last?.image = png
                     
                     default:
                         menu.items.last?.image = file
                     }
                     
-                    menu.items.last?.image?.size = NSSize(width: 24, height: 24)
+                    menu.items.last?.image?.size = NSSize(width: 22, height: 22)
                     if url == documentManager.currentDocumentURL {
                         menu.items.last?.state = .on
                         comboButton.image = menu.items.last?.image
-                        comboButton.image?.size = NSSize(width: 24, height: 24)
+                        comboButton.image?.size = NSSize(width: 22, height: 22)
                     }
                 }
             }
@@ -1425,7 +1433,11 @@ extension MainViewController: DocumentManagerDelegate {
         
         refreshProjectIconImage()
         refreshQuickOpenToolbar()
-        
+        if let url = documentManager.currentDocumentURL, url.pathExtension.lowercased() == "hpppl" || url.pathExtension.lowercased() == "hppplplus" {
+            snippets.isEnabled = true
+        } else {
+            snippets.isEnabled = false
+        }
         updateWindowDocumentIcon()
     }
     
