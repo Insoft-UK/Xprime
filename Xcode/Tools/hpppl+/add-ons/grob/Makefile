@@ -1,12 +1,12 @@
 PROJECT_NAME := $(shell basename $(PWD))
 ARCH := $(shell arch)
 
-all: arm64 x86_64 universal win_x86_64
+all: arm64 x86_64 universal
  
 arm64:
 	mkdir -p build/arm64
 	g++ -arch arm64 -std=c++23 \
-	-I../../src/libhpprgm/include ../../src/libhpprgm/lib/libhpprgm.a \
+	-I../../src/libhpprgm/include ../../src/libhpprgm/lib/arm64/libhpprgm.a \
 	-Isrc/libpng/include \
 	-Isrc/libz/include \
 	src/*.cpp src/libpng/lib/arm64/libpng.a src/libz/lib/arm64/libz.a \

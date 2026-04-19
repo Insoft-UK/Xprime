@@ -51,8 +51,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     private var updateManager: UpdateManager!
     private var statusManager: StatusManager!
 
+
     // MARK: - Class Private Properties
     private var gutterView: LineNumberGutterView!
+    
+    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -842,8 +845,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .forEach { url in
                 if url.pathExtension == "hpppl" ||
                    url.pathExtension == "hppplplus" ||
-                   url.pathExtension == "ppl" ||
-                   url.pathExtension == "ppl+" ||
                    url.pathExtension == "py"  ||
                    url.pathExtension == "ntf" ||
                    url.pathExtension == "bmp" ||

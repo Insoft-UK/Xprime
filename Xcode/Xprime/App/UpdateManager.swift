@@ -43,13 +43,18 @@ final class UpdateManager {
             do {
                 if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                    let latestVersion = json["latestVersion"] as? String,
+                   let architecture = json["architecture"] as? String,
                    let downloadString = json["downloadURL"] as? String,
                    let buildString = json["build"] as? String,
                    let downloadURL = URL(string: downloadString) {
                     let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
                     
-                    if self.isRemoteBuildNewer(latestBuild: buildString, currentBuild: build) {
-                        self.promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
+                    let architecture = json["architecture"] as? String ?? "universal"
+                    
+                    if architecture == "universal" || architecture == currentArchitecture() {
+                        if isRemoteBuildNewer(latestBuild: buildString, currentBuild: build) {
+                            promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
+                        }
                     }
                 }
                 
@@ -79,11 +84,22 @@ final class UpdateManager {
                     
                     let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
                     let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
-
-                    if self.isRemoteBuildNewer(latestBuild: buildString, currentBuild: build) {
-                        self.promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
+                    
+                    let architecture = json["architecture"] as? String ?? "universal"
+                    
+                    if isRemoteBuildNewer(latestBuild: buildString, currentBuild: build) {
+                        if architecture == "universal" || architecture == currentArchitecture() {
+                            promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
+                        } else {
+                            self.showError(
+                                "Sorry, this version of Xprime isn’t compatible with your system architecture."
+                            )
+                        }
                     } else {
-                        self.showInfo("You're up to date!", informationalText: "Xprime \(version) is currently the newest version available.")
+                        showInfo(
+                            "You're up to date!",
+                            informationalText: "Xprime \(version) is currently the newest version available."
+                        )
                     }
                 } else {
                     self.showError("Invalid update info received.")
@@ -97,10 +113,6 @@ final class UpdateManager {
     }
     
     // MARK: - Version comparison
-//    private func isRemoteVersionNewer(latestVersion: String, currentVersion: String) -> Bool {
-//        return latestVersion.compare(currentVersion, options: .numeric) == .orderedDescending
-//    }
-    
     private func isRemoteBuildNewer(latestBuild: String, currentBuild: String) -> Bool {
         return latestBuild.compare(currentBuild, options: .numeric) == .orderedDescending
     }
@@ -138,6 +150,17 @@ final class UpdateManager {
             alert.messageText = "Update Check Failed"
             alert.informativeText = message
             alert.runModal()
+        }
+    }
+    
+    private func currentArchitecture() -> String {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+
+        return withUnsafePointer(to: &systemInfo.machine) {
+            $0.withMemoryRebound(to: CChar.self, capacity: 1) {
+                String(cString: $0)
+            }
         }
     }
 }
