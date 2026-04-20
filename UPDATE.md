@@ -1,5 +1,8 @@
+### Xprime 26.4.3 (soon)
+AppleSilicon Only
+
 ### Xprime 26.4.2
-AppleSilicon Only, dropping support for Intel for the command line tools used by Xprime
+Universal, improvments to the UI and updated icons.
 
 ### Xprime 26.4.1
 Preview for Notes
