@@ -21,9 +21,9 @@
 // SOFTWARE.
 
 #define VERSION_NUMBER        "4.0.8"
-#define VERSION_CODE          "D0I51-26DI"
-#define NUMERIC_BUILD          40851
-#define BUNDLE_VERSION        "20260419"
-#define INTERNAL_BUILD_CODE   "D0I51"
-#define DATE                  "2026 April 19"
+#define VERSION_CODE          "D0I58-26DJ"
+#define NUMERIC_BUILD          40858
+#define BUNDLE_VERSION        "20260420"
+#define INTERNAL_BUILD_CODE   "D0I58"
+#define DATE                  "2026 April 20"
 #define YEAR                  "2026"

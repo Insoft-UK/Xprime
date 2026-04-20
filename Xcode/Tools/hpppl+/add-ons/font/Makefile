@@ -1,39 +1,12 @@
 PROJECT_NAME := $(shell basename $(PWD))
+ARCH := $(shell arch)
+	
+all:
+	mkdir -p build
+	g++ -arch $(ARCH) -std=c++23 \
+	src/*.cpp \
+	-o build/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-dead_strip -Wl,-x
 
-all: arm64 x86_64 universal win_x86_64 linux_x86_64
-	
-arm64:
-	mkdir -p build/arm64
-	g++ -arch arm64 -std=c++23 \
-	src/*.cpp \
-	-o build/arm64/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-dead_strip -Wl,-x
-	
-x86_64:
-	mkdir -p build/x86_64
-	g++ -arch x86_64 -std=c++23 \
-	src/*.cpp \
-	-o build/x86_64/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-dead_strip -Wl,-x
-	
-universal:
-	# Combine into a universal binary
-	lipo -create -output build/$(PROJECT_NAME) build/arm64/$(PROJECT_NAME) build/x86_64/$(PROJECT_NAME)
-	
-win_x86_64:
-	mkdir -p build/win_x86_64
-	x86_64-w64-mingw32-g++ \
-	src/*.cpp \
-	-o build/win_x86_64/$(PROJECT_NAME).exe \
-	-std=c++23 \
-	-static -O2 -s
-	
-linux_x86_64:
-	mkdir -p build/linux_x86_64
-	x86_64-linux-musl-g++ \
-	src/*.cpp \
-	--std=c++23 \
-	-static -o build/linux_x86_64/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-x
-
-        
 clean:
 	rm -rf build/*
 	

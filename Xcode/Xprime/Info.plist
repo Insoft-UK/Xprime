@@ -69,8 +69,8 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>xprimeproj</string>
-				<string>ppl</string>
-				<string>ppl+</string>
+				<string>hpppl</string>
+				<string>hppplplus</string>
 			</array>
 			<key>UTTypeConformsTo</key>
 			<array>

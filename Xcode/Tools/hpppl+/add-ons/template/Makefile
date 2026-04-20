@@ -1,7 +1,7 @@
 PROJECT_NAME ?= addon
 ARCH := $(shell arch)
 
-all: arm64 x86_64 uninstall win_x86_64
+all: arm64 x86_64 uninstall
 
 arm64:
 	mkdir -p build/arm64

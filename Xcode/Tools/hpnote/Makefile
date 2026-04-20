@@ -2,28 +2,16 @@ PROJECT_NAME ?= hpnote
 ARCH := $(shell arch)
 
 all:
-	arm64
-	x86_64
-	# Combine into a universal binary
-	lipo -create -output build/$(PROJECT_NAME) build/arm64/$(PROJECT_NAME) build/x86_64/$(PROJECT_NAME)
-	
-arm64:
-	mkdir -p build/arm64
-	g++ -arch arm64 -std=c++23 \
+	mkdir -p build
+	g++ -arch $(ARCH) -std=c++23 \
 	src/*.cpp \
-	-o build/arm64/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-dead_strip -Wl,-x
+	-o build/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-dead_strip -Wl,-x
 	
-x86_64:
-	mkdir -p build/x86_64
-	g++ -arch x86_64 -std=c++23 \
-	src/*.cpp \
-	-o build/x86_64/$(PROJECT_NAME) -Os -fno-ident -fno-asynchronous-unwind-tables -Wl,-dead_strip -Wl,-x
-
 clean:
 	rm -rf build/*
 
 install:
-	cp build/$(ARCH)/$(PROJECT_NAME) /usr/local/bin/$(PROJECT_NAME)
+	cp build/$(PROJECT_NAME) /usr/local/bin/$(PROJECT_NAME)
 	
 uninstall:
 	rm /usr/local/bin/$(PROJECT_NAME)
