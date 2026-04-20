@@ -1,8 +1,8 @@
-### Xprime 26.4.3
+### Xprime 26.4.3 (soon)
 AppleSilicon Only
 
 ### Xprime 26.4.2
-Universal
+Universal, improvments to the UI and updated icons.
 
 ### Xprime 26.4.1
 Preview for Notes
