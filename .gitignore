@@ -10,8 +10,6 @@ make
 ignore
 Xcode/Tools/note/*.zip
 Dev
-Makefile
-version.txt
 _*
 test
 examples
