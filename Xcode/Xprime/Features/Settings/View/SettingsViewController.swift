@@ -27,6 +27,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var theme: NSPopUpButton!
     @IBOutlet weak var location: NSTextField!
     @IBOutlet weak var useBetaApplications: NSButton!
+    @IBOutlet weak var keywordNormalization: NSButton!
     
     private var vc: MainViewController!
 
@@ -55,6 +56,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         configureThemeSelection()
         configureSubtitutionActions()
         configureUseBetaApplicationsActions()
+        configureKeywordNormalizationActions()
         
         location.delegate = self
         location.stringValue = Settings.shared.location
@@ -73,6 +75,10 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     }
     
     // MARK: - Actions
+    @objc private func preferKeywordNormalizationToggled(_ sender: NSSwitch) {
+        Settings.shared.keywordNormalization = sender.state == .on
+    }
+    
     @objc private func preferSubtitutionSwitchToggled(_ sender: NSSwitch) {
         Settings.shared.substitutionEnabled = sender.state == .on
     }
@@ -160,5 +166,11 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         useBetaApplications.target = self
         useBetaApplications.action = #selector(preferUseBetaApplicationsSwitchToggled(_:))
         useBetaApplications.state = Settings.shared.useBetaApplications ? .on : .off
+    }
+    
+    private func configureKeywordNormalizationActions() {
+        keywordNormalization.target = self
+        keywordNormalization.action = #selector(preferKeywordNormalizationToggled(_:))
+        keywordNormalization.state = Settings.shared.keywordNormalization ? .on : .off
     }
 }

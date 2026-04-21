@@ -425,16 +425,64 @@ final class CodeEditorTextView: NSTextView {
     override func didChangeText() {
         super.didChangeText()
         applySyntaxHighlighting()
-        
+
         if isDeleting {
             isDeleting = false
             return
         }
-        
+
+        if Settings.shared.keywordNormalization {
+            let keywords: Set<String> = [
+                "REGEX", "DICTIONARY", "USES", "ALIAS",
+                "BEGIN", "END",
+                "IF", "THEN", "ELSE", "CASE",
+                "FOR", "FROM", "TO", "STEP", "DO",
+                "WHILE", "REPEAT", "UNTIL",
+                "BREAK", "CONTINUE", "RETURN",
+                "IFERR", "KILL", "DEFAULT",
+                "AND", "OR", "NOT", "XOR", "MOD",
+                "VAR", "LOCAL", "EXPORT", "CONST", "KEY", "VIEW"
+            ]
+
+            let text = self.string
+            let cursorLocation = self.selectedRange().location
+            let nsText = text as NSString
+
+            let separators = CharacterSet.whitespacesAndNewlines
+                .union(.punctuationCharacters)
+
+            var start = cursorLocation
+
+            // Find start of current word
+            while start > 0 {
+                let char = nsText.substring(with: NSRange(location: start - 1, length: 1))
+                if char.rangeOfCharacter(from: separators) != nil {
+                    break
+                }
+                start -= 1
+            }
+
+            let length = cursorLocation - start
+
+            if length > 0 {
+                let range = NSRange(location: start, length: length)
+                let typedWord = nsText.substring(with: range)
+                let uppercased = typedWord.uppercased()
+
+                if keywords.contains(uppercased) && typedWord != uppercased {
+                    self.textStorage?.replaceCharacters(in: range, with: uppercased)
+                    self.setSelectedRange(
+                        NSRange(location: start + uppercased.count, length: 0)
+                    )
+                }
+            }
+        }
+
         if Settings.shared.substitutionEnabled {
             replaceLastTyped()
         }
     }
+
     
     override func insertText(_ string: Any, replacementRange: NSRange) {
         super.insertText(string, replacementRange: replacementRange)

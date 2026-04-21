@@ -32,7 +32,7 @@ bool Regexp::parse(const std::string &str) {
     std::regex re;
     std::smatch match;
     
-    re = R"(^ *\bregex +([@<>=≠≤≥~])?`([^`]*)`(i)? *(.*)$)";
+    re = std::regex(R"(^ *\bregex +([@<>=≠≤≥~])?`([^`]*)`(i)? *(.*)$)", std::regex_constants::icase);
     if (regex_search(str, match, re)) {
         TRegexp regexp = {
             .pattern = match[2].str(),

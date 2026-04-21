@@ -8,7 +8,7 @@
         },
         {
             "name": "Storage",
-            "match": "(?m)\\b(var|local|export|const|LOCAL|EXPORT|CONST|KEY|VIEW)\\b"
+            "match": "(?mi)\\b(var|LOCAL|EXPORT|CONST|KEY|VIEW)\\b"
         },
         {
             "name": "Builtins",

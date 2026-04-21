@@ -90,8 +90,9 @@ final class UpdateManager {
                         if architecture == "universal" || architecture == currentArchitecture() {
                             promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
                         } else {
-                            self.showError(
-                                "Sorry, this version of Xprime isn’t compatible with your system architecture."
+                            showInfo(
+                                "You're up to date!",
+                                informationalText: "Xprime \(version) is currently the newest version available."
                             )
                         }
                     } else {

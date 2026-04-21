@@ -33,6 +33,7 @@ fileprivate enum DefaultsKey {
     static let allowedSaveFileExtensions = "AllowedSaveFileExtensions"
     static let recentFiles = "RecentFiles"
     static let useBetaApplications = "UseBetaApplications"
+    static let keywordNormalization = "KeywordNormalization"
 }
 
 final class Settings {
@@ -94,4 +95,7 @@ final class Settings {
 
     @UserDefault(key: DefaultsKey.useBetaApplications, defaultValue: false)
     var useBetaApplications: Bool
+    
+    @UserDefault(key: DefaultsKey.keywordNormalization, defaultValue: true)
+    var keywordNormalization: Bool
 }

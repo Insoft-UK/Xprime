@@ -25,11 +25,11 @@
 using hppplplus::Dictionary;
 
 bool Dictionary::isDictionaryDefinition(const std::string &str) {
-    return regex_search(str, std::regex(R"(\b(?:dict|dictionary) +([\w[\](),:=#\- ]+) *@?\b([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*);)"));
+    return regex_search(str, std::regex(R"(\bdictionary +([\w[\](),:=#\- ]+) *@?\b([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*);)", std::regex_constants::icase));
 }
 
 std::string Dictionary::removeDictionaryDefinition(const std::string& str) {
-    return std::regex_replace(str, std::regex(R"(\b(?:dict|dictionary) +([\w[\](),:=#\- ]+) *@?\b([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*);)"), "");
+    return std::regex_replace(str, std::regex(R"(\bdictionary +([\w[\](),:=#\- ]+) *@?\b([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*);)", std::regex_constants::icase), "");
 }
 
 bool Dictionary::proccessDictionaryDefinition(const std::string &str) {
@@ -45,8 +45,7 @@ bool Dictionary::proccessDictionaryDefinition(const std::string &str) {
     
     std::string pattern;
     
-//    re = R"(\b(?:dict|dictionary) +([\w[\],:=#\- ]+) *(@)?\b([A-Za-z_]\w*(?:::[A-Za-z_]\w*)*);)";
-    pattern = R"(\b(?:dict|dictionary) +([^\r\n\t\f\v@]+) +(@)?\b([a-z_]\w*(?:::[a-z_]\w*)*);)";
+    pattern = R"(\bdictionary +([^\r\n\t\f\v@]+) +(@)?\b([a-z_]\w*(?:::[a-z_]\w*)*);)";
     
     if (regex_search(code, match, std::regex(pattern, std::regex_constants::icase))) {
         

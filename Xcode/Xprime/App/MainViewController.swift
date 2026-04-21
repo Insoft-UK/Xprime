@@ -279,7 +279,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 )
                 menuItem.representedObject = itemURL
                 menuItem.image = NSImage(named: "hpppl")?.copy() as? NSImage
-                menuItem.image?.size = NSSize(width: 22, height: 22)
+                menuItem.image?.size = NSSize(width: 16, height: 16)
                 menu.addItem(menuItem)
             }
         }
