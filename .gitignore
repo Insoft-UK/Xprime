@@ -12,6 +12,8 @@ Xcode/Tools/note/*.zip
 Dev
 Makefile
 version.txt
-version_code.h
 _*
-src
+test
+examples
+hpnote.xcodeproj
+hpppl+.xcodeproj
