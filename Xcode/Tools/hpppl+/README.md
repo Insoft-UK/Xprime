@@ -16,7 +16,9 @@ Using these **add-ons**, **<a href="https://github.com/Insoft-UK/PrimePlus/blob/
 >[!IMPORTANT]
 >HP PPL+ discontinued support for #include. It's been replaced by the Pascal-style include directives: {$I file} or {$include file}.
 
-Download links: <a href="https://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-arm64.pkg">macOS</a>
+**Universal** Download link: <a href="https://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-universal.pkg">macOS</a>
+
+**Apple Silicon** Download link: <a href="https://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-arm64.pkg">macOS</a>
 
 >hpppl+ for macOS is installed in /usr/local/bin. To uninstall it, run: `sudo rm /usr/local/bin/hpppl+`
 
