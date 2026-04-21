@@ -1,1 +1,0 @@
-var bmp := {$I "spectrum-4bit.bmp"};

@@ -1,3 +1,0 @@
-This is my Add-On for ppl+
-#pragma mode (addon(addon.txt))
-#include "myfile.txt"
