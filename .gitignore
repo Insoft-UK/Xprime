@@ -10,3 +10,7 @@ make
 ignore
 Xcode/Tools/note/*.zip
 Dev
+Makefile
+version.txt
+version_code.h
+_*
