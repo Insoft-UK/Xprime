@@ -1,0 +1,5 @@
+Syntax:
+ANS
+
+ANS: Last answer.
+Returns the result of the last calculation made in Home view to its full precision. The variable ANS is different from the numbers in Home&#39;s history. A value in ANS is stored internally with the full precision of the calculated result, whereas the displayed numbers match the display mode.

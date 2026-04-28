@@ -1,0 +1,15 @@
+Syntax:
+TEXTOUT(text, [G], x, y, [font], [textColor], [width], [backgroundColor])
+
+Draws text on graphic G at position (x, y) using font. Paints the background before drawing the text using color backgroundColor. If width is specified, does not draw text more than width pixels wide. If backgroundColor is not specified, the background is not erased.
+
+The sizes for font are:
+
+0=current font (default)
+1=font_10
+2=font_12 (Small)
+3=font_14 (Medium)
+4=font_16 (Large)
+5=font_18
+6=font_20
+7=font_22

@@ -1,0 +1,7 @@
+Syntax:
+ratnormal(Expr)
+
+Rewrites Expr as an irreducible rational fraction
+
+Example:
+ratnormal((x^2-1)/(x^3-1)) returns (x+1)/(x^2+x+1)

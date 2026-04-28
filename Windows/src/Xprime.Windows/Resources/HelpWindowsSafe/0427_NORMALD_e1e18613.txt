@@ -1,0 +1,7 @@
+Syntax:
+NORMALD([μ, σ,] x)
+
+Normal probability density function. Computes the probability density at the value x, given the mean, μ, and standard deviation, σ, of a normal distribution. With one argument, x, returns the probability density at x, assuming a mean of zero and standard deviation of 1.
+
+Example:
+NORMALD(0.5) returns 0.352065326765 and NORMALD(0, 2, 0.5) returns 0.193334058402

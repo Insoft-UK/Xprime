@@ -1,0 +1,7 @@
+Syntax:
+solve(Expr,[Var] )
+
+Solves a polynomial equation or a set of polynomial equations.
+
+Example:
+solve(x^2-3=1) returns {-2,2}

@@ -1,0 +1,13 @@
+# .NET build output
+src/**/bin/
+src/**/obj/
+
+# Native CMake build output
+toolchain/build/
+toolchain/build-*/
+
+# Native tools are built/copied by build-windows.ps1.
+src/Xprime.Windows/tools/bin/*.exe
+
+# Smoke-test artifacts
+**/smoke/

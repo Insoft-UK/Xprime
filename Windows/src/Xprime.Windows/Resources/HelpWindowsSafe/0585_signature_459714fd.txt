@@ -1,0 +1,7 @@
+Syntax:
+signature(Permut)
+
+Returns the signature of a permutation
+
+Example:
+signature([2,1,4,5,3]) returns -1

@@ -1,0 +1,7 @@
+Syntax:
+isprime(a)
+
+Prime integer test. Returns true if the integer a is prime; otherwise, returns false.
+
+Example:
+isprime(1999) returns true

@@ -1,0 +1,9 @@
+Syntax:
+exbisector(Point1, Point2, Point3)
+
+Given three points that define a triangle, creates the bisector of the exterior angles of the triangle whose common vertex is at the first point. The triangle does not have to be drawn in the Plot view.
+
+Example:
+exbisector(GA, GB, GC) draws the bisector of the exterior angles of ΔABC whose common vertex is at point A.
+
+exbisector(0,–4i,4) draws the line given by y=x

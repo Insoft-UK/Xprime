@@ -1,0 +1,7 @@
+Syntax:
+vpotential(Vect(V),LstVar)
+
+Returns U such as curl(U)=V
+
+Example:
+vpotential([2*x*y+3,x^2-4*z,-2*y*z],[x,y,z]) returns [0,-2*x*y*z,-x^3/3+4*x*z+3*y]

@@ -1,0 +1,7 @@
+Syntax:
+maxnorm(Vect or Mtrx)
+
+Norm with the maximum of a vector (or of a matrix): maxnorm([x1,x2,..,xn])=max(|x1|,..,|xn|)
+
+Example:
+maxnorm([1,2]) returns 2

@@ -1,0 +1,7 @@
+Syntax:
+sum_riemann(Expr,List(Var1,Var2))
+
+Returns, in the neighbourhood of n=∞, an equivalent of the sum of Expr(Var1,Var2) for Var2 from Var2=1 to Var2=Var1 when the sum is looked at as a Riemann sum associated with a continuous function defined on [0,1]
+
+Example:
+sum_riemann(1/(n+k),[n,k]) returns ln(2)

@@ -1,0 +1,7 @@
+Syntax:
+MIN(value1,[value2],[..value16])
+
+Minimum. Returns the lesser of the values given, or the lesser value of a list.
+
+Example:
+MIN(210,25) returns 25 and MIN({1, 8, 2}) returns 1

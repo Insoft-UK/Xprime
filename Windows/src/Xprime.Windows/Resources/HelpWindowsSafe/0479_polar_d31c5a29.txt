@@ -1,0 +1,4 @@
+Syntax:
+polar(Crcle,Pnt or Cplxe(A))
+
+Returns the line of the conjugated points of A with respect to the circle.

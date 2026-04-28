@@ -1,0 +1,5 @@
+Syntax:
+CAS(expression) or CAS.function(...) or CAS.variable[(...)]
+
+Evalute an expression or variable using the CAS.
+Note that outputs in numerical mode are transformed into strings or lists of expressions for symbolic matrices.

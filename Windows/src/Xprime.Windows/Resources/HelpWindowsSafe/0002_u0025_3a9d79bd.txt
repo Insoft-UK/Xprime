@@ -1,0 +1,7 @@
+Syntax:
+%(x, y)
+
+x percent of y. Returns (x/100)*y.
+
+Example:
+%(20,50) returns 10

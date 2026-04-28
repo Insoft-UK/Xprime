@@ -1,0 +1,7 @@
+Syntax:
+quartile1(Lst||Mtrx,[Lst])
+
+Returns the 1st quartile of the elements (or of the columns) of the argument.
+
+Example:
+quartile1([1,2,3,5,10,4]) returns 2.0

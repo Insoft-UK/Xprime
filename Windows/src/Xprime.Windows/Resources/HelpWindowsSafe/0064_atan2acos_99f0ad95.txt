@@ -1,0 +1,7 @@
+Syntax:
+atan2acos(Expr)
+
+Replaces arctan(x) by π/2-arccos(x/√(1+x^2)) in the argument.
+
+Example:
+atan2acos(atan(2*x) returns π/2-acos((2*x)/√(1+(2*x)^2))

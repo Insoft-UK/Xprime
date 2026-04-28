@@ -1,0 +1,7 @@
+Syntax:
+quartile3(Lst||Mtrx,[Lst])
+
+Returns the 3rd quartile of the elements (or of the columns) of the argument
+
+Example:
+quartile3([1,2,3,5,10,4]) returns 5.0

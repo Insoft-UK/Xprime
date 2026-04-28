@@ -1,0 +1,9 @@
+Syntax:
+SCHUR(matrix)
+
+Schur Decomposition. Factors a square matrix into two matrices. If matrix is real, then the result is {[[orthogonal]],[[upper-quasi triangular]]}.
+If Complex mode is on and the matrix is complex, then the result is 
+{[[unitary]],[[upper-triangular]]}.
+
+Example:
+SCHUR([[1,2],[3,4]])

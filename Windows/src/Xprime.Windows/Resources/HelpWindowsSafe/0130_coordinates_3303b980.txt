@@ -1,0 +1,7 @@
+Syntax:
+coordinates(Pnt or Cplx or Vect)
+
+Returns the list (resp matrix) of the abscissa and of the ordinate of a point or a vector (resp of points or vectors).
+
+Example:
+coordinates(point(1+2*i)) returns [1,2]

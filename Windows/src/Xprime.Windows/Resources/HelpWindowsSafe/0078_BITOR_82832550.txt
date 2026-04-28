@@ -1,0 +1,7 @@
+Syntax:
+BITOR(int1[, int2..,intn])
+
+Bitwise logical OR. Takes n integers as input and returns their bitwise logical OR.
+
+Example:
+BITOR(9, 26) returns 27

@@ -1,0 +1,7 @@
+Syntax:
+legendre_symbol(Intg,Intg)
+
+Legendre symbol.
+
+Example:
+legendre_symbol(132,5) returns -1

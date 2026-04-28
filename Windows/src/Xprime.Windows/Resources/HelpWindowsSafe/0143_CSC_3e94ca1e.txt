@@ -1,0 +1,7 @@
+Syntax:
+CSC(value)
+
+Cosecant. The Cosecant function; that is, 1/sin(x)
+
+Example:
+CSC(90) returns 0 in degree mode

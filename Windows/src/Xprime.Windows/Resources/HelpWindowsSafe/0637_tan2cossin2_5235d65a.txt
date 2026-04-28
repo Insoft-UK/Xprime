@@ -1,0 +1,7 @@
+Syntax:
+tan2cossin2(Expr)
+
+Rewrites Expr with tan(x) replaced by (1-cos(2*x))/sin(2*x)
+
+Example:
+tan2cossin2(tan(x)) returns (1-cos(2*x))/sin(2*x)

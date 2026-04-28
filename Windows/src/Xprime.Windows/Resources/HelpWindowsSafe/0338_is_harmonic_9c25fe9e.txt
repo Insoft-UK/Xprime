@@ -1,0 +1,4 @@
+Syntax:
+is_harmonic(Pnt or Cplx,Pnt or Cplx,Pnt or Cplx,Pnt or Cplx)
+
+Returns 1 if the 4 points are in a harmonic division and 0 otherwise.

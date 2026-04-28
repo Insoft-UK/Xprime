@@ -1,0 +1,7 @@
+Syntax:
+interval2center(Interval or Real)
+
+Returns the center of the interval or the object.
+
+Example:
+interval2center(2..5) returns 7/2

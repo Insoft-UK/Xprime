@@ -1,0 +1,7 @@
+Syntax:
+even(Intg(n))
+
+Returns 1 if the integer is even, else returns 0.
+
+Example:
+even(6) returns 1

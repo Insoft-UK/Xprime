@@ -1,0 +1,7 @@
+Syntax:
+matrix .- real/complex or real/complex .- matrix
+
+Substract the real/complex to each element of the matrix (or the reverce as appropriate)
+
+Example:
+[3,4].-2 returns [1,2]

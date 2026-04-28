@@ -1,0 +1,4 @@
+Syntax:
+DEBUG(ProgramName(arguments))
+
+

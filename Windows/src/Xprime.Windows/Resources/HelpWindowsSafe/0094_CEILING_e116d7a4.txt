@@ -1,0 +1,7 @@
+Syntax:
+CEILING(value)
+
+Least integer greater than or equal to value.
+
+Example:
+CEILING(3.2) returns 4 and CEILING(-3.2) returns -3

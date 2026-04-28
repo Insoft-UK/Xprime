@@ -1,0 +1,7 @@
+Syntax:
+variance(Lst||Mtrx,[Lst])
+
+Returns the variance of a list with the second argument as the weight, or the list of variance of the columns of a matrix.
+
+Example:
+variance([3,4,2]) returns 2/3

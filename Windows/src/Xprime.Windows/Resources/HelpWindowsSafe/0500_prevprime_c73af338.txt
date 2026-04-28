@@ -1,0 +1,7 @@
+Syntax:
+prevprime(a)
+
+Previous prime. Returns the previous prime number before the integer a.
+
+Example:
+prevprime(11) returns 7

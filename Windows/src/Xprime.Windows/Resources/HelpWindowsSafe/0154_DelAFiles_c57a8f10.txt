@@ -1,0 +1,4 @@
+Syntax:
+DelAFiles("name")
+
+Deletes the specified file associated with an HP app.

@@ -1,0 +1,7 @@
+Syntax:
+sum(Expr,Var,Real1, Real2,[Step])
+
+Returns the discrete sum of Expr with respect to the variable Var from Real1 to Real2. You can also use the summation template in the Template menu.
+
+Example:
+sum(n^2,n,1,5) returns 55

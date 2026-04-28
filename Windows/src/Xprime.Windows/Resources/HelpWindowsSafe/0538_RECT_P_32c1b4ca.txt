@@ -1,0 +1,12 @@
+Syntax:
+RECT_P([G], [x1, y1], [x2, y2], [edgeColor],[fillColor])
+
+Draws a rectangle on G, with diagonal defined by points (x1,y1) and (x2,y2), using edgeColor for the perimeter and fillColor for the inside.
+
+The following values are optional and their defaults are listed:
+x1, y1=top left corner of G
+x2, y2=bottom right corner of G
+edgeColor=white
+fillColor=edgeColor
+
+Note: To erase a GROB, execute RECT(G). To clear the screen, execute RECT().

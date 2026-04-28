@@ -1,0 +1,8 @@
+Syntax:
+rem(Poly1, Poly2) or rem(Vector1, Vector2)
+
+Returns the Euclidean remainder of the quotient of 2 polynomials.  If the polynomials are expressed as vectors of their coefficients, then this command returns a similar vector of the remainder.
+
+Example:
+rem(x^3+2*x^2+3*x+4,-x+2) returns 26
+rem([1,2,3,4],[-1,2]) returns [26]

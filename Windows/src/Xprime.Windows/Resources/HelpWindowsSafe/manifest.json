@@ -1,0 +1,4888 @@
+{
+  "sourceRepository": "E:\\Projects\\HPPrimeCoder\\experimental",
+  "treeish": "HEAD",
+  "exportedAtUtc": "2026-04-28T23:07:27.8560635+00:00",
+  "topicCount": 697,
+  "windowsUnsafeTopicCount": 7,
+  "topics": [
+    {
+      "title": "!",
+      "originalPath": "Xcode/Xprime/Resources/Help/!.txt",
+      "originalFileName": "!.txt",
+      "safeFileName": "0001_u0021_b4364f52.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "%",
+      "originalPath": "Xcode/Xprime/Resources/Help/%.txt",
+      "originalFileName": "%.txt",
+      "safeFileName": "0002_u0025_3a9d79bd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "%2E*",
+      "originalPath": "Xcode/Xprime/Resources/Help/%2E*.txt",
+      "originalFileName": "%2E*.txt",
+      "safeFileName": "0003_u0025_2E_u002A_d6346fe9.txt",
+      "wasWindowsUnsafe": true
+    },
+    {
+      "title": "%2E\u002B",
+      "originalPath": "Xcode/Xprime/Resources/Help/%2E\u002B.txt",
+      "originalFileName": "%2E\u002B.txt",
+      "safeFileName": "0004_u0025_2E_u002B_dc31aa7a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "%2E-",
+      "originalPath": "Xcode/Xprime/Resources/Help/%2E-.txt",
+      "originalFileName": "%2E-.txt",
+      "safeFileName": "0005_u0025_2E-_59c61287.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "%2E^",
+      "originalPath": "Xcode/Xprime/Resources/Help/%2E^.txt",
+      "originalFileName": "%2E^.txt",
+      "safeFileName": "0006_u0025_2E_u005E_11be324e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "%2F",
+      "originalPath": "Xcode/Xprime/Resources/Help/%2F.txt",
+      "originalFileName": "%2F.txt",
+      "safeFileName": "0007_u0025_2F_2b860657.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "%3A=",
+      "originalPath": "Xcode/Xprime/Resources/Help/%3A=.txt",
+      "originalFileName": "%3A=.txt",
+      "safeFileName": "0008_u0025_3A_u003D_1f95567a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "%CHANGE",
+      "originalPath": "Xcode/Xprime/Resources/Help/%CHANGE.txt",
+      "originalFileName": "%CHANGE.txt",
+      "safeFileName": "0009_u0025_CHANGE_caae1652.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "%TOTAL",
+      "originalPath": "Xcode/Xprime/Resources/Help/%TOTAL.txt",
+      "originalFileName": "%TOTAL.txt",
+      "safeFileName": "0010_u0025_TOTAL_9986ffe0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "*",
+      "originalPath": "Xcode/Xprime/Resources/Help/*.txt",
+      "originalFileName": "*.txt",
+      "safeFileName": "0011_u002A_69451800.txt",
+      "wasWindowsUnsafe": true
+    },
+    {
+      "title": "\u002B",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u002B.txt",
+      "originalFileName": "\u002B.txt",
+      "safeFileName": "0012_u002B_e184656a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "-",
+      "originalPath": "Xcode/Xprime/Resources/Help/-.txt",
+      "originalFileName": "-.txt",
+      "safeFileName": "0013_-_98706af4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "\u003C",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u003C.txt",
+      "originalFileName": "\u003C.txt",
+      "safeFileName": "0014_u003C_dfd88f06.txt",
+      "wasWindowsUnsafe": true
+    },
+    {
+      "title": "\u003C=",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u003C=.txt",
+      "originalFileName": "\u003C=.txt",
+      "safeFileName": "0015_u003C__u003D_236fc710.txt",
+      "wasWindowsUnsafe": true
+    },
+    {
+      "title": "\u003C\u003E",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u003C\u003E.txt",
+      "originalFileName": "\u003C\u003E.txt",
+      "safeFileName": "0016_u003C__u003E_c1c51e1c.txt",
+      "wasWindowsUnsafe": true
+    },
+    {
+      "title": "==",
+      "originalPath": "Xcode/Xprime/Resources/Help/==.txt",
+      "originalFileName": "==.txt",
+      "safeFileName": "0017_u003D__u003D_e90df8ee.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "\u003E",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u003E.txt",
+      "originalFileName": "\u003E.txt",
+      "safeFileName": "0018_u003E_fb727f22.txt",
+      "wasWindowsUnsafe": true
+    },
+    {
+      "title": "\u003E=",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u003E=.txt",
+      "originalFileName": "\u003E=.txt",
+      "safeFileName": "0019_u003E__u003D_8416fb14.txt",
+      "wasWindowsUnsafe": true
+    },
+    {
+      "title": "a2q",
+      "originalPath": "Xcode/Xprime/Resources/Help/a2q.txt",
+      "originalFileName": "a2q.txt",
+      "safeFileName": "0020_a2q_bbe941d6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "abcuv",
+      "originalPath": "Xcode/Xprime/Resources/Help/abcuv.txt",
+      "originalFileName": "abcuv.txt",
+      "safeFileName": "0021_abcuv_e11854b4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "about",
+      "originalPath": "Xcode/Xprime/Resources/Help/about.txt",
+      "originalFileName": "about.txt",
+      "safeFileName": "0022_about_94139cf9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ABS",
+      "originalPath": "Xcode/Xprime/Resources/Help/ABS.txt",
+      "originalFileName": "ABS.txt",
+      "safeFileName": "0023_ABS_f24607aa.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "abscissa",
+      "originalPath": "Xcode/Xprime/Resources/Help/abscissa.txt",
+      "originalFileName": "abscissa.txt",
+      "safeFileName": "0024_abscissa_ab0e9d69.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ACOS",
+      "originalPath": "Xcode/Xprime/Resources/Help/ACOS.txt",
+      "originalFileName": "ACOS.txt",
+      "safeFileName": "0025_ACOS_c0673923.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "acos2asin",
+      "originalPath": "Xcode/Xprime/Resources/Help/acos2asin.txt",
+      "originalFileName": "acos2asin.txt",
+      "safeFileName": "0026_acos2asin_221710c1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "acos2atan",
+      "originalPath": "Xcode/Xprime/Resources/Help/acos2atan.txt",
+      "originalFileName": "acos2atan.txt",
+      "safeFileName": "0027_acos2atan_8db94657.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ACOSH",
+      "originalPath": "Xcode/Xprime/Resources/Help/ACOSH.txt",
+      "originalFileName": "ACOSH.txt",
+      "safeFileName": "0028_ACOSH_632e4c1c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ACOT",
+      "originalPath": "Xcode/Xprime/Resources/Help/ACOT.txt",
+      "originalFileName": "ACOT.txt",
+      "safeFileName": "0029_ACOT_6378bc8c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ACSC",
+      "originalPath": "Xcode/Xprime/Resources/Help/ACSC.txt",
+      "originalFileName": "ACSC.txt",
+      "safeFileName": "0030_ACSC_d0f6c37c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ADDCOL",
+      "originalPath": "Xcode/Xprime/Resources/Help/ADDCOL.txt",
+      "originalFileName": "ADDCOL.txt",
+      "safeFileName": "0031_ADDCOL_ad680df4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "additionally",
+      "originalPath": "Xcode/Xprime/Resources/Help/additionally.txt",
+      "originalFileName": "additionally.txt",
+      "safeFileName": "0032_additionally_cb917553.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ADDROW",
+      "originalPath": "Xcode/Xprime/Resources/Help/ADDROW.txt",
+      "originalFileName": "ADDROW.txt",
+      "safeFileName": "0033_ADDROW_296597b2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "affix",
+      "originalPath": "Xcode/Xprime/Resources/Help/affix.txt",
+      "originalFileName": "affix.txt",
+      "safeFileName": "0034_affix_399f4538.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "AFiles",
+      "originalPath": "Xcode/Xprime/Resources/Help/AFiles.txt",
+      "originalFileName": "AFiles.txt",
+      "safeFileName": "0035_AFiles_0dbf8350.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "AFilesB",
+      "originalPath": "Xcode/Xprime/Resources/Help/AFilesB.txt",
+      "originalFileName": "AFilesB.txt",
+      "safeFileName": "0036_AFilesB_f0dec9d4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "algvar",
+      "originalPath": "Xcode/Xprime/Resources/Help/algvar.txt",
+      "originalFileName": "algvar.txt",
+      "safeFileName": "0037_algvar_e04fee2b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ALOG",
+      "originalPath": "Xcode/Xprime/Resources/Help/ALOG.txt",
+      "originalFileName": "ALOG.txt",
+      "safeFileName": "0038_ALOG_39d70318.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "alog10",
+      "originalPath": "Xcode/Xprime/Resources/Help/alog10.txt",
+      "originalFileName": "alog10.txt",
+      "safeFileName": "0039_alog10_6ff52f75.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "altitude",
+      "originalPath": "Xcode/Xprime/Resources/Help/altitude.txt",
+      "originalFileName": "altitude.txt",
+      "safeFileName": "0040_altitude_0d8cdfa1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "AND",
+      "originalPath": "Xcode/Xprime/Resources/Help/AND.txt",
+      "originalFileName": "AND.txt",
+      "safeFileName": "0041_AND_5316b78d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "angle",
+      "originalPath": "Xcode/Xprime/Resources/Help/angle.txt",
+      "originalFileName": "angle.txt",
+      "safeFileName": "0042_angle_b99f0cc6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "angleat",
+      "originalPath": "Xcode/Xprime/Resources/Help/angleat.txt",
+      "originalFileName": "angleat.txt",
+      "safeFileName": "0043_angleat_31a269f6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "angleatraw",
+      "originalPath": "Xcode/Xprime/Resources/Help/angleatraw.txt",
+      "originalFileName": "angleatraw.txt",
+      "safeFileName": "0044_angleatraw_826c3d94.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Ans",
+      "originalPath": "Xcode/Xprime/Resources/Help/Ans.txt",
+      "originalFileName": "Ans.txt",
+      "safeFileName": "0045_Ans_9bdb973f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "append",
+      "originalPath": "Xcode/Xprime/Resources/Help/append.txt",
+      "originalFileName": "append.txt",
+      "safeFileName": "0046_append_05b67f3a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "apply",
+      "originalPath": "Xcode/Xprime/Resources/Help/apply.txt",
+      "originalFileName": "apply.txt",
+      "safeFileName": "0047_apply_b2a831d8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "approx",
+      "originalPath": "Xcode/Xprime/Resources/Help/approx.txt",
+      "originalFileName": "approx.txt",
+      "safeFileName": "0048_approx_17100a07.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ARC",
+      "originalPath": "Xcode/Xprime/Resources/Help/ARC.txt",
+      "originalFileName": "ARC.txt",
+      "safeFileName": "0049_ARC_8bff7579.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "arcLen",
+      "originalPath": "Xcode/Xprime/Resources/Help/arcLen.txt",
+      "originalFileName": "arcLen.txt",
+      "safeFileName": "0050_arcLen_68055413.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ARC_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/ARC_P.txt",
+      "originalFileName": "ARC_P.txt",
+      "safeFileName": "0051_ARC_P_ddf11fb9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "area",
+      "originalPath": "Xcode/Xprime/Resources/Help/area.txt",
+      "originalFileName": "area.txt",
+      "safeFileName": "0052_area_ab7114e1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "areaat",
+      "originalPath": "Xcode/Xprime/Resources/Help/areaat.txt",
+      "originalFileName": "areaat.txt",
+      "safeFileName": "0053_areaat_2555059e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "areaatraw",
+      "originalPath": "Xcode/Xprime/Resources/Help/areaatraw.txt",
+      "originalFileName": "areaatraw.txt",
+      "safeFileName": "0054_areaatraw_5f3fdfd8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ARG",
+      "originalPath": "Xcode/Xprime/Resources/Help/ARG.txt",
+      "originalFileName": "ARG.txt",
+      "safeFileName": "0055_ARG_d6248937.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ASC",
+      "originalPath": "Xcode/Xprime/Resources/Help/ASC.txt",
+      "originalFileName": "ASC.txt",
+      "safeFileName": "0056_ASC_f6382f19.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ASEC",
+      "originalPath": "Xcode/Xprime/Resources/Help/ASEC.txt",
+      "originalFileName": "ASEC.txt",
+      "safeFileName": "0057_ASEC_800d50fd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ASIN",
+      "originalPath": "Xcode/Xprime/Resources/Help/ASIN.txt",
+      "originalFileName": "ASIN.txt",
+      "safeFileName": "0058_ASIN_73591187.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "asin2acos",
+      "originalPath": "Xcode/Xprime/Resources/Help/asin2acos.txt",
+      "originalFileName": "asin2acos.txt",
+      "safeFileName": "0059_asin2acos_6aa1a062.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "asin2atan",
+      "originalPath": "Xcode/Xprime/Resources/Help/asin2atan.txt",
+      "originalFileName": "asin2atan.txt",
+      "safeFileName": "0060_asin2atan_bc7bd3a0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ASINH",
+      "originalPath": "Xcode/Xprime/Resources/Help/ASINH.txt",
+      "originalFileName": "ASINH.txt",
+      "safeFileName": "0061_ASINH_70bbd830.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "assume",
+      "originalPath": "Xcode/Xprime/Resources/Help/assume.txt",
+      "originalFileName": "assume.txt",
+      "safeFileName": "0062_assume_91286530.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ATAN",
+      "originalPath": "Xcode/Xprime/Resources/Help/ATAN.txt",
+      "originalFileName": "ATAN.txt",
+      "safeFileName": "0063_ATAN_c50fae7c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "atan2acos",
+      "originalPath": "Xcode/Xprime/Resources/Help/atan2acos.txt",
+      "originalFileName": "atan2acos.txt",
+      "safeFileName": "0064_atan2acos_99f0ad95.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "atan2asin",
+      "originalPath": "Xcode/Xprime/Resources/Help/atan2asin.txt",
+      "originalFileName": "atan2asin.txt",
+      "safeFileName": "0065_atan2asin_ccd6859c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ATANH",
+      "originalPath": "Xcode/Xprime/Resources/Help/ATANH.txt",
+      "originalFileName": "ATANH.txt",
+      "safeFileName": "0066_ATANH_324dd336.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "atrig2ln",
+      "originalPath": "Xcode/Xprime/Resources/Help/atrig2ln.txt",
+      "originalFileName": "atrig2ln.txt",
+      "safeFileName": "0067_atrig2ln_c7177d46.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "barycenter",
+      "originalPath": "Xcode/Xprime/Resources/Help/barycenter.txt",
+      "originalFileName": "barycenter.txt",
+      "safeFileName": "0068_barycenter_151e7a16.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "basis",
+      "originalPath": "Xcode/Xprime/Resources/Help/basis.txt",
+      "originalFileName": "basis.txt",
+      "safeFileName": "0069_basis_91de3dfb.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BEGIN",
+      "originalPath": "Xcode/Xprime/Resources/Help/BEGIN.txt",
+      "originalFileName": "BEGIN.txt",
+      "safeFileName": "0070_BEGIN_40c2850f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Beta",
+      "originalPath": "Xcode/Xprime/Resources/Help/Beta.txt",
+      "originalFileName": "Beta.txt",
+      "safeFileName": "0071_Beta_66ec54b6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BINOMIAL",
+      "originalPath": "Xcode/Xprime/Resources/Help/BINOMIAL.txt",
+      "originalFileName": "BINOMIAL.txt",
+      "safeFileName": "0072_BINOMIAL_ad58e96e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BINOMIAL_CDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/BINOMIAL_CDF.txt",
+      "originalFileName": "BINOMIAL_CDF.txt",
+      "safeFileName": "0073_BINOMIAL_CDF_12180d04.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BINOMIAL_ICDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/BINOMIAL_ICDF.txt",
+      "originalFileName": "BINOMIAL_ICDF.txt",
+      "safeFileName": "0074_BINOMIAL_ICDF_2e334e90.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "bisector",
+      "originalPath": "Xcode/Xprime/Resources/Help/bisector.txt",
+      "originalFileName": "bisector.txt",
+      "safeFileName": "0075_bisector_0e8d13dd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BITAND",
+      "originalPath": "Xcode/Xprime/Resources/Help/BITAND.txt",
+      "originalFileName": "BITAND.txt",
+      "safeFileName": "0076_BITAND_15baa854.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BITNOT",
+      "originalPath": "Xcode/Xprime/Resources/Help/BITNOT.txt",
+      "originalFileName": "BITNOT.txt",
+      "safeFileName": "0077_BITNOT_1ed6fee6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BITOR",
+      "originalPath": "Xcode/Xprime/Resources/Help/BITOR.txt",
+      "originalFileName": "BITOR.txt",
+      "safeFileName": "0078_BITOR_82832550.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BITSL",
+      "originalPath": "Xcode/Xprime/Resources/Help/BITSL.txt",
+      "originalFileName": "BITSL.txt",
+      "safeFileName": "0079_BITSL_5eb606da.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BITSR",
+      "originalPath": "Xcode/Xprime/Resources/Help/BITSR.txt",
+      "originalFileName": "BITSR.txt",
+      "safeFileName": "0080_BITSR_22d914e9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BITXOR",
+      "originalPath": "Xcode/Xprime/Resources/Help/BITXOR.txt",
+      "originalFileName": "BITXOR.txt",
+      "safeFileName": "0081_BITXOR_42ba5146.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "black",
+      "originalPath": "Xcode/Xprime/Resources/Help/black.txt",
+      "originalFileName": "black.txt",
+      "safeFileName": "0082_black_cbacbfbc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BLIT",
+      "originalPath": "Xcode/Xprime/Resources/Help/BLIT.txt",
+      "originalFileName": "BLIT.txt",
+      "safeFileName": "0083_BLIT_be19a7d3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BLIT_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/BLIT_P.txt",
+      "originalFileName": "BLIT_P.txt",
+      "safeFileName": "0084_BLIT_P_15878914.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "blue",
+      "originalPath": "Xcode/Xprime/Resources/Help/blue.txt",
+      "originalFileName": "blue.txt",
+      "safeFileName": "0085_blue_f43a159e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "bounded_function",
+      "originalPath": "Xcode/Xprime/Resources/Help/bounded_function.txt",
+      "originalFileName": "bounded_function.txt",
+      "safeFileName": "0086_bounded_function_f589979e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "BREAK",
+      "originalPath": "Xcode/Xprime/Resources/Help/BREAK.txt",
+      "originalFileName": "BREAK.txt",
+      "safeFileName": "0087_BREAK_adade5cf.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "breakpoint",
+      "originalPath": "Xcode/Xprime/Resources/Help/breakpoint.txt",
+      "originalFileName": "breakpoint.txt",
+      "safeFileName": "0088_breakpoint_95a23a6c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "B\u2192R",
+      "originalPath": "Xcode/Xprime/Resources/Help/B\u2192R.txt",
+      "originalFileName": "B\u2192R.txt",
+      "safeFileName": "0089_B_u2192_R_1449c82d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "canonical_form",
+      "originalPath": "Xcode/Xprime/Resources/Help/canonical_form.txt",
+      "originalFileName": "canonical_form.txt",
+      "safeFileName": "0090_canonical_form_3a2831b2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CAS",
+      "originalPath": "Xcode/Xprime/Resources/Help/CAS.txt",
+      "originalFileName": "CAS.txt",
+      "safeFileName": "0091_CAS_3ed4b159.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CASE",
+      "originalPath": "Xcode/Xprime/Resources/Help/CASE.txt",
+      "originalFileName": "CASE.txt",
+      "safeFileName": "0092_CASE_957c6c90.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cat",
+      "originalPath": "Xcode/Xprime/Resources/Help/cat.txt",
+      "originalFileName": "cat.txt",
+      "safeFileName": "0093_cat_284ed27a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CEILING",
+      "originalPath": "Xcode/Xprime/Resources/Help/CEILING.txt",
+      "originalFileName": "CEILING.txt",
+      "safeFileName": "0094_CEILING_e116d7a4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "center",
+      "originalPath": "Xcode/Xprime/Resources/Help/center.txt",
+      "originalFileName": "center.txt",
+      "safeFileName": "0095_center_59e46c23.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cFactor",
+      "originalPath": "Xcode/Xprime/Resources/Help/cFactor.txt",
+      "originalFileName": "cFactor.txt",
+      "safeFileName": "0096_cFactor_01eb8520.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CHAR",
+      "originalPath": "Xcode/Xprime/Resources/Help/CHAR.txt",
+      "originalFileName": "CHAR.txt",
+      "safeFileName": "0097_CHAR_f6c8b756.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "charpoly",
+      "originalPath": "Xcode/Xprime/Resources/Help/charpoly.txt",
+      "originalFileName": "charpoly.txt",
+      "safeFileName": "0098_charpoly_362e64de.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CHECK",
+      "originalPath": "Xcode/Xprime/Resources/Help/CHECK.txt",
+      "originalFileName": "CHECK.txt",
+      "safeFileName": "0099_CHECK_73ae99ed.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "chinrem",
+      "originalPath": "Xcode/Xprime/Resources/Help/chinrem.txt",
+      "originalFileName": "chinrem.txt",
+      "safeFileName": "0100_chinrem_0b0dc8a8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CHISQUARE",
+      "originalPath": "Xcode/Xprime/Resources/Help/CHISQUARE.txt",
+      "originalFileName": "CHISQUARE.txt",
+      "safeFileName": "0101_CHISQUARE_28e3d668.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CHISQUARE_CDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/CHISQUARE_CDF.txt",
+      "originalFileName": "CHISQUARE_CDF.txt",
+      "safeFileName": "0102_CHISQUARE_CDF_65dffa9f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CHISQUARE_ICDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/CHISQUARE_ICDF.txt",
+      "originalFileName": "CHISQUARE_ICDF.txt",
+      "safeFileName": "0103_CHISQUARE_ICDF_867e55ba.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cholesky",
+      "originalPath": "Xcode/Xprime/Resources/Help/cholesky.txt",
+      "originalFileName": "cholesky.txt",
+      "safeFileName": "0104_cholesky_df500266.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CHOOSE",
+      "originalPath": "Xcode/Xprime/Resources/Help/CHOOSE.txt",
+      "originalFileName": "CHOOSE.txt",
+      "safeFileName": "0105_CHOOSE_3adf1d2f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "chrem",
+      "originalPath": "Xcode/Xprime/Resources/Help/chrem.txt",
+      "originalFileName": "chrem.txt",
+      "safeFileName": "0106_chrem_74bfa757.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Ci",
+      "originalPath": "Xcode/Xprime/Resources/Help/Ci.txt",
+      "originalFileName": "Ci.txt",
+      "safeFileName": "0107_Ci_06eb04c4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "circle",
+      "originalPath": "Xcode/Xprime/Resources/Help/circle.txt",
+      "originalFileName": "circle.txt",
+      "safeFileName": "0108_circle_d3213e4b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "circumcircle",
+      "originalPath": "Xcode/Xprime/Resources/Help/circumcircle.txt",
+      "originalFileName": "circumcircle.txt",
+      "safeFileName": "0109_circumcircle_2b12fc3a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "coeff",
+      "originalPath": "Xcode/Xprime/Resources/Help/coeff.txt",
+      "originalFileName": "coeff.txt",
+      "safeFileName": "0110_coeff_5f57b1c3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "col",
+      "originalPath": "Xcode/Xprime/Resources/Help/col.txt",
+      "originalFileName": "col.txt",
+      "safeFileName": "0111_col_f100403f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "colDim",
+      "originalPath": "Xcode/Xprime/Resources/Help/colDim.txt",
+      "originalFileName": "colDim.txt",
+      "safeFileName": "0112_colDim_fd96e062.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "collect",
+      "originalPath": "Xcode/Xprime/Resources/Help/collect.txt",
+      "originalFileName": "collect.txt",
+      "safeFileName": "0113_collect_f56ea826.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "COLNORM",
+      "originalPath": "Xcode/Xprime/Resources/Help/COLNORM.txt",
+      "originalFileName": "COLNORM.txt",
+      "safeFileName": "0114_COLNORM_82bdad08.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "COMB",
+      "originalPath": "Xcode/Xprime/Resources/Help/COMB.txt",
+      "originalFileName": "COMB.txt",
+      "safeFileName": "0115_COMB_58d0e862.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "comDenom",
+      "originalPath": "Xcode/Xprime/Resources/Help/comDenom.txt",
+      "originalFileName": "comDenom.txt",
+      "safeFileName": "0116_comDenom_e40bafed.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "common_perpendicular",
+      "originalPath": "Xcode/Xprime/Resources/Help/common_perpendicular.txt",
+      "originalFileName": "common_perpendicular.txt",
+      "safeFileName": "0117_common_perpendicular_6c086f28.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "companion",
+      "originalPath": "Xcode/Xprime/Resources/Help/companion.txt",
+      "originalFileName": "companion.txt",
+      "safeFileName": "0118_companion_37d348a1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "compare",
+      "originalPath": "Xcode/Xprime/Resources/Help/compare.txt",
+      "originalFileName": "compare.txt",
+      "safeFileName": "0119_compare_ea38ffd1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "complexroot",
+      "originalPath": "Xcode/Xprime/Resources/Help/complexroot.txt",
+      "originalFileName": "complexroot.txt",
+      "safeFileName": "0120_complexroot_840a81e9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CONCAT",
+      "originalPath": "Xcode/Xprime/Resources/Help/CONCAT.txt",
+      "originalFileName": "CONCAT.txt",
+      "safeFileName": "0121_CONCAT_72169f71.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "COND",
+      "originalPath": "Xcode/Xprime/Resources/Help/COND.txt",
+      "originalFileName": "COND.txt",
+      "safeFileName": "0122_COND_1ade19c1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "conic",
+      "originalPath": "Xcode/Xprime/Resources/Help/conic.txt",
+      "originalFileName": "conic.txt",
+      "safeFileName": "0123_conic_29b6d80d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CONJ",
+      "originalPath": "Xcode/Xprime/Resources/Help/CONJ.txt",
+      "originalFileName": "CONJ.txt",
+      "safeFileName": "0124_CONJ_92ee2e3f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "contains",
+      "originalPath": "Xcode/Xprime/Resources/Help/contains.txt",
+      "originalFileName": "contains.txt",
+      "safeFileName": "0125_contains_fe77e7b9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "content",
+      "originalPath": "Xcode/Xprime/Resources/Help/content.txt",
+      "originalFileName": "content.txt",
+      "safeFileName": "0126_content_05880f6f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CONTINUE",
+      "originalPath": "Xcode/Xprime/Resources/Help/CONTINUE.txt",
+      "originalFileName": "CONTINUE.txt",
+      "safeFileName": "0127_CONTINUE_93e37a56.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CONVERT",
+      "originalPath": "Xcode/Xprime/Resources/Help/CONVERT.txt",
+      "originalFileName": "CONVERT.txt",
+      "safeFileName": "0128_CONVERT_11966cb9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "convexhull",
+      "originalPath": "Xcode/Xprime/Resources/Help/convexhull.txt",
+      "originalFileName": "convexhull.txt",
+      "safeFileName": "0129_convexhull_5db3dff0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "coordinates",
+      "originalPath": "Xcode/Xprime/Resources/Help/coordinates.txt",
+      "originalFileName": "coordinates.txt",
+      "safeFileName": "0130_coordinates_3303b980.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CopyVar",
+      "originalPath": "Xcode/Xprime/Resources/Help/CopyVar.txt",
+      "originalFileName": "CopyVar.txt",
+      "safeFileName": "0131_CopyVar_b12f06f3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "correlation",
+      "originalPath": "Xcode/Xprime/Resources/Help/correlation.txt",
+      "originalFileName": "correlation.txt",
+      "safeFileName": "0132_correlation_9fa6fc2b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "COS",
+      "originalPath": "Xcode/Xprime/Resources/Help/COS.txt",
+      "originalFileName": "COS.txt",
+      "safeFileName": "0133_COS_46fd3cbd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cos2sintan",
+      "originalPath": "Xcode/Xprime/Resources/Help/cos2sintan.txt",
+      "originalFileName": "cos2sintan.txt",
+      "safeFileName": "0134_cos2sintan_08694b75.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "COSH",
+      "originalPath": "Xcode/Xprime/Resources/Help/COSH.txt",
+      "originalFileName": "COSH.txt",
+      "safeFileName": "0135_COSH_fd7e4496.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "COT",
+      "originalPath": "Xcode/Xprime/Resources/Help/COT.txt",
+      "originalFileName": "COT.txt",
+      "safeFileName": "0136_COT_c51a6dfc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "count",
+      "originalPath": "Xcode/Xprime/Resources/Help/count.txt",
+      "originalFileName": "count.txt",
+      "safeFileName": "0137_count_35a7e45c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "covariance",
+      "originalPath": "Xcode/Xprime/Resources/Help/covariance.txt",
+      "originalFileName": "covariance.txt",
+      "safeFileName": "0138_covariance_d7fcd5d3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "covariance_correlation",
+      "originalPath": "Xcode/Xprime/Resources/Help/covariance_correlation.txt",
+      "originalFileName": "covariance_correlation.txt",
+      "safeFileName": "0139_covariance_correlation_27586cee.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cpartfrac",
+      "originalPath": "Xcode/Xprime/Resources/Help/cpartfrac.txt",
+      "originalFileName": "cpartfrac.txt",
+      "safeFileName": "0140_cpartfrac_07c095cc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "crationalroot",
+      "originalPath": "Xcode/Xprime/Resources/Help/crationalroot.txt",
+      "originalFileName": "crationalroot.txt",
+      "safeFileName": "0141_crationalroot_ea6886cc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CROSS",
+      "originalPath": "Xcode/Xprime/Resources/Help/CROSS.txt",
+      "originalFileName": "CROSS.txt",
+      "safeFileName": "0142_CROSS_a7998b6d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "CSC",
+      "originalPath": "Xcode/Xprime/Resources/Help/CSC.txt",
+      "originalFileName": "CSC.txt",
+      "safeFileName": "0143_CSC_3e94ca1e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cSolve",
+      "originalPath": "Xcode/Xprime/Resources/Help/cSolve.txt",
+      "originalFileName": "cSolve.txt",
+      "safeFileName": "0144_cSolve_0ed8e185.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cumSum",
+      "originalPath": "Xcode/Xprime/Resources/Help/cumSum.txt",
+      "originalFileName": "cumSum.txt",
+      "safeFileName": "0145_cumSum_9ec8816c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "curl",
+      "originalPath": "Xcode/Xprime/Resources/Help/curl.txt",
+      "originalFileName": "curl.txt",
+      "safeFileName": "0146_curl_07927bc9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "curve",
+      "originalPath": "Xcode/Xprime/Resources/Help/curve.txt",
+      "originalFileName": "curve.txt",
+      "safeFileName": "0147_curve_a9341a42.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cyan",
+      "originalPath": "Xcode/Xprime/Resources/Help/cyan.txt",
+      "originalFileName": "cyan.txt",
+      "safeFileName": "0148_cyan_55adfb65.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cyclotomic",
+      "originalPath": "Xcode/Xprime/Resources/Help/cyclotomic.txt",
+      "originalFileName": "cyclotomic.txt",
+      "safeFileName": "0149_cyclotomic_0a8158e5.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "cZeros",
+      "originalPath": "Xcode/Xprime/Resources/Help/cZeros.txt",
+      "originalFileName": "cZeros.txt",
+      "safeFileName": "0150_cZeros_56fb8285.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "C\u2192PX",
+      "originalPath": "Xcode/Xprime/Resources/Help/C\u2192PX.txt",
+      "originalFileName": "C\u2192PX.txt",
+      "safeFileName": "0151_C_u2192_PX_d0e66a16.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DEBUG",
+      "originalPath": "Xcode/Xprime/Resources/Help/DEBUG.txt",
+      "originalFileName": "DEBUG.txt",
+      "safeFileName": "0152_DEBUG_f343246d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "degree",
+      "originalPath": "Xcode/Xprime/Resources/Help/degree.txt",
+      "originalFileName": "degree.txt",
+      "safeFileName": "0153_degree_b4f998d3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DelAFiles",
+      "originalPath": "Xcode/Xprime/Resources/Help/DelAFiles.txt",
+      "originalFileName": "DelAFiles.txt",
+      "safeFileName": "0154_DelAFiles_c57a8f10.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DELCOL",
+      "originalPath": "Xcode/Xprime/Resources/Help/DELCOL.txt",
+      "originalFileName": "DELCOL.txt",
+      "safeFileName": "0155_DELCOL_c7c22f45.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "delcols",
+      "originalPath": "Xcode/Xprime/Resources/Help/delcols.txt",
+      "originalFileName": "delcols.txt",
+      "safeFileName": "0156_delcols_4738b743.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DELROW",
+      "originalPath": "Xcode/Xprime/Resources/Help/DELROW.txt",
+      "originalFileName": "DELROW.txt",
+      "safeFileName": "0157_DELROW_cf8817d7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "delrows",
+      "originalPath": "Xcode/Xprime/Resources/Help/delrows.txt",
+      "originalFileName": "delrows.txt",
+      "safeFileName": "0158_delrows_7019f629.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "deltalist",
+      "originalPath": "Xcode/Xprime/Resources/Help/deltalist.txt",
+      "originalFileName": "deltalist.txt",
+      "safeFileName": "0159_deltalist_90da790c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "denom",
+      "originalPath": "Xcode/Xprime/Resources/Help/denom.txt",
+      "originalFileName": "denom.txt",
+      "safeFileName": "0160_denom_8eb16e7c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "desolve",
+      "originalPath": "Xcode/Xprime/Resources/Help/desolve.txt",
+      "originalFileName": "desolve.txt",
+      "safeFileName": "0161_desolve_f48b5fcd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DET",
+      "originalPath": "Xcode/Xprime/Resources/Help/DET.txt",
+      "originalFileName": "DET.txt",
+      "safeFileName": "0162_DET_9c6b9b48.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "diag",
+      "originalPath": "Xcode/Xprime/Resources/Help/diag.txt",
+      "originalFileName": "diag.txt",
+      "safeFileName": "0163_diag_80f16dde.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "diff",
+      "originalPath": "Xcode/Xprime/Resources/Help/diff.txt",
+      "originalFileName": "diff.txt",
+      "safeFileName": "0164_diff_db5648ba.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DIFFERENCE",
+      "originalPath": "Xcode/Xprime/Resources/Help/DIFFERENCE.txt",
+      "originalFileName": "DIFFERENCE.txt",
+      "safeFileName": "0165_DIFFERENCE_254f14d8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DIM",
+      "originalPath": "Xcode/Xprime/Resources/Help/DIM.txt",
+      "originalFileName": "DIM.txt",
+      "safeFileName": "0166_DIM_ca627cc3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DIMGROB",
+      "originalPath": "Xcode/Xprime/Resources/Help/DIMGROB.txt",
+      "originalFileName": "DIMGROB.txt",
+      "safeFileName": "0167_DIMGROB_9eeeec96.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DIMGROB_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/DIMGROB_P.txt",
+      "originalFileName": "DIMGROB_P.txt",
+      "safeFileName": "0168_DIMGROB_P_2f95d5be.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Dirac",
+      "originalPath": "Xcode/Xprime/Resources/Help/Dirac.txt",
+      "originalFileName": "Dirac.txt",
+      "safeFileName": "0169_Dirac_71911839.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "distance",
+      "originalPath": "Xcode/Xprime/Resources/Help/distance.txt",
+      "originalFileName": "distance.txt",
+      "safeFileName": "0170_distance_379f94ca.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "distance2",
+      "originalPath": "Xcode/Xprime/Resources/Help/distance2.txt",
+      "originalFileName": "distance2.txt",
+      "safeFileName": "0171_distance2_f0393223.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "distanceat",
+      "originalPath": "Xcode/Xprime/Resources/Help/distanceat.txt",
+      "originalFileName": "distanceat.txt",
+      "safeFileName": "0172_distanceat_449f63ae.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "distanceatraw",
+      "originalPath": "Xcode/Xprime/Resources/Help/distanceatraw.txt",
+      "originalFileName": "distanceatraw.txt",
+      "safeFileName": "0173_distanceatraw_d094a5b3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "divergence",
+      "originalPath": "Xcode/Xprime/Resources/Help/divergence.txt",
+      "originalFileName": "divergence.txt",
+      "safeFileName": "0174_divergence_35022540.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "divis",
+      "originalPath": "Xcode/Xprime/Resources/Help/divis.txt",
+      "originalFileName": "divis.txt",
+      "safeFileName": "0175_divis_9f5c646b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "division_point",
+      "originalPath": "Xcode/Xprime/Resources/Help/division_point.txt",
+      "originalFileName": "division_point.txt",
+      "safeFileName": "0176_division_point_7232f24c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "divpc",
+      "originalPath": "Xcode/Xprime/Resources/Help/divpc.txt",
+      "originalFileName": "divpc.txt",
+      "safeFileName": "0177_divpc_ddb3834a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DO",
+      "originalPath": "Xcode/Xprime/Resources/Help/DO.txt",
+      "originalFileName": "DO.txt",
+      "safeFileName": "0178_DO_a5f08cce.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DOT",
+      "originalPath": "Xcode/Xprime/Resources/Help/DOT.txt",
+      "originalFileName": "DOT.txt",
+      "safeFileName": "0179_DOT_a4bc15e1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DRAWMENU",
+      "originalPath": "Xcode/Xprime/Resources/Help/DRAWMENU.txt",
+      "originalFileName": "DRAWMENU.txt",
+      "safeFileName": "0180_DRAWMENU_374c0795.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "DrawSlp",
+      "originalPath": "Xcode/Xprime/Resources/Help/DrawSlp.txt",
+      "originalFileName": "DrawSlp.txt",
+      "safeFileName": "0181_DrawSlp_26778bc7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "e",
+      "originalPath": "Xcode/Xprime/Resources/Help/e.txt",
+      "originalFileName": "e.txt",
+      "safeFileName": "0182_e_557348e1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EDITLIST",
+      "originalPath": "Xcode/Xprime/Resources/Help/EDITLIST.txt",
+      "originalFileName": "EDITLIST.txt",
+      "safeFileName": "0183_EDITLIST_ef5e8430.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EDITMAT",
+      "originalPath": "Xcode/Xprime/Resources/Help/EDITMAT.txt",
+      "originalFileName": "EDITMAT.txt",
+      "safeFileName": "0184_EDITMAT_257b0faa.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "egcd",
+      "originalPath": "Xcode/Xprime/Resources/Help/egcd.txt",
+      "originalFileName": "egcd.txt",
+      "safeFileName": "0185_egcd_0f0afb77.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Ei",
+      "originalPath": "Xcode/Xprime/Resources/Help/Ei.txt",
+      "originalFileName": "Ei.txt",
+      "safeFileName": "0186_Ei_ea4f1d64.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EIGENVAL",
+      "originalPath": "Xcode/Xprime/Resources/Help/EIGENVAL.txt",
+      "originalFileName": "EIGENVAL.txt",
+      "safeFileName": "0187_EIGENVAL_4833fda9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "eigenvals",
+      "originalPath": "Xcode/Xprime/Resources/Help/eigenvals.txt",
+      "originalFileName": "eigenvals.txt",
+      "safeFileName": "0188_eigenvals_0cb7238f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "eigenvects",
+      "originalPath": "Xcode/Xprime/Resources/Help/eigenvects.txt",
+      "originalFileName": "eigenvects.txt",
+      "safeFileName": "0189_eigenvects_aad72518.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EIGENVV",
+      "originalPath": "Xcode/Xprime/Resources/Help/EIGENVV.txt",
+      "originalFileName": "EIGENVV.txt",
+      "safeFileName": "0190_EIGENVV_be264608.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "eigVc",
+      "originalPath": "Xcode/Xprime/Resources/Help/eigVc.txt",
+      "originalFileName": "eigVc.txt",
+      "safeFileName": "0191_eigVc_cb265934.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "eigVl",
+      "originalPath": "Xcode/Xprime/Resources/Help/eigVl.txt",
+      "originalFileName": "eigVl.txt",
+      "safeFileName": "0192_eigVl_f8c7018e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "element",
+      "originalPath": "Xcode/Xprime/Resources/Help/element.txt",
+      "originalFileName": "element.txt",
+      "safeFileName": "0193_element_f838c38c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ellipse",
+      "originalPath": "Xcode/Xprime/Resources/Help/ellipse.txt",
+      "originalFileName": "ellipse.txt",
+      "safeFileName": "0194_ellipse_23ae373e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ELSE",
+      "originalPath": "Xcode/Xprime/Resources/Help/ELSE.txt",
+      "originalFileName": "ELSE.txt",
+      "safeFileName": "0195_ELSE_024ef3e9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "END",
+      "originalPath": "Xcode/Xprime/Resources/Help/END.txt",
+      "originalFileName": "END.txt",
+      "safeFileName": "0196_END_97356e4f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "equation",
+      "originalPath": "Xcode/Xprime/Resources/Help/equation.txt",
+      "originalFileName": "equation.txt",
+      "safeFileName": "0197_equation_c47cf9fe.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "equilateral_triangle",
+      "originalPath": "Xcode/Xprime/Resources/Help/equilateral_triangle.txt",
+      "originalFileName": "equilateral_triangle.txt",
+      "safeFileName": "0198_equilateral_triangle_8c55e1ab.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "erf",
+      "originalPath": "Xcode/Xprime/Resources/Help/erf.txt",
+      "originalFileName": "erf.txt",
+      "safeFileName": "0199_erf_984785d9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "erfc",
+      "originalPath": "Xcode/Xprime/Resources/Help/erfc.txt",
+      "originalFileName": "erfc.txt",
+      "safeFileName": "0200_erfc_e02a5f22.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "euler",
+      "originalPath": "Xcode/Xprime/Resources/Help/euler.txt",
+      "originalFileName": "euler.txt",
+      "safeFileName": "0201_euler_6b1f3c1e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EVAL",
+      "originalPath": "Xcode/Xprime/Resources/Help/EVAL.txt",
+      "originalFileName": "EVAL.txt",
+      "safeFileName": "0202_EVAL_b185965e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "evalc",
+      "originalPath": "Xcode/Xprime/Resources/Help/evalc.txt",
+      "originalFileName": "evalc.txt",
+      "safeFileName": "0203_evalc_6adc5d85.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "evalf",
+      "originalPath": "Xcode/Xprime/Resources/Help/evalf.txt",
+      "originalFileName": "evalf.txt",
+      "safeFileName": "0204_evalf_a755c256.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "even",
+      "originalPath": "Xcode/Xprime/Resources/Help/even.txt",
+      "originalFileName": "even.txt",
+      "safeFileName": "0205_even_ac0c62f0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "exact",
+      "originalPath": "Xcode/Xprime/Resources/Help/exact.txt",
+      "originalFileName": "exact.txt",
+      "safeFileName": "0206_exact_364b25d1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "exbisector",
+      "originalPath": "Xcode/Xprime/Resources/Help/exbisector.txt",
+      "originalFileName": "exbisector.txt",
+      "safeFileName": "0207_exbisector_c793ff80.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "excircle",
+      "originalPath": "Xcode/Xprime/Resources/Help/excircle.txt",
+      "originalFileName": "excircle.txt",
+      "safeFileName": "0208_excircle_5e36f270.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EXECON",
+      "originalPath": "Xcode/Xprime/Resources/Help/EXECON.txt",
+      "originalFileName": "EXECON.txt",
+      "safeFileName": "0209_EXECON_6955feec.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EXP",
+      "originalPath": "Xcode/Xprime/Resources/Help/EXP.txt",
+      "originalFileName": "EXP.txt",
+      "safeFileName": "0210_EXP_516b7a5e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "exp2pow",
+      "originalPath": "Xcode/Xprime/Resources/Help/exp2pow.txt",
+      "originalFileName": "exp2pow.txt",
+      "safeFileName": "0211_exp2pow_84b09def.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "exp2trig",
+      "originalPath": "Xcode/Xprime/Resources/Help/exp2trig.txt",
+      "originalFileName": "exp2trig.txt",
+      "safeFileName": "0212_exp2trig_5c66cc6d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "expand",
+      "originalPath": "Xcode/Xprime/Resources/Help/expand.txt",
+      "originalFileName": "expand.txt",
+      "safeFileName": "0213_expand_1a2c6eab.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "expexpand",
+      "originalPath": "Xcode/Xprime/Resources/Help/expexpand.txt",
+      "originalFileName": "expexpand.txt",
+      "safeFileName": "0214_expexpand_d1d49b64.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EXPM1",
+      "originalPath": "Xcode/Xprime/Resources/Help/EXPM1.txt",
+      "originalFileName": "EXPM1.txt",
+      "safeFileName": "0215_EXPM1_a4987360.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "exponential_regression",
+      "originalPath": "Xcode/Xprime/Resources/Help/exponential_regression.txt",
+      "originalFileName": "exponential_regression.txt",
+      "safeFileName": "0216_exponential_regression_2eb878bf.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EXPORT",
+      "originalPath": "Xcode/Xprime/Resources/Help/EXPORT.txt",
+      "originalFileName": "EXPORT.txt",
+      "safeFileName": "0217_EXPORT_de99115a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "EXPR",
+      "originalPath": "Xcode/Xprime/Resources/Help/EXPR.txt",
+      "originalFileName": "EXPR.txt",
+      "safeFileName": "0218_EXPR_a8f8dc43.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "extract_measure",
+      "originalPath": "Xcode/Xprime/Resources/Help/extract_measure.txt",
+      "originalFileName": "extract_measure.txt",
+      "safeFileName": "0219_extract_measure_c138a4fb.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ezgcd",
+      "originalPath": "Xcode/Xprime/Resources/Help/ezgcd.txt",
+      "originalFileName": "ezgcd.txt",
+      "safeFileName": "0220_ezgcd_be3af67f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "f2nd",
+      "originalPath": "Xcode/Xprime/Resources/Help/f2nd.txt",
+      "originalFileName": "f2nd.txt",
+      "safeFileName": "0221_f2nd_59335370.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "factor",
+      "originalPath": "Xcode/Xprime/Resources/Help/factor.txt",
+      "originalFileName": "factor.txt",
+      "safeFileName": "0222_factor_1c203fbe.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "factorial",
+      "originalPath": "Xcode/Xprime/Resources/Help/factorial.txt",
+      "originalFileName": "factorial.txt",
+      "safeFileName": "0223_factorial_c40f6498.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "factors",
+      "originalPath": "Xcode/Xprime/Resources/Help/factors.txt",
+      "originalFileName": "factors.txt",
+      "safeFileName": "0224_factors_c8e919cf.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "factor_xn",
+      "originalPath": "Xcode/Xprime/Resources/Help/factor_xn.txt",
+      "originalFileName": "factor_xn.txt",
+      "safeFileName": "0225_factor_xn_cd5ef5f2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "fcoeff",
+      "originalPath": "Xcode/Xprime/Resources/Help/fcoeff.txt",
+      "originalFileName": "fcoeff.txt",
+      "safeFileName": "0226_fcoeff_1ad536f2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "fft",
+      "originalPath": "Xcode/Xprime/Resources/Help/fft.txt",
+      "originalFileName": "fft.txt",
+      "safeFileName": "0227_fft_ac61ccc8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FILLPOLY",
+      "originalPath": "Xcode/Xprime/Resources/Help/FILLPOLY.txt",
+      "originalFileName": "FILLPOLY.txt",
+      "safeFileName": "0228_FILLPOLY_e682afd8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FILLPOLY_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/FILLPOLY_P.txt",
+      "originalFileName": "FILLPOLY_P.txt",
+      "safeFileName": "0229_FILLPOLY_P_cf5adb82.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FISHER",
+      "originalPath": "Xcode/Xprime/Resources/Help/FISHER.txt",
+      "originalFileName": "FISHER.txt",
+      "safeFileName": "0230_FISHER_ac2d155f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FISHER_CDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/FISHER_CDF.txt",
+      "originalFileName": "FISHER_CDF.txt",
+      "safeFileName": "0231_FISHER_CDF_87c3fe7a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FISHER_ICDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/FISHER_ICDF.txt",
+      "originalFileName": "FISHER_ICDF.txt",
+      "safeFileName": "0232_FISHER_ICDF_eb66ad1d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FLOOR",
+      "originalPath": "Xcode/Xprime/Resources/Help/FLOOR.txt",
+      "originalFileName": "FLOOR.txt",
+      "safeFileName": "0233_FLOOR_ed4b73e7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "fMax",
+      "originalPath": "Xcode/Xprime/Resources/Help/fMax.txt",
+      "originalFileName": "fMax.txt",
+      "safeFileName": "0234_fMax_649b75a6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "fMin",
+      "originalPath": "Xcode/Xprime/Resources/Help/fMin.txt",
+      "originalFileName": "fMin.txt",
+      "safeFileName": "0235_fMin_97d8e405.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FNROOT",
+      "originalPath": "Xcode/Xprime/Resources/Help/FNROOT.txt",
+      "originalFileName": "FNROOT.txt",
+      "safeFileName": "0236_FNROOT_ded805dd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FOR",
+      "originalPath": "Xcode/Xprime/Resources/Help/FOR.txt",
+      "originalFileName": "FOR.txt",
+      "safeFileName": "0237_FOR_97ac8332.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "format",
+      "originalPath": "Xcode/Xprime/Resources/Help/format.txt",
+      "originalFileName": "format.txt",
+      "safeFileName": "0238_format_e69cc6a7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FP",
+      "originalPath": "Xcode/Xprime/Resources/Help/FP.txt",
+      "originalFileName": "FP.txt",
+      "safeFileName": "0239_FP_8523b03f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "fracmod",
+      "originalPath": "Xcode/Xprime/Resources/Help/fracmod.txt",
+      "originalFileName": "fracmod.txt",
+      "safeFileName": "0240_fracmod_1dd5052e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "FREEZE",
+      "originalPath": "Xcode/Xprime/Resources/Help/FREEZE.txt",
+      "originalFileName": "FREEZE.txt",
+      "safeFileName": "0241_FREEZE_524f6c02.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "froot",
+      "originalPath": "Xcode/Xprime/Resources/Help/froot.txt",
+      "originalFileName": "froot.txt",
+      "safeFileName": "0242_froot_e2d27281.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "fsolve",
+      "originalPath": "Xcode/Xprime/Resources/Help/fsolve.txt",
+      "originalFileName": "fsolve.txt",
+      "safeFileName": "0243_fsolve_2ef27349.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "function_diff",
+      "originalPath": "Xcode/Xprime/Resources/Help/function_diff.txt",
+      "originalFileName": "function_diff.txt",
+      "safeFileName": "0244_function_diff_ee02886d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Gamma",
+      "originalPath": "Xcode/Xprime/Resources/Help/Gamma.txt",
+      "originalFileName": "Gamma.txt",
+      "safeFileName": "0245_Gamma_da620e15.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "gauss",
+      "originalPath": "Xcode/Xprime/Resources/Help/gauss.txt",
+      "originalFileName": "gauss.txt",
+      "safeFileName": "0246_gauss_e5034053.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "gbasis",
+      "originalPath": "Xcode/Xprime/Resources/Help/gbasis.txt",
+      "originalFileName": "gbasis.txt",
+      "safeFileName": "0247_gbasis_8ff9277f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "gcd",
+      "originalPath": "Xcode/Xprime/Resources/Help/gcd.txt",
+      "originalFileName": "gcd.txt",
+      "safeFileName": "0248_gcd_5a266fa3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GETBASE",
+      "originalPath": "Xcode/Xprime/Resources/Help/GETBASE.txt",
+      "originalFileName": "GETBASE.txt",
+      "safeFileName": "0249_GETBASE_595b492e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GETBITS",
+      "originalPath": "Xcode/Xprime/Resources/Help/GETBITS.txt",
+      "originalFileName": "GETBITS.txt",
+      "safeFileName": "0250_GETBITS_b47741d5.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GETKEY",
+      "originalPath": "Xcode/Xprime/Resources/Help/GETKEY.txt",
+      "originalFileName": "GETKEY.txt",
+      "safeFileName": "0251_GETKEY_beb0dc5b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GETPIX",
+      "originalPath": "Xcode/Xprime/Resources/Help/GETPIX.txt",
+      "originalFileName": "GETPIX.txt",
+      "safeFileName": "0252_GETPIX_7bbdc5e4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GETPIX_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/GETPIX_P.txt",
+      "originalFileName": "GETPIX_P.txt",
+      "safeFileName": "0253_GETPIX_P_d204aea6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GF",
+      "originalPath": "Xcode/Xprime/Resources/Help/GF.txt",
+      "originalFileName": "GF.txt",
+      "safeFileName": "0254_GF_5be5082b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "grad",
+      "originalPath": "Xcode/Xprime/Resources/Help/grad.txt",
+      "originalFileName": "grad.txt",
+      "safeFileName": "0255_grad_d757d6b7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "gramschmidt",
+      "originalPath": "Xcode/Xprime/Resources/Help/gramschmidt.txt",
+      "originalFileName": "gramschmidt.txt",
+      "safeFileName": "0256_gramschmidt_52bf737e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "greduce",
+      "originalPath": "Xcode/Xprime/Resources/Help/greduce.txt",
+      "originalFileName": "greduce.txt",
+      "safeFileName": "0257_greduce_81cc7fe9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "green",
+      "originalPath": "Xcode/Xprime/Resources/Help/green.txt",
+      "originalFileName": "green.txt",
+      "safeFileName": "0258_green_62ce4bb8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GROBH",
+      "originalPath": "Xcode/Xprime/Resources/Help/GROBH.txt",
+      "originalFileName": "GROBH.txt",
+      "safeFileName": "0259_GROBH_6015bf70.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GROBH_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/GROBH_P.txt",
+      "originalFileName": "GROBH_P.txt",
+      "safeFileName": "0260_GROBH_P_a8cac618.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GROBW",
+      "originalPath": "Xcode/Xprime/Resources/Help/GROBW.txt",
+      "originalFileName": "GROBW.txt",
+      "safeFileName": "0261_GROBW_d7549d69.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "GROBW_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/GROBW_P.txt",
+      "originalFileName": "GROBW_P.txt",
+      "safeFileName": "0262_GROBW_P_a442aa1d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "halftan",
+      "originalPath": "Xcode/Xprime/Resources/Help/halftan.txt",
+      "originalFileName": "halftan.txt",
+      "safeFileName": "0263_halftan_0d100f59.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "halftan_hyp2exp",
+      "originalPath": "Xcode/Xprime/Resources/Help/halftan_hyp2exp.txt",
+      "originalFileName": "halftan_hyp2exp.txt",
+      "safeFileName": "0264_halftan_hyp2exp_ac75d792.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "half_line",
+      "originalPath": "Xcode/Xprime/Resources/Help/half_line.txt",
+      "originalFileName": "half_line.txt",
+      "safeFileName": "0265_half_line_8827c851.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "halt",
+      "originalPath": "Xcode/Xprime/Resources/Help/halt.txt",
+      "originalFileName": "halt.txt",
+      "safeFileName": "0266_halt_6b5a5148.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "hamdist",
+      "originalPath": "Xcode/Xprime/Resources/Help/hamdist.txt",
+      "originalFileName": "hamdist.txt",
+      "safeFileName": "0267_hamdist_1816320e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "harmonic_conjugate",
+      "originalPath": "Xcode/Xprime/Resources/Help/harmonic_conjugate.txt",
+      "originalFileName": "harmonic_conjugate.txt",
+      "safeFileName": "0268_harmonic_conjugate_2bc6387f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "harmonic_division",
+      "originalPath": "Xcode/Xprime/Resources/Help/harmonic_division.txt",
+      "originalFileName": "harmonic_division.txt",
+      "safeFileName": "0269_harmonic_division_44c1f38e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "has",
+      "originalPath": "Xcode/Xprime/Resources/Help/has.txt",
+      "originalFileName": "has.txt",
+      "safeFileName": "0270_has_667966ac.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "head",
+      "originalPath": "Xcode/Xprime/Resources/Help/head.txt",
+      "originalFileName": "head.txt",
+      "safeFileName": "0271_head_e63fb7ed.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Heaviside",
+      "originalPath": "Xcode/Xprime/Resources/Help/Heaviside.txt",
+      "originalFileName": "Heaviside.txt",
+      "safeFileName": "0272_Heaviside_f316fb6f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "hermite",
+      "originalPath": "Xcode/Xprime/Resources/Help/hermite.txt",
+      "originalFileName": "hermite.txt",
+      "safeFileName": "0273_hermite_5ed9a88d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "hessenberg",
+      "originalPath": "Xcode/Xprime/Resources/Help/hessenberg.txt",
+      "originalFileName": "hessenberg.txt",
+      "safeFileName": "0274_hessenberg_eb65f3a1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "hessian",
+      "originalPath": "Xcode/Xprime/Resources/Help/hessian.txt",
+      "originalFileName": "hessian.txt",
+      "safeFileName": "0275_hessian_ca096c7b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "hexagon",
+      "originalPath": "Xcode/Xprime/Resources/Help/hexagon.txt",
+      "originalFileName": "hexagon.txt",
+      "safeFileName": "0276_hexagon_01d21605.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "hilbert",
+      "originalPath": "Xcode/Xprime/Resources/Help/hilbert.txt",
+      "originalFileName": "hilbert.txt",
+      "safeFileName": "0277_hilbert_9516e1be.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "HMS\u2192",
+      "originalPath": "Xcode/Xprime/Resources/Help/HMS\u2192.txt",
+      "originalFileName": "HMS\u2192.txt",
+      "safeFileName": "0278_HMS_u2192_c4aac43b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "homothety",
+      "originalPath": "Xcode/Xprime/Resources/Help/homothety.txt",
+      "originalFileName": "homothety.txt",
+      "safeFileName": "0279_homothety_7632a2dd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "HP.IMAGE",
+      "originalPath": "Xcode/Xprime/Resources/Help/HP.IMAGE.txt",
+      "originalFileName": "HP.IMAGE.txt",
+      "safeFileName": "0280_HP_u002E_IMAGE_18886917.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "HP.IMAGEH",
+      "originalPath": "Xcode/Xprime/Resources/Help/HP.IMAGEH.txt",
+      "originalFileName": "HP.IMAGEH.txt",
+      "safeFileName": "0281_HP_u002E_IMAGEH_fb03bdfd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "HP.IMAGEW",
+      "originalPath": "Xcode/Xprime/Resources/Help/HP.IMAGEW.txt",
+      "originalFileName": "HP.IMAGEW.txt",
+      "safeFileName": "0282_HP_u002E_IMAGEW_bd4ecf96.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "HP.TEXTOUT",
+      "originalPath": "Xcode/Xprime/Resources/Help/HP.TEXTOUT.txt",
+      "originalFileName": "HP.TEXTOUT.txt",
+      "safeFileName": "0283_HP_u002E_TEXTOUT_d00888c6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "HP.TEXTSIZE",
+      "originalPath": "Xcode/Xprime/Resources/Help/HP.TEXTSIZE.txt",
+      "originalFileName": "HP.TEXTSIZE.txt",
+      "safeFileName": "0284_HP_u002E_TEXTSIZE_b9fa353d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "hyp2exp",
+      "originalPath": "Xcode/Xprime/Resources/Help/hyp2exp.txt",
+      "originalFileName": "hyp2exp.txt",
+      "safeFileName": "0285_hyp2exp_2593d3f5.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "hyperbola",
+      "originalPath": "Xcode/Xprime/Resources/Help/hyperbola.txt",
+      "originalFileName": "hyperbola.txt",
+      "safeFileName": "0286_hyperbola_7f057eb9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "iabcuv",
+      "originalPath": "Xcode/Xprime/Resources/Help/iabcuv.txt",
+      "originalFileName": "iabcuv.txt",
+      "safeFileName": "0287_iabcuv_16e99fcc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ibasis",
+      "originalPath": "Xcode/Xprime/Resources/Help/ibasis.txt",
+      "originalFileName": "ibasis.txt",
+      "safeFileName": "0288_ibasis_67acbf81.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ibpdv",
+      "originalPath": "Xcode/Xprime/Resources/Help/ibpdv.txt",
+      "originalFileName": "ibpdv.txt",
+      "safeFileName": "0289_ibpdv_51ab0394.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ibpu",
+      "originalPath": "Xcode/Xprime/Resources/Help/ibpu.txt",
+      "originalFileName": "ibpu.txt",
+      "safeFileName": "0290_ibpu_83834170.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ichinrem",
+      "originalPath": "Xcode/Xprime/Resources/Help/ichinrem.txt",
+      "originalFileName": "ichinrem.txt",
+      "safeFileName": "0291_ichinrem_a08b57da.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "icontent",
+      "originalPath": "Xcode/Xprime/Resources/Help/icontent.txt",
+      "originalFileName": "icontent.txt",
+      "safeFileName": "0292_icontent_1de6af98.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "id",
+      "originalPath": "Xcode/Xprime/Resources/Help/id.txt",
+      "originalFileName": "id.txt",
+      "safeFileName": "0293_id_1dd2a3c2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "IDENMAT",
+      "originalPath": "Xcode/Xprime/Resources/Help/IDENMAT.txt",
+      "originalFileName": "IDENMAT.txt",
+      "safeFileName": "0294_IDENMAT_e389569f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "identity",
+      "originalPath": "Xcode/Xprime/Resources/Help/identity.txt",
+      "originalFileName": "identity.txt",
+      "safeFileName": "0295_identity_1ed4677b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "idivis",
+      "originalPath": "Xcode/Xprime/Resources/Help/idivis.txt",
+      "originalFileName": "idivis.txt",
+      "safeFileName": "0296_idivis_41268c0a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "iegcd",
+      "originalPath": "Xcode/Xprime/Resources/Help/iegcd.txt",
+      "originalFileName": "iegcd.txt",
+      "safeFileName": "0297_iegcd_108ea766.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "IF",
+      "originalPath": "Xcode/Xprime/Resources/Help/IF.txt",
+      "originalFileName": "IF.txt",
+      "safeFileName": "0298_IF_2c3e849a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ifactor",
+      "originalPath": "Xcode/Xprime/Resources/Help/ifactor.txt",
+      "originalFileName": "ifactor.txt",
+      "safeFileName": "0299_ifactor_1e9d3894.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ifactors",
+      "originalPath": "Xcode/Xprime/Resources/Help/ifactors.txt",
+      "originalFileName": "ifactors.txt",
+      "safeFileName": "0300_ifactors_77e2e94e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "IFERR",
+      "originalPath": "Xcode/Xprime/Resources/Help/IFERR.txt",
+      "originalFileName": "IFERR.txt",
+      "safeFileName": "0301_IFERR_cae8de41.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ifft",
+      "originalPath": "Xcode/Xprime/Resources/Help/ifft.txt",
+      "originalFileName": "ifft.txt",
+      "safeFileName": "0302_ifft_53050fcb.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "IFTE",
+      "originalPath": "Xcode/Xprime/Resources/Help/IFTE.txt",
+      "originalFileName": "IFTE.txt",
+      "safeFileName": "0303_IFTE_2c9a8802.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "igcd",
+      "originalPath": "Xcode/Xprime/Resources/Help/igcd.txt",
+      "originalFileName": "igcd.txt",
+      "safeFileName": "0304_igcd_60f49347.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ihermite",
+      "originalPath": "Xcode/Xprime/Resources/Help/ihermite.txt",
+      "originalFileName": "ihermite.txt",
+      "safeFileName": "0305_ihermite_67e13e1e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ilaplace",
+      "originalPath": "Xcode/Xprime/Resources/Help/ilaplace.txt",
+      "originalFileName": "ilaplace.txt",
+      "safeFileName": "0306_ilaplace_39de1aea.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "IM",
+      "originalPath": "Xcode/Xprime/Resources/Help/IM.txt",
+      "originalFileName": "IM.txt",
+      "safeFileName": "0307_IM_a1161399.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "incircle",
+      "originalPath": "Xcode/Xprime/Resources/Help/incircle.txt",
+      "originalFileName": "incircle.txt",
+      "safeFileName": "0308_incircle_eb36c554.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "INPUT",
+      "originalPath": "Xcode/Xprime/Resources/Help/INPUT.txt",
+      "originalFileName": "INPUT.txt",
+      "safeFileName": "0309_INPUT_aa4c12a0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "INSTRING",
+      "originalPath": "Xcode/Xprime/Resources/Help/INSTRING.txt",
+      "originalFileName": "INSTRING.txt",
+      "safeFileName": "0310_INSTRING_f2f897a9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "int",
+      "originalPath": "Xcode/Xprime/Resources/Help/int.txt",
+      "originalFileName": "int.txt",
+      "safeFileName": "0311_int_2e1a458e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "inter",
+      "originalPath": "Xcode/Xprime/Resources/Help/inter.txt",
+      "originalFileName": "inter.txt",
+      "safeFileName": "0312_inter_1a8644cd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "INTERSECT",
+      "originalPath": "Xcode/Xprime/Resources/Help/INTERSECT.txt",
+      "originalFileName": "INTERSECT.txt",
+      "safeFileName": "0313_INTERSECT_b2ba72f1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "interval2center",
+      "originalPath": "Xcode/Xprime/Resources/Help/interval2center.txt",
+      "originalFileName": "interval2center.txt",
+      "safeFileName": "0314_interval2center_b16e7f89.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "inv",
+      "originalPath": "Xcode/Xprime/Resources/Help/inv.txt",
+      "originalFileName": "inv.txt",
+      "safeFileName": "0315_inv_9b90ce44.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "inversion",
+      "originalPath": "Xcode/Xprime/Resources/Help/inversion.txt",
+      "originalFileName": "inversion.txt",
+      "safeFileName": "0316_inversion_4a10a405.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "INVERT",
+      "originalPath": "Xcode/Xprime/Resources/Help/INVERT.txt",
+      "originalFileName": "INVERT.txt",
+      "safeFileName": "0317_INVERT_74b96116.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "INVERT_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/INVERT_P.txt",
+      "originalFileName": "INVERT_P.txt",
+      "safeFileName": "0318_INVERT_P_d6265021.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "invlaplace",
+      "originalPath": "Xcode/Xprime/Resources/Help/invlaplace.txt",
+      "originalFileName": "invlaplace.txt",
+      "safeFileName": "0319_invlaplace_16374bf7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "invztrans",
+      "originalPath": "Xcode/Xprime/Resources/Help/invztrans.txt",
+      "originalFileName": "invztrans.txt",
+      "safeFileName": "0320_invztrans_cb0ad283.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "IP",
+      "originalPath": "Xcode/Xprime/Resources/Help/IP.txt",
+      "originalFileName": "IP.txt",
+      "safeFileName": "0321_IP_015adefd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "iPart",
+      "originalPath": "Xcode/Xprime/Resources/Help/iPart.txt",
+      "originalFileName": "iPart.txt",
+      "safeFileName": "0322_iPart_ad85f583.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "iquo",
+      "originalPath": "Xcode/Xprime/Resources/Help/iquo.txt",
+      "originalFileName": "iquo.txt",
+      "safeFileName": "0323_iquo_9aa99ad1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "iquorem",
+      "originalPath": "Xcode/Xprime/Resources/Help/iquorem.txt",
+      "originalFileName": "iquorem.txt",
+      "safeFileName": "0324_iquorem_743f0362.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "irem",
+      "originalPath": "Xcode/Xprime/Resources/Help/irem.txt",
+      "originalFileName": "irem.txt",
+      "safeFileName": "0325_irem_cc5e2a9c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ISKEYDOWN",
+      "originalPath": "Xcode/Xprime/Resources/Help/ISKEYDOWN.txt",
+      "originalFileName": "ISKEYDOWN.txt",
+      "safeFileName": "0326_ISKEYDOWN_246f50f4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ismith",
+      "originalPath": "Xcode/Xprime/Resources/Help/ismith.txt",
+      "originalFileName": "ismith.txt",
+      "safeFileName": "0327_ismith_25662f07.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "isobarycenter",
+      "originalPath": "Xcode/Xprime/Resources/Help/isobarycenter.txt",
+      "originalFileName": "isobarycenter.txt",
+      "safeFileName": "0328_isobarycenter_b5b0f1cd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "isopolygon",
+      "originalPath": "Xcode/Xprime/Resources/Help/isopolygon.txt",
+      "originalFileName": "isopolygon.txt",
+      "safeFileName": "0329_isopolygon_0d808fec.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "isosceles_triangle",
+      "originalPath": "Xcode/Xprime/Resources/Help/isosceles_triangle.txt",
+      "originalFileName": "isosceles_triangle.txt",
+      "safeFileName": "0330_isosceles_triangle_a714541e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "isPrime",
+      "originalPath": "Xcode/Xprime/Resources/Help/isPrime.txt",
+      "originalFileName": "isPrime.txt",
+      "safeFileName": "0331_isPrime_bad94400.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_collinear",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_collinear.txt",
+      "originalFileName": "is_collinear.txt",
+      "safeFileName": "0332_is_collinear_375dc63f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_concyclic",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_concyclic.txt",
+      "originalFileName": "is_concyclic.txt",
+      "safeFileName": "0333_is_concyclic_059c9bc5.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_conjugate",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_conjugate.txt",
+      "originalFileName": "is_conjugate.txt",
+      "safeFileName": "0334_is_conjugate_6fa6401a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_coplanar",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_coplanar.txt",
+      "originalFileName": "is_coplanar.txt",
+      "safeFileName": "0335_is_coplanar_fdc98d20.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_element",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_element.txt",
+      "originalFileName": "is_element.txt",
+      "safeFileName": "0336_is_element_0dfd247f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_equilateral",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_equilateral.txt",
+      "originalFileName": "is_equilateral.txt",
+      "safeFileName": "0337_is_equilateral_3c64fb67.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_harmonic",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_harmonic.txt",
+      "originalFileName": "is_harmonic.txt",
+      "safeFileName": "0338_is_harmonic_9c25fe9e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_harmonic_circle_bundle",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_harmonic_circle_bundle.txt",
+      "originalFileName": "is_harmonic_circle_bundle.txt",
+      "safeFileName": "0339_is_harmonic_circle_bundle_783fde15.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_harmonic_line_bundle",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_harmonic_line_bundle.txt",
+      "originalFileName": "is_harmonic_line_bundle.txt",
+      "safeFileName": "0340_is_harmonic_line_bundle_c4ab5325.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_isosceles",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_isosceles.txt",
+      "originalFileName": "is_isosceles.txt",
+      "safeFileName": "0341_is_isosceles_a9d006b3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_orthogonal",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_orthogonal.txt",
+      "originalFileName": "is_orthogonal.txt",
+      "safeFileName": "0342_is_orthogonal_0904232d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_parallel",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_parallel.txt",
+      "originalFileName": "is_parallel.txt",
+      "safeFileName": "0343_is_parallel_22004ccd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_parallelogram",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_parallelogram.txt",
+      "originalFileName": "is_parallelogram.txt",
+      "safeFileName": "0344_is_parallelogram_9cee561c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_perpendicular",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_perpendicular.txt",
+      "originalFileName": "is_perpendicular.txt",
+      "safeFileName": "0345_is_perpendicular_1afee8f9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_rectangle",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_rectangle.txt",
+      "originalFileName": "is_rectangle.txt",
+      "safeFileName": "0346_is_rectangle_6e229980.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_rhombus",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_rhombus.txt",
+      "originalFileName": "is_rhombus.txt",
+      "safeFileName": "0347_is_rhombus_00cf29af.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "is_square",
+      "originalPath": "Xcode/Xprime/Resources/Help/is_square.txt",
+      "originalFileName": "is_square.txt",
+      "safeFileName": "0348_is_square_7054fcb1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ITERATE",
+      "originalPath": "Xcode/Xprime/Resources/Help/ITERATE.txt",
+      "originalFileName": "ITERATE.txt",
+      "safeFileName": "0349_ITERATE_09262b74.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ithprime",
+      "originalPath": "Xcode/Xprime/Resources/Help/ithprime.txt",
+      "originalFileName": "ithprime.txt",
+      "safeFileName": "0350_ithprime_9878d62e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "jacobi_symbol",
+      "originalPath": "Xcode/Xprime/Resources/Help/jacobi_symbol.txt",
+      "originalFileName": "jacobi_symbol.txt",
+      "safeFileName": "0351_jacobi_symbol_22b6053a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "jordan",
+      "originalPath": "Xcode/Xprime/Resources/Help/jordan.txt",
+      "originalFileName": "jordan.txt",
+      "safeFileName": "0352_jordan_db12b38e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "JordanBlock",
+      "originalPath": "Xcode/Xprime/Resources/Help/JordanBlock.txt",
+      "originalFileName": "JordanBlock.txt",
+      "safeFileName": "0353_JordanBlock_226fb4b3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ker",
+      "originalPath": "Xcode/Xprime/Resources/Help/ker.txt",
+      "originalFileName": "ker.txt",
+      "safeFileName": "0354_ker_81c96b59.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "KILL",
+      "originalPath": "Xcode/Xprime/Resources/Help/KILL.txt",
+      "originalFileName": "KILL.txt",
+      "safeFileName": "0355_KILL_f97d44dd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "l1norm",
+      "originalPath": "Xcode/Xprime/Resources/Help/l1norm.txt",
+      "originalFileName": "l1norm.txt",
+      "safeFileName": "0356_l1norm_28b31536.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "l2norm",
+      "originalPath": "Xcode/Xprime/Resources/Help/l2norm.txt",
+      "originalFileName": "l2norm.txt",
+      "safeFileName": "0357_l2norm_cf769934.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "lagrange",
+      "originalPath": "Xcode/Xprime/Resources/Help/lagrange.txt",
+      "originalFileName": "lagrange.txt",
+      "safeFileName": "0358_lagrange_d8d1061e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "laguerre",
+      "originalPath": "Xcode/Xprime/Resources/Help/laguerre.txt",
+      "originalFileName": "laguerre.txt",
+      "safeFileName": "0359_laguerre_8249b2bc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "laplace",
+      "originalPath": "Xcode/Xprime/Resources/Help/laplace.txt",
+      "originalFileName": "laplace.txt",
+      "safeFileName": "0360_laplace_e8b13d65.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "laplacian",
+      "originalPath": "Xcode/Xprime/Resources/Help/laplacian.txt",
+      "originalFileName": "laplacian.txt",
+      "safeFileName": "0361_laplacian_91a0cedc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "lcm",
+      "originalPath": "Xcode/Xprime/Resources/Help/lcm.txt",
+      "originalFileName": "lcm.txt",
+      "safeFileName": "0362_lcm_c5c869b4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "lcoeff",
+      "originalPath": "Xcode/Xprime/Resources/Help/lcoeff.txt",
+      "originalFileName": "lcoeff.txt",
+      "safeFileName": "0363_lcoeff_db4a2633.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "left",
+      "originalPath": "Xcode/Xprime/Resources/Help/left.txt",
+      "originalFileName": "left.txt",
+      "safeFileName": "0364_left_7ddc0536.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "legendre",
+      "originalPath": "Xcode/Xprime/Resources/Help/legendre.txt",
+      "originalFileName": "legendre.txt",
+      "safeFileName": "0365_legendre_9b6f696e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "legendre_symbol",
+      "originalPath": "Xcode/Xprime/Resources/Help/legendre_symbol.txt",
+      "originalFileName": "legendre_symbol.txt",
+      "safeFileName": "0366_legendre_symbol_0c219360.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "length",
+      "originalPath": "Xcode/Xprime/Resources/Help/length.txt",
+      "originalFileName": "length.txt",
+      "safeFileName": "0367_length_b766c344.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "lgcd",
+      "originalPath": "Xcode/Xprime/Resources/Help/lgcd.txt",
+      "originalFileName": "lgcd.txt",
+      "safeFileName": "0368_lgcd_c38dc7e0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "limit",
+      "originalPath": "Xcode/Xprime/Resources/Help/limit.txt",
+      "originalFileName": "limit.txt",
+      "safeFileName": "0369_limit_f46669c7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "lin",
+      "originalPath": "Xcode/Xprime/Resources/Help/lin.txt",
+      "originalFileName": "lin.txt",
+      "safeFileName": "0370_lin_710f6e94.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "line",
+      "originalPath": "Xcode/Xprime/Resources/Help/line.txt",
+      "originalFileName": "line.txt",
+      "safeFileName": "0371_line_7e393489.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "linear_interpolate",
+      "originalPath": "Xcode/Xprime/Resources/Help/linear_interpolate.txt",
+      "originalFileName": "linear_interpolate.txt",
+      "safeFileName": "0372_linear_interpolate_3b52972d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "linear_regression",
+      "originalPath": "Xcode/Xprime/Resources/Help/linear_regression.txt",
+      "originalFileName": "linear_regression.txt",
+      "safeFileName": "0373_linear_regression_94b90f3d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LineHorz",
+      "originalPath": "Xcode/Xprime/Resources/Help/LineHorz.txt",
+      "originalFileName": "LineHorz.txt",
+      "safeFileName": "0374_LineHorz_89a00970.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LineTan",
+      "originalPath": "Xcode/Xprime/Resources/Help/LineTan.txt",
+      "originalFileName": "LineTan.txt",
+      "safeFileName": "0375_LineTan_5f7f7387.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LineVert",
+      "originalPath": "Xcode/Xprime/Resources/Help/LineVert.txt",
+      "originalFileName": "LineVert.txt",
+      "safeFileName": "0376_LineVert_948acb9c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LINE_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/LINE_P.txt",
+      "originalFileName": "LINE_P.txt",
+      "safeFileName": "0377_LINE_P_84a67006.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "linsolve",
+      "originalPath": "Xcode/Xprime/Resources/Help/linsolve.txt",
+      "originalFileName": "linsolve.txt",
+      "safeFileName": "0378_linsolve_92f04e3e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "list2mat",
+      "originalPath": "Xcode/Xprime/Resources/Help/list2mat.txt",
+      "originalFileName": "list2mat.txt",
+      "safeFileName": "0379_list2mat_0b1b859b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LN",
+      "originalPath": "Xcode/Xprime/Resources/Help/LN.txt",
+      "originalFileName": "LN.txt",
+      "safeFileName": "0380_LN_2c138717.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "lname",
+      "originalPath": "Xcode/Xprime/Resources/Help/lname.txt",
+      "originalFileName": "lname.txt",
+      "safeFileName": "0381_lname_f6587e30.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "lncollect",
+      "originalPath": "Xcode/Xprime/Resources/Help/lncollect.txt",
+      "originalFileName": "lncollect.txt",
+      "safeFileName": "0382_lncollect_e6f4f94f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "lnexpand",
+      "originalPath": "Xcode/Xprime/Resources/Help/lnexpand.txt",
+      "originalFileName": "lnexpand.txt",
+      "safeFileName": "0383_lnexpand_e29e55e4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LNP1",
+      "originalPath": "Xcode/Xprime/Resources/Help/LNP1.txt",
+      "originalFileName": "LNP1.txt",
+      "safeFileName": "0384_LNP1_dd723b8e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LOCAL",
+      "originalPath": "Xcode/Xprime/Resources/Help/LOCAL.txt",
+      "originalFileName": "LOCAL.txt",
+      "safeFileName": "0385_LOCAL_ed197665.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "locus",
+      "originalPath": "Xcode/Xprime/Resources/Help/locus.txt",
+      "originalFileName": "locus.txt",
+      "safeFileName": "0386_locus_5d9ec8d9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LOG",
+      "originalPath": "Xcode/Xprime/Resources/Help/LOG.txt",
+      "originalFileName": "LOG.txt",
+      "safeFileName": "0387_LOG_e27efcd7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "log10",
+      "originalPath": "Xcode/Xprime/Resources/Help/log10.txt",
+      "originalFileName": "log10.txt",
+      "safeFileName": "0388_log10_1285c041.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "logarithmic_regression",
+      "originalPath": "Xcode/Xprime/Resources/Help/logarithmic_regression.txt",
+      "originalFileName": "logarithmic_regression.txt",
+      "safeFileName": "0389_logarithmic_regression_f8761c1e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "logb",
+      "originalPath": "Xcode/Xprime/Resources/Help/logb.txt",
+      "originalFileName": "logb.txt",
+      "safeFileName": "0390_logb_3256e5b2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "logistic_regression",
+      "originalPath": "Xcode/Xprime/Resources/Help/logistic_regression.txt",
+      "originalFileName": "logistic_regression.txt",
+      "safeFileName": "0391_logistic_regression_aa510e9c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LQ",
+      "originalPath": "Xcode/Xprime/Resources/Help/LQ.txt",
+      "originalFileName": "LQ.txt",
+      "safeFileName": "0392_LQ_332c95d3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LSQ",
+      "originalPath": "Xcode/Xprime/Resources/Help/LSQ.txt",
+      "originalFileName": "LSQ.txt",
+      "safeFileName": "0393_LSQ_9f425512.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "LU",
+      "originalPath": "Xcode/Xprime/Resources/Help/LU.txt",
+      "originalFileName": "LU.txt",
+      "safeFileName": "0394_LU_e6bc9b7f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "lvar",
+      "originalPath": "Xcode/Xprime/Resources/Help/lvar.txt",
+      "originalFileName": "lvar.txt",
+      "safeFileName": "0395_lvar_a4d8a520.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "magenta",
+      "originalPath": "Xcode/Xprime/Resources/Help/magenta.txt",
+      "originalFileName": "magenta.txt",
+      "safeFileName": "0396_magenta_4485a8e1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MAKELIST",
+      "originalPath": "Xcode/Xprime/Resources/Help/MAKELIST.txt",
+      "originalFileName": "MAKELIST.txt",
+      "safeFileName": "0397_MAKELIST_e3f7d9aa.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MAKEMAT",
+      "originalPath": "Xcode/Xprime/Resources/Help/MAKEMAT.txt",
+      "originalFileName": "MAKEMAT.txt",
+      "safeFileName": "0398_MAKEMAT_809ca737.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MANT",
+      "originalPath": "Xcode/Xprime/Resources/Help/MANT.txt",
+      "originalFileName": "MANT.txt",
+      "safeFileName": "0399_MANT_768e49f6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "map",
+      "originalPath": "Xcode/Xprime/Resources/Help/map.txt",
+      "originalFileName": "map.txt",
+      "safeFileName": "0400_map_26687637.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "mat2list",
+      "originalPath": "Xcode/Xprime/Resources/Help/mat2list.txt",
+      "originalFileName": "mat2list.txt",
+      "safeFileName": "0401_mat2list_98727be2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "matpow",
+      "originalPath": "Xcode/Xprime/Resources/Help/matpow.txt",
+      "originalFileName": "matpow.txt",
+      "safeFileName": "0402_matpow_53fb8e1f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MAX",
+      "originalPath": "Xcode/Xprime/Resources/Help/MAX.txt",
+      "originalFileName": "MAX.txt",
+      "safeFileName": "0403_MAX_731179d4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "maxnorm",
+      "originalPath": "Xcode/Xprime/Resources/Help/maxnorm.txt",
+      "originalFileName": "maxnorm.txt",
+      "safeFileName": "0404_maxnorm_5e03eaf4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MAXREAL",
+      "originalPath": "Xcode/Xprime/Resources/Help/MAXREAL.txt",
+      "originalFileName": "MAXREAL.txt",
+      "safeFileName": "0405_MAXREAL_49702904.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "mean",
+      "originalPath": "Xcode/Xprime/Resources/Help/mean.txt",
+      "originalFileName": "mean.txt",
+      "safeFileName": "0406_mean_8991a6f1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "median",
+      "originalPath": "Xcode/Xprime/Resources/Help/median.txt",
+      "originalFileName": "median.txt",
+      "safeFileName": "0407_median_e2faacb1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "median_line",
+      "originalPath": "Xcode/Xprime/Resources/Help/median_line.txt",
+      "originalFileName": "median_line.txt",
+      "safeFileName": "0408_median_line_fd8b8937.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "member",
+      "originalPath": "Xcode/Xprime/Resources/Help/member.txt",
+      "originalFileName": "member.txt",
+      "safeFileName": "0409_member_f7e67cec.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MID",
+      "originalPath": "Xcode/Xprime/Resources/Help/MID.txt",
+      "originalFileName": "MID.txt",
+      "safeFileName": "0410_MID_fa90f83e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "midpoint",
+      "originalPath": "Xcode/Xprime/Resources/Help/midpoint.txt",
+      "originalFileName": "midpoint.txt",
+      "safeFileName": "0411_midpoint_9755f85e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MIN",
+      "originalPath": "Xcode/Xprime/Resources/Help/MIN.txt",
+      "originalFileName": "MIN.txt",
+      "safeFileName": "0412_MIN_9728db4a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MINREAL",
+      "originalPath": "Xcode/Xprime/Resources/Help/MINREAL.txt",
+      "originalFileName": "MINREAL.txt",
+      "safeFileName": "0413_MINREAL_07cd1af2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "mkisom",
+      "originalPath": "Xcode/Xprime/Resources/Help/mkisom.txt",
+      "originalFileName": "mkisom.txt",
+      "safeFileName": "0414_mkisom_0feb0279.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MKSA",
+      "originalPath": "Xcode/Xprime/Resources/Help/MKSA.txt",
+      "originalFileName": "MKSA.txt",
+      "safeFileName": "0415_MKSA_8ab483d9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MOD",
+      "originalPath": "Xcode/Xprime/Resources/Help/MOD.txt",
+      "originalFileName": "MOD.txt",
+      "safeFileName": "0416_MOD_c50a320e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "modgcd",
+      "originalPath": "Xcode/Xprime/Resources/Help/modgcd.txt",
+      "originalFileName": "modgcd.txt",
+      "safeFileName": "0417_modgcd_a11e33ff.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MOUSE",
+      "originalPath": "Xcode/Xprime/Resources/Help/MOUSE.txt",
+      "originalFileName": "MOUSE.txt",
+      "safeFileName": "0418_MOUSE_30718da0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "mRow",
+      "originalPath": "Xcode/Xprime/Resources/Help/mRow.txt",
+      "originalFileName": "mRow.txt",
+      "safeFileName": "0419_mRow_75706780.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "MSGBOX",
+      "originalPath": "Xcode/Xprime/Resources/Help/MSGBOX.txt",
+      "originalFileName": "MSGBOX.txt",
+      "safeFileName": "0420_MSGBOX_e9ffb07e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "mult_conjugate",
+      "originalPath": "Xcode/Xprime/Resources/Help/mult_conjugate.txt",
+      "originalFileName": "mult_conjugate.txt",
+      "safeFileName": "0421_mult_conjugate_95979f26.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "mult_c_conjugate",
+      "originalPath": "Xcode/Xprime/Resources/Help/mult_c_conjugate.txt",
+      "originalFileName": "mult_c_conjugate.txt",
+      "safeFileName": "0422_mult_c_conjugate_4cc18f7a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "nDeriv",
+      "originalPath": "Xcode/Xprime/Resources/Help/nDeriv.txt",
+      "originalFileName": "nDeriv.txt",
+      "safeFileName": "0423_nDeriv_996bf3bc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "NEG",
+      "originalPath": "Xcode/Xprime/Resources/Help/NEG.txt",
+      "originalFileName": "NEG.txt",
+      "safeFileName": "0424_NEG_2d4546c8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "nextprime",
+      "originalPath": "Xcode/Xprime/Resources/Help/nextprime.txt",
+      "originalFileName": "nextprime.txt",
+      "safeFileName": "0425_nextprime_628c3eb6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "normal",
+      "originalPath": "Xcode/Xprime/Resources/Help/normal.txt",
+      "originalFileName": "normal.txt",
+      "safeFileName": "0426_normal_9dc1c287.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "NORMALD",
+      "originalPath": "Xcode/Xprime/Resources/Help/NORMALD.txt",
+      "originalFileName": "NORMALD.txt",
+      "safeFileName": "0427_NORMALD_e1e18613.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "NORMALD_CDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/NORMALD_CDF.txt",
+      "originalFileName": "NORMALD_CDF.txt",
+      "safeFileName": "0428_NORMALD_CDF_e33bd48c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "NORMALD_ICDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/NORMALD_ICDF.txt",
+      "originalFileName": "NORMALD_ICDF.txt",
+      "safeFileName": "0429_NORMALD_ICDF_74587b53.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "normalize",
+      "originalPath": "Xcode/Xprime/Resources/Help/normalize.txt",
+      "originalFileName": "normalize.txt",
+      "safeFileName": "0430_normalize_a2b47a9a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "NOT",
+      "originalPath": "Xcode/Xprime/Resources/Help/NOT.txt",
+      "originalFileName": "NOT.txt",
+      "safeFileName": "0431_NOT_4678e1a8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "nSolve",
+      "originalPath": "Xcode/Xprime/Resources/Help/nSolve.txt",
+      "originalFileName": "nSolve.txt",
+      "safeFileName": "0432_nSolve_54cc33f3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "NTHROOT",
+      "originalPath": "Xcode/Xprime/Resources/Help/NTHROOT.txt",
+      "originalFileName": "NTHROOT.txt",
+      "safeFileName": "0433_NTHROOT_d6dc3cd2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "numer",
+      "originalPath": "Xcode/Xprime/Resources/Help/numer.txt",
+      "originalFileName": "numer.txt",
+      "safeFileName": "0434_numer_5de3ad58.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "odd",
+      "originalPath": "Xcode/Xprime/Resources/Help/odd.txt",
+      "originalFileName": "odd.txt",
+      "safeFileName": "0435_odd_ab40c78c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "odesolve",
+      "originalPath": "Xcode/Xprime/Resources/Help/odesolve.txt",
+      "originalFileName": "odesolve.txt",
+      "safeFileName": "0436_odesolve_edb1a21d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "open_polygon",
+      "originalPath": "Xcode/Xprime/Resources/Help/open_polygon.txt",
+      "originalFileName": "open_polygon.txt",
+      "safeFileName": "0437_open_polygon_21a04d16.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "OR",
+      "originalPath": "Xcode/Xprime/Resources/Help/OR.txt",
+      "originalFileName": "OR.txt",
+      "safeFileName": "0438_OR_7142e544.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "order_size",
+      "originalPath": "Xcode/Xprime/Resources/Help/order_size.txt",
+      "originalFileName": "order_size.txt",
+      "safeFileName": "0439_order_size_73565162.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ordinate",
+      "originalPath": "Xcode/Xprime/Resources/Help/ordinate.txt",
+      "originalFileName": "ordinate.txt",
+      "safeFileName": "0440_ordinate_89369fe0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "orthocenter",
+      "originalPath": "Xcode/Xprime/Resources/Help/orthocenter.txt",
+      "originalFileName": "orthocenter.txt",
+      "safeFileName": "0441_orthocenter_9b21fd0d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "pa2b2",
+      "originalPath": "Xcode/Xprime/Resources/Help/pa2b2.txt",
+      "originalFileName": "pa2b2.txt",
+      "safeFileName": "0442_pa2b2_adc843e4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "pade",
+      "originalPath": "Xcode/Xprime/Resources/Help/pade.txt",
+      "originalFileName": "pade.txt",
+      "safeFileName": "0443_pade_65a17841.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "parabola",
+      "originalPath": "Xcode/Xprime/Resources/Help/parabola.txt",
+      "originalFileName": "parabola.txt",
+      "safeFileName": "0444_parabola_d57c1dbc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "parallel",
+      "originalPath": "Xcode/Xprime/Resources/Help/parallel.txt",
+      "originalFileName": "parallel.txt",
+      "safeFileName": "0445_parallel_956dda26.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "parallelogram",
+      "originalPath": "Xcode/Xprime/Resources/Help/parallelogram.txt",
+      "originalFileName": "parallelogram.txt",
+      "safeFileName": "0446_parallelogram_93113444.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "parameq",
+      "originalPath": "Xcode/Xprime/Resources/Help/parameq.txt",
+      "originalFileName": "parameq.txt",
+      "safeFileName": "0447_parameq_d3221aee.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "partfrac",
+      "originalPath": "Xcode/Xprime/Resources/Help/partfrac.txt",
+      "originalFileName": "partfrac.txt",
+      "safeFileName": "0448_partfrac_a20091e7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "pcoeff",
+      "originalPath": "Xcode/Xprime/Resources/Help/pcoeff.txt",
+      "originalFileName": "pcoeff.txt",
+      "safeFileName": "0449_pcoeff_da5b0197.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "perimeter",
+      "originalPath": "Xcode/Xprime/Resources/Help/perimeter.txt",
+      "originalFileName": "perimeter.txt",
+      "safeFileName": "0450_perimeter_3110602d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "perimeterat",
+      "originalPath": "Xcode/Xprime/Resources/Help/perimeterat.txt",
+      "originalFileName": "perimeterat.txt",
+      "safeFileName": "0451_perimeterat_6822bff7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "perimeteratraw",
+      "originalPath": "Xcode/Xprime/Resources/Help/perimeteratraw.txt",
+      "originalFileName": "perimeteratraw.txt",
+      "safeFileName": "0452_perimeteratraw_3a26d7eb.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "PERM",
+      "originalPath": "Xcode/Xprime/Resources/Help/PERM.txt",
+      "originalFileName": "PERM.txt",
+      "safeFileName": "0453_PERM_e2f7fdd2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "perpendicular",
+      "originalPath": "Xcode/Xprime/Resources/Help/perpendicular.txt",
+      "originalFileName": "perpendicular.txt",
+      "safeFileName": "0454_perpendicular_7f520c2e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "perpen_bisector",
+      "originalPath": "Xcode/Xprime/Resources/Help/perpen_bisector.txt",
+      "originalFileName": "perpen_bisector.txt",
+      "safeFileName": "0455_perpen_bisector_00242ae6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "PI",
+      "originalPath": "Xcode/Xprime/Resources/Help/PI.txt",
+      "originalFileName": "PI.txt",
+      "safeFileName": "0456_PI_698132de.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "PIECEWISE",
+      "originalPath": "Xcode/Xprime/Resources/Help/PIECEWISE.txt",
+      "originalFileName": "PIECEWISE.txt",
+      "safeFileName": "0457_PIECEWISE_20291efe.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "pivot",
+      "originalPath": "Xcode/Xprime/Resources/Help/pivot.txt",
+      "originalFileName": "pivot.txt",
+      "safeFileName": "0458_pivot_50985d2f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "PIXOFF",
+      "originalPath": "Xcode/Xprime/Resources/Help/PIXOFF.txt",
+      "originalFileName": "PIXOFF.txt",
+      "safeFileName": "0459_PIXOFF_f2892866.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "PIXOFF_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/PIXOFF_P.txt",
+      "originalFileName": "PIXOFF_P.txt",
+      "safeFileName": "0460_PIXOFF_P_46cb389c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "PIXON",
+      "originalPath": "Xcode/Xprime/Resources/Help/PIXON.txt",
+      "originalFileName": "PIXON.txt",
+      "safeFileName": "0461_PIXON_7abc8e37.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "PIXON_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/PIXON_P.txt",
+      "originalFileName": "PIXON_P.txt",
+      "safeFileName": "0462_PIXON_P_a5d63314.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotcontour",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotcontour.txt",
+      "originalFileName": "plotcontour.txt",
+      "safeFileName": "0463_plotcontour_afa42e63.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotfield",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotfield.txt",
+      "originalFileName": "plotfield.txt",
+      "safeFileName": "0464_plotfield_2014e395.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotfunc",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotfunc.txt",
+      "originalFileName": "plotfunc.txt",
+      "safeFileName": "0465_plotfunc_d927cc30.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotimplicit",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotimplicit.txt",
+      "originalFileName": "plotimplicit.txt",
+      "safeFileName": "0466_plotimplicit_ef695694.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotinequation",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotinequation.txt",
+      "originalFileName": "plotinequation.txt",
+      "safeFileName": "0467_plotinequation_4ee97107.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotlist",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotlist.txt",
+      "originalFileName": "plotlist.txt",
+      "safeFileName": "0468_plotlist_951b8957.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotode",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotode.txt",
+      "originalFileName": "plotode.txt",
+      "safeFileName": "0469_plotode_381e0e02.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotparam",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotparam.txt",
+      "originalFileName": "plotparam.txt",
+      "safeFileName": "0470_plotparam_2a55a317.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotpolar",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotpolar.txt",
+      "originalFileName": "plotpolar.txt",
+      "safeFileName": "0471_plotpolar_05f2ace7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "plotseq",
+      "originalPath": "Xcode/Xprime/Resources/Help/plotseq.txt",
+      "originalFileName": "plotseq.txt",
+      "safeFileName": "0472_plotseq_9926ae4b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "pmin",
+      "originalPath": "Xcode/Xprime/Resources/Help/pmin.txt",
+      "originalFileName": "pmin.txt",
+      "safeFileName": "0473_pmin_ddf0b187.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "point",
+      "originalPath": "Xcode/Xprime/Resources/Help/point.txt",
+      "originalFileName": "point.txt",
+      "safeFileName": "0474_point_07be042d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "point2d",
+      "originalPath": "Xcode/Xprime/Resources/Help/point2d.txt",
+      "originalFileName": "point2d.txt",
+      "safeFileName": "0475_point2d_19d54c45.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "POISSON",
+      "originalPath": "Xcode/Xprime/Resources/Help/POISSON.txt",
+      "originalFileName": "POISSON.txt",
+      "safeFileName": "0476_POISSON_9f6ade5c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "POISSON_CDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/POISSON_CDF.txt",
+      "originalFileName": "POISSON_CDF.txt",
+      "safeFileName": "0477_POISSON_CDF_b8593803.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "POISSON_ICDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/POISSON_ICDF.txt",
+      "originalFileName": "POISSON_ICDF.txt",
+      "safeFileName": "0478_POISSON_ICDF_481594f9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "polar",
+      "originalPath": "Xcode/Xprime/Resources/Help/polar.txt",
+      "originalFileName": "polar.txt",
+      "safeFileName": "0479_polar_d31c5a29.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "polar_coordinates",
+      "originalPath": "Xcode/Xprime/Resources/Help/polar_coordinates.txt",
+      "originalFileName": "polar_coordinates.txt",
+      "safeFileName": "0480_polar_coordinates_58899cc3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "polar_point",
+      "originalPath": "Xcode/Xprime/Resources/Help/polar_point.txt",
+      "originalFileName": "polar_point.txt",
+      "safeFileName": "0481_polar_point_43ca0750.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "pole",
+      "originalPath": "Xcode/Xprime/Resources/Help/pole.txt",
+      "originalFileName": "pole.txt",
+      "safeFileName": "0482_pole_92a49e87.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "poly2symb",
+      "originalPath": "Xcode/Xprime/Resources/Help/poly2symb.txt",
+      "originalFileName": "poly2symb.txt",
+      "safeFileName": "0483_poly2symb_11bd6550.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "POLYCOEF",
+      "originalPath": "Xcode/Xprime/Resources/Help/POLYCOEF.txt",
+      "originalFileName": "POLYCOEF.txt",
+      "safeFileName": "0484_POLYCOEF_2623b001.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "POLYEVAL",
+      "originalPath": "Xcode/Xprime/Resources/Help/POLYEVAL.txt",
+      "originalFileName": "POLYEVAL.txt",
+      "safeFileName": "0485_POLYEVAL_6409ecaa.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "polygon",
+      "originalPath": "Xcode/Xprime/Resources/Help/polygon.txt",
+      "originalFileName": "polygon.txt",
+      "safeFileName": "0486_polygon_b4a0a270.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "polygonplot",
+      "originalPath": "Xcode/Xprime/Resources/Help/polygonplot.txt",
+      "originalFileName": "polygonplot.txt",
+      "safeFileName": "0487_polygonplot_3db477a6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "polygonscatterplot",
+      "originalPath": "Xcode/Xprime/Resources/Help/polygonscatterplot.txt",
+      "originalFileName": "polygonscatterplot.txt",
+      "safeFileName": "0488_polygonscatterplot_8d804437.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "polynomial_regression",
+      "originalPath": "Xcode/Xprime/Resources/Help/polynomial_regression.txt",
+      "originalFileName": "polynomial_regression.txt",
+      "safeFileName": "0489_polynomial_regression_973918b4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "POLYROOT",
+      "originalPath": "Xcode/Xprime/Resources/Help/POLYROOT.txt",
+      "originalFileName": "POLYROOT.txt",
+      "safeFileName": "0490_POLYROOT_40611c29.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "POS",
+      "originalPath": "Xcode/Xprime/Resources/Help/POS.txt",
+      "originalFileName": "POS.txt",
+      "safeFileName": "0491_POS_08f7741b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "potential",
+      "originalPath": "Xcode/Xprime/Resources/Help/potential.txt",
+      "originalFileName": "potential.txt",
+      "safeFileName": "0492_potential_fc468392.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "pow2exp",
+      "originalPath": "Xcode/Xprime/Resources/Help/pow2exp.txt",
+      "originalFileName": "pow2exp.txt",
+      "safeFileName": "0493_pow2exp_96c2128c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "powerpc",
+      "originalPath": "Xcode/Xprime/Resources/Help/powerpc.txt",
+      "originalFileName": "powerpc.txt",
+      "safeFileName": "0494_powerpc_048a9fdd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "power_regression",
+      "originalPath": "Xcode/Xprime/Resources/Help/power_regression.txt",
+      "originalFileName": "power_regression.txt",
+      "safeFileName": "0495_power_regression_ff757e94.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "powexpand",
+      "originalPath": "Xcode/Xprime/Resources/Help/powexpand.txt",
+      "originalFileName": "powexpand.txt",
+      "safeFileName": "0496_powexpand_7d8eaada.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "powmod",
+      "originalPath": "Xcode/Xprime/Resources/Help/powmod.txt",
+      "originalFileName": "powmod.txt",
+      "safeFileName": "0497_powmod_a766f414.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "prepend",
+      "originalPath": "Xcode/Xprime/Resources/Help/prepend.txt",
+      "originalFileName": "prepend.txt",
+      "safeFileName": "0498_prepend_dd5567e6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "preval",
+      "originalPath": "Xcode/Xprime/Resources/Help/preval.txt",
+      "originalFileName": "preval.txt",
+      "safeFileName": "0499_preval_2ce0bbdc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "prevprime",
+      "originalPath": "Xcode/Xprime/Resources/Help/prevprime.txt",
+      "originalFileName": "prevprime.txt",
+      "safeFileName": "0500_prevprime_c73af338.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "primpart",
+      "originalPath": "Xcode/Xprime/Resources/Help/primpart.txt",
+      "originalFileName": "primpart.txt",
+      "safeFileName": "0501_primpart_80e27104.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "PRINT",
+      "originalPath": "Xcode/Xprime/Resources/Help/PRINT.txt",
+      "originalFileName": "PRINT.txt",
+      "safeFileName": "0502_PRINT_818dfbd0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "product",
+      "originalPath": "Xcode/Xprime/Resources/Help/product.txt",
+      "originalFileName": "product.txt",
+      "safeFileName": "0503_product_72c17ce0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "projection",
+      "originalPath": "Xcode/Xprime/Resources/Help/projection.txt",
+      "originalFileName": "projection.txt",
+      "safeFileName": "0504_projection_a4f55c72.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "proot",
+      "originalPath": "Xcode/Xprime/Resources/Help/proot.txt",
+      "originalFileName": "proot.txt",
+      "safeFileName": "0505_proot_67ac06cb.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "propfrac",
+      "originalPath": "Xcode/Xprime/Resources/Help/propfrac.txt",
+      "originalFileName": "propfrac.txt",
+      "safeFileName": "0506_propfrac_cb749ce7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Psi",
+      "originalPath": "Xcode/Xprime/Resources/Help/Psi.txt",
+      "originalFileName": "Psi.txt",
+      "safeFileName": "0507_Psi_6ff98e0b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ptayl",
+      "originalPath": "Xcode/Xprime/Resources/Help/ptayl.txt",
+      "originalFileName": "ptayl.txt",
+      "safeFileName": "0508_ptayl_7743a887.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "purge",
+      "originalPath": "Xcode/Xprime/Resources/Help/purge.txt",
+      "originalFileName": "purge.txt",
+      "safeFileName": "0509_purge_d2170f93.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "PX\u2192C",
+      "originalPath": "Xcode/Xprime/Resources/Help/PX\u2192C.txt",
+      "originalFileName": "PX\u2192C.txt",
+      "safeFileName": "0510_PX_u2192_C_054baa28.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "q2a",
+      "originalPath": "Xcode/Xprime/Resources/Help/q2a.txt",
+      "originalFileName": "q2a.txt",
+      "safeFileName": "0511_q2a_af178ad8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "QR",
+      "originalPath": "Xcode/Xprime/Resources/Help/QR.txt",
+      "originalFileName": "QR.txt",
+      "safeFileName": "0512_QR_7882cde5.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "quadrilateral",
+      "originalPath": "Xcode/Xprime/Resources/Help/quadrilateral.txt",
+      "originalFileName": "quadrilateral.txt",
+      "safeFileName": "0513_quadrilateral_40d10c97.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "quantile",
+      "originalPath": "Xcode/Xprime/Resources/Help/quantile.txt",
+      "originalFileName": "quantile.txt",
+      "safeFileName": "0514_quantile_04f03cfa.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "quartile1",
+      "originalPath": "Xcode/Xprime/Resources/Help/quartile1.txt",
+      "originalFileName": "quartile1.txt",
+      "safeFileName": "0515_quartile1_1843ccd7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "quartile3",
+      "originalPath": "Xcode/Xprime/Resources/Help/quartile3.txt",
+      "originalFileName": "quartile3.txt",
+      "safeFileName": "0516_quartile3_ce642c0e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "quartiles",
+      "originalPath": "Xcode/Xprime/Resources/Help/quartiles.txt",
+      "originalFileName": "quartiles.txt",
+      "safeFileName": "0517_quartiles_dd4fb68a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "quo",
+      "originalPath": "Xcode/Xprime/Resources/Help/quo.txt",
+      "originalFileName": "quo.txt",
+      "safeFileName": "0518_quo_b0bc499e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "quorem",
+      "originalPath": "Xcode/Xprime/Resources/Help/quorem.txt",
+      "originalFileName": "quorem.txt",
+      "safeFileName": "0519_quorem_ed6a0c0d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "QUOTE",
+      "originalPath": "Xcode/Xprime/Resources/Help/QUOTE.txt",
+      "originalFileName": "QUOTE.txt",
+      "safeFileName": "0520_QUOTE_c8684579.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "radical_axis",
+      "originalPath": "Xcode/Xprime/Resources/Help/radical_axis.txt",
+      "originalFileName": "radical_axis.txt",
+      "safeFileName": "0521_radical_axis_e0a70be3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "radius",
+      "originalPath": "Xcode/Xprime/Resources/Help/radius.txt",
+      "originalFileName": "radius.txt",
+      "safeFileName": "0522_radius_079a046b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "randexp",
+      "originalPath": "Xcode/Xprime/Resources/Help/randexp.txt",
+      "originalFileName": "randexp.txt",
+      "safeFileName": "0523_randexp_55ad0911.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RANDINT",
+      "originalPath": "Xcode/Xprime/Resources/Help/RANDINT.txt",
+      "originalFileName": "RANDINT.txt",
+      "safeFileName": "0524_RANDINT_134edebc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RANDMAT",
+      "originalPath": "Xcode/Xprime/Resources/Help/RANDMAT.txt",
+      "originalFileName": "RANDMAT.txt",
+      "safeFileName": "0525_RANDMAT_ad2bf207.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RANDNORM",
+      "originalPath": "Xcode/Xprime/Resources/Help/RANDNORM.txt",
+      "originalFileName": "RANDNORM.txt",
+      "safeFileName": "0526_RANDNORM_6b0fbb59.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RANDOM",
+      "originalPath": "Xcode/Xprime/Resources/Help/RANDOM.txt",
+      "originalFileName": "RANDOM.txt",
+      "safeFileName": "0527_RANDOM_5bc1a776.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "randperm",
+      "originalPath": "Xcode/Xprime/Resources/Help/randperm.txt",
+      "originalFileName": "randperm.txt",
+      "safeFileName": "0528_randperm_98d15c30.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "randPoly",
+      "originalPath": "Xcode/Xprime/Resources/Help/randPoly.txt",
+      "originalFileName": "randPoly.txt",
+      "safeFileName": "0529_randPoly_d3f4ed02.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RANDSEED",
+      "originalPath": "Xcode/Xprime/Resources/Help/RANDSEED.txt",
+      "originalFileName": "RANDSEED.txt",
+      "safeFileName": "0530_RANDSEED_d50eb17c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RANK",
+      "originalPath": "Xcode/Xprime/Resources/Help/RANK.txt",
+      "originalFileName": "RANK.txt",
+      "safeFileName": "0531_RANK_ad8deeef.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ratnormal",
+      "originalPath": "Xcode/Xprime/Resources/Help/ratnormal.txt",
+      "originalFileName": "ratnormal.txt",
+      "safeFileName": "0532_ratnormal_227288bd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RE",
+      "originalPath": "Xcode/Xprime/Resources/Help/RE.txt",
+      "originalFileName": "RE.txt",
+      "safeFileName": "0533_RE_e68543a5.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "reciprocation",
+      "originalPath": "Xcode/Xprime/Resources/Help/reciprocation.txt",
+      "originalFileName": "reciprocation.txt",
+      "safeFileName": "0534_reciprocation_57f73f5e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RECT",
+      "originalPath": "Xcode/Xprime/Resources/Help/RECT.txt",
+      "originalFileName": "RECT.txt",
+      "safeFileName": "0535_RECT_34bd2978.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "rectangle",
+      "originalPath": "Xcode/Xprime/Resources/Help/rectangle.txt",
+      "originalFileName": "rectangle.txt",
+      "safeFileName": "0536_rectangle_9300d154.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "rectangular_coordinates",
+      "originalPath": "Xcode/Xprime/Resources/Help/rectangular_coordinates.txt",
+      "originalFileName": "rectangular_coordinates.txt",
+      "safeFileName": "0537_rectangular_coordinates_c01a8f59.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RECT_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/RECT_P.txt",
+      "originalFileName": "RECT_P.txt",
+      "safeFileName": "0538_RECT_P_32c1b4ca.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "red",
+      "originalPath": "Xcode/Xprime/Resources/Help/red.txt",
+      "originalFileName": "red.txt",
+      "safeFileName": "0539_red_bf069bbf.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "REDIM",
+      "originalPath": "Xcode/Xprime/Resources/Help/REDIM.txt",
+      "originalFileName": "REDIM.txt",
+      "safeFileName": "0540_REDIM_072a54fd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "reduced_conic",
+      "originalPath": "Xcode/Xprime/Resources/Help/reduced_conic.txt",
+      "originalFileName": "reduced_conic.txt",
+      "safeFileName": "0541_reduced_conic_aade11b9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ref",
+      "originalPath": "Xcode/Xprime/Resources/Help/ref.txt",
+      "originalFileName": "ref.txt",
+      "safeFileName": "0542_ref_a11657cd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "reflection",
+      "originalPath": "Xcode/Xprime/Resources/Help/reflection.txt",
+      "originalFileName": "reflection.txt",
+      "safeFileName": "0543_reflection_324a38da.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "rem",
+      "originalPath": "Xcode/Xprime/Resources/Help/rem.txt",
+      "originalFileName": "rem.txt",
+      "safeFileName": "0544_rem_f0724820.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "remove",
+      "originalPath": "Xcode/Xprime/Resources/Help/remove.txt",
+      "originalFileName": "remove.txt",
+      "safeFileName": "0545_remove_76cf0176.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "reorder",
+      "originalPath": "Xcode/Xprime/Resources/Help/reorder.txt",
+      "originalFileName": "reorder.txt",
+      "safeFileName": "0546_reorder_a3d1a310.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "REPEAT",
+      "originalPath": "Xcode/Xprime/Resources/Help/REPEAT.txt",
+      "originalFileName": "REPEAT.txt",
+      "safeFileName": "0547_REPEAT_bc97bc71.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "REPLACE",
+      "originalPath": "Xcode/Xprime/Resources/Help/REPLACE.txt",
+      "originalFileName": "REPLACE.txt",
+      "safeFileName": "0548_REPLACE_0a6bca32.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "residue",
+      "originalPath": "Xcode/Xprime/Resources/Help/residue.txt",
+      "originalFileName": "residue.txt",
+      "safeFileName": "0549_residue_98c26846.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "restart",
+      "originalPath": "Xcode/Xprime/Resources/Help/restart.txt",
+      "originalFileName": "restart.txt",
+      "safeFileName": "0550_restart_14709c00.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "resultant",
+      "originalPath": "Xcode/Xprime/Resources/Help/resultant.txt",
+      "originalFileName": "resultant.txt",
+      "safeFileName": "0551_resultant_6ee4b1dd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RETURN",
+      "originalPath": "Xcode/Xprime/Resources/Help/RETURN.txt",
+      "originalFileName": "RETURN.txt",
+      "safeFileName": "0552_RETURN_7668eba9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "REVERSE",
+      "originalPath": "Xcode/Xprime/Resources/Help/REVERSE.txt",
+      "originalFileName": "REVERSE.txt",
+      "safeFileName": "0553_REVERSE_1783ea89.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "revlist",
+      "originalPath": "Xcode/Xprime/Resources/Help/revlist.txt",
+      "originalFileName": "revlist.txt",
+      "safeFileName": "0554_revlist_57ea522f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RGB",
+      "originalPath": "Xcode/Xprime/Resources/Help/RGB.txt",
+      "originalFileName": "RGB.txt",
+      "safeFileName": "0555_RGB_906d781b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "rhombus",
+      "originalPath": "Xcode/Xprime/Resources/Help/rhombus.txt",
+      "originalFileName": "rhombus.txt",
+      "safeFileName": "0556_rhombus_85a400c0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RIGHT",
+      "originalPath": "Xcode/Xprime/Resources/Help/RIGHT.txt",
+      "originalFileName": "RIGHT.txt",
+      "safeFileName": "0557_RIGHT_754dae6d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "right_triangle",
+      "originalPath": "Xcode/Xprime/Resources/Help/right_triangle.txt",
+      "originalFileName": "right_triangle.txt",
+      "safeFileName": "0558_right_triangle_d5465777.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "romberg",
+      "originalPath": "Xcode/Xprime/Resources/Help/romberg.txt",
+      "originalFileName": "romberg.txt",
+      "safeFileName": "0559_romberg_b7310660.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ROTATE",
+      "originalPath": "Xcode/Xprime/Resources/Help/ROTATE.txt",
+      "originalFileName": "ROTATE.txt",
+      "safeFileName": "0560_ROTATE_7233c775.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "rotation",
+      "originalPath": "Xcode/Xprime/Resources/Help/rotation.txt",
+      "originalFileName": "rotation.txt",
+      "safeFileName": "0561_rotation_41b06d89.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ROUND",
+      "originalPath": "Xcode/Xprime/Resources/Help/ROUND.txt",
+      "originalFileName": "ROUND.txt",
+      "safeFileName": "0562_ROUND_3449c55c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "row",
+      "originalPath": "Xcode/Xprime/Resources/Help/row.txt",
+      "originalFileName": "row.txt",
+      "safeFileName": "0563_row_d2063021.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "rowAdd",
+      "originalPath": "Xcode/Xprime/Resources/Help/rowAdd.txt",
+      "originalFileName": "rowAdd.txt",
+      "safeFileName": "0564_rowAdd_62570c16.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "rowDim",
+      "originalPath": "Xcode/Xprime/Resources/Help/rowDim.txt",
+      "originalFileName": "rowDim.txt",
+      "safeFileName": "0565_rowDim_95004bc2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ROWNORM",
+      "originalPath": "Xcode/Xprime/Resources/Help/ROWNORM.txt",
+      "originalFileName": "ROWNORM.txt",
+      "safeFileName": "0566_ROWNORM_cef3c6cd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "rowSwap",
+      "originalPath": "Xcode/Xprime/Resources/Help/rowSwap.txt",
+      "originalFileName": "rowSwap.txt",
+      "safeFileName": "0567_rowSwap_03cd7d38.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "RREF",
+      "originalPath": "Xcode/Xprime/Resources/Help/RREF.txt",
+      "originalFileName": "RREF.txt",
+      "safeFileName": "0568_RREF_140ab932.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "rsolve",
+      "originalPath": "Xcode/Xprime/Resources/Help/rsolve.txt",
+      "originalFileName": "rsolve.txt",
+      "safeFileName": "0569_rsolve_b1fb283e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "R\u2192B",
+      "originalPath": "Xcode/Xprime/Resources/Help/R\u2192B.txt",
+      "originalFileName": "R\u2192B.txt",
+      "safeFileName": "0570_R_u2192_B_75f43cd8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SCALE",
+      "originalPath": "Xcode/Xprime/Resources/Help/SCALE.txt",
+      "originalFileName": "SCALE.txt",
+      "safeFileName": "0571_SCALE_f49d8cac.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SCALEADD",
+      "originalPath": "Xcode/Xprime/Resources/Help/SCALEADD.txt",
+      "originalFileName": "SCALEADD.txt",
+      "safeFileName": "0572_SCALEADD_4b2f0808.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SCHUR",
+      "originalPath": "Xcode/Xprime/Resources/Help/SCHUR.txt",
+      "originalFileName": "SCHUR.txt",
+      "safeFileName": "0573_SCHUR_2e1eba79.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SEC",
+      "originalPath": "Xcode/Xprime/Resources/Help/SEC.txt",
+      "originalFileName": "SEC.txt",
+      "safeFileName": "0574_SEC_f2796b15.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "segment",
+      "originalPath": "Xcode/Xprime/Resources/Help/segment.txt",
+      "originalFileName": "segment.txt",
+      "safeFileName": "0575_segment_719e37b6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "select",
+      "originalPath": "Xcode/Xprime/Resources/Help/select.txt",
+      "originalFileName": "select.txt",
+      "safeFileName": "0576_select_81d342b7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "seq",
+      "originalPath": "Xcode/Xprime/Resources/Help/seq.txt",
+      "originalFileName": "seq.txt",
+      "safeFileName": "0577_seq_6b4b1f23.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "seqsolve",
+      "originalPath": "Xcode/Xprime/Resources/Help/seqsolve.txt",
+      "originalFileName": "seqsolve.txt",
+      "safeFileName": "0578_seqsolve_ac03f380.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "series",
+      "originalPath": "Xcode/Xprime/Resources/Help/series.txt",
+      "originalFileName": "series.txt",
+      "safeFileName": "0579_series_25f06536.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SETBASE",
+      "originalPath": "Xcode/Xprime/Resources/Help/SETBASE.txt",
+      "originalFileName": "SETBASE.txt",
+      "safeFileName": "0580_SETBASE_3897e232.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SETBITS",
+      "originalPath": "Xcode/Xprime/Resources/Help/SETBITS.txt",
+      "originalFileName": "SETBITS.txt",
+      "safeFileName": "0581_SETBITS_56c27b86.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "shift_phase",
+      "originalPath": "Xcode/Xprime/Resources/Help/shift_phase.txt",
+      "originalFileName": "shift_phase.txt",
+      "safeFileName": "0582_shift_phase_fcadd134.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Si",
+      "originalPath": "Xcode/Xprime/Resources/Help/Si.txt",
+      "originalFileName": "Si.txt",
+      "safeFileName": "0583_Si_9cf14739.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SIGN",
+      "originalPath": "Xcode/Xprime/Resources/Help/SIGN.txt",
+      "originalFileName": "SIGN.txt",
+      "safeFileName": "0584_SIGN_4e6ea403.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "signature",
+      "originalPath": "Xcode/Xprime/Resources/Help/signature.txt",
+      "originalFileName": "signature.txt",
+      "safeFileName": "0585_signature_459714fd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "similarity",
+      "originalPath": "Xcode/Xprime/Resources/Help/similarity.txt",
+      "originalFileName": "similarity.txt",
+      "safeFileName": "0586_similarity_d8b59b70.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "simplify",
+      "originalPath": "Xcode/Xprime/Resources/Help/simplify.txt",
+      "originalFileName": "simplify.txt",
+      "safeFileName": "0587_simplify_8e56a13a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "simult",
+      "originalPath": "Xcode/Xprime/Resources/Help/simult.txt",
+      "originalFileName": "simult.txt",
+      "safeFileName": "0588_simult_b8313682.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SIN",
+      "originalPath": "Xcode/Xprime/Resources/Help/SIN.txt",
+      "originalFileName": "SIN.txt",
+      "safeFileName": "0589_SIN_f6cbe38a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sin2costan",
+      "originalPath": "Xcode/Xprime/Resources/Help/sin2costan.txt",
+      "originalFileName": "sin2costan.txt",
+      "safeFileName": "0590_sin2costan_bfd7b0a6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sincos",
+      "originalPath": "Xcode/Xprime/Resources/Help/sincos.txt",
+      "originalFileName": "sincos.txt",
+      "safeFileName": "0591_sincos_c81c218b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "single_inter",
+      "originalPath": "Xcode/Xprime/Resources/Help/single_inter.txt",
+      "originalFileName": "single_inter.txt",
+      "safeFileName": "0592_single_inter_43fa2250.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SINH",
+      "originalPath": "Xcode/Xprime/Resources/Help/SINH.txt",
+      "originalFileName": "SINH.txt",
+      "safeFileName": "0593_SINH_cf1e1301.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SIZE",
+      "originalPath": "Xcode/Xprime/Resources/Help/SIZE.txt",
+      "originalFileName": "SIZE.txt",
+      "safeFileName": "0594_SIZE_2213e3a6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "slope",
+      "originalPath": "Xcode/Xprime/Resources/Help/slope.txt",
+      "originalFileName": "slope.txt",
+      "safeFileName": "0595_slope_db62dc4f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "slopeat",
+      "originalPath": "Xcode/Xprime/Resources/Help/slopeat.txt",
+      "originalFileName": "slopeat.txt",
+      "safeFileName": "0596_slopeat_7dac8478.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "slopeatraw",
+      "originalPath": "Xcode/Xprime/Resources/Help/slopeatraw.txt",
+      "originalFileName": "slopeatraw.txt",
+      "safeFileName": "0597_slopeatraw_154adfbb.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "solve",
+      "originalPath": "Xcode/Xprime/Resources/Help/solve.txt",
+      "originalFileName": "solve.txt",
+      "safeFileName": "0598_solve_80cbedcf.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SORT",
+      "originalPath": "Xcode/Xprime/Resources/Help/SORT.txt",
+      "originalFileName": "SORT.txt",
+      "safeFileName": "0599_SORT_8c49dd50.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SPECNORM",
+      "originalPath": "Xcode/Xprime/Resources/Help/SPECNORM.txt",
+      "originalFileName": "SPECNORM.txt",
+      "safeFileName": "0600_SPECNORM_84f99ba4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SPECRAD",
+      "originalPath": "Xcode/Xprime/Resources/Help/SPECRAD.txt",
+      "originalFileName": "SPECRAD.txt",
+      "safeFileName": "0601_SPECRAD_b2b6bd23.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "spline",
+      "originalPath": "Xcode/Xprime/Resources/Help/spline.txt",
+      "originalFileName": "spline.txt",
+      "safeFileName": "0602_spline_73e53204.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sqrfree",
+      "originalPath": "Xcode/Xprime/Resources/Help/sqrfree.txt",
+      "originalFileName": "sqrfree.txt",
+      "safeFileName": "0603_sqrfree_89efdd2c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sqrt",
+      "originalPath": "Xcode/Xprime/Resources/Help/sqrt.txt",
+      "originalFileName": "sqrt.txt",
+      "safeFileName": "0604_sqrt_a78f19cc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "square",
+      "originalPath": "Xcode/Xprime/Resources/Help/square.txt",
+      "originalFileName": "square.txt",
+      "safeFileName": "0605_square_ecba92b6.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "STARTAPP",
+      "originalPath": "Xcode/Xprime/Resources/Help/STARTAPP.txt",
+      "originalFileName": "STARTAPP.txt",
+      "safeFileName": "0606_STARTAPP_75b89c9e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "STARTVIEW",
+      "originalPath": "Xcode/Xprime/Resources/Help/STARTVIEW.txt",
+      "originalFileName": "STARTVIEW.txt",
+      "safeFileName": "0607_STARTVIEW_7295b5e2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "stddev",
+      "originalPath": "Xcode/Xprime/Resources/Help/stddev.txt",
+      "originalFileName": "stddev.txt",
+      "safeFileName": "0608_stddev_94e99349.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "stddevp",
+      "originalPath": "Xcode/Xprime/Resources/Help/stddevp.txt",
+      "originalFileName": "stddevp.txt",
+      "safeFileName": "0609_stddevp_193d3ab2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "STEP",
+      "originalPath": "Xcode/Xprime/Resources/Help/STEP.txt",
+      "originalFileName": "STEP.txt",
+      "safeFileName": "0610_STEP_9800d12f.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sto",
+      "originalPath": "Xcode/Xprime/Resources/Help/sto.txt",
+      "originalFileName": "sto.txt",
+      "safeFileName": "0611_sto_205e7f64.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "STRING",
+      "originalPath": "Xcode/Xprime/Resources/Help/STRING.txt",
+      "originalFileName": "STRING.txt",
+      "safeFileName": "0612_STRING_d08da858.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "STRINGFROMID",
+      "originalPath": "Xcode/Xprime/Resources/Help/STRINGFROMID.txt",
+      "originalFileName": "STRINGFROMID.txt",
+      "safeFileName": "0613_STRINGFROMID_fc9adb4b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "STUDENT",
+      "originalPath": "Xcode/Xprime/Resources/Help/STUDENT.txt",
+      "originalFileName": "STUDENT.txt",
+      "safeFileName": "0614_STUDENT_a8088366.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "STUDENT_CDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/STUDENT_CDF.txt",
+      "originalFileName": "STUDENT_CDF.txt",
+      "safeFileName": "0615_STUDENT_CDF_0dcb9a9d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "STUDENT_ICDF",
+      "originalPath": "Xcode/Xprime/Resources/Help/STUDENT_ICDF.txt",
+      "originalFileName": "STUDENT_ICDF.txt",
+      "safeFileName": "0616_STUDENT_ICDF_d6679ffd.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sturmab",
+      "originalPath": "Xcode/Xprime/Resources/Help/sturmab.txt",
+      "originalFileName": "sturmab.txt",
+      "safeFileName": "0617_sturmab_77c95374.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sturmseq",
+      "originalPath": "Xcode/Xprime/Resources/Help/sturmseq.txt",
+      "originalFileName": "sturmseq.txt",
+      "safeFileName": "0618_sturmseq_ea5529b8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SUB",
+      "originalPath": "Xcode/Xprime/Resources/Help/SUB.txt",
+      "originalFileName": "SUB.txt",
+      "safeFileName": "0619_SUB_40e19c5b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SUBGROB",
+      "originalPath": "Xcode/Xprime/Resources/Help/SUBGROB.txt",
+      "originalFileName": "SUBGROB.txt",
+      "safeFileName": "0620_SUBGROB_5660cde0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SUBGROB_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/SUBGROB_P.txt",
+      "originalFileName": "SUBGROB_P.txt",
+      "safeFileName": "0621_SUBGROB_P_07cbc54e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "subMat",
+      "originalPath": "Xcode/Xprime/Resources/Help/subMat.txt",
+      "originalFileName": "subMat.txt",
+      "safeFileName": "0622_subMat_5e695d3b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "subst",
+      "originalPath": "Xcode/Xprime/Resources/Help/subst.txt",
+      "originalFileName": "subst.txt",
+      "safeFileName": "0623_subst_78f4634a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sum",
+      "originalPath": "Xcode/Xprime/Resources/Help/sum.txt",
+      "originalFileName": "sum.txt",
+      "safeFileName": "0624_sum_b8ba94cf.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sum_riemann",
+      "originalPath": "Xcode/Xprime/Resources/Help/sum_riemann.txt",
+      "originalFileName": "sum_riemann.txt",
+      "safeFileName": "0625_sum_riemann_ceab5986.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "suppress",
+      "originalPath": "Xcode/Xprime/Resources/Help/suppress.txt",
+      "originalFileName": "suppress.txt",
+      "safeFileName": "0626_suppress_0cb31104.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "surd",
+      "originalPath": "Xcode/Xprime/Resources/Help/surd.txt",
+      "originalFileName": "surd.txt",
+      "safeFileName": "0627_surd_ce3195d0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SVD",
+      "originalPath": "Xcode/Xprime/Resources/Help/SVD.txt",
+      "originalFileName": "SVD.txt",
+      "safeFileName": "0628_SVD_f676698e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SVL",
+      "originalPath": "Xcode/Xprime/Resources/Help/SVL.txt",
+      "originalFileName": "SVL.txt",
+      "safeFileName": "0629_SVL_b13be401.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SWAPCOL",
+      "originalPath": "Xcode/Xprime/Resources/Help/SWAPCOL.txt",
+      "originalFileName": "SWAPCOL.txt",
+      "safeFileName": "0630_SWAPCOL_d58228f9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "SWAPROW",
+      "originalPath": "Xcode/Xprime/Resources/Help/SWAPROW.txt",
+      "originalFileName": "SWAPROW.txt",
+      "safeFileName": "0631_SWAPROW_3b754f97.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "sylvester",
+      "originalPath": "Xcode/Xprime/Resources/Help/sylvester.txt",
+      "originalFileName": "sylvester.txt",
+      "safeFileName": "0632_sylvester_9a8442cc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "symb2poly",
+      "originalPath": "Xcode/Xprime/Resources/Help/symb2poly.txt",
+      "originalFileName": "symb2poly.txt",
+      "safeFileName": "0633_symb2poly_ccdf7607.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "table",
+      "originalPath": "Xcode/Xprime/Resources/Help/table.txt",
+      "originalFileName": "table.txt",
+      "safeFileName": "0634_table_868cfa51.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tail",
+      "originalPath": "Xcode/Xprime/Resources/Help/tail.txt",
+      "originalFileName": "tail.txt",
+      "safeFileName": "0635_tail_cc0b1aee.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TAN",
+      "originalPath": "Xcode/Xprime/Resources/Help/TAN.txt",
+      "originalFileName": "TAN.txt",
+      "safeFileName": "0636_TAN_837cf4c9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tan2cossin2",
+      "originalPath": "Xcode/Xprime/Resources/Help/tan2cossin2.txt",
+      "originalFileName": "tan2cossin2.txt",
+      "safeFileName": "0637_tan2cossin2_5235d65a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tan2sincos",
+      "originalPath": "Xcode/Xprime/Resources/Help/tan2sincos.txt",
+      "originalFileName": "tan2sincos.txt",
+      "safeFileName": "0638_tan2sincos_36a20505.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tan2sincos2",
+      "originalPath": "Xcode/Xprime/Resources/Help/tan2sincos2.txt",
+      "originalFileName": "tan2sincos2.txt",
+      "safeFileName": "0639_tan2sincos2_bd25a2a0.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tangent",
+      "originalPath": "Xcode/Xprime/Resources/Help/tangent.txt",
+      "originalFileName": "tangent.txt",
+      "safeFileName": "0640_tangent_8d8d329c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TANH",
+      "originalPath": "Xcode/Xprime/Resources/Help/TANH.txt",
+      "originalFileName": "TANH.txt",
+      "safeFileName": "0641_TANH_c1245832.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "taylor",
+      "originalPath": "Xcode/Xprime/Resources/Help/taylor.txt",
+      "originalFileName": "taylor.txt",
+      "safeFileName": "0642_taylor_14db39c3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tchebyshev1",
+      "originalPath": "Xcode/Xprime/Resources/Help/tchebyshev1.txt",
+      "originalFileName": "tchebyshev1.txt",
+      "safeFileName": "0643_tchebyshev1_c31fda6a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tchebyshev2",
+      "originalPath": "Xcode/Xprime/Resources/Help/tchebyshev2.txt",
+      "originalFileName": "tchebyshev2.txt",
+      "safeFileName": "0644_tchebyshev2_ddecd779.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tcollect",
+      "originalPath": "Xcode/Xprime/Resources/Help/tcollect.txt",
+      "originalFileName": "tcollect.txt",
+      "safeFileName": "0645_tcollect_089c2223.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "texpand",
+      "originalPath": "Xcode/Xprime/Resources/Help/texpand.txt",
+      "originalFileName": "texpand.txt",
+      "safeFileName": "0646_texpand_e16be7b1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TEXTOUT",
+      "originalPath": "Xcode/Xprime/Resources/Help/TEXTOUT.txt",
+      "originalFileName": "TEXTOUT.txt",
+      "safeFileName": "0647_TEXTOUT_70abd0c2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TEXTOUT_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/TEXTOUT_P.txt",
+      "originalFileName": "TEXTOUT_P.txt",
+      "safeFileName": "0648_TEXTOUT_P_a4be2497.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TEXTSIZE",
+      "originalPath": "Xcode/Xprime/Resources/Help/TEXTSIZE.txt",
+      "originalFileName": "TEXTSIZE.txt",
+      "safeFileName": "0649_TEXTSIZE_5c001cd8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "THEN",
+      "originalPath": "Xcode/Xprime/Resources/Help/THEN.txt",
+      "originalFileName": "THEN.txt",
+      "safeFileName": "0650_THEN_678a39a8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tlin",
+      "originalPath": "Xcode/Xprime/Resources/Help/tlin.txt",
+      "originalFileName": "tlin.txt",
+      "safeFileName": "0651_tlin_f96becc7.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TO",
+      "originalPath": "Xcode/Xprime/Resources/Help/TO.txt",
+      "originalFileName": "TO.txt",
+      "safeFileName": "0652_TO_8b762c7b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TRACE",
+      "originalPath": "Xcode/Xprime/Resources/Help/TRACE.txt",
+      "originalFileName": "TRACE.txt",
+      "safeFileName": "0653_TRACE_7bcc152e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "translation",
+      "originalPath": "Xcode/Xprime/Resources/Help/translation.txt",
+      "originalFileName": "translation.txt",
+      "safeFileName": "0654_translation_15041e73.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "transpose",
+      "originalPath": "Xcode/Xprime/Resources/Help/transpose.txt",
+      "originalFileName": "transpose.txt",
+      "safeFileName": "0655_transpose_185f6298.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "triangle",
+      "originalPath": "Xcode/Xprime/Resources/Help/triangle.txt",
+      "originalFileName": "triangle.txt",
+      "safeFileName": "0656_triangle_587f00b9.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TRIANGLE_P",
+      "originalPath": "Xcode/Xprime/Resources/Help/TRIANGLE_P.txt",
+      "originalFileName": "TRIANGLE_P.txt",
+      "safeFileName": "0657_TRIANGLE_P_3b84730b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "trig2exp",
+      "originalPath": "Xcode/Xprime/Resources/Help/trig2exp.txt",
+      "originalFileName": "trig2exp.txt",
+      "safeFileName": "0658_trig2exp_bd3f733d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "trigcos",
+      "originalPath": "Xcode/Xprime/Resources/Help/trigcos.txt",
+      "originalFileName": "trigcos.txt",
+      "safeFileName": "0659_trigcos_4a7a61a4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "trigexpand",
+      "originalPath": "Xcode/Xprime/Resources/Help/trigexpand.txt",
+      "originalFileName": "trigexpand.txt",
+      "safeFileName": "0660_trigexpand_7266ccf2.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "trigsin",
+      "originalPath": "Xcode/Xprime/Resources/Help/trigsin.txt",
+      "originalFileName": "trigsin.txt",
+      "safeFileName": "0661_trigsin_75845f29.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "trigtan",
+      "originalPath": "Xcode/Xprime/Resources/Help/trigtan.txt",
+      "originalFileName": "trigtan.txt",
+      "safeFileName": "0662_trigtan_f73e524a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TRN",
+      "originalPath": "Xcode/Xprime/Resources/Help/TRN.txt",
+      "originalFileName": "TRN.txt",
+      "safeFileName": "0663_TRN_c261d630.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "trunc",
+      "originalPath": "Xcode/Xprime/Resources/Help/trunc.txt",
+      "originalFileName": "trunc.txt",
+      "safeFileName": "0664_trunc_e5cf6614.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "TRUNCATE",
+      "originalPath": "Xcode/Xprime/Resources/Help/TRUNCATE.txt",
+      "originalFileName": "TRUNCATE.txt",
+      "safeFileName": "0665_TRUNCATE_0a469625.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "tsimplify",
+      "originalPath": "Xcode/Xprime/Resources/Help/tsimplify.txt",
+      "originalFileName": "tsimplify.txt",
+      "safeFileName": "0666_tsimplify_3a1190bf.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "type",
+      "originalPath": "Xcode/Xprime/Resources/Help/type.txt",
+      "originalFileName": "type.txt",
+      "safeFileName": "0667_type_7ae4eaa1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "UFACTOR",
+      "originalPath": "Xcode/Xprime/Resources/Help/UFACTOR.txt",
+      "originalFileName": "UFACTOR.txt",
+      "safeFileName": "0668_UFACTOR_73212dc1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "unapply",
+      "originalPath": "Xcode/Xprime/Resources/Help/unapply.txt",
+      "originalFileName": "unapply.txt",
+      "safeFileName": "0669_unapply_cc19a556.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "UNCHECK",
+      "originalPath": "Xcode/Xprime/Resources/Help/UNCHECK.txt",
+      "originalFileName": "UNCHECK.txt",
+      "safeFileName": "0670_UNCHECK_e9a3947d.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "UNTIL",
+      "originalPath": "Xcode/Xprime/Resources/Help/UNTIL.txt",
+      "originalFileName": "UNTIL.txt",
+      "safeFileName": "0671_UNTIL_05882998.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "USIMPLIFY",
+      "originalPath": "Xcode/Xprime/Resources/Help/USIMPLIFY.txt",
+      "originalFileName": "USIMPLIFY.txt",
+      "safeFileName": "0672_USIMPLIFY_52ec049c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "valuation",
+      "originalPath": "Xcode/Xprime/Resources/Help/valuation.txt",
+      "originalFileName": "valuation.txt",
+      "safeFileName": "0673_valuation_7a223e8c.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "vandermonde",
+      "originalPath": "Xcode/Xprime/Resources/Help/vandermonde.txt",
+      "originalFileName": "vandermonde.txt",
+      "safeFileName": "0674_vandermonde_86075936.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "variance",
+      "originalPath": "Xcode/Xprime/Resources/Help/variance.txt",
+      "originalFileName": "variance.txt",
+      "safeFileName": "0675_variance_5fc7d6d8.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "vector",
+      "originalPath": "Xcode/Xprime/Resources/Help/vector.txt",
+      "originalFileName": "vector.txt",
+      "safeFileName": "0676_vector_81f51680.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "vertices",
+      "originalPath": "Xcode/Xprime/Resources/Help/vertices.txt",
+      "originalFileName": "vertices.txt",
+      "safeFileName": "0677_vertices_2d039498.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "vertices_abca",
+      "originalPath": "Xcode/Xprime/Resources/Help/vertices_abca.txt",
+      "originalFileName": "vertices_abca.txt",
+      "safeFileName": "0678_vertices_abca_24d8ba75.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "VIEW",
+      "originalPath": "Xcode/Xprime/Resources/Help/VIEW.txt",
+      "originalFileName": "VIEW.txt",
+      "safeFileName": "0679_VIEW_01e41288.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "vpotential",
+      "originalPath": "Xcode/Xprime/Resources/Help/vpotential.txt",
+      "originalFileName": "vpotential.txt",
+      "safeFileName": "0680_vpotential_95930a9b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "WAIT",
+      "originalPath": "Xcode/Xprime/Resources/Help/WAIT.txt",
+      "originalFileName": "WAIT.txt",
+      "safeFileName": "0681_WAIT_69fef438.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "when",
+      "originalPath": "Xcode/Xprime/Resources/Help/when.txt",
+      "originalFileName": "when.txt",
+      "safeFileName": "0682_when_6f81b24b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "WHILE",
+      "originalPath": "Xcode/Xprime/Resources/Help/WHILE.txt",
+      "originalFileName": "WHILE.txt",
+      "safeFileName": "0683_WHILE_2ae5cac4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "white",
+      "originalPath": "Xcode/Xprime/Resources/Help/white.txt",
+      "originalFileName": "white.txt",
+      "safeFileName": "0684_white_c80cbdad.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "XOR",
+      "originalPath": "Xcode/Xprime/Resources/Help/XOR.txt",
+      "originalFileName": "XOR.txt",
+      "safeFileName": "0685_XOR_c88175c4.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "XPON",
+      "originalPath": "Xcode/Xprime/Resources/Help/XPON.txt",
+      "originalFileName": "XPON.txt",
+      "safeFileName": "0686_XPON_a98da92a.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "yellow",
+      "originalPath": "Xcode/Xprime/Resources/Help/yellow.txt",
+      "originalFileName": "yellow.txt",
+      "safeFileName": "0687_yellow_f0d01efc.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "zeros",
+      "originalPath": "Xcode/Xprime/Resources/Help/zeros.txt",
+      "originalFileName": "zeros.txt",
+      "safeFileName": "0688_zeros_918d4b78.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "Zeta",
+      "originalPath": "Xcode/Xprime/Resources/Help/Zeta.txt",
+      "originalFileName": "Zeta.txt",
+      "safeFileName": "0689_Zeta_58cbc4ac.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "zip",
+      "originalPath": "Xcode/Xprime/Resources/Help/zip.txt",
+      "originalFileName": "zip.txt",
+      "safeFileName": "0690_zip_702aaae3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "ztrans",
+      "originalPath": "Xcode/Xprime/Resources/Help/ztrans.txt",
+      "originalFileName": "ztrans.txt",
+      "safeFileName": "0691_ztrans_ea2b6b14.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "^",
+      "originalPath": "Xcode/Xprime/Resources/Help/^.txt",
+      "originalFileName": "^.txt",
+      "safeFileName": "0692_u005E_d988d67e.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "\u0060",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u0060.txt",
+      "originalFileName": "\u0060.txt",
+      "safeFileName": "0693_u0060_f1cb70ad.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "\u2192HMS",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u2192HMS.txt",
+      "originalFileName": "\u2192HMS.txt",
+      "safeFileName": "0694_u2192_HMS_30b0a00b.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "\u2206LIST",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u2206LIST.txt",
+      "originalFileName": "\u2206LIST.txt",
+      "safeFileName": "0695_u2206_LIST_aa6677b3.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "\u220FLIST",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u220FLIST.txt",
+      "originalFileName": "\u220FLIST.txt",
+      "safeFileName": "0696_u220F_LIST_a24a84a1.txt",
+      "wasWindowsUnsafe": false
+    },
+    {
+      "title": "\u2211LIST",
+      "originalPath": "Xcode/Xprime/Resources/Help/\u2211LIST.txt",
+      "originalFileName": "\u2211LIST.txt",
+      "safeFileName": "0697_u2211_LIST_e06a3fa4.txt",
+      "wasWindowsUnsafe": false
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+Syntax:
+parallel(Point, Line)
+
+Draws a line through a given point that is parallel to a given line.
+
+Example:
+parallel(A, B) draws the line through point A that is parallel to line B.
+parallel(point(3–2*i), line(x+y–5)) draws the line through the point (3, –2) that is parallel to the line whose equation is x+y=5; that is, the line whose equation is y=–x+1.

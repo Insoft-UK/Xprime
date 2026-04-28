@@ -1,0 +1,4 @@
+Syntax:
+resultant(Poly,Poly,Var)
+
+Returns the inert form of the resultant for modular computation (irem/mod)

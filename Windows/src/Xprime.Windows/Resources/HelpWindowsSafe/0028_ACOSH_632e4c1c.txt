@@ -1,0 +1,7 @@
+Syntax:
+ACOSH(value)
+
+Inverse hyperbolic cosine.
+
+Example:
+ACOSH(1.54308063482) returns 1

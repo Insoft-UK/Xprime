@@ -1,0 +1,7 @@
+Syntax:
+LEFT(string, n)
+
+Returns the first n characters of the string.
+
+Example:
+LEFT("MOMOGUMBO",3) returns "MOM"

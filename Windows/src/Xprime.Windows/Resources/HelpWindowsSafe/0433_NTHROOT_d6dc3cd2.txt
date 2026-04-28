@@ -1,0 +1,8 @@
+Syntax:
+Value1 √ Value2
+
+NTHROOT: the nth root function.
+This Shift-key combination is the NTHROOT function. It returns the primary Value1 root of Value2. On the keyboard, the NTHROOT function is represented by n√ .
+
+Example:
+3√ 8 returns 2

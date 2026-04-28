@@ -1,0 +1,7 @@
+Syntax:
+simplify(Expr)
+
+Simplifies an expression.
+
+Example:
+simplify(4*atan(1/5)-atan(1/239)) yields (1/4)*π

@@ -1,0 +1,7 @@
+Syntax:
+SPECNORM(matrix)
+
+Spectral Norm of matrix.
+
+Example:
+SPECNORM([[1,2],[3,4]]) returns 5.46498570422

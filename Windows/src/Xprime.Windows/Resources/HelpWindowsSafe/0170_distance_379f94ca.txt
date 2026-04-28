@@ -1,0 +1,7 @@
+Syntax:
+distance((Pnt or Cplx),(Pnt or Cplx or Curve))
+
+Calculates the distance between 2 points, or a point and a curve.
+
+Example:
+distance(0,1+i) returns √2

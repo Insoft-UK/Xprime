@@ -1,0 +1,7 @@
+Syntax:
+similarity(Point, Realk, Angle, Object)
+
+Dilates and rotates a geometric object about the same center point.
+
+Example:
+similarity(0, 3, angle(0,1,i),point(2,0)) dilates the point at (2,0) by a scale factor of 3 (a point at (6,0)), then rotates the result 90° counterclockwise to create a point at (0, 6)

@@ -1,0 +1,12 @@
+Syntax:
+REPEAT command(s) UNTIL test;
+
+executes command(s) UNTIL the test is true.
+
+A:=5;
+REPEAT
+PRINT(A); 
+A:= A-1;
+UNTIL A<1;
+
+will print  5 4 3 2 1

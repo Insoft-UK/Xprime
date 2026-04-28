@@ -1,0 +1,7 @@
+Syntax:
+√(Expr)
+
+Returns the square root of Expr
+
+Example:
+√50 returns 5*√2

@@ -1,0 +1,9 @@
+Syntax:
+BINOMIAL(n, p, k)
+
+Binomial probability density function.
+Computes the probability of k successes out of n trials, each with a probability of success, p.
+Note that n and k are integers with k≤n.
+
+Example:
+BINOMIAL(4, 0.5, 2) returns 0.375

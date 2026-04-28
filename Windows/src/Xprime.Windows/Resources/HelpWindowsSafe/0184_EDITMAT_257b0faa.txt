@@ -1,0 +1,7 @@
+Syntax:
+EDITMAT(matrixname)
+
+Starts the Matrix Editor and displays the specified matrix. If used in programming, returns to the program when user presses OK (menu key).
+
+Example:
+EDITMAT(M1) edits matrix M1.

@@ -1,0 +1,7 @@
+Syntax:
+remove(FncBool(f)||e,Lst(l))
+
+Removes the occurences e of l or the elements e such that f(e)=true
+
+Example:
+remove(x->x>=5,[1,2,6,7]) returns [1,2]

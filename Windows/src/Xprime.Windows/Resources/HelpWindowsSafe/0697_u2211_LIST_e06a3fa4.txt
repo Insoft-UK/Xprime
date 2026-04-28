@@ -1,0 +1,7 @@
+Syntax:
+ΣLIST(list)
+
+Sum of a list. Returns the sum of all elements in list.
+
+Example:
+ΣLIST({2,3,4}) returns 9

@@ -1,0 +1,8 @@
+Syntax:
+translation(Vector, Object)
+
+Translates a geometric object along a given vector. The vector is given as the difference of two points (head-tail).
+
+Example:
+translation(0-i, GA) translates object A down one unit.
+translation(GB-GA, GC) translates object C along the vector AB.

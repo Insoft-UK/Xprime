@@ -1,0 +1,8 @@
+Syntax:
+Value1 XOR Value2
+
+Exclusive OR. 
+Returns 1 if either Value1 or Value2 is non-zero but not both; otherwise, returns 0.
+
+Example:
+3 XOR 2 returns 0

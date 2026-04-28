@@ -1,0 +1,7 @@
+Syntax:
+abcuv(Polya,Polyb,Polyc,[Var])
+
+Returns [u,v] suchthat au+bv=c for 3 polynomials a, b, and c.
+
+Example:
+abcuv(x^2+2*x+1,x^2-1,x+1) returns [1/2,-1/2]

@@ -1,0 +1,4 @@
+Syntax:
+ADDROW(matrixname, vector, row_number)
+
+Add Row. Inserts values from vector into a row before row_number in the specified matrix. The size of vector must be the same as the number of columns in the matrix matrixname.

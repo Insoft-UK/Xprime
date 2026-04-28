@@ -1,0 +1,7 @@
+Syntax:
+SORT(list)
+
+Sort list. Sorts the elements of list in ascending order.
+
+Example:
+SORT({2, 9, 5, 3}) returns {2, 3, 5, 9}.

@@ -1,0 +1,4 @@
+Syntax:
+SWAPROW(matrixname, row1, row2)
+
+Swap Rows. Exchanges row1 and row2 in the specified matrix matrixname.

@@ -1,0 +1,4 @@
+Syntax:
+ADDCOL(matrixname, vector, column_number)
+
+Add Column. Inserts values from vector into a column before column_number in the specified matrix. The size of vector must be the same as the number of rows in the matrix matrixname.

@@ -1,0 +1,7 @@
+Syntax:
+exact(Expr)
+
+Converts the expression to a rational or real expression.
+
+Example:
+exact(1.4141) returns 14141/10000

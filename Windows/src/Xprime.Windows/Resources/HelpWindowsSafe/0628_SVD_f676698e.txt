@@ -1,0 +1,7 @@
+Syntax:
+SVD(matrix)
+
+Singular Value Decomposition. Factors an m  n matrix into two matrices and a vector: {[[m  m square orthogonal]],[[n  n square orthogonal]], [real]}.
+
+Example:
+SVD([[1,2],[3,4]])

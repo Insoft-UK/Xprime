@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Xprime.Windows.Core\Xprime.Windows.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\PplHighlighting.xshd" />
+    <Content Include="..\..\..\Xcode\Xprime\Resources\Grammars\**\*.*" Link="Resources\Grammars\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\Xcode\Xprime\Resources\Themes\**\*.*" Link="Resources\Themes\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\Xcode\Xprime\Resources\Developer\Library\Xprime\Snippets\**\*.*" Link="Resources\Developer\Library\Xprime\Snippets\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\Xcode\Xprime\Resources\Developer\Library\Xprime\Templates\**\*.*" Link="Resources\Developer\Library\Xprime\Templates\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\Xcode\Xprime\Resources\Developer\usr\include\**\*.*" Link="Resources\Developer\usr\include\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\Xcode\Xprime\Resources\Developer\usr\lib\**\*.*" Link="Resources\Developer\usr\lib\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\Xcode\Xprime\Resources\Developer\usr\hpappdir\**\*.*" Link="Resources\Developer\usr\hpappdir\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Resources\HelpWindowsSafe\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="tools\bin\*.exe" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\LICENSE" Link="licenses\Xprime-LICENSE.txt" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\Xcode\Tools\hpppl+\LICENSE.md" Link="licenses\hppplplus-LICENSE.md" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\..\Xcode\Tools\hpnote\LICENSE.md" Link="licenses\hpnote-LICENSE.md" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\THIRD_PARTY_NOTICES.md" Link="licenses\THIRD_PARTY_NOTICES.md" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

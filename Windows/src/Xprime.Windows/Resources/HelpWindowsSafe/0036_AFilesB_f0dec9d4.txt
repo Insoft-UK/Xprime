@@ -1,0 +1,13 @@
+Syntax:
+AFilesB(["name"], [position, nb])
+
+Each HP Prime app can have any number of files associated with it. These files are sent with the app. AFilesB
+is the binary equivalent of the AFiles variable.
+
+Example:
+AFilesB returns the list of all files associated with an app.
+AFilesB("name") returns the size of the file with the given name.
+AFilesB("name", position, [nb]) returns nb bytes read from the file with the given name,
+starting from position in the file (position starts at 0).
+AFilesB("name", position):= value or {values...} stores n bytes, starting at position, in the
+file with the given name.

@@ -1,0 +1,9 @@
+Syntax:
+NOT Value
+
+Logical NOT. 
+
+Returns 1 if Value is zero; otherwise returns 0.
+
+Example:
+NOT 3 returns 0

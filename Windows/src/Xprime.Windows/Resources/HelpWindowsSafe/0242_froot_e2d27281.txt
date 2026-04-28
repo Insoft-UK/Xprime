@@ -1,0 +1,7 @@
+Syntax:
+froot(RatPoly(F))
+
+Returns the list of roots and poles of F with their mulitiplicity.
+
+Example:
+froot((x^5-2*x^4+x^3)/(x-3)) returns [0,3,1,2,3,-1]

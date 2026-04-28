@@ -1,0 +1,4 @@
+Syntax:
+locus(Point,Element)
+
+Given a first point and a second point that is an element of (a point on) a geometric object, draws the locus of the first point as the second point traverses its object.

@@ -1,0 +1,7 @@
+Syntax:
+charpoly(Mtrx,[Var])
+
+List of the coefficients of the characteristic polynomial of a matrix or characteristic polynomial of a matrix with the second argument as variable.
+
+Example:
+charpoly([[1,2],[3,4]]) returns poly1[1,-5,-2]

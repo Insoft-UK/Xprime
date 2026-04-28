@@ -1,0 +1,7 @@
+Syntax:
+mRow(Expr(Xpr),Mtrx(A),Intg(n1))
+
+Multiplies the row n1 of the matrix A by Xpr.
+
+Example:
+mRow(12,[[1,2],[3,4],[5,6]],1) returns [[12,24],[3,4],[5,6]]

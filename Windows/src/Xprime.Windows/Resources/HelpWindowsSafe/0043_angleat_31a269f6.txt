@@ -1,0 +1,7 @@
+Syntax:
+angleat(Vertex, Point2, Point3, Point4)
+
+Used in Symbolic view. Given the three points of an angle and a fourth point as a location, displays the measure of the angle defined by the first three points, with a label, at the location in the Plot view given by the fourth point. The first point is the vertex of the angle.
+
+Example:
+angleat(GA, GB, GC, point(0,0)) displays “aA=” at the origin, followed by the measure of ∡BAC.

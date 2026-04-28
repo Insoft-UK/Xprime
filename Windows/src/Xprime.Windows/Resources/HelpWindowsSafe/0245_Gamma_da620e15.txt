@@ -1,0 +1,7 @@
+Syntax:
+Gamma(Real(x0))
+
+Calculus of Gamma at a point x0 (Gamma(n+1)=n! for n integer).
+
+Example:
+Gamma(5) returns 24

@@ -1,0 +1,7 @@
+Syntax:
+hamdist(Intg,Intg)
+
+Bit Hamming distance.
+
+Example:
+hamdist(0x12,0x38) returns 3

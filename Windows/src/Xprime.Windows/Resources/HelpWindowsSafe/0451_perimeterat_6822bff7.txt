@@ -1,0 +1,4 @@
+Syntax:
+perimeterat(Polygon, Pnt||Cplx(z0))
+
+Displays at point(z0), with a legend, the perimeter of a circle or of a polygon (e.g. triangle, square, ...).

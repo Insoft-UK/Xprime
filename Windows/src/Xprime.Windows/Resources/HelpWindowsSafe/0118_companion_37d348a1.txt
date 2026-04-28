@@ -1,0 +1,7 @@
+Syntax:
+companion(Poly,Var)
+
+Companion matrix of a polynomial (an=1).
+
+Example:
+companion(x^2+5x-7,x) returns [[0,7],[1,-5]]

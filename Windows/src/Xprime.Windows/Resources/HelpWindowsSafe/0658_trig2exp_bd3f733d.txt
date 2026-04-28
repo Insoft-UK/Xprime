@@ -1,0 +1,7 @@
+Syntax:
+trig2exp(Expr)
+
+Replaces trigonometric functions in Expr with complex exponentials( without linearization).
+
+Example:
+trig2exp(sin(x)) returns (exp(i*x)-(1/exp(i*x)))/(2*i)

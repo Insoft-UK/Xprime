@@ -1,0 +1,7 @@
+Syntax:
+TANH(value)
+
+Hyperbolic tangent.
+
+Example:
+TANH(1) returns .761594155956

@@ -1,0 +1,4 @@
+Syntax:
+open_polygon(LstPnt||LstCplx)
+
+Returns and draws the polygonal line where its vertices are the element of l.
