@@ -28,12 +28,8 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
     
     @IBOutlet weak var librarySearchPath: NSTextField!
     @IBOutlet weak var headerSearchPath: NSTextField!
-    @IBOutlet weak var calculator: NSImageView!
     @IBOutlet weak var defaultButton: NSButton!
     @IBOutlet weak var doneButton: NSButton!
-    
-    @IBOutlet weak var calculators: NSPopUpButton!
-    
 
     // MARK: - View
     
@@ -45,14 +41,6 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib // ToolchainPaths.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include //ToolchainPaths.include
-
-        if HPServices.hpPrimeCalculatorExists(named: ProjectSettings.shared.calculator) {
-            self.calculator.image = NSImage(named: "ConnectivityKit")
-        } else {
-            self.calculator.image = NSImage(named: "VirtualCalculator")
-        }
-        
-        populateCalculatorsMenu()
     }
     
     override func viewDidAppear() {
@@ -76,78 +64,7 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         vc = window.contentViewController as? MainViewController
     }
     
-    // MARK: - Calculator Selection
-    private func populateCalculatorsMenu() {
-        let menu = calculators.menu
-        menu?.removeAllItems()
 
-        func makeMenuItem(title: String, stateName: String) -> NSMenuItem {
-            let item = NSMenuItem(
-                title: title,
-                action: #selector(calculatorSelected(_:)),
-                keyEquivalent: ""
-            )
-
-            if let image = NSImage(named: stateName == "Prime" ? "VirtualCalculator" : "ConnectivityKit")?.copy() as? NSImage {
-                image.size = NSSize(width: 16, height: 16)
-                item.image = image
-            }
-
-            item.state = ProjectSettings.shared.calculator == stateName ? .on : .off
-            return item
-        }
-
-        // Built-in calculators
-        menu?.addItem(makeMenuItem(title: "Virtual Calculator", stateName: "Prime"))
-        menu?.addItem(makeMenuItem(title: "Connectivity Kit", stateName: "HP Prime"))
-        menu?.addItem(.separator())
-
-        // User calculators from disk
-        let calculatorsURL = FileManager.default
-            .homeDirectoryForCurrentUser
-            .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
-
-        let contents = try? FileManager.default.contentsOfDirectory(
-            at: calculatorsURL,
-            includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles]
-        )
-
-        contents?
-            .map { $0.deletingPathExtension().lastPathComponent }
-            .filter { $0 != "HP Prime" }
-            .forEach { name in
-                let item = makeMenuItem(title: name, stateName: name)
-                menu?.addItem(item)
-            }
-
-        // Selection
-        switch ProjectSettings.shared.calculator {
-        case "Prime":
-            calculators.selectItem(withTitle: "Virtual Calculator")
-        case "HP Prime":
-            calculators.selectItem(withTitle: "Connectivity Kit")
-        default:
-            calculators.selectItem(withTitle: ProjectSettings.shared.calculator)
-        }
-    }
-
-    
-    @objc private func calculatorSelected(_ sender: NSMenuItem) {
-        if sender.title == "Virtual Calculator" {
-            calculator.image = NSImage(named: "VirtualCalculator")
-            ProjectSettings.shared.calculator = "Prime"
-        } else {
-            if sender.title == "Connectivity Kit" {
-                ProjectSettings.shared.calculator = "HP Prime"
-            } else {
-                ProjectSettings.shared.calculator = sender.title
-            }
-            calculator.image = NSImage(named: "ConnectivityKit")
-        }
-    }
-
-    
     // MARK: - Include or Lib Paths
     func controlTextDidChange(_ notification: Notification) {
         guard let textField = notification.object as? NSTextField else { return }
@@ -165,7 +82,6 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
     }
     
     @IBAction func defaultSettings(_ sender: Any) {
-        ProjectSettings.shared.calculator = "Prime"
         ProjectSettings.shared.archiveProjectAppOnly = true
         ProjectSettings.shared.plainFallbackText = true
         ProjectSettings.shared.compression = false
@@ -176,8 +92,6 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include
-        calculators.selectItem(withTitle: "Virtual Calculator")
-        calculator.image = NSImage(named: "VirtualCalculator")
     }
     
  

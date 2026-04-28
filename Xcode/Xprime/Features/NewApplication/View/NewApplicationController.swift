@@ -62,7 +62,7 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false
         panel.canCreateDirectories = true
-        panel.directoryURL = URL(fileURLWithPath: Settings.shared.location)
+        panel.directoryURL = URL(fileURLWithPath: Settings.shared.workingDirectory + "/Projects")
         panel.prompt = "Create"
 
         panel.begin { result in

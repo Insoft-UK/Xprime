@@ -59,7 +59,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         configureKeywordNormalizationActions()
         
         location.delegate = self
-        location.stringValue = Settings.shared.location
+        location.stringValue = Settings.shared.workingDirectory
     }
     
     func controlTextDidChange(_ notification: Notification) {
@@ -67,7 +67,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
 
         switch textField.tag {
         case 1:
-            Settings.shared.location = textField.stringValue
+            Settings.shared.workingDirectory = textField.stringValue
             break;
         default:
             break
@@ -101,14 +101,14 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func defaultSettings(_ sender: Any) {
         Settings.shared.substitutionEnabled = false
         Settings.shared.useBetaApplications = false
-        Settings.shared.preferredTheme = "Default (Dark)"
-        Settings.shared.location = FileManager
+        Settings.shared.preferredTheme = ""
+        Settings.shared.workingDirectory = FileManager
             .default
             .homeDirectoryForCurrentUser
             .appendingPathComponent("Xprime")
             .path
         
-        location.stringValue = Settings.shared.location
+        location.stringValue = Settings.shared.workingDirectory
         substitution.state = .off
         theme.selectItem(withTitle: Settings.shared.preferredTheme)
         useBetaApplications.state = .off
@@ -117,18 +117,22 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     
     // MARK: - Private Helpers
     private func configureThemeSelection() {
-        guard let resourceURLs = Bundle.main.urls(
-            forResourcesWithExtension: "xpcolortheme",
-            subdirectory: "Themes"
+        propulateThemeSelection(from: defaultWorkingDirectoryURL.appendingPathComponent("Themes"))
+    }
+    
+    private func propulateThemeSelection(from directoryURL: URL) {
+        let fileManager = FileManager.default
+        
+        guard let resourceURLs = try? fileManager.contentsOfDirectory(
+            at: directoryURL,
+            includingPropertiesForKeys: nil,
+            options: [.skipsHiddenFiles]
         ) else {
-#if Debug
-            print("⚠️ No .xpcolortheme files found.")
-#endif
             return
         }
         
         let sortedURLs = resourceURLs
-            .filter { !$0.lastPathComponent.hasPrefix(".") }
+            .filter { $0.pathExtension == "xpcolortheme" }
             .sorted {
                 $0.deletingPathExtension().lastPathComponent
                     .localizedCaseInsensitiveCompare(
@@ -136,7 +140,23 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
                     ) == .orderedAscending
             }
         
-        let themeName = Settings.shared.preferredTheme
+        if !sortedURLs.isEmpty {
+            let menuItem = NSMenuItem(
+                title: "Default",
+                action: #selector(handleThemeSelection(_:)),
+                keyEquivalent: ""
+            )
+            
+            if let url = Bundle.main.url(
+                forResource: "default",
+                withExtension: "xpcolortheme"
+            ) {
+                menuItem.representedObject = url
+                menuItem.target = self
+            }
+            
+            theme.menu?.addItem(menuItem)
+        }
         
         for fileURL in sortedURLs {
             let name = fileURL.deletingPathExtension().lastPathComponent
@@ -146,14 +166,18 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
                 action: #selector(handleThemeSelection(_:)),
                 keyEquivalent: ""
             )
+            
             menuItem.representedObject = fileURL
             menuItem.target = self
-            menuItem.state = themeName == name ? .on : .off
+            menuItem.state = (name == Settings.shared.preferredTheme) ? .on : .off
             
-            theme.menu!.addItem(menuItem)
+            theme.menu?.addItem(menuItem)
         }
+        theme.selectItem(withTitle: Settings.shared.preferredTheme)
         
-        theme.selectItem(withTitle: themeName)
+        if theme.itemArray.isEmpty {
+            theme.isEnabled = false
+        }
     }
     
     private func configureSubtitutionActions() {

@@ -47,6 +47,9 @@ final class PreviewViewController: NSViewController {
         var mainURL = url.appendingPathComponent("main.hppplplus")
         if FileManager.default.fileExists(atPath: url.appendingPathComponent("main.hppplplus").path) == false {
             mainURL = url.appendingPathComponent("main.hpppl")
+            if FileManager.default.fileExists(atPath: url.appendingPathComponent("main.hpppl").path) == false {
+                mainURL = url.appendingPathComponent("main.pas")
+            }
         }
         
         var arguments: [String] = [mainURL.path, "-o", "/dev/stdout"]

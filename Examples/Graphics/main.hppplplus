@@ -1,16 +1,16 @@
 #pragma mode( separator(.,;) integer(h64) assignment(=) indentation(2) )
-uses HP;
-local spectrum := {$I "spectrum.bmp"};
+USES HP;
+LOCAL spectrum := {$I "spectrum.bmp"};
 
-export START()
-begin
-	RECT();
-	HP.IMAGE(G0, 0, 0, spectrum, 20, 240);
-	WAIT(-1);
-    return 0;
-end;
+EXPORT START()
+BEGIN
+  RECT();
+  HP.IMAGE(G0, 0, 0, spectrum);
+  WAIT(-1);
+  RETURN 0;
+END;
 
-export RESET()
-begin
-	return 0;
-end;
+EXPORT RESET()
+BEGIN
+  RETURN 0;
+END;

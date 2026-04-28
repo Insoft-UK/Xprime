@@ -241,10 +241,6 @@ std::string reformat::prgm(const std::string& s)
     auto strings = preserveStrings(output);
     output = blankOutStrings(output);
     
-    output = insertNewlineAfterWords(output, {"THEN", "DO", "REPEAT", "ELSE", "DEFAULT", "CASE"});
-    output = insertNewlineBeforeWords(output, {"EXPORT", "LOCAL", "CONST", "IF", "CASE", "REPEAT", "FOR", "WHILE", "DEFAULT", "UNTIL", "ELSE", "IFERR", "END;"});
-
-    
     // Keywords
     output = capitalizeWords(output, {
         "begin", "end", "return", "kill", "if", "then", "else", "xor", "or", "and", "not",
@@ -253,6 +249,11 @@ std::string reformat::prgm(const std::string& s)
         "eval", "freeze", "view"
     });
     
+    output = removeOperatorSpaces(output, {";"});
+    
+    output = insertNewlineAfterWords(output, {"THEN", "DO", "REPEAT", "ELSE", "DEFAULT", "CASE"});
+    output = insertNewlineBeforeWords(output, {"EXPORT", "LOCAL", "CONST", "IF", "CASE", "REPEAT", "FOR", "WHILE", "DEFAULT", "UNTIL", "ELSE", "IFERR", "END"});
+
     output = cleanWhitespace(output);
     output = insertSpaceAfterComma(output);
     output = fixUnaryMinus(output);
@@ -263,11 +264,13 @@ std::string reformat::prgm(const std::string& s)
     output = reformatAllLines(iss);
     
     output = ensureSpaceAfterKeywordsCaseInsensitive(output, {
-        "begin", "return", "kill", "if", "then", "else", "xor", "or", "and", "not",
-        "case", "default", "iferr", "ifte", "for", "from", "step", "downto", "to", "do",
-        "while", "repeat", "until", "break", "continue", "export", "const", "local", "key",
-        "eval", "freeze", "view"
+        "BEGIN", "RETURN", "KILL", "IF", "THEN", "ELSE", "XOR", "OR", "AND", "NOT",
+        "CASE", "DEFAULT", "IFERR", "IFTE", "FOR", "FROM", "STEP", "DOWNTO", "TO", "DO",
+        "WHILE", "REPEAT", "UNTIL", "BREAK", "CONTINUE", "EXPORT", "CONST", "LOCAL", "KEY",
+        "EVAL", "FREEZE", "VIEW"
     });
+    
+    output = removeOperatorSpaces(output, {":=", "==", "≥", "≤", "≠", "<>", ",", ";"});
     
     output = separatePythonMarkers(output);
     output = restorePythonBlocks(output, python);

@@ -57,7 +57,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false
         panel.canCreateDirectories = true
-        panel.directoryURL = URL(fileURLWithPath: Settings.shared.location)
+        panel.directoryURL = URL(fileURLWithPath: Settings.shared.workingDirectory + "/Projects")
         panel.prompt = "Create"
         panel.level = .modalPanel
 
@@ -92,13 +92,23 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         guard let selectedLanguage = language.titleOfSelectedItem else { return }
         
         do {
-            let hpppl: Bool = selectedLanguage == "HP PPL"
+            var language: String
+            switch selectedLanguage {
+            case "HP PPL":
+                language = "hpppl"
+            case "HP PPL Plus":
+                language = "hppplplus"
+            case "Pascal":
+                language = "pas"
+            default:
+                language = "hpppl"
+            }
             
-            let sourceURL = Bundle.main.url(forResource: CAS.state == .on ? "program~cas" : "program", withExtension: hpppl ? "hpppl" : "hppplplus")
+            let sourceURL = Bundle.main.url(forResource: CAS.state == .on ? "program~cas" : "program", withExtension: language)
             let destinationURL = directoryURL
                 .appendingPathComponent(name)
                 .appendingPathComponent("main")
-                .appendingPathExtension(hpppl ? "hpppl" : "hppplplus")
+                .appendingPathExtension(language)
             
             guard let sourceURL else { return }
             
@@ -122,7 +132,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
                 )
             }
             
-            if let url = Bundle.main.url(forResource: hpppl ? "hpppl" : "hppplplus", withExtension: "xprimeproj") {
+            if let url = Bundle.main.url(forResource: language, withExtension: "xprimeproj") {
                 try FileManager.default.copyItem(
                     at: url,
                     to: directoryURL

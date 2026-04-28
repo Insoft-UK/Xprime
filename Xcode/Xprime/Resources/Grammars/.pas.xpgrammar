@@ -1,0 +1,62 @@
+{
+    "name": "Pascal",
+    "scopeName": "source.pas",
+    "patterns": [
+        {
+            "name": "Keywords",
+            "match": "(?mi)\\b(PROGRAM|INTERFACE|IMPLEMENTATION|PROCEDURE|BEGIN|END|IF|THEN|ELSE|CASE|FOR|FROM|TO|STEP|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|RETURN|IFERR|KILL|DEFAULT|AND|OR|NOT|XOR|MOD)\\b"
+        },
+        {
+            "name": "Storage",
+            "match": "(?mi)\\b(VAR|EXPORT|CONST|KEY|VIEW)\\b"
+        },
+        {
+            "name": "Builtins",
+            "match": "\\b(RECT_P|RECT|LINE_P|LINE|ARC_P|ARC|PIXON_P|PIXON|PIXOFF_P|PIXOFF|GETPIX_P|GETPIX|TEXTOUT_P|TEXTOUT|TEXTSIZE|DIMGROB_P|DIMGROB|BLIT_P|BLIT|STRBLIT|TRIANGLE_P|TRIANGLE|FILLPOLY_P|FILLPOLY|GROBW_P|GROBW|GROBH_P|GROBH|DRAWMENU|FREEZE|WAIT|RGB|GETKEY|MOUSE|PRINT|INPUT|CHOOSE|MSGBOX|EDITMAT|EDITLIST|STARTVIEW|STARTAPP|ABS|CEIL|FLOOR|ROUND|IP|FP|SIGN|MAX|MIN|MOD|SIN|COS|TAN|ASIN|ACOS|ATAN|LN|LOG|EXP|SQRT|SQ|SIZE|DIM|MAKEMAT|MAKELIST|ADDROW|ADDCOL|REPLACE|SUPPRESS|APPEND|CONCAT|POS|SORT|REVERSE|CROSS|DOT|ROUND|l2norm|rowDim|colDim|subMat|LEFT|RIGHT|MID|INSTRING|DIM|ASC|CHAR|LOWER|UPPER|TRIM|ROTATE|STRING|EXPR|IFTE|TYPE|TICKS|PYTHON|AFiles|Theme|BITAND|BITOR|BITNOT|BITSL|BITSR|G[0-9])\\b"
+        },
+        {
+            "name": "Numbers",
+            "match": "(#[0-9A-Fa-f]+(:-?\\d{1,2})?[hHoObBdD]?|#[01]+b|\\b\\d+\\.\\d*([eE][+-]?\\d+)?|\\b\\d+)\\b"
+        },
+        {
+            "name": "Symbols",
+            "match": "[\\u0080-\\uFFFF]+"
+        },
+        {
+            "name": "Constants",
+            "match": "\\b(PI|TRUE|FALSE|true|false|i|e)\\b"
+        },
+        {
+            "name": "Operators",
+            "match": "(=|▶|:=|==|<>|>=|<=|>|<|≤|≥|≠|\\+|-|\\*|/|\\^)"
+        },
+        {
+            "name": "Functions",
+            "match": "(?mi)\\b([%a-z\\u0080-\\uFFFF][\\.%a-z0-9_\\u0080-\\uFFFF]+)(?=\\s*\\()"
+        },
+        {
+            "name": "Brackets",
+            "match": "[{}()\\[\\]]+"
+        },
+        {
+            "name": "Units",
+            "match": "(?<=[^a-zA-Z])(?:º|i|G\\d|e+?)(?![a-zA-Z])"
+        },
+        {
+            "name": "Backquotes",
+            "match": "`.*`"
+        },
+        {
+            "name": "Strings",
+            "match": "\"([^\"\\\\]|\\\\.)*\""
+        },
+        {
+            "name": "Preprocessor Statements",
+            "match": "(?m)^\\s*#[a-z]{2}.+"
+        },
+        {
+            "name": "Comments",
+            "match": "//.*"
+        }
+    ]
+}

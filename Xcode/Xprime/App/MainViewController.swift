@@ -211,11 +211,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 let snippet = loadSnippet(at: itemURL)
                 
                 let menuItem = NSMenuItem(
-                    title: snippet.trigger,
+                    title: snippet.title,
                     action: #selector(snippetSelected(_:)),
                     keyEquivalent: ""
                 )
-                menuItem.subtitle = snippet.title
+                menuItem.state = .off
                 menuItem.representedObject = itemURL
                 menuItem.image = NSImage(named: "hpppl")?.copy() as? NSImage
                 menuItem.image?.size = NSSize(width: 22, height: 22)
@@ -227,8 +227,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @objc private func snippetSelected(_ sender: NSMenuItem) {
-        
-        codeEditorTextView.insertText("$\(sender.title)", replacementRange: codeEditorTextView.selectedRange())
+        guard let url = sender.representedObject as? URL else { return }
+        let snippet = url.deletingPathExtension().lastPathComponent
+        codeEditorTextView.insertText("$\(snippet)", replacementRange: codeEditorTextView.selectedRange())
     }
     
     private func loadSnippet(at file: URL) -> (title: String, trigger: String) {
@@ -524,10 +525,11 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
 
     private func loadAppropriateGrammar(forType fileExtension: String) {
         let grammar:[String : [String]] = [
-            ".hppplplus": ["hppplplus", "ppl+"],
-            ".hpppl": ["hpppl", "ppl", "hpprgm", "hpappprgm", "bmp", "png", "h"],
+            ".hppplplus": ["hppplplus"],
+            ".hpppl": ["hpppl"],
             ".py": ["py"],
-            ".ntf": ["hpnote", "hpappnote", "ntf"],
+            ".pas": ["pas"],
+            ".ntf": ["ntf"],
             ".md": ["md"]
         ]
         
@@ -575,11 +577,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         for main in [
             "main.hpppl",
             "main.hppplplus",
-            "main.pas",
-            "main.prgm",
-            "main.prgm+",
-            "main.ppl",
-            "main.ppl+"
+            "main.pas"
         ] {
             let url = directoryURL
                 .appendingPathComponent(main)
@@ -598,9 +596,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         guard let projectName = projectManager.projectName else { return }
         
         for file in [
-            "info.note",
-            "info.ntf",
-            "info.md"
+            "info.ntf"
         ] {
             if FileManager.default.fileExists(
                 atPath: url
@@ -832,6 +828,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         )
         
         let python = NSImage(named: "py")?.copy() as! NSImage
+        let pascal = NSImage(named: "pas")?.copy() as! NSImage
         let hpnote = NSImage(named: "hpnote")?.copy() as! NSImage
         let file = NSImage(named: "file")?.copy() as! NSImage
         let hpppl = NSImage(named: "hpppl")?.copy() as! NSImage
@@ -846,6 +843,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 if url.pathExtension == "hpppl" ||
                    url.pathExtension == "hppplplus" ||
                    url.pathExtension == "py"  ||
+                   url.pathExtension == "pas" ||
                    url.pathExtension == "ntf" ||
                    url.pathExtension == "bmp" ||
                    url.pathExtension == "png" ||
@@ -866,6 +864,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                         
                     case "py":
                         menu.items.last?.image = python
+                        
+                    case "pas":
+                        menu.items.last?.image = pascal
                         
                     case "h":
                         menu.items.last?.image = h
@@ -1171,6 +1172,16 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
     }
     
+    @IBAction func exportToConnectivityKit(_ sender: Any) {
+        guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
+        guard let projectName = projectManager.projectName else { return }
+        
+        try? HPServices.exportToConnectivityKitContent(at: currentDirectoryURL
+            .appendingPathComponent(projectName)
+            .appendingPathExtension(projectManager.isProjectApplication ? "hpappdir" : "hpprgm")
+        )
+    }
+    
     private func installHPPrgmFileToCalculator() {
         guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
         guard let projectName = projectManager.projectName else { return }
@@ -1180,7 +1191,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpprgm")
         outputTextView.appendTextAndScroll("Installing: \(programURL.lastPathComponent)\n")
         do {
-            try HPServices.installHPPrgm(at: programURL, forUser: ProjectSettings.shared.calculator)
+            try HPServices.installHPPrgm(at: programURL)
             
             if let projectName = projectManager.projectName, HPServices.hpPrgmIsInstalled(named: projectName) {
                 outputTextView.appendTextAndScroll("✅ Successfully re-installed \"\(programURL.lastPathComponent)\" \n")
@@ -1206,7 +1217,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             .appendingPathExtension("hpappdir")
         outputTextView.appendTextAndScroll("Installing: \(appDirURL.lastPathComponent)\n")
         do {
-            try HPServices.installHPAppDirectory(at: appDirURL, forUser: ProjectSettings.shared.calculator)
+            try HPServices.installHPAppDirectory(at: appDirURL)
             
             if let projectName = projectManager.projectName, HPServices.hpAppDirectoryIsInstalled(named: projectName) {
                 outputTextView.appendTextAndScroll("✅ Successfully re-installed \"\(appDirURL.lastPathComponent)\" \n")
@@ -1269,9 +1280,15 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
     }
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
-        guard let url = HPServices.hpPrimeDirectory(forUser: ProjectSettings.shared.calculator) else {
+        guard let url = HPServices.hpPrimeDirectory() else {
             return
         }
+        url.revealInFinderWithCooldown()
+    }
+    
+    @IBAction func showContentFolderInFinder(_ sender: Any) {
+        let url = FileManager.default.homeDirectoryForCurrentUser
+            .appendingPathComponent("Documents/HP Connectivity Kit/Content")
         url.revealInFinderWithCooldown()
     }
     
@@ -1337,11 +1354,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         switch menuItem.action {
         case #selector(reformatCode(_:)):
-            if let _ = documentManager.currentDocumentURL, ext == "prgm" || ext == "appprgm" || ext == "hpppl" {
+            if let _ = documentManager.currentDocumentURL, ext == "hpppl" {
                 return true
             }
             return false
         
+        case #selector(exportToConnectivityKit(_:)):
+            guard let url = projectManager.projectDirectoryURL, let name = projectManager.projectName else { return false }
+            if FileManager.default.fileExists(atPath: url.appendingPathComponent("\(name).hpprgm").path) {
+                return true
+            }
+            return projectManager.isProjectApplication
             
         case #selector(run(_:)), #selector(archive(_:)), #selector(build(_:)), #selector(buildForRunning(_:)):
             if projectManager.projectDirectoryURL != nil   {
@@ -1350,7 +1373,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return false
             
         case #selector(templateSelected(_:)):
-            if ext == "prgm" || ext == "appprgm" || ext == "hpprgm" || ext == "hpappprgm" || ext == "hpppl" || ext == "hppplplus" {
+            if ext == "hpppl" || ext == "hppplplus" {
                 return true
             }
             return false

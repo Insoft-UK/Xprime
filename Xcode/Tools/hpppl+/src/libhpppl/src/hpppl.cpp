@@ -333,32 +333,31 @@ std::string removeTripleSlashComment(const std::string& str) {
 }
 
 
-std::string expandAssignmentEquals(const std::string& input) {
-    std::string output;
-    output.reserve(input.size() * 2);  // Worst-case growth
-
-    for (size_t i = 0; i < input.size(); ++i) {
-        if (input[i] == '=') {
-            // Check if preceded by ':' (:=), do not expand
-            if (i > 0 && input[i - 1] == ':') {
-                output += '=';
-            }
-            // Check if followed by '=' (already '=='), copy as-is
-            else if (i + 1 < input.size() && input[i + 1] == '=') {
-                output += "==";
-                ++i;  // skip next '='
-            }
-            else {
-                output += "==";
-            }
-        } else {
-            output += input[i];
-        }
-    }
-
-    return output;
-}
-
+//std::string expandAssignmentEquals(const std::string& input) {
+//    std::string output;
+//    output.reserve(input.size() * 2);  // Worst-case growth
+//
+//    for (size_t i = 0; i < input.size(); ++i) {
+//        if (input[i] == '=') {
+//            // Check if preceded by ':' (:=), do not expand
+//            if (i > 0 && input[i - 1] == ':') {
+//                output += '=';
+//            }
+//            // Check if followed by '=' (already '=='), copy as-is
+//            else if (i + 1 < input.size() && input[i + 1] == '=') {
+//                output += "==";
+//                ++i;  // skip next '='
+//            }
+//            else {
+//                output += "==";
+//            }
+//        } else {
+//            output += input[i];
+//        }
+//    }
+//
+//    return output;
+//}
 
 std::list<std::string> extractPythonBlocks(const std::string& str) {
     std::list<std::string> blocks;
@@ -502,38 +501,99 @@ std::string separatePythonMarkers(const std::string& input) {
     return oss.str();
 }
 
-std::string normalizeOperators(const std::string& input, const std::vector<std::string> operators) {
-    // List of all operators to normalize
-        
-        std::string result;
-        size_t i = 0;
+std::string normalizeOperators(const std::string& input, const std::vector<std::string>& operators) {
+    std::string result;
+    size_t i = 0;
 
-        while (i < input.size()) {
-            bool matched = false;
+    while (i < input.size()) {
+        bool matched = false;
 
-            for (const std::string& op : operators) {
-                if (input.compare(i, op.size(), op) == 0) {
-                    if (!result.empty() && result.back() != ' ') result += ' ';
-                    result += op;
-                    i += op.size();
-                    if (i < input.size() && input[i] != ' ') result += ' ';
-                    matched = true;
-                    break;
+        for (const std::string& op : operators) {
+            if (input.compare(i, op.size(), op) == 0) {
+                // Add space before operator if needed
+                if (!result.empty() &&
+                    result.back() != ' ' &&
+                    result.back() != '\n')
+                {
+                    result += ' ';
                 }
-            }
 
-            if (!matched) {
-                result += input[i++];
+                result += op;
+                i += op.size();
+
+                // Add space after operator if needed
+                if (i < input.size() &&
+                    input[i] != ' ' &&
+                    input[i] != '\n')
+                {
+                    result += ' ';
+                }
+
+                matched = true;
+                break;
             }
         }
 
-        // Final cleanup: collapse multiple spaces
-        std::istringstream iss(result);
-        std::string word, cleaned;
-        while (iss >> word) {
-            if (!cleaned.empty()) cleaned += ' ';
-            cleaned += word;
+        if (!matched) {
+            result += input[i++];
+        }
+    }
+
+    // Collapse repeated spaces only (preserve newlines)
+    std::string cleaned;
+    bool lastWasSpace = false;
+
+    for (char c : result) {
+        if (c == ' ') {
+            if (!lastWasSpace) {
+                cleaned += c;
+                lastWasSpace = true;
+            }
+        } else {
+            cleaned += c;
+            lastWasSpace = false;
+        }
+    }
+
+    return cleaned;
+}
+
+std::string removeOperatorSpaces(const std::string& input, const std::vector<std::string>& operators) {
+    std::string result;
+    size_t i = 0;
+
+    while (i < input.size()) {
+        bool matched = false;
+
+        for (const std::string& op : operators) {
+            size_t pos = i;
+
+            // Skip spaces before operator
+            while (pos < input.size() && input[pos] == ' ') {
+                pos++;
+            }
+
+            // Check if operator matches here
+            if (input.compare(pos, op.size(), op) == 0) {
+                // Remove spaces before operator already skipped
+                result += op;
+                pos += op.size();
+
+                // Skip spaces after operator
+                while (pos < input.size() && input[pos] == ' ') {
+                    pos++;
+                }
+
+                i = pos;
+                matched = true;
+                break;
+            }
         }
 
-        return cleaned;
+        if (!matched) {
+            result += input[i++];
+        }
+    }
+
+    return result;
 }

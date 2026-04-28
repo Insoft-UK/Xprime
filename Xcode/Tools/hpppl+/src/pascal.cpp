@@ -495,7 +495,7 @@ namespace hppplplus::pascal {
         }
 
         if (beginLine != -1)
-            lines.insert(lines.begin() + beginLine, programName + "()");
+            lines.insert(lines.begin() + beginLine, "EXPORT" + programName + "()");
 
         std::stringstream out;
         for (auto& l : lines)
@@ -519,14 +519,24 @@ namespace hppplplus::pascal {
         output = prefixExportToImplementation(output, routines);
         output = convertPascalToPPL(output);
         output = removePascalTypes(output);
-        output = replaceWords(output, {"var"}, "LOCAL");
-        output = replaceWords(output, {"interface", "implementation"}, "");
-        output = std::regex_replace(output, std::regex(R"(\{.*\})", std::regex::icase), "");
         output = std::regex_replace(output, std::regex(R"(\bend.)", std::regex::icase), "end;");
+        output = replaceWords(output, {"var"}, "LOCAL");
+        output = capitalizeWords(output, {
+            "interface", "implementation", "procedure"
+        });
+        output = replaceWords(output, {"INTERFACE", "IMPLEMENTATION", "PROCEDURE"}, "");
+        output = capitalizeWords(output, {
+            "end", "return", "kill", "if", "then", "else", "xor", "or", "and", "not",
+            "case", "default", "iferr", "ifte", "for", "from", "step", "downto", "to", "do",
+            "while", "repeat", "until", "break", "continue", "const", "local",
+            "eval", "freeze", "view", "begin", "export"
+        });
+        output = std::regex_replace(output, std::regex(R"(\{.*\})", std::regex::icase), "");
         output = std::regex_replace(output, std::regex(R"(\bwriteLn\b)", std::regex::icase), "PRINT");
         output = std::regex_replace(output, std::regex("\\s*\n", std::regex::icase), "\n");
-        output = regex_replace(output, std::regex(R"(: *(integer|real|char|string|boolean|arrays))"), "");
+        output = regex_replace(output, std::regex(R"(: *(integer|real|char|string|boolean|arrays))", std::regex::icase), "");
         
+        output = reformat::prgm(output);
         return output;
     }
 }

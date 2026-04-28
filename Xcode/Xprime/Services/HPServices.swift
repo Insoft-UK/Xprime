@@ -109,28 +109,14 @@ enum HPServices {
         return calculatorURL.isDirectory
     }
     
-    static func hpPrimeDirectory(forUser user: String = "Prime") -> URL? {
-        let calculator = UserDefaults.standard.object(forKey: "calculator") as? String ?? "Prime"
-        
+    static func hpPrimeDirectory() -> URL? {
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
         
-        let directoryURL: URL
-        let user = calculator
-        
-        if hpPrimeCalculatorExists(named: user) {
-            if HPServices.isConnectivityKitInstalled == false {
-                return nil
-            }
-            directoryURL = homeURL
-                .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
-                .appendingPathComponent(user)
-        } else {
-            if HPServices.isVirtualCalculatorInstalled == false {
-                return nil
-            }
-            directoryURL = homeURL
-                .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
+        if HPServices.isVirtualCalculatorInstalled == false {
+            return nil
         }
+        let directoryURL = homeURL
+            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
         
         if directoryURL.isDirectory == false {
             return nil
@@ -144,14 +130,9 @@ enum HPServices {
 
         // Determine base folder
         let baseURL: URL
-        if let user = user, hpPrimeCalculatorExists(named: user) {
-            baseURL = homeURL
-                .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
-                .appendingPathComponent(user)
-        } else {
-            baseURL = homeURL
-                .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
-        }
+        baseURL = homeURL
+                .appendingPathComponent("Documents/HP Connectivity Kit/Content")
+        
         
         return hpPrgmExists(atPath: baseURL.path, named: name)
     }
@@ -160,7 +141,7 @@ enum HPServices {
         let baseURL: URL
         if let user = user, hpPrimeCalculatorExists(named: user) {
             baseURL = FileManager.default.homeDirectoryForCurrentUser
-                .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
+                .appendingPathComponent("Documents/HP Connectivity Kit/Content")
                 .appendingPathComponent(user)
         } else {
             baseURL = FileManager.default.homeDirectoryForCurrentUser
@@ -170,6 +151,7 @@ enum HPServices {
         let appDirURL = baseURL.appendingPathComponent("\(name).hpappdir")
         return appDirURL.isDirectory
     }
+
     
     static func hpPrgmExists(atPath path: String, named name: String) -> Bool {
         let programURL = URL(fileURLWithPath: path)
@@ -440,22 +422,13 @@ enum HPServices {
         }
     }
     
-    static func installHPPrgm(at programURL: URL, forUser user: String? = nil) throws {
+    static func installHPPrgm(at programURL: URL) throws {
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
         
         // Determine destination folder
-        let destinationURL: URL
-        
-        if let user = user, hpPrimeCalculatorExists(named: user) {
-            destinationURL = homeURL
-                .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
-                .appendingPathComponent(user)
-                .appendingPathComponent(programURL.lastPathComponent)
-        } else {
-            destinationURL = homeURL
-                .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
-                .appendingPathComponent(programURL.lastPathComponent)
-        }
+        let destinationURL = homeURL
+            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
+            .appendingPathComponent(programURL.lastPathComponent)
 
         do {
             if FileManager.default.fileExists(atPath: destinationURL.path) {
@@ -501,6 +474,23 @@ enum HPServices {
         return result
     }
     
+    static func exportToConnectivityKitContent(at appURL: URL) throws {
+        let homeURL = FileManager.default.homeDirectoryForCurrentUser
+        
+        // Determine destination folder
+        let destinationURL = homeURL
+            .appendingPathComponent("Documents/HP Connectivity Kit/Content")
+            .appendingPathComponent(appURL.lastPathComponent)
+
+        do {
+            if FileManager.default.fileExists(atPath: destinationURL.path) {
+                try FileManager.default.removeItem(at: destinationURL)
+            }
+
+            try FileManager.default.copyItem(at: appURL, to: destinationURL)
+        }
+    }
+    
     static func installHPAppDirectory(at appURL: URL, forUser user: String? = nil) throws {
         guard appURL.isDirectory else {
             return
@@ -508,18 +498,9 @@ enum HPServices {
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
         
         // Determine destination folder
-        let destinationURL: URL
-        
-        if let user = user, hpPrimeCalculatorExists(named: user) {
-            destinationURL = homeURL
-                .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
-                .appendingPathComponent(user)
-                .appendingPathComponent(appURL.lastPathComponent)
-        } else {
-            destinationURL = homeURL
-                .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
-                .appendingPathComponent(appURL.lastPathComponent)
-        }
+        let destinationURL = homeURL
+            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
+            .appendingPathComponent(appURL.lastPathComponent)
 
         do {
             if FileManager.default.fileExists(atPath: destinationURL.path) {

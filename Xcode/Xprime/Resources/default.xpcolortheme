@@ -1,92 +1,92 @@
 {
-    "name": "Light",
-    "type": "light",
-    "weight": "regular",
+    "name": "Xprime Dark Modern",
+    "type": "dark",
+    "weight": "semi",
+    "pointSize": 13,
     "colors": {
-        "editor.background": "#FFFFFF",
-        "editor.foreground": "#222222",
+        "editor.background": "#000000",
+        "editor.foreground": "#cccccc",
         "editor.cursor": "#797979",
-        "editor.selectionBackground": "#5E5E5E"
+        "editor.selectionBackground": "#484848"
     },
     "lineNumberRuler": {
-        "foreground": "#999999",
-        "background": "#DDDDDD00"
+        "foreground": "#707680",
+        "background": "#111111"
     },
     "window": {
-        "background": "#1F1F24",
-        "foreground": "#ffffff"
+        "background": "#161b22"
     },
     "tokenColors": [
         {
             "scope": ["Preprocessor Statements"],
             "settings": {
-                "foreground": "#DD7700"
+                "foreground": "#ee8277"
             }
         },
         {
             "scope": ["Comments"],
             "settings": {
-                "foreground": "#BBBBBB"
+                "foreground": "#74985d"
             }
         },
         {
             "scope": ["Keywords", "Storage"],
             "settings": {
-                "foreground": "#3366CC"
+                "foreground": "#22aaee"
+            }
+        },
+        {
+            "scope": ["Storage"],
+            "settings": {
+                "foreground": "#eebb22"
             }
         },
         {
             "scope": ["Brackets"],
             "settings": {
-                "foreground": "#666666"
+                "foreground": "#eebb22"
             }
         },
         {
             "scope": ["Symbols"],
             "settings": {
-                "foreground": "#4477BB"
+                "foreground": "#cccccc"
             }
         },
         {
             "scope": ["Operators"],
             "settings": {
-                "foreground": "#666666"
+                "foreground": "#999999"
+            }
+        },
+        {
+            "scope": ["Strings", "Backquotes"],
+            "settings": {
+                "foreground": "#bb8822"
             }
         },
         {
             "scope": ["Numbers"],
             "settings": {
-                "foreground": "#DD7700"
-            }
-        },
-        {
-            "scope": ["Strings"],
-            "settings": {
-                "foreground": "#DD7700"
-            }
-        },
-        {
-            "scope": ["Backquotes"],
-            "settings": {
-                "foreground": "#DD7700"
+                "foreground": "#eebb22"
             }
         },
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#4477BB"
+                "foreground": "#33ddff"
             }
         },
         {
             "scope": ["Namespace"],
             "settings": {
-                "foreground": "#4477BB"
+                "foreground": "#ee9900"
             }
         },
         {
             "scope": ["Builtins"],
             "settings": {
-                "foreground": "#3366CC"
+                "foreground": "#eebb22"
             }
         }
     ]

@@ -27,7 +27,7 @@ fileprivate enum DefaultsKey {
     static let preferredTheme = "PreferredTheme"
     static let lastOpenedFile = "LastOpenedFile"
     static let lastOpenedProjectFile = "LastOpenedProjectFile"
-    static let location = "Location"
+    static let workingDirectory = "WorkingDirectory"
     static let supportedDocumentExtensions = "SupportedDocumentExtensions"
     static let allowedOpenFileExtensions = "AllowedOpenFileExtensions"
     static let allowedSaveFileExtensions = "AllowedSaveFileExtensions"
@@ -35,6 +35,11 @@ fileprivate enum DefaultsKey {
     static let useBetaApplications = "UseBetaApplications"
     static let keywordNormalization = "KeywordNormalization"
 }
+
+let defaultWorkingDirectoryURL = FileManager
+    .default
+    .homeDirectoryForCurrentUser
+    .appendingPathComponent("Xprime")
 
 final class Settings {
 
@@ -54,14 +59,10 @@ final class Settings {
     var lastOpenedProjectFile: String
     
     @UserDefault(
-        key: DefaultsKey.location,
-        defaultValue: FileManager
-        .default
-        .homeDirectoryForCurrentUser
-        .appendingPathComponent("Xprime")
-        .path
+        key: DefaultsKey.workingDirectory,
+        defaultValue: defaultWorkingDirectoryURL.path
     )
-    var location: String
+    var workingDirectory: String
     
     @UserDefault(
         key: DefaultsKey.supportedDocumentExtensions,
@@ -82,7 +83,7 @@ final class Settings {
     @UserDefault(
         key: DefaultsKey.allowedSaveFileExtensions,
         defaultValue: [
-            "hpppl", "hppplplus", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "ntf", "py"
+            "hpppl", "hppplplus", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "ntf", "py", "pas"
         ]
     )
     var allowedSaveFileExtensions: [String]

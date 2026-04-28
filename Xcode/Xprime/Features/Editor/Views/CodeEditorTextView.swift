@@ -166,12 +166,6 @@ final class CodeEditorTextView: NSTextView {
     private let syntaxHighlighter = SyntaxHighlighter()
     var snippetSession: SnippetSession?
     
-//    private let popup = AutocompletePopover()
-//
-//    var allItems: [AutocompleteItem] = [
-//        AutocompleteItem(title: "LOCAL", detail: "PPL", icon: NSImage(systemSymbolName: "book.closed", accessibilityDescription: nil))
-//    ]
-         
     
     // MARK: - Init
     override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
@@ -192,8 +186,6 @@ final class CodeEditorTextView: NSTextView {
         if let url = Bundle.main.resourceURL?.appendingPathComponent("Developer/Library/Xprime/Snippets") {
             snippets = loadSnippets(from: url)
         }
-        
-//        loadAutocompleteItems()
     }
     
     // MARK: - Editor Setup

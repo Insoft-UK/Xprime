@@ -177,7 +177,7 @@ final class DocumentManager {
 
     private func openNote(url: URL) {
         openWithTool(
-            executableName: "note",
+            executableName: "hpnote",
             url: url,
             failureMessage: "Failed to read from the note file.",
             printStdErrOnSuccess: true
@@ -219,7 +219,7 @@ final class DocumentManager {
     
     private func openProgram(url: URL) {
         openWithTool(
-            executableName: "ppl+",
+            executableName: "hpppl+",
             url: url,
             failureMessage: "Failed to read from the program file.",
             successLog: "Importing \"\(url.lastPathComponent)\"\n",

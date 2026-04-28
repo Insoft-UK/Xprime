@@ -39,16 +39,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
         
         NSApp.helpMenu = nil
         
-        let url = FileManager
-            .default
-            .homeDirectoryForCurrentUser
-            .appendingPathComponent("Xprime")
-        
-        if !url.hasDirectoryPath {
-            try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
-            try? FileManager.default.createDirectory(at: url.appendingPathComponent("Projects"), withIntermediateDirectories: true)
-            FileManager.default.changeCurrentDirectoryPath(url.appendingPathComponent("Projects").path)
-            Settings.shared.location = url.path
+       
+        if !defaultWorkingDirectoryURL.hasDirectoryPath {
+            try? FileManager.default.createDirectory(at: defaultWorkingDirectoryURL, withIntermediateDirectories: true)
+            try? FileManager.default.createDirectory(at: defaultWorkingDirectoryURL.appendingPathComponent("Projects"), withIntermediateDirectories: true)
+            try? FileManager.default.createDirectory(at: defaultWorkingDirectoryURL.appendingPathComponent("Themes"), withIntermediateDirectories: true)
+            FileManager.default.changeCurrentDirectoryPath(defaultWorkingDirectoryURL.appendingPathComponent("Projects").path)
+            Settings.shared.workingDirectory = defaultWorkingDirectoryURL.path
         }
     }
     
@@ -67,6 +64,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
     
     @IBAction func launchHPPrimeVirtualCalculator(_ sender: Any) {
         HPServices.launchVirtualCalculator()
+    }
+    
+    private func installThemes() {
+        
     }
     
     // MARK: - Action Handlers

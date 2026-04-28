@@ -44,7 +44,6 @@ fileprivate struct Project: Codable {
     let compression: Bool
     let include: String
     let lib: String
-    let calculator: String
     let bin: String
     let language: String
     let archiveProjectAppOnly: Bool
@@ -153,7 +152,6 @@ final class ProjectManager {
                     compression: ProjectSettings.shared.compression,
                     include: ProjectSettings.shared.include,
                     lib: ProjectSettings.shared.lib,
-                    calculator: ProjectSettings.shared.calculator,
                     bin: ProjectSettings.shared.bin,
                     language: ProjectSettings.shared.language,
                     archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
@@ -169,7 +167,6 @@ final class ProjectManager {
         ProjectSettings.shared.compression = project.compression
         ProjectSettings.shared.include = project.include
         ProjectSettings.shared.lib = project.lib
-        ProjectSettings.shared.calculator = project.calculator
         ProjectSettings.shared.bin = project.bin
         ProjectSettings.shared.language = project.language
         ProjectSettings.shared.archiveProjectAppOnly = project.archiveProjectAppOnly
@@ -200,7 +197,7 @@ final class ProjectManager {
         Settings.shared.lastOpenedProjectFile = ""
         FileManager
             .default
-            .changeCurrentDirectoryPath(Settings.shared.location)
+            .changeCurrentDirectoryPath(Settings.shared.workingDirectory)
         
         delegate?.projectManagerDidClose(self)
     }
@@ -211,7 +208,6 @@ final class ProjectManager {
             compression: ProjectSettings.shared.compression,
             include: ProjectSettings.shared.include,
             lib: ProjectSettings.shared.lib,
-            calculator: ProjectSettings.shared.calculator,
             bin: ProjectSettings.shared.bin,
             language: ProjectSettings.shared.language,
             archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
@@ -294,7 +290,6 @@ final class ProjectManager {
         ProjectSettings.shared.compression = false
         ProjectSettings.shared.include = "$(SDKROOT)/include"
         ProjectSettings.shared.lib = "$(SDKROOT)/lib"
-        ProjectSettings.shared.calculator = "Prime"
         ProjectSettings.shared.bin = "/usr/local/bin"
         ProjectSettings.shared.archiveProjectAppOnly = true
         ProjectSettings.shared.plainFallbackText = true

@@ -28,17 +28,40 @@ final class ThemeLoader {
 
     func loadTheme(named name: String? = nil) -> Theme? {
         let name = name ?? Settings.shared.preferredTheme
-
+        
+        if let theme = loadTheme(at: defaultWorkingDirectoryURL.appendingPathComponent("Themes"), named: name) {
+            return theme
+        }
+        
+        return loadTheme()
+    }
+    
+    private func loadTheme() -> Theme? {
         guard let url = Bundle.main.url(
-            forResource: name,
-            withExtension: "xpcolortheme",
-            subdirectory: "Themes"
+            forResource: "default",
+            withExtension: "xpcolortheme"
         ) else {
             return nil
         }
 
         guard FileManager.default.fileExists(atPath: url.path),
               let json = try? String(contentsOf: url, encoding: .utf8),
+              let data = json.data(using: .utf8)
+        else {
+            return nil
+        }
+        
+        return try? JSONDecoder().decode(Theme.self, from: data)
+    }
+    
+    private func loadTheme(at url: URL, named name: String) -> Theme? {
+        guard FileManager.default.fileExists(atPath: url
+            .appendingPathComponent(name)
+            .appendingPathExtension("xpcolortheme")
+            .path),
+              let json = try? String(contentsOf: url
+                .appendingPathComponent(name)
+                .appendingPathExtension("xpcolortheme"), encoding: .utf8),
               let data = json.data(using: .utf8)
         else {
             return nil

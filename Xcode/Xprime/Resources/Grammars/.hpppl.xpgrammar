@@ -1,10 +1,10 @@
 {
-    "name": "Help",
+    "name": "HP PPL",
     "scopeName": "source.hpppl",
     "patterns": [
         {
             "name": "Keywords",
-            "match": "(?m)\\b(LOCAL|EXPORT|CONST|KEY|VIEW|BEGIN|END|IF|THEN|ELSE|CASE|FOR|FROM|TO|STEP|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|RETURN|IFERR|KILL|DEFAULT|AND|OR|NOT|XOR|MOD)\\b"
+            "match": "(?m)\\b(BEGIN|END|IF|THEN|ELSE|CASE|FOR|FROM|TO|STEP|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|RETURN|IFERR|KILL|DEFAULT|AND|OR|NOT|XOR|MOD)\\b"
         },
         {
             "name": "Storage",

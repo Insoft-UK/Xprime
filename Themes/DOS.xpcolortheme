@@ -2,6 +2,7 @@
     "name": "DOS",
     "type": "light",
     "weight": "bold",
+    "pointSize": 13,
     "colors": {
         "editor.background": "#0000a0",
         "editor.foreground": "#ffffff",

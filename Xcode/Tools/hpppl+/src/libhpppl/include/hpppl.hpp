@@ -178,4 +178,23 @@ std::string separatePythonMarkers(const std::string& input);
  * @return A new string with operators consistently spaced and extraneous whitespace removed.
  */
 
-std::string normalizeOperators(const std::string& input, const std::vector<std::string> operators);
+std::string normalizeOperators(const std::string& input, const std::vector<std::string>& operators);
+
+/**
+ * @brief Removes spaces around operators in a string.
+ *
+ * This function scans the input string for operators from a predefined list
+ * and removes any spaces directly before or after them, ensuring operators
+ * are written without surrounding whitespace.
+ *
+ * Only regular space characters (' ') are removed around operators; other
+ * whitespace such as newlines ('\n') and tabs ('\t') are preserved.
+ *
+ * This is effectively the opposite of operator normalization with spacing,
+ * producing a more compact output format.
+ *
+ * @param input The input string that may contain operators with surrounding spaces.
+ * @param operators The list of operators to process.
+ * @return A new string with spaces around operators removed.
+ */
+std::string removeOperatorSpaces(const std::string& input, const std::vector<std::string>& operators);

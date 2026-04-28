@@ -24,6 +24,8 @@
 
 #include "aliases.hpp"
 #include "singleton.hpp"
+#include "strings.hpp"
+#include "reformat.hpp"
 
 namespace hppplplus::pascal {
     std::string convertPascalSyntax(const std::string &code);

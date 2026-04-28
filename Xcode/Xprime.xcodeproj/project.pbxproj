@@ -23,17 +23,27 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		13E34D842F9EF3CA0002B8DA /* Exceptions for "Xprime" folder in "Copy Bundle Resources" phase from "Xprime" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 13EE0F602DF9DEDE004F3D7E /* Resources */;
+			membershipExceptions = (
+				Resources/program.pas,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		13EE0F642DF9DEDE004F3D7E /* Xprime */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				1351590A2EA1989400EEDF1C /* Exceptions for "Xprime" folder in "Xprime" target */,
+				13E34D842F9EF3CA0002B8DA /* Exceptions for "Xprime" folder in "Copy Bundle Resources" phase from "Xprime" target */,
 			);
 			explicitFolders = (
 				Resources/Developer,
 				Resources/Grammars,
 				Resources/Help,
-				Resources/Themes,
 			);
 			path = Xprime;
 			sourceTree = "<group>";
@@ -340,7 +350,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260422;
+				CURRENT_PROJECT_VERSION = 20260428;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
@@ -369,7 +379,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 26.4.3;
+				MARKETING_VERSION = 26.4.4;
 				MTL_HEADER_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.Xprime;
@@ -401,7 +411,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260422;
+				CURRENT_PROJECT_VERSION = 20260428;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
@@ -430,7 +440,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 26.4.3;
+				MARKETING_VERSION = 26.4.4;
 				MTL_HEADER_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.Xprime;
 				PRODUCT_NAME = "$(TARGET_NAME)";

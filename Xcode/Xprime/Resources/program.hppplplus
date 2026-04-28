@@ -1,6 +1,6 @@
 #pragma mode( separator(.,;) integer(h32) )
 #define Event key, type(1), x(2), y(3), dx(4), dy(5)
-dictionary None := -1,\
+DICTIONARY None := -1,\
 Apps  := 0,      Symb  := 1,              Up    := 2,               Help  := 3,  Esc   := 4,\
 Home  := 5,      Plot  := 6,      Left  := 7,      Right := 8,      View  := 9,  Cas   := 10,\
                  Num   := 11,             Down  := 12,              Menu  := 13,\
@@ -12,41 +12,41 @@ Alpha := 36,     4     := 37,     5     := 38,     6     := 39,                 
 Shift := 41,     1     := 42,     2     := 43,     3     := 44,                  Minus := 45,\
 On    := 46,     0     := 47,     Dot   := 48,     Space := 49,                  Plus  := 50 \
 KeyCode;
-regex `\bK<([a-z]\w*)>`i KeyCode.$1
-dictionary \
+REGEX `\bK<([a-z]\w*)>`i KeyCode.$1
+DICTIONARY \
 Real := 0, Integer := 1, String := 2, Complex := 3, Matrix := 4, Error := 5, List := 6, Function := 8, Unit := 9, Cas := 14 \
 ObjectType;
 
-alias event := evt;
+ALIAS event := evt;
 LOCAL state;
 
 Draw()
-begin
+BEGIN
   RECT_P();  // Clear screen
   TEXTOUT_P("Title", G0, 5, 5, 2, #000000h, 310, #FFFFFFh);
   DRAWMENU("F1", "F2", "F3", "F4", "F5", "Exit");
-end;
+END;
 
 GetSelectedMenu(event)
-begin
-  dictionary Event event;
-  if TYPE(event) ≠ ObjectType.List then return 0; end;
-  if event.type ≠ ObjectType.Complex then return 0; end;
-  return IP((event.x / \`320 / 6`:4) + 1);
-end;
+BEGIN
+  DICTIONARY Event event;
+  IF TYPE(event) ≠ ObjectType.List THEN RETURN 0; END;
+  IF event.type ≠ ObjectType.Complex THEN RETURN 0; END;
+  RETURN IP((event.x / \`320 / 6`:4) + 1);
+END;
 
-export Program()
-begin
-  var event, key, menu;
-  dictionary Event event;
+EXPORT Program()
+BEGIN
+  LOCAL event, key, menu;
+  DICTIONARY Event event;
   Draw();
-  repeat
+  REPEAT
     event := WAIT(-1);
     key := K<None>;
     menu := GetSelectedMenu(event);
-    if TYPE(event) == ObjectType.Real then
+    IF TYPE(event) == ObjectType.Real THEN
       key = event.key;
-    end;
-  until key == K<Esc> OR menu == 6;
-  return 0;
-end;
+    END;
+  UNTIL key == K<Esc> OR menu == 6;
+  RETURN 0;
+END;

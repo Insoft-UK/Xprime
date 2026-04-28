@@ -1,37 +1,38 @@
 {
-    "name": "Catalog",
+    "name": "Dark",
     "type": "dark",
     "weight": "regular",
+    "pointSize": 13,
     "colors": {
-        "editor.background": "#00000000",
+        "editor.background": "#1F1F24",
         "editor.foreground": "#FFFFFF",
         "editor.cursor": "#797979",
         "editor.selectionBackground": "#5E5E5E"
     },
     "lineNumberRuler": {
         "foreground": "#888888",
-        "background": "#000000"
+        "background": "#11111100"
     },
     "window": {
-        "background": "#000000EE"
+        "background": "#1F1F24"
     },
     "tokenColors": [
         {
             "scope": ["Preprocessor Statements"],
             "settings": {
-                "foreground": "#68cf67"
+                "foreground": "#FFCC00"
             }
         },
         {
             "scope": ["Comments"],
             "settings": {
-                "foreground": "#98999c"
+                "foreground": "#777777"
             }
         },
         {
             "scope": ["Keywords", "Storage"],
             "settings": {
-                "foreground": "#408ff7"
+                "foreground": "#3399FF"
             }
         },
         {
@@ -43,56 +44,55 @@
         {
             "scope": ["Symbols"],
             "settings": {
-                "foreground": "#f09748"
+                "foreground": "#44BBFF"
             }
         },
         {
             "scope": ["Operators"],
             "settings": {
-                "foreground": "#98999c"
+                "foreground": "#CCCCCC"
             }
         },        {
             "scope": ["Numbers"],
             "settings": {
-                "foreground": "#4ea4fc"
+                "foreground": "#FFCC00"
             }
         },
         {
             "scope": ["Strings"],
             "settings": {
-                "foreground": "#68cf67"
+                "foreground": "#FFCC00"
             }
         },
         {
             "scope": ["Backquotes"],
             "settings": {
-                "foreground": "#f09748"
+                "foreground": "#FFCC00"
             }
         },
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#ff6600"
+                "foreground": "#44BBFF"
             }
         },
         {
             "scope": ["Namespace"],
             "settings": {
-                "foreground": "#ff6600"
-            }
-        },
-        {
-            "scope": ["Units"],
-            "settings": {
-                "foreground": "#ffffff"
+                "foreground": "#44BBFF"
             }
         },
         {
             "scope": ["Builtins"],
             "settings": {
-                "foreground": "#f09748"
+                "foreground": "#3399FF"
+            }
+        },
+        {
+            "scope": ["Constants"],
+            "settings": {
+                "foreground": "#44BBFF"
             }
         }
     ]
 }
-

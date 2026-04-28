@@ -1,96 +1,93 @@
 {
-    "name": "Dark",
-    "type": "dark",
+    "name": "Light",
+    "type": "light",
     "weight": "regular",
+    "pointSize": 13,
     "colors": {
-        "editor.background": "#1F1F24",
-        "editor.foreground": "#FFFFFF",
+        "editor.background": "#FFFFFF",
+        "editor.foreground": "#222222",
         "editor.cursor": "#797979",
         "editor.selectionBackground": "#5E5E5E"
     },
     "lineNumberRuler": {
-        "foreground": "#888888",
-        "background": "#11111100"
+        "foreground": "#999999",
+        "background": "#DDDDDD00"
     },
     "window": {
-        "background": "#1F1F24"
+        "background": "#1F1F24",
+        "foreground": "#ffffff"
     },
     "tokenColors": [
         {
             "scope": ["Preprocessor Statements"],
             "settings": {
-                "foreground": "#FFCC00"
+                "foreground": "#DD7700"
             }
         },
         {
             "scope": ["Comments"],
             "settings": {
-                "foreground": "#777777"
+                "foreground": "#BBBBBB"
             }
         },
         {
             "scope": ["Keywords", "Storage"],
             "settings": {
-                "foreground": "#3399FF"
+                "foreground": "#3366CC"
             }
         },
         {
             "scope": ["Brackets"],
             "settings": {
-                "foreground": "#CCCCCC"
+                "foreground": "#666666"
             }
         },
         {
             "scope": ["Symbols"],
             "settings": {
-                "foreground": "#44BBFF"
+                "foreground": "#4477BB"
             }
         },
         {
             "scope": ["Operators"],
             "settings": {
-                "foreground": "#CCCCCC"
+                "foreground": "#666666"
             }
-        },        {
+        },
+        {
             "scope": ["Numbers"],
             "settings": {
-                "foreground": "#FFCC00"
+                "foreground": "#DD7700"
             }
         },
         {
             "scope": ["Strings"],
             "settings": {
-                "foreground": "#FFCC00"
+                "foreground": "#DD7700"
             }
         },
         {
             "scope": ["Backquotes"],
             "settings": {
-                "foreground": "#FFCC00"
+                "foreground": "#DD7700"
             }
         },
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#44BBFF"
+                "foreground": "#4477BB"
             }
         },
         {
             "scope": ["Namespace"],
             "settings": {
-                "foreground": "#44BBFF"
+                "foreground": "#4477BB"
             }
         },
         {
             "scope": ["Builtins"],
             "settings": {
-                "foreground": "#3399FF"
-            }
-        },
-        {
-            "scope": ["Constants"],
-            "settings": {
-                "foreground": "#44BBFF"
+                "foreground": "#3366CC"
             }
         }
     ]

@@ -28,13 +28,13 @@
             }
         },
         {
-            "scope": ["Brackets", "Symbols"],
+            "scope": ["Brackets", "Symbols", "Numbers"],
             "settings": {
                 "foreground": "#ffffff"
             }
         },
         {
-            "scope": ["Operators", "Numbers", "Strings", "Backquotes"],
+            "scope": ["Operators", "Strings", "Backquotes"],
             "settings": {
                 "foreground": "#82a6ff"
             }

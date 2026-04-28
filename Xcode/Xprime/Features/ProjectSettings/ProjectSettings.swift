@@ -24,7 +24,6 @@ fileprivate enum DefaultsKey {
     static let compression = "Compression"
     static let include = "include"
     static let lib = "lib"
-    static let calculator = "Calculator"
     static let bin = "bin"
     static let archiveProjectApplicationOnly = "ArchiveProjectApplicationOnly"
     static let plainFallbackText = "PlainFallbackText"
@@ -44,9 +43,6 @@ final class ProjectSettings {
 
     @UserDefault(key: DefaultsKey.lib, defaultValue: "$(SDKROOT)/lib")
     var lib: String
-
-    @UserDefault(key: DefaultsKey.calculator, defaultValue: "Prime")
-    var calculator: String
 
     @UserDefault(key: DefaultsKey.bin, defaultValue: "/usr/local/bin")
     var bin: String

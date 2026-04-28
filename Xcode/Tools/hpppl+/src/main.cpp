@@ -90,13 +90,13 @@ typedef struct {
 } addon_t;
 
 static std::vector<addon_t> addons = {
-    {.command = "font", .extension = ".h"},
-    {.command = "font", .extension = ".hpp"},
-    {.command = "grob", .extension = ".bmp"},
-    {.command = "grob", .extension = ".pbm"}
-#if defined(__APPLE__)
-    ,{.command = "grob", .extension = ".png"}
-#endif
+//    {.command = "font", .extension = ".h"},
+//    {.command = "font", .extension = ".hpp"},
+//    {.command = "grob", .extension = ".bmp"},
+//    {.command = "grob", .extension = ".pbm"}
+//#if defined(__APPLE__)
+//    ,{.command = "grob", .extension = ".png"}
+//#endif
 };
 
 
@@ -149,7 +149,6 @@ std::string translatePPLPlusLine(const std::string& input) {
     
     output = replaceOperators(output);
     output = fixUnaryMinus(output);
-    output = expandAssignmentEquals(output);
     
     output = Singleton::shared()->aliases.resolveAllAliasesInText(output);
    
@@ -195,7 +194,6 @@ std::string translatePPLPlusLine(const std::string& input) {
         Singleton::shared()->regexp.removeAllOutOfScopeRegexps();
     }
     
-    
     if (Singleton::shared()->scopeDepth == 0) {
         re = R"(^ *(KS?A?_[A-Z\d][a-z]*) *$)";
         sregex_token_iterator it = sregex_token_iterator {
@@ -209,9 +207,6 @@ std::string translatePPLPlusLine(const std::string& input) {
     
     output = Calc::parse(output);
     output = Base::parse(output);
-    
-    
-   
     output = restoreStrings(output, strings);
     
     if (!comment.empty()) output += comment;
@@ -474,7 +469,7 @@ std::string processInclude(const std::string& input, const fs::path& current_pat
 
 std::string translatePPLPlusToPPL(const fs::path& path) {
     Singleton& singleton = *Singleton::shared();
-    std::istringstream plplus;
+    std::istringstream hppplplus;
     std::regex re;
     std::string input;
     std::string output;
@@ -484,8 +479,8 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
     code = utf::load(path);
     
     
-    plplus.str(code);
-    while (getline(plplus, input)) {
+    hppplplus.str(code);
+    while (getline(hppplplus, input)) {
         /*
          Handle any escape lines `\` by continuing to read line joining them all up as one long line.
          */
@@ -494,7 +489,7 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
             while (input.at(input.length() - 1) == '\\' && !input.empty()) {
                 input.resize(input.length() - 1);
                 std::string s;
-                getline(plplus, s);
+                getline(hppplplus, s);
                 input.append(s);
                 Singleton::shared()->incrementLineNumber();
                 if (s.empty()) break;
@@ -516,16 +511,16 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
         while (preprocessor.disregard == true) {
             input = preprocessor.parse(input);
             Singleton::shared()->incrementLineNumber();
-            getline(plplus, input);
+            getline(hppplplus, input);
         }
         
         if (isPythonBlock(input)) {
-            output += processPythonBlock(plplus, input);
+            output += processPythonBlock(hppplplus, input);
             continue;
         }
         
         if (isPPLBlock(input)) {
-            output += processPPLBlock(plplus);
+            output += processPPLBlock(hppplplus);
             continue;
         }
         
@@ -549,7 +544,7 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
                 if (it->str(1) == "addon") {
                     // addon(command.h)
                     std::smatch match;
-                    if (std::regex_search(s, match, std::regex(R"(([A-Za-z0-9 _.-]+)(\.[A-Za-z0-9]{1,10}))"))) {
+                    if (std::regex_search(s, match, std::regex(R"(([A-Za-z0-9 _.-/]+)(\.[A-Za-z0-9]{1,10}))"))) {
                         addons.push_back({
                             .command = match.str(1),
                             .extension = match.str(2)
@@ -593,7 +588,7 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
     singleton.popPath();
     
     // Removes `uses`
-    output = regex_replace(output, std::regex(R"(\buses\s+([^;]+);)"), "\n");
+    output = regex_replace(output, std::regex(R"(\buses\s+([^;]+);)", std::regex_constants::icase), "\n");
     
     return output;
 }
@@ -683,22 +678,22 @@ fs::path resolveOutputPath(const fs::path& inpath, const fs::path& outpath) {
     if (path == "/dev/stdout") return path;
     
     if (path.empty()) {
-        // User did not specify specify an output filename, use the input filename with a .prgm extension.
+        // User did not specify specify an output filename, use the input filename with a .hpppl extension.
         path = inpath;
-        path.replace_extension(".prgm");
+        path.replace_extension(".hpppl");
         return path;
     }
     
     if (fs::is_directory(path)) {
         /* User did not specify specify an output filename but has specified a path, so append
-         with the input filename and subtitute the extension with .prgm
+         with the input filename and subtitute the extension with .hpppl
          */
         path = path / inpath.stem();
-        path.replace_extension("prgm");
+        path.replace_extension("hpppl");
         return path;
     }
     
-    if (!path.has_extension()) path.replace_extension("prgm");
+    if (!path.has_extension()) path.replace_extension("hpppl");
     if (path.parent_path().empty()) path = inpath.parent_path() / path;
     
     return path;
