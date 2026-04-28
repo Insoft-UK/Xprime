@@ -1,4 +1,4 @@
-### Xprime 26.4.3 (soon)
+### Xprime 26.4.3
 AppleSilicon Only
 
 ### Xprime 26.4.2
