@@ -115,7 +115,7 @@ final class DocumentManager {
         case "hpnote", "hpappnote":
             documentURL = url
                 .deletingPathExtension()
-                .appendingPathExtension("ntf")
+                .appendingPathExtension("note")
             
             if FileManager.default.fileExists(atPath: documentURL.path) {
                 return nil

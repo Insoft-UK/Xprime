@@ -1405,9 +1405,15 @@ Gw
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="4FA5A969-C209-4587-BBDA-D34823778705" label="Project Folder" paletteLabel="Project Folder" tag="-1" title="Project Folder" sizingBehavior="auto" id="HOg-w3-6bH">
-                                    <imageReference key="image" image="folder.fill" catalog="system" symbolScale="medium"/>
+                                    <imageReference key="image" image="folder" catalog="system" symbolScale="medium"/>
                                     <connections>
                                         <action selector="showBuildFolderInFinder:" target="Oky-zY-oP4" id="N0d-PP-4yc"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="98E1084E-F8A6-4DAC-91A9-8D82F2F641BF" label="Preview" paletteLabel="Preview" tag="-1" title="Preview" sizingBehavior="auto" id="Dnb-tE-Q9L">
+                                    <imageReference key="image" image="eye" catalog="system" symbolScale="medium"/>
+                                    <connections>
+                                        <segue destination="MWU-od-JlL" kind="popover" popoverAnchorView="Dnb-tE-Q9L" popoverBehavior="t" preferredEdge="maxY" id="QLT-0n-QRd"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="23C30700-2B4A-4DB2-B9FB-C970E7BD2A52" label="Quick Open" paletteLabel="Quick Open" sizingBehavior="auto" id="J6a-Hn-bWN">
@@ -1567,20 +1573,6 @@ Gw
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G96-vy-5KC">
-                                        <rect key="frame" x="511" y="14" width="38" height="38"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="icon" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="fjV-P0-Abv">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <string key="keyEquivalent">V</string>
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </buttonCell>
-                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                        <connections>
-                                            <segue destination="MWU-od-JlL" kind="popover" popoverAnchorView="G96-vy-5KC" popoverBehavior="t" preferredEdge="maxY" id="T60-D1-7MT"/>
-                                        </connections>
-                                    </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5PR-g4-Umd">
                                         <rect key="frame" x="84" y="18.5" width="26.5" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -1594,82 +1586,12 @@ Gw
                                         </connections>
                                     </button>
                                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pct-AP-UV1">
-                                        <rect key="frame" x="736" y="21" width="196" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="131" y="21" width="196" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="fuo-VA-XLJ">
                                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="message"/>
                                             <menu key="menu" id="dcE-MS-HXw"/>
-                                        </popUpButtonCell>
-                                    </popUpButton>
-                                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R0K-qm-g5R">
-                                        <rect key="frame" x="129" y="21" width="185" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <popUpButtonCell key="cell" type="push" title="None" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="eNv-pk-Zff" id="0ZL-C9-vNa">
-                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="message"/>
-                                            <menu key="menu" id="Srs-GI-hIg">
-                                                <items>
-                                                    <menuItem title="None" state="on" image="None" id="eNv-pk-Zff">
-                                                        <attributedString key="attributedTitle"/>
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Function" image="Function" id="GSp-Kb-pvk">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Advanced Graphing" image="Advanced Graphing" id="EeE-su-5hG">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Graph 3D" image="Graph 3D" id="OeC-x7-zeJ">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Geometry" image="Geometry" id="vgz-RA-Pp8">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Spreadsheet" image="Spreadsheet" id="bIQ-CK-wyn">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Statistics 1Var" image="Statistics 1Var" id="1lW-7G-cif">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Statistics 2Var" image="Statistics 2Var" id="Akq-Pt-rVZ">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Interface" image="Inference" id="Wnq-Rc-Hhz">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Data Streamer" image="Data Streamer" id="vBb-JF-cE3">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Solve" image="Solve" id="Wok-ft-sVv">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Linear Solver" image="Linear Solver" id="Ucf-0e-1hp">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Explorer" image="Explorer" id="DB5-Hg-hEI">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Triangle Solver" image="Triangle Solver" id="7cM-2p-qsg">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Finance" image="Finance" id="ewU-yZ-fjc">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Python" image="Python" id="OX5-R8-SAc">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Parametric" image="Parametric" id="5ph-GB-dX7">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Polar" image="Polar" id="ZmC-oX-Wgb">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Sequence" image="Sequence" id="FZ8-Md-8Bw">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
                                         </popUpButtonCell>
                                     </popUpButton>
                                 </subviews>
@@ -1683,13 +1605,11 @@ Gw
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="baseApplication" destination="R0K-qm-g5R" id="aJP-2s-Atk"/>
                         <outlet property="clearOutputButton" destination="Is1-v7-WGS" id="kCv-BF-lPp"/>
                         <outlet property="codeEditorTextView" destination="09p-Rf-tgR" id="YQS-0U-lVp"/>
                         <outlet property="outputButton" destination="o4M-ON-b8V" id="mi0-Vd-HZK"/>
                         <outlet property="outputScrollView" destination="gM6-VC-kCh" id="Cbq-VN-EFd"/>
                         <outlet property="outputTextView" destination="fLO-1H-GKd" id="2zB-kY-Jtt"/>
-                        <outlet property="projectIcon" destination="G96-vy-5KC" id="fCS-dJ-BgK"/>
                         <outlet property="snippets" destination="pct-AP-UV1" id="ve0-BL-ejv"/>
                         <outlet property="splitView" destination="VTQ-i6-i8i" id="hYA-ON-mGK"/>
                         <outlet property="statusLabel" destination="WwT-Xi-9rw" id="x8B-3n-gwE"/>
@@ -1800,16 +1720,16 @@ Gw
         <image name="cas" width="64" height="64"/>
         <image name="clock" catalog="system" width="15" height="15"/>
         <image name="document.badge.plus" catalog="system" width="16" height="18"/>
+        <image name="eye" catalog="system" width="21" height="13"/>
         <image name="finder" catalog="system" width="16" height="15"/>
         <image name="flowchart" catalog="system" width="17" height="17"/>
-        <image name="folder.fill" catalog="system" width="18" height="14"/>
+        <image name="folder" catalog="system" width="18" height="14"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
         <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="help-about" width="16" height="16"/>
         <image name="hpppl" width="64" height="64"/>
         <image name="hppplplus" width="64" height="64"/>
-        <image name="icon" width="38" height="38"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
         <image name="long.text.page.and.pencil" catalog="system" width="17" height="19"/>
         <image name="macwindow.and.pointer.arrow" catalog="system" width="19" height="17"/>
