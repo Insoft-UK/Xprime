@@ -56,7 +56,7 @@ MyApp/
 │── Example.hpappdir.zip
 │── Example.xprimeproj
 │── main.hppplplus or main.hpppl
-└── info.ntf
+└── info.note
 ```
 
 Typical File Structure for an HP Prime **Program**
@@ -65,5 +65,5 @@ MyProgram/
 │── Example.xprimeproj
 │── Example.hpprgm
 │── main.hppplplus or main.hpppl
-└── info.ntf
+└── info.note
 ```
