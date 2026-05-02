@@ -1000,6 +1000,12 @@ Gw
                                                 <action selector="showContentFolderInFinder:" target="Ady-hI-5gd" id="XNj-aV-Peq"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Show Project in Finder" image="finder" catalog="system" id="gN5-MO-Fkb">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showBuildFolderInFinder:" target="Ady-hI-5gd" id="Bli-w3-TfZ"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -1404,19 +1410,13 @@ Gw
                                         <action selector="saveDocumentAs:" target="Oky-zY-oP4" id="pxF-F9-2k3"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4FA5A969-C209-4587-BBDA-D34823778705" label="Project Folder" paletteLabel="Project Folder" tag="-1" title="Project Folder" sizingBehavior="auto" id="HOg-w3-6bH">
-                                    <imageReference key="image" image="folder" catalog="system" symbolScale="medium"/>
-                                    <connections>
-                                        <action selector="showBuildFolderInFinder:" target="Oky-zY-oP4" id="N0d-PP-4yc"/>
-                                    </connections>
-                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="98E1084E-F8A6-4DAC-91A9-8D82F2F641BF" label="Preview" paletteLabel="Preview" tag="-1" title="Preview" sizingBehavior="auto" id="Dnb-tE-Q9L">
                                     <imageReference key="image" image="eye" catalog="system" symbolScale="medium"/>
                                     <connections>
                                         <segue destination="MWU-od-JlL" kind="popover" popoverAnchorView="Dnb-tE-Q9L" popoverBehavior="t" preferredEdge="maxY" id="QLT-0n-QRd"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="23C30700-2B4A-4DB2-B9FB-C970E7BD2A52" label="Quick Open" paletteLabel="Quick Open" sizingBehavior="auto" id="J6a-Hn-bWN">
+                                <toolbarItem implicitItemIdentifier="23C30700-2B4A-4DB2-B9FB-C970E7BD2A52" label="Project Folder" paletteLabel="Quick Open" sizingBehavior="auto" id="J6a-Hn-bWN">
                                     <nil key="toolTip"/>
                                     <comboButton key="view" verticalHuggingPriority="750" controlSize="large" baseWritingDirection="leftToRight" alignment="left" title="" id="myg-bt-hEL">
                                         <rect key="frame" x="13" y="14" width="43" height="28"/>
@@ -1723,7 +1723,6 @@ Gw
         <image name="eye" catalog="system" width="21" height="13"/>
         <image name="finder" catalog="system" width="16" height="15"/>
         <image name="flowchart" catalog="system" width="17" height="17"/>
-        <image name="folder" catalog="system" width="18" height="14"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
         <image name="hammer.fill" catalog="system" width="19" height="17"/>

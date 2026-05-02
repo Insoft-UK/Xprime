@@ -1,4 +1,4 @@
-#pragma mode( separator(.,;) integer(h64) )
+#pragma mode( separator(.,;) integer(h64) addon(font.h) )
 
 uses HP;
 

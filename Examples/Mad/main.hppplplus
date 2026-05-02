@@ -1,4 +1,4 @@
-#pragma mode( separator(.,;) integer(h64) indentation(4) operators(▶,*,/,-,+) )
+#pragma mode( separator(.,;) integer(h64) indentation(4) addon(grob.bmp) )
 DICTIONARY White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, \
 Magenta := #FF00FF:32h, Cardinal := #D03020:32h, Coral := #F08070:32h, Pink := #FFC0C0:32h, Indigo := #400080:32h, \
 Purple := #800080:32h, Violet := #8000FF:32h, Lavender := #C0C0FF:32h, NavyBlue := #000080:32h, Blue := #0000FF:32h, \
