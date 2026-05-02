@@ -11,7 +11,7 @@ Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file
 Requires **macOS 14.6** or later
 
 **Apple Silicon**
-Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.pkg">Xprime 26.4.3</a></br>
+Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.pkg">Xprime 26.4.4</a></br>
 Requires **macOS 26** or later
 
 ### Xprime 26
