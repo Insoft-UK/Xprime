@@ -24,11 +24,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		13E34D842F9EF3CA0002B8DA /* Exceptions for "Xprime" folder in "Copy Bundle Resources" phase from "Xprime" target */ = {
+		13E350142FA5847C0002B8DA /* Exceptions for "Xprime" folder in "Compile Sources" phase from "Xprime" target */ = {
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 13EE0F602DF9DEDE004F3D7E /* Resources */;
+			buildPhase = 13EE0F5E2DF9DEDE004F3D7E /* Sources */;
 			membershipExceptions = (
-				Resources/program.pas,
+				"Resources/program~pascal.pas",
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -38,8 +38,11 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				1351590A2EA1989400EEDF1C /* Exceptions for "Xprime" folder in "Xprime" target */,
-				13E34D842F9EF3CA0002B8DA /* Exceptions for "Xprime" folder in "Copy Bundle Resources" phase from "Xprime" target */,
+				13E350142FA5847C0002B8DA /* Exceptions for "Xprime" folder in "Compile Sources" phase from "Xprime" target */,
 			);
+			explicitFileTypes = {
+				"Resources/program~pascal.pas" = text;
+			};
 			explicitFolders = (
 				Resources/Developer,
 				Resources/Grammars,
@@ -350,7 +353,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260428;
+				CURRENT_PROJECT_VERSION = 20260502;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
@@ -411,7 +414,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260428;
+				CURRENT_PROJECT_VERSION = 20260502;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;

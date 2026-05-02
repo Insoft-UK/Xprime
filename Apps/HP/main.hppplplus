@@ -20,7 +20,7 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 #pragma mode( separator(.,;) integer(h64) indentation(2) )
-
+#pragma mode( addon(font.h) )
 {$I "HP.hpppl"}
 Font8 := {$I "Font8.h"};
 Font10 := {$I "Font10.h"};

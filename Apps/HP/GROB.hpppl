@@ -1,10 +1,66 @@
 EXPORT IMAGE(trgtG, dx, dy, img)
 BEGIN
+  LOCAL w := img(2,1);
+  LOCAL h := img(2,2); 
+  LOCAL bpp := img(2,3);
+  LOCAL m := BITSL(1, bpp) - 1; 
+  LOCAL s := IP(64 / bpp);
+  LOCAL x := 0;
+  LOCAL y := 0;
+
+  LOCAL size = SIZE(img(1));
+  LOCAL i, j, c, d;
+
+  FOR i := 1 to size DO
+    d := img(1,i);
+    FOR j := 1 TO s DO
+      c := img(3,BITAND(d,m) + 1);
+      PIXON_P(trgtG, x + dx, y + dy, c);
+      d := BITSR(d, bpp);
+      x := x + 1;
+      IF x == w THEN
+        x := 0;
+        y := y + 1;
+      END;
+    END;
+  END;
+END;
+
+EXPORT IMAGE(trgtG, dx, dy, img, scaleX, scaleY)
+BEGIN
+  LOCAL w := img(2,1);
+  LOCAL h := img(2,2); 
+  LOCAL bpp := img(2,3);
+  LOCAL m := BITSL(1, bpp) - 1; 
+  LOCAL s := IP(64 / bpp);
+  LOCAL x := 0;
+  LOCAL y := 0;
+
+  LOCAL size = SIZE(img(1));
+  LOCAL i, j, c, d;
+
+  FOR i := 1 to size DO
+    d := img(1,i);
+    FOR j := 1 TO s DO
+      c := img(3,BITAND(d,m) + 1);
+      RECT_P(trgtG, x + dx, y + dy, x + dx + scaleX, y + dy + scaleY, c);
+      d := BITSR(d, bpp);
+      x := x + scaleX;
+      IF x == w * scaleX THEN
+        x := 0;
+        y := y + scaleY;
+      END;
+    END;
+  END;
+END;
+
+EXPORT IMAGE_PY(trgtG, dx, dy, img)
+BEGIN
   trgtG := "\"" + STRING(trgtG) + "\"";
   dx := "\"" + STRING(dx) + "\"";
   dy := "\"" + STRING(dy) + "\"";
   img := "\"" + STRING(img) + "\"";
-  
+#PPL
 PYTHON("
 from hpprime import *
 
@@ -15,7 +71,7 @@ img = eval("+img+")
 
 
 w = int(img[1][0]); h = int(img[1][1]); bpp = int(img[1][2])
-m = (1 << bpp) - 1; s = 64 / bpp
+m = (1 << bpp) - 1;
 x = 0; y = 0
 
 size = len(img[0])
@@ -30,9 +86,10 @@ for i in range(size):
       x = 0
       y = y + 1
 ");
+#END
 END;
 
-EXPORT IMAGE(trgtG, dx, dy, img, scaleX, scaleY)
+EXPORT IMAGE_PY(trgtG, dx, dy, img, scaleX, scaleY)
 BEGIN
   trgtG := "\"" + STRING(trgtG) + "\"";
   dx := "\"" + STRING(dx) + "\"";
@@ -40,7 +97,7 @@ BEGIN
   img := "\"" + STRING(img) + "\"";
   scaleX := "\"" + STRING(scaleX) + "\"";
   scaleY := "\"" + STRING(scaleY) + "\"";
-  
+#PPL
 PYTHON("
 from hpprime import *
 
@@ -53,7 +110,7 @@ scaleY = int(eval("+scaleY+"))
 
 
 w = int(img[1][0]); h = int(img[1][1]); bpp = int(img[1][2])
-m = (1 << bpp) - 1; s = 64 / bpp
+m = (1 << bpp) - 1;
 x = 0; y = 0
 
 size = len(img[0])
@@ -68,6 +125,7 @@ for i in range(size):
       x = 0
       y = y + scaleY
 ");
+#END
 END;
 
 EXPORT IMAGE(trgtG, img)

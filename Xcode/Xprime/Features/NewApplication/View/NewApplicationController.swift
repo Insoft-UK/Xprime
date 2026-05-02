@@ -100,16 +100,35 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
     }
     
     private func create(named name: String, in directoryURL: URL) {
-        guard let selectedLanguage = language.titleOfSelectedItem else { return }
+        guard let selectedProgramType = language.titleOfSelectedItem else { return }
         
         do {
-            let hpppl: Bool = selectedLanguage == "HP PPL"
+            var programType: String
+            var extensionContext: String
             
-            let sourceURL = Bundle.main.url(forResource: "application", withExtension: hpppl ? "hpppl" : "hppplplus")
+            switch selectedProgramType {
+            case "PPL Program":
+                programType = "program~ppl"
+                extensionContext = "hpppl"
+            case "PPL+ Program":
+                programType = "program~pplplus"
+                extensionContext = "hppplplus"
+            case "CAS Program":
+                programType = "program~cas"
+                extensionContext = "hpppl"
+            case "Pascal Program":
+                programType = "program~pascal"
+                extensionContext = "pas"
+            default:
+                programType = "program~pplplus"
+                extensionContext = "hppplplus"
+            }
+            
+            let sourceURL = Bundle.main.url(forResource: programType, withExtension: extensionContext)
             let destinationURL = directoryURL
                 .appendingPathComponent(name)
                 .appendingPathComponent("main")
-                .appendingPathExtension(hpppl ? "hpppl" : "hppplplus")
+                .appendingPathExtension(extensionContext)
             
             guard let sourceURL else { return }
             
@@ -133,7 +152,7 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
                 )
             }
             
-            if let url = Bundle.main.url(forResource: hpppl ? "hpppl" : "hppplplus", withExtension: "xprimeproj") {
+            if let url = Bundle.main.url(forResource: extensionContext, withExtension: "xprimeproj") {
                 try FileManager.default.copyItem(
                     at: url,
                     to: directoryURL

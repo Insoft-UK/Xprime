@@ -74,6 +74,17 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         if let menu = NSApp.mainMenu {
             populateOpenRecentMenu(menu: menu)
             populateTemplateMenu(menu: menu)
+            
+            func setImageSize(_ menu: NSMenu) {
+                for item in menu.items {
+                    if item.submenu == nil {
+                        item.image?.size = NSSize(width: 18, height: 18)
+                        continue
+                    }
+                    setImageSize(item.submenu!)
+                }
+            }
+            setImageSize(menu)
         }
         
         populateSnippetsMenu()
@@ -775,7 +786,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 }
             }
         } else {
-            self.documentManager.openDocument(at: projectDirectoryURL.appendingPathComponent(sender.title))
+            let url = sender.representedObject as? URL
+            self.documentManager.openDocument(at: url!)
+//            self.documentManager.openDocument(at: projectDirectoryURL.appendingPathComponent(sender.title))
         }
         
         guard
@@ -818,15 +831,6 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             return
         }
         
-
-        let menu = NSMenu()
-        
-        let contents = try? FileManager.default.contentsOfDirectory(
-            at: url,
-            includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles]
-        )
-        
         let python = NSImage(named: "py")?.copy() as! NSImage
         let pascal = NSImage(named: "pas")?.copy() as! NSImage
         let hpnote = NSImage(named: "hpnote")?.copy() as! NSImage
@@ -837,61 +841,93 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let bmp = NSImage(named: "bmp")?.copy() as! NSImage
         let png = NSImage(named: "png")?.copy() as! NSImage
         
-        contents?
-            .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
-            .forEach { url in
-                if url.pathExtension == "hpppl" ||
-                   url.pathExtension == "hppplplus" ||
-                   url.pathExtension == "py"  ||
-                   url.pathExtension == "pas" ||
-                   url.pathExtension == "ntf" ||
-                   url.pathExtension == "bmp" ||
-                   url.pathExtension == "png" ||
-                   url.pathExtension == "h"
-                {
-                    menu.addItem(
-                        withTitle: url.lastPathComponent,
-                        action: #selector(quickOpen(_:)),
-                        keyEquivalent: ""
-                    )
-                
-                    switch url.pathExtension.lowercased() {
-                    case "hppplplus", "hpppl+":
-                        menu.items.last?.image = hppplplus
-                        
-                    case "hpnote", "ntf":
-                        menu.items.last?.image = hpnote
-                        
-                    case "py":
-                        menu.items.last?.image = python
-                        
-                    case "pas":
-                        menu.items.last?.image = pascal
-                        
-                    case "h":
-                        menu.items.last?.image = h
-                        
-                    case "hpppl":
-                        menu.items.last?.image = hpppl
-                        
-                    case "bmp":
-                        menu.items.last?.image = bmp
-                        
-                    case "png":
-                        menu.items.last?.image = png
+        func createMenuItem(for url: URL) -> NSMenu {
+            let menu = NSMenu()
+            
+            let contents = try? FileManager.default.contentsOfDirectory(
+                at: url,
+                includingPropertiesForKeys: [.isDirectoryKey],
+                options: [.skipsHiddenFiles]
+            )
+            
+            contents?
+                .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
+                .forEach { url in
+                    if url.pathExtension == "hpppl" ||
+                       url.pathExtension == "hppplplus" ||
+                       url.pathExtension == "py"  ||
+                       url.pathExtension == "pas" ||
+                       url.pathExtension == "ntf" ||
+                       url.pathExtension == "bmp" ||
+                       url.pathExtension == "png" ||
+                       url.pathExtension == "h"
+                    {
+                        menu.addItem(
+                            withTitle: url.lastPathComponent,
+                            action: #selector(quickOpen(_:)),
+                            keyEquivalent: ""
+                        )
                     
-                    default:
-                        menu.items.last?.image = file
-                    }
-                    
-                    menu.items.last?.image?.size = NSSize(width: 22, height: 22)
-                    if url == documentManager.currentDocumentURL {
-                        menu.items.last?.state = .on
-                        comboButton.image = menu.items.last?.image
-                        comboButton.image?.size = NSSize(width: 22, height: 22)
+                        menu.items.last?.representedObject = url
+                        
+                        switch url.pathExtension.lowercased() {
+                        case "hppplplus", "hpppl+":
+                            menu.items.last?.image = hppplplus
+                            
+                        case "hpnote", "ntf":
+                            menu.items.last?.image = hpnote
+                            
+                        case "py":
+                            menu.items.last?.image = python
+                            
+                        case "pas":
+                            menu.items.last?.image = pascal
+                            
+                        case "h":
+                            menu.items.last?.image = h
+                            
+                        case "hpppl":
+                            menu.items.last?.image = hpppl
+                            
+                        case "bmp":
+                            menu.items.last?.image = bmp
+                            
+                        case "png":
+                            menu.items.last?.image = png
+                        
+                        default:
+                            menu.items.last?.image = file
+                        }
+                        
+                        menu.items.last?.image?.size = NSSize(width: 22, height: 22)
+                        if url == documentManager.currentDocumentURL {
+                            menu.items.last?.state = .on
+                            comboButton.image = menu.items.last?.image
+                            comboButton.image?.size = NSSize(width: 22, height: 22)
+                        }
                     }
                 }
-            }
+            
+            return menu
+        }
+        
+        let menu = createMenuItem(for: url)
+        if projectManager.isProjectApplication {
+            menu.insertItem(
+                NSMenuItem(
+                    title: projectManager.projectName!,
+                    action: nil,
+                    keyEquivalent: ""),
+                at: 0
+            )
+            menu.item(at: 0)?.image = projectManager.projectIcon
+            menu.item(at: 0)?.image?.size = NSSize(width: 22, height: 22)
+            menu.item(at: 0)?.submenu = createMenuItem(for: url
+                .appendingPathComponent(projectManager.projectName!)
+                .appendingPathExtension("hpappdir")
+            )
+            menu.insertItem(NSMenuItem.separator(), at: 1)
+        }
         
         comboButton.menu = menu
         comboButton.title = documentManager.currentDocumentURL?
@@ -1351,6 +1387,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         let ext = (documentManager.currentDocumentURL != nil) ? documentManager.currentDocumentURL!.pathExtension.lowercased() : ""
+        
         
         switch menuItem.action {
         case #selector(reformatCode(_:)):
