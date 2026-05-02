@@ -917,7 +917,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 NSMenuItem(
                     title: projectManager.projectName!,
                     action: nil,
-                    keyEquivalent: ""),
+                    keyEquivalent: ""
+                ),
                 at: 0
             )
             menu.item(at: 0)?.image = projectManager.projectIcon
@@ -927,6 +928,19 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 .appendingPathExtension("hpappdir")
             )
             menu.insertItem(NSMenuItem.separator(), at: 1)
+            
+            //
+            menu.item(at: 0)?.submenu?.insertItem(
+                NSMenuItem(
+                    title: projectManager.baseApplicationName,
+                    action: nil,
+                    keyEquivalent: ""
+                ),
+                at: 0
+            )
+            let baseApplicationIcon = NSImage(named: projectManager.baseApplicationName)?.copy() as! NSImage
+            menu.item(at: 0)?.submenu?.item(at: 0)?.image = baseApplicationIcon
+            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = NSSize(width: 22, height: 22)
         }
         
         comboButton.menu = menu
