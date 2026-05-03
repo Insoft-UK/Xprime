@@ -11,7 +11,7 @@ Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file
 Requires **macOS 14.6** or later
 
 **Apple Silicon**
-Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.pkg">Xprime 26.4.3</a></br>
+Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.pkg">Xprime 26.4.4</a></br>
 Requires **macOS 26** or later
 
 ### Xprime 26
@@ -56,7 +56,7 @@ MyApp/
 │── Example.hpappdir.zip
 │── Example.xprimeproj
 │── main.hppplplus or main.hpppl
-└── info.ntf
+└── info.note
 ```
 
 Typical File Structure for an HP Prime **Program**
@@ -65,5 +65,5 @@ MyProgram/
 │── Example.xprimeproj
 │── Example.hpprgm
 │── main.hppplplus or main.hpppl
-└── info.ntf
+└── info.note
 ```
