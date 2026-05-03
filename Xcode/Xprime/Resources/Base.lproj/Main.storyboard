@@ -1394,7 +1394,7 @@ Gw
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="800" height="600"/>
                         <value key="minFullScreenContentSize" type="size" width="800" height="600"/>
-                        <toolbar key="toolbar" implicitIdentifier="790E7E42-ECCB-45F7-B34A-F911CDC4EC95" showsBaselineSeparator="NO" displayMode="iconAndLabel" sizeMode="regular" id="jmI-rT-oAa">
+                        <toolbar key="toolbar" implicitIdentifier="790E7E42-ECCB-45F7-B34A-F911CDC4EC95" showsBaselineSeparator="NO" displayMode="iconOnly" sizeMode="regular" id="jmI-rT-oAa">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Pr6-Kd-yB2"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="vRb-OI-uPy"/>
@@ -1422,6 +1422,14 @@ Gw
                                         <rect key="frame" x="13" y="14" width="43" height="28"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <menu key="menu" autoenablesItems="NO" id="G1h-cf-dCG"/>
+                                    </comboButton>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="0DDF96ED-4C4D-49CD-87D2-E42EB9C9AD38" label="Insert Snippet" paletteLabel="Snippets" sizingBehavior="auto" id="LmE-My-3c1">
+                                    <nil key="toolTip"/>
+                                    <comboButton key="view" verticalHuggingPriority="750" controlSize="large" baseWritingDirection="leftToRight" alignment="left" title="" id="FjA-GR-gyT">
+                                        <rect key="frame" x="6" y="14" width="43" height="28"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <menu key="menu" autoenablesItems="NO" id="eS7-uq-lop"/>
                                     </comboButton>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="AD3522ED-9E05-47FC-826C-82BDA25EBD85" label="Build" paletteLabel="Build" tag="-1" title="Build" sizingBehavior="auto" id="qhn-5s-CEp">
@@ -1585,15 +1593,6 @@ Gw
                                             <segue destination="SOo-ga-T53" kind="popover" popoverAnchorView="5PR-g4-Umd" popoverBehavior="t" preferredEdge="maxY" id="xff-ua-OdX"/>
                                         </connections>
                                     </button>
-                                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pct-AP-UV1">
-                                        <rect key="frame" x="131" y="21" width="196" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="fuo-VA-XLJ">
-                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="message"/>
-                                            <menu key="menu" id="dcE-MS-HXw"/>
-                                        </popUpButtonCell>
-                                    </popUpButton>
                                 </subviews>
                             </visualEffectView>
                         </subviews>
@@ -1610,7 +1609,6 @@ Gw
                         <outlet property="outputButton" destination="o4M-ON-b8V" id="mi0-Vd-HZK"/>
                         <outlet property="outputScrollView" destination="gM6-VC-kCh" id="Cbq-VN-EFd"/>
                         <outlet property="outputTextView" destination="fLO-1H-GKd" id="2zB-kY-Jtt"/>
-                        <outlet property="snippets" destination="pct-AP-UV1" id="ve0-BL-ejv"/>
                         <outlet property="splitView" destination="VTQ-i6-i8i" id="hYA-ON-mGK"/>
                         <outlet property="statusLabel" destination="WwT-Xi-9rw" id="x8B-3n-gwE"/>
                     </connections>
