@@ -1,60 +1,16 @@
-EXPORT IMAGE(trgtG, dx, dy, img)
-BEGIN
-  trgtG := "\"" + STRING(trgtG) + "\"";
-  dx := "\"" + STRING(dx) + "\"";
-  dy := "\"" + STRING(dy) + "\"";
-  img := "\"" + STRING(img) + "\"";
-#PPL
-PYTHON("
+#PYTHON IMAGE(trgtG, dx, dy, img, scaleX, scaleY)
+from sys import argv
 from hpprime import *
 
-trgtG = int(eval("+trgtG+")[1:])
-dx = int(eval("+dx+"))
-dy = int(eval("+dy+"))
-img = eval("+img+")
-
-
-w = int(img[1][0]); h = int(img[1][1]); bpp = int(img[1][2])
-m = (1 << bpp) - 1;
-x = 0; y = 0
-
-size = len(img[0])
-for i in range(size):
-  d = int(img[0][i])
-  for j in range(64 / bpp):
-    c = img[2][d & m]
-    pixon(trgtG, x+dx, y+dy, c)
-    d = d >> bpp
-    x = x + 1
-    if x == w:
-      x = 0
-      y = y + 1
-");
-#END
-END;
-
-EXPORT IMAGE(trgtG, dx, dy, img, scaleX, scaleY)
-BEGIN
-  trgtG := "\"" + STRING(trgtG) + "\"";
-  dx := "\"" + STRING(dx) + "\"";
-  dy := "\"" + STRING(dy) + "\"";
-  img := "\"" + STRING(img) + "\"";
-  scaleX := "\"" + STRING(scaleX) + "\"";
-  scaleY := "\"" + STRING(scaleY) + "\"";
-#PPL
-PYTHON("
-from hpprime import *
-
-trgtG = int(eval("+trgtG+")[1:])
-dx = int(eval("+dx+"))
-dy = int(eval("+dy+"))
-img = eval("+img+")
-scaleX = int(eval("+scaleX+"))
-scaleY = int(eval("+scaleY+"))
-
+trgtG = int(argv[0][1:])
+dx = int(argv[1])
+dy = int(argv[2])
+img = eval(argv[3])
+scaleX = int(argv[4])
+scaleY = int(argv[5])
 
 w = int(img[1][0]); h = int(img[1][1]); bpp = int(img[1][2])
-m = (1 << bpp) - 1;
+m = (1 << bpp) - 1; s = 64 / bpp
 x = 0; y = 0
 
 size = len(img[0])
@@ -68,9 +24,35 @@ for i in range(size):
     if x == w * scaleX:
       x = 0
       y = y + scaleY
-");
 #END
-END;
+
+#PYTHON IMAGE(trgtG, dx, dy, img)
+from sys import argv
+from hpprime import *
+
+trgtG = int(argv[0][1:])
+dx = int(argv[1])
+dy = int(argv[2])
+img = eval(argv[3])
+scaleX = int(argv[4])
+scaleY = int(argv[5])
+
+w = int(img[1][0]); h = int(img[1][1]); bpp = int(img[1][2])
+m = (1 << bpp) - 1; s = 64 / bpp
+x = 0; y = 0
+
+size = len(img[0])
+for i in range(size):
+  d = int(img[0][i])
+  for j in range(64 / bpp):
+    c = img[2][d & m]
+    pixon(trgtG, x+dx, y+dy, c)
+    d = d >> bpp
+    x = x + 1
+    if x == w:
+      x = 0
+      y = y + 1
+#END
 
 EXPORT IMAGE(trgtG, img)
 BEGIN

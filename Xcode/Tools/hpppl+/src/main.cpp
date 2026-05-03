@@ -261,11 +261,11 @@ std::string include(const std::filesystem::path& path) {
         return output;
     }
     
-    if (ext == ".hppplplus" || ext == ".hpppl+" || ext == ".ppl+" || ext == ".prgm+") {
+    if (ext == ".hppplplus" || ext == ".hpppl+") {
         output = translatePPLPlusToPPL(path);
     }
     
-    if (ext == ".hpprgm" || ext == ".hpappprgm") {
+    if (ext == ".hpppl") {
         std::wstring prgm = hpprgm::prgm(path);
         output = utf::utf8(prgm);
     }
@@ -416,17 +416,22 @@ static bool is_all_whitespace(const std::string& s) {
     return trimmed.begin() == trimmed.end();
 }
 
-std::string processInclude(const std::string& input, const fs::path& current_path)
+struct ResolvedInclude {
+    fs::path path;
+    std::string content;
+};
+
+ResolvedInclude processInclude(const std::string& input, const fs::path& current_path)
 {
-    std::string output;
+    ResolvedInclude resolvedInclude{};
     std::string_view s = input;
 
     size_t pos = s.find("{$");
 
     if (pos == std::string_view::npos)
-        return input;
+        return resolvedInclude;
 
-    output.append(s.substr(0, pos));
+    resolvedInclude.content.append(s.substr(0, pos));
     s.remove_prefix(pos + 2);
 
     if (s.starts_with("I"))
@@ -434,7 +439,7 @@ std::string processInclude(const std::string& input, const fs::path& current_pat
     else if (s.starts_with("include") || s.starts_with("INCLUDE"))
         s.remove_prefix(7);
     else
-        return input;
+        return resolvedInclude;
 
     while (!s.empty() && (s.front() == ' ' || s.front() == '\t'))
         s.remove_prefix(1);
@@ -449,22 +454,22 @@ std::string processInclude(const std::string& input, const fs::path& current_pat
     size_t end = quote ? s.find(quote) : s.find('}');
 
     if (end == std::string_view::npos || s.at(0) == '%')
-        return input;
+        return resolvedInclude;
 
-    fs::path file_path = std::string(s.substr(0, end));
+    resolvedInclude.path = std::string(s.substr(0, end));
 
-    if (file_path.parent_path().empty() && !fs::exists(file_path))
-        file_path = current_path.parent_path() / file_path;
+    if (resolvedInclude.path.parent_path().empty() && !fs::exists(resolvedInclude.path))
+        resolvedInclude.path = current_path.parent_path() / resolvedInclude.path;
 
-    output += include(file_path);
+    resolvedInclude.content += include(resolvedInclude.path);
 
     size_t close = s.find('}');
     if (close != std::string_view::npos)
         s.remove_prefix(close + 1);
 
-    output.append(s);
+    resolvedInclude.content.append(s);
 
-    return output;
+    return resolvedInclude;
 }
 
 std::string translatePPLPlusToPPL(const fs::path& path) {
@@ -477,7 +482,6 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
 
     singleton.pushPath(path);
     code = utf::load(path);
-    
     
     hppplplus.str(code);
     while (getline(hppplplus, input)) {
@@ -559,9 +563,16 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
             continue;
         }
         
-        input = processInclude(input, path);
-        
-        
+        auto resolvedInclude = processInclude(input, path);
+        if (resolvedInclude.content.size()) {
+            std::string ext = std::lowercased(resolvedInclude.path.extension().string());
+            if (ext != ".hppplplus" || ext != ".hpppl+") {
+                output.append(resolvedInclude.content);
+                continue;
+            } else {
+                input.append(resolvedInclude.content);
+            }
+        }
         
         if (Singleton::shared()->regexp.parse(input)) {
             input = regex_replace(input, std::regex(R"(^ *\bregex +([@<>=≠≤≥~])?`([^`]*)`(i)? *(.*)$)"), "");
@@ -638,8 +649,8 @@ fs::path resolveAndValidateInputFile(const char *input_file) {
     std::string in_ext = std::lowercased(path.extension().string());
     std::array<std::string, 7> extensions = {
         ".hpppl",
-        ".hppplplus"
-        ".prgm+",
+        ".hppplplus",
+        ".hpppl+"
         ".pas"
     };
     auto bom = utf::bom(path);

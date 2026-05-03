@@ -304,7 +304,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     keyEquivalent: ""
                 )
                 submenuItem.submenu = submenu
-                submenuItem.image = NSImage(named: NSImage.folderName)
+                submenuItem.image = NSImage(named: "xpsnippet")?.copy() as? NSImage
                 submenuItem.image?.size = NSSize(width: 16, height: 16)
                 menu.addItem(submenuItem)
             } else {
