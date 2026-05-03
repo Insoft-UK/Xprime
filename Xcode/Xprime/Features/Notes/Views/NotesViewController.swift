@@ -51,7 +51,7 @@ final class NotesViewController: NSViewController {
         
         let executable = URL(fileURLWithPath: ToolchainPaths.bin)
             .appendingPathComponent("hpnote")
-        let result = ProcessRunner.run(executable: executable, arguments: [url.appendingPathComponent("info.ntf").path, "--html", "-o", "/dev/stdout"])
+        let result = ProcessRunner.run(executable: executable, arguments: [url.appendingPathComponent("info.note").path, "--html", "-o", "/dev/stdout"])
         
         guard result.exitCode == 0, let out = result.out else {
             let errorHTML = """

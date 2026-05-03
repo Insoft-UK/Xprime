@@ -273,7 +273,10 @@ int main(int argc, const char * argv[]) {
         auto bom = utf::bom(inpath);
         if (bom == utf::BOM::none) {
             std::string ntf = utf::load(inpath);
-            out = hpnote::ntf_to_hpnote(ntf, cc);
+            if (html)
+                out = utf::to_u16string(html::ntf_to_html(ntf));
+            else
+                out = hpnote::ntf_to_hpnote(ntf, cc);
         } else {
             out = utf::to_u16string(utf::load(inpath, bom));
         }
