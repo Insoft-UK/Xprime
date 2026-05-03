@@ -1,0 +1,8 @@
+name: hpppl
+type: programming
+extensions: [".hpppl"]
+color: "#ff6600"  # Customize the color as you'd like
+tm_scope: source.hpppl
+ace_mode: text
+group: hpppl
+encoding: utf-8

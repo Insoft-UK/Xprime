@@ -1,8 +1,0 @@
-name: prgm
-type: programming
-extensions: [".prgm"]
-color: "#ff6600"  # Customize the color as you'd like
-tm_scope: source.prgm
-ace_mode: text
-group: prgm
-encoding: utf-16le
