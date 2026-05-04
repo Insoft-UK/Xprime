@@ -31,15 +31,14 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |Type|Description|
 |:-|:-|
 |.xprimeproj|Xprime project|
-|.ntf|NoteText|
-|.bmp|Bitmap (.hpppl)|
-|.png|Portable Network Graphic (.hpppl)|
-|.h|Adafruit GFX Font (.hpppl)|
+|.bmp|Bitmap (opens as .hpppl)|
+|.png|Portable Network Graphic (opens as .hpppl)|
+|.h|Adafruit GFX Font (opens as .hpppl)|
 |.hpprgm|Standalone program binary|
 |.hpappprgm|App program binary (inside .hpappdir)|
 |.hpappnote|App note binary (inside .hpappdir)|
-|.hpnote|Standalone note binary|
-|.prgm|HP PPL source text (UTF16le)|
+|.hpnote|Standalone note binary (opens as .hpppl)|
+|.note|Note source text|
 |.hpppl|HP PPL source text|
 |.hppplplus|HP PPL+ source text|
 
