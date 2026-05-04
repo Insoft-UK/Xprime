@@ -56,7 +56,7 @@
         },
         {
             "name": "Preprocessor Statements",
-            "match": "(?mi)^\\s*#[a-z]{2}.+($#end;)?"
+            "match": "(?mi)^\\s*#[a-z]\\w* .+($#end;)?"
         },
         {
             "name": "Comments",

@@ -4,11 +4,11 @@
     "patterns": [
         {
             "name": "Keywords",
-            "match": "(?m)\\b(BEGIN|END|IF|THEN|ELSE|CASE|FOR|FROM|TO|STEP|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|RETURN|IFERR|KILL|DEFAULT|AND|OR|NOT|XOR|MOD)\\b"
+            "match": "(?mi)\\b(IN|BEGIN|END|IF|THEN|ELSE|CASE|FOR|FROM|TO|STEP|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|RETURN|IFERR|KILL|DEFAULT|AND|OR|NOT|XOR|MOD)\\b"
         },
         {
             "name": "Storage",
-            "match": "(?m)\\b(LOCAL|EXPORT|CONST|KEY|VIEW)\\b"
+            "match": "(?mi)\\b(LOCAL|EXPORT|CONST|KEY|VIEW)\\b"
         },
         {
             "name": "Builtins",
@@ -52,7 +52,7 @@
         },
         {
             "name": "Preprocessor Statements",
-            "match": "(?m)^\\s*#[a-z]{2}.+"
+            "match": "(?mi)^\\s*#[a-z]\\w* .+"
         },
         {
             "name": "Comments",

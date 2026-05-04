@@ -887,6 +887,10 @@ Gw
                                         <menuItem title="Template" image="ppl" id="dAk-Ox-0tv">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
+                                        <menuItem title="Snippet" image="curlybraces" catalog="system" id="ehA-PE-5VO">
+                                            <attributedString key="attributedTitle"/>
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        </menuItem>
                                         <menuItem title="Reformat Code" image="text.document" catalog="system" id="Bpw-YD-8pa">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1424,14 +1428,6 @@ Gw
                                         <menu key="menu" autoenablesItems="NO" id="G1h-cf-dCG"/>
                                     </comboButton>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="0DDF96ED-4C4D-49CD-87D2-E42EB9C9AD38" label="Insert Snippet" paletteLabel="Snippets" sizingBehavior="auto" id="LmE-My-3c1">
-                                    <nil key="toolTip"/>
-                                    <comboButton key="view" verticalHuggingPriority="750" controlSize="large" baseWritingDirection="leftToRight" alignment="left" title="" id="FjA-GR-gyT">
-                                        <rect key="frame" x="6" y="14" width="43" height="28"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <menu key="menu" autoenablesItems="NO" id="eS7-uq-lop"/>
-                                    </comboButton>
-                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="AD3522ED-9E05-47FC-826C-82BDA25EBD85" label="Build" paletteLabel="Build" tag="-1" title="Build" sizingBehavior="auto" id="qhn-5s-CEp">
                                     <imageReference key="image" image="hammer.fill" catalog="system" symbolScale="medium"/>
                                     <connections>
@@ -1717,6 +1713,7 @@ Gw
         <image name="bubbles.and.sparkles" catalog="system" width="17" height="15"/>
         <image name="cas" width="64" height="64"/>
         <image name="clock" catalog="system" width="15" height="15"/>
+        <image name="curlybraces" catalog="system" width="15" height="16"/>
         <image name="document.badge.plus" catalog="system" width="16" height="18"/>
         <image name="eye" catalog="system" width="21" height="13"/>
         <image name="finder" catalog="system" width="16" height="15"/>
