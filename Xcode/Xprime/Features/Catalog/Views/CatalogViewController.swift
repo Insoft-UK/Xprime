@@ -128,6 +128,29 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
             "LOCAL", "EXPORT", "CONST", "KEY", "VIEW"
         ]
         
+        let functions: Set<String> = [
+            "RECT_P", "RECT", "LINE_P", "LINE", "ARC_P",
+            "ARC", "PIXON_P", "PIXON", "PIXOFF_P", "PIXOFF",
+            "GETPIX_P", "GETPIX", "TEXTOUT_P", "TEXTOUT",
+            "TEXTSIZE", "DIMGROB_P", "DIMGROB", "BLIT_P",
+            "BLIT", "STRBLIT", "TRIANGLE_P", "TRIANGLE",
+            "FILLPOLY_P", "FILLPOLY", "GROBW_P", "GROBW",
+            "GROBH_P", "GROBH", "DRAWMENU", "FREEZE", "WAIT",
+            "RGB", "GETKEY", "MOUSE", "PRINT", "INPUT", "CHOOSE",
+            "MSGBOX", "EDITMAT", "EDITLIST", "STARTVIEW",
+            "STARTAPP", "ABS", "CEIL", "FLOOR", "ROUND", "IP",
+            "FP", "SIGN", "MAX", "MIN", "MOD", "SIN", "COS",
+            "TAN", "ASIN", "ACOS", "ATAN", "LN", "LOG", "EXP",
+            "SQRT", "SQ", "SIZE", "DIM", "MAKEMAT", "MAKELIST",
+            "ADDROW", "ADDCOL", "REPLACE", "SUPPRESS", "APPEND",
+            "CONCAT", "POS", "SORT", "REVERSE", "CROSS", "DOT",
+            "ROUND", "l2norm", "rowDim", "colDim", "subMat", "LEFT",
+            "RIGHT", "MID", "INSTRING", "DIM", "ASC", "CHAR",
+            "LOWER", "UPPER", "TRIM", "ROTATE", "STRING", "EXPR",
+            "IFTE", "TYPE", "TICKS", "PYTHON", "AFiles", "Theme", "BITAND",
+            "BITOR", "BITNOT", "BITSL", "BITSR"
+        ]
+        
         let catalog = resourceURLs
             .map { $0.deletingPathExtension().lastPathComponent.customPercentDecoded() }
             .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
@@ -144,13 +167,14 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
                     keyEquivalent: ""
                     
                 )
-                menuItem.image = NSImage(named: "function")?.copy() as? NSImage
+                menuItem.image = NSImage(named: "code")?.copy() as? NSImage
                 if keywords.contains(name) {
                     menuItem.image = NSImage(named: "keyword")?.copy() as? NSImage
                 }
-                if name == "ABS" {
-                    menuItem.image = NSImage(named: "keyword")?.copy() as? NSImage
+                if functions.contains(name) {
+                    menuItem.image = NSImage(named: "function")?.copy() as? NSImage
                 }
+                
                 menuItem.image?.size = NSSize(width: 24, height: 24)
                 menuItem.representedObject = url as NSURL
                 menu.addItem(menuItem)
