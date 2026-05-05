@@ -155,6 +155,8 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
                 menuItem.target = self
             }
             
+            menuItem.image = NSImage(named: "xpcolortheme")?.copy() as? NSImage
+            menuItem.image?.size = NSSize(width: 24, height: 24)
             theme.menu?.addItem(menuItem)
         }
         
@@ -171,6 +173,20 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
             menuItem.target = self
             menuItem.state = (name == Settings.shared.preferredTheme) ? .on : .off
             
+            if FileManager.default.fileExists(atPath: fileURL
+                .deletingPathExtension()
+                .appendingPathExtension("png")
+                .path
+            ) {
+                menuItem.image = NSImage(byReferencing: fileURL
+                    .deletingPathExtension()
+                    .appendingPathExtension("png")
+                )
+            } else {
+                menuItem.image = NSImage(named: "xpcolortheme")?.copy() as? NSImage
+            }
+            
+            menuItem.image?.size = NSSize(width: 24, height: 24)
             theme.menu?.addItem(menuItem)
         }
         theme.selectItem(withTitle: Settings.shared.preferredTheme)

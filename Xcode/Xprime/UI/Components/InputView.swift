@@ -25,7 +25,7 @@ import Cocoa
 final class InputView: NSView {
 
     let textField = TextField()
-    let button = Button()
+    let button = CustomRoundedButton()
 
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

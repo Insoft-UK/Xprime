@@ -14,7 +14,7 @@
         "background": "#161a22"
     },
     "window": {
-        "background": "#55161b22"
+        "background": "#00161b22"
     },
     "tokenColors": [
         {
@@ -62,13 +62,13 @@
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#00ddff"
+                "foreground": "#00ccff"
             }
         },
         {
             "scope": ["Namespace"],
             "settings": {
-                "foreground": "#cbaaf9"
+                "foreground": "#00ccff"
             }
         },
         {
