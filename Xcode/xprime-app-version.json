@@ -1,6 +1,6 @@
 {
-    "latestVersion": "26.4.4.20260503",
-    "build": "20260503",
+    "latestVersion": "26.4.4.20260505",
+    "build": "20260505",
     "downloadURL": "http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.pkg",
     "minimumOS": "26.0",
     "architecture": "arm64",

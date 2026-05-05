@@ -117,6 +117,17 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
             return
         }
         
+        let keywords: Set<String> = [
+            "BEGIN", "END",
+            "IF", "THEN", "ELSE", "CASE",
+            "FOR", "FROM", "TO", "STEP", "DO",
+            "WHILE", "REPEAT", "UNTIL",
+            "BREAK", "CONTINUE", "RETURN",
+            "IFERR", "KILL", "DEFAULT",
+            "AND", "OR", "NOT", "XOR", "MOD",
+            "LOCAL", "EXPORT", "CONST", "KEY", "VIEW"
+        ]
+        
         let catalog = resourceURLs
             .map { $0.deletingPathExtension().lastPathComponent.customPercentDecoded() }
             .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
@@ -133,6 +144,14 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
                     keyEquivalent: ""
                     
                 )
+                menuItem.image = NSImage(named: "function")?.copy() as? NSImage
+                if keywords.contains(name) {
+                    menuItem.image = NSImage(named: "keyword")?.copy() as? NSImage
+                }
+                if name == "ABS" {
+                    menuItem.image = NSImage(named: "keyword")?.copy() as? NSImage
+                }
+                menuItem.image?.size = NSSize(width: 24, height: 24)
                 menuItem.representedObject = url as NSURL
                 menu.addItem(menuItem)
             }

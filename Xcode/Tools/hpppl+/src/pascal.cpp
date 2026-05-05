@@ -522,9 +522,9 @@ namespace hppplplus::pascal {
         output = std::regex_replace(output, std::regex(R"(\bend.)", std::regex::icase), "end;");
         output = replaceWords(output, {"var"}, "LOCAL");
         output = capitalizeWords(output, {
-            "interface", "implementation", "procedure"
+            "interface", "implementation", "procedure", "function"
         });
-        output = replaceWords(output, {"INTERFACE", "IMPLEMENTATION", "PROCEDURE"}, "");
+        output = replaceWords(output, {"INTERFACE", "IMPLEMENTATION", "PROCEDURE", "FUNCTION"}, "");
         output = capitalizeWords(output, {
             "end", "return", "kill", "if", "then", "else", "xor", "or", "and", "not",
             "case", "default", "iferr", "ifte", "for", "from", "step", "downto", "to", "do",

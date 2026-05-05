@@ -121,6 +121,18 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         }
         
         updateManager.checkForAvaliableUpdates()
+        
+        guard let window = view.window else { return }
+        
+        // Make window background transparent
+        window.isOpaque = false
+        
+        // Optional: remove title bar / standard window decorations
+//        window.titlebarAppearsTransparent = true
+//        window.backgroundColor = NSColor(white: 0.1, alpha: 0.98)
+//        window.styleMask = [.nonactivatingPanel, .titled]
+//        window.styleMask.insert(.fullSizeContentView)
+//        window.level = .floating
     }
     
     deinit {
@@ -201,7 +213,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let url = Bundle.main.resourceURL!
             .appendingPathComponent("Developer/Library/Xprime/Snippets")
         guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Snippet") else { return }
-        
+        item.image?.size = NSSize(width: 18, height: 18)
         item.submenu = populateSnippetMenu(url: url)
     }
     
@@ -342,8 +354,8 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                     keyEquivalent: ""
                 )
                 submenuItem.submenu = submenu
-                submenuItem.image = NSImage(named: "xpsnippet")?.copy() as? NSImage
-                submenuItem.image?.size = NSSize(width: 16, height: 16)
+                submenuItem.image = NSImage(named: "folder")?.copy() as? NSImage
+                submenuItem.image?.size = NSSize(width: 18, height: 18)
                 menu.addItem(submenuItem)
             } else {
                 let name = itemURL.deletingPathExtension().lastPathComponent
@@ -355,7 +367,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 )
                 menuItem.representedObject = itemURL
                 menuItem.image = NSImage(named: "hpppl")?.copy() as? NSImage
-                menuItem.image?.size = NSSize(width: 16, height: 16)
+                menuItem.image?.size = NSSize(width: 18, height: 18)
                 menu.addItem(menuItem)
             }
         }
@@ -851,7 +863,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let bmp = NSImage(named: "bmp")?.copy() as! NSImage
         let png = NSImage(named: "png")?.copy() as! NSImage
         
-        let iconSize = NSSize(width: 22, height: 22)
+        let iconSize = NSSize(width: 24, height: 24)
         let iconSizeSmall = NSSize(width: 18, height: 18)
         
         func createMenu(for url: URL) -> NSMenu {
@@ -973,6 +985,9 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
                 .appendingPathComponent(projectManager.projectName!)
                 .appendingPathExtension("hpappdir")
             )
+            for item in menu.item(at: 0)!.submenu!.items {
+                item.image?.size = NSSize(width: 32, height: 32)
+            }
             menu.insertItem(NSMenuItem.separator(), at: 1)
             menu.item(at: 0)?.submenu?.insertItem(
                 NSMenuItem(
@@ -984,7 +999,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
             )
             let baseApplicationIcon = NSImage(named: projectManager.baseApplicationName)?.copy() as! NSImage
             menu.item(at: 0)?.submenu?.item(at: 0)?.image = baseApplicationIcon
-            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = iconSize
+            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = NSSize(width: 32, height: 32)
             menu.item(at: 0)?.submenu?.item(at: 0)?.submenu = createBaseMenu()
         }
         

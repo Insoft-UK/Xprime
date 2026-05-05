@@ -18,7 +18,7 @@ END;
 
 $(PRODUCT_NAME)():=()
 BEGIN
-  LOCAL evt, key, menu;
+  local evt, key, menu;
   Draw();
   REPEAT
     evt := WAIT(-1);

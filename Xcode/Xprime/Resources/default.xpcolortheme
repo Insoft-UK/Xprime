@@ -1,92 +1,80 @@
 {
-    "name": "Xprime Dark Modern",
+    "name": "Xprime",
     "type": "dark",
     "weight": "semi",
     "pointSize": 13,
     "colors": {
-        "editor.background": "#000000",
-        "editor.foreground": "#cccccc",
+        "editor.background": "#0e1116",
+        "editor.foreground": "#ffffff",
         "editor.cursor": "#797979",
-        "editor.selectionBackground": "#484848"
+        "editor.selectionBackground": "#E4F9FF"
     },
     "lineNumberRuler": {
-        "foreground": "#707680",
-        "background": "#111111"
+        "foreground": "#9298a0",
+        "background": "#161a22"
     },
     "window": {
-        "background": "#161b22"
+        "background": "#55161b22"
     },
     "tokenColors": [
         {
             "scope": ["Preprocessor Statements"],
             "settings": {
-                "foreground": "#ee8277"
+                "foreground": "#ffaa00"
             }
         },
         {
             "scope": ["Comments"],
             "settings": {
-                "foreground": "#74985d"
+                "foreground": "#9298a0"
             }
         },
         {
             "scope": ["Keywords", "Storage"],
             "settings": {
-                "foreground": "#22aaee"
-            }
-        },
-        {
-            "scope": ["Storage"],
-            "settings": {
-                "foreground": "#eebb22"
+                "foreground": "#0099ff"
             }
         },
         {
             "scope": ["Brackets"],
             "settings": {
-                "foreground": "#cc9911"
+                "foreground": "#afd5fb"
             }
         },
         {
             "scope": ["Symbols"],
             "settings": {
-                "foreground": "#cccccc"
+                "foreground": "#afd5fb"
             }
         },
         {
             "scope": ["Operators"],
             "settings": {
-                "foreground": "#999999"
+                "foreground": "#afd5fb"
             }
         },
         {
-            "scope": ["Strings", "Backquotes"],
+            "scope": ["Numbers", "Strings", "Backquotes"],
             "settings": {
-                "foreground": "#bb8822"
-            }
-        },
-        {
-            "scope": ["Numbers"],
-            "settings": {
-                "foreground": "#ffdd33"
+                "foreground": "#ffaa00"
             }
         },
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#33ddff"
+                "foreground": "#00ddff"
             }
         },
         {
             "scope": ["Namespace"],
             "settings": {
-                "foreground": "#ee9900"
+                "foreground": "#cbaaf9"
             }
         },
         {
             "scope": ["Builtins"],
             "settings": {
-                "foreground": "#eebb22"
+                "foreground": "#cbaaf9"
             }
         }
     ]

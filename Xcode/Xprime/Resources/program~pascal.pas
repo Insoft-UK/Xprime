@@ -14,7 +14,7 @@ program $(PRODUCT_NAME);
     DRAWMENU("F1", "F2", "F3", "F4", "F5", "Exit");
   end;
 
-  procedure GetSelectedMenu(evt: integer)
+  function GetSelectedMenu(evt: integer): integer
   begin
     if TYPE(evt) <> 6 then return 0; end;
     if evt(1) <> 3 then return 0; end;
@@ -32,5 +32,4 @@ program $(PRODUCT_NAME);
         key := evt;
       end;
     until key == 4 or menu == 6;
-    return 0;
   end.

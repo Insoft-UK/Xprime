@@ -434,7 +434,7 @@ final class CodeEditorTextView: NSTextView {
                 "IFERR", "KILL", "DEFAULT",
                 "AND", "OR", "NOT", "XOR", "MOD",
                 "VAR", "LOCAL", "EXPORT", "CONST", "KEY", "VIEW",
-                "PROGRAM", "INTERFACE", "IMPLEMENTATION", "PROCEDURE"
+                "PROGRAM", "INTERFACE", "IMPLEMENTATION", "PROCEDURE", "FUNCTION"
             ]
 
             let text = self.string
