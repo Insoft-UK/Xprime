@@ -128,7 +128,7 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
             "LOCAL", "EXPORT", "CONST", "KEY", "VIEW"
         ]
         
-        let functions: Set<String> = [
+        let builtins: Set<String> = [
             "RECT_P", "RECT", "LINE_P", "LINE", "ARC_P",
             "ARC", "PIXON_P", "PIXON", "PIXOFF_P", "PIXOFF",
             "GETPIX_P", "GETPIX", "TEXTOUT_P", "TEXTOUT",
@@ -151,6 +151,11 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
             "BITOR", "BITNOT", "BITSL", "BITSR"
         ]
         
+        let symbols: Set<String> = [
+            "!", "%", "(", "*", "+", "+", "-", ".*", ".+", ".-", "./", ".^", "/", ":=",
+            "<", "<=", "<>", ">", ">=", "^", "|"
+        ]
+        
         let catalog = resourceURLs
             .map { $0.deletingPathExtension().lastPathComponent.customPercentDecoded() }
             .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
@@ -167,12 +172,17 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
                     keyEquivalent: ""
                     
                 )
-                menuItem.image = NSImage(named: "code")?.copy() as? NSImage
+                menuItem.image = NSImage(named: "function")?.copy() as? NSImage
+                
                 if keywords.contains(name) {
                     menuItem.image = NSImage(named: "keyword")?.copy() as? NSImage
                 }
-                if functions.contains(name) {
-                    menuItem.image = NSImage(named: "function")?.copy() as? NSImage
+                if builtins.contains(name) {
+                    menuItem.image = NSImage(named: "builtin")?.copy() as? NSImage
+                }
+                
+                if symbols.contains(name) {
+                    menuItem.image = NSImage(named: "code")?.copy() as? NSImage
                 }
                 
                 menuItem.image?.size = NSSize(width: 24, height: 24)

@@ -9,8 +9,8 @@
         "editor.selectionBackground": "#666666"
     },
     "lineNumberRuler": {
-        "foreground": "#909090",
-        "background": "#606060"
+        "foreground": "#d0d0d0",
+        "background": "#800000"
     },
     "window": {
         "background": "#4B0000"
