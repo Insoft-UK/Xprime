@@ -57,7 +57,7 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
         window.titleVisibility = .hidden
         window.center()
         window.titlebarAppearsTransparent = true
-        window.styleMask = [.nonactivatingPanel, .titled]
+        window.styleMask = [.nonactivatingPanel, .titled, .resizable, .closable, .miniaturizable]
         window.styleMask.insert(.fullSizeContentView)
         window.level = .floating
     }
