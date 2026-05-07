@@ -48,12 +48,11 @@ final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NST
     override func viewDidAppear() {
         super.viewDidAppear()
         guard let window = view.window else { return }
-        DispatchQueue.main.async {
-            window.title = "Catalog"
-            window.level = .floating
-            window.titleVisibility = .visible
-            window.makeFirstResponder(nil)
-        }
+        window.title = "Catalog"
+        window.level = .floating
+        window.titleVisibility = .visible
+        window.minSize = window.frame.size
+        window.backgroundColor = NSColor(white: 0, alpha: 0.9)
     }
 
     private func loadHelp(for command: String) {

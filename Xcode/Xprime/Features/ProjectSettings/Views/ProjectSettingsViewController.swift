@@ -57,12 +57,13 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
+        window.initialFirstResponder = nil
+        window.makeFirstResponder(nil)
         
         guard let window = NSApplication.shared.windows.first else {
             self.view.window?.close(); return
         }
         vc = window.contentViewController as? MainViewController
-        view.window?.makeFirstResponder(nil)
     }
     
 

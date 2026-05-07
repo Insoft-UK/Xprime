@@ -62,6 +62,9 @@ class CustomViewController: NSViewController {
                     layer.borderColor = NSColor(white: 0.5, alpha: 0.15).cgColor
                 }
             }
+            
+            window.initialFirstResponder = nil
+            window.makeFirstResponder(nil)
         }
     }
 }
