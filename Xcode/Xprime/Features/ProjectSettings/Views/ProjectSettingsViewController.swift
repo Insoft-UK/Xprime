@@ -62,6 +62,7 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
             self.view.window?.close(); return
         }
         vc = window.contentViewController as? MainViewController
+        view.window?.makeFirstResponder(nil)
     }
     
 

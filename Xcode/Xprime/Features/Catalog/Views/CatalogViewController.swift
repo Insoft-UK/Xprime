@@ -23,7 +23,7 @@
 import Cocoa
 
 
-final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextFieldDelegate {
+final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NSTextFieldDelegate {
     @IBOutlet weak var catalogHelpTextView: CatalogHelpTextView!
     @IBOutlet weak var catalog: NSPopUpButton!
     @IBOutlet weak var search: NSTextField!
@@ -47,19 +47,13 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        
         guard let window = view.window else { return }
-        
-        // Make window background transparent
-        window.isOpaque = false
-        
-        // Optional: remove title bar / standard window decorations
-        window.titleVisibility = .hidden
-        window.center()
-        window.titlebarAppearsTransparent = true
-        window.styleMask = [.nonactivatingPanel, .titled, .resizable, .closable, .miniaturizable]
-        window.styleMask.insert(.fullSizeContentView)
-        window.level = .floating
+        DispatchQueue.main.async {
+            window.title = "Catalog"
+            window.level = .floating
+            window.titleVisibility = .visible
+            window.makeFirstResponder(nil)
+        }
     }
 
     private func loadHelp(for command: String) {
@@ -185,7 +179,7 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
                     menuItem.image = NSImage(named: "code")?.copy() as? NSImage
                 }
                 
-                menuItem.image?.size = NSSize(width: 24, height: 24)
+                menuItem.image?.size = NSSize(width: 18, height: 18)
                 menuItem.representedObject = url as NSURL
                 menu.addItem(menuItem)
             }

@@ -399,6 +399,7 @@ final class CodeEditorTextView: NSTextView {
             }
         }
         textStorage.endEditing()
+        applySyntaxHighlighting()
     }
     
     private func loadJSONString(_ url: URL) -> String? {

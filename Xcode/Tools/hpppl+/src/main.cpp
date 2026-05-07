@@ -266,8 +266,7 @@ std::string include(const std::filesystem::path& path) {
     }
     
     if (ext == ".hpppl") {
-        std::wstring prgm = hpprgm::prgm(path);
-        output = utf::utf8(prgm);
+        output = utf::load(path);
     }
     
     if (!addons.empty()) {

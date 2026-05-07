@@ -50,6 +50,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
             self.view.window?.close(); return
         }
         vc = window.contentViewController as? MainViewController
+        view.window?.makeFirstResponder(nil)
     }
     
     private func setup() {
@@ -101,7 +102,7 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBAction func defaultSettings(_ sender: Any) {
         Settings.shared.substitutionEnabled = false
         Settings.shared.useBetaApplications = false
-        Settings.shared.preferredTheme = ""
+        Settings.shared.preferredTheme = "Default"
         Settings.shared.workingDirectory = FileManager
             .default
             .homeDirectoryForCurrentUser

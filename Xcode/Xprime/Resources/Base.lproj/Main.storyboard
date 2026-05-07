@@ -15,7 +15,7 @@
                 <viewController showSeguePresentationStyle="single" id="um3-nH-PU9" customClass="CatalogViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="JPh-bh-aek">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView misplaced="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXT-8R-zZu" customClass="CustomScrollView" customModule="Xprime" customModuleProvider="target">
                                 <rect key="frame" x="20" y="65" width="410" height="185"/>
@@ -65,6 +65,7 @@ DQ
                                         <action selector="close:" target="um3-nH-PU9" id="ZHX-2J-OXr"/>
                                     </connections>
                                 </buttonCell>
+                                <color key="bezelColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="eT2-Lz-Cuw"/>
                                 </constraints>
@@ -82,7 +83,7 @@ DQ
                                 </constraints>
                             </popUpButton>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="Xra-Sn-Dn0">
-                                <rect key="frame" x="206" y="266.5" width="26.5" height="20"/>
+                                <rect key="frame" x="206" y="265.5" width="26.5" height="20"/>
                                 <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="magnifyingglass" catalog="system" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="Kyb-MX-TG6">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -563,7 +564,7 @@ Gw
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Dlo-Hf-EQO"/>
-                                        <menuItem title="Open Application" image="ppl" id="jZ7-4Z-CMf">
+                                        <menuItem title="Open Application" image="hp" id="jZ7-4Z-CMf">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Open Application" id="Ylr-Ek-uzs">
                                                 <items>
@@ -906,7 +907,7 @@ Gw
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="h12-3c-Pgi"/>
-                                        <menuItem title="Template" image="ppl" id="dAk-Ox-0tv">
+                                        <menuItem title="Template" image="hp" id="dAk-Ox-0tv">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem title="Snippet" image="xpsnippets" id="ehA-PE-5VO">
@@ -1414,7 +1415,7 @@ Gw
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Untitled (UNSAVED)" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Untitled (UNSAVED)" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <rect key="contentRect" x="620" y="417" width="912" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
@@ -1523,7 +1524,7 @@ Gw
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <scrollView hidden="YES" misplaced="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="gM6-VC-kCh">
+                                    <scrollView hidden="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" id="gM6-VC-kCh">
                                         <rect key="frame" x="0.0" y="374" width="1024" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <clipView key="contentView" drawsBackground="NO" id="fIY-XC-Rbg">
@@ -1562,22 +1563,10 @@ Gw
                                     <outlet property="delegate" destination="XfG-lQ-9wD" id="SQ9-kE-1Pg"/>
                                 </connections>
                             </splitView>
-                            <visualEffectView fixedFrame="YES" blendingMode="behindWindow" material="dark" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="eQw-Jp-nTP">
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YBc-Ym-oU3">
                                 <rect key="frame" x="0.0" y="0.0" width="1060" height="64"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Is1-v7-WGS">
-                                        <rect key="frame" x="52" y="21" width="24.5" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="trash" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="Ff0-fj-M5l">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                        <connections>
-                                            <action selector="clearOutput:" target="XfG-lQ-9wD" id="BUB-x1-ZJw"/>
-                                        </connections>
-                                    </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o4M-ON-b8V">
                                         <rect key="frame" x="20" y="20.5" width="24" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -1590,17 +1579,20 @@ Gw
                                             <action selector="toggleOutput:" target="XfG-lQ-9wD" id="yC4-br-6rK"/>
                                         </connections>
                                     </button>
-                                    <textField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwT-Xi-9rw">
-                                        <rect key="frame" x="839" y="22" width="203" height="16"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" userInterfaceLayoutDirection="rightToLeft" alignment="right" title="Line: 1 Col: 1" id="au9-yV-l0B">
-                                            <font key="font" metaFont="smallSystem"/>
-                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Is1-v7-WGS">
+                                        <rect key="frame" x="45" y="21" width="26.5" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="trash" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="Ff0-fj-M5l">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <connections>
+                                            <action selector="clearOutput:" target="XfG-lQ-9wD" id="BUB-x1-ZJw"/>
+                                        </connections>
+                                    </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5PR-g4-Umd">
-                                        <rect key="frame" x="84" y="18.5" width="26.5" height="24"/>
+                                        <rect key="frame" x="70" y="18.5" width="31.5" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="long.text.page.and.pencil" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AiF-KR-aFr">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1611,8 +1603,17 @@ Gw
                                             <segue destination="SOo-ga-T53" kind="popover" popoverAnchorView="5PR-g4-Umd" popoverBehavior="t" preferredEdge="maxY" id="xff-ua-OdX"/>
                                         </connections>
                                     </button>
+                                    <textField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwT-Xi-9rw">
+                                        <rect key="frame" x="839" y="24" width="203" height="16"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" allowsUndo="NO" userInterfaceLayoutDirection="rightToLeft" alignment="right" title="Line: 1 Col: 1" id="au9-yV-l0B">
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
-                            </visualEffectView>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="VTQ-i6-i8i" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="0nl-dg-BfT"/>
@@ -1710,7 +1711,7 @@ Gw
         <image name="Advanced Graphing" width="19" height="19"/>
         <image name="CheckOff" width="16" height="16"/>
         <image name="CheckOn" width="16" height="16"/>
-        <image name="CheckUpdate" width="16" height="16"/>
+        <image name="CheckUpdate" width="32" height="32"/>
         <image name="ConnectivityKit" width="32" height="32"/>
         <image name="Data Streamer" width="19" height="19"/>
         <image name="Explorer" width="19" height="19"/>
@@ -1745,6 +1746,7 @@ Gw
         <image name="hammer" catalog="system" width="20" height="18"/>
         <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="help-about" width="16" height="16"/>
+        <image name="hp" width="16" height="16"/>
         <image name="hpppl" width="64" height="64"/>
         <image name="hppplplus" width="64" height="64"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
@@ -1756,7 +1758,6 @@ Gw
         <image name="play.fill" catalog="system" width="12" height="13"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="plus.magnifyingglass" catalog="system" width="16" height="15"/>
-        <image name="ppl" width="16" height="16"/>
         <image name="questionmark.circle" catalog="system" width="15" height="15"/>
         <image name="screwdriver" catalog="system" width="19" height="19"/>
         <image name="shippingbox" catalog="system" width="16" height="17"/>

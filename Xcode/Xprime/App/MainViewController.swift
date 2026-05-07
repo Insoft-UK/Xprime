@@ -30,7 +30,7 @@ extension MainViewController: NSWindowRestoration {
     }
 }
 
-final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
+final class MainViewController: CustomViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
     // MARK: - Outlets
     @IBOutlet weak var splitView: NSSplitView!
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
@@ -122,10 +122,10 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         
         updateManager.checkForAvaliableUpdates()
         
-        guard let window = view.window else { return }
+//        guard let window = view.window else { return }
         
         // Make window background transparent
-        window.isOpaque = false
+//        window.isOpaque = false
         
         // Optional: remove title bar / standard window decorations
 //        window.titlebarAppearsTransparent = true
@@ -864,7 +864,7 @@ final class MainViewController: NSViewController, NSTextViewDelegate, NSToolbarI
         let png = NSImage(named: "png")?.copy() as! NSImage
         
         let iconSize = NSSize(width: 24, height: 24)
-        let iconSizeSmall = NSSize(width: 18, height: 18)
+        let iconSizeSmall = NSSize(width: 16, height: 16)
         
         func createMenu(for url: URL) -> NSMenu {
             let menu = NSMenu()

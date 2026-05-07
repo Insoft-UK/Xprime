@@ -47,6 +47,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
             self.view.window?.close(); return
         }
         vc = window.contentViewController as? MainViewController
+        view.window?.makeFirstResponder(nil)
     }
     
     // MARK: - Actions
@@ -83,7 +84,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
     private func refreshLanguageMenu() {
         guard let menu = language.menu else { return }
         for item in menu.items {
-            item.image?.size = NSSize(width: 22, height: 22)
+            item.image?.size = NSSize(width: 16, height: 16)
         }
     }
     
