@@ -11,11 +11,11 @@ Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file
 Requires **macOS 14.6** or later
 
 **Apple Silicon**
-Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.pkg">Xprime 26.4.4</a></br>
+Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.pkg">Xprime 26.4.4</a> | <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-rc-arm64.pkg">Xprime RC 26.4.5</a></br>
 Requires **macOS 26** or later
 
-### Xprime 26
-Read [Whats New](UPDATE.md)
+### Xprime 26.4.5 RC
+This next update focuses on refinements and UI improvements across tools such as HPPPL+, HPNote, GROB, and HPFont, while also fixing various small issues and bugs.
 
 ### Hidden Version Detail
 In Xprime, you can reveal the full version number from the About window.
