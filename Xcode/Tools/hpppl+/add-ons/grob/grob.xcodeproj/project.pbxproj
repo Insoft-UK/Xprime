@@ -56,8 +56,20 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				lib/libhpprgm.a,
-				lib/win_x86_64/libhpprgm.a,
-				lib/x86_64/libhpprgm.a,
+			);
+			target = 13EBE2F22B22249000302F26 /* grob */;
+		};
+		13E354FF2FAD213A0002B8DA /* Exceptions for "libpng" folder in "grob" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				lib/arm64/libpng.a,
+			);
+			target = 13EBE2F22B22249000302F26 /* grob */;
+		};
+		13E355012FAD214B0002B8DA /* Exceptions for "libz" folder in "grob" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				lib/arm64/libz.a,
 			);
 			target = 13EBE2F22B22249000302F26 /* grob */;
 		};
@@ -79,11 +91,17 @@
 		};
 		136A44AC2EF5CEB90017E5AF /* libpng */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				13E354FF2FAD213A0002B8DA /* Exceptions for "libpng" folder in "grob" target */,
+			);
 			path = libpng;
 			sourceTree = "<group>";
 		};
 		136A44B52EF5CEB90017E5AF /* libz */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				13E355012FAD214B0002B8DA /* Exceptions for "libz" folder in "grob" target */,
+			);
 			path = libz;
 			sourceTree = "<group>";
 		};

@@ -34,7 +34,7 @@
 		136A45612EF7032E0017E5AF /* utf.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = utf.hpp; sourceTree = "<group>"; };
 		136A45622EF7032E0017E5AF /* utf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utf.cpp; sourceTree = "<group>"; };
 		138F54D32C977594009357F9 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		84764225189579CD00AFBE9C /* font */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = font; sourceTree = BUILT_PRODUCTS_DIR; };
+		84764225189579CD00AFBE9C /* hpfont */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = hpfont; sourceTree = BUILT_PRODUCTS_DIR; };
 		84764228189579CD00AFBE9C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,7 +78,7 @@
 		84764226189579CD00AFBE9C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				84764225189579CD00AFBE9C /* font */,
+				84764225189579CD00AFBE9C /* hpfont */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,9 +98,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		84764224189579CD00AFBE9C /* font */ = {
+		84764224189579CD00AFBE9C /* hpfont */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8476422E189579CD00AFBE9C /* Build configuration list for PBXNativeTarget "font" */;
+			buildConfigurationList = 8476422E189579CD00AFBE9C /* Build configuration list for PBXNativeTarget "hpfont" */;
 			buildPhases = (
 				84764221189579CD00AFBE9C /* Sources */,
 				84764222189579CD00AFBE9C /* Frameworks */,
@@ -110,9 +110,9 @@
 			);
 			dependencies = (
 			);
-			name = font;
+			name = hpfont;
 			productName = neo2raw;
-			productReference = 84764225189579CD00AFBE9C /* font */;
+			productReference = 84764225189579CD00AFBE9C /* hpfont */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -125,7 +125,7 @@
 				LastUpgradeCheck = 2620;
 				ORGANIZATIONNAME = Insoft;
 			};
-			buildConfigurationList = 84764220189579CD00AFBE9C /* Build configuration list for PBXProject "font" */;
+			buildConfigurationList = 84764220189579CD00AFBE9C /* Build configuration list for PBXProject "hpfont" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -138,7 +138,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				84764224189579CD00AFBE9C /* font */,
+				84764224189579CD00AFBE9C /* hpfont */,
 			);
 		};
 /* End PBXProject section */
@@ -264,7 +264,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 8XN79M4JCJ;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu23;
@@ -276,7 +279,8 @@
 					"$(PROJECT_DIR)/src",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_NAME = font;
+				PRODUCT_NAME = hpfont;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -284,7 +288,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 8XN79M4JCJ;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_C_LANGUAGE_STANDARD = gnu23;
@@ -296,14 +303,15 @@
 					"$(PROJECT_DIR)/src",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_NAME = font;
+				PRODUCT_NAME = hpfont;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		84764220189579CD00AFBE9C /* Build configuration list for PBXProject "font" */ = {
+		84764220189579CD00AFBE9C /* Build configuration list for PBXProject "hpfont" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8476422C189579CD00AFBE9C /* Debug */,
@@ -312,7 +320,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8476422E189579CD00AFBE9C /* Build configuration list for PBXNativeTarget "font" */ = {
+		8476422E189579CD00AFBE9C /* Build configuration list for PBXNativeTarget "hpfont" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8476422F189579CD00AFBE9C /* Debug */,

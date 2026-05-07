@@ -1,6 +1,6 @@
-PROJECT_NAME ?= hpnote
+PROJECT_NAME := $(shell basename $(PWD))
 ARCH := $(shell arch)
-
+	
 all:
 	mkdir -p build
 	g++ -arch $(ARCH) -std=c++23 \
@@ -22,10 +22,11 @@ x86_64:
 universal: arm64 x86_64
 	# Combine into a universal binary
 	lipo -create -output build/$(PROJECT_NAME) build/arm64/$(PROJECT_NAME) build/x86_64/$(PROJECT_NAME)
-	
+
+
 clean:
 	rm -rf build/*
-
+	
 install:
 	cp build/$(PROJECT_NAME) /usr/local/bin/$(PROJECT_NAME)
 	

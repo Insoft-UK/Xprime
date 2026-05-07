@@ -34,7 +34,7 @@ static bool ppl = false;
 
 #include "../version_code.h"
 #define NAME "Adafruit GFX Font Converter"
-#define COMMAND_NAME "font"
+#define COMMAND_NAME "HPFont"
 
 // MARK: - Command Line
 void error(void) {

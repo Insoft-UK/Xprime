@@ -8,7 +8,7 @@ build
 make
 *.pkg
 ignore
-Xcode/Tools/note/*.zip
+*.zip
 Dev
 _*
 test
