@@ -1,5 +1,5 @@
 ### Xprime 26.5.x
-AppleSilicon & intel
+AppleSilicon & intel</br>
 The upcoming 26.5 update is focused on refinement, resolving minor issues, and bringing everything closer to final completion.
 
 The main command-line tools used by Xprime are also receiving further refinement, although some areas will require additional time — particularly the hpppl+ tool. The compression component still has a few issues with certain PPL code cases that I’ve encountered during personal use and testing.
