@@ -1,7 +1,0 @@
-{
-    "title": "Clear Screen",
-    "body": [
-      "RECT_P();  // Clear entire screen to white"
-    ],
-    "description": "Clear the entire screen (G0) to white"
-}

@@ -1,8 +1,0 @@
-{
-    "title": "Status Bar",
-    "body": [
-      "RECT_P(G0, 0, ${1:220}, 319, 239, #${2:E0E0E0}h, #${2:E0E0E0}h);",
-      "TEXTOUT_P(\"${3:status text}\", G0, 5, ${4:223}, 1, #${5:404040}h, 310);"
-    ],
-    "description": "Draw a status bar at the bottom of the screen"
-}

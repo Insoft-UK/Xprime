@@ -1,9 +1,0 @@
-{
-    "title": "Draw Button",
-    "body": [
-      "RECT_P(G0, ${1:x}, ${2:y}, ${1:x}+${3:80}, ${2:y}+${4:25}, #${5:808080}h, #${6:E0E0E0}h);",
-      "LOCAL ts := TEXTSIZE(\"${7:Label}\", ${8:2});",
-      "TEXTOUT_P(\"${7:Label}\", G0, ${1:x}+(${3:80}-ts(1))/2, ${2:y}+(${4:25}-ts(2))/2, ${8:2}, #${9:000000}h);"
-    ],
-    "description": "Draw a button with centered text label"
-}

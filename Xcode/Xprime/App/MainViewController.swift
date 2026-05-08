@@ -210,8 +210,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
 
     // MARK: - Snippets
     private func populateSnippetMenu(menu: NSMenu) {
-        let url = Bundle.main.resourceURL!
-            .appendingPathComponent("Developer/Library/Xprime/Snippets")
+//        let url = Bundle.main.resourceURL!
+//            .appendingPathComponent("Developer/Library/Xprime/Snippets")
+        let url = defaultWorkingDirectoryURL
+            .appendingPathComponent("Snippets")
         guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Snippet") else { return }
         item.image?.size = NSSize(width: 18, height: 18)
         item.submenu = populateSnippetMenu(url: url)

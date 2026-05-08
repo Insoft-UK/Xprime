@@ -1,9 +1,0 @@
-{
-    "title": "MSGBOX with OK/Cancel",
-    "body": [
-      "IF MSGBOX(\"${1:Are you sure?}\", 1) THEN",
-      "  $0",
-      "END;"
-    ],
-    "description": "MSGBOX with OK and Cancel buttons, checking result"
-}

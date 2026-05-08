@@ -1,27 +1,43 @@
+.DEFAULT_GOAL := all
+
 PROJECT_NAME := $(shell basename $(PWD))
 ARCH := $(shell arch)
 
+CXX := clang++
+
+CXXFLAGS := -std=c++23 -Iinclude
+
+SRC := src/*.cpp
+OBJ := *.o
+
 all:
 	mkdir -p lib
-	clang++ -arch $(ARCH) -std=c++23 -c src/*.cpp -Iinclude
-	libtool -static -o lib/$(PROJECT_NAME).a *.o
-	rm *.o
-	
+	$(CXX) -arch $(ARCH) $(CXXFLAGS) -c $(SRC)
+	libtool -static -o lib/$(PROJECT_NAME).a $(OBJ)
+	rm -f $(OBJ)
+
 arm64:
 	mkdir -p lib/arm64
-	clang++ -arch arm64 -std=c++23 -c src/*.cpp -Iinclude
-	libtool -static -o lib/arm64/$(PROJECT_NAME).a *.o
-	rm *.o
-	
+	$(CXX) -arch arm64 $(CXXFLAGS) -c $(SRC)
+	libtool -static -o lib/arm64/$(PROJECT_NAME).a $(OBJ)
+	rm -f $(OBJ)
+
 x86_64:
 	mkdir -p lib/x86_64
-	clang++ -arch x86_64 -std=c++23 -c src/*.cpp -Iinclude
-	libtool -static -o lib/x86_64/$(PROJECT_NAME).a *.o
-	rm *.o
-	
+	$(CXX) -arch x86_64 $(CXXFLAGS) -c $(SRC)
+	libtool -static -o lib/x86_64/$(PROJECT_NAME).a $(OBJ)
+	rm -f $(OBJ)
+
 universal: arm64 x86_64
+	mkdir -p lib
+	lipo -create \
+		-output lib/$(PROJECT_NAME).a \
+		lib/arm64/$(PROJECT_NAME).a \
+		lib/x86_64/$(PROJECT_NAME).a
 
 clean:
-	rm -rf build
-	
+	rm -rf lib
+	rm -f *.o
+
+.PHONY: all arm64 x86_64 universal clean
 	

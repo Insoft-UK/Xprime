@@ -1,8 +1,0 @@
-{
-    "title": "Centered Text",
-    "body": [
-      "LOCAL ts := TEXTSIZE(\"${1:text}\", ${2:2});",
-      "TEXTOUT_P(\"${1:text}\", G0, (320 - ts(1)) / 2, ${3:y}, ${2:2}, #${4:000000}h);"
-    ],
-    "description": "Draw horizontally centered text on screen"
-}

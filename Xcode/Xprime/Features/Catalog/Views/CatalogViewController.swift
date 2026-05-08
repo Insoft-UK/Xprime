@@ -52,7 +52,7 @@ final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NST
         window.level = .floating
         window.titleVisibility = .visible
         window.minSize = window.frame.size
-        window.backgroundColor = NSColor(white: 0, alpha: 0.9)
+        window.backgroundColor = NSColor(white: 0.1, alpha: 0.9)
     }
 
     private func loadHelp(for command: String) {

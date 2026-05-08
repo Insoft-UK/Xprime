@@ -1,8 +1,0 @@
-{
-    "title": "Fill Screen Color",
-    "prefix": "fillscreen",
-    "body": [
-      "RECT(#${1:FFFFFF}h);"
-    ],
-    "description": "Fill entire screen with a solid color"
-}

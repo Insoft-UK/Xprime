@@ -1,4 +1,4 @@
-#pragma mode( separator(.,;) integer(h64) assignment(=) indentation(2) )
+#pragma mode( separator(.,;) integer(h64) addon(grob.bmp) indentation(2) )
 USES HP;
 LOCAL spectrum := {$I "spectrum.bmp"};
 
