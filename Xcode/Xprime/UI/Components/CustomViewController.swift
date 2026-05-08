@@ -73,7 +73,7 @@ class CustomViewController: NSViewController {
                 if let layer = contentView.layer {
                     layer.cornerRadius = 16
                     layer.masksToBounds = true
-                    layer.borderWidth = 0.5
+                    layer.borderWidth = 0.0
                     layer.borderColor = NSColor(white: 0.5, alpha: 0.15).cgColor
                 }
             }
