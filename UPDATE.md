@@ -1,33 +1,8 @@
-### Xprime 26.4.3
-AppleSilicon Only
+### Xprime 26.5.x
+AppleSilicon & intel
+The upcoming 26.5 update is focused on refinement, resolving minor issues, and bringing everything closer to final completion.
 
-### Xprime 26.4.2
-Universal, improvments to the UI and updated icons.
+The main command-line tools used by Xprime are also receiving further refinement, although some areas will require additional time — particularly the hpppl+ tool. The compression component still has a few issues with certain PPL code cases that I’ve encountered during personal use and testing.
 
-### Xprime 26.4.1
-Preview for Notes
-
-### Xprime 26.4
+### Xprime 26.4.x
 In light of HP Prime Development Tools, Xprime adopts the .hpppl and .hppplplus file types and discontinue .prgm+ and .note. This change will simplify development for those using either Visual Studio Code or Xprime.
-
-improvments under the hood.
-
-### Xprime 26.3
-- **Settings**: Themes and other relating settings now handled in settings.
-
-- **Tools**: PPL+, GROB, Font & Note updated to the current versions.
-
-### Xprime 26.2
-- **Export feature removed**: The traditional Export menu is no longer needed because the new file handling makes it redundant.
-
-- **Improved Save workflow**: Instead of exporting to another file type (e.g., saving a PPL+ project as an HPPRGM), you can now use Save As and directly choose the file format you want. This works for all supported file types (PRGM, PPL, HPPRGM, etc.).
-
-- **Editing and saving other file types simplified**: Files like HPNOTE can now be opened, edited, and saved as any other supported note format (NTF, NOTE, etc.) without extra steps.
-
-- **Project naming simplified**: The project name is no longer tied to the parent folder; instead, the .xprimeproj file name determines the project name.
-
-- **Improved build outputs**: When building code:
-  - Applications now build directly to HPAPPPRGM files.
-  - Regular programs (without an HPAPPDIR) build to HPPRGM.
-  
-These changes greatly simplify the development workflow in Xprime, especially around file management and builds — moving away from the older export-centric process to a more intuitive open/save workflow.
