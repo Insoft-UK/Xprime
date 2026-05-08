@@ -15,7 +15,9 @@ Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file
 Requires **macOS 26** or later
 
 ### Xprime 26.5 RC
-This next update focuses on refinements and UI improvements across tools such as HPPPL+, HPNote, GROB, and HPFont, while also fixing various small issues and bugs.
+The upcoming 26.5 update is focused on refinement, resolving minor issues, and bringing everything closer to final completion.
+
+The main command-line tools used by Xprime are also receiving further refinement, although some areas will require additional time — particularly the hpppl+ tool. The compression component still has a few issues with certain PPL code cases that I’ve encountered during personal use and testing.
 
 ### Hidden Version Detail
 In Xprime, you can reveal the full version number from the About window.
