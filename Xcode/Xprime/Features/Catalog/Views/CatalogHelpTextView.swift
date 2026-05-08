@@ -43,7 +43,7 @@ final class CatalogHelpTextView: XprimeTextView {
         textContainer?.containerSize = NSSize(width: bounds.width, height: .greatestFiniteMagnitude)
         textContainer?.lineBreakMode = .byWordWrapping
         
-        textContainerInset = NSSize(width: 20, height: 20)
+        textContainerInset = NSSize(width: 10, height: 20)
     }
 
 }

@@ -40,20 +40,35 @@ class CustomViewController: NSViewController {
             // Make window background transparent
             window.isOpaque = false
             window.titleVisibility = .hidden
-            window.backgroundColor = NSColor(white: 0.1, alpha: 0.98) //.clear
             window.titlebarAppearsTransparent = true
             window.isMovableByWindowBackground = true
             
-            if let contentView = window.contentView {
+            if Settings.shared.visualEffectEnabled, let contentView = window.contentView {
                 // Add blur view behind content
                 let blurView = NSVisualEffectView(frame: contentView.bounds)
                 blurView.autoresizingMask = [.width, .height]
-                blurView.material = .underWindowBackground
+                blurView.material = .hudWindow // .underWindowBackground
                 blurView.blendingMode = .behindWindow
                 blurView.state = .active
-            
+                
+                
+                final class PassthroughView: NSView {
+                    override func hitTest(_ point: NSPoint) -> NSView? {
+                        nil
+                    }
+                }
+                
+                let tintView = PassthroughView(frame: contentView.bounds)
+                tintView.autoresizingMask = [.width, .height]
+                tintView.wantsLayer = true
+                
+                tintView.layer?.backgroundColor =
+                    NSColor.black.withAlphaComponent(0.25).cgColor
+                
+                
+                contentView.addSubview(tintView, positioned: .below, relativeTo: nil)
                 contentView.addSubview(blurView, positioned: .below, relativeTo: nil)
-
+                
                 contentView.wantsLayer = true
                 if let layer = contentView.layer {
                     layer.cornerRadius = 16

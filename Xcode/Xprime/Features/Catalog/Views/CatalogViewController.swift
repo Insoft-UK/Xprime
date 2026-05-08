@@ -52,7 +52,19 @@ final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NST
         window.level = .floating
         window.titleVisibility = .visible
         window.minSize = window.frame.size
-        window.backgroundColor = NSColor(white: 0.1, alpha: 0.9)
+//        window.backgroundColor = NSColor(white: 0.125, alpha: 0.95)
+        window.styleMask.insert(.fullSizeContentView)
+        
+        // Re-apply icon AFTER AppKit finishes layout
+        DispatchQueue.main.async {
+            let url = Bundle.main.url(
+                forResource: "icon",
+                withExtension: "png",
+                subdirectory: "Developer/Library/Xprime/Templates/Application Template"
+            )!
+            window.representedURL = url
+            window.standardWindowButton(.documentIconButton)?.image = NSImage(contentsOfFile: url.path)!
+        }
     }
 
     private func loadHelp(for command: String) {

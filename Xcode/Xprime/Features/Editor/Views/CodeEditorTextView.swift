@@ -186,9 +186,6 @@ final class CodeEditorTextView: NSTextView {
         let url = defaultWorkingDirectoryURL
             .appendingPathComponent("Snippets")
         snippets = loadSnippets(from: url)
-//        if let url = Bundle.main.resourceURL?.appendingPathComponent("Developer/Library/Xprime/Snippets") {
-//            snippets = loadSnippets(from: url)
-//        }
     }
     
     // MARK: - Editor Setup

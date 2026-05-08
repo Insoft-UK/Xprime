@@ -121,18 +121,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         }
         
         updateManager.checkForAvaliableUpdates()
-        
-//        guard let window = view.window else { return }
-        
-        // Make window background transparent
-//        window.isOpaque = false
-        
-        // Optional: remove title bar / standard window decorations
-//        window.titlebarAppearsTransparent = true
-//        window.backgroundColor = NSColor(white: 0.1, alpha: 0.98)
-//        window.styleMask = [.nonactivatingPanel, .titled]
-//        window.styleMask.insert(.fullSizeContentView)
-//        window.level = .floating
     }
     
     deinit {
@@ -210,8 +198,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
 
     // MARK: - Snippets
     private func populateSnippetMenu(menu: NSMenu) {
-//        let url = Bundle.main.resourceURL!
-//            .appendingPathComponent("Developer/Library/Xprime/Snippets")
         let url = defaultWorkingDirectoryURL
             .appendingPathComponent("Snippets")
         guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Snippet") else { return }
@@ -559,7 +545,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         if let projectName = projectManager.projectName {
             window.title = projectName
             window.representedURL = documentManager.currentDocumentURL
-            // Re-apply icon AFTER AppKit finishes layout
             DispatchQueue.main.async {
                 window.standardWindowButton(.documentIconButton)?.image = self.projectManager.projectIcon
             }
@@ -574,7 +559,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             window.representedURL = nil
         }
             
-        // Re-apply icon AFTER AppKit finishes layout
         DispatchQueue.main.async {
             let url = Bundle.main.url(
                 forResource: "icon",
@@ -620,7 +604,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         return nil
     }
     
-    private func ntfToHpNote(in url: URL) {
+    private func noteToHpNote(in url: URL) {
         guard let projectName = projectManager.projectName else { return }
         
         for file in [
@@ -678,7 +662,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             return
         }
         
-        ntfToHpNote(in: url)
+        noteToHpNote(in: url)
         
         let result = HPServices.preProccess(at: sourceURL, to: url
             .appendingPathComponent(projectName)

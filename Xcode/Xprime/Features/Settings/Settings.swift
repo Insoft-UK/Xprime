@@ -34,6 +34,7 @@ fileprivate enum DefaultsKey {
     static let recentFiles = "RecentFiles"
     static let useBetaApplications = "UseBetaApplications"
     static let keywordNormalization = "KeywordNormalization"
+    static let visualEffectEnabled = "VisualEffectEnabled"
 }
 
 let defaultWorkingDirectoryURL = FileManager
@@ -99,4 +100,7 @@ final class Settings {
     
     @UserDefault(key: DefaultsKey.keywordNormalization, defaultValue: true)
     var keywordNormalization: Bool
+    
+    @UserDefault(key: "VisualEffectEnabled", defaultValue: true)
+    var visualEffectEnabled: Bool
 }
