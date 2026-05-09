@@ -7,8 +7,9 @@
 // Converted to P+ by Richie Hughes <developer@insoft.uk>
 // http://calc.fjk.ch
 
-alias Shuttle::Data := sd;
+ALIAS Shuttle::Data := sd;
 Shuttle::Data := {$I "data.hpppl"};
+LOCAL Shuttle::Data := {$I "data.hpppl"};
 alias Shuttle::GetPenColor := gpc;
 local Shuttle::GetPenColor(Pen)
 begin

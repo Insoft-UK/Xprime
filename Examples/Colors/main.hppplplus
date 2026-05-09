@@ -1,26 +1,26 @@
 #pragma mode( separator(.,;) integer(h64) indentation(2) )
-uses HP;
+USES HP;
 #define HUE G2
 #define BLACK_TO_TRANSPARENT_OVERLAY G3
 #define TRANSPARENT_TO_WHITE_OVERLAY G4
 #define ROUND G1
 #define Event key, type[1], x[2], y[3], dx[4], dy[5]
 #define Size width[1], height[2]
-dict White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, Magenta := #FF00FF:32h, Cardinal := #D03020:32h, Coral := #F08070:32h, Pink := #FFC0C0:32h, Indigo := #400080:32h, Purple := #800080:32h, Violet := #8000FF:32h, Lavender := #C0C0FF:32h, NavyBlue := #000080:32h, Blue := #0000FF:32h, Denim := #1060C0:32h, Lochmara := #0070C0:32h, SkyBlue := #80D0FF:32h, PacificBlue := #00A0C0:32h, Teal := #008080:32h, Cyan := #00FFFF:32h, Aqua := #00FFFF:32h, FirGreen := #003000:32h, OfficeGreen := #008000:32h, Shamrock := #00A060:32h, Apple := #50B040:32h, LimeGreen := #00FF00:32h, Chocolate := #400808:32h, Brown := #905000:32h, Orange := #FF8000:32h, Olive := #808000:32h, Tangerine := #FFD000:32h, Yellow := #FFFF00:32h, Khaki := #F0E090:32h, Tan := #D0B090:32h, Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h @Color;
-dict Percentage = 0, Decimal = 1 UnitType;
-dict HSV = 0, HSL = 1 ColorSpace;
-dict System := 0, Bin := 1, Oct := 2, Dec := 3, Hex := 4 @Base;
-dict MouseDown := 0, MouseMove := 1, MouseUp := 2, MouseClick := 3, MouseStretch := 5, MouseRotate := 6, MouseLongClick := 7 @EventType;
-dict Apps := 0, Symb := 1, Up := 2, Help := 3, Esc := 4, Home := 5, Plot := 6, Left := 7, Right := 8, View := 9, Cas := 10, Num := 11, Down := 12, Menu := 13, Vars := 14, Mem := 15, Unit := 16, Xttn := 17, Abc := 18, Bksp := 19, Power := 20, Sin := 21, Cos := 22, Tan := 23, Ln := 24, Log := 25, Sq := 26, Neg := 27, N := 28, Comma := 29, Enter := 30, Eex := 31, 7 := 32, 8 := 33, 9 := 34, Div := 35, Alpha := 36, 4 := 37, 5 := 38, 6 := 39, Mult := 40, Shift := 41, 1 := 42, 2 := 43, 3 := 44, Minus := 45, On := 46, 0 := 47, Dot := 48, Space := 49, Plus := 50 @KeyCode;
-regex @`\bhp::isKeyPressed *\(([\w.:]+)\)` IFTE(SIZE($1)==1,1,0)
-regex @`\bhp::isMouseEvent *\(([\w.:]+)\)` IFTE(SIZE($1)>1,1,0)
-regex @`\bhp::screen::clear *\((.*)?\)` RECT($1)
-regex @`&{2}` AND
-regex @`\b([a-zA-Z_]\w*) *([*\/+-])\= *` $1 := $1 $2
-regex @`\(([^?]+)\?(.+):(.+)\)` IFTE($1, $2, $3)
-alias hp::mouse::clear := HP.MClr;
-alias colorsChannel := chl;
-var colorsChannel = 0;
+DICTIONARY White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, Magenta := #FF00FF:32h, Cardinal := #D03020:32h, Coral := #F08070:32h, Pink := #FFC0C0:32h, Indigo := #400080:32h, Purple := #800080:32h, Violet := #8000FF:32h, Lavender := #C0C0FF:32h, NavyBlue := #000080:32h, Blue := #0000FF:32h, Denim := #1060C0:32h, Lochmara := #0070C0:32h, SkyBlue := #80D0FF:32h, PacificBlue := #00A0C0:32h, Teal := #008080:32h, Cyan := #00FFFF:32h, Aqua := #00FFFF:32h, FirGreen := #003000:32h, OfficeGreen := #008000:32h, Shamrock := #00A060:32h, Apple := #50B040:32h, LimeGreen := #00FF00:32h, Chocolate := #400808:32h, Brown := #905000:32h, Orange := #FF8000:32h, Olive := #808000:32h, Tangerine := #FFD000:32h, Yellow := #FFFF00:32h, Khaki := #F0E090:32h, Tan := #D0B090:32h, Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h @Color;
+DICTIONARY Percentage := 0, Decimal := 1 UnitType;
+DICTIONARY HSV := 0, HSL := 1 ColorSpace;
+DICTIONARY System := 0, Bin := 1, Oct := 2, Dec := 3, Hex := 4 @Base;
+DICTIONARY MouseDown := 0, MouseMove := 1, MouseUp := 2, MouseClick := 3, MouseStretch := 5, MouseRotate := 6, MouseLongClick := 7 @EventType;
+DICTIONARY Apps := 0, Symb := 1, Up := 2, Help := 3, Esc := 4, Home := 5, Plot := 6, Left := 7, Right := 8, View := 9, Cas := 10, Num := 11, Down := 12, Menu := 13, Vars := 14, Mem := 15, Unit := 16, Xttn := 17, Abc := 18, Bksp := 19, Power := 20, Sin := 21, Cos := 22, Tan := 23, Ln := 24, Log := 25, Sq := 26, Neg := 27, N := 28, Comma := 29, Enter := 30, Eex := 31, 7 := 32, 8 := 33, 9 := 34, Div := 35, Alpha := 36, 4 := 37, 5 := 38, 6 := 39, Mult := 40, Shift := 41, 1 := 42, 2 := 43, 3 := 44, Minus := 45, On := 46, 0 := 47, Dot := 48, Space := 49, Plus := 50 @KeyCode;
+REGEX @`\bhp::isKeyPressed *\(([\w.:]+)\)` IFTE(SIZE($1)==1,1,0)
+REGEX @`\bhp::isMouseEvent *\(([\w.:]+)\)` IFTE(SIZE($1)>1,1,0)
+REGEX @`\bhp::screen::clear *\((.*)?\)` RECT($1)
+REGEX @`&{2}` AND
+REGEX @`\b([a-zA-Z_]\w*) *([*\/+-])\= *` $1 := $1 $2
+REGEX @`\(([^?]+)\?(.+):(.+)\)` IFTE($1, $2, $3)
+ALIAS hp::mouse::clear := HP.MClr;
+ALIAS colorsChannel := chl;
+VAR colorsChannel = 0;
 alias colorsH := cH;
 alias colorsS := cS;
 alias colorsV := cV;
@@ -37,14 +37,14 @@ var colorsColorSpace := ColorSpace.HSV;
 local HEX(decimal)
 begin
     local h,l;
-    h = BITSR(decimal, 4);
-    l = BITAND(decimal, 15);
+    h := BITSR(decimal, 4);
+    l := BITAND(decimal, 15);
     return CHAR(ifte(h<10, 48, 55) + h) + CHAR(ifte(l<10, 48, 55) + l);
 end;
 
 DrawTextCentered(text, atX, ofY, fontSize)
 begin
-    local size = TEXTSIZE(text, fontSize);
+    local size := TEXTSIZE(text, fontSize);
     TEXTOUT_P(text, G9, atX - size[1] / 2, ofY, fontSize, Color.White);
 end;
 
@@ -57,22 +57,22 @@ begin
     RECT(Color.Black);
     BLIT_P(G9);
     
-    data = {};
+    data := {};
     for n from 0 to 359 step 2 do
-        data[n / 2 + 1] = R→B(HP.HSV(n, 100, 100), 64, Base.Hex) + BITSL(R→B(HP.HSV(n + 1, 100, 100), 64, Base.Hex), 32);
+        data[n / 2 + 1] := R→B(HP.HSV(n, 100, 100), 64, Base.Hex) + BITSL(R→B(HP.HSV(n + 1, 100, 100), 64, Base.Hex), 32);
     end;
     DIMGROB_P(HUE, 360, 1, data);
     
     data := {};
     for n from 0 to 255 step 2 do
-        data[n / 2 + 1] = R→B(RGB(0, 0, 0, 255 - n), 64, Base.Hex) + BITSL(R→B(RGB(0, 0, 0, 255 - (n + 1)), 64, Base.Hex), 32);
+        data[n / 2 + 1] := R→B(RGB(0, 0, 0, 255 - n), 64, Base.Hex) + BITSL(R→B(RGB(0, 0, 0, 255 - (n + 1)), 64, Base.Hex), 32);
     end;
     DIMGROB_P(BLACK_TO_TRANSPARENT_OVERLAY, 1, 256, data);
     
     data := {};
     for n from 0 to 255 step 2 do
         local rgb = {RGB(255, 255, 255, n), RGB(255, 255, 255, n + 1)};
-        data[n / 2 + 1] = R→B(RGB(255, 255, 255, n), 64, Base.Hex) + BITSL(R→B(RGB(255, 255, 255, n + 1), 64, Base.Hex), 32);
+        data[n / 2 + 1] := R→B(RGB(255, 255, 255, n), 64, Base.Hex) + BITSL(R→B(RGB(255, 255, 255, n + 1), 64, Base.Hex), 32);
     end;
     DIMGROB_P(TRANSPARENT_TO_WHITE_OVERLAY, 256, 1, data);
 end;
@@ -111,8 +111,8 @@ Colors::DrawHue(h)
 begin
     BLIT_P(G9, 10, 148, 310, 168, HUE);
     
-    X = IP(h / 360 * 300) + 10;
-    Y = 148;
+    X := IP(h / 360 * 300) + 10;
+    Y := 148;
     RECT_P(G9, X-3, Y-3, X+2, Y+22, Color.Black, Color.Clear);
     RECT_P(G9, X-2, Y-2, X+2, Y+21, Color.White, Color.Clear);
 end;
@@ -144,10 +144,10 @@ begin
     
     local hsl, rgb, cmyk, hex;
     
-    rgb = {colorsR, colorsG, colorsB};
-    hsl = HP.HSVtoHSL(colorsH, colorsS, colorsV);
-    cmyk = HP.RGBtoCMYK(colorsR, colorsG, colorsB);
-    hex = "#" + HEX(colorsR) + HEX(colorsG) + HEX(colorsB);
+    rgb := {colorsR, colorsG, colorsB};
+    hsl := HP.HSVtoHSL(colorsH, colorsS, colorsV);
+    cmyk := HP.RGBtoCMYK(colorsR, colorsG, colorsB);
+    hex := "#" + HEX(colorsR) + HEX(colorsG) + HEX(colorsB);
     
     L0 := TEXTSIZE(hex,7);
     TEXTOUT_P(hex,G9,160-L0(1)/2,180,7,Color.White);
@@ -156,11 +156,11 @@ begin
     local n, ts, info;
     
     /// RGB Info
-    info = {"R:","G:","B:"};
-    X = 138;
-    Y = 51;
-    for n = 1 to 3 step 1 do
-        ts = TEXTSIZE(info[n],3);
+    info := {"R:","G:","B:"};
+    X := 138;
+    Y := 51;
+    for n := 1 to 3 step 1 do
+        ts := TEXTSIZE(info[n],3);
         TEXTOUT_P(info[n],G9,X+15-ts[1],Y+3,3,Color.White);
         RECT_P(G9,X+16,Y,X+55,Y+20,#333333:32h);
         
@@ -181,18 +181,18 @@ begin
         else
             TEXTOUT_P(IP(rgb[n] / 255 * 100)+"%",G9,X+20,Y+5,2,Color.White);
         end;
-        Y += 24;
+        Y := Y + 24;
     end;
     
     /// HSV or HSL Info
     if colorsColorSpace == ColorSpace.HSV then info = {"H:","S:","V:"}; end;
     if colorsColorSpace == ColorSpace.HSL then info = {"H:","S:","L:"}; end;
     
-    X += 58;
-    Y = 51;
+    X := X + 58;
+    Y := 51;
     
     for n from 1 to 3 step 1 do
-        ts = TEXTSIZE(info[n],3);
+        ts := TEXTSIZE(info[n],3);
         TEXTOUT_P(info[n],G9,X+15-ts[1],Y+3,3,Color.White);
         RECT_P(G9,X+16,Y,X+55,Y+20,#333333:32h);
         case
@@ -215,19 +215,19 @@ begin
                 end;
             end;
         end;
-        Y += 24;
+        Y := Y + 24;
     end;
     
     /// CMYK Info
-    info = {"C:","M:","Y:","K:"};
-    X += 58;
-    Y = 51;
+    info := {"C:","M:","Y:","K:"};
+    X := X + 58;
+    Y := 51;
     for n from 1 to 4 step 1 do
-        ts = TEXTSIZE(info[n],3);
+        ts := TEXTSIZE(info[n],3);
         TEXTOUT_P(info[n],G9,X+15-ts[1],Y+3,3,Color.White);
         RECT_P(G9,X+16,Y,X+55,Y+20,#333333:32h);
         TEXTOUT_P(IP(cmyk[n])+"%",G9,X+20,Y+5,2,Color.White);
-        Y += 24;
+        Y := Y + 24;
     end;
     
     BLIT_P(G0, G9);
@@ -237,28 +237,28 @@ alias Colors::UpdateRGB := UpdateRGB;
 Colors::UpdateRGB()
 begin
     local rgb;
-    rgb = HP.HSVtoRGB(colorsH, colorsS, colorsV);
-    colorsR = rgb[1];
-    colorsG = rgb[2];
-    colorsB = rgb[3];
+    rgb := HP.HSVtoRGB(colorsH, colorsS, colorsV);
+    colorsR := rgb[1];
+    colorsG := rgb[2];
+    colorsB := rgb[3];
 end;
 
 alias Colors::DoMenu := DoMenu;
 Colors::DoMenu()
 begin
 	alias menu := m;
-    local menu = (Y<220? 0: IP(X / (320/6)+0.025) + 1);
+    local menu := (Y<220? 0: IP(X / (320/6)+0.025) + 1);
     case
         if menu == 1 then
-            colorsUnitType = UnitType.Percentage;
+            colorsUnitType := UnitType.Percentage;
         end;
             
         if menu == 2 then
-            colorsUnitType = UnitType.Decimal;
+            colorsUnitType := UnitType.Decimal;
         end;
             
         if menu == 3 then
-            colorsH = floor((colorsH - 29) / 30) * 30;
+            colorsH := floor((colorsH - 29) / 30) * 30;
             Colors::UpdateRGB;
             hp::mouse::clear;
         end;
@@ -270,11 +270,11 @@ begin
         end;
             
         if menu == 5 then
-            colorsColorSpace = ColorSpace.HSV;
+            colorsColorSpace := ColorSpace.HSV;
         end;
             
         if menu == 6 then
-            colorsColorSpace = ColorSpace.HSL;
+            colorsColorSpace := ColorSpace.HSL;
         end;
     end;
 end;
@@ -285,34 +285,34 @@ begin
     alias delta := d;
     case
         if colorsChannel == 1 then
-            colorsR = colorsR + delta;
-            colorsR = IP(MIN(MAX(colorsR, 0), 255));
+            colorsR := colorsR + delta;
+            colorsR := IP(MIN(MAX(colorsR, 0), 255));
         end;
         
         if colorsChannel == 2 then
-            colorsG = colorsG + delta;
-            colorsG = IP(MIN(MAX(colorsG, 0), 255));
+            colorsG := colorsG + delta;
+            colorsG := IP(MIN(MAX(colorsG, 0), 255));
         end;
         
         if colorsChannel == 3 then
-            colorsB = colorsB + delta;
-            colorsB = IP(MIN(MAX(colorsB, 0), 255));
+            colorsB := colorsB + delta;
+            colorsB := IP(MIN(MAX(colorsB, 0), 255));
         end;
     end;
     
     /// Update HSV values.
     local hsv;
-    hsv = HP.RGBtoHSV(colorsR, colorsG, colorsB);
-    colorsH = hsv[1];
-    colorsS = hsv[2];
-    colorsV = hsv[3];
+    hsv := HP.RGBtoHSV(colorsR, colorsG, colorsB);
+    colorsH := hsv[1];
+    colorsS := hsv[2];
+    colorsV := hsv[3];
 end;
 
 alias Colors::AdjHue := AdjH;
 Colors::AdjHue(delta)
 begin
-    colorsH = colorsH + delta;
-    colorsH = IP(MIN(MAX(colorsH, 0), 360));
+    colorsH := colorsH + delta;
+    colorsH := IP(MIN(MAX(colorsH, 0), 360));
     
     Colors::UpdateRGB;
 end;
@@ -321,8 +321,8 @@ alias Colors::AdjSaturation := AdjS;
 Colors::AdjSaturation(d)
 begin
     alias delta := d;
-    colorsS = colorsS + delta;
-    colorsS = IP(MIN(MAX(colorsS, 0), 100));
+    colorsS := colorsS + delta;
+    colorsS := IP(MIN(MAX(colorsS, 0), 100));
     
     Colors::UpdateRGB;
 end;
@@ -331,23 +331,22 @@ alias Colors::AdjBrightness := AdjB;
 Colors::AdjBrightness(d)
 begin
     alias delta := d;
-    colorsV = colorsV + delta;
-    colorsV = IP(MIN(MAX(colorsV, 0), 100));
+    colorsV := colorsV + delta;
+    colorsV := IP(MIN(MAX(colorsV, 0), 100));
     
     Colors::UpdateRGB;
 end;
 
-alias Colors::Loop := Loop;
-Colors::Loop()
+MainLoop()
 begin
 	alias focus := v1;
-    local focus = "";
+    local focus := "";
 
     while 1 do
         Colors::Update();
 		alias event := v2;
-        local event = WAIT(-1);
-        dict Event event;
+        local event := WAIT(-1);
+        DICTIONARY Event event;
         if hp::isKeyPressed(event) then
             focus = "";
             iferr
@@ -404,8 +403,8 @@ begin
         end;
         
         if hp::isMouseEvent(event) then
-            X = event.x;
-            Y = event.y;
+            X := event.x;
+            Y := event.y;
             
             Colors::DoMenu();
             
@@ -441,25 +440,25 @@ begin
                 
                 if event.type == EventType.MouseMove then
                     if focus == "Hue" then
-                        colorsH = (X - 5) / 310 * 360;
+                        colorsH := (X - 5) / 310 * 360;
                         Colors::UpdateRGB();
                     end;
                     
                     if focus == "Saturation & Brightness" then
-                        colorsS = IP((X - 5) / 137 * 100);
-                        colorsV = IP((1 - (Y - 5) / 137) * 100);
+                        colorsS := IP((X - 5) / 137 * 100);
+                        colorsV := IP((1 - (Y - 5) / 137) * 100);
                         Colors::UpdateRGB();
                     end;
                 end;
                 
                 if event.type == EventType.MouseUp then
-                    focus = "";
+                    focus := "";
                 end;
             end;
             
-            colorsH = IP(MIN(MAX(colorsH, 0), 360));
-            colorsS = IP(MIN(MAX(colorsS, 0), 100));
-            colorsV = IP(MIN(MAX(colorsV, 0), 100));
+            colorsH := IP(MIN(MAX(colorsH, 0), 360));
+            colorsS := IP(MIN(MAX(colorsS, 0), 100));
+            colorsV := IP(MIN(MAX(colorsV, 0), 100));
         end;
     end;
 end;
@@ -467,5 +466,5 @@ end;
 export START()
 begin
     Colors::Setup;
-    Colors::Loop;
+    MainLoop;
 end;
