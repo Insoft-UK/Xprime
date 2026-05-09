@@ -54,10 +54,7 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 |.hpnote|Standalone note binary
 |.hpappnote|App note binary
 
-## Text Formatting Reference
-
->[!WARNING]
->To support future RTF compatibility and RTF-to-NTF conversion, several changes have been made to NTF. Toggle-style formatting replaced with explicit state-setting control words, matching RTF semantics (for example, `\b` treated as shorthand for `\b1`). Additionally, `\u` replaced with `\ul` to avoid conflicts with RTF Unicode control words.
+## Note source text formatting reference
 
 ### Bold
 - `\b0` – disable bold  
