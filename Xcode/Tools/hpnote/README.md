@@ -46,13 +46,13 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 </table>
 
 ### Supported File Types
-|Type|Description|Format|
-|:-|:-|:-|
-|.ntf|NoteText Format|UTF8|
-|.rtf|RichText Format|UTF8|
-|.md|Markdown Language|UTF8|
-|.hpnote|HP Prime note|UTF16le|
-|.hpappnote|HP Prime note|UTF16le|
+|Type|Description|
+|:-|:-|
+|.note|Note source text
+|.rtf|RichText Format
+|.md|Markdown Language
+|.hpnote|Standalone note binary
+|.hpappnote|App note binary
 
 ## Text Formatting Reference
 
