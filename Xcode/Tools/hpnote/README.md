@@ -4,10 +4,6 @@ A command-line tool that converts .md and .ntf files into the HP Prime .hpnote f
 
 <img src="assets/screenshots/screenshot_1.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_2.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_3.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_4.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_5.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_6.png?raw=true" width="160" />
 
-Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-universal.pkg">macOS</a> | <a href="http://insoft.uk/action/?method=downlink&path=pc&file=note-win-x86_64.zip">Windows</a> | <a href="http://insoft.uk/action/?method=downlink&path=linux&file=note-linux-x86_64.zip">Linux</a>
-
-**Apple Silicon** Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-arm64.pkg">macOS</a>
-
 >[!IMPORTANT]
 >The NOTE tool currently dosn't support formulars.
 
@@ -46,18 +42,15 @@ Download links: <a href="http://insoft.uk/action/?method=downlink&path=macos&fil
 </table>
 
 ### Supported File Types
-|Type|Description|Format|
-|:-|:-|:-|
-|.ntf|NoteText Format|UTF8|
-|.rtf|RichText Format|UTF8|
-|.md|Markdown Language|UTF8|
-|.hpnote|HP Prime note|UTF16le|
-|.hpappnote|HP Prime note|UTF16le|
+|Type|Description|
+|:-|:-|
+|.note|Note source text
+|.rtf|RichText Format
+|.md|Markdown Language
+|.hpnote|Standalone note binary
+|.hpappnote|App note binary
 
-## Text Formatting Reference
-
->[!WARNING]
->To support future RTF compatibility and RTF-to-NTF conversion, several changes have been made to NTF. Toggle-style formatting replaced with explicit state-setting control words, matching RTF semantics (for example, `\b` treated as shorthand for `\b1`). Additionally, `\u` replaced with `\ul` to avoid conflicts with RTF Unicode control words.
+## Note source text formatting reference
 
 ### Bold
 - `\b0` – disable bold  
