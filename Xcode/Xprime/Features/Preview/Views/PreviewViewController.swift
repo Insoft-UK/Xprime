@@ -71,25 +71,5 @@ final class PreviewViewController: NSViewController {
         previewTextView.ScrollToTop()
         previewTextView.backgroundColor = .clear
     }
-    
-    override func viewDidAppear() {
-        super.viewDidAppear()
-        
-        guard let window = view.window else { return }
-        
-        // Make window background transparent
-        window.isOpaque = false
-        
-        // Optional: remove title bar / standard window decorations
-        window.titleVisibility = .hidden
-        window.center()
-        window.titlebarAppearsTransparent = true
-        window.styleMask = [.nonactivatingPanel, .titled]
-        window.styleMask.insert(.fullSizeContentView)
-        window.level = .floating
-    }
-
-    
-    
 }
 

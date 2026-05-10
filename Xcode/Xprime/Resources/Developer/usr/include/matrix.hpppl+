@@ -20,11 +20,19 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 
+{$IFNDEF MATRIX}
+{$DEFINE MATRIX}
 
-#ifndef CSPACE_PPLIB
-#define CSPACE_PPLIB
+alias @matrix::edit := EDITMAT;
+alias @matrix::add::col := ADDCOL;
+alias @matrix::add::row := ADDROW;
+alias @matrix::delete::col := DELCOL;
+alias @matrix::redim := REDIM;
+alias @matrix::replace := REPLACE;
+alias @matrix::scale := SCALE;
+alias @matrix::scale::add := SCALEADD;
+alias @matrix::sub := Sub;
+alias @matrix::swap::col := SAWAPCOL;
+alias @matrix::swap::row := SWAPROW;
 
-alias @cs::normalize := ColorSpace.Normalize;
-alias @cs::clamp_rgb := ColorSpace.ClampRGB;
-
-#endif
+{$ENDIF}

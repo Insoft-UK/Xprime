@@ -29,8 +29,16 @@ open class CustomTextField: NSTextField {
         super.init(coder: coder)
         installCenteredCellIfNeeded()
         setup()
-        currentEditor()?.selectedRange = NSRange(location: 0, length: 0)
     }
+    
+//    override open func textDidBeginEditing(_ notification: Notification) {
+//        super.textDidBeginEditing(notification)
+//
+//        if let editor = currentEditor() {
+//            let end = stringValue.count
+//            editor.selectedRange = NSRange(location: end, length: 0)
+//        }
+//    }
     
     private func installCenteredCellIfNeeded() {
         // Replace default cell with our vertically-centering cell, preserving properties

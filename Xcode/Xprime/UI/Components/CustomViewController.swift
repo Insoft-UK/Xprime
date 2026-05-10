@@ -78,8 +78,8 @@ class CustomViewController: NSViewController {
                 }
             }
             
-            window.initialFirstResponder = nil
-            window.makeFirstResponder(nil)
+//            window.initialFirstResponder = nil
+//            window.makeFirstResponder(nil)
         }
     }
 }

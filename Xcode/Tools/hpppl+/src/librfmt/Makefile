@@ -1,21 +1,31 @@
+.DEFAULT_GOAL := all
+
 PROJECT_NAME := $(shell basename $(PWD))
 ARCH := $(shell arch)
 
+CXX := clang++
+
+CXXFLAGS := -std=c++23 \
+	-Iinclude \
+	-I../libhpppl/include
+
+SRC := $(wildcard src/*.cpp)
+
 all:
 	mkdir -p lib
-	clang++ -arch $(ARCH) -std=c++23 -c src/*.cpp -Iinclude -I../libhpppl/include
+	$(CXX) -arch $(ARCH) $(CXXFLAGS) -c $(SRC)
 	libtool -static -o lib/$(PROJECT_NAME).a *.o
 	rm -f *.o
 
 arm64:
 	mkdir -p lib/arm64
-	clang++ -arch arm64 -std=c++23 -c src/*.cpp -Iinclude -I../libhpppl/include
+	$(CXX) -arch arm64 $(CXXFLAGS) -c $(SRC)
 	libtool -static -o lib/arm64/$(PROJECT_NAME).a *.o
 	rm -f *.o
 
 x86_64:
 	mkdir -p lib/x86_64
-	clang++ -arch x86_64 -std=c++23 -c src/*.cpp -Iinclude -I../libhpppl/include
+	$(CXX) -arch x86_64 $(CXXFLAGS) -c $(SRC)
 	libtool -static -o lib/x86_64/$(PROJECT_NAME).a *.o
 	rm -f *.o
 

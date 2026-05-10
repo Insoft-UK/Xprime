@@ -1,4 +1,6 @@
-#pragma mode( separator(.,;) integer(h64) indentation(4) addon(grob.bmp) )
+#pragma mode( separator(.,;) integer(h64) indentation(4) )
+{$ADDON grob.bmp}
+
 DICTIONARY White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, \
 Magenta := #FF00FF:32h, Cardinal := #D03020:32h, Coral := #F08070:32h, Pink := #FFC0C0:32h, Indigo := #400080:32h, \
 Purple := #800080:32h, Violet := #8000FF:32h, Lavender := #C0C0FF:32h, NavyBlue := #000080:32h, Blue := #0000FF:32h, \
@@ -12,8 +14,9 @@ Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h \
 #define END_OF_DATA      999
 #define SCREEN_MIDDLE    120
 #define SCREEN_CENTRE    160
+
 /// PPL Data from file.
-LOCAL DATA:={$I "data.hpppl"};
+LOCAL DATA:={$I data.hpppl};
 ALIAS line := LnD;
 ALIAS scale := Scl;
 LOCAL line;
@@ -24,7 +27,7 @@ ALIAS MAD::Draw := Draw;
 
 MAD::Init()
 BEGIN
-	VAR bmp := {$I "mad.bmp"};
+	VAR bmp := {$I mad.bmp};
     line := {0, 0, 0, 0};
     scale := 1.0;
 

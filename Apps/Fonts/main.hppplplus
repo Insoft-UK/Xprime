@@ -1,10 +1,10 @@
 #pragma mode( separator(.,;) integer(h64) addon(hpfont.h) )
-
+{$ADDON hpfont.h}
 uses HP;
 
-var ARCADE := {$I "ARCADE.h"};
-var BBC := {$I "BBC.h"};
-var CGA := {$I "CGA.h"};
-var EGA := {$I "EGA.h"};
-var VGA := {$I "VGA.h"};
-var HD44780 := {$I "HD44780.h"};
+var ARCADE := {$I ARCADE.h};
+var BBC := {$I BBC.h};
+var CGA := {$I CGA.h};
+var EGA := {$I EGA.h};
+var VGA := {$I VGA.h};
+var HD44780 := {$I HD44780.h};

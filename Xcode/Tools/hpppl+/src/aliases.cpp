@@ -204,13 +204,12 @@ bool Aliases::append(const TIdentity &idty) {
         << "defined "
         << (identity.scope > 0 ? "local " : "")
         << (Type::Unknown == identity.type ? "alias " : "")
-        << (Type::Macro == identity.type ? "macro " : "")
+        << (Type::CompileTimeSymbol == identity.type ? "compile-time symbol " : "")
         << (Type::Alias == identity.type ? "alias " : "")
         << (Type::Function == identity.type ? "function alias " : "")
         << (Type::Argument == identity.type ? "argument alias " : "")
         << (Type::Variable == identity.type ? "variable alias" : "")
-        << "'" << identity.identifier << "' "
-        << (identity.real.empty() ? "\n" : (identity.type == Type::Macro ? "as '" : "for '") + identity.real + "'\n");
+        << "'" << identity.identifier << "'\n";
     
     return true;
 }
@@ -222,7 +221,7 @@ void Aliases::removeAllOutOfScopeAliases() {
                 << MessageType::Verbose
                 << "removed " << "local" << " "
                 << (Type::Unknown == it->type ? "alias " : "")
-                << (Type::Macro == it->type ? "macro " : "")
+                << (Type::CompileTimeSymbol == it->type ? "compile-time symbol " : "")
                 << (Type::Alias == it->type ? "alias " : "")
                 << (Type::Function == it->type ? "function alias " : "")
                 << (Type::Argument == it->type ? "argument alias " : "")
@@ -242,7 +241,7 @@ void Aliases::removeAllAliasesOfType(const Type type) {
                 << MessageType::Verbose
                 << "removed " << "local" << " "
                 << (Type::Unknown == it->type ? "alias " : "")
-                << (Type::Macro == it->type ? "macro " : "")
+                << (Type::CompileTimeSymbol == it->type ? "compile-time symbol " : "")
                 << (Type::Alias == it->type ? "alias " : "")
                 << (Type::Function == it->type ? "function alias " : "")
                 << (Type::Argument == it->type ? "argument alias " : "")
@@ -253,37 +252,6 @@ void Aliases::removeAllAliasesOfType(const Type type) {
             break;
         }
     }
-}
-
-static std::string resolveMacroFunction(const std::string &str, const std::string &identifier, const std::string &real) {
-    std::string result;
-    std::regex re;
-    std::smatch match;
-    std::string pattern;
-    
-    re = R"(\b)" + identifier + R"( *\(([^()]*)\))";
-    if (!std::regex_search(str, match, re)) {
-        return result;
-    }
-    result = match.str(1);
-    
-    re = R"([^,]+(?=[^,]*))";
-    std::vector<std::string> arguments;
-    for (auto it = std::sregex_iterator(result.begin(), result.end(), re); it != std::sregex_iterator(); ++it) {
-        arguments.push_back(it->str());
-    }
-    
-    result = real;
-    size_t i = 0;
-    for (auto it = arguments.begin(); it != arguments.end(); ++it, ++i) {
-        pattern = "\\$" + std::to_string(i + 1);
-        result = std::regex_replace(result, std::regex(pattern), arguments.at(i));
-        
-        pattern = "\\$0";
-        result = std::regex_replace(result, std::regex(pattern), identifier);
-    }
-    
-    return result;
 }
 
 std::string Aliases::resolveAllAliasesInText(const std::string &str) {
@@ -305,20 +273,6 @@ std::string Aliases::resolveAllAliasesInText(const std::string &str) {
         }
         
         re = pattern;
-
-        if (it->type == Type::Macro) {
-            if (!regex_search(s, match, std::regex(R"(\b)" + it->identifier + R"( *\([^()]*\))"))) {
-                if (!regex_search(s, re)) continue;
-                s = regex_replace(s, re, it->real);
-                continue;
-            }
-                
-            while (regex_search(s, match, std::regex(R"(\b)" + it->identifier + R"( *\([^()]*\))"))) {
-                std::string result = resolveMacroFunction(match.str(), it->identifier, it->real);
-                s.replace(match.position(), match.length(), result);
-            }
-            continue;
-        }
         
         if (!regex_search(s, re)) continue;
         s = regex_replace(s, re, it->real);
@@ -343,7 +297,7 @@ void Aliases::remove(const std::string &identifier) {
                 << "removed "
                 << (it->scope > 0 ? "local " : "")
                 << (Type::Unknown == it->type ? "alias " : "")
-                << (Type::Macro == it->type ? "macro " : "")
+                << (Type::CompileTimeSymbol == it->type ? "compile-time symbol " : "")
                 << (Type::Alias == it->type ? "alias " : "")
                 << (Type::Function == it->type ? "function alias " : "")
                 << (Type::Argument == it->type ? "argument alias " : "")

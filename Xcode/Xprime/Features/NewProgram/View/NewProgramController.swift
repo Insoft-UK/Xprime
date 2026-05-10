@@ -42,8 +42,13 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
-        window.initialFirstResponder = nil
-        window.makeFirstResponder(nil)
+        
+        DispatchQueue.main.async {
+            if let editor = window.fieldEditor(false, for: self.productName) as? NSTextView {
+                let end = self.productName.stringValue.count
+                editor.selectedRange = NSRange(location: end, length: 0)
+            }
+        }
         
         guard let window = NSApplication.shared.windows.first else {
             self.view.window?.close(); return

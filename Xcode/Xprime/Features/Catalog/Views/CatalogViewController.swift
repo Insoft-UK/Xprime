@@ -45,27 +45,18 @@ final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NST
         search.stringValue = Catalog.shared.lastOpenedCatalogHelpFile
     }
     
-    override func viewDidAppear() {
-        super.viewDidAppear()
-//        guard let window = view.window else { return }
-//        window.title = "Catalog"
-//        window.level = .floating
-//        window.titleVisibility = .visible
-//        window.minSize = window.frame.size
-//        window.backgroundColor = NSColor(white: 0.125, alpha: 0.95)
-//        window.styleMask.insert(.fullSizeContentView)
-        
-        // Re-apply icon AFTER AppKit finishes layout
-//        DispatchQueue.main.async {
-//            let url = Bundle.main.url(
-//                forResource: "icon",
-//                withExtension: "png",
-//                subdirectory: "Developer/Library/Xprime/Templates/Application Template"
-//            )!
-//            window.representedURL = url
-//            window.standardWindowButton(.documentIconButton)?.image = NSImage(contentsOfFile: url.path)!
-//        }
-    }
+        override func viewDidAppear() {
+            super.viewDidAppear()
+    
+            guard let window = view.window else { return }
+    
+            DispatchQueue.main.async {
+                if let editor = window.fieldEditor(false, for: self.search) as? NSTextView {
+                    let end = self.search.stringValue.count
+                    editor.selectedRange = NSRange(location: end, length: 0)
+                }
+            }
+        }
 
     private func loadHelp(for command: String) {
         guard let txtURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help") else {

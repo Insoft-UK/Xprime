@@ -20,20 +20,19 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 
-#ifndef MATRIX_PPLIB
-#define MATRIX_PPLIB
+{$IFNDEF IO}
+{$DEFINE IO}
 
-alias @matrix::edit := EDITMAT;
-alias @matrix::add::col := ADDCOL;
-alias @matrix::add::row := ADDROW;
-alias @matrix::delete::col := DELCOL;
-alias @matrix::redim := REDIM;
-alias @matrix::replace := REPLACE;
-alias @matrix::scale := SCALE;
-alias @matrix::scale::add := SCALEADD;
-alias @matrix::sub := Sub;
-alias @matrix::swap::col := SAWAPCOL;
-alias @matrix::swap::row := SWAPROW;
+alias @io::choose := CHOOSE;
+alias @io::editlist := EDITLIST;
+alias @io::getkey := GETKEY;
+alias @io::input := INPUT;
+alias @io::is_keydown := ISKEYDOWN;
+alias @io::mouse := MOUSE;
+alias @io::message::box := MSGBOX;
+alias @io::draw::menu := DRAWMENU;
+alias @io::print := PRINT;
+alias @io::wait := WAIT;
+alias @io::app::files := AFiles;
 
-
-#endif
+{$ENDIF}

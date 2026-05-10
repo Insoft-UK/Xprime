@@ -15,7 +15,7 @@
 		136E64542D35B0980054E0CC /* regexp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 136E64532D35B0980054E0CC /* regexp.cpp */; };
 		136E645B2D3964A90054E0CC /* dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 136E645A2D3964A90054E0CC /* dictionary.cpp */; };
 		137FB2892A03B06500AEFDF2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 137FB2882A03B06500AEFDF2 /* main.cpp */; };
-		13C21F9A2A7829C80067CE22 /* preprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13C21F982A7829C80067CE22 /* preprocessor.cpp */; };
+		13C21F9A2A7829C80067CE22 /* directives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13C21F982A7829C80067CE22 /* directives.cpp */; };
 		13C21F9D2A783D8D0067CE22 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13C21F9B2A783D8D0067CE22 /* common.cpp */; };
 		13C21FB42A7892540067CE22 /* alias.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13C21FB22A7892540067CE22 /* alias.cpp */; };
 		13CD08252D60D9880005D2EA /* code_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13CD08242D60D9880005D2EA /* code_stack.cpp */; };
@@ -58,8 +58,8 @@
 		137FB2942A046E8E00AEFDF2 /* hpppl+.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "hpppl+.entitlements"; sourceTree = "<group>"; };
 		1389CFEA2CA73BA6008FDBEB /* timer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = timer.hpp; sourceTree = "<group>"; };
 		138F54D22C976F10009357F9 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		13C21F982A7829C80067CE22 /* preprocessor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = preprocessor.cpp; sourceTree = "<group>"; };
-		13C21F992A7829C80067CE22 /* preprocessor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = preprocessor.hpp; sourceTree = "<group>"; };
+		13C21F982A7829C80067CE22 /* directives.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = directives.cpp; sourceTree = "<group>"; };
+		13C21F992A7829C80067CE22 /* directives.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = directives.hpp; sourceTree = "<group>"; };
 		13C21F9B2A783D8D0067CE22 /* common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
 		13C21F9C2A783D8D0067CE22 /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
 		13C21FB22A7892540067CE22 /* alias.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = alias.cpp; sourceTree = "<group>"; };
@@ -86,7 +86,6 @@
 		13DC3D4D2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				lib/libmin.a,
 				Makefile,
 			);
 			target = 137FB2842A03B06500AEFDF2 /* hpppl+ */;
@@ -180,7 +179,7 @@
 			children = (
 				13C21F9F2A783EA20067CE22 /* include */,
 				1351CC512BF530CE0073FEDF /* calc.cpp */,
-				13C21F982A7829C80067CE22 /* preprocessor.cpp */,
+				13C21F982A7829C80067CE22 /* directives.cpp */,
 				13C21FB22A7892540067CE22 /* alias.cpp */,
 				13F1D8812AB6185400EF623A /* aliases.cpp */,
 				136E64532D35B0980054E0CC /* regexp.cpp */,
@@ -196,7 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				1351CC522BF530CE0073FEDF /* calc.hpp */,
-				13C21F992A7829C80067CE22 /* preprocessor.hpp */,
+				13C21F992A7829C80067CE22 /* directives.hpp */,
 				13C21FB32A7892540067CE22 /* alias.hpp */,
 				13F1D8822AB6185400EF623A /* aliases.hpp */,
 				136E64522D35B0980054E0CC /* regexp.hpp */,
@@ -278,7 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13C21F9A2A7829C80067CE22 /* preprocessor.cpp in Sources */,
+				13C21F9A2A7829C80067CE22 /* directives.cpp in Sources */,
 				136E645B2D3964A90054E0CC /* dictionary.cpp in Sources */,
 				136A44FA2EF5EF500017E5AF /* tool.cpp in Sources */,
 				13EE0F2B2DF888AC004F3D7E /* base.cpp in Sources */,

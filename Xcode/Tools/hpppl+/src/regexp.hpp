@@ -45,7 +45,7 @@ namespace hppplplus {
         
         bool parse(const std::string &str);
         void removeAllOutOfScopeRegexps(void);
-        void resolveAllRegularExpression(std::string &str, const size_t index = -1);
+        void applyAllRegularExpressions(std::string &str, const size_t index = -1);
         
         
     private:

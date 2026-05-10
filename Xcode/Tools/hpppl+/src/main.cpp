@@ -42,7 +42,7 @@
 #include "timer.hpp"
 #include "singleton.hpp"
 
-#include "preprocessor.hpp"
+#include "directives.hpp"
 #include "dictionary.hpp"
 #include "alias.hpp"
 #include "base.hpp"
@@ -71,7 +71,7 @@ using hppplplus::Aliases;
 using hppplplus::Alias;
 using hppplplus::Calc;
 using hppplplus::Dictionary;
-using hppplplus::Preprocessor;
+using hppplplus::Directives;
 using hppplplus::Base;
 
 using std::regex_replace;
@@ -81,24 +81,17 @@ using std::sregex_token_iterator;
 namespace fs = std::filesystem;
 namespace rc = std::regex_constants;
 
-static Preprocessor preprocessor = Preprocessor();
+static Directives directives = Directives();
 
 typedef struct {
     std::string command;
     std::string extension;
-    std::vector<std::string> arguments;
+    std::vector<std::string> arguments; // Unused
 } addon_t;
 
-static std::vector<addon_t> addons = {
-//    {.command = "font", .extension = ".h"},
-//    {.command = "font", .extension = ".hpp"},
-//    {.command = "grob", .extension = ".bmp"},
-//    {.command = "grob", .extension = ".pbm"}
-//#if defined(__APPLE__)
-//    ,{.command = "grob", .extension = ".png"}
-//#endif
-};
+static std::vector<addon_t> addons = {};
 
+std::string include(const std::filesystem::path& path);
 
 // MARK: - Other
 
@@ -124,7 +117,7 @@ std::string translatePPLPlusLine(const std::string& input) {
         return output;
     }
     
-    output = preprocessor.parse(output);
+    output = directives.parse(output);
 
     /*
      While parsing the contents, strings may inadvertently undergo parsing, leading
@@ -144,8 +137,32 @@ std::string translatePPLPlusLine(const std::string& input) {
     output = removeComment(output);
     
     // Resolve all regular expressions
-    Singleton::shared()->regexp.resolveAllRegularExpression(output);
+    Singleton::shared()->regexp.applyAllRegularExpressions(output);
     output = processEscapes(output);
+    
+    // Include
+    if (Directives::isIncludeDirective(output)) {
+        Singleton& singleton = *Singleton::shared();
+        auto path = singleton.currentSourceFilePath();
+        std::filesystem::path includePath = Directives::extractIncludeDirective(input);
+        static const std::regex re(
+                                   R"(\{\$(?:INCLUDE|I) +[\w \-_~,;\[\]\(\).']+ *\})",
+                                   std::regex_constants::icase
+                                   );
+        std::string ext = std::lowercased(includePath.extension().string());
+        if (ext != ".hppplplus" || ext != ".hpppl+") {
+            if (includePath.parent_path().empty() && !fs::exists(includePath))
+                includePath = path.parent_path() / includePath;
+        }
+        
+        auto content = include(includePath);
+        output = std::regex_replace(output, re, content);
+        
+        if (ext == ".hpppl" || ext == ".prgm") {
+            return output;
+        }
+    }
+    
     
     output = replaceOperators(output);
     output = fixUnaryMinus(output);
@@ -292,16 +309,12 @@ std::string include(const std::filesystem::path& path) {
         }
     }
     
-    if (!output.empty()) {
-        output = regex_replace(output, std::regex(R"(^ *#pragma mode *\(.+\) *\n+)"), "");
-    }
-    
     return output;
 }
 
 bool verbose(void) {
     if (Singleton::shared()->aliases.verbose) return true;
-    if (preprocessor.verbose) return true;
+    if (directives.verbose) return true;
     
     return false;
 }
@@ -415,62 +428,6 @@ static bool is_all_whitespace(const std::string& s) {
     return trimmed.begin() == trimmed.end();
 }
 
-struct ResolvedInclude {
-    fs::path path;
-    std::string content;
-};
-
-ResolvedInclude processInclude(const std::string& input, const fs::path& current_path)
-{
-    ResolvedInclude resolvedInclude{};
-    std::string_view s = input;
-
-    size_t pos = s.find("{$");
-
-    if (pos == std::string_view::npos)
-        return resolvedInclude;
-
-    resolvedInclude.content.append(s.substr(0, pos));
-    s.remove_prefix(pos + 2);
-
-    if (s.starts_with("I"))
-        s.remove_prefix(1);
-    else if (s.starts_with("include") || s.starts_with("INCLUDE"))
-        s.remove_prefix(7);
-    else
-        return resolvedInclude;
-
-    while (!s.empty() && (s.front() == ' ' || s.front() == '\t'))
-        s.remove_prefix(1);
-
-    char quote = 0;
-
-    if (s.front() == '"' || s.front() == '\'') {
-        quote = s.front();
-        s.remove_prefix(1);
-    }
-
-    size_t end = quote ? s.find(quote) : s.find('}');
-
-    if (end == std::string_view::npos || s.at(0) == '%')
-        return resolvedInclude;
-
-    resolvedInclude.path = std::string(s.substr(0, end));
-
-    if (resolvedInclude.path.parent_path().empty() && !fs::exists(resolvedInclude.path))
-        resolvedInclude.path = current_path.parent_path() / resolvedInclude.path;
-
-    resolvedInclude.content += include(resolvedInclude.path);
-
-    size_t close = s.find('}');
-    if (close != std::string_view::npos)
-        s.remove_prefix(close + 1);
-
-    resolvedInclude.content.append(s);
-
-    return resolvedInclude;
-}
-
 std::string translatePPLPlusToPPL(const fs::path& path) {
     Singleton& singleton = *Singleton::shared();
     std::istringstream hppplplus;
@@ -511,8 +468,8 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
             break;
         }
         
-        while (preprocessor.disregard == true) {
-            input = preprocessor.parse(input);
+        while (directives.disregard == true) {
+            input = directives.parse(input);
             Singleton::shared()->incrementLineNumber();
             getline(hppplplus, input);
         }
@@ -527,6 +484,41 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
             continue;
         }
         
+        // Addons
+        std::smatch match;
+        re = std::regex(
+            R"(^ *\{\$ADDON +([\w \-_~,;\[\]\(\).']+)(\.[a-z0-9]{1,10}) *\} *$)",
+            std::regex_constants::icase
+        );
+        if (std::regex_search(input, match, re)) {
+            addons.push_back({
+                .command = match.str(1),
+                .extension = match.str(2)
+            });
+            continue;
+        }
+        
+        // Unit
+        re = std::regex(
+            R"(^ *unit +([\w \-_~,;\[\]\(\).']+) *$)",
+            std::regex_constants::icase
+        );
+        if (std::regex_search(input, match, re)) {
+            fs::path file = match.str(1);
+            for (const auto& path : directives.systemIncludePath) {
+                if (file.parent_path().empty())
+                    file = path / file;
+                if (file.has_extension() == false) {
+                    file.replace_extension("hpppl+");
+                }
+                if (fs::exists(file)) {
+                    output += translatePPLPlusToPPL(file);
+                    continue;
+                }
+            }
+              
+            continue;
+        }
         
         // Handle `#pragma mode` for PPL+
         if (input.find("#pragma mode") != std::string::npos) {
@@ -543,34 +535,12 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
                     input.append(it->str() + " ");
                     continue;
                 }
-                
-                if (it->str(1) == "addon") {
-                    // addon(command.h)
-                    std::smatch match;
-                    if (std::regex_search(s, match, std::regex(R"(([A-Za-z0-9 _.-/]+)(\.[A-Za-z0-9]{1,10}))"))) {
-                        addons.push_back({
-                            .command = match.str(1),
-                            .extension = match.str(2)
-                        });
-                    }
-                }
             }
             if (input.size()) {
                 output += "#pragma mode( " + input + ")\n";
             }
             Singleton::shared()->incrementLineNumber();
             continue;
-        }
-        
-        auto resolvedInclude = processInclude(input, path);
-        if (resolvedInclude.content.size()) {
-            std::string ext = std::lowercased(resolvedInclude.path.extension().string());
-            if (ext != ".hppplplus" || ext != ".hpppl+") {
-                output.append(resolvedInclude.content);
-                continue;
-            } else {
-                input.append(resolvedInclude.content);
-            }
         }
         
         if (Singleton::shared()->regexp.parse(input)) {
@@ -599,6 +569,9 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
     
     // Removes `uses`
     output = regex_replace(output, std::regex(R"(\buses\s+([^;]+);)", std::regex_constants::icase), "\n");
+    
+    // Collapse multiple consecutive blank lines into a single blank line.
+    output = regex_replace(output, std::regex(R"(\n{3,})"), "\n\n");
     
     return output;
 }
@@ -778,7 +751,7 @@ int main(int argc, char **argv) {
             
             if (args == "-v" || args == "--verbose") {
                 Singleton::shared()->aliases.verbose = true;
-                preprocessor.verbose = true;
+                directives.verbose = true;
                 Singleton::shared()->regexp.verbose = true;
                 verbose = true;
                 
@@ -788,7 +761,7 @@ int main(int argc, char **argv) {
             if (args.starts_with("-I")) {
                 fs::path path = fs::path(args.substr(2)).has_filename() ? fs::path(args.substr(2)) : fs::path(args.substr(2)).parent_path();
                 path = fs::expand_tilde(path);
-                preprocessor.systemIncludePath.push_front(path);
+                directives.systemIncludePath.push_front(path);
                 continue;
             }
             
@@ -819,17 +792,8 @@ int main(int argc, char **argv) {
     
     std::string str;
     
-    str = "#define __hppplplus";
-    preprocessor.parse(str);
-    
-    str = R"(#define __LIST_LIMIT 10000)";
-    preprocessor.parse(str);
-    
-    str = R"(#define __VERSION )" + std::to_string(NUMERIC_BUILD / 100);
-    preprocessor.parse(str);
-    
-    str = R"(#define __NUMERIC_BUILD )" + std::to_string(NUMERIC_BUILD);
-    preprocessor.parse(str);
+    str = "{$DEFINE __hppplplus}";
+    directives.parse(str);
     
     // Start measuring time
     Timer timer;

@@ -108,8 +108,9 @@ static std::string resolve(const std::string &str) {
     std::string output = str;
     
     static const std::regex re(
-        R"(\{\$(?:I|INCLUDE|include)\s+\%(SCOPE|LINE|COUNTER|RESET|COUNT)\%\})"
-    );
+                               R"(\{\$(?:I|INCLUDE)\s+\%(SCOPE|LINE|COUNTER|RESET|COUNT)\%\s*\})",
+                               std::regex_constants::icase
+                               );
     
     it = output.cbegin();
     while (std::regex_search(it, output.cend(), match, re)) {
@@ -150,7 +151,7 @@ static std::string resolve(const std::string &str) {
     return output;
 }
 
-void Regexp::resolveAllRegularExpression(std::string& str, const size_t index) {
+void Regexp::applyAllRegularExpressions(std::string& str, const size_t index) {
     std::smatch match;
     std::regex re;
     
@@ -184,7 +185,7 @@ void Regexp::resolveAllRegularExpression(std::string& str, const size_t index) {
             str = resolve(str);
             Calc::evaluateMathExpression(str);
             
-            resolveAllRegularExpression(str, i);
+            applyAllRegularExpressions(str, i);
         }
     }
 }

@@ -10,7 +10,7 @@
         "editor.selectionBackground": "#E4F9FF"
     },
     "lineNumberRuler": {
-        "foreground": "#9298a0",
+        "foreground": "#999999",
         "background": "#161a22"
     },
     "window": {
@@ -26,7 +26,7 @@
         {
             "scope": ["Comments"],
             "settings": {
-                "foreground": "#9298a0"
+                "foreground": "#777777"
             }
         },
         {
@@ -38,19 +38,19 @@
         {
             "scope": ["Brackets"],
             "settings": {
-                "foreground": "#afd5fb"
+                "foreground": "#999999"
             }
         },
         {
             "scope": ["Symbols"],
             "settings": {
-                "foreground": "#afd5fb"
+                "foreground": "#999999"
             }
         },
         {
             "scope": ["Operators"],
             "settings": {
-                "foreground": "#afd5fb"
+                "foreground": "#999999"
             }
         },
         {
@@ -62,19 +62,19 @@
         {
             "scope": ["Functions"],
             "settings": {
-                "foreground": "#00ccff"
+                "foreground": "#ffaa00"
             }
         },
         {
             "scope": ["Namespace"],
             "settings": {
-                "foreground": "#00ccff"
+                "foreground": "#0099ff"
             }
         },
         {
             "scope": ["Builtins"],
             "settings": {
-                "foreground": "#cbaaf9"
+                "foreground": "#00ccff"
             }
         }
     ]

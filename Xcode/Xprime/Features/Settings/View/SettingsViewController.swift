@@ -45,8 +45,13 @@ final class SettingsViewController: NSViewController, NSTextFieldDelegate {
         window.titlebarAppearsTransparent = true
         window.styleMask = [.nonactivatingPanel, .titled]
         window.styleMask.insert(.fullSizeContentView)
-        window.initialFirstResponder = nil
-        window.makeFirstResponder(nil)
+       
+        DispatchQueue.main.async {
+            if let editor = window.fieldEditor(false, for: self.location) as? NSTextView {
+                let end = self.location.stringValue.count
+                editor.selectedRange = NSRange(location: end, length: 0)
+            }
+        }
         
         guard let window = NSApplication.shared.windows.first else {
             self.view.window?.close(); return

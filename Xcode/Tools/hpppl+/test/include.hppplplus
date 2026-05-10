@@ -1,0 +1,7 @@
+EXPORT procedure HPPPLPLUS()
+BEGIN
+  LOCAL system := 0;
+  LOOP
+  END;
+  RETURN system;
+END;

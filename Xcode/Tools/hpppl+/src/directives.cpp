@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "preprocessor.hpp"
+#include "directives.hpp"
 #include "singleton.hpp"
 #include "common.hpp"
 #include "calc.hpp"
@@ -30,12 +30,12 @@
 #include <fstream>
 #include <cctype>
 
-using hppplplus::Preprocessor;
+using hppplplus::Directives;
 using hppplplus::Singleton;
 
 static Singleton *_singleton  = Singleton::shared();
 
-std::string Preprocessor::parse(const std::string& str) {
+std::string Directives::parse(const std::string& str) {
     std::string s;
     std::regex re;
     std::smatch match;
@@ -48,19 +48,17 @@ std::string Preprocessor::parse(const std::string& str) {
     
     if (disregard == false) {
         /*
-         eg. #define NAME(a,b,c) c := a+b
-         Group  0 #define NAME(a,b,c) c := a+b
+         eg. {$DEFINE NAME}
+         Group  0 {$DEFINE NAME}
                 1 NAME
-                2 a,b,c
-                3 c := a+b
          */
-        re = R"(^ *#define +([A-Za-z_]\w*)\b(.*))";
+        re = std::regex(R"(^ *\{\$DEFINE +([a-z\d_]+)\})", std::regex_constants::icase);
         if (std::regex_search(str, match, re)) {
             identity.identifier = match.str(1);
-            identity.real = match.str(2);
+            identity.real = "1";
             
             identity.scope = 0;
-            identity.type = Aliases::Type::Macro;
+            identity.type = Aliases::Type::CompileTimeSymbol;
             
             identity.real = _singleton->aliases.resolveAllAliasesInText(identity.real);
             identity.real = Calc::evaluateMathExpression(identity.real);
@@ -70,22 +68,22 @@ std::string Preprocessor::parse(const std::string& str) {
         }
  
         /*
-         eg. #undef NAME
-         Group  0 #undef NAME
+         eg. {$UNDEF NAME}
+         Group  0 {$UNDEF NAME}
                 1 NAME
          */
-        re = R"(^ *#undef +([A-Za-z_][\w]*) *$)";
+        re = std::regex(R"(^ *\{\$UNDEF +([a-z\d_]+)\})", std::regex_constants::icase);
         if (std::regex_search(str, match, re)) {
             _singleton->aliases.remove(match[1].str());
             return "";
         }
 
         /*
-         eg. #ifdef NAME
-         Group  0 #ifdef NAME
+         eg. {$IFDEF NAME}
+         Group  0 {$IFDEF NAME}
                 1 NAME
          */
-        re = R"(^ *#ifdef +([A-Za-z_]\w*) *$)";
+        re = std::regex(R"(^ *\{\$IFDEF +([a-z\d_]+) *\} *$)", std::regex_constants::icase);
         if (std::regex_search(str, match, re)) {
             identity.identifier = match[1].str();
             disregard = !_singleton->aliases.identifierExists(identity.identifier);
@@ -93,52 +91,53 @@ std::string Preprocessor::parse(const std::string& str) {
         }
         
         /*
-         eg. #ifndef NAME
-         Group  0 #ifndef NAME
+         eg. {$IFNDEF NAME}
+         Group  0 {$IFNDEF NAME}
                 1 NAME
          */
-        re = R"(^\ *#ifndef +([A-Za-z_]\w*) *$)";
+        re = std::regex(R"(^ *\{\$IFNDEF +([a-z\d_]+) *\} *$)", std::regex_constants::icase);
         if (std::regex_search(str, match, re)) {
             identity.identifier = match[1].str();
             disregard = _singleton->aliases.identifierExists(identity.identifier);
             return "";
         }
-        
-        
-        re = R"(^ *#if +([A-Za-z_]\w*) *(==|!=|>=|<=|>|<) *(.+)$)";
-        if (std::regex_search(str, match, re)) {
-            identity = _singleton->aliases.getIdentity(match[1].str());
-            if (identity.identifier.empty()) return "";
-            std::string op = match[2].str();
-            std::string real = match[3].str();
-            
-            disregard = true;
-            if (op == "==" && identity.real == real) disregard = false;
-            if (op == "!=" && identity.real != real) disregard = false;
-            if (op == ">=" && op >= identity.real) disregard = false;
-            if (op == "<=" && op <= identity.real) disregard = false;
-            if (op == ">" && op >= identity.real) disregard = false;
-            if (op == "<" && op <= identity.real) disregard = false;
-            
-            return "";
-        }
     }
     
-    if (regex_search(str, std::regex(R"(^ *#else\b *((\/\/.*)|)$)"))) {
+    if (regex_search(str, std::regex(R"(^ *\{\$ELSE\} *$)", std::regex_constants::icase))) {
         disregard = !disregard;
         return "";
     }
     
-    if (regex_search(str, std::regex(R"(^ *#(end|endif)\b)"))) {
+    if (regex_search(str, std::regex(R"(^ *\{\$ENDIF\} *$)", std::regex_constants::icase))) {
         disregard = false;
-        return "";
-    }
-    
-    if (regex_search(str, std::regex(R"(^ *#[a-z]+\b)", std::regex_constants::icase))) {
         return "";
     }
 
     return str;
+}
+
+bool Directives::isIncludeDirective(const std::string& str) {
+    static const std::regex re(
+        R"(\{\$(?:INCLUDE|I) +[\w \-_~,;\[\]\(\).']+ *\})",
+        std::regex_constants::icase
+    );
+
+    return std::regex_search(str, re);
+}
+
+std::filesystem::path Directives::extractIncludeDirective(const std::string& str) {
+    std::smatch match;
+    std::filesystem::path path;
+    
+    auto re = std::regex(
+        R"(\{\$(?:INCLUDE|I) +([\w \-_~,;\[\]\(\).']+) *\})",
+        std::regex_constants::icase
+    );
+
+    if (std::regex_search(str, match, re)) {
+        path = std::filesystem::path(match.str(1));
+    }
+    return path;
 }
 
 

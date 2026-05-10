@@ -1450,7 +1450,7 @@ Gw
                                 <toolbarItem implicitItemIdentifier="98E1084E-F8A6-4DAC-91A9-8D82F2F641BF" label="Preview" paletteLabel="Preview" tag="-1" bordered="YES" sizingBehavior="auto" id="Dnb-tE-Q9L">
                                     <imageReference key="image" image="eye" catalog="system" symbolScale="medium"/>
                                     <connections>
-                                        <segue destination="MWU-od-JlL" kind="popover" popoverAnchorView="Dnb-tE-Q9L" popoverBehavior="t" preferredEdge="maxY" id="QLT-0n-QRd"/>
+                                        <segue destination="MWU-od-JlL" kind="popover" popoverAnchorView="Dnb-tE-Q9L" popoverBehavior="t" preferredEdge="maxY" id="tf8-9b-Rc3"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="57DBF94E-E031-48F7-86FB-A33A5063E683" label="Catalog" paletteLabel="Catalog" tag="-1" bordered="YES" sizingBehavior="auto" id="qci-LW-mZR">
@@ -1739,7 +1739,7 @@ Gw
                 </viewController>
                 <customObject id="wLd-bI-tIP" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-262" y="361"/>
+            <point key="canvasLocation" x="-1401" y="112"/>
         </scene>
     </scenes>
     <resources>

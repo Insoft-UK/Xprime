@@ -20,31 +20,21 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 
+{$IFNDEF STRING}
+{$DEFINE STRING}
 
-#ifndef HP_PPLIB
-#define HP_PPLIB
+alias string::asc := ASC;
+alias string::char := CHAR;
+alias string::dim := DIM;
+alias string::to_string := STRING;
+alias string::in_string := INSTRING;
+alias string::left := LEFT;
+alias string::right := RIGHT;
+alias string::mid := MID;
+alias string::rotate := ROTATE;
+alias string::string::from_id := STRINGFROMID;
+alias string::replace := REPLACE;
 
-alias @hp::glyph := HP.Glyph;
-alias @hp::text := HP.Text;
-alias @hp::zones::reset := HP.RZs;
-alias @hp::zone::reset := HP.RZn;
-alias @hp::zone::set := HP.SZs;
-alias @hp::zone := HP.Zn;
-alias @hp::event::wait := HP.EWait;
-alias @hp::mouse::wait := HP.MWait;
-alias @hp::mouse::clear := HP.MClr;
-alias @hp::mouse::pt := HP.MPt;
-alias @hp::menu::num := HP.Mn;
+regex @`string::npos` 0
 
-regex @`\bhp::mouse\.x` HP.ms[1,1]
-regex @`\bhp::mouse\.y` HP.ms[1,2]
-regex @`\bhp::mouse\.type` HP.ms[1,5]
-
-regex @`\bhp::screen::store *\( *(G\d) *\)` SUBGROB(G0,$1)
-regex @`\bhp::screen::restore *\( *(G\d) *\)` BLIT($1)
-regex @`\bhp::screen::clear *\((.*)?\)` RECT($1)
-
-regex @`\bhp::isKeyPressed *\(([\w.:]+)\)` IFTE(SIZE($1)==1,1,0)
-regex @`\bhp::isMouseEvent *\(([\w.:]+)\)` IFTE(SIZE($1)>1,1,0)
-
-#endif
+{$ENDIF}

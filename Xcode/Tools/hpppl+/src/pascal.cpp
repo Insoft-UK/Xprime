@@ -166,16 +166,16 @@ namespace hppplplus::pascal {
         return true;
     }
 
-    static bool isDecl(const std::string& s, size_t pos)
-    {
-        static const char* words[] = { "label","const","type","var","threadvar" };
-
-        for (auto w : words)
-            if (startsWithWord(s, pos, w))
-                return true;
-
-        return false;
-    }
+//    static bool isDecl(const std::string& s, size_t pos)
+//    {
+//        static const char* words[] = { "label","const","type","var","threadvar" };
+//
+//        for (auto w : words)
+//            if (startsWithWord(s, pos, w))
+//                return true;
+//
+//        return false;
+//    }
 
     static std::string moveDeclarationsAfterBegin(const std::string& input)
     {

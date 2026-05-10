@@ -1,6 +1,8 @@
-#pragma mode( separator(.,;) integer(h64) addon(grob.bmp) indentation(2) )
+#pragma mode( separator(.,;) integer(h64) indentation(2) )
+{$ADDON grob.bmp}
 USES HP;
-LOCAL spectrum := {$I "spectrum.bmp"};
+ALIAS spectrum := s;
+LOCAL spectrum := {$INCLUDE spectrum.bmp};
 
 EXPORT START()
 BEGIN
@@ -9,8 +11,10 @@ BEGIN
   WAIT(-1);
   RETURN 0;
 END;
-
+REGEX `\bloop\b`i WHILE 1 DO
 EXPORT RESET()
 BEGIN
+  LOOP
+  END;
   RETURN 0;
 END;

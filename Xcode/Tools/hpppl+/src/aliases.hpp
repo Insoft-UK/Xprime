@@ -34,7 +34,7 @@ namespace hppplplus {
     public:
         enum class Type {
             Unknown,
-            Macro,
+            CompileTimeSymbol,
             Alias,
             Function,
             Argument,

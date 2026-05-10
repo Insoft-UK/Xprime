@@ -1,0 +1,33 @@
+#PYTHON IMAGE(trgtG, dx, dy, img, scaleX, scaleY)
+from sys import argv
+from hpprime import *
+
+trgtG = int(argv[0][1:])
+dx = int(argv[1])
+dy = int(argv[2])
+img = eval(argv[3])
+scaleX = int(argv[4])
+scaleY = int(argv[5])
+
+w = int(img[1][0]); h = int(img[1][1]); bpp = int(img[1][2])
+m = (1 << bpp) - 1; s = 64 / bpp
+x = 0; y = 0
+
+size = len(img[0])
+for i in range(size):
+  d = int(img[0][i])
+  for j in range(64 / bpp):
+    c = img[2][d & m]
+    fillrect(trgtG, x + dx, y + dy, scaleX, scaleY, c, c)
+    d = d >> bpp
+    x = x + scaleX
+    if x == w * scaleX:
+      x = 0
+      y = y + scaleY
+#END
+
+EXPORT HPPPL()
+BEGIN
+  LOCAL system := 0;
+  RETURN system;
+END;

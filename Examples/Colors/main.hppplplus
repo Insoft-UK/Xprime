@@ -1,26 +1,32 @@
 #pragma mode( separator(.,;) integer(h64) indentation(2) )
-USES HP;
-#define HUE G2
-#define BLACK_TO_TRANSPARENT_OVERLAY G3
-#define TRANSPARENT_TO_WHITE_OVERLAY G4
-#define ROUND G1
-#define Event key, type[1], x[2], y[3], dx[4], dy[5]
-#define Size width[1], height[2]
-DICTIONARY White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, Magenta := #FF00FF:32h, Cardinal := #D03020:32h, Coral := #F08070:32h, Pink := #FFC0C0:32h, Indigo := #400080:32h, Purple := #800080:32h, Violet := #8000FF:32h, Lavender := #C0C0FF:32h, NavyBlue := #000080:32h, Blue := #0000FF:32h, Denim := #1060C0:32h, Lochmara := #0070C0:32h, SkyBlue := #80D0FF:32h, PacificBlue := #00A0C0:32h, Teal := #008080:32h, Cyan := #00FFFF:32h, Aqua := #00FFFF:32h, FirGreen := #003000:32h, OfficeGreen := #008000:32h, Shamrock := #00A060:32h, Apple := #50B040:32h, LimeGreen := #00FF00:32h, Chocolate := #400808:32h, Brown := #905000:32h, Orange := #FF8000:32h, Olive := #808000:32h, Tangerine := #FFD000:32h, Yellow := #FFFF00:32h, Khaki := #F0E090:32h, Tan := #D0B090:32h, Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h @Color;
-DICTIONARY Percentage := 0, Decimal := 1 UnitType;
-DICTIONARY HSV := 0, HSL := 1 ColorSpace;
-DICTIONARY System := 0, Bin := 1, Oct := 2, Dec := 3, Hex := 4 @Base;
-DICTIONARY MouseDown := 0, MouseMove := 1, MouseUp := 2, MouseClick := 3, MouseStretch := 5, MouseRotate := 6, MouseLongClick := 7 @EventType;
-DICTIONARY Apps := 0, Symb := 1, Up := 2, Help := 3, Esc := 4, Home := 5, Plot := 6, Left := 7, Right := 8, View := 9, Cas := 10, Num := 11, Down := 12, Menu := 13, Vars := 14, Mem := 15, Unit := 16, Xttn := 17, Abc := 18, Bksp := 19, Power := 20, Sin := 21, Cos := 22, Tan := 23, Ln := 24, Log := 25, Sq := 26, Neg := 27, N := 28, Comma := 29, Enter := 30, Eex := 31, 7 := 32, 8 := 33, 9 := 34, Div := 35, Alpha := 36, 4 := 37, 5 := 38, 6 := 39, Mult := 40, Shift := 41, 1 := 42, 2 := 43, 3 := 44, Minus := 45, On := 46, 0 := 47, Dot := 48, Space := 49, Plus := 50 @KeyCode;
-REGEX @`\bhp::isKeyPressed *\(([\w.:]+)\)` IFTE(SIZE($1)==1,1,0)
-REGEX @`\bhp::isMouseEvent *\(([\w.:]+)\)` IFTE(SIZE($1)>1,1,0)
-REGEX @`\bhp::screen::clear *\((.*)?\)` RECT($1)
-REGEX @`&{2}` AND
-REGEX @`\b([a-zA-Z_]\w*) *([*\/+-])\= *` $1 := $1 $2
-REGEX @`\(([^?]+)\?(.+):(.+)\)` IFTE($1, $2, $3)
-ALIAS hp::mouse::clear := HP.MClr;
-ALIAS colorsChannel := chl;
-VAR colorsChannel = 0;
+uses HP;
+
+alias HUE := G2;
+alias BLACK_TO_TRANSPARENT_OVERLAY := G3;
+alias TRANSPARENT_TO_WHITE_OVERLAY := G4;
+alias ROUND := G1;
+
+regex @`\bEvent\b` key, type[1], x[2], y[3], dx[4], dy[5]
+regex @`\bSize\b` width[1], height[2]
+
+dictionary White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, Magenta := #FF00FF:32h, Cardinal := #D03020:32h, Coral := #F08070:32h, Pink := #FFC0C0:32h, Indigo := #400080:32h, Purple := #800080:32h, Violet := #8000FF:32h, Lavender := #C0C0FF:32h, NavyBlue := #000080:32h, Blue := #0000FF:32h, Denim := #1060C0:32h, Lochmara := #0070C0:32h, SkyBlue := #80D0FF:32h, PacificBlue := #00A0C0:32h, Teal := #008080:32h, Cyan := #00FFFF:32h, Aqua := #00FFFF:32h, FirGreen := #003000:32h, OfficeGreen := #008000:32h, Shamrock := #00A060:32h, Apple := #50B040:32h, LimeGreen := #00FF00:32h, Chocolate := #400808:32h, Brown := #905000:32h, Orange := #FF8000:32h, Olive := #808000:32h, Tangerine := #FFD000:32h, Yellow := #FFFF00:32h, Khaki := #F0E090:32h, Tan := #D0B090:32h, Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h @Color;
+dictionary Percentage := 0, Decimal := 1 UnitType;
+dictionary HSV := 0, HSL := 1 ColorSpace;
+dictionary System := 0, Bin := 1, Oct := 2, Dec := 3, Hex := 4 @Base;
+dictionary MouseDown := 0, MouseMove := 1, MouseUp := 2, MouseClick := 3, MouseStretch := 5, MouseRotate := 6, MouseLongClick := 7 @EventType;
+dictionary Apps := 0, Symb := 1, Up := 2, Help := 3, Esc := 4, Home := 5, Plot := 6, Left := 7, Right := 8, View := 9, Cas := 10, Num := 11, Down := 12, Menu := 13, Vars := 14, Mem := 15, Unit := 16, Xttn := 17, Abc := 18, Bksp := 19, Power := 20, Sin := 21, Cos := 22, Tan := 23, Ln := 24, Log := 25, Sq := 26, Neg := 27, N := 28, Comma := 29, Enter := 30, Eex := 31, 7 := 32, 8 := 33, 9 := 34, Div := 35, Alpha := 36, 4 := 37, 5 := 38, 6 := 39, Mult := 40, Shift := 41, 1 := 42, 2 := 43, 3 := 44, Minus := 45, On := 46, 0 := 47, Dot := 48, Space := 49, Plus := 50 @KeyCode;
+
+regex @`\bhp::isKeyPressed *\(([\w.:]+)\)` IFTE(SIZE($1)==1,1,0)
+regex @`\bhp::isMouseEvent *\(([\w.:]+)\)` IFTE(SIZE($1)>1,1,0)
+regex @`\bhp::screen::clear *\((.*)?\)` RECT($1)
+regex @`&{2}` AND
+regex @`\b([a-zA-Z_]\w*) *([*\/+-])\= *` $1 := $1 $2
+regex @`\(([^?]+)\?(.+):(.+)\)` IFTE($1, $2, $3)
+
+alias hp::mouse::clear := HP.MClr;
+alias colorsChannel := chl;
+
+var colorsChannel = 0;
 alias colorsH := cH;
 alias colorsS := cS;
 alias colorsV := cV;

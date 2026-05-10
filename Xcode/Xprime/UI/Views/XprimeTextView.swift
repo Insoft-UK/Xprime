@@ -105,7 +105,7 @@ class XprimeTextView: NSTextView {
     
     private func setupEditor() {
         theme = ThemeLoader.shared.loadTheme(named: Settings.shared.preferredTheme)
-        grammar = GrammarLoader.shared.loadGrammar(named: ".hpppl")
+        grammar = GrammarLoader.shared.loadGrammar(named: ".txt")
         
         configureTextViewAppearance()
         configureTextContainer()

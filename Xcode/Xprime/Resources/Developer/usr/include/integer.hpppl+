@@ -20,23 +20,31 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 
-#ifndef IO_PPLIB
-#define IO_PPLIB
+{$IFNDEF INTEGER}
+{$DEFINE INTEGER}
 
-alias @io::choose := CHOOSE;
-alias @io::editlist := EDITLIST;
-alias @io::getkey := GETKEY;
-alias @io::input := INPUT;
-alias @io::is_keydown := ISKEYDOWN;
-alias @io::mouse := MOUSE;
-alias @io::message::box := MSGBOX;
-alias @io::draw::menu := DRAWMENU;
-alias @io::print := PRINT;
-alias @io::wait := WAIT;
-alias @io::app::files := AFiles;
+alias integer::to_real := B→R;
+alias getbase := GETBASE;
+alias getbits := GETBITS;
+alias integer::to_base := R→B;
+alias setbits := SETBITS;
+alias setbase := SETBASE;
 
-/// New, recommended!
-alias @mouse := MOUSE;
-alias @keyboard := GETKEY;
+dictionary System = 0, Binary = 1, Octal = 2, Decimal = 3, Hexadecimal = 4 @integer::Base;
 
-#endif
+regex @`\bInt8\(([^()]*)\)` SETBITS($1,-7)
+regex @`\bInt16\(([^()]*)\)` SETBITS($1,-15)
+regex @`\bInt32\(([^()]*)\)` SETBITS($1,-31)
+regex @`\bInt64\(([^()]*)\)` SETBITS($1,-63)
+
+regex @`\bUInt8\(([^()]*)\)` SETBITS($1,8)
+regex @`\bUInt16\(([^()]*)\)` SETBITS($1,16)
+regex @`\bUInt32\(([^()]*)\)` SETBITS($1,32)
+regex @`\bUInt64\(([^()]*)\)` SETBITS($1,64)
+
+regex @`\bBin\(([^()]*)\)` SETBASE($1,1)
+regex @`\bOct\(([^()]*)\)` SETBASE($1,2)
+regex @`\bDec\(([^()]*)\)` SETBASE($1,3)
+regex @`\bHex\(([^()]*)\)` SETBASE($1,4)
+
+{$ENDIF}

@@ -40,7 +40,7 @@ fileprivate enum DefaultsKey {
 let defaultWorkingDirectoryURL = FileManager
     .default
     .homeDirectoryForCurrentUser
-    .appendingPathComponent("Xprime")
+    .appending(path: "Xprime", directoryHint: .isDirectory)
 
 final class Settings {
 

@@ -29,7 +29,7 @@
 #include <string>
 
 namespace hppplplus {
-    class Preprocessor {
+    class Directives {
     public:
         std::string filename;
         std::deque<std::filesystem::path> systemIncludePath;
@@ -42,6 +42,8 @@ namespace hppplplus {
         
         std::string parse(const std::string& str);
         
+        static bool isIncludeDirective(const std::string& str);
+        static std::filesystem::path extractIncludeDirective(const std::string& str);
     };
     
 }
