@@ -7,8 +7,8 @@ rtf_output
 build
 make
 *.pkg
-ignore
 *.zip
+ignore
 Dev
 _*
 test
