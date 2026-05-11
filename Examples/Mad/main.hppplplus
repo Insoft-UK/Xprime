@@ -10,10 +10,10 @@ Apple := #50B040:32h, LimeGreen := #00FF00:32h, Chocolate := #400808:32h, Brown 
 Olive := #808000:32h, Tangerine := #FFD000:32h, Yellow := #FFFF00:32h, Khaki := #F0E090:32h, Tan := #D0B090:32h, \
 Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h \
 @Color;
-#define COPYRIGHT   	    "COPYRIGHT 1985 E.C. PUBLICATIONS"
-#define END_OF_DATA      999
-#define SCREEN_MIDDLE    120
-#define SCREEN_CENTRE    160
+regex `\bCOPYRIGHT\b` "COPYRIGHT 1985 E.C. PUBLICATIONS"
+regex `\bEND_OF_DATA\b`      999
+regex `\bSCREEN_MIDDLE\b`    120
+regex `\bSCREEN_CENTRE\b`    160
 
 /// PPL Data from file.
 LOCAL DATA:={$I data.hpppl};
