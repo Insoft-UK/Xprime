@@ -2,7 +2,6 @@
 *.xcworkspace/xcuserdata/
 xcuserdata/
 installer
-Xcode/Tools/note/installer
 rtf_output
 build
 make
@@ -12,5 +11,3 @@ Dev
 _*
 test
 examples
-hpnote.xcodeproj
-hpppl+.xcodeproj
