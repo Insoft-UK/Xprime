@@ -4,7 +4,7 @@
     "patterns": [
         {
             "name": "Keywords",
-            "match": "(?mi)\\b(regex|dictionary|uses|alias|begin|end|if|then|else|case|for|from|to|step|do|while|repeat|until|break|continue|return|iferr|kill|default|and|or|not|xor|mod)\\b"
+            "match": "(?mi)\\b(loop|regex|dictionary|uses|alias|begin|end|if|then|else|case|for|from|to|step|do|while|repeat|until|break|continue|return|iferr|kill|default|and|or|not|xor|mod)\\b"
         },
         {
             "name": "Storage",

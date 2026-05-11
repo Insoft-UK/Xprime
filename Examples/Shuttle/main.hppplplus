@@ -8,7 +8,7 @@
 // http://calc.fjk.ch
 
 ALIAS Shuttle::Data := sd;
-LOCAL sd := {$I data.hpppl};
+LOCAL Shuttle::Data := {$I data.hpppl};
 
 alias Shuttle::GetPenColor := gpc;
 local Shuttle::GetPenColor(Pen)

@@ -140,30 +140,6 @@ std::string translatePPLPlusLine(const std::string& input) {
     Singleton::shared()->regexp.applyAllRegularExpressions(output);
     output = processEscapes(output);
     
-    // Include
-    if (Directives::isIncludeDirective(output)) {
-        Singleton& singleton = *Singleton::shared();
-        auto path = singleton.currentSourceFilePath();
-        std::filesystem::path includePath = Directives::extractIncludeDirective(input);
-        static const std::regex re(
-                                   R"(\{\$(?:INCLUDE|I) +[\w \-_~,;\[\]\(\).']+ *\})",
-                                   std::regex_constants::icase
-                                   );
-        std::string ext = std::lowercased(includePath.extension().string());
-        if (ext != ".hppplplus" || ext != ".hpppl+") {
-            if (includePath.parent_path().empty() && !fs::exists(includePath))
-                includePath = path.parent_path() / includePath;
-        }
-        
-        auto content = include(includePath);
-        output = std::regex_replace(output, re, content);
-        
-        if (ext == ".hpppl" || ext == ".prgm") {
-            return output;
-        }
-    }
-    
-    
     output = replaceOperators(output);
     output = fixUnaryMinus(output);
     
@@ -183,6 +159,7 @@ std::string translatePPLPlusLine(const std::string& input) {
     }
 
     output = replaceWords(output, {"var"}, "LOCAL");
+    output = regex_replace(output, std::regex(R"(\bloop\b)", std::regex_constants::icase), "WHILE 1 DO");
     output = capitalizeWords(output, {"log", "cos", "sin", "tan", "ln", "min", "max"});
     
     //MARK: User Define Alias Parsing
@@ -224,10 +201,31 @@ std::string translatePPLPlusLine(const std::string& input) {
     
     output = Calc::parse(output);
     output = Base::parse(output);
+    
+    // Include
+    if (Directives::isIncludeDirective(output)) {
+        Singleton& singleton = *Singleton::shared();
+        auto path = singleton.currentSourceFilePath();
+        std::filesystem::path includePath = Directives::extractIncludeDirective(input);
+        static const std::regex re(
+                                   R"(\{\$(?:INCLUDE|I) +[\w \-_~,;\[\]\(\).']+ *\})",
+                                   std::regex_constants::icase
+                                   );
+        std::string ext = std::lowercased(includePath.extension().string());
+        if (ext != ".hppplplus" || ext != ".hpppl+") {
+            if (includePath.parent_path().empty() && !fs::exists(includePath))
+                includePath = path.parent_path() / includePath;
+        }
+        
+        auto content = include(includePath);
+        output = std::regex_replace(output, re, content);
+    }
+    
+    
     output = restoreStrings(output, strings);
     
     if (!comment.empty()) output += comment;
-    
+
     if (output.empty())
         return "";
     return output + "\n";

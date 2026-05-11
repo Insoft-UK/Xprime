@@ -1,8 +1,8 @@
 {
-    "latestVersion": "26.5.20260510",
-    "build": "20260510",
-    "downloadURL": "http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.pkg",
+    "latestVersion": "26.5.20260511",
+    "build": "20260511",
+    "downloadURL": "http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip",
     "minimumOS": "14.6",
-    "architecture": "arm64",
+    "architecture": "universal",
     "releaseNotesURL": "http://insoft.uk/xprime-release-notes.txt"
 }

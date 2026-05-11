@@ -85,10 +85,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13EE0F712DF9DEDF004F3D7E /* Build configuration list for PBXNativeTarget "Xprime" */;
 			buildPhases = (
-				137DBD6A2E04798800657C42 /* Run Script */,
 				13EE0F5E2DF9DEDE004F3D7E /* Sources */,
 				13EE0F5F2DF9DEDE004F3D7E /* Frameworks */,
 				13EE0F602DF9DEDE004F3D7E /* Resources */,
+				137DBD6A2E04798800657C42 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -166,42 +166,24 @@
 				"    MIN_OS=$(/usr/libexec/PlistBuddy \\",
 				"        -c \"Print :LSMinimumSystemVersion\" \\",
 				"        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")",
+				"        ",
+				"    if [[ \"$ARCHS_STANDARD\" == *\"arm64\"* && \"$ARCHS_STANDARD\" == *\"x86_64\"* ]]; then",
+				"        ARCHITECTURE=\"universal\"",
+				"    else",
+				"        ARCHITECTURE=\"$ARCHS\"",
+				"    fi",
 				"",
 				"echo \"{\\n\\",
 				"    \\\"latestVersion\\\": \\\"${VERSION}.${BUILD}\\\",\\n\\",
 				"    \\\"build\\\": \\\"${BUILD}\\\",\\n\\",
-				"    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.pkg\\\",\\n\\",
+				"    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-${ARCHITECTURE}.zip\\\",\\n\\",
 				"    \\\"minimumOS\\\": \\\"${MIN_OS}\\\",\\n\\",
-				"    \\\"architecture\\\": \\\"arm64\\\",\\n\\",
+				"    \\\"architecture\\\": \\\"${ARCHITECTURE}\\\",\\n\\",
 				"    \\\"releaseNotesURL\\\": \\\"http://insoft.uk/xprime-release-notes.txt\\\"\\n\\",
 				"}\" > xprime-app-version.json",
 				"",
+				"",
 				"fi",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
 				"",
 			);
 		};
@@ -353,7 +335,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260510;
+				CURRENT_PROJECT_VERSION = 20260511;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
@@ -414,7 +396,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260510;
+				CURRENT_PROJECT_VERSION = 20260511;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;

@@ -24,11 +24,11 @@
 {$DEFINE INTEGER}
 
 alias integer::to_real := B→R;
-alias getbase := GETBASE;
-alias getbits := GETBITS;
+alias integer::getbase := GETBASE;
+alias integer::getbits := GETBITS;
 alias integer::to_base := R→B;
-alias setbits := SETBITS;
-alias setbase := SETBASE;
+alias integer::setbits := SETBITS;
+alias integer::setbase := SETBASE;
 
 dictionary System = 0, Binary = 1, Octal = 2, Decimal = 3, Hexadecimal = 4 @integer::Base;
 
