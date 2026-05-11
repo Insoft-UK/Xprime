@@ -7,7 +7,6 @@ rtf_output
 build
 make
 *.pkg
-*.zip
 ignore
 Dev
 _*
