@@ -66,7 +66,7 @@ BEGIN
     IF l[i] < font[3] OR l[i] > font[4] THEN
       CONTINUE;
     END;
-    LOCAL j = GLYPHSIZE(l[i] - font[3] + 1, font, weight);
+    LOCAL j := GLYPHSIZE(l[i] - font[3] + 1, font, weight);
     x := x + j[1];
   END;
   RETURN {x, font[5]};
