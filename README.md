@@ -17,6 +17,13 @@
 Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip">Xprime 26.5</a></br>
 Requires **macOS 14.6** or later
 
+### Requirements
+AppleSilicon or intel</br>
+macOS 14.6 or later</br>
+[HP Prime Virtual Calculator](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Virtual_Calculator_BETA_2026_04_01.dmg)</br>
+[HP Connectivity Kit](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Connectivity_Kit_BETA_20260401.dmg) (for calculator sync)</br>
+
+
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
 Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.5.20260511**.
