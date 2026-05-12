@@ -3,7 +3,7 @@
 ## Xprime Code Editor for HP Prime
 - Edit your PPL or <a href="Xcode/Tools/hpppl%2B">**PPL+**</a> code for the HP Prime.
 - Package your application for deployment for the HP Prime or testing on the Virtual Calculator.
-- Export a G1 .hpprgm file for use on a real HP Prime or the Virtual Calculator.
+- Export a G1 .hpprgm/.hpappprgm file for use on a real HP Prime or the Virtual Calculator.
 - Compress code to fit more programs on your HP Prime
 
 >[!IMPORTANT]
@@ -17,18 +17,9 @@
 Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip">Xprime 26.5</a></br>
 Requires **macOS 14.6** or later
 
-**Apple Silicon**
-Future: Xprime 27</br>
-Requires **macOS 26** or later
-
-### Xprime 26.5
-The 26.5 update is focused on refinement, resolving minor issues, and bringing everything closer to final completion.
-
-The main command-line tools used by Xprime have also received further refinement.
-
-### Hidden Version Detail
+### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
-Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.3.20260311**.
+Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.5.20260511**.
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
