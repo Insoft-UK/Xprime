@@ -44,7 +44,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.hpppl|HP PPL source text|
 |.hppplplus|HP PPL+ source text|
 
->In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼ support, Xprime will adopt the .hpppl and .hppplplus file types and discontinue .prgm+. This change will simplify development for those using either Visual Studio Code or Xprime.
+>In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼ support, Xprime adopts the .hpppl and .hppplplus or .hpppl+ file types. This simplify development for those using either Visual Studio Code or Xprime.
 
 Typical File Structure for an HP Prime **Application**
 ```
