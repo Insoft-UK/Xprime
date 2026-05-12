@@ -21,7 +21,7 @@ Requires **macOS 14.6** or later
 In Xprime, you can reveal the full version number from the About window.
 Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.5.20260511**.
 
-<img src="assets/screenshots/xprime.png?raw=true" width="812" />
+<img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
 <img src="assets/screenshots/xprime/project.png?raw=true" width="189" /><img src="assets/screenshots/xprime/catalog.png?raw=true" width="189" /><img src="assets/screenshots/xprime/program.png?raw=true" width="189" /><img src="assets/screenshots/xprime/application.png?raw=true" width="189" /></br>
 <img src="assets/screenshots/xprime/theme-default.png?raw=true" width="189" /><img src="assets/screenshots/xprime/theme-github.png?raw=true" width="189" /><img src="assets/screenshots/xprime/theme-dos.png?raw=true" width="189" /><img src="assets/screenshots/xprime/recent.png?raw=true" width="189" /></br><img src="assets/screenshots/xprime/settings.png?raw=true" width="189" /></br>
