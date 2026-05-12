@@ -53,7 +53,6 @@ MyApp/
 │   │── Example.hpapp
 │   │── Example.hpappnote
 │   └── Example.hpappprgm
-│── Example.hpappdir.zip
 │── Example.xprimeproj
 │── main.hppplplus or main.hpppl
 └── info.note
