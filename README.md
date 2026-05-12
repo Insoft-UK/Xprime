@@ -15,11 +15,10 @@
 
 **Universal**
 Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip">Xprime 26.5</a></br>
-Requires **macOS 14.6** or later
 
 ### Requirements
 AppleSilicon or intel</br>
-macOS 14.6 or later</br>
+**macOS 14.6** or later</br>
 [HP Prime Virtual Calculator](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Virtual_Calculator_BETA_2026_04_01.dmg)</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Connectivity_Kit_BETA_20260401.dmg) (for calculator sync)</br>
 
