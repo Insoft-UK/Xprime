@@ -6,6 +6,13 @@
 - Export a G1 .hpprgm file for use on a real HP Prime or the Virtual Calculator.
 - Compress code to fit more programs on your HP Prime
 
+>[!IMPORTANT]
+>Before running your program or application on either the Virtual HP Prime or a physical HP Prime calculator, you must first open the source code and perform a “Check” once.  
+>
+>This is required because Xprime currently generates .hpprgm and .hpappprgm files using an older format originally used by early HP Prime G1 firmware. The HP Prime will initially accept the file, but it must be resaved by the calculator before it becomes a fully valid modern .hpprgm or .hpappprgm file.  
+>
+>Simply opening the source code in the editor and performing a “Check” — or even just viewing the code and exiting the editor — causes the HP Prime to automatically resave the file using the current supported format. Once this has been done, the program or application will run normally.
+
 **Universal**
 Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip">Xprime 26.5</a></br>
 Requires **macOS 14.6** or later
@@ -14,7 +21,7 @@ Requires **macOS 14.6** or later
 Future: Xprime 27</br>
 Requires **macOS 26** or later
 
-### Xprime 26.5 RC
+### Xprime 26.5
 The 26.5 update is focused on refinement, resolving minor issues, and bringing everything closer to final completion.
 
 The main command-line tools used by Xprime have also received further refinement.
