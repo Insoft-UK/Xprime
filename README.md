@@ -15,9 +15,9 @@ Future: Xprime 27</br>
 Requires **macOS 26** or later
 
 ### Xprime 26.5 RC
-The upcoming 26.5 update is focused on refinement, resolving minor issues, and bringing everything closer to final completion.
+The 26.5 update is focused on refinement, resolving minor issues, and bringing everything closer to final completion.
 
-The main command-line tools used by Xprime are also receiving further refinement, although some areas will require additional time — particularly the hpppl+ tool. The compression component still has a few issues with certain PPL code cases that I’ve encountered during personal use and testing.
+The main command-line tools used by Xprime have also received further refinement.
 
 ### Hidden Version Detail
 In Xprime, you can reveal the full version number from the About window.
