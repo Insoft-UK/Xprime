@@ -21,6 +21,13 @@ AppleSilicon or intel</br>
 [HP Prime Virtual Calculator](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Virtual_Calculator_BETA_2026_04_01.dmg)</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Connectivity_Kit_BETA_20260401.dmg) (for calculator sync)</br>
 
+**Ongoing Development**</br>
+Nothing significant is planned between now and next year. However, any tweaks, refinements, or issues I address in Xprime will be part of Xprime 27, codenamed Opux — inspired by the Latin word Opus, meaning “work” or “creation,” but stylized with an x instead of an s.
+
+**Opux**: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=opux-installer-universal.zip">Xprime 27</a></br>
+### Requirements
+AppleSilicon</br>
+**macOS 26** or later</br>
 
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
