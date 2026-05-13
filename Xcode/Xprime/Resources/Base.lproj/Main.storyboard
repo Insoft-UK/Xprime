@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <plugIn identifier="com.apple.WebKit2IBPlugin" version="24765"/>
         <capability name="Combo buttons" minToolsVersion="14.0" minSystemVersion="13.0"/>
@@ -542,11 +541,11 @@ Gw
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" autoenablesItems="NO" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="Opux" id="1Xt-HY-uBw">
+                            <menuItem title="Xprime" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Opux" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="Xprime" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About Opux" secondaryImage="help-about" id="1WD-nO-Kz9">
+                                        <menuItem title="About Xprime" secondaryImage="help-about" id="1WD-nO-Kz9">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <segue destination="6N4-Ta-yVx" kind="modal" id="eog-3G-zoi"/>
@@ -603,7 +602,7 @@ Gw
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit Opux" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit Xprime" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -1189,6 +1188,15 @@ DQ
                                     <segue destination="lQU-LP-rhD" kind="popover" popoverAnchorView="2dx-oQ-NW7" popoverBehavior="t" preferredEdge="maxY" id="8ab-qp-JA4"/>
                                 </connections>
                             </button>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0Z-Ly-7al">
+                                <rect key="frame" x="18" y="123" width="219" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP PPL+ Settings" id="ZZq-iF-Ogj">
+                                    <font key="font" metaFont="system" size="18"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
@@ -1281,7 +1289,6 @@ Gw
                                             </buttonCell>
                                             <color key="bezelColor" name="Advance"/>
                                             <connections>
-                                                <action selector="defaultSettings:" target="HsO-bO-Dfd" id="qce-0T-wT5"/>
                                                 <segue destination="RUs-SG-NT1" kind="sheet" id="8YF-pd-ejR"/>
                                             </connections>
                                         </button>
@@ -1389,7 +1396,7 @@ Gw
                             </textField>
                             <textField hidden="YES" autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32N-W6-Vx7">
                                 <rect key="frame" x="18" y="8" width="524" height="11"/>
-                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="PPL+ 20260000 - GROB 20260000 - FONT 20260000 - NOTE 20260000" id="srx-Hx-arU">
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="PPL+ 20260000 - GROB 20260000 - HP FONT 20260000 - HP NOTE 20260000" id="srx-Hx-arU">
                                     <font key="font" metaFont="miniSystem"/>
                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

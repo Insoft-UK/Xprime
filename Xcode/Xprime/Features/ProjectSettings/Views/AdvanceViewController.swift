@@ -34,6 +34,13 @@ final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComb
         setup()
     }
     
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        guard let window = view.window else { return }
+        window.styleMask = [.docModalWindow]
+    }
+    
     private func setup() {
         configureArchiveSourceSelection()
         configureArchiveSourceActions()

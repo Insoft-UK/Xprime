@@ -161,7 +161,7 @@ final class CodeEditorTextView: NSTextView {
     ]
     
     var weight: NSFont.Weight = .medium
-    var editorForegroundColor = NSColor(.white)
+    var editorForegroundColor = NSColor(white: 1.0, alpha: 1.0)
     
     private let syntaxHighlighter = SyntaxHighlighter()
     var snippetSession: SnippetSession?
