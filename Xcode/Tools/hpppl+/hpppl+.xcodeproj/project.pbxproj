@@ -78,7 +78,9 @@
 		13DC3D4C2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				lib/arm64/libhpprgm.a,
 				lib/libhpprgm.a,
+				lib/x86_64/libhpprgm.a,
 				Makefile,
 			);
 			target = 137FB2842A03B06500AEFDF2 /* hpppl+ */;
@@ -86,6 +88,11 @@
 		13DC3D4D2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"lib/arm64/hpppl+.a",
+				lib/arm64/libmin.a,
+				lib/libmin.a,
+				"lib/x86_64/hpppl+.a",
+				lib/x86_64/libmin.a,
 				Makefile,
 			);
 			target = 137FB2842A03B06500AEFDF2 /* hpppl+ */;
@@ -93,7 +100,11 @@
 		13DC3D4E2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				"lib/arm64/hpppl+.a",
+				lib/arm64/librfmt.a,
 				lib/librfmt.a,
+				"lib/x86_64/hpppl+.a",
+				lib/x86_64/librfmt.a,
 				Makefile,
 			);
 			target = 137FB2842A03B06500AEFDF2 /* hpppl+ */;
@@ -427,25 +438,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu23;
 				HEADER_SEARCH_PATHS = "";
 				INCLUDED_SOURCE_FILE_NAMES = "";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/src/librfmt/lib",
-					"$(PROJECT_DIR)/src/libmin/lib",
-					"$(PROJECT_DIR)/src/libhpprgm/lib",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/arm64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/win_x86_64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/x86_64",
-					"$(PROJECT_DIR)/src/libmin/lib/arm64",
-					"$(PROJECT_DIR)/src/libmin/lib/win_x86_64",
-					"$(PROJECT_DIR)/src/libmin/lib/x86_64",
-					"$(PROJECT_DIR)/src/librfmt/lib/arm64",
-					"$(PROJECT_DIR)/src/librfmt/lib/win_x86_64",
-					"$(PROJECT_DIR)/src/librfmt/lib/x86_64",
-					"$(PROJECT_DIR)/src/libppl/lib/arm64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/linux_x86_64",
-					"$(PROJECT_DIR)/src/libmin/lib/linux_x86_64",
-					"$(PROJECT_DIR)/src/librfmt/lib/linux_x86_64",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -468,25 +461,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu23;
 				HEADER_SEARCH_PATHS = "";
 				INCLUDED_SOURCE_FILE_NAMES = "";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/src/librfmt/lib",
-					"$(PROJECT_DIR)/src/libmin/lib",
-					"$(PROJECT_DIR)/src/libhpprgm/lib",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/arm64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/win_x86_64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/x86_64",
-					"$(PROJECT_DIR)/src/libmin/lib/arm64",
-					"$(PROJECT_DIR)/src/libmin/lib/win_x86_64",
-					"$(PROJECT_DIR)/src/libmin/lib/x86_64",
-					"$(PROJECT_DIR)/src/librfmt/lib/arm64",
-					"$(PROJECT_DIR)/src/librfmt/lib/win_x86_64",
-					"$(PROJECT_DIR)/src/librfmt/lib/x86_64",
-					"$(PROJECT_DIR)/src/libppl/lib/arm64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/linux_x86_64",
-					"$(PROJECT_DIR)/src/libmin/lib/linux_x86_64",
-					"$(PROJECT_DIR)/src/librfmt/lib/linux_x86_64",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";

@@ -53,28 +53,28 @@ static bool isOnlyWhitespaceUntilNewline(const std::string& s, size_t pos)
     return true;
 }
 
-static std::string insertNewlineAfterSemicolon(const std::string& input)
-{
-    std::string output;
-    const size_t n = input.size();
-
-    for (size_t i = 0; i < n; ++i) {
-        output += input[i];
-
-        if (input[i] == ';') {
-            size_t next = i + 1;
-
-            if (next < n &&
-                input[next] != '\n' &&
-                !isOnlyWhitespaceUntilNewline(input, next))
-            {
-                output += '\n';
-            }
-        }
-    }
-
-    return output;
-}
+//static std::string insertNewlineAfterSemicolon(const std::string& input)
+//{
+//    std::string output;
+//    const size_t n = input.size();
+//
+//    for (size_t i = 0; i < n; ++i) {
+//        output += input[i];
+//
+//        if (input[i] == ';') {
+//            size_t next = i + 1;
+//
+//            if (next < n &&
+//                input[next] != '\n' &&
+//                !isOnlyWhitespaceUntilNewline(input, next))
+//            {
+//                output += '\n';
+//            }
+//        }
+//    }
+//
+//    return output;
+//}
 
 static std::string insertSpaceAfterComma(const std::string& input)
 {

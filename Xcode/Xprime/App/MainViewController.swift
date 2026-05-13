@@ -1557,6 +1557,13 @@ extension MainViewController: DocumentManagerDelegate {
         gutterView.updateLines()
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
+        
+        if let menu = NSApp.mainMenu {
+            if let item = menu.item(withTitle: "Window")?.submenu?.item(withTitle: projectManager.projectName!) {
+                item.image = projectManager.projectIcon
+                item.image?.size = NSSize(width: 16, height: 16)
+            }
+        }
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {

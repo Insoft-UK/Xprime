@@ -299,11 +299,11 @@ std::string include(const std::filesystem::path& path) {
     
     if (output.empty()) {
         utf::BOM bom = utf::bom(path);
-        if (bom == utf::BOMnone) {
+        if (bom == utf::BOM::none) {
             output = utf::load(path);
         } else {
             auto utf16 = utf::load(path, bom);
-            output = utf::utf8(utf16);
+            output = utf::to_string(utf16);
         }
     }
     
@@ -626,7 +626,7 @@ fs::path resolveAndValidateInputFile(const char *input_file) {
     auto bom = utf::bom(path);
     for (auto extension : extensions) {
         if (in_ext == extension) {
-            if (bom != utf::BOMnone) {
+            if (bom != utf::BOM::none) {
                 std::cerr << "❓File " << path.filename() << " not utf-8 at " << path.parent_path() << " location.\n";
                 exit(0);
             }
@@ -826,7 +826,7 @@ int main(int argc, char **argv) {
     if (output.empty()) {
         if (in_ext == ".hpprgm" || in_ext == ".hpappprgm") {
             std::wstring prgm = hpprgm::prgm(inpath);
-            output = utf::utf8(prgm);
+            output = utf::to_string(prgm);
         }
     }
     
@@ -845,9 +845,9 @@ int main(int argc, char **argv) {
     
     if (output.empty()) {
         auto bom = utf::bom(inpath);
-        if (bom != utf::BOMnone) {
+        if (bom != utf::BOM::none) {
             auto prgm = utf::load(inpath, bom);
-            output = utf::utf8(prgm);
+            output = utf::to_string(prgm);
         } else {
             output = utf::load(inpath);
         }
@@ -879,7 +879,7 @@ int main(int argc, char **argv) {
             auto programName = inpath.stem().string();
             hpprgm::create(outpath, output);
         } else {
-            if (!utf::save(outpath, utf::utf16(output), utf::BOMle)) {
+            if (!utf::save(outpath, utf::to_wstring(output), utf::BOM::le)) {
                 std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
                 return 0;
             }

@@ -1,14 +1,14 @@
 #pragma mode( separator(.,;) integer(h32) )
 
-// SHUTTLE for HP Prime
-// Converted from an AutoCAD DWG
-// March 2014
-// Jurgen Keller <jkeller@gmx.ch>
-// Converted to P+ by Richie Hughes <developer@insoft.uk>
-// http://calc.fjk.ch
+/// SHUTTLE for HP Prime
+/// Converted from an AutoCAD DWG
+/// March 2014
+/// Jurgen Keller <jkeller@gmx.ch>
+/// Converted to HP PPL+ by Richie Hughes <developer@insoft.uk>
+/// https://github.com/Insoft-UK/Xprime
 
-ALIAS Shuttle::Data := sd;
-LOCAL Shuttle::Data := {$I data.hpppl};
+alias Shuttle::Data := sd;
+local Shuttle::Data := {$I data.hpppl};
 
 alias Shuttle::GetPenColor := gpc;
 local Shuttle::GetPenColor(Pen)
