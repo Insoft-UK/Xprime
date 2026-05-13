@@ -13,18 +13,27 @@
 >
 >Simply opening the source code in the editor and performing a “Check” — or even just viewing the code and exiting the editor — causes the HP Prime to automatically resave the file using the current supported format. Once this has been done, the program or application will run normally.
 
-**Universal**
-Download link: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip">Xprime 26.5</a></br>
-Requires **macOS 14.6** or later
+**Download link**: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip">Xprime 26.5</a></br>
+
+### Requirements
+AppleSilicon or intel</br>
+**macOS 14.6** or later</br>
+[HP Prime Virtual Calculator](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Virtual_Calculator_BETA_2026_04_01.dmg)</br>
+[HP Connectivity Kit](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Connectivity_Kit_BETA_20260401.dmg) (for calculator sync)</br>
+
+**Ongoing Development**</br>
+Nothing significant is planned between now and next year. However, any tweaks, refinements, or issues I address in Xprime will be part of Xprime 27, codenamed Opux — inspired by the Latin word Opus, meaning “work” or “creation,” but stylized with an x instead of an s.
+
+**Opux**: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=opux-installer-universal.zip">Xprime 27</a></br>
+### Requirements
+AppleSilicon</br>
+**macOS 26** or later</br>
 
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
 Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.5.20260511**.
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
-
-<img src="assets/screenshots/xprime/project.png?raw=true" width="189" /><img src="assets/screenshots/xprime/catalog.png?raw=true" width="189" /><img src="assets/screenshots/xprime/program.png?raw=true" width="189" /><img src="assets/screenshots/xprime/application.png?raw=true" width="189" /></br>
-<img src="assets/screenshots/xprime/theme-default.png?raw=true" width="189" /><img src="assets/screenshots/xprime/theme-github.png?raw=true" width="189" /><img src="assets/screenshots/xprime/theme-dos.png?raw=true" width="189" /><img src="assets/screenshots/xprime/recent.png?raw=true" width="189" /></br><img src="assets/screenshots/xprime/settings.png?raw=true" width="189" /></br>
 
 ### Supported File Types
 |Type|Description|
@@ -41,7 +50,8 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.hpppl|HP PPL source text|
 |.hppplplus|HP PPL+ source text|
 
->In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼ support, Xprime will adopt the .hpppl and .hppplplus file types and discontinue .prgm+. This change will simplify development for those using either Visual Studio Code or Xprime.
+>[!NOTE]
+>In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼ support, Xprime adopts the **.hpppl** **.hppplplus** and **.hpppl+** file types. This simplify development for those using either Visual Studio Code or Xprime.
 
 Typical File Structure for an HP Prime **Application**
 ```
