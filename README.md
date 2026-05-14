@@ -23,7 +23,7 @@ AppleSilicon or intel</br>
 [HP Prime Virtual Calculator](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Virtual_Calculator_BETA_2026_04_01.dmg)</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Connectivity_Kit_BETA_20260401.dmg) (for calculator sync)</br>
 </br>
-Xprime Only: [HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip) | [HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip) | [GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip) | [HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip) (for hpppl+)</br>
+Xprime Only: [HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip) | [HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip) | [GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip) | [HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip)</br>
 
 **Ongoing Development**</br>
 Nothing significant is planned between now and next year. However, any tweaks, refinements, or issues I address in Xprime will be part of Xprime 27, codenamed Opux — inspired by the Latin word Opus, meaning “work” or “creation,” but stylized with an x instead of an s.
