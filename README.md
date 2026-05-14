@@ -15,13 +15,17 @@
 
 **Download link**: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip">Xprime 26.5 Installer</a> | [Xprime 26.5](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip)</br>
 >[!NOTE]
->Xprime Installer is a package-based installer. The other version is simply the Xprime application, which you can drag and drop into your Applications folder. It also includes the Tools, which can be installed separately if you do not already have the latest Xprime Tools installed.
+>Xprime Installer is a package-based installer. The other version is simply the Xprime application, which you can drag and drop into your Applications folder.
 
 ### Requirements
 AppleSilicon or intel</br>
 **macOS 14.6** or later</br>
 [HP Prime Virtual Calculator](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Virtual_Calculator_BETA_2026_04_01.dmg)</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Connectivity_Kit_BETA_20260401.dmg) (for calculator sync)</br>
+[HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip) (for Xprime)</br>
+[HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip) (for Xprime)</br>
+[GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip) (for hpppl+)</br>
+[HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip) (for hpppl+)</br>
 
 **Ongoing Development**</br>
 Nothing significant is planned between now and next year. However, any tweaks, refinements, or issues I address in Xprime will be part of Xprime 27, codenamed Opux — inspired by the Latin word Opus, meaning “work” or “creation,” but stylized with an x instead of an s.
@@ -30,9 +34,6 @@ Nothing significant is planned between now and next year. However, any tweaks, r
 ### Requirements
 AppleSilicon</br>
 **macOS 26** or later</br>
-
-[HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip) | [HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip)</br>
-**Optional** [GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip) | [HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip)</br>
 
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
