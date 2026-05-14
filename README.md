@@ -30,11 +30,9 @@ Nothing significant is planned between now and next year. However, any tweaks, r
 ### Requirements
 AppleSilicon</br>
 **macOS 26** or later</br>
-[HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip)</br>
-[HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip)</br>
-**Optional**
-[GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip)</br>
-[HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip)</br>
+
+[HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip) | [HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip)</br>
+**Optional** [GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip) | [HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip)</br>
 
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
