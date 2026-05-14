@@ -112,6 +112,28 @@ static inline std::vector<uint8_t> utf16le(const std::string& s)
     return out;
 }
 
+static void append16le(std::vector<uint8_t>& data, uint16_t value)
+{
+    data.push_back(static_cast<uint8_t>(value & 0xFF));
+    data.push_back(static_cast<uint8_t>((value >> 8) & 0xFF));
+}
+
+static void append32le(std::vector<uint8_t>& data, uint32_t value)
+{
+    data.push_back(static_cast<uint8_t>(value & 0xFF));
+    data.push_back(static_cast<uint8_t>((value >> 8) & 0xFF));
+    data.push_back(static_cast<uint8_t>((value >> 16) & 0xFF));
+    data.push_back(static_cast<uint8_t>((value >> 24) & 0xFF));
+}
+
+static void write32le(std::vector<uint8_t>& data, size_t offset, uint32_t value)
+{
+    data[offset + 0] = static_cast<uint8_t>(value & 0xFF);
+    data[offset + 1] = static_cast<uint8_t>((value >> 8) & 0xFF);
+    data[offset + 2] = static_cast<uint8_t>((value >> 16) & 0xFF);
+    data[offset + 3] = static_cast<uint8_t>((value >> 24) & 0xFF);
+}
+
 static std::vector<uint16_t> extractDataSizeBased(const std::vector<uint16_t>& hpprgm)
 {
     std::vector<uint16_t> result;
@@ -183,29 +205,40 @@ static std::vector<uint16_t> extractData(const std::vector<uint16_t>& hpprgm)
 
 // MARK: - 📣 Public API functions
 
-void hpprgm::create(const std::filesystem::path& path, const std::string& prgm, const std::string& name)
+void hpprgm::write(const std::filesystem::path& path, const std::string& prgm, const bool includeProgramName)
 {
     std::vector<uint8_t> header = {
-        0x0C, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        0x0C, 0, 0, 0, 0, 0, 0, 0,
+        0,    0, 0, 0, 0, 0, 0, 0
     };
     
+    if (includeProgramName) {
+        auto filename = utf16le(path.filename().stem().string());
+        
+        uint32_t headerSize = static_cast<uint32_t>(14 + filename.size());
+        write32le(header, 0, headerSize);
+
+        header[8] = 1;
+        
+        append16le(header, 0x0031);
+        header.insert(header.end(), filename.begin(), filename.end());
+    }
+    
     auto sourceCode = utf16le(prgm);
-    auto prgmSize = sourceCode.size();
+    uint32_t programSize = static_cast<uint32_t>(sourceCode.size());
     
-    header.push_back(prgmSize & 0xFF);
-    header.push_back((prgmSize >> 8) & 0xFF);
-    header.push_back((prgmSize >> 16) & 0xFF);
-    header.push_back(prgmSize >> 24);
-    
+    append32le(header, programSize);
+
     std::vector<uint8_t> out;
     out.reserve((uint32_t)(header.size() + sourceCode.size()));
+    
     out.insert(out.end(), header.begin(), header.end());
     out.insert(out.end(), sourceCode.begin(), sourceCode.end());
 
     writeBytes(path, out);
 }
 
-std::wstring hpprgm::prgm(const std::filesystem::path& path)
+std::wstring hpprgm::source(const std::filesystem::path& path)
 {
     std::wstring wstr;
     std::vector<uint8_t> bytes;

@@ -55,6 +55,32 @@ final class AboutViewController: NSViewController {
         window.center()
         window.level = .floating
         window.hasShadow = false
+        
+        if Settings.shared.visualEffectEnabled, let contentView = window.contentView {
+            // Add blur view behind content
+            let blurView = NSVisualEffectView(frame: contentView.bounds)
+            blurView.autoresizingMask = [.width, .height]
+            blurView.material = .hudWindow
+            blurView.blendingMode = .behindWindow
+            blurView.state = .active
+            
+            
+            final class PassthroughView: NSView {
+                override func hitTest(_ point: NSPoint) -> NSView? {
+                    nil
+                }
+            }
+            
+            contentView.addSubview(blurView, positioned: .below, relativeTo: nil)
+            
+            contentView.wantsLayer = true
+            if let layer = contentView.layer {
+                layer.cornerRadius = 16
+                layer.masksToBounds = true
+                layer.borderWidth = 0.0
+                layer.borderColor = NSColor(white: 0.5, alpha: 0.15).cgColor
+            }
+        }
 
     }
     

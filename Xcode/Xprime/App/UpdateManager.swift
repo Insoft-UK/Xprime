@@ -32,7 +32,7 @@ final class UpdateManager {
     }
     
     func checkForAvaliableUpdates() {
-        let url = URL(string: "http://insoft.uk/downloads/macos/opux-app-version.json?ts=\(Date().timeIntervalSince1970)")!
+        let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json?ts=\(Date().timeIntervalSince1970)")!
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let self = self else { return }

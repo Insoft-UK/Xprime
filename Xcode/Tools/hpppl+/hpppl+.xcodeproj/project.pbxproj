@@ -438,7 +438,18 @@
 				GCC_C_LANGUAGE_STANDARD = gnu23;
 				HEADER_SEARCH_PATHS = "";
 				INCLUDED_SOURCE_FILE_NAMES = "";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/src/libhpprgm/lib/arm64",
+					"$(PROJECT_DIR)/src/libhpprgm/lib/x86_64",
+					"$(PROJECT_DIR)/src/libhpprgm/lib",
+					"$(PROJECT_DIR)/src/libmin/lib/arm64",
+					"$(PROJECT_DIR)/src/libmin/lib/x86_64",
+					"$(PROJECT_DIR)/src/libmin/lib",
+					"$(PROJECT_DIR)/src/librfmt/lib/arm64",
+					"$(PROJECT_DIR)/src/librfmt/lib/x86_64",
+					"$(PROJECT_DIR)/src/librfmt/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -461,7 +472,18 @@
 				GCC_C_LANGUAGE_STANDARD = gnu23;
 				HEADER_SEARCH_PATHS = "";
 				INCLUDED_SOURCE_FILE_NAMES = "";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/src/libhpprgm/lib/arm64",
+					"$(PROJECT_DIR)/src/libhpprgm/lib/x86_64",
+					"$(PROJECT_DIR)/src/libhpprgm/lib",
+					"$(PROJECT_DIR)/src/libmin/lib/arm64",
+					"$(PROJECT_DIR)/src/libmin/lib/x86_64",
+					"$(PROJECT_DIR)/src/libmin/lib",
+					"$(PROJECT_DIR)/src/librfmt/lib/arm64",
+					"$(PROJECT_DIR)/src/librfmt/lib/x86_64",
+					"$(PROJECT_DIR)/src/librfmt/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";

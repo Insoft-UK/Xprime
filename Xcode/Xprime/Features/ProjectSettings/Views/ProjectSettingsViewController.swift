@@ -85,6 +85,7 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         ProjectSettings.shared.archiveProjectAppOnly = true
         ProjectSettings.shared.plainFallbackText = true
         ProjectSettings.shared.compression = false
+        ProjectSettings.shared.includeProgramName = true
         ProjectSettings.shared.include = "$(SDKROOT)/include"
         ProjectSettings.shared.lib = "$(SDKROOT)/lib"
         ProjectSettings.shared.bin = "/usr/local/bin"

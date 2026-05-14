@@ -26,6 +26,7 @@ final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComb
     @IBOutlet weak var preferProjectBuild: NSButton!
     @IBOutlet weak var fallback: NSButton!
     @IBOutlet weak var compression: NSButton!
+    @IBOutlet weak var includeProgramName: NSButton!
     
     private var projectManager: ProjectManager?
     
@@ -50,6 +51,9 @@ final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComb
         
         configureCompressionSelection()
         configureCompressionActions()
+        
+        configureIncludeProgramNameSelection()
+        configureIncludeProgramNameActions()
     }
     
     // MARK: - Actions
@@ -63,6 +67,10 @@ final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComb
     
     @objc private func compressionSwitchToggled(_ sender: NSSwitch) {
         ProjectSettings.shared.compression = sender.state == .on
+    }
+    
+    @objc private func includeProgramNameSwitchToggled(_ sender: NSSwitch) {
+        ProjectSettings.shared.includeProgramName = sender.state == .on
     }
     
     @IBAction func close(_ sender: Any) {
@@ -86,6 +94,15 @@ final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComb
     private func configureFallbackActions() {
         fallback.target = self
         fallback.action = #selector(fallbackSwitchToggled(_:))
+    }
+    
+    private func configureIncludeProgramNameSelection() {
+        self.includeProgramName.state = ProjectSettings.shared.includeProgramName ? .on : .off
+    }
+    
+    private func configureIncludeProgramNameActions() {
+        includeProgramName.target = self
+        includeProgramName.action = #selector(includeProgramNameSwitchToggled)
     }
     
     private func configureCompressionSelection() {

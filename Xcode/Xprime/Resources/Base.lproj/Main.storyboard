@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <plugIn identifier="com.apple.WebKit2IBPlugin" version="24765"/>
         <capability name="Combo buttons" minToolsVersion="14.0" minSystemVersion="13.0"/>
@@ -584,7 +585,7 @@ Gw
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide Opux" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide Xprime" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -1136,7 +1137,7 @@ DQ
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OII-Pn-zIo">
-                                <rect key="frame" x="18" y="56" width="414" height="34"/>
+                                <rect key="frame" x="164" y="56" width="268" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" enabled="NO" alignment="left" title="Compression of your code results in it taking up less storage of your HP Prime's storage memory" id="FRY-Hc-v8i">
                                     <font key="font" metaFont="smallSystem"/>
@@ -1145,15 +1146,32 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5f-FW-b35">
-                                <rect key="frame" x="166" y="93" width="264" height="16"/>
+                                <rect key="frame" x="144" y="93" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="Reduce hpppl code footprint" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="DQa-Pt-Zve">
+                                <buttonCell key="cell" type="bevel" title="Reduce hpppl code footprint" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" inset="2" id="DQa-Pt-Zve">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93n-CX-ovO">
+                                <rect key="frame" x="18" y="117" width="168" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Named" id="iwS-AH-4EQ">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k2p-TN-dBW">
+                                <rect key="frame" x="144" y="117" width="286" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" title="Create the .hpprgm as a named program" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="6hu-cV-iTr">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qn-7X-3f6">
-                                <rect key="frame" x="166" y="228" width="264" height="16"/>
+                                <rect key="frame" x="144" y="228" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" title="Archive Project .hpappdir Only" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="yd2-dY-B37">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1161,7 +1179,7 @@ DQ
                                 </buttonCell>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooa-fk-Yt3">
-                                <rect key="frame" x="18" y="197" width="131" height="16"/>
+                                <rect key="frame" x="18" y="204" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Plain Fallback" id="xkN-6G-jXZ">
                                     <font key="font" metaFont="system"/>
@@ -1170,7 +1188,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDm-ic-Coh">
-                                <rect key="frame" x="166" y="197" width="232" height="16"/>
+                                <rect key="frame" x="144" y="204" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" title="Include plain text fallback" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="u0o-pu-ddQ">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1189,7 +1207,7 @@ DQ
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0Z-Ly-7al">
-                                <rect key="frame" x="18" y="123" width="219" height="24"/>
+                                <rect key="frame" x="18" y="141" width="219" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP PPL+ Settings" id="ZZq-iF-Ogj">
                                     <font key="font" metaFont="system" size="18"/>
@@ -1202,6 +1220,7 @@ DQ
                     <connections>
                         <outlet property="compression" destination="L5f-FW-b35" id="WQC-8S-8ih"/>
                         <outlet property="fallback" destination="XDm-ic-Coh" id="NkJ-s4-OZL"/>
+                        <outlet property="includeProgramName" destination="k2p-TN-dBW" id="j3x-RE-3IL"/>
                         <outlet property="preferProjectBuild" destination="8qn-7X-3f6" id="9IS-iY-4rX"/>
                     </connections>
                 </viewController>
@@ -1365,7 +1384,7 @@ Gw
                         <subviews>
                             <imageView autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4AZ-Pc-nec">
                                 <rect key="frame" x="0.0" y="0.0" width="560" height="420"/>
-                                <imageCell key="cell" controlSize="mini" focusRingType="none" alignment="left" animates="YES" imageScaling="proportionallyDown" image="About Opux" id="JFW-dt-efS"/>
+                                <imageCell key="cell" controlSize="mini" focusRingType="none" alignment="left" animates="YES" imageScaling="proportionallyDown" image="About" id="JFW-dt-efS"/>
                             </imageView>
                             <textField autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esw-gG-0sE">
                                 <rect key="frame" x="18" y="20" width="273" height="11"/>
@@ -1750,7 +1769,7 @@ Gw
         </scene>
     </scenes>
     <resources>
-        <image name="About Opux" width="560" height="420"/>
+        <image name="About" width="560" height="420"/>
         <image name="Advanced Graphing" width="19" height="19"/>
         <image name="CheckOff" width="20" height="24"/>
         <image name="CheckOn" width="20" height="24"/>

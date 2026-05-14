@@ -643,7 +643,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         let destinationURL = url
             .appendingPathComponent("\(projectName).hpprgm")
 
-        let result = HPServices.preProccess(at: sourceURL, to: destinationURL,  compress: ProjectSettings.shared.compression)
+        let result = HPServices.preProccess(at: sourceURL, to: destinationURL)
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
     
@@ -668,8 +668,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
             .appendingPathComponent(projectName)
-            .appendingPathExtension("hpappprgm"),
-                                            compress: ProjectSettings.shared.compression
+            .appendingPathExtension("hpappprgm")
         )
         
         outputTextView.appendTextAndScroll(result.err ?? "")

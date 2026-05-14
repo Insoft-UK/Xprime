@@ -439,13 +439,18 @@ enum HPServices {
         }
     }
     
-    static func preProccess(at sourceURL: URL, to destinationURL: URL, compress: Bool = false) -> (out: String?, err: String?, exitCode: Int32) {
+    static func preProccess(at sourceURL: URL, to destinationURL: URL) -> (out: String?, err: String?, exitCode: Int32) {
     
         let command = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpppl+").path
         var arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
         
-        if compress {
+        
+        if ProjectSettings.shared.compression == true {
             arguments.append(contentsOf: ["--compress"])
+        }
+        
+        if ProjectSettings.shared.includeProgramName == true {
+            arguments.append(contentsOf: ["--named"])
         }
         
         if ToolchainPaths.include.isEmpty == false {

@@ -592,9 +592,10 @@ void help(void) {
     << "\n"
     << "Options:\n"
     << "  -o <output-file>        Specify the filename for generated code.\n"
-    << "  -c or --compress        Specify if the PPL code should be compressed.\n"
-    << "  -r or --reformat        Specify if the PPL code should be reformated.\n"
-    << "  -v                      Display detailed processing information.\n"
+    << "  -c or --compress        Specify whether the PPL code should be compressed.\n"
+    << "  -r or --reformat        Specify whether the PPL code should be reformatted.\n"
+    << "  -n or --named           Create the .hpprgm as a named program.\n"
+    << "  -v or --verbose         Display detailed processing information.\n"
     << "\n"
     << "Additional Commands:\n"
     << "  " << COMMAND_NAME << " {--version | --help }\n"
@@ -704,6 +705,7 @@ int main(int argc, char **argv) {
     bool verbose = false;
     bool minify = false;
     bool reformat = false;
+    bool includeProgramName = false;
     
     std::string args(argv[0]);
     
@@ -729,6 +731,11 @@ int main(int argc, char **argv) {
             if ( args == "-r" || args == "--reformat" ) {
                 reformat = true;
                 minify = false;
+                continue;
+            }
+            
+            if ( args == "-n" or args == "--named" ) {
+                includeProgramName = true;
                 continue;
             }
             
@@ -825,7 +832,7 @@ int main(int argc, char **argv) {
     
     if (output.empty()) {
         if (in_ext == ".hpprgm" || in_ext == ".hpappprgm") {
-            std::wstring prgm = hpprgm::prgm(inpath);
+            std::wstring prgm = hpprgm::source(inpath);
             output = utf::to_string(prgm);
         }
     }
@@ -877,7 +884,7 @@ int main(int argc, char **argv) {
     } else {
         if (out_ext == ".hpprgm" || out_ext == ".hpappprgm") {
             auto programName = inpath.stem().string();
-            hpprgm::create(outpath, output);
+            hpprgm::write(outpath, output, includeProgramName);
         } else {
             if (!utf::save(outpath, utf::to_wstring(output), utf::BOM::le)) {
                 std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
