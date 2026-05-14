@@ -14,6 +14,8 @@
 >Simply opening the source code in the editor and performing a “Check” — or even just viewing the code and exiting the editor — causes the HP Prime to automatically resave the file using the current supported format. Once this has been done, the program or application will run normally.
 
 **Download link**: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip">Xprime 26.5 Installer</a> | [Xprime 26.5](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip)</br>
+>[!NOTE]
+>Xprime Installer is a package-based installer. The other version is simply the Xprime application, which you can drag and drop into your Applications folder. It also includes the Tools, which can be installed separately if you do not already have the latest Xprime Tools installed.
 
 ### Requirements
 AppleSilicon or intel</br>
