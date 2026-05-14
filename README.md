@@ -25,14 +25,6 @@ AppleSilicon or intel</br>
 </br>
 [HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip) | [HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip) | [GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip) | [HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip) (for Xprime 26.5)</br>
 
-**Ongoing Development**</br>
-Nothing significant is planned between now and next year. However, any tweaks, refinements, or issues I address in Xprime will be part of Xprime 27, codenamed Opux — inspired by the Latin word Opus, meaning “work” or “creation,” but stylized with an x instead of an s.
-
-**Opux**: <a href="http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.zip">Xprime 27 BUILD(20260514)</a></br>
-### Requirements
-AppleSilicon</br>
-**macOS 26** or later</br>
-
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
 Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.5.20260514**.
