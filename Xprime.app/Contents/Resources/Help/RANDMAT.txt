@@ -1,7 +1,0 @@
-Syntax:
-ranm(Intg(n),[Intg(m)],[Interval or quote(DistribLaw)])
-
-Returns a list of size n or a n*m matrix that contains random integers in the range -99 through 99 with uniform distribution or contains random numbers according to the law in quote.
-
-Example:
-ranm(3) returns [-20,72,-86]

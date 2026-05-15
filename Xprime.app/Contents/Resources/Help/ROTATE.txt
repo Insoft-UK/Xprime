@@ -1,9 +1,0 @@
-Syntax:
-ROTATE(string, n)
-
-If n is not negative, takes the first  n characters of string and put them on the right of string. If n is negative, takes the last  n characters and put them on the left of  string. If ABS(n)>dim(string), returns string.
-
-Example:
-ROTATE("12345",2) returns "34512"
-ROTATE("12345",-1) returns "51234"
-ROTATE("12345",6) returns "12345"

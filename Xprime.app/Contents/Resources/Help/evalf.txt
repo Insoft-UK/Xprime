@@ -1,8 +1,0 @@
-Syntax:
-evalf(Expr,[Int])
-
-Numerical evaluation of the first argument (we can give the number of digits as second argument).
-approx(expression) works also and does the same thing.
-
-Example:
-evalf(2/3) returns 0.666666666667

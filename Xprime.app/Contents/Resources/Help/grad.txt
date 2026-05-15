@@ -1,7 +1,0 @@
-Syntax:
-grad(Expr, ListVars)
-
-Returns the gradient of the expression Expr.
-
-Example:
-grad(2*x^2*y-x*z^3,[x,y,z]) returns [2*2*x*y-z^3,2*x^2,-x*3*z^2]

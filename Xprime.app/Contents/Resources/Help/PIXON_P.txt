@@ -1,4 +1,0 @@
-Syntax:
-PIXON_P([G], x, y, [color])
-
-Sets the color of the pixel of GROB G with coordinates (x,y).

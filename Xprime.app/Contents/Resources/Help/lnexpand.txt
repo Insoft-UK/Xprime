@@ -1,7 +1,0 @@
-Syntax:
-lnexpand(Expr)
-
-Expands logarithms.
-
-Example:
-lnexpand(ln(3*x)) returns ln(3)+ln(x)

@@ -1,4 +1,0 @@
-Syntax:
-single_inter(Curve,Curve,[Pnt(A)||LstPnt(L)])
-
-Gives one of the intersections of 2 curves or surfaces (or the intersection near A or not in L)
