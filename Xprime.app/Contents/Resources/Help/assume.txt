@@ -1,0 +1,7 @@
+Syntax:
+assume(Expr)
+
+Make an assumption on a variable.
+
+Example:
+assume(a>0) returns a

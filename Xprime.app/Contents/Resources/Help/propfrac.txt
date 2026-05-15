@@ -1,0 +1,7 @@
+Syntax:
+propfrac(Frac or RatFrac)
+
+Simplifies and writes the fraction (or rationnal fraction) A/B as Q+R/B with R<B (or deg(R)<deg(B))
+
+Example:
+propfrac(28/12) returns 2+1/3

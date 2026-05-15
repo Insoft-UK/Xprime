@@ -1,0 +1,7 @@
+Syntax:
+ichinrem([a,p],[b,q]))
+
+Integer Chinese Remainder Theorem for two equations. Takes two lists [a, p] and [b, q] and returns a list of two integers, [r, n], such that x≡r mod n. In this case, x is such that x≡a mod p and x≡b mod q; also, n=p*q.
+
+Example:
+ichinrem([2, 7], [3, 5]) returns [-12, 35]

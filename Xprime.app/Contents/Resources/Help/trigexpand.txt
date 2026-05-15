@@ -1,0 +1,7 @@
+Syntax:
+trigexpand(Expr)
+
+Expands trigonometric functions.
+
+Example:
+trigexpand(sin(3*x)) returns (4*cos(x)^2-1)*sin(x)

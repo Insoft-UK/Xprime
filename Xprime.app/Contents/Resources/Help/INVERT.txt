@@ -1,0 +1,10 @@
+Syntax:
+INVERT([G], [x1, y1], [x2, y2])
+
+Inverts the rectangle on G defined by the diagonal points (x1,y1) and (x2,y2). The effect is reverse video. 
+
+The following values are optional and their defaults are listed:
+x1, y1=top left corner of G
+x2, y2=bottom right corner of G
+
+If only one x,y pair is specified, it refers to the top left corner of G.

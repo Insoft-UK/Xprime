@@ -1,0 +1,4 @@
+Syntax:
+order_size(Expr)
+
+Remainder (O term) of a series expansion: limit(x^a*order_size(x),x=0)=0 if a>0

@@ -1,0 +1,10 @@
+Syntax:
+IF test THEN command(s) [ELSE commands] END;
+
+Evaluates test. If test is true (non 0), executes command(s); otherwise, executes the comands in the ELSE clause nothing happens.
+
+Example:
+IF A<1 
+THEN PRINT("A IS SMALLER THAN 1"); 
+ELSE PRINT("A IS LARGER THAN 1"); 
+END;

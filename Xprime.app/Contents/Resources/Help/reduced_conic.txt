@@ -1,0 +1,7 @@
+Syntax:
+reduced_conic(Expr,[LstVar])
+
+Returns the origin and the matrix of a base in which the conic (given by its equation) is reduced, 0 or 1 (0 if the conic is degenerate), and the equation of the conic in this base and also its parametric equation
+
+Example:
+reduced_conic(x^2+2*x-2*y+1) returns [[-1,0],[[0,1],[-1,0]],1,y^2+2*x,[[-1+(-i)*(t*t/-2+(i)*t),t,-4,4,0.1]]]

@@ -1,0 +1,6 @@
+Syntax:
+SETBITS(#integer[, bits])
+
+Sets the number of bits used for calculations with this integer to bits.
+If bits is not specified the calculator default is used.
+-64<Bits<65

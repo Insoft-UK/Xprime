@@ -1,0 +1,11 @@
+#!/bin/bash
+DIR=$(dirname "$0")
+clear
+cd "$DIR"
+
+iconutil -c iconset Project.icns
+
+read -p "Press Enter to exit!"
+
+# Close the Terminal window
+osascript -e 'tell application "Terminal" to close window 1' & exit

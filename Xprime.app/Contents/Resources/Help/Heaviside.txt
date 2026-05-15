@@ -1,0 +1,7 @@
+Syntax:
+Heaviside(Real)
+
+Function equal to 0 if x<0 and 1 if x>=0
+
+Example:
+Heaviside(1) returns 1

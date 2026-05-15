@@ -1,0 +1,7 @@
+Syntax:
+INTERSECT({list1}, ...{listN})
+
+Returns a list of the elements common to all the lists.
+
+Example:
+INTERSECT({1,2,3},{2,4,8}) returns {2}

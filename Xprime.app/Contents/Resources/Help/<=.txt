@@ -1,0 +1,10 @@
+Syntax:
+Value1 ≤ Value2
+
+Less than or equal to. 
+Tests whether or not Value1 is less than Value 2. Returns 1 if true, 0 if false.
+
+Example:
+2 ≤ 1 returns 0
+
+Alternative: <=

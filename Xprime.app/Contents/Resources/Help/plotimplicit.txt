@@ -1,0 +1,4 @@
+Syntax:
+plotimplicit(Expr,Var1,Var2)
+
+plotimplicit(f(x,y),x,y) or plotimplicit(f(x,y),[x,y]) graph of f(x,y)=0

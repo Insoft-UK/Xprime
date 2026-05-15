@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <plugIn identifier="com.apple.WebKit2IBPlugin" version="24765"/>
         <capability name="Combo buttons" minToolsVersion="14.0" minSystemVersion="13.0"/>
@@ -1016,19 +1015,19 @@ Gw
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="7RV-lh-ZrF"/>
-                                        <menuItem title="Show HP Prime in Finder" image="finder" catalog="system" id="ZSS-Vw-fbg">
+                                        <menuItem title="Show HP Prime in Finder" image="Finder" id="ZSS-Vw-fbg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showCalculatorFolderInFinder:" target="Ady-hI-5gd" id="Kz2-HW-27t"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Show Content in Finder" image="finder" catalog="system" id="CVK-py-37b">
+                                        <menuItem title="Show Content in Finder" image="Finder" id="CVK-py-37b">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showContentFolderInFinder:" target="Ady-hI-5gd" id="XNj-aV-Peq"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Show Project in Finder" image="finder" catalog="system" id="gN5-MO-Fkb">
+                                        <menuItem title="Show Project in Finder" image="Finder" id="gN5-MO-Fkb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showBuildFolderInFinder:" target="Ady-hI-5gd" id="Bli-w3-TfZ"/>
@@ -1778,6 +1777,7 @@ Gw
         <image name="Data Streamer" width="19" height="19"/>
         <image name="Explorer" width="19" height="19"/>
         <image name="Finance" width="19" height="19"/>
+        <image name="Finder" width="16" height="16"/>
         <image name="Function" width="19" height="19"/>
         <image name="Geometry" width="19" height="19"/>
         <image name="Graph 3D" width="19" height="19"/>
@@ -1804,7 +1804,6 @@ Gw
         <image name="clock" catalog="system" width="15" height="15"/>
         <image name="document.badge.plus" catalog="system" width="16" height="18"/>
         <image name="eye" catalog="system" width="21" height="13"/>
-        <image name="finder" catalog="system" width="16" height="15"/>
         <image name="flowchart" catalog="system" width="17" height="17"/>
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>

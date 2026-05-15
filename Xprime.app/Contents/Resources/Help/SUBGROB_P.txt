@@ -1,0 +1,8 @@
+Syntax:
+SUBGROB_P(srcG, [x1, y1], [x2, y2], trgtG)
+
+Sets graphic trgtG to be a copy of the area of srcG between points (x1,y1) and (x2,y2). If both (x1, y1) and (x2, y2) are not specified, then the entire graphic srcG is used. If (x1, y1) is not specified, then the top left corner of srcG is used; if (x2, y2) is not specified, then the bottom right corner of srcG is used.
+
+trgtGRB can be any of the graphic variables except G0.
+
+SUBGROB(G1, G4) will copy G1 in G4.

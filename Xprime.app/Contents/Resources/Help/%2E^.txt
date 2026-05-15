@@ -1,0 +1,7 @@
+Syntax:
+.^(Mtrx,Intg(n))
+
+Calculates the power of each element of the matrix.
+
+Example:
+[[1,2],[3,4]] .^ 3 returns [[1,8],[27,64]]

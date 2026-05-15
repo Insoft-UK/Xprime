@@ -1,0 +1,7 @@
+Syntax:
+ilaplace(Expr,[Var],[IlapVar])
+
+Returns the inverse Laplace transform of Expr.
+
+Example:
+ilaplace(1/(x^2+1)^2) returns (-x/2)*cos(x)+(1/2)*sin(x)

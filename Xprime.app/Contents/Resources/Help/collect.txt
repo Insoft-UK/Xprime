@@ -1,0 +1,7 @@
+Syntax:
+collect(Expr or {Expr1, Expr2,...,Exprn})
+
+Collects likes terms in a polynomial expression (or of a list of polynomial expressions).
+
+Example:
+collect(x+2*x+1-4) returns 3*x-3

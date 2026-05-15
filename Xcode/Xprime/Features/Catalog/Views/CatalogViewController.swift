@@ -23,7 +23,7 @@
 import Cocoa
 
 
-final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NSTextFieldDelegate {
+final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextFieldDelegate {
     @IBOutlet weak var catalogHelpTextView: CatalogHelpTextView!
     @IBOutlet weak var catalog: NSPopUpButton!
     @IBOutlet weak var search: NSTextField!

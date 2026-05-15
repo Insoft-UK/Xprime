@@ -1,0 +1,8 @@
+Syntax:
+trunc(Real, [Integer]) or trunc(List, [Integer])
+
+Truncates a value to n decimal places (by default n=0).Accepts complex numbers.
+
+Example:
+trunc(4.3) returns 4
+trunc({3.25, 8.71, 9.01},1) returns {3.2, 8.7, 9.}
