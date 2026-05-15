@@ -848,8 +848,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         let bmp = NSImage(named: "bmp")?.copy() as! NSImage
         let png = NSImage(named: "png")?.copy() as! NSImage
         
-        let iconSize = NSSize(width: 24, height: 24)
-        let iconSizeSmall = NSSize(width: 16, height: 16)
+//        let iconSize = NSSize(width: 24, height: 24)
+//        let iconSizeSmall = NSSize(width: 16, height: 16)
         
         func createMenu(for url: URL) -> NSMenu {
             let menu = NSMenu()
@@ -917,11 +917,11 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                             menu.items.last?.image = file
                         }
                         
-                        menu.items.last?.image?.size = iconSize
+                        menu.items.last?.image?.size = NSSize(width: 24, height: 24)
                         if url == documentManager.currentDocumentURL {
                             menu.items.last?.state = .on
                             comboButton.image = menu.items.last?.image
-                            comboButton.image?.size = iconSize
+                            comboButton.image?.size = NSSize(width: 24, height: 24)
                         }
                     }
                 }
@@ -947,7 +947,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 )
                 let image = NSImage(named: baseApplicationName)?.copy() as! NSImage
                 menu.items.last?.image = image
-                menu.items.last?.image?.size = iconSizeSmall
+                menu.items.last?.image?.size = NSSize(width: 19, height: 19)
             }
             
             
@@ -965,13 +965,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 at: 0
             )
             menu.item(at: 0)?.image = projectManager.projectIcon
-            menu.item(at: 0)?.image?.size = iconSize
+            menu.item(at: 0)?.image?.size = NSSize(width: 19, height: 19)
             menu.item(at: 0)?.submenu = createMenu(for: url
                 .appendingPathComponent(projectManager.projectName!)
                 .appendingPathExtension("hpappdir")
             )
             for item in menu.item(at: 0)!.submenu!.items {
-                item.image?.size = NSSize(width: 32, height: 32)
+                item.image?.size = NSSize(width: 28, height: 28)
             }
             menu.insertItem(NSMenuItem.separator(), at: 1)
             menu.item(at: 0)?.submenu?.insertItem(
@@ -984,7 +984,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             )
             let baseApplicationIcon = NSImage(named: projectManager.baseApplicationName)?.copy() as! NSImage
             menu.item(at: 0)?.submenu?.item(at: 0)?.image = baseApplicationIcon
-            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = NSSize(width: 32, height: 32)
+            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = NSSize(width: 28, height: 28)
             menu.item(at: 0)?.submenu?.item(at: 0)?.submenu = createBaseMenu()
         }
         

@@ -1484,6 +1484,12 @@ Gw
                                         <segue destination="um3-nH-PU9" kind="popover" popoverAnchorView="qci-LW-mZR" popoverBehavior="t" preferredEdge="maxY" id="Jx5-h4-Alp"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="2BF03558-3E15-4E66-B998-FD76AA8E3BF1" label="Note" paletteLabel="Note" tag="-1" bordered="YES" sizingBehavior="auto" id="4NJ-o3-QlS">
+                                    <imageReference key="image" image="long.text.page.and.pencil" catalog="system" symbolScale="medium"/>
+                                    <connections>
+                                        <segue destination="SOo-ga-T53" kind="popover" popoverAnchorView="4NJ-o3-QlS" popoverBehavior="t" preferredEdge="maxY" id="WwQ-Vj-Q6q"/>
+                                    </connections>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="23C30700-2B4A-4DB2-B9FB-C970E7BD2A52" label="Project Folder" paletteLabel="Quick Open" bordered="YES" sizingBehavior="auto" id="J6a-Hn-bWN">
                                     <nil key="toolTip"/>
                                     <comboButton key="view" verticalHuggingPriority="750" controlSize="large" baseWritingDirection="leftToRight" alignment="left" title="" id="myg-bt-hEL">
@@ -1635,18 +1641,6 @@ Gw
                                             <action selector="clearOutput:" target="XfG-lQ-9wD" id="BUB-x1-ZJw"/>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5PR-g4-Umd">
-                                        <rect key="frame" x="70" y="18.5" width="31.5" height="24"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="long.text.page.and.pencil" catalog="system" imagePosition="overlaps" alignment="center" imageScaling="proportionallyDown" inset="2" id="AiF-KR-aFr">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                        <connections>
-                                            <segue destination="SOo-ga-T53" kind="popover" popoverAnchorView="5PR-g4-Umd" popoverBehavior="t" preferredEdge="maxY" id="xff-ua-OdX"/>
-                                        </connections>
-                                    </button>
                                     <textField wantsLayer="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WwT-Xi-9rw">
                                         <rect key="frame" x="839" y="24" width="203" height="16"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -1772,12 +1766,12 @@ Gw
         <image name="Advanced Graphing" width="19" height="19"/>
         <image name="CheckOff" width="20" height="24"/>
         <image name="CheckOn" width="20" height="24"/>
-        <image name="CheckUpdate" width="32" height="32"/>
+        <image name="CheckUpdate" width="18" height="18"/>
         <image name="ConnectivityKit" width="32" height="32"/>
         <image name="Data Streamer" width="19" height="19"/>
         <image name="Explorer" width="19" height="19"/>
         <image name="Finance" width="19" height="19"/>
-        <image name="Finder" width="16" height="16"/>
+        <image name="Finder" width="18" height="18"/>
         <image name="Function" width="19" height="19"/>
         <image name="Geometry" width="19" height="19"/>
         <image name="Graph 3D" width="19" height="19"/>
@@ -1808,8 +1802,8 @@ Gw
         <image name="gear" catalog="system" width="17" height="16"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
         <image name="hammer.fill" catalog="system" width="19" height="17"/>
-        <image name="help-about" width="16" height="16"/>
-        <image name="hp" width="16" height="16"/>
+        <image name="help-about" width="18" height="18"/>
+        <image name="hp" width="18" height="18"/>
         <image name="hpppl" width="64" height="64"/>
         <image name="hppplplus" width="64" height="64"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
@@ -1831,7 +1825,7 @@ Gw
         <image name="text.document" catalog="system" width="14" height="16"/>
         <image name="trash" catalog="system" width="15" height="17"/>
         <image name="xmark" catalog="system" width="14" height="13"/>
-        <image name="xpsnippets" width="64" height="64"/>
+        <image name="xpsnippets" width="18" height="18"/>
         <namedColor name="Advance">
             <color white="0.0" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
