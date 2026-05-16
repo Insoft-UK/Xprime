@@ -1,4 +1,4 @@
-<img src="assets/icon.png?raw=true" width="128" />
+<img src="assets/icon.png?raw=true" width="128" /></br>
 ## HP Prime Development
 
 ### Xprime Code Editor
