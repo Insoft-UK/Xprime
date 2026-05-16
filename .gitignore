@@ -2,6 +2,9 @@
 *.xcworkspace/xcuserdata/
 xcuserdata/
 installer
+*.iconset
+Design/Icon Masters/Type/*.icns
+Design/Icon Masters/Project/*.icns
 rtf_output
 build
 make
