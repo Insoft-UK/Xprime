@@ -1776,7 +1776,7 @@ Gw
         <image name="Function" width="19" height="19"/>
         <image name="Geometry" width="19" height="19"/>
         <image name="Graph 3D" width="19" height="19"/>
-        <image name="HP Logo" width="32" height="32"/>
+        <image name="HP Logo" width="16" height="16"/>
         <image name="Inference" width="19" height="19"/>
         <image name="Linear Solver" width="19" height="19"/>
         <image name="NSTouchBarPlayTemplate" width="15" height="17"/>

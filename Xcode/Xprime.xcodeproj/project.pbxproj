@@ -24,22 +24,11 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		13E350142FA5847C0002B8DA /* Exceptions for "Xprime" folder in "Compile Sources" phase from "Xprime" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 13EE0F5E2DF9DEDE004F3D7E /* Sources */;
-			membershipExceptions = (
-				"Resources/program~pascal.pas",
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		13EE0F642DF9DEDE004F3D7E /* Xprime */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				1351590A2EA1989400EEDF1C /* Exceptions for "Xprime" folder in "Xprime" target */,
-				13E350142FA5847C0002B8DA /* Exceptions for "Xprime" folder in "Compile Sources" phase from "Xprime" target */,
 			);
 			explicitFileTypes = {
 				"Resources/program~pascal.pas" = text;

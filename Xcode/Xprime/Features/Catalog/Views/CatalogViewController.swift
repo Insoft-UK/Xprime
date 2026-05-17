@@ -168,17 +168,17 @@ final class CatalogViewController: NSViewController, NSComboBoxDelegate, NSTextF
                     keyEquivalent: ""
                     
                 )
-                menuItem.image = NSImage(named: "function")?.copy() as? NSImage
+                menuItem.image = NSImage(named: "HPPrimeFunction")?.copy() as? NSImage
                 
                 if keywords.contains(name) {
-                    menuItem.image = NSImage(named: "keyword")?.copy() as? NSImage
+                    menuItem.image = NSImage(named: "HPPPLKeyword")?.copy() as? NSImage
                 }
                 if builtins.contains(name) {
-                    menuItem.image = NSImage(named: "builtin")?.copy() as? NSImage
+                    menuItem.image = NSImage(named: "HPPPLFunction")?.copy() as? NSImage
                 }
                 
                 if symbols.contains(name) {
-                    menuItem.image = NSImage(named: "code")?.copy() as? NSImage
+                    menuItem.image = NSImage(named: "Code")?.copy() as? NSImage
                 }
                 
                 menuItem.image?.size = NSSize(width: 18, height: 18)

@@ -342,7 +342,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                     keyEquivalent: ""
                 )
                 submenuItem.submenu = submenu
-                submenuItem.image = NSImage(named: "folder")?.copy() as? NSImage
+                submenuItem.image = NSImage(named: "TemplateFolder")?.copy() as? NSImage
                 submenuItem.image?.size = NSSize(width: 18, height: 18)
                 menu.addItem(submenuItem)
             } else {

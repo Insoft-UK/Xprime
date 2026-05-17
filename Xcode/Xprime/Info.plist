@@ -8,20 +8,80 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>xprimeproj</string>
-				<string>hpppl</string>
-				<string>hppplplus</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>xprimeproj</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<false/>
 			<key>CFBundleTypeName</key>
 			<string>Xprime Project</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
-			<string>Default</string>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>uk.insoft.Xprime.xprimeproj</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>hpppl</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>hpppl</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<false/>
+			<key>CFBundleTypeName</key>
+			<string>HP PPL</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.insoft.Xprime.hpppl</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>hppplplus</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>hppplplus</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<false/>
+			<key>CFBundleTypeName</key>
+			<string>HP PPL+</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.insoft.Xprime.hppplplus</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>note</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>note</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<false/>
+			<key>CFBundleTypeName</key>
+			<string>HP Note</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.insoft.Xprime.note</string>
 			</array>
 		</dict>
 	</array>
@@ -45,13 +105,6 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Xprime Project</string>
-			<key>UTTypeIconFile</key>
-			<string>xprimeproj</string>
-			<key>UTTypeIcons</key>
-			<dict>
-				<key>UTTypeIconBadgeName</key>
-				<string>xprimeproj</string>
-			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>uk.insoft.Xprime.xprimeproj</string>
 			<key>UTTypeTagSpecification</key>
@@ -62,36 +115,54 @@
 				</array>
 			</dict>
 		</dict>
-	</array>
-	<key>UTImportedTypeDeclarations</key>
-	<array>
 		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
-				<string>xprimeproj</string>
-				<string>hpppl</string>
-				<string>hppplplus</string>
-			</array>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.json</string>
+				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Xprime Project</string>
-			<key>UTTypeIconFile</key>
-			<string>xprimeproj</string>
-			<key>UTTypeIcons</key>
-			<dict>
-				<key>UTTypeIconBadgeName</key>
-				<string>xprimeproj</string>
-			</dict>
+			<string>HP PPL</string>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.xprimeproj</string>
+			<string>uk.insoft.Xprime.hpppl</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>xprimeproj</string>
+					<string>hpppl</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>HP PPL+</string>
+			<key>UTTypeIdentifier</key>
+			<string>uk.insoft.Xprime.hppplplus</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>hppplplus</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>HP Note</string>
+			<key>UTTypeIdentifier</key>
+			<string>uk.insoft.Xprime.note</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>note</string>
 				</array>
 			</dict>
 		</dict>
