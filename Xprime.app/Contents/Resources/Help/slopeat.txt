@@ -1,0 +1,7 @@
+Syntax:
+slopeat(Segment, Point) or slopeat(Line, Point) or slopeat(Ray, Point)
+
+Displays, with a legend, the value of the slope of the segment, ray, or line (Line may be a tangent, bisector, etc.) at the location Point in Plot view.
+
+Example:
+slopeat(line(point(0,1), point(3,2)),point(-10,4)) places "sline(point(0,1),point(3,2)=1/3" at the point (-10,4) in Plot view

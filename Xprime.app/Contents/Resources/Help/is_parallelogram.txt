@@ -1,0 +1,7 @@
+Syntax:
+is_parallelogram(Point1, Point2, Point3, Point4)
+
+Tests whether or not a set of four points are vertices of a parallelogram. Returns 0 if they are not. If they are, then returns 1 if they form only a parallelogram, 2 if they form a rhombus, 3 if they form a rectangle, and 4 if they form a square.
+
+Example:
+is_parallelogram(point(0,0), point(2,4), point(0,8), point(-2,4)) returns 2.

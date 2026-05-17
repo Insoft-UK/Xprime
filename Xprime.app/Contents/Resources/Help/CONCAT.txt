@@ -1,0 +1,7 @@
+Syntax:
+CONCAT(value1, value2, [..value16])
+
+Concatenation. Concatenates (joins) items into a list.
+
+Example:
+CONCAT({1,2,3}, 4) returns  {1,2,3,4} and CONCAT(1,2,3,4) returns {1,2,3,4}

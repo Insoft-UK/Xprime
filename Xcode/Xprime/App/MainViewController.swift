@@ -213,7 +213,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             at: url,
             includingPropertiesForKeys: [.isDirectoryKey],
             options: [.skipsHiddenFiles]
-        )
+        ).filter { $0.pathExtension == "xpsnippet" }
         
         contents?.forEach { itemURL in
             if itemURL.isDirectory == false {
@@ -278,7 +278,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             at: url,
             includingPropertiesForKeys: [.isDirectoryKey],
             options: [.skipsHiddenFiles]
-        )
+        ).filter { $0.pathExtension == "pyi" }
         
         contents?.forEach { itemURL in
             if itemURL.isDirectory == false {

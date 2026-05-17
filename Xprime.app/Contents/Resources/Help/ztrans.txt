@@ -1,0 +1,7 @@
+Syntax:
+ztrans(Expr,[Var],[ZtransVar])
+
+Z transform of a sequence.
+
+Example:
+ztrans(a^x)

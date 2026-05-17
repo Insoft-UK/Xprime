@@ -1,0 +1,7 @@
+Syntax:
+divergence(Lst(A,B,C),Lst(x,y,z))
+
+Returns the divergence of a vector. divergence([A,B,C],[x,y,z])=dA/dx+dB/dy+dC/dz.
+
+Example:
+divergence([x^2+y,x+z+y,z^3+x^2],[x,y,z]) returns 2*x+3*z^2+1

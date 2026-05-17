@@ -1,0 +1,7 @@
+Syntax:
+is_equilateral(Point1, Point2, Point3)
+
+Takes three points and tests whether or not they are vertices of a single equilateral triangle. Returns 1 if they are and 0 otherwise..
+
+Example:
+is_equilateral(triangle(0,2,1+i*√3)) returns 1.

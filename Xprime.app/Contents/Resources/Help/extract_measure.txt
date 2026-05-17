@@ -1,0 +1,8 @@
+Syntax:
+extract_measure(Var)
+
+Returns the definition of a geometric object. For a point, that definition consists of the coordinates of the point. For other objects, the definition mirrors their definition in Symbolic view, with the coordinates of their defining points supplied.
+
+Example:
+extract_measure(angleatraw(0,1,1+i,1)
+extract_measure(distanceatraw(0,1+i,(1+i)/2)) returns √2

@@ -1,0 +1,6 @@
+Syntax:
+HP.IMAGEH(I)
+
+Returns the height of I.
+
+Note: HP.TEXTOUT requires the HP library.

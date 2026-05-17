@@ -1,0 +1,7 @@
+Syntax:
+ABS(expr) or ABS(matrix)
+
+For numerical arguments, returns the absolute value of the expression. For matrix arguments, returns the returns the Frobenius (Euclidean) norm of the array.
+
+Example:
+ABS(-3.14) returns 3.14 and ABS([[1,2],[3,4]]) returns 5.47722557505

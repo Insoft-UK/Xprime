@@ -1,0 +1,7 @@
+Syntax:
+CHISQUARE_CDF(n, k)
+
+Cumulative χ² (Chi-squared) distribution function. Returns the lower-tail probability of the χ² probability density function for the value x, given n degrees of freedom.
+
+Example:
+CHISQUARE_CDF(2, 6.1) returns 0.952641075609

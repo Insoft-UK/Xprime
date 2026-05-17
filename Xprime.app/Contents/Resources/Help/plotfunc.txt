@@ -1,0 +1,7 @@
+Syntax:
+plotfunc(Expr)
+
+Draws the plot of a function, given an expression in the independent variable x. Note the use of lowercase x.
+
+Example:
+plotfunc(3*sin(x)) draws the graph of y=3*sin(x).

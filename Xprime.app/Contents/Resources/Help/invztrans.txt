@@ -1,0 +1,7 @@
+Syntax:
+invztrans(Expr,[Var],[InvZtransVar])
+
+Inverse z transform of a rational fraction.
+
+Example:
+invztrans(1/(x^2+1)^2) returns (x*exp(x*(-i)*π/2)+x*exp(x*(i)*π/2)+4*Dirac(x)-2*exp(x*(-i)*π/2)-2*exp(x*(i)*π/2))/4

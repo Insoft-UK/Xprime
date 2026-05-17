@@ -1,0 +1,4 @@
+Syntax:
+SWAPCOL(matrixname, column1, column2)
+
+Swap Columns. Exchanges column1 and column2 in the specified matrix  matrixname.
