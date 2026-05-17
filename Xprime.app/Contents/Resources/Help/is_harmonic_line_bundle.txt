@@ -1,4 +1,0 @@
-Syntax:
-is_harmonic_line_bundle(Lst(Line))
-
-Returns 1 if the lines have a common point, 2 if they are parallels, 3 if they are the same and 0 otherwise.

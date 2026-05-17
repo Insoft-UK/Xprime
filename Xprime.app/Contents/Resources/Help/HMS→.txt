@@ -1,6 +1,0 @@
-Syntax:
-HMS→(value)
-
-Hours-minutes-seconds to decimal.
-Forces a number to be displayed in decimal format if it was previously displayed in DMS format
-HMS→(8°30) returns 8.5

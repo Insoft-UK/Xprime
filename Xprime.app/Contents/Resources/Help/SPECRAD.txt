@@ -1,7 +1,0 @@
-Syntax:
-SPECRAD(matrix)
-
-Spectral radius of matrix.
-
-Example:
-SPECRAD([[1,2],[3,4]]) returns 5.37228132327

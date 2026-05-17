@@ -1,7 +1,0 @@
-Syntax:
-atan2asin(Expr)
-
-Replaces arctan(x) by arcsin(x/√(1+x^2)) in the argument Expr.
-
-Example:
-atan2asin(atan(y/x) returns asin((y/x)/√(1+(y/x)^2))

@@ -1,8 +1,0 @@
-Syntax:
-equation(curve) or equation(point)
-
-Returns the Cartesian equation of a curve in x and y, or the Cartesian coordinates of a point.
-
-Example:
-equation(line(1-i,i)) returns y=-2*x+1
-If GA is the point at (0, 0), GB is the point at (1, 0), and GC is defined as circle(GA, GB-GA), then equation(GC) returns  x^2 + y^2 =1.

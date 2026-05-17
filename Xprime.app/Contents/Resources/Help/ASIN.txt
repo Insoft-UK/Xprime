@@ -1,8 +1,0 @@
-Syntax:
-ASIN(Value)
-
-ASIN: the inverse sine function.
-This Shift-key combination returns the inverse sine of Value. The output depends on the Angle Measure setting.
-
-Example:
-ASIN(1) returns 1.57079632679

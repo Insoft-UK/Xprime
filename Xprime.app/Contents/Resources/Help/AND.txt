@@ -1,8 +1,0 @@
-Syntax:
-Value1 AND Value2
-
-Logical AND. 
-Returns 1 if both value1 and value2 are non-zero; otherwise returns 0.
-
-Example:
-3 AND 2 returns 1

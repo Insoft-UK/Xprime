@@ -1,7 +1,0 @@
-Syntax:
-angle(Vertex, Point2, Point3)
-
-Returns the measure of a directed angle. The first point is taken as the vertex of the angle as the next two points in order give the measure and orientation.
-
-Example:
-angle(GA, GB, GC) returns the measure of ∡BAC

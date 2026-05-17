@@ -1,4 +1,0 @@
-Syntax:
-STRINGFROMID(integer)
-
-Returns the built-in string associated with the ID of the current language.

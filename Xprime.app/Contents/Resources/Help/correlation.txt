@@ -1,7 +1,0 @@
-Syntax:
-correlation(Lst||Mtrx,[Lst])
-
-Returns the correlation of the elements of its argument.
-
-Example:
-correlation([[1,2],[1,1],[4,7]]) returns 33/(6*√31)
