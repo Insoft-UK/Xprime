@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "Stub.png",
+      "filename" : "Stub 1.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "Stub@2x.png",
+      "filename" : "Stub@2x 1.png",
       "idiom" : "mac",
       "scale" : "2x"
     }

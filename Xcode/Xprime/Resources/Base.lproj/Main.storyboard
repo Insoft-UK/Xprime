@@ -915,7 +915,7 @@ Gw
                                             <attributedString key="attributedTitle"/>
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem title="Stubs" image="Stubs" id="Abs-sW-JsB">
+                                        <menuItem title="Stub" image="Stubs" id="Abs-sW-JsB">
                                             <attributedString key="attributedTitle"/>
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>

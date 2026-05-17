@@ -71,7 +71,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             populateOpenRecentMenu(menu: menu)
             populateTemplateMenu(menu: menu)
             populateSnippetMenu(menu: menu)
-            populateStubsMenu(menu: menu)
+            populateStubMenu(menu: menu)
             
             func setImageSize(_ menu: NSMenu) {
                 for item in menu.items {
@@ -226,7 +226,19 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 )
                 menuItem.state = .off
                 menuItem.representedObject = itemURL
-                menuItem.image = icon
+                if FileManager.default.fileExists(atPath: itemURL
+                    .deletingPathExtension()
+                    .appendingPathExtension("png")
+                    .path
+                ) {
+                    menuItem.image = NSImage(byReferencing: itemURL
+                        .deletingPathExtension()
+                        .appendingPathExtension("png")
+                    )
+                    menuItem.image?.size = NSSize(width: 18, height: 18)
+                } else {
+                    menuItem.image = icon
+                }
                 menu.addItem(menuItem)
             }
         }
@@ -251,14 +263,14 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     }
     
     // MARK: - Stubs
-    private func populateStubsMenu(menu: NSMenu) {
+    private func populateStubMenu(menu: NSMenu) {
         let url = defaultWorkingDirectoryURL
             .appendingPathComponent("Stubs")
-        guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Stubs") else { return }
-        item.submenu = populateStubsMenu(url: url)
+        guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Stub") else { return }
+        item.submenu = populateStubMenu(url: url)
     }
     
-    private func populateStubsMenu(url: URL) -> NSMenu {
+    private func populateStubMenu(url: URL) -> NSMenu {
         let icon = NSImage(named: "Stub")?.copy() as? NSImage
         let menu = NSMenu()
         
@@ -275,9 +287,29 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                     action: #selector(stubSelected(_:)),
                     keyEquivalent: ""
                 )
+                
+                let attributed = try? NSAttributedString(
+                    url: itemURL.deletingPathExtension().appendingPathExtension("txt"),
+                    options: [.documentType: NSAttributedString.DocumentType.plain],
+                    documentAttributes: nil
+                )
+                if let attributed { menuItem.title = attributed.string }
+                
                 menuItem.state = .off
                 menuItem.representedObject = itemURL
-                menuItem.image = icon
+                if FileManager.default.fileExists(atPath: itemURL
+                    .deletingPathExtension()
+                    .appendingPathExtension("png")
+                    .path
+                ) {
+                    menuItem.image = NSImage(byReferencing: itemURL
+                        .deletingPathExtension()
+                        .appendingPathExtension("png")
+                    )
+                    menuItem.image?.size = NSSize(width: 18, height: 18)
+                } else {
+                    menuItem.image = icon
+                }
                 menu.addItem(menuItem)
             }
         }
@@ -292,7 +324,16 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     }
     
     private func loadStub(at file: URL) -> String {
-        return "Stub"
+        do {
+            let attributed = try NSAttributedString(
+                url: file,
+                options: [.documentType: NSAttributedString.DocumentType.plain],
+                documentAttributes: nil
+            )
+            return attributed.string
+        } catch {
+            return ""
+        }
     }
     
     // MARK: - Templates
@@ -1447,7 +1488,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             return false
             
         case #selector(templateSelected(_:)):
-            if ext == "hpppl" || ext == "hppplplus" {
+            if ext == "hpppl" || ext == "hppplplus" || ext == "hpppl+" {
                 return true
             }
             return false
@@ -1487,6 +1528,18 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             
         case #selector(closeProject(_:)):
             if let _ = projectManager.projectDirectoryURL {
+                return true
+            }
+            return false
+            
+        case #selector(snippetSelected(_:)):
+            if ext == "hpppl" || ext == "hppplplus" || ext == "hpppl+" {
+                return true
+            }
+            return false
+            
+        case #selector(stubSelected(_:)):
+            if ext == "py" {
                 return true
             }
             return false
@@ -1535,11 +1588,26 @@ extension MainViewController: DocumentManagerDelegate {
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
         
+//        let ext = (documentManager.currentDocumentURL != nil) ? documentManager.currentDocumentURL!.pathExtension.lowercased() : ""
+        
+        
         if let menu = NSApp.mainMenu {
             if let item = menu.item(withTitle: "Window")?.submenu?.item(withTitle: projectManager.projectName!) {
                 item.image = projectManager.projectIcon
                 item.image?.size = NSSize(width: 16, height: 16)
             }
+            
+//            if let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Template") {
+//                item.isEnabled = ext == ".hpppl" || ext == ".hppplplus" || ext == ".hpppl+" ? true : false
+//            }
+//            
+//            if let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Snippets") {
+//                item.isEnabled = ext == ".hpppl" || ext == ".hppplplus" || ext == ".hpppl+" ? true : false
+//            }
+//            
+//            if let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Stubs") {
+//                item.isEnabled = ext == ".py" ? true : false
+//            }
         }
     }
     
