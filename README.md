@@ -50,6 +50,8 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 >[!NOTE]
 >In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼ support, Xprime adopts the **.hpppl** **.hppplplus** and **.hpppl+** file types. This simplify development for those using either Visual Studio Code or Xprime.
 
+Snippets & Stubs from HP Prime Development Tools are also included in Xprime Installer.
+
 Typical File Structure for an HP Prime **Application**
 ```
 MyApp/
