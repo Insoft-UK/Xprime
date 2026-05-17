@@ -71,6 +71,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             populateOpenRecentMenu(menu: menu)
             populateTemplateMenu(menu: menu)
             populateSnippetMenu(menu: menu)
+            populateStubsMenu(menu: menu)
             
             func setImageSize(_ menu: NSMenu) {
                 for item in menu.items {
@@ -201,12 +202,11 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         let url = defaultWorkingDirectoryURL
             .appendingPathComponent("Snippets")
         guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Snippet") else { return }
-        item.image?.size = NSSize(width: 18, height: 18)
         item.submenu = populateSnippetMenu(url: url)
     }
     
     private func populateSnippetMenu(url: URL) -> NSMenu {
-        let icon = NSImage(named: "xpsnippet")?.copy() as? NSImage
+        let icon = NSImage(named: "Snippet")?.copy() as? NSImage
         let menu = NSMenu()
         
         let contents = try? FileManager.default.contentsOfDirectory(
@@ -227,79 +227,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 menuItem.state = .off
                 menuItem.representedObject = itemURL
                 menuItem.image = icon
-                menuItem.image?.size = NSSize(width: 18, height: 18)
                 menu.addItem(menuItem)
             }
         }
         
         return menu
     }
-        
-//    private func refreshSnippetsToolbar() {
-//        guard
-//            let toolbar = view.window?.toolbar,
-//            let item = toolbar.items.first(where: {
-//                $0.paletteLabel == "Snippet"
-//            }),
-//            let comboButton = item.view as? NSComboButton
-//        else {
-//            return
-//        }
-//        
-//        
-//        if let currentDocumentURL = documentManager.currentDocumentURL {
-//            switch currentDocumentURL.pathExtension.lowercased() {
-//            case "hpppl", "hppplplus":
-//                break
-//            default:
-//                comboButton.menu = NSMenu()
-//                comboButton.title = "Snippet"
-//                comboButton.target = nil
-//                comboButton.action = nil
-//                comboButton.image = NSImage(named: "xpsnippet")?.copy() as? NSImage
-//                comboButton.image?.size = NSSize(width: 22, height: 22)
-//                return
-//            }
-//        }
-//        
-//        let icon = NSImage(named: "hpppl")?.copy() as? NSImage
-//        
-//        
-//        let url = Bundle.main.resourceURL!
-//            .appendingPathComponent("Developer/Library/Xprime/Snippets")
-//        let menu = NSMenu()
-//        
-//        
-//        
-//        let contents = try? FileManager.default.contentsOfDirectory(
-//            at: url,
-//            includingPropertiesForKeys: [.isDirectoryKey],
-//            options: [.skipsHiddenFiles]
-//        )
-//        
-//        contents?.forEach { itemURL in
-//            if itemURL.isDirectory == false {
-//                let snippet = loadSnippet(at: itemURL)
-//                
-//                let menuItem = NSMenuItem(
-//                    title: snippet.title,
-//                    action: #selector(snippetSelected(_:)),
-//                    keyEquivalent: ""
-//                )
-//                menuItem.state = .off
-//                menuItem.representedObject = itemURL
-//                menuItem.image = icon
-//                menuItem.image?.size = NSSize(width: 22, height: 22)
-//                menu.addItem(menuItem)
-//            }
-//        }
-//        
-//        comboButton.menu = menu
-//        comboButton.image = NSImage(named: "xpsnippet")?.copy() as? NSImage
-//        comboButton.image?.size = NSSize(width: 22, height: 22)
-//        comboButton.target = self
-//        comboButton.action = #selector(snippetSelected(_:))
-//    }
     
     @objc private func snippetSelected(_ sender: NSMenuItem) {
         guard let url = sender.representedObject as? URL else { return }
@@ -315,6 +248,51 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         let trigger = file.deletingPathExtension().lastPathComponent
         return (json.title, trigger)
+    }
+    
+    // MARK: - Stubs
+    private func populateStubsMenu(menu: NSMenu) {
+        let url = defaultWorkingDirectoryURL
+            .appendingPathComponent("Stubs")
+        guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Stubs") else { return }
+        item.submenu = populateStubsMenu(url: url)
+    }
+    
+    private func populateStubsMenu(url: URL) -> NSMenu {
+        let icon = NSImage(named: "Stub")?.copy() as? NSImage
+        let menu = NSMenu()
+        
+        let contents = try? FileManager.default.contentsOfDirectory(
+            at: url,
+            includingPropertiesForKeys: [.isDirectoryKey],
+            options: [.skipsHiddenFiles]
+        )
+        
+        contents?.forEach { itemURL in
+            if itemURL.isDirectory == false {
+                let menuItem = NSMenuItem(
+                    title: itemURL.deletingPathExtension().lastPathComponent,
+                    action: #selector(stubSelected(_:)),
+                    keyEquivalent: ""
+                )
+                menuItem.state = .off
+                menuItem.representedObject = itemURL
+                menuItem.image = icon
+                menu.addItem(menuItem)
+            }
+        }
+        
+        return menu
+    }
+    
+    @objc private func stubSelected(_ sender: NSMenuItem) {
+        guard let url = sender.representedObject as? URL else { return }
+        let stub = loadStub(at: url)
+        codeEditorTextView.insertText(stub, replacementRange: codeEditorTextView.selectedRange())
+    }
+    
+    private func loadStub(at file: URL) -> String {
+        return "Stub"
     }
     
     // MARK: - Templates
