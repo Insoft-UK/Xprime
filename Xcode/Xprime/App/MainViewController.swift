@@ -361,7 +361,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                     keyEquivalent: ""
                 )
                 submenuItem.submenu = submenu
-                submenuItem.image = NSImage(named: "TemplateFolder")?.copy() as? NSImage
+                submenuItem.image = NSImage(named: "Templates")?.copy() as? NSImage
                 submenuItem.image?.size = NSSize(width: 18, height: 18)
                 menu.addItem(submenuItem)
             } else {
@@ -373,7 +373,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                     keyEquivalent: ""
                 )
                 menuItem.representedObject = itemURL
-                menuItem.image = NSImage(named: "hpppl")?.copy() as? NSImage
+                menuItem.image = NSImage(named: "HP")?.copy() as? NSImage
                 menuItem.image?.size = NSSize(width: 18, height: 18)
                 menu.addItem(menuItem)
             }

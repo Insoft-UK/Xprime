@@ -565,7 +565,7 @@ Gw
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="Dlo-Hf-EQO"/>
-                                        <menuItem title="Open Application" image="hp" id="jZ7-4Z-CMf">
+                                        <menuItem title="Open Application" image="HP" id="jZ7-4Z-CMf">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Open Application" id="Ylr-Ek-uzs">
                                                 <items>
@@ -908,7 +908,7 @@ Gw
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="h12-3c-Pgi"/>
-                                        <menuItem title="Template" image="hp" id="dAk-Ox-0tv">
+                                        <menuItem title="Template" image="Templates" id="dAk-Ox-0tv">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
                                         <menuItem title="Snippet" image="Snippets" id="ehA-PE-5VO">
@@ -1411,7 +1411,7 @@ Gw
                                 <constraints>
                                     <constraint firstAttribute="width" constant="269" id="wHf-41-ugx"/>
                                 </constraints>
-                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Opux" id="HRh-pe-ATK">
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Xprime" id="HRh-pe-ATK">
                                     <font key="font" size="80" name="HelveticaNeue-Medium"/>
                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1780,6 +1780,7 @@ Gw
         <image name="Function" width="19" height="19"/>
         <image name="Geometry" width="19" height="19"/>
         <image name="Graph 3D" width="19" height="19"/>
+        <image name="HP" width="18" height="18"/>
         <image name="HP Logo" width="16" height="16"/>
         <image name="Inference" width="19" height="19"/>
         <image name="Linear Solver" width="19" height="19"/>
@@ -1795,6 +1796,7 @@ Gw
         <image name="Statistics 1Var" width="19" height="19"/>
         <image name="Statistics 2Var" width="19" height="19"/>
         <image name="Stubs" width="19" height="19"/>
+        <image name="Templates" width="19" height="19"/>
         <image name="Triangle Solver" width="19" height="19"/>
         <image name="VirtualCalculator" width="32" height="32"/>
         <image name="arrow.up.forward.app" catalog="system" width="15" height="14"/>
@@ -1810,7 +1812,6 @@ Gw
         <image name="hammer" catalog="system" width="20" height="18"/>
         <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="help-about" width="18" height="18"/>
-        <image name="hp" width="18" height="18"/>
         <image name="hpppl" width="512" height="512"/>
         <image name="hppplplus" width="512" height="512"/>
         <image name="inset.filled.bottomthird.square" catalog="system" width="15" height="14"/>
