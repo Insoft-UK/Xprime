@@ -8,11 +8,11 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>xprimeproj</string>
-				<string>ppl</string>
-				<string>ppl+</string>
+				<string>hpppl</string>
+				<string>hppplplus</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>Project</string>
+			<string>xprimeproj</string>
 			<key>CFBundleTypeName</key>
 			<string>Xprime Project</string>
 			<key>CFBundleTypeRole</key>
@@ -46,11 +46,11 @@
 			<key>UTTypeDescription</key>
 			<string>Xprime Project</string>
 			<key>UTTypeIconFile</key>
-			<string>Project</string>
+			<string>xprimeproj</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBadgeName</key>
-				<string>Project</string>
+				<string>xprimeproj</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>uk.insoft.Xprime.xprimeproj</string>
@@ -79,11 +79,11 @@
 			<key>UTTypeDescription</key>
 			<string>Xprime Project</string>
 			<key>UTTypeIconFile</key>
-			<string>Project</string>
+			<string>xprimeproj</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBadgeName</key>
-				<string>Project</string>
+				<string>xprimeproj</string>
 			</dict>
 			<key>UTTypeIdentifier</key>
 			<string>uk.insoft.Xprime.xprimeproj</string>
