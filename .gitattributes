@@ -36,7 +36,6 @@
 *.hpnote     linguist-generated=true
 *.hpappnote  linguist-generated=true
 *.md         linguist-generated=true
-*.h          linguist-generated=true
 Makefile     linguist-generated=true
 *.xprimeproj linguist-generated=true
 preinstall   linguist-generated=true
