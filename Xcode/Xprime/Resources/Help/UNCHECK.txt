@@ -1,6 +1,0 @@
-Syntax:
-UNCHECK(n)
-
-Unchecks (deselects) the corresponding symbolic definition field in the current app. The integer n must be between 0 and 9 for most apps. For Statistics 1-Var and Statistics 2-Var apps, n must be between 1 and 5.
-
-For example, UNCHECK(3)  would uncheck F3 if the current app is Function.

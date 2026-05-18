@@ -1,0 +1,7 @@
+Syntax:
+cpartfrac(RatFrac)
+
+Performs partial fraction decomposition in C of a fraction.
+
+Example:
+cpartfrac((x)/(4-x^2)) returns 1/((x-2)*-2)+1/((x+2)*-2)

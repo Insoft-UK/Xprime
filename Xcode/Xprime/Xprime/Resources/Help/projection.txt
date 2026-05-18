@@ -1,0 +1,7 @@
+Syntax:
+projection(Curve, Point)
+
+Draws the orthogonal projection of a point onto a curve.
+
+Example:
+projection(circle(x^2+y^2=4),point(6,6)) creates a point on the circle at (√2, √2)

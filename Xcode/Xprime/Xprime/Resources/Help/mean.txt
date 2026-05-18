@@ -1,0 +1,7 @@
+Syntax:
+mean(Lst||Mtrx,[Lst])
+
+Mean of a list with the second argument as weight, or of the columns of a matrix.
+
+Example:
+mean([1,2,3],[1,2,3]) returns 7/3

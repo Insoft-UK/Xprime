@@ -1,0 +1,7 @@
+Syntax:
+limit(Expr,Var,Val)
+
+Limit of an expression as a variable approaches a value. Returns the limit (2 sided or 1-sided) of the given expression as the given variable approaches a value.
+
+Example:
+limit((n*tan(x)-tan(n*x))/(sin(n*x)-n*sin(x)),x,0) returns 2

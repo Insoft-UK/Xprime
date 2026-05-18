@@ -1,0 +1,7 @@
+Syntax:
+head(Vect or Seq or Str)
+
+Shows the first element of a vector or a sequence or a string.
+
+Example:
+head(1,2,3) returns 1

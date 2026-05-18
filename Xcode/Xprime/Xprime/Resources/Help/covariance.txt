@@ -1,0 +1,7 @@
+Syntax:
+covariance(Lst||Mtrx,[Lst])
+
+Returns the covariance of the elements of its argument.
+
+Example:
+covariance([[1,2],[1,1],[4,7]]) returns 11/3

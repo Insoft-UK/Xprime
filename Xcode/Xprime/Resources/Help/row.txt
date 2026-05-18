@@ -1,7 +1,0 @@
-Syntax:
-row(Mtrx(A),Intg(n)||Interval(n1..n2))
-
-Returns the row n or the sequence of the rows n1..n2 of the matrix A
-
-Example:
-row([[1,2,3],[4,5,6],[7,8,9]],1) returns [4,5,6]

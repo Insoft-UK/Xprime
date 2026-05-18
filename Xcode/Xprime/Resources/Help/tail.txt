@@ -1,7 +1,0 @@
-Syntax:
-tail(Lst or Seq or Str)
-
-Returns the list (or sequence or string) without its first element
-
-Example:
-tail([3,2,4,1,0]) returns [2,4,1,0]

@@ -1,7 +1,0 @@
-Syntax:
-denom(a/b)
-
-Simplified Denominator. For the integers a and b, returns the denominator of the fraction a/b after simplification.
-
-Example:
-denom(10/12) returns 6

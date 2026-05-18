@@ -1,0 +1,14 @@
+Syntax:
+BEGIN commands; END;
+
+Defines a set of commands to be executed in a block.
+
+Example:
+SQM1
+
+EXPORT  SQM1(X)
+BEGIN
+RETURN X^2-1;
+END;
+
+This program defines a user function named SQM1(X). From the Home view, entering SQM1(8) returns 63.

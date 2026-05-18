@@ -1,7 +1,0 @@
-Syntax:
-abscissa(Pnt or Vect)
-
-Returns the abscissa of a point or a vector.
-
-Example:
-abscissa(point(1+2*i)) returns 1

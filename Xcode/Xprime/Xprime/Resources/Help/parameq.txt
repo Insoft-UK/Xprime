@@ -1,0 +1,7 @@
+Syntax:
+parameq(Obj)
+
+Returns a parametric equation for the geometric object Obj. The parametric equation is true for all complex numbers that represent points on Obj.
+
+Example:
+parameq(circle(0,1)) returns -exp(i*t)

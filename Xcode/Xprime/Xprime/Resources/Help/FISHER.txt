@@ -1,0 +1,7 @@
+Syntax:
+FISHER(n, d, x)
+
+F (Fisher or Fisher-Snedecor) probability density function. Computes the probability density at the value x, given numerator n and denominator d degrees of freedom.
+
+Example:
+FISHER(5, 5, 2) returns 0.158080231095

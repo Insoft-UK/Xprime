@@ -1,0 +1,7 @@
+Syntax:
+tlin(Expr)
+
+Returns a trigonometric expression with the products and integer powers linearized
+
+Example:
+tlin(sin(x)^3) returns (3/4)*sin(x)-(1/4)*sin(3*x)

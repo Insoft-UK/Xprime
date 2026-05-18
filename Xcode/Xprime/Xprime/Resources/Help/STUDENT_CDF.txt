@@ -1,0 +1,7 @@
+Syntax:
+STUDENT_CDF(n, x)
+
+Cumulative Student’s t distribution function. Returns the lower-tail probability of the Student’s t probability density function at x, given n degrees of freedom.
+
+Example:
+STUDENT_CDF(3, -3.2) returns 0.0246659214813

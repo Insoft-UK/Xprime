@@ -1,0 +1,26 @@
+{
+    "name": "Retro",
+    "type": "light",
+    "weight": "semibold",
+    "colors": {
+        "editor.background": "#1c40bb",
+        "editor.foreground": "#82a6ff",
+        "editor.cursor": "#82a6ff",
+        "editor.selectionBackground": "#000000"
+    },
+    "lineNumberRuler": {
+        "foreground": "#82a6ff",
+        "background": "#1c40bb"
+    },
+    "window": {
+        "background": "#1c40bb"
+    },
+    "settings": {
+        "background": "#1c40bb",
+        "default.color": "#000000",
+        "done.color": "#82a6ff"
+    },
+    "tokenColors": [
+    ]
+}
+

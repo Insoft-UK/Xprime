@@ -1,0 +1,7 @@
+Syntax:
+TRN(matrix)
+
+Transpose. Transposes matrix. If Complex mode is on and the matrix contains complex elements, then TRN finds the conjugate transpose.
+
+Example:
+TRN([[1,2],[3,4]]) returns [[1,3],[2,4]]

@@ -1,0 +1,7 @@
+Syntax:
+Ei(Expr)
+
+Exponential integral int(exp(t)/t,t=-∞..x)
+
+Example:
+Ei(1.0) returns 1.89511781636

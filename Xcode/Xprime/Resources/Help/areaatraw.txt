@@ -1,4 +1,0 @@
-Syntax:
-areaatraw(Polygon, Pnt||Cplx(z0))
-
-Displays at point(z0), algebraic area of a circle or of a (star-)polygon (e.g. triangle, square, ...).

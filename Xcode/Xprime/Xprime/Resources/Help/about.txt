@@ -1,0 +1,7 @@
+Syntax:
+about(Var(a))
+
+Returns the hypothesis made with assume on the variable a.
+
+Example:
+about(n) returns n

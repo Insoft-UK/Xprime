@@ -1,0 +1,4 @@
+Syntax:
+CopyVar(Var(var1),Var(var2))
+
+Copy the storage without evaluation of var1 into var2.

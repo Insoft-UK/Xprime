@@ -1,7 +1,0 @@
-Syntax:
-incircle(Point1, Point2, Point3)
-
-Draws the incircle of a triangle, the circle tangent to all three sides of the triangle.
-
-Example:
-incircle(GA, GB, GC) draws the incircle of ΔABC.

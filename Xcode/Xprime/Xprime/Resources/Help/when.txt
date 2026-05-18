@@ -1,0 +1,4 @@
+Syntax:
+when(Cond,Expr1,Expr2)
+
+If condition (even symbolic) returns expr1 else returns expr2 (? is the infixed version of when).

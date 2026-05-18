@@ -1,7 +1,0 @@
-Syntax:
-center(Circle)
-
-Returns the center of a circle
-
-Example:
-center(circle(x^2+y2–x–y)) returns point(1/2,1/2)

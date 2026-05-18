@@ -1,7 +1,0 @@
-Syntax:
-Ci(Expr)
-
-Cosine integral int(cos(t)/t,t=-∞..x).
-
-Example:
-Ci(1.0) returns 0.337403922901

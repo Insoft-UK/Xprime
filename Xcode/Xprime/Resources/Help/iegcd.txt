@@ -1,7 +1,0 @@
-Syntax:
-iegcd(a,b)
-
-Extended greatest common divisor for two integers. Returns [u,v,igcd(a,b)] such that a*u+b*v=igcd(a,b).
-
-Example:
-iegcd(14, 21) returns [-1, 1, 7]

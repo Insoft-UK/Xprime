@@ -1,7 +1,0 @@
-Syntax:
-FLOOR(value)
-
-Greatest integer less than or equal to value.
-
-Example:
-FLOOR(-3.2) returns -4

@@ -1,0 +1,4 @@
+Syntax:
+ISKEYDOWN(Key_ID)
+
+Returns true (non-zero) if the key whose Key_ID is provided is currently pressed, and false (0) if it is not.

@@ -1,0 +1,4 @@
+Syntax:
+DELCOL(matrixname ,column_number)
+
+Delete Column. Deletes the column column_number from the matrix matrixname.

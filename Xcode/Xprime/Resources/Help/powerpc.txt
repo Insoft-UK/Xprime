@@ -1,7 +1,0 @@
-Syntax:
-powerpc(Cercle,Pnt or Cplx)
-
-Returns the real number d^2-R^2 (d=distance between point and center, R=radius).
-
-Example:
-powerpc(circle(0,1+i),3+i) returns 8

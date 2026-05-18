@@ -1,0 +1,21 @@
+{
+    "name": "C64",
+    "type": "dark",
+    "weight": "semibold",
+    "colors": {
+        "editor.background": "#4756e5",
+        "editor.foreground": "#8e91fb",
+        "editor.cursor": "#8e91fb",
+        "editor.selectionBackground": "#ffffff"
+    },
+    "lineNumberRuler": {
+        "foreground": "#4756e5",
+        "background": "#8e91fb"
+    },
+    "window": {
+        "background": "#8e91fb"
+    },
+    "tokenColors": [
+    ]
+}
+

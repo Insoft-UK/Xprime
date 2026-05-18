@@ -1,4 +1,0 @@
-Syntax:
-B→R(#integer)
-
-Transform an integer into a real number.

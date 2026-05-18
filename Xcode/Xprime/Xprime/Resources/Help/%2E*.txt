@@ -1,0 +1,7 @@
+Syntax:
+.*(Lst||Mtrx,Lst||Mtrx)
+
+Performs an element-by-element multiplication of 2 lists or 2 matrices.
+
+Example:
+[[1,2],[3,4]] .* [[3,4],[5,6]] returns [[3,8],[15,24]]

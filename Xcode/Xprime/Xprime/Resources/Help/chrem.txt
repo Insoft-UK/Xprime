@@ -1,0 +1,7 @@
+Syntax:
+chrem(LstIntg(a,b,c....),LstIntg(p,q,r,....))
+
+Chinese remainders for integers.
+
+Example:
+chrem([2,3],[7,5]) returns [-12,35]

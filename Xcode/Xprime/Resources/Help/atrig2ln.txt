@@ -1,7 +1,0 @@
-Syntax:
-atrig2ln(Expr)
-
-Rewrites the expression Expr containing inverse trigonometric functions with equivalent logarithmic functions.
-
-Example:
-atrig2ln(atan(x)) returns (i*ln((i+x)/(i-x)))/2

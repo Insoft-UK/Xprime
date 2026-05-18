@@ -1,0 +1,7 @@
+Syntax:
+member(Elem(e),(Lst(l) or Set(l)))
+
+Tests if e is in the list or the set l (=0 or k+1 with l[k]=e)
+
+Example:
+member(1,[4,3,1,2]) returns 3

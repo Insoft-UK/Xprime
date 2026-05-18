@@ -1,0 +1,7 @@
+Syntax:
+jordan(Mtrx)
+
+Returns the list made by the matrix of passage and the Jordan form of a matrix.
+
+Example:
+jordan([[0,2],[1,0]]) returns [[√2,-√2],[1,1]],[[√2,0],[0,-√2]]

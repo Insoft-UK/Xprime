@@ -1,0 +1,8 @@
+Syntax:
+coeff(Expr,[Var], [Term])
+
+Returns the list of coefficients of a polynomial with respect to the second argument or the coefficient of the term whose degree is Term.
+
+Example:
+coeff(x^3+2) returns [1,0,0,2]
+coeff(2*y^2-3,y,0) returns -3

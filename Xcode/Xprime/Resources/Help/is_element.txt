@@ -1,7 +1,0 @@
-Syntax:
-is_element(Point, Object)
-
-Tests if a point is on a geometric object. Returns 1 if it is and 0 otherwise
-
-Example:
-is_element(point((√(2)/2),(√(2)/2)),circle(0,1)) returns 1
