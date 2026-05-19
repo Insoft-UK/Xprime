@@ -1,9 +1,0 @@
- {
-    "title": "Touch Region Check",
-    "body": [
-      "IF ${1:tx} >= ${2:x1} AND ${1:tx} <= ${3:x2} AND ${4:ty} >= ${5:y1} AND ${4:ty} <= ${6:y2} THEN",
-      "  $0",
-      "END;"
-    ],
-    "description": "Check if touch coordinates are within a rectangular region"
-}

@@ -1,8 +1,0 @@
-{
-    "title": "Title Bar",
-    "body": [
-      "RECT_P(G0, 0, 0, 319, ${1:20}, #${2:4080D0}h, #${2:4080D0}h);",
-      "TEXTOUT_P(\"${3:Title}\", G0, ${4:5}, ${5:2}, ${6:2}, #FFFFFFh, 310);"
-    ],
-    "description": "Draw a colored title bar with white text"
-}

@@ -1,8 +1,0 @@
-{
-    "title": "Clear Mouse Queue",
-    "body": [
-      "// Drain pending touch events",
-      "WHILE MOUSE(1) >= 0 DO END;"
-    ],
-    "description": "Drain pending mouse/touch events (debounce)"
-}
