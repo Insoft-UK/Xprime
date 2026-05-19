@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		130EA9382FBD11ED003941F9 /* libhpprgm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 130EA9372FBD11ED003941F9 /* libhpprgm.a */; };
 		1352EDF62B4786BD003130E4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1352EDF42B4786BC003130E4 /* main.cpp */; };
 		136A44932EF5CD1B0017E5AF /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 136A448F2EF5CCE60017E5AF /* libz.a */; };
 		136A44972EF5CD280017E5AF /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 136A44962EF5CD280017E5AF /* libpng.a */; };
@@ -28,6 +29,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		130EA9302FBD0F4E003941F9 /* libhpprgm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhpprgm.a; path = ../../src/libhpprgm/lib/libhpprgm.a; sourceTree = "<group>"; };
+		130EA9372FBD11ED003941F9 /* libhpprgm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libhpprgm.a; sourceTree = "<group>"; };
 		1352EDF42B4786BC003130E4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		136A448D2EF5CB7A0017E5AF /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		136A448F2EF5CCE60017E5AF /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = src/libz/lib/arm64/libz.a; sourceTree = "<group>"; };
@@ -52,13 +55,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		134B49FE2F14652000B7F659 /* Exceptions for "libhpprgm" folder in "grob" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				lib/libhpprgm.a,
-			);
-			target = 13EBE2F22B22249000302F26 /* grob */;
-		};
 		13E354FF2FAD213A0002B8DA /* Exceptions for "libpng" folder in "grob" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -79,14 +75,6 @@
 		134778ED2DE0E494009EB2C8 /* examples */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = examples;
-			sourceTree = "<group>";
-		};
-		134B49F72F1464F900B7F659 /* libhpprgm */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				134B49FE2F14652000B7F659 /* Exceptions for "libhpprgm" folder in "grob" target */,
-			);
-			path = libhpprgm;
 			sourceTree = "<group>";
 		};
 		136A44AC2EF5CEB90017E5AF /* libpng */ = {
@@ -113,6 +101,7 @@
 			files = (
 				136A44932EF5CD1B0017E5AF /* libz.a in Frameworks */,
 				136A44972EF5CD280017E5AF /* libpng.a in Frameworks */,
+				130EA9382FBD11ED003941F9 /* libhpprgm.a in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -121,7 +110,6 @@
 		1352EDEC2B4786BC003130E4 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				134B49F72F1464F900B7F659 /* libhpprgm */,
 				136A44AC2EF5CEB90017E5AF /* libpng */,
 				136A44B52EF5CEB90017E5AF /* libz */,
 				1352EDF42B4786BC003130E4 /* main.cpp */,
@@ -136,6 +124,7 @@
 				13EE542F2EC1730A00A8F770 /* utf.cpp */,
 				13E40E602EE122A100AED5C4 /* timer.hpp */,
 				13E40F602EE50FF400AED5C4 /* extensions.hpp */,
+				130EA9372FBD11ED003941F9 /* libhpprgm.a */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -143,6 +132,7 @@
 		136A448E2EF5CCE60017E5AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				130EA9302FBD0F4E003941F9 /* libhpprgm.a */,
 				136A44962EF5CD280017E5AF /* libpng.a */,
 				136A44942EF5CD1F0017E5AF /* libz.a */,
 				136A44912EF5CCF70017E5AF /* libpng.a */,
@@ -185,9 +175,6 @@
 				13EBE2F12B22249000302F26 /* CopyFiles */,
 			);
 			buildRules = (
-			);
-			fileSystemSynchronizedGroups = (
-				134B49F72F1464F900B7F659 /* libhpprgm */,
 			);
 			name = grob;
 			productName = grob;
@@ -374,10 +361,6 @@
 					"$(PROJECT_DIR)/src/libpng/lib/x86_64",
 					"$(PROJECT_DIR)/src/libz/lib/x86_64",
 					"$(PROJECT_DIR)/src/libpng/lib/arm64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/x86_64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/win_x86_64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/arm64",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -402,10 +385,6 @@
 					"$(PROJECT_DIR)/src/libpng/lib/x86_64",
 					"$(PROJECT_DIR)/src/libz/lib/x86_64",
 					"$(PROJECT_DIR)/src/libpng/lib/arm64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/x86_64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/win_x86_64",
-					"$(PROJECT_DIR)/src/libhpprgm/lib/arm64",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";

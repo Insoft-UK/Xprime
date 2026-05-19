@@ -20,10 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#define VERSION_NUMBER        "1.0.1"
-#define VERSION_CODE          "A0B99-26EB"
-#define NUMERIC_BUILD          10199
-#define BUNDLE_VERSION        "20260512"
-#define INTERNAL_BUILD_CODE   "A0B99"
-#define DATE                  "2026 May 12"
+#define VERSION_NUMBER        "1.0.2"
+#define VERSION_CODE          "A0C01-26EI"
+#define NUMERIC_BUILD          10201
+#define BUNDLE_VERSION        "20260519"
+#define INTERNAL_BUILD_CODE   "A0C01"
+#define DATE                  "2026 May 19"
 #define YEAR                  "2026"

@@ -33,7 +33,7 @@ enum ToolchainPaths {
     static var bin: String {
         resolveUserPath(
             key: "bin",
-            fallback: "/usr/local/bin",
+            fallback: "~",
             bundled: developerRoot.appendingPathComponent("usr/bin")
         )
     }
@@ -60,6 +60,10 @@ enum ToolchainPaths {
         bundled: URL
     ) -> String {
 
+        if fallback == "~" {
+            UserDefaults.standard.set(fallback, forKey: key)
+        }
+        
         let value = UserDefaults.standard.string(forKey: key) ?? fallback
 
         if value == "~" {

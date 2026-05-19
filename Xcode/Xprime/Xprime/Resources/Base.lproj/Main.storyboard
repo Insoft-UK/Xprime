@@ -1411,7 +1411,7 @@ Gw
                                 <constraints>
                                     <constraint firstAttribute="width" constant="269" id="wHf-41-ugx"/>
                                 </constraints>
-                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Xprime" id="HRh-pe-ATK">
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Opux" id="HRh-pe-ATK">
                                     <font key="font" size="80" name="HelveticaNeue-Medium"/>
                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>

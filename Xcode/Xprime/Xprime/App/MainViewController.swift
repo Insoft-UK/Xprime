@@ -867,9 +867,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         let bmp = NSImage(named: "bmp")?.copy() as! NSImage
         let png = NSImage(named: "png")?.copy() as! NSImage
         
-//        let iconSize = NSSize(width: 24, height: 24)
-//        let iconSizeSmall = NSSize(width: 16, height: 16)
-        
         func createMenu(for url: URL) -> NSMenu {
             let menu = NSMenu()
             

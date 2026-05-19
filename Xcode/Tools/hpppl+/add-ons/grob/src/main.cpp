@@ -38,7 +38,7 @@
 #include "timer.hpp"
 #include "extensions.hpp"
 
-#define NAME "GROB"
+#define NAME "HP GROB"
 #define COMMAND_NAME "grob"
 
 namespace fs = std::filesystem;
@@ -439,7 +439,7 @@ int main(int argc, const char * argv[]) {
         
         if (extension == ".prgm" || extension == ".hpprgm") {
             if (extension == ".hpprgm") {
-                hpprgm::create(outpath, "", utf8);
+                hpprgm::write(outpath, utf8);
             } else {
                 std::wstring utf16 = utf::utf16(utf8);
                 utf::save(outpath, utf16);

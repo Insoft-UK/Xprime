@@ -105,7 +105,7 @@ final class AboutViewController: NSViewController {
         let hpfont = version(forTool: "hpfont");
         let hpnote = version(forTool: "hpnote");
         
-        Tools.stringValue = "HP PPL+ \(`ppl+`) - GROB \(grob) - HP FONT \(hpfont) - HP NOTE \(hpnote)"
+        Tools.stringValue = "HP PPL+ \(`ppl+`) - HP GROB \(grob) - HP FONT \(hpfont) - HP NOTE \(hpnote)"
         Tools.isHidden = false
     }
     
