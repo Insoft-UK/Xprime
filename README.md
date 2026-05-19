@@ -24,7 +24,7 @@ AppleSilicon or intel</br>
 [HP Prime Virtual Calculator](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Virtual_Calculator_BETA_2026_04_01.dmg)</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Connectivity_Kit_BETA_20260401.dmg) (for calculator sync)</br>
 </br>
-[HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip) | [HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip) | [GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip) | [HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip) (for Xprime 26.5 None Installer)</br>
+[HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip) | [HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip) | [GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip) | [HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip)</br>
 
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
