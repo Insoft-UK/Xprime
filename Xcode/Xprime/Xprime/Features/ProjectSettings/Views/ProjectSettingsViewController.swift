@@ -28,6 +28,7 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
     
     @IBOutlet weak var librarySearchPath: NSTextField!
     @IBOutlet weak var headerSearchPath: NSTextField!
+    @IBOutlet weak var binSearchPath: NSTextField!
     @IBOutlet weak var defaultButton: NSButton!
     @IBOutlet weak var doneButton: NSButton!
 
@@ -39,8 +40,9 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         librarySearchPath.delegate = self
         headerSearchPath.delegate = self
         
-        librarySearchPath.stringValue = ProjectSettings.shared.lib // ToolchainPaths.lib
-        headerSearchPath.stringValue = ProjectSettings.shared.include //ToolchainPaths.include
+        librarySearchPath.stringValue = ProjectSettings.shared.lib
+        headerSearchPath.stringValue = ProjectSettings.shared.include
+        binSearchPath.stringValue = ProjectSettings.shared.bin
     }
     
     override func viewDidAppear() {
@@ -88,11 +90,12 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         ProjectSettings.shared.includeProgramName = true
         ProjectSettings.shared.include = "$(SDKROOT)/include"
         ProjectSettings.shared.lib = "$(SDKROOT)/lib"
-        ProjectSettings.shared.bin = "/usr/local/bin"
+        ProjectSettings.shared.bin = "$(SDKROOT)/bin"
         
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include
+        binSearchPath.stringValue = ProjectSettings.shared.bin
     }
     
  

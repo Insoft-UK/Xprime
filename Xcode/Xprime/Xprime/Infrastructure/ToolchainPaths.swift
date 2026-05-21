@@ -33,7 +33,7 @@ enum ToolchainPaths {
     static var bin: String {
         resolveUserPath(
             key: "bin",
-            fallback: "~",
+            fallback: "$(SDKROOT)/bin",
             bundled: developerRoot.appendingPathComponent("usr/bin")
         )
     }
@@ -52,6 +52,16 @@ enum ToolchainPaths {
             fallback: "$(SDKROOT)/lib",
             bundled: developerRoot.appendingPathComponent("usr/lib")
         )
+    }
+    
+    public static func resolvePath(_ path: String) -> String {
+        return path
+            .replacingOccurrences(
+                of: "$(SDKROOT)",
+                with: developerRoot
+                    .appendingPathComponent("usr")
+                    .path
+            )
     }
 
     private static func resolveUserPath(

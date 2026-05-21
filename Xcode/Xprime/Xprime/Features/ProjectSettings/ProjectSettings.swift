@@ -48,7 +48,7 @@ final class ProjectSettings {
     @UserDefault(key: DefaultsKey.lib, defaultValue: "$(SDKROOT)/lib")
     var lib: String
 
-    @UserDefault(key: DefaultsKey.bin, defaultValue: "/usr/local/bin")
+    @UserDefault(key: DefaultsKey.bin, defaultValue: "$(SDKROOT)/bin")
     var bin: String
 
     @UserDefault(key: DefaultsKey.archiveProjectApplicationOnly, defaultValue: true)

@@ -2,9 +2,9 @@
 *.xcworkspace/xcuserdata/
 xcuserdata/
 installer
-*.iconset
 *.app
 *.pkg
+*.dmg
 Design/Icon Masters/Type/*.icns
 Design/Icon Masters/Project/*.icns
 rtf_output

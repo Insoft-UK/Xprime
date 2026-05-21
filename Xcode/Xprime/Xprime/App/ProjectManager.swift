@@ -172,6 +172,7 @@ final class ProjectManager {
         ProjectSettings.shared.archiveProjectAppOnly = project.archiveProjectAppOnly
         ProjectSettings.shared.plainFallbackText = project.plainFallbackText
         
+        
         projectDirectoryURL = url.deletingLastPathComponent()
         Settings.shared.lastOpenedProjectFile = url.path
         delegate?.projectManagerDidOpen(self)

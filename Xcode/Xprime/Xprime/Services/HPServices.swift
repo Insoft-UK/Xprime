@@ -441,7 +441,7 @@ enum HPServices {
     
     static func preProccess(at sourceURL: URL, to destinationURL: URL) -> (out: String?, err: String?, exitCode: Int32) {
     
-        let command = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpppl+").path
+        let command = URL(fileURLWithPath: ToolchainPaths.resolvePath(ProjectSettings.shared.bin)).appendingPathComponent("hpppl+").path
         var arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
         
         
@@ -453,14 +453,12 @@ enum HPServices {
             arguments.append(contentsOf: ["--named"])
         }
         
-        if ToolchainPaths.include.isEmpty == false {
-            let path = ToolchainPaths.include
-            arguments.append(contentsOf: ["-I\(path)"])
+        if ProjectSettings.shared.include.isEmpty == false {
+            arguments.append(contentsOf: ["-I\(ToolchainPaths.resolvePath(ProjectSettings.shared.include))"])
         }
         
-        if ToolchainPaths.lib.isEmpty == false {
-            let path = ToolchainPaths.lib
-            arguments.append(contentsOf: ["-L\(path)"])
+        if ProjectSettings.shared.lib.isEmpty == false {
+            arguments.append(contentsOf: ["-L\(ToolchainPaths.resolvePath(ProjectSettings.shared.lib))"])
         }
         
         /*
