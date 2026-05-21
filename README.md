@@ -14,7 +14,7 @@
 >
 >Simply opening the source code in the editor and performing a “Check” — or even just viewing the code and exiting the editor — causes the HP Prime to automatically resave the file using the current supported format. Once this has been done, the program or application will run normally.
 
-***Download links:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip)</a> | [Extras for Xprime](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-extras-universal.zip)</br>
+***Download link:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip)</a></br>
 >[!NOTE]
 >Xprime Installer is a package-based installer. The other version is simply the Xprime application, which you can drag and drop into your Applications folder.
 
@@ -23,8 +23,6 @@ AppleSilicon or intel</br>
 **macOS 14.6** or later</br>
 [HP Prime Virtual Calculator](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Virtual_Calculator_BETA_2026_04_01.dmg)</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Connectivity_Kit_BETA_20260401.dmg) (for calculator sync)</br>
-</br>
-[HP PPL+](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-installer-universal.zip) | [HP NOTE](http://insoft.uk/action/?method=downlink&path=macos&file=hpnote-installer-universal.zip) | [GROB](http://insoft.uk/action/?method=downlink&path=macos&file=grob-installer-universal.zip) | [HP FONT](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-installer-universal.zip)</br>
 
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
