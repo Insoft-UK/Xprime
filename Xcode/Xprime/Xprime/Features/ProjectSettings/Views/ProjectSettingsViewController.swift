@@ -39,6 +39,7 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         
         librarySearchPath.delegate = self
         headerSearchPath.delegate = self
+        binSearchPath.delegate = self
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include
@@ -74,10 +75,13 @@ final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate
         switch textField.tag {
         case 1:
             ProjectSettings.shared.include = textField.stringValue
-            break;
+            
         case 2:
             ProjectSettings.shared.lib = textField.stringValue
-            break;
+            
+        case 3:
+            ProjectSettings.shared.bin = textField.stringValue
+            
         default:
             break
         }
