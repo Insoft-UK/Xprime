@@ -16,6 +16,7 @@
 # Generated files
 /assets/**   linguist-generated=true
 *.icns       linguist-generated=true
+*.json       linguist-generated=true
 *.psd        linguist-generated=true
 *.atn        linguist-generated=true
 *.grd        linguist-generated=true
