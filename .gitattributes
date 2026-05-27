@@ -53,5 +53,6 @@ postinstall  linguist-generated=true
 /Xcode/Tools/note/test/**         linguist-vendored=true
 /Xcode/Tools/note/installer/**    linguist-vendored=true
 /installer/**                     linguist-vendored=true
+/Design/**
 
 
