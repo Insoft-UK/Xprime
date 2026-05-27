@@ -9,15 +9,19 @@
 # PPL files
 *.ppl        linguist-language=PPL
 *.prgm       linguist-language=PPL
-*.hpprgm     linguist-language=PPL
-*.hpappprgm  linguist-language=PPL
 *.ppl+       linguist-language=PPL+
-*.prgm+      linguist-language=PPL+
 *.hpppl      linguist-language=PPL
 *.hppplplus  linguist-language=PPL+
 
 # Generated files
 /assets/**   linguist-generated=true
+*.icns       linguist-generated=true
+*.json       linguist-generated=true
+*.psd        linguist-generated=true
+*.atn        linguist-generated=true
+*.grd        linguist-generated=true
+*.pat        linguist-generated=true
+*.pas        linguist-generated=true
 *.sh         linguist-generated=true
 *.txt        linguist-generated=true
 *.rtf        linguist-generated=true
@@ -35,6 +39,8 @@
 *.ntf        linguist-generated=true
 *.hpnote     linguist-generated=true
 *.hpappnote  linguist-generated=true
+*.hpappprgm  linguist-generated=true
+*.hpprgm     linguist-generated=true
 *.md         linguist-generated=true
 Makefile     linguist-generated=true
 *.xprimeproj linguist-generated=true
@@ -52,5 +58,6 @@ postinstall  linguist-generated=true
 /Xcode/Tools/note/test/**         linguist-vendored=true
 /Xcode/Tools/note/installer/**    linguist-vendored=true
 /installer/**                     linguist-vendored=true
+/Design/**
 
 
