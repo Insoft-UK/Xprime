@@ -115,6 +115,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
             if url.pathExtension.lowercased() == "xprimeproj" {
                 vc.projectManager.openProject(at: url)
                 return
+            } else {
+                vc.documentManager.openDocument(at: url)
+                return
             }
         }
     }
