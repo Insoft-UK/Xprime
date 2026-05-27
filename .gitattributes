@@ -9,15 +9,13 @@
 # PPL files
 *.ppl        linguist-language=PPL
 *.prgm       linguist-language=PPL
-*.hpprgm     linguist-language=PPL
-*.hpappprgm  linguist-language=PPL
 *.ppl+       linguist-language=PPL+
-*.prgm+      linguist-language=PPL+
 *.hpppl      linguist-language=PPL
 *.hppplplus  linguist-language=PPL+
 
 # Generated files
 /assets/**   linguist-generated=true
+*.icns       linguist-generated=true
 *.sh         linguist-generated=true
 *.txt        linguist-generated=true
 *.rtf        linguist-generated=true
@@ -35,6 +33,8 @@
 *.ntf        linguist-generated=true
 *.hpnote     linguist-generated=true
 *.hpappnote  linguist-generated=true
+*.hpappprgm  linguist-generated=true
+*.hpprgm     linguist-generated=true
 *.md         linguist-generated=true
 Makefile     linguist-generated=true
 *.xprimeproj linguist-generated=true
