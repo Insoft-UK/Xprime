@@ -17,6 +17,9 @@
 /assets/**   linguist-generated=true
 *.icns       linguist-generated=true
 *.psd        linguist-generated=true
+*.atn        linguist-generated=true
+*.grd        linguist-generated=true
+*.pat        linguist-generated=true
 *.pas        linguist-generated=true
 *.sh         linguist-generated=true
 *.txt        linguist-generated=true
