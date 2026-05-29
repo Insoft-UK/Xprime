@@ -18,7 +18,14 @@ for i in range(size):
   d = int(img[0][i])
   for j in range(64 / bpp):
     c = img[2][d & m]
-    fillrect(trgtG, x + dx, y + dy, scaleX, scaleY, c, c)
+    if scaleX == 1 and scaleY == 1:
+      pixon(trgtG, x+dx, y+dy, c),0,0
+    elif scaleX == 1 and scaleY > 1:
+      line(trgtG, x+dx, y+dy, x+dx, y+dy+scaleY - 1, c)
+    elif scaleX > 1 and scaleY == 1:
+      line(trgtG, x+dx, y+dy, x+dx+scaleX-1, y+dy, c)
+    else:
+      fillrect(trgtG, x+dx, y+dy, scaleX, scaleY, c, c)
     d = d >> bpp
     x = x + scaleX
     if x == w * scaleX:
@@ -26,38 +33,14 @@ for i in range(size):
       y = y + scaleY
 #END
 
-#PYTHON IMAGE(trgtG, dx, dy, img)
-from sys import argv
-from hpprime import *
-
-trgtG = int(argv[0][1:])
-dx = int(argv[1])
-dy = int(argv[2])
-img = eval(argv[3])
-scaleX = int(argv[4])
-scaleY = int(argv[5])
-
-w = int(img[1][0]); h = int(img[1][1]); bpp = int(img[1][2])
-m = (1 << bpp) - 1; s = 64 / bpp
-x = 0; y = 0
-
-size = len(img[0])
-for i in range(size):
-  d = int(img[0][i])
-  for j in range(64 / bpp):
-    c = img[2][d & m]
-    pixon(trgtG, x+dx, y+dy, c)
-    d = d >> bpp
-    x = x + 1
-    if x == w:
-      x = 0
-      y = y + 1
-#END
+EXPORT IMAGE(trgtG, x, y, img)
+BEGIN
+  IMAGE(trgtG, x, y, img, 1, 1);
+END;
 
 EXPORT IMAGE(trgtG, img)
 BEGIN
-  DIMGROB_P(trgtG, img(2,1), img(2,2));
-  IMAGE(trgtG, 0, 0, img);
+  IMAGE(trgtG, 0, 0, img, 1, 1);
 END;
 
 EXPORT IMAGEW(I)

@@ -703,9 +703,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
+            .appendingPathComponent(projectName)
+            .appendingPathExtension("hpappprgm")
         let dirB = projectDirectoryURL
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")
+            .appendingPathComponent(projectName)
+            .appendingPathExtension("hpappprgm")
         
         if dirA.isNewer(than: dirB), ProjectSettings.shared.archiveProjectAppOnly == false {
             url = dirA.deletingLastPathComponent()
