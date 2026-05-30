@@ -23,15 +23,11 @@
 import Cocoa
 
 final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
-    @IBOutlet private weak var language: NSPopUpButton!
     @IBOutlet private weak var productName: NSTextField!
+    @IBOutlet private weak var cas: NSButton!
     
     private var vc: MainViewController!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        refreshLanguageMenu()
-    }
+
     
     override func viewDidAppear() {
         guard let window = view.window else { return }
@@ -87,43 +83,14 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
     }
     
     // MARK: - Private Helpers
-    private func refreshLanguageMenu() {
-        guard let menu = language.menu else { return }
-        for item in menu.items {
-            item.image?.size = NSSize(width: 16, height: 16)
-        }
-    }
     
     private func create(named name: String, in directoryURL: URL) {
-        guard let selectedProgramType = language.titleOfSelectedItem else { return }
-        
         do {
-            var programType: String
-            var extensionContext: String
-            
-            switch selectedProgramType {
-            case "PPL Program":
-                programType = "program~ppl"
-                extensionContext = "hpppl"
-            case "PPL+ Program":
-                programType = "program~pplplus"
-                extensionContext = "hppplplus"
-            case "CAS Program":
-                programType = "program~cas"
-                extensionContext = "hpppl"
-            case "Pascal Program":
-                programType = "program~pascal"
-                extensionContext = "pas"
-            default:
-                programType = "program~pplplus"
-                extensionContext = "hppplplus"
-            }
-            
-            let sourceURL = Bundle.main.url(forResource: programType, withExtension: extensionContext)
+            let sourceURL = Bundle.main.url(forResource: cas.state == .on ? "program~cas" : "program", withExtension: "hpppl")
             let destinationURL = directoryURL
                 .appendingPathComponent(name)
                 .appendingPathComponent("main")
-                .appendingPathExtension(extensionContext)
+                .appendingPathExtension("hpppl")
             
             guard let sourceURL else { return }
             
@@ -147,7 +114,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
                 )
             }
             
-            if let url = Bundle.main.url(forResource: extensionContext, withExtension: "xprimeproj") {
+            if let url = Bundle.main.url(forResource: "default", withExtension: "xprimeproj") {
                 try FileManager.default.copyItem(
                     at: url,
                     to: directoryURL

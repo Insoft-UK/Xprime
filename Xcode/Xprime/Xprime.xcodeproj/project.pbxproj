@@ -30,9 +30,6 @@
 			exceptions = (
 				1351590A2EA1989400EEDF1C /* Exceptions for "Xprime" folder in "Xprime" target */,
 			);
-			explicitFileTypes = {
-				"Resources/program~pascal.pas" = text;
-			};
 			explicitFolders = (
 				Resources/Developer,
 				Resources/Grammars,
@@ -326,7 +323,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260529;
+				CURRENT_PROJECT_VERSION = 20260530;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;
@@ -388,7 +385,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20260529;
+				CURRENT_PROJECT_VERSION = 20260530;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readwrite;

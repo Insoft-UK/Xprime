@@ -608,7 +608,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         for main in [
             "main.hpppl",
             "main.hppplplus",
-            "main.pas"
+            "main.pas",
+            "\(projectManager.projectName!).hpappdir/main.py",
+            
         ] {
             let url = directoryURL
                 .appendingPathComponent(main)
@@ -683,6 +685,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         noteToHpNote(in: url)
         
+        if sourceURL.pathExtension == "py" {
+            return
+        }
         let result = HPServices.preProccess(at: sourceURL, to: url
             .appendingPathComponent(projectName)
             .appendingPathExtension("hpappdir")

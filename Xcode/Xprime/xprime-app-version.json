@@ -1,6 +1,6 @@
 {
-    "latestVersion": "27.0.20260527",
-    "build": "20260527",
+    "latestVersion": "27.0.20260529",
+    "build": "20260529",
     "downloadURL": "http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip",
     "minimumOS": "26.0",
     "architecture": "universal",
