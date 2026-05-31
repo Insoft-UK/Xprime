@@ -16,7 +16,7 @@ BEGIN
   RETURN IP((evt(2) / 53.3333) + 1);
 END;
 
-EXPORT $(PROJECT_NAME)()
+EXPORT $(PROJECT_NAME)():=()
 BEGIN
   LOCAL evt, key, menu;
   Draw();

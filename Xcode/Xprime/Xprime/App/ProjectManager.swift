@@ -48,6 +48,7 @@ fileprivate struct Project: Codable {
     let language: String
     let archiveProjectAppOnly: Bool
     let plainFallbackText: Bool
+    let includeProgramName: Bool
 }
 
 final class ProjectManager {
@@ -155,7 +156,8 @@ final class ProjectManager {
                     bin: ProjectSettings.shared.bin,
                     language: ProjectSettings.shared.language,
                     archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
-                    plainFallbackText: ProjectSettings.shared.plainFallbackText
+                    plainFallbackText: ProjectSettings.shared.plainFallbackText,
+                    includeProgramName: ProjectSettings.shared.includeProgramName
                 )
             }
         } else {
@@ -171,7 +173,7 @@ final class ProjectManager {
         ProjectSettings.shared.language = project.language
         ProjectSettings.shared.archiveProjectAppOnly = project.archiveProjectAppOnly
         ProjectSettings.shared.plainFallbackText = project.plainFallbackText
-        
+        ProjectSettings.shared.includeProgramName = project.includeProgramName
         
         projectDirectoryURL = url.deletingLastPathComponent()
         Settings.shared.lastOpenedProjectFile = url.path
@@ -212,7 +214,8 @@ final class ProjectManager {
             bin: ProjectSettings.shared.bin,
             language: ProjectSettings.shared.language,
             archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
-            plainFallbackText: ProjectSettings.shared.plainFallbackText
+            plainFallbackText: ProjectSettings.shared.plainFallbackText,
+            includeProgramName: ProjectSettings.shared.includeProgramName
         )
         do {
             let encoder = JSONEncoder()
@@ -291,8 +294,9 @@ final class ProjectManager {
         ProjectSettings.shared.compression = false
         ProjectSettings.shared.include = "$(SDKROOT)/include"
         ProjectSettings.shared.lib = "$(SDKROOT)/lib"
-        ProjectSettings.shared.bin = "/usr/local/bin"
+        ProjectSettings.shared.bin = "$(SDKROOT)/bin"
         ProjectSettings.shared.archiveProjectAppOnly = true
         ProjectSettings.shared.plainFallbackText = true
+        ProjectSettings.shared.includeProgramName = true
     }
 }

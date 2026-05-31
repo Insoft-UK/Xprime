@@ -105,15 +105,6 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
                 newName: name
             )
             
-            if let url = Bundle.main.url(forResource: "info", withExtension: "ntf") {
-                try FileManager.default.copyItem(
-                    at: url,
-                    to: directoryURL
-                        .appendingPathComponent(name)
-                        .appendingPathComponent("info.ntf")
-                )
-            }
-            
             if let url = Bundle.main.url(forResource: "default", withExtension: "xprimeproj") {
                 try FileManager.default.copyItem(
                     at: url,
@@ -143,7 +134,7 @@ final class NewProgramViewController: NSViewController, NSTextFieldDelegate, NSC
 
         // Replace placeholder
         let updatedContents = contents.replacingOccurrences(
-            of: "$(PRODUCT_NAME)",
+            of: "$(PROJECT_NAME)",
             with: newName.replacingOccurrences(of: " ", with: "_")
         )
 

@@ -35,7 +35,7 @@ BEGIN
   RETURN IP((event.x / \`320 / 6`:4) + 1);
 END;
 
-EXPORT $(PRODUCT_NAME)()
+EXPORT $(PROJECT_NAME)()
 BEGIN
   LOCAL event, key, menu;
   DICTIONARY Event event;

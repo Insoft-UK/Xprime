@@ -1,4 +1,4 @@
-program $(PRODUCT_NAME);
+program $(PROJECT_NAME);
   var state: integer;
   
   interface

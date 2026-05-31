@@ -5,5 +5,6 @@
   "bin" : "$(SDKROOT)\/bin",
   "language" : "hpppl",
   "archiveProjectAppOnly" : true,
+  "includeProgramName" : true,
   "plainFallbackText" : true
 }

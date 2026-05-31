@@ -121,12 +121,12 @@ final class NewApplicationViewController: NSViewController, NSTextFieldDelegate,
                 to: destinationURL
             )
             
-            if let url = Bundle.main.url(forResource: "info", withExtension: "ntf") {
+            if let url = Bundle.main.url(forResource: "info", withExtension: "note") {
                 try FileManager.default.copyItem(
                     at: url,
                     to: directoryURL
                         .appendingPathComponent(name)
-                        .appendingPathComponent("info.ntf")
+                        .appendingPathComponent("info.note")
                 )
             }
             

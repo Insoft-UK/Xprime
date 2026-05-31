@@ -3,7 +3,8 @@
   "include" : "$(SDKROOT)\/include",
   "lib" : "$(SDKROOT)\/lib",
   "bin" : "$(SDKROOT)\/bin",
-  "language" : "py",
+  "language" : "hpppl",
   "archiveProjectAppOnly" : true,
+  "includeProgramName" : true,
   "plainFallbackText" : true
 }

@@ -123,10 +123,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         updateManager.checkForAvaliableUpdates()
     }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+//    
+//    deinit {
+//        NotificationCenter.default.removeObserver(self)
+//    }
     
     // MARK: - Setup
     private func setupEditor() {
@@ -1594,26 +1594,12 @@ extension MainViewController: DocumentManagerDelegate {
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
         
-//        let ext = (documentManager.currentDocumentURL != nil) ? documentManager.currentDocumentURL!.pathExtension.lowercased() : ""
-        
-        
+
         if let menu = NSApp.mainMenu {
             if let item = menu.item(withTitle: "Window")?.submenu?.item(withTitle: projectManager.projectName!) {
                 item.image = projectManager.projectIcon
                 item.image?.size = NSSize(width: 16, height: 16)
             }
-            
-//            if let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Template") {
-//                item.isEnabled = ext == ".hpppl" || ext == ".hppplplus" || ext == ".hpppl+" ? true : false
-//            }
-//            
-//            if let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Snippets") {
-//                item.isEnabled = ext == ".hpppl" || ext == ".hppplplus" || ext == ".hpppl+" ? true : false
-//            }
-//            
-//            if let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Stubs") {
-//                item.isEnabled = ext == ".py" ? true : false
-//            }
         }
     }
     

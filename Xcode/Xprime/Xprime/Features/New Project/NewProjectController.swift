@@ -117,12 +117,12 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
                 if FileManager.default.fileExists(atPath: url.appendingPathExtension("png").path) {
                     let icon = NSImage(contentsOf: url.appendingPathExtension("png"))?.copy() as! NSImage
                     to.items.last?.image = icon
-                    to.items.last?.image?.size = NSSize(width: 18, height: 18)
+                    to.items.last?.image?.size = NSSize(width: 24, height: 24)
                 } else {
                     if FileManager.default.fileExists(atPath: url.appendingPathComponent("Template.hpappdir/icon.png").path) {
                         let icon = NSImage(contentsOf: url.appendingPathComponent("Template.hpappdir/icon.png"))?.copy() as! NSImage
                         to.items.last?.image = icon
-                        to.items.last?.image?.size = NSSize(width: 18, height: 18)
+                        to.items.last?.image?.size = NSSize(width: 24, height: 24)
                     }
                 }
                 
@@ -156,7 +156,7 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
             )
             
             contents?.forEach { url in
-                let lastPathComponent = url.lastPathComponent.replacingOccurrences(of: "Template", with: name)
+                let lastPathComponent = url.lastPathComponent.replacingOccurrences(of: "$(PROJECT_NAME)", with: name)
                 
                 if url.isDirectory {
                     try? FileManager.default.createDirectory(at: to.appendingPathComponent(lastPathComponent), withIntermediateDirectories: true)
