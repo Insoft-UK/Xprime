@@ -1,9 +1,0 @@
-Syntax:
-variable := object
-
-Assigns object to variable.
-
-Example:
-A := 3 stores the value 3 in the variable A
-F1 := 3-X makes F1(X)=3-X
-M5 := [1, 2] stores a vector in M5

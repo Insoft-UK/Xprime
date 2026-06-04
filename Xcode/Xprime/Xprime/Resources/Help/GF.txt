@@ -1,7 +1,0 @@
-Syntax:
-GF(Intg(p), Intg(n))
-
-Creates a Galois Field of characteristic p with p^n elements.
-
-Example:
-GF(5,9) returns GF(5,k^9-k^8+2*k^7+2*k^5-k^2+2*k-2,[k,K,g],undef)

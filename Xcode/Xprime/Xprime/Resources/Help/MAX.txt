@@ -1,7 +1,0 @@
-Syntax:
-MAX(value1,[value2],[..value16])
-
-Maximum. Returns the greatest of the values given, or the greatest value of a list.
-
-Example:
-MAX(210,25) returns 210 and MAX({1, 8, 2}) returns 8

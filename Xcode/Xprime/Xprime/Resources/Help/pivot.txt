@@ -1,7 +1,0 @@
-Syntax:
-pivot(Mtrx(A),Intg(nl),Intg(nc))
-
-Returns the matrix from A creating zeros in the column nc, by the method of Gauss-Jordan with the element A[nl,nc] as pivot.
-
-Example:
-pivot([[1,2],[3,4],[5,6]],0,1) returns [[1,2],[0,-2],[0,-4]]

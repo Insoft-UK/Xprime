@@ -1,4 +1,0 @@
-Syntax:
-common_perpendicular(Line(D1),Line(D2))
-
-Draws the common perpendicular of the lines D1 and D2.

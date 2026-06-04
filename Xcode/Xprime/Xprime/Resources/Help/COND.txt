@@ -1,7 +1,0 @@
-Syntax:
-COND(matrix)
-
-Condition Number. Finds the 1-norm (column norm) of a square matrix.
-
-Example:
-COND([[1,2],[3,4]]) returns 21

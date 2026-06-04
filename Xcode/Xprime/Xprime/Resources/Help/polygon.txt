@@ -1,7 +1,0 @@
-Syntax:
-polygon(Point1, Point2, …, Pointn)
-
-Draws a polygon from a set of vertices.
-
-Example:
-polygon(GA, GB, GD) draws ΔABD

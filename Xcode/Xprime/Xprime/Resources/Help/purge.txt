@@ -1,4 +1,0 @@
-Syntax:
-purge(Var)
-
-purge(varname) unassigns the variable varname

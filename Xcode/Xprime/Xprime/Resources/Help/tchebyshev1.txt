@@ -1,7 +1,0 @@
-Syntax:
-tchebyshev1(Integer))
-
-Returns the nth Tchebyshev polynomial of the first kind.
-
-Example:
-tchebyshev1(3) returns 4*x^3-3*x

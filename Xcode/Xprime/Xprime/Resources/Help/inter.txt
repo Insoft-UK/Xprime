@@ -1,7 +1,0 @@
-Syntax:
-inter(Curve1, Curve2)
-
-Returns the intersections of two curves as a vector.
-
-Example:
-inter(8-x^2/6, x/2-1) returns [[6, 2] [-9, -11/2]], indicating that there are two intersections-one at (6,2) and the other at (-9,-5.5).

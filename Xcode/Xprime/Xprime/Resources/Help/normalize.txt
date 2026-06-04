@@ -1,7 +1,0 @@
-Syntax:
-normalize(Lst||Cplx)
-
-Returns the vector divided by its l2norm. It is also an option for plotfield.
-
-Example:
-normalize(3+4*i) returns (3+4*i)/5

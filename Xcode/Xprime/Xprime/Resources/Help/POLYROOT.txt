@@ -1,7 +1,0 @@
-Syntax:
-POLYROOT(vector)
-
-Polynomial roots. Returns the roots for the polynomial whose coefficients are specified in vector.
-
-Example:
-POLYROOT([1, 0, -1]) returns {-1, 1}

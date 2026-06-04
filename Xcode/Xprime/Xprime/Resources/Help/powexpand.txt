@@ -1,7 +1,0 @@
-Syntax:
-powexpand(Expr)
-
-Expresses a power in the form of a product.
-
-Example:
-powexpand(2^(x+y)) yields (2^x)*(2^y)

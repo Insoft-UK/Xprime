@@ -1,7 +1,0 @@
-Syntax:
-has(Expr,Var)
-
-Checks if a variable is in an expression.
-
-Example:
-has(x+y,x) returns 1

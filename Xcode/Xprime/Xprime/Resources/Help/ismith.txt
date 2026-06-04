@@ -1,7 +1,0 @@
-Syntax:
-ismith(Mtrx(A))
-
-Smith normal form of a matrix with coefficients in Z : returns U,B,V such that U and V are invertible in Z, B is the diagonal, B[i,i] divide B[i+1,i+1] and B=U*A*V.
-
-Example:
-ismith([[1,2,3],[4,5,6],[7,8,9]]) returns [[1,0,0],[4,-1,0],[-1,2,-1]],[[1,0,0],[0,3,0],[0,0,0]],[[1,-2,1],[0,1,-2],[0,0,1]]

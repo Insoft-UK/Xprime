@@ -1,7 +1,0 @@
-Syntax:
-TAN(Value)
-
-Returns the tangent of Value. Value is interpreted as either degrees or radians, depending on the setting of Angle Measure in Home Modes or Symbolic Setup.
-
-Example:
-in radians mode, TAN(0) returns 0

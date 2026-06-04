@@ -1,7 +1,0 @@
-Syntax:
-canonical_form(Trinom(a*x^2+b*x+c),[Var])
-
-Canonical form of a second degree polynomial.
-
-Example:
-canonical_form(2*x^2-12*x+1) returns 2*(x-3)^2-17

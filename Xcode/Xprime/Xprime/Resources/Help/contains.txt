@@ -1,7 +1,0 @@
-Syntax:
-contains((Lst(l) or Set(l)),Elem(e))
-
-Tests if a set contains an expression (returns the index+1 or 0).
-
-Example:
-contains(%{0,1,2,3%},2) returns 3
