@@ -19,8 +19,8 @@
 ### Requirements
 AppleSilicon or intel</br>
 **macOS 14.6** or later</br>
-[HP Prime Virtual Calculator](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Virtual_Calculator_BETA_2026_05_26.dmg)</br>
-[HP Connectivity Kit](https://updates.moravia-consulting.com/beta/macos/HP_Prime_Connectivity_Kit_BETA_20260526.dmg) (for calculator sync)</br>
+HP Prime Virtual Calculator</br>
+HP Connectivity Kit (for calculator sync)</br>
 
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
