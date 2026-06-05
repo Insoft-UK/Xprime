@@ -1,0 +1,7 @@
+Syntax:
+romberg(Expr(f(x)),Var(x),Real(a),Real(b))
+
+Uses Romberg&#39;s method to return the approximate value of the integral of the expression over the interval a to b
+
+Example:
+romberg(exp(x^2),x,0,1) returns 1.46265174591

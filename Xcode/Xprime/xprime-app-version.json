@@ -1,0 +1,8 @@
+{
+    "latestVersion": "26.5.2.20260606",
+    "build": "20260606",
+    "downloadURL": "http://insoft.uk/action/?method=downlink&path=macos&file=xprime-installer-universal.zip",
+    "minimumOS": "13.5",
+    "architecture": "universal",
+    "releaseNotesURL": "http://insoft.uk/xprime-release-notes.txt"
+}

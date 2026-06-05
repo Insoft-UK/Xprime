@@ -1,0 +1,7 @@
+Syntax:
+product(Expr||Lst,[Var||Lst],[Intg(a)],[Intg(b)],[Intg(p)])
+
+Multiplicates the values of the expression when the variable goes from a to b with a step p (product expression,var,begin,end,step) by default p=1) or product of the elements of a list or product element by element of 2 lists or matrix.
+
+Example:
+product(n,n,1,10,2) returns 945

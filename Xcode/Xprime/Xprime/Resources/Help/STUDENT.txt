@@ -1,0 +1,7 @@
+Syntax:
+STUDENT(n, x)
+
+Student’s t probability density function. Computes the probability density of the Student’s-t distribution at x, given n degrees of freedom.
+
+Example:
+STUDENT(3, 5.2) returns 0.00366574413491

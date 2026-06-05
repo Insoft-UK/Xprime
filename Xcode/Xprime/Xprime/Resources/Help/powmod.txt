@@ -1,0 +1,7 @@
+Syntax:
+powmod(a, n, p)
+
+Power and modulo. For the integers a, n, and p, returns a^n mod p.
+
+Example:
+powmod(5,2,13) returns 12

@@ -1,0 +1,7 @@
+Syntax:
+ker(Mtrx(M))
+
+Kernel of a linear application of matrix M.
+
+Example:
+ker([[1,2],[3,6]]) returns [ 2, -1 ]

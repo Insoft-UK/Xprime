@@ -1,0 +1,11 @@
+#pragma mode( separator(.,;) integer(h64) )
+
+EXPORT START()
+BEGIN
+    RETURN 0;
+END;
+
+EXPORT RESET()
+BEGIN
+    RETURN 0;
+END;

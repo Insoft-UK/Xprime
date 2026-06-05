@@ -1,0 +1,7 @@
+Syntax:
+CHISQUARE_ICDF(n, p)
+
+Inverse cumulative χ² (Chi-squared) distribution function. Returns the value x such that the χ² lower-tail probability of x, with n degrees of freedom, is p.
+
+Example:
+CHISQUARE_ICDF(2, 0.952641075609) returns 6.1

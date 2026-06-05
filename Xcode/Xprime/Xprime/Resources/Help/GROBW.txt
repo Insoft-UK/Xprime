@@ -1,0 +1,4 @@
+Syntax:
+GROBW(G)
+
+Returns the width of G.

@@ -1,0 +1,7 @@
+Syntax:
+FP(value)
+
+Returns the Fractional part of value.
+
+Example:
+FP (23.2) returns .2

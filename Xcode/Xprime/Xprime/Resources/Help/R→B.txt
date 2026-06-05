@@ -1,0 +1,7 @@
+Syntax:
+R→B(Real [, bits [,base]])
+
+Transform a real number into an integer. Optionally specifies bits and base.
+-64<Bits<65
+0<=Base<=4
+0: system, 1: bin, 2: oct, 3: dec, 4: hex

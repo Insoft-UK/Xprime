@@ -1,0 +1,111 @@
+// The MIT License (MIT)
+//
+// Copyright (c) 2025 Insoft.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the Software), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+import Cocoa
+
+
+extension NSTextView {
+    func baseAttributes(defaultFontSize: CGFloat) -> [NSAttributedString.Key: Any] {
+        let font = NSFont.systemFont(ofSize: defaultFontSize, weight: .regular)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 0
+        paragraphStyle.paragraphSpacing = 0
+        paragraphStyle.alignment = .left
+        paragraphStyle.lineHeightMultiple = 1.2
+        
+        return [
+            .font: font,
+            .foregroundColor: NSColor.textColor,
+            .kern: 0,
+            .ligature: 0,
+            .paragraphStyle: paragraphStyle
+        ]
+    }
+    
+    func highlightBold(_ searchString: String, caseInsensitive: Bool = true) {
+        guard let textStorage = self.textStorage, !searchString.isEmpty else { return }
+        
+        let nsString = textStorage.string as NSString
+        let fullRange = NSRange(location: 0, length: nsString.length)
+        
+        textStorage.beginEditing()
+        
+        // Reset fonts in full range (optional, only if needed)
+        textStorage.enumerateAttribute(.font, in: fullRange) { value, range, _ in
+            var searchRange = range
+            while true {
+                let options: NSString.CompareOptions = caseInsensitive ? [.caseInsensitive] : []
+                let foundRange = nsString.range(of: searchString, options: options, range: searchRange)
+                
+                if foundRange.location == NSNotFound { break }
+                
+                // Convert to bold preserving traits
+                if let font = textStorage.attribute(.font, at: foundRange.location, effectiveRange: nil) as? NSFont {
+                    let boldFont = NSFontManager.shared.convert(font, toHaveTrait: .boldFontMask)
+                    textStorage.addAttribute(.font, value: boldFont, range: foundRange)
+                }
+                
+                // Move search range forward
+                let nextLocation = foundRange.location + foundRange.length
+                if nextLocation >= nsString.length { break }
+                searchRange = NSRange(location: nextLocation, length: nsString.length - nextLocation)
+            }
+        }
+        
+        textStorage.endEditing()
+    }
+    
+    func applySyntaxHighlighting(theme : Theme?, syntaxPatterns: [(scope: String, pattern: String)]) {
+        guard let textStorage = textStorage, let theme = theme else { return }
+        let fullRange = NSRange(location: 0, length: textStorage.length)
+        
+        textStorage.beginEditing()
+        textStorage.setAttributes(baseAttributes(defaultFontSize: 13), range: fullRange)
+        
+        func color(for scope: String, theme: Theme) -> NSColor {
+            // Prefer token-specific color when scope matches
+            for token in theme.tokenColors {
+                if token.scope.contains(scope), let color = NSColor(hex: token.settings.foreground) {
+                    return color
+                }
+            }
+            if let foregroundHex = theme.colors["editor.foreground"], let fallback = NSColor(hex: foregroundHex) {
+                return fallback
+            }
+            // Final fallback to system text color
+            return NSColor.textColor
+        }
+        
+        for (scope, pattern) in syntaxPatterns {
+            guard let regex = try? NSRegularExpression(pattern: pattern) else { continue }
+            let color = color(for: scope, theme: theme)
+            regex.enumerateMatches(in: textStorage.string, range: fullRange) { match, _, _ in
+                if let range = match?.range {
+                    textStorage.addAttribute(.foregroundColor, value: color, range: range)
+                }
+            }
+        }
+        
+        textStorage.endEditing()
+    }
+}
+

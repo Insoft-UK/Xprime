@@ -1,0 +1,4 @@
+Syntax:
+SCALEADD(matrixname, value, row1, row2)
+
+Multiplies the specified row1 of the matrix name by value, then adds this result to the second specified row2 of the matrix matrixname.

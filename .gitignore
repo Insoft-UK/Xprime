@@ -5,7 +5,6 @@ installer
 *.app
 *.pkg
 *.dmg
-Xcode/Xprime
 Design/Icon Masters/Type/*.icns
 Design/Icon Masters/Project/*.icns
 rtf_output

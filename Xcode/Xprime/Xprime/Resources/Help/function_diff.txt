@@ -1,0 +1,7 @@
+Syntax:
+function_diff(Fnc(f))
+
+Returns the derivative function of the function f.
+
+Example:
+function_diff(sin) returns  (`x`)->cos(`x`)

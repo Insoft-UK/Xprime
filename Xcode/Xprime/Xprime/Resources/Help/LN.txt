@@ -1,0 +1,7 @@
+Syntax:
+LN(Value)
+
+Returns the natural logarithm of Value. The natural logarithm is the logarithm to the base e, Euler&#39;s number.
+
+Example:
+LN(1) returns 0

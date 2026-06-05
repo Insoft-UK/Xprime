@@ -1,0 +1,10 @@
+Syntax:
+USIMPLIFY(Value_Unitsexpr)
+
+Unit simplification.
+Simplifies Value in a complex unit expression Unitsexpr to an equivalent value in a simpler unit expression.
+
+Example:
+a Joule is defined as 1 kg*m^2/s^2. 
+
+USIMPLIFY(5_kg*m2/s2) returns 5_J

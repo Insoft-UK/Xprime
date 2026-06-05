@@ -1,0 +1,7 @@
+Syntax:
+taylor(Expr,[Var=Value],[Order])
+
+Returns the Taylor series expansion of an expression at a point or at infinity (by default, at x=0 and with relative order=5).
+
+Example:
+taylor(sin(x)/x,x=0) returns 1-(1/6)*x^2+(1/120)*x^4+x^6*order_size(x)

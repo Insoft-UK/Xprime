@@ -1,0 +1,7 @@
+Syntax:
+POISSON_ICDF(μ, p)
+
+Inverse cumulative poisson distribution function. Returns the value x such that the probability of x or fewer occurrences of an event in a time interval, with μ expected (or mean) occurrences of the event in the interval, is p.
+
+Example:
+POISSON_ICDF(4, 0.238103305554) returns 2

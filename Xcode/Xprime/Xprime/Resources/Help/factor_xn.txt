@@ -1,0 +1,7 @@
+Syntax:
+factor_xn(Poly)
+
+Factorizes x^n in P\the polynomial Poly (n=degree of polynomial P).
+
+Example:
+factor_xn(x^4-1) returns x^4*(1-x^-4)

@@ -1,0 +1,7 @@
+Syntax:
+revlist(Lst(l))
+
+Returns the list l in reverse order
+
+Example:
+revlist([1,2,3]) returns [3,2,1]

@@ -1,0 +1,7 @@
+Syntax:
+format(Real,Str("f4"||"s5"||"e6"))
+
+Transforms the real into a string with the indicated format (f=float,s=scientific,e=engineering).
+
+Example:
+format(9.3456,"s3") returns 9.35

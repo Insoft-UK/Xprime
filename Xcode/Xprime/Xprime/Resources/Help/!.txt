@@ -1,0 +1,7 @@
+Syntax:
+value!
+
+Factorial. Returns the factorial of a positive integer. For non-integers, ! = Γ(x + 1). This calculates the Gamma function.
+
+Example:
+6! returns 720

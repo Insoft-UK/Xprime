@@ -1,0 +1,4 @@
+Syntax:
+plotlist(Lst(l)||Mtrx(M))
+
+Draws a polygonal line through the points of abscissa 0,...,n and ordinate l=[y0,...,yn] or the line through the points of abscissa in the first M column and the ordinates in the second column.
