@@ -18,7 +18,9 @@ INCLUDES := \
 
 SRC := src/*.cpp
 
-all:
+all: arm64 x86_64 universal
+
+native:
 	mkdir -p build
 	$(CXX) -arch $(ARCH) $(CXXFLAGS) \
 		$(INCLUDES) \
@@ -54,7 +56,7 @@ x86_64:
 		-o build/x86_64/$(PROJECT_NAME) \
 		$(LDFLAGS)
 
-universal: arm64 x86_64
+universal:
 	lipo -create \
 		-output build/$(PROJECT_NAME) \
 		build/arm64/$(PROJECT_NAME) \
@@ -69,4 +71,4 @@ install:
 uninstall:
 	rm -f /usr/local/bin/$(PROJECT_NAME)
 
-.PHONY: all arm64 x86_64 universal clean install uninstall
+.PHONY: all native arm64 x86_64 universal clean install uninstall
