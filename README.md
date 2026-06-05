@@ -17,8 +17,8 @@
 ***Download link:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip)</a></br>
 
 ### Requirements
-AppleSilicon or intel</br>
-**macOS 14.6** or later</br>
+Apple Silicon or intel</br>
+**macOS 13.5** or later</br>
 HP Prime Virtual Calculator</br>
 HP Connectivity Kit (for calculator sync)</br>
 [HP Prime Beta Software Downloads](https://updates.moravia-consulting.com/beta.html)
@@ -70,3 +70,5 @@ MyProgram/
 │── main.hppplplus or main.hpppl
 └── info.note
 ```
+
+***Opux:*** [Xprime 27 (Apple Silicon)](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.zip)</a></br>
