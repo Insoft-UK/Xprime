@@ -1,10 +1,10 @@
 {
-  "lib" : "$(SDKROOT)\/lib",
-  "language" : "pas",
-  "compression" : false,
-  "archiveProjectAppOnly" : true,
   "plainFallbackText" : true,
-  "bin" : "$(SDKROOT)\/bin",
+  "lib" : "$(SDKROOT)\/lib",
   "includeProgramName" : true,
-  "include" : "$(SDKROOT)\/include"
+  "include" : "$(SDKROOT)\/include",
+  "language" : "pas",
+  "bin" : "$(SDKROOT)\/bin",
+  "compression" : false,
+  "archiveProjectAppOnly" : true
 }
