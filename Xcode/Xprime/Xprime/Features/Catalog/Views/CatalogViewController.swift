@@ -68,7 +68,8 @@ final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NST
         
         do {
             let text = try String(contentsOf: txtURL, encoding: .utf8)
-            catalogHelpTextView.changeText(text)
+            catalogHelpTextView.string = text
+            catalogHelpTextView.applySyntaxHighlighting()
 
             catalogHelpTextView.highlightBold("Syntax:")
             catalogHelpTextView.highlightBold("Example:")
@@ -203,10 +204,7 @@ final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NST
         let text = textField.stringValue
         handleInput(text)
     }
-    
-//    deinit {
-//        NotificationCenter.default.removeObserver(self, name: NSControl.textDidChangeNotification, object: search)
-//    }
+
     
     @IBAction func close(_ sender: Any) {
         self.view.window?.close()

@@ -34,18 +34,16 @@ final class ThemeManager {
         self.window = window
     }
 
-    func applySavedTheme() {
-        applyTheme(named: Settings.shared.preferredTheme)
-    }
-
-    func applyTheme(named name: String) {
-        editor.loadTheme(named: name)
+    
+    func applyTheme(from url: URL) {
+        editor.loadTheme(from: url)
         guard let theme = editor.theme else { return }
 
         // Gutter
         if let scrollView = editor.enclosingScrollView, let ruler = scrollView.verticalRulerView as? LineNumberGutterView {
             ruler.gutterNumberAttributes[.foregroundColor] = NSColor(hex: theme.lineNumberRuler?["foreground"] ?? "") ?? .gray
             ruler.gutterNumberAttributes[.backgroundColor] = NSColor(hex: theme.lineNumberRuler?["background"] ?? "") ?? .clear
+            ruler.needsDisplay = true
         }
     }
 }

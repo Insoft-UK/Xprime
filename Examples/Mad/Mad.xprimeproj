@@ -1,9 +1,10 @@
 {
   "compression" : false,
-  "archiveProjectAppOnly" : true,
   "include" : "$(SDKROOT)\/include",
-  "plainFallbackText" : true,
+  "lib" : "$(SDKROOT)\/lib",
   "bin" : "$(SDKROOT)\/bin",
-  "language" : "hppplplus",
-  "lib" : "$(SDKROOT)\/lib"
+  "includeProgramName" : true,
+  "archiveProjectAppOnly" : true,
+  "plainFallbackText" : true,
+  "language" : "py"
 }

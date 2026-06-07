@@ -180,7 +180,7 @@ final class CodeEditorTextView: NSTextView {
     
     private func commonInit() {
         setupEditor()
-        loadTheme(named: Settings.shared.preferredTheme)
+        loadTheme(from: URL(fileURLWithPath: Settings.shared.preferredTheme))
         loadGrammar(named: ".hppplplus")
         
         let url = defaultWorkingDirectoryURL
@@ -349,8 +349,8 @@ final class CodeEditorTextView: NSTextView {
         syntaxHighlighter.highlight(textView: self, grammar: grammar, baseAttributes: baseAttributes(), colors: colors, defaultColor: editorForegroundColor)
     }
     
-    func loadTheme(named name: String) {
-        if let theme = ThemeLoader.shared.loadTheme(named: name) {
+    func loadTheme(from url: URL) {
+        if let theme = ThemeLoader.shared.loadTheme(from: url) {
             self.theme = theme
             EditorThemeApplier.apply(theme, to: self)
             applySyntaxHighlighting()

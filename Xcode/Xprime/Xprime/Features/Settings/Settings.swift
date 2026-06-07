@@ -51,7 +51,7 @@ final class Settings {
     @UserDefault(key: "SubstitutionEnabled", defaultValue: false)
     var substitutionEnabled: Bool
     
-    @UserDefault(key: "PreferredTheme", defaultValue: "Default (Dark)")
+    @UserDefault(key: "PreferredTheme", defaultValue: Bundle.main.resourceURL!.appendingPathComponent("HP Connectivity Kit (Dark).xpcolortheme").path)
     var preferredTheme: String
     
     @UserDefault(key: DefaultsKey.lastOpenedFile, defaultValue: "")

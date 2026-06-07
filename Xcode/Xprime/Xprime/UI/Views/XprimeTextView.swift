@@ -109,7 +109,7 @@ class XprimeTextView: NSTextView {
     // MARK: - Private Methods
     
     private func setupEditor() {
-        theme = ThemeLoader.shared.loadTheme(named: Settings.shared.preferredTheme)
+        theme = ThemeLoader.shared.loadTheme(from: URL(fileURLWithPath: Settings.shared.preferredTheme))
         grammar = GrammarLoader.shared.loadGrammar(named: ".txt")
         
         configureTextViewAppearance()
@@ -121,8 +121,9 @@ class XprimeTextView: NSTextView {
     }
     
     private func configureTextViewAppearance() {
-        font = NSFont.monospacedSystemFont(ofSize: CGFloat(theme?.pointSize ?? 12), weight: .regular)
+        font = NSFont.monospacedSystemFont(ofSize: CGFloat(theme?.pointSize ?? 13), weight: .regular)
         backgroundColor = NSColor(hex: theme.colors["editor.background"]!)!
+        textColor = NSColor(hex: theme.colors["editor.foreground"]!)!
         isRichText = false
     }
     

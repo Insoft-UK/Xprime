@@ -80,8 +80,7 @@ final class EditorThemeApplier {
             editor.weight = .regular
         }
         
-        
-        editor.font = .monospacedSystemFont(ofSize: 12 , weight: editor.weight)
+        editor.font = .monospacedSystemFont(ofSize: 13 , weight: editor.weight)
         
 
         editor.colors["Functions"] = color(for: "Functions")

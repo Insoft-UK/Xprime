@@ -43,6 +43,7 @@ final class LineNumberGutterView: NSRulerView {
         fatalError("init(coder:) has not been implemented")
     }
 
+
     private func registerObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateLines),
@@ -57,7 +58,7 @@ final class LineNumberGutterView: NSRulerView {
         textView?.enclosingScrollView?.contentView.postsBoundsChangedNotifications = true
     }
 
-    @objc func updateLines() {
+    @objc private func updateLines() {
         needsDisplay = true
     }
 

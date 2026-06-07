@@ -99,8 +99,11 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     }
     
     @objc private func handleThemeSelection(_ sender: NSMenuItem) {
-        Settings.shared.preferredTheme = sender.title
-        vc.themeManager.applySavedTheme()
+        guard let url = sender.representedObject as? URL else {
+            return
+        }
+        Settings.shared.preferredTheme = url.path
+        vc.themeManager.applyTheme(from: url)
     }
     
     
@@ -116,7 +119,7 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     @IBAction func defaultSettings(_ sender: Any) {
         Settings.shared.substitutionEnabled = false
         Settings.shared.useBetaApplications = false
-        Settings.shared.preferredTheme = "Default"
+        Settings.shared.preferredTheme = Bundle.main.resourceURL!.appendingPathComponent("HP Connectivity Kit.xpcolortheme").path
         Settings.shared.workingDirectory = FileManager
             .default
             .homeDirectoryForCurrentUser
@@ -125,29 +128,22 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
         
         location.stringValue = Settings.shared.workingDirectory
         substitution.state = .off
-        theme.selectItem(withTitle: Settings.shared.preferredTheme)
+        
+        let url = URL(fileURLWithPath: Settings.shared.preferredTheme)
+        theme.selectItem(withTitle: url.deletingPathExtension().lastPathComponent)
         useBetaApplications.state = .off
-        vc.themeManager.applySavedTheme()
+        
+        vc.themeManager.applyTheme(from: url)
     }
     
     // MARK: - Private Helpers
     private func configureThemeSelection() {
-        propulateThemeSelection(from: defaultWorkingDirectoryURL.appendingPathComponent("Themes"))
+        populateThemeSelection(from: Bundle.main.resourceURL!)
+        theme.menu?.addItem(NSMenuItem.separator())
+        populateThemeSelection(from: defaultWorkingDirectoryURL.appendingPathComponent("Themes"))
     }
     
-    private func propulateThemeSelection(from directoryURL: URL) {
-        theme.menu?.addItem(withTitle: "Default", action: #selector(handleThemeSelection(_:)), keyEquivalent: "")
-        if let url = Bundle.main.url(
-            forResource: "default",
-            withExtension: "xpcolortheme"
-        ) {
-            theme.menu?.item(at: 0)?.representedObject = url
-            theme.menu?.item(at: 0)?.target = self
-            theme.menu?.item(at: 0)?.image = NSImage(named: "xpcolortheme")?.copy() as? NSImage
-            theme.menu?.item(at: 0)?.image?.size = NSSize(width: 24, height: 24)
-        }
-        theme.menu?.addItem(NSMenuItem.separator())
-        
+    private func populateThemeSelection(from directoryURL: URL) {
         let fileManager = FileManager.default
         
         guard let resourceURLs = try? fileManager.contentsOfDirectory(
@@ -167,25 +163,27 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
                     ) == .orderedAscending
             }
         
-        for fileURL in sortedURLs {
-            let name = fileURL.deletingPathExtension().lastPathComponent
+        for url in sortedURLs {
+//            let name = ThemeLoader.shared.loadTheme(from: url)?.name ?? url.deletingPathExtension().lastPathComponent
+            
+            let name = url.deletingPathExtension().lastPathComponent
             
             let menuItem = NSMenuItem(
                 title: name,
                 action: #selector(handleThemeSelection(_:)),
                 keyEquivalent: ""
             )
-            
-            menuItem.representedObject = fileURL
+        
+            menuItem.representedObject = url
             menuItem.target = self
-            menuItem.state = (name == Settings.shared.preferredTheme) ? .on : .off
+            menuItem.state = (name == URL(fileURLWithPath: Settings.shared.preferredTheme).deletingPathExtension().lastPathComponent) ? .on : .off
             
-            if FileManager.default.fileExists(atPath: fileURL
+            if FileManager.default.fileExists(atPath: url
                 .deletingPathExtension()
                 .appendingPathExtension("png")
                 .path
             ) {
-                menuItem.image = NSImage(byReferencing: fileURL
+                menuItem.image = NSImage(byReferencing: url
                     .deletingPathExtension()
                     .appendingPathExtension("png")
                 )
@@ -196,7 +194,8 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
             menuItem.image?.size = NSSize(width: 24, height: 24)
             theme.menu?.addItem(menuItem)
         }
-        theme.selectItem(withTitle: Settings.shared.preferredTheme)
+        
+        theme.selectItem(withTitle: URL(fileURLWithPath: Settings.shared.preferredTheme).deletingPathExtension().lastPathComponent)
         
         if theme.itemArray.isEmpty {
             theme.isEnabled = false

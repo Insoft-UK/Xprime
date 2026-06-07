@@ -98,7 +98,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                                     window: view.window)
         updateManager = UpdateManager(presenterWindow: view.window)
         
-        themeManager.applySavedTheme()
+        let url = URL(fileURLWithPath: Settings.shared.preferredTheme)
+        themeManager.applyTheme(from: url)
         registerWindowFocusObservers()
         
         let lastOpenedFile = Settings.shared.lastOpenedFile
@@ -127,10 +128,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         guard let window = view.window else { return }
         window.styleMask.insert(.resizable)
     }
-    //
-    //    deinit {
-    //        NotificationCenter.default.removeObserver(self)
-    //    }
+
     
     // MARK: - Setup
     private func setupEditor() {
@@ -1635,7 +1633,6 @@ extension MainViewController: DocumentManagerDelegate {
         previewButton.isEnabled = documentManager.currentDocumentURL?.pathExtension == "hppplplus"
         notesButton.isEnabled = documentManager.currentDocumentURL?.pathExtension == "note"
         
-        gutterView.updateLines()
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
         
