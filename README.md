@@ -25,7 +25,7 @@ HP Connectivity Kit (for calculator sync)</br>
 
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
-Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.5.2.20260606**.
+Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.5.2.20260610**.
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
