@@ -43,6 +43,10 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |^^|XOR|
 |{{|BEGIN|
 |}}|END;|
+|{*|FOR|
+|[]|FOROM|
+|->|TO|
+|-<|DOWNTO|
 |??|IF|
 |?:|THEN|
 |?!|ELSE|
