@@ -29,6 +29,34 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
+|Pattern|Text|
+|:-|:-|
+|!=|≠|
+|<>|≠|
+|>=|≥|
+|<=|≤|
+|=>|▶|
+||||OR|
+|&&|AND|
+|!!|NOT|
+|^^|XOR|
+|{{|BEGIN\n|
+|}}|END;\n|
+|??|IF|
+|?:|THEN|
+|?!|ELSE|
+|..|WHILE|
+|><|WHILE 1 DO\n|
+|>>|REPEAT\n|
+|<<|UNTIL|
+|::|CASE\n|
+|*:|DEFAULT\n|
+|**|EXPR|
+|\\&|BITAND|
+|\\||BITOR|
+|\\^|BITXOR|
+|\\~|BITNOT|
+
 ### Supported File Types
 |Type|Description|
 |:-|:-|
