@@ -70,5 +70,3 @@ MyProgram/
 │── main.hppplplus or main.hpppl
 └── info.note
 ```
-
-***Opux:*** [Xprime 27 (Apple Silicon)](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-arm64.zip)</a></br>
