@@ -54,9 +54,11 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |*:|DEFAULT|
 |**|EXPR|
 |\\&|BITAND|
-|\\||BITOR|
+|\\\||BITOR|
 |\\^|BITXOR|
 |\\~|BITNOT|
+|\\>|BITSR|
+|\\<|BITSL|
 
 >[!NOTE]
 >The `WHILE`, `REPEAT`, `UNTIL` and `WHILE 1 DO` have been changed.
