@@ -41,17 +41,17 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |&&|AND|
 |!!|NOT|
 |^^|XOR|
-|{{|BEGIN\n|
-|}}|END;\n|
+|{{|BEGIN|
+|}}|END;|
 |??|IF|
 |?:|THEN|
 |?!|ELSE|
 |..|WHILE|
-|><|WHILE 1 DO\n|
-|>>|REPEAT\n|
+|><|WHILE 1 DO|
+|>>|REPEAT|
 |<<|UNTIL|
-|::|CASE\n|
-|*:|DEFAULT\n|
+|::|CASE|
+|*:|DEFAULT|
 |**|EXPR|
 |\\&|BITAND|
 |\\||BITOR|
