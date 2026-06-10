@@ -1,5 +1,5 @@
 <img src="assets/icon.png?raw=true" width="128" /></br>
-## HP Prime Development
+## HP Prime Development Tools
 
 ### Xprime Code Editor
 - Edit your PPL or <a href="Xcode/Tools/hpppl%2B">**PPL+**</a> code for the HP Prime.
