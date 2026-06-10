@@ -87,7 +87,7 @@ final class QuickHelpViewController: NSViewController {
     
     // MARK: - View Construction
     
-    private func makeTextView(with text: String) -> XprimeTextView {
+    private func makeTextView(with text: String) -> NSTextView {
         let textStorage = NSTextStorage(string: text)
         let layoutManager = NSLayoutManager()
         let textContainer = NSTextContainer(
@@ -100,7 +100,7 @@ final class QuickHelpViewController: NSViewController {
         layoutManager.addTextContainer(textContainer)
         textStorage.addLayoutManager(layoutManager)
         
-        let textView = XprimeTextView(
+        let textView = NSTextView(
             frame: .zero,
             textContainer: textContainer
         )
@@ -191,7 +191,7 @@ final class QuickHelpViewController: NSViewController {
     
     // MARK: - Styling
     
-    private func applyHighlighting(to textView: XprimeTextView) {
+    private func applyHighlighting(to textView: NSTextView) {
         textView.applySyntaxHighlighting(
             theme: theme,
             syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar)

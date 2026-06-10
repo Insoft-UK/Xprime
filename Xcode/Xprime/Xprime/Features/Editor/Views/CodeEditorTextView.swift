@@ -482,6 +482,56 @@ final class CodeEditorTextView: NSTextView {
         super.insertText(string, replacementRange: replacementRange)
         expandSnippetIfNeeded()
     }
+    
+    
+    override func insertNewline(_ sender: Any?) {
+        guard Settings.shared.autoIndentation else {
+            super.insertNewline(sender)
+            return
+        }
+        
+        guard let textStorage = textStorage else {
+            super.insertNewline(sender)
+            return
+        }
+        
+        let cursorLocation = selectedRange().location
+        let text = textStorage.string as NSString
+        
+        // Find the start of the current line
+        let lineRange = text.lineRange(for: NSRange(location: cursorLocation, length: 0))
+        let lineText = text.substring(with: NSRange(
+            location: lineRange.location,
+            length: min(cursorLocation - lineRange.location, lineRange.length)
+        ))
+        
+        
+        
+        // Extract leading whitespace
+        var indentation = String(lineText.prefix { $0 == " " || $0 == "\t" })
+        
+        
+        //
+        let indentWidth = 2
+        let trimmedLine = lineText.trimmingCharacters(in: .whitespaces).lowercased()
+        let increaseIndentKeywords = ["begin", "if", "then", "do", "repeat", "else"]
+        let dedentKeywords = ["end", "until"]
+        
+        if increaseIndentKeywords.contains(where: { trimmedLine.hasSuffix($0) }) {
+            indentation += String(repeating: " ", count: indentWidth)
+        }
+        
+        if dedentKeywords.contains(where: { trimmedLine.hasPrefix($0) }) {
+            if indentation.count >= indentWidth {
+                indentation.removeLast(indentWidth)
+            }
+        }
+        
+        //
+        // Insert newline + indentation
+        insertText("\n" + indentation, replacementRange: selectedRange())
+    }
+    
 
     // MARK: - MouseDown Event Handler
   

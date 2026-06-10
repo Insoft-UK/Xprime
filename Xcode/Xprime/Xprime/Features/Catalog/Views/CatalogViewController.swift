@@ -183,7 +183,7 @@ final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NST
                     menuItem.image = NSImage(named: "Code")?.copy() as? NSImage
                 }
                 
-                menuItem.image?.size = NSSize(width: 18, height: 18)
+                menuItem.image?.size = iconSize.small
                 menuItem.representedObject = url as NSURL
                 menu.addItem(menuItem)
             }

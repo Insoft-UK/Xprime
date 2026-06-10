@@ -31,7 +31,7 @@ final class CustomTextFieldCell: NSTextFieldCell {
     override func titleRect(forBounds rect: NSRect) -> NSRect {
         var titleRect = super.titleRect(forBounds: rect)
         guard let font = self.font else { return titleRect }
-
+        
       
         let baselineOffset = floor((rect.height - font.ascender - (-font.descender)) * 0.5)
         titleRect.origin.y = rect.origin.y + baselineOffset

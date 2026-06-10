@@ -23,7 +23,7 @@
 import Cocoa
 import WebKit
 
-final class NotesViewController: NSViewController {
+final class NotesViewController: CustomViewController {
     @IBOutlet weak var html: WKWebView!
     private var vc: MainViewController!
     
@@ -37,18 +37,24 @@ final class NotesViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
+
+        view.window?.level = .modalPanel
     
         guard let window = NSApplication.shared.windows.first else {
             self.view.window?.close(); return
         }
         vc = window.contentViewController as? MainViewController
+       
+        loadHTMLString()
+    }
+    
+    func refresh() {
         loadHTMLString()
     }
     
     private func loadHTMLString() {
-        guard let url = vc.documentManager.currentDocumentURL    else { return }
-        vc.documentManager.saveDocument()
-        
+        guard let url = vc.projectManager.projectDirectoryURL?.appendingPathComponent("info.note")    else { return }
+
         let executable = URL(fileURLWithPath: ToolchainPaths.bin)
             .appendingPathComponent("hpnote")
         let result = ProcessRunner.run(executable: executable, arguments: [url.path, "--html", "-o", "/dev/stdout"])
@@ -66,7 +72,7 @@ final class NotesViewController: NSViewController {
               </head>
               <body>
                 <h1>Failed to generate HTML</h1>
-                <p>Please check that <code>info.ntf</code> exists and the toolchain is configured.</p>
+                <p>Please check that <code>info.note</code> exists and the toolchain is configured.</p>
               </body>
             </html>
             """

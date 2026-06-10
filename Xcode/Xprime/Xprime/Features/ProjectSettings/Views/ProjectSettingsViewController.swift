@@ -54,6 +54,13 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
         window.isMovableByWindowBackground = false
         window.isMovable = false
         
+        DispatchQueue.main.async {
+            if let editor = window.fieldEditor(false, for: self.headerSearchPath) as? NSTextView {
+                let end = self.headerSearchPath.stringValue.count
+                editor.selectedRange = NSRange(location: end, length: 0)
+            }
+        }
+        
         guard let window = NSApplication.shared.windows.first else {
             self.view.window?.close(); return
         }

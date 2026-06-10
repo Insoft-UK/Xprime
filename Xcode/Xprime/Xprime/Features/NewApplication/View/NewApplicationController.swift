@@ -23,8 +23,8 @@
 import Cocoa
 
 final class NewApplicationViewController: CustomViewController, NSTextFieldDelegate, NSComboBoxDelegate {
-    @IBOutlet private weak var baseApplication: NSPopUpButton!
     @IBOutlet private weak var productName: NSTextField!
+    @IBOutlet private weak var baseApplication: NSPopUpButton!
     
     private var vc: MainViewController!
     
@@ -38,6 +38,13 @@ final class NewApplicationViewController: CustomViewController, NSTextFieldDeleg
         
         guard let window = view.window else { return }
         window.center()
+        
+        DispatchQueue.main.async {
+            if let editor = window.fieldEditor(false, for: self.productName) as? NSTextView {
+                let end = self.productName.stringValue.count
+                editor.selectedRange = NSRange(location: end, length: 0)
+            }
+        }
         
         guard let window = NSApplication.shared.windows.first else {
             self.view.window?.close(); return
@@ -82,7 +89,7 @@ final class NewApplicationViewController: CustomViewController, NSTextFieldDeleg
     private func refreshBaseApplicationMenu() {
         guard let menu = baseApplication.menu else { return }
         for item in menu.items {
-            item.image?.size = NSSize(width: 16, height: 16)
+            item.image?.size = iconSize.tiny
         }
     }
     

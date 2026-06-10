@@ -1,0 +1,72 @@
+// The MIT License (MIT)
+//
+// Copyright (c) 2025-2026 Insoft.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the Software), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+import Cocoa
+
+extension NSViewController {
+
+    func showPopover(
+        from sender: NSButton,
+        withIdentifier identifier: String
+    ) {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+
+        guard let vc = storyboard.instantiateController(
+            withIdentifier: identifier
+        ) as? NSViewController else {
+            return
+        }
+
+        let popover = NSPopover()
+        popover.behavior = .transient
+        popover.contentViewController = vc
+
+        popover.show(
+            relativeTo: sender.bounds,
+            of: sender,
+            preferredEdge: .maxY
+        )
+    }
+
+    @discardableResult
+    func showWindow(
+        from sender: NSButton,
+        withIdentifier identifier: String
+    ) -> NSWindow? {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+
+        guard let vc = storyboard.instantiateController(
+            withIdentifier: identifier
+        ) as? NSViewController else {
+            return nil
+        }
+
+        let window = NSWindow(contentViewController: vc)
+
+        window.title = vc.title ?? ""
+        window.center()
+        window.makeKeyAndOrderFront(nil)
+        
+        return window
+    }
+}
+

@@ -40,6 +40,7 @@ open class CustomTextField: NSTextField {
 //        }
 //    }
     
+    
     private func installCenteredCellIfNeeded() {
         // Replace default cell with our vertically-centering cell, preserving properties
         guard !(self.cell is CustomTextFieldCell) else { return }
@@ -69,6 +70,7 @@ open class CustomTextField: NSTextField {
             layer.cornerRadius = 4.5
             layer.borderWidth = 1
             layer.borderColor = .init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.25)
+            layer.backgroundColor = .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.25)
         }
         needsDisplay = true
     }

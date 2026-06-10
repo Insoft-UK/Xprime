@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        background: #000;
+        font-family: "Arial", monospace;
+        display: flex;
+        justify-content: center;
+    }
+    .notes {
+        width: 320px;
+        height: 240px;
+        background: white;
+    }
+    .titlebar {
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        color: white;
+        font-size: 12px;
+        background:
+            linear-gradient(
+            to bottom,
+            #2a6ebd 0%,
+            #2550a0 50%,
+            #1b60c9 100%
+            );
+        border-bottom: 1px solid #000;
+    }
+    .document {
+        width: 320px;
+        height: 200px;
+        white-space: nowrap;
+        overflow: auto;
+        box-sizing: border-box;
+        white-space: nowrap;
+        padding-left: 1px;
+        padding-right: 1px;
+        line-height: 0;
+    }
+    .menubar {
+        display: flex;
+        gap: 1px;
+        padding: 0px;
+    }
+    .button {
+        min-width: 53px;
+        height: 20px;
+
+        border-radius: 3px;
+        border: 1px solid #666;
+
+        background:
+            linear-gradient(
+                to bottom,
+                #5f5f5f 0%,
+                #383838 50%,
+                #161616 100%
+            );
+
+        color: white;
+        font-size: 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        box-shadow:
+            inset 0 1px 1px rgba(255,255,255,.25),
+            inset 0 -1px 1px rgba(0,0,0,.5);
+    }
+    .button.double {
+        width: 105px;
+    }
+    .button.menu {
+        border-radius: 0px 0px 3px 3px;
+    }
+    .button.bevels {
+        clip-path: polygon(
+            3px 0,
+            calc(100% - 3px) 0,
+            100% 3px,
+            100% calc(100% - 3px),
+            calc(100% - 3px) 100%,
+            3px 100%,
+            0 calc(100% - 3px),
+            0 3px
+        );
+    }
+    .button.beveled {
+        clip-path: polygon(
+            4px 0,
+            100% 0,
+            100% 100%,
+            0 100%,
+            0 4px
+        );
+    }
+   
+    .li0::before {
+        display: inline-block;
+    }
+    .li1::before {
+        content: '•';
+        padding-left: 4px;
+        padding-right: 8px;
+        line-height: 100%;
+    }
+    .li2::before {
+        content: '◦';
+        padding-left: 20px;
+        padding-right: 8px;
+        line-height: 100%;
+    }
+    .li3::before {
+        content: '▻';
+        padding-left: 36px;
+        padding-right: 8px;
+        line-height: 100%;
+    }
+</style>
+</head>
+<body>
+    <div class="notes">
+        <div class="titlebar">
+            Notes
+        </div>
+        <div class="document">
+            <div style="display: flex;justify-content: flex-start;">
+<span style="font-size: 14px;line-height: 16px;">a</span>
+</div>
+<div style="display: flex;justify-content: flex-start;">
+<span style="font-size: 14px;line-height: 16px;">b</span>
+</div>
+<div style="display: flex;justify-content: flex-start;">
+<span style="font-size: 14px;line-height: 16px;">c</span>
+</div>
+
+        </div>
+        <div class="menubar">
+            <div class="button menu">Format</div>
+            <div class="button menu">Style</div>
+
+            <div class="button double"></div>
+
+            <div class="button">•</div>
+            <div class="button menu">Insert</div>
+        </div>
+    </div>
+</body>
+</html>

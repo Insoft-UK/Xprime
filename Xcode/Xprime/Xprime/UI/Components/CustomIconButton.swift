@@ -134,7 +134,11 @@ final class CustomIconButton: NSButton {
 
             tinted.lockFocus()
             if isEnabled {
-                contentTintColor?.set()
+                if state == .on && !ignoreState {
+                    NSColor.systemBlue.set()
+                } else {
+                    contentTintColor?.set()
+                }
             } else {
                 NSColor.gray.set()
             }

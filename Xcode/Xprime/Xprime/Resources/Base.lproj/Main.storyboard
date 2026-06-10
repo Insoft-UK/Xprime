@@ -351,29 +351,11 @@ Gw
             <objects>
                 <viewController id="OhN-ad-pff" customClass="NewProjectViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="og1-08-uFH">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <rect key="frame" x="0.0" y="0.0" width="512" height="256"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="1" textCompletion="NO" contentType="url" translatesAutoresizingMaskIntoConstraints="NO" id="aAo-mV-xZi" customClass="CustomRoundedTextField" customModule="Xprime" customModuleProvider="target">
-                                <rect key="frame" x="205" y="200" width="185" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Project" usesSingleLineMode="YES" bezelStyle="round" id="Jr9-5E-m1J">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1e-hF-rDF">
-                                <rect key="frame" x="59" y="204" width="136" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Name" id="IKG-Ee-Kob">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ih5-1r-fOK">
-                                <rect key="frame" x="205" y="161" width="185" height="24"/>
+                                <rect key="frame" x="193" y="91" width="185" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="J8A-9U-v6M" userLabel="Items">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -382,7 +364,7 @@ Gw
                                 </popUpButtonCell>
                             </popUpButton>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jzU-Na-XJu">
-                                <rect key="frame" x="59" y="165" width="136" height="16"/>
+                                <rect key="frame" x="51" y="95" width="136" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Template" id="GkC-FO-chY">
                                     <font key="font" metaFont="system"/>
@@ -391,7 +373,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k5e-Ed-Avs">
-                                <rect key="frame" x="330" y="20" width="100" height="28"/>
+                                <rect key="frame" x="388" y="17" width="100" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="push" title="Next" bezelStyle="rounded" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pPD-EL-LOA">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -406,7 +388,7 @@ DQ
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9TU-XU-X6c">
-                                <rect key="frame" x="20" y="20" width="100" height="28"/>
+                                <rect key="frame" x="24" y="17" width="100" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zNW-H9-RhS">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -420,9 +402,27 @@ Gw
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5V4-pd-SQU">
-                                <rect key="frame" x="18" y="264" width="414" height="16"/>
+                                <rect key="frame" x="22" y="220" width="414" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Choose a template for your new project:" id="Odg-pv-g9a">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="1" textCompletion="NO" contentType="url" translatesAutoresizingMaskIntoConstraints="NO" id="aAo-mV-xZi" customClass="CustomRoundedTextField" customModule="Xprime" customModuleProvider="target">
+                                <rect key="frame" x="193" y="141" width="185" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Project" usesSingleLineMode="YES" bezelStyle="round" id="Jr9-5E-m1J">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W1e-hF-rDF">
+                                <rect key="frame" x="51" y="145" width="136" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Name" id="IKG-Ee-Kob">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1836,9 +1836,6 @@ Gw
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
                                     </button>
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mvx-wn-FSS" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
                                         <rect key="frame" x="272" y="16" width="32" height="32"/>
@@ -1863,9 +1860,15 @@ Gw
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NOe-DW-dJ5" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                        <rect key="frame" x="482" y="16" width="32" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="arrow.left.arrow.right" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aZp-vS-wwc">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </button>
                                 </subviews>
                             </customView>
@@ -1881,6 +1884,10 @@ Gw
                                 <rect key="frame" x="328" y="16" width="4" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                             </customView>
+                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JnF-6K-s0E" customClass="ToolbarSeparatorView" customModule="Xprime" customModuleProvider="target">
+                                <rect key="frame" x="454" y="16" width="4" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="VTQ-i6-i8i" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" id="0nl-dg-BfT"/>
@@ -1890,6 +1897,7 @@ Gw
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="autoIndentationButton" destination="NOe-DW-dJ5" id="gvx-Hf-whz"/>
                         <outlet property="codeEditorTextView" destination="09p-Rf-tgR" id="YQS-0U-lVp"/>
                         <outlet property="notesButton" destination="D8b-RZ-JHs" id="ija-lf-pA0"/>
                         <outlet property="outputScrollView" destination="gM6-VC-kCh" id="Cbq-VN-EFd"/>
@@ -2029,6 +2037,7 @@ Gw
         <image name="VirtualCalculator" width="32" height="32"/>
         <image name="app" catalog="system" width="15" height="14"/>
         <image name="apple.terminal" catalog="system" width="18" height="14"/>
+        <image name="arrow.left.arrow.right" catalog="system" width="16" height="17"/>
         <image name="arrow.up.forward.app" catalog="system" width="15" height="14"/>
         <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
         <image name="binoculars.fill" catalog="system" width="20" height="15"/>

@@ -22,8 +22,7 @@
 
 import Cocoa
 
-
-final class OutputTextView: XprimeTextView {
+final class OutputTextView: NSTextView {
     // minHeightConstraint: added by Jozef Dekoninck
     private var minHeightConstraint: NSLayoutConstraint?
     
@@ -41,15 +40,86 @@ final class OutputTextView: XprimeTextView {
         }
     }
     
+    
+    // MARK: - Properties
+    
+    private var theme: Theme!
+    private var grammar: Grammar!
+    
+    
     // MARK: - Initializers
+    
     override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
         super.init(frame: frameRect, textContainer: container)
+        setupEditor()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setupEditor()
         textContainerInset = NSSize(width: 5, height: 5)
         applyLineSpacingToExistingText()
+    }
+    
+    convenience init() {
+        self.init(frame: .zero, textContainer: nil)
+        setupEditor()
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setupEditor() {
+        theme = ThemeLoader.shared.loadTheme(from: URL(fileURLWithPath: Settings.shared.preferredTheme))
+        grammar = GrammarLoader.shared.loadGrammar(named: ".txt")
+        
+        configureTextViewAppearance()
+        configureTextContainer()
+        configureScrollView()
+        configureTypingAttributes()
+        configureBehavior()
+    }
+    
+    private func configureTextViewAppearance() {
+        font = NSFont.monospacedSystemFont(ofSize: CGFloat(theme?.pointSize ?? 13), weight: .regular)
+        backgroundColor = NSColor(hex: theme.colors["editor.background"]!)!
+        textColor = NSColor(hex: theme.colors["editor.foreground"]!)!
+        isRichText = false
+    }
+    
+    private func configureTextContainer() {
+        guard let textContainer = textContainer else { return }
+        textContainer.widthTracksTextView = false
+        textContainer.containerSize = NSSize(
+            width: CGFloat.greatestFiniteMagnitude,
+            height: CGFloat.greatestFiniteMagnitude
+        )
+        textContainerInset = NSSize(width: 0, height: 0)
+    }
+    
+    private func configureScrollView() {
+        enclosingScrollView?.hasHorizontalScroller = true
+        isHorizontallyResizable = true
+        isVerticallyResizable = true
+        smartInsertDeleteEnabled = false
+    }
+    
+    private func configureTypingAttributes() {
+        typingAttributes[.kern] = 0
+        typingAttributes[.ligature] = 0
+    }
+    
+    private func configureBehavior() {
+        isEditable = false
+        isSelectable = false
+        usesFindPanel = true
+        
+        isAutomaticQuoteSubstitutionEnabled = false
+        isAutomaticDataDetectionEnabled = false
+        isAutomaticDashSubstitutionEnabled = false
+        isAutomaticLinkDetectionEnabled = false
+        isAutomaticSpellingCorrectionEnabled = false
+        isAutomaticTextReplacementEnabled = false
+        isContinuousSpellCheckingEnabled = false
     }
     
     private func applyLineSpacingToExistingText() {
@@ -65,6 +135,67 @@ final class OutputTextView: XprimeTextView {
         )
     }
     
+    // MARK: - Public Methods
+    
+    func setTheme(_ theme: Theme) {
+        self.theme = theme
+        applySyntaxHighlighting(theme: self.theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: self.grammar))
+    }
+    
+    func setGrammar(_ grammar: Grammar) {
+        self.grammar = grammar
+        applySyntaxHighlighting(theme: self.theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: self.grammar))
+    }
+    
+    func ScrollToBottom() {
+        // Force layout
+        self.layoutManager?.ensureLayout(for: self.textContainer!)
+        self.needsDisplay = true
+        
+        if let scrollView = self.enclosingScrollView {
+            scrollView.layoutSubtreeIfNeeded()
+            let bottom = NSPoint(x: 0, y: self.bounds.height - scrollView.contentView.bounds.height)
+            scrollView.contentView.scroll(to: bottom)
+            scrollView.reflectScrolledClipView(scrollView.contentView)
+        }
+    }
+    
+    func ScrollToTop() {
+        // Force layout
+        self.layoutManager?.ensureLayout(for: self.textContainer!)
+        self.needsDisplay = true
+        
+        if let scrollView = self.enclosingScrollView {
+            scrollView.layoutSubtreeIfNeeded()
+            let top = NSPoint(x: 0, y: 0)
+            scrollView.contentView.scroll(to: top)
+            scrollView.reflectScrolledClipView(scrollView.contentView)
+        }
+    }
+    
+    /// Appends text and scrolls reliably to the bottom
+    func appendTextAndScroll(_ newText: String) {
+        self.string += newText
+
+        ScrollToBottom()
+        applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
+    }
+    
+    func changeText(_ newText: String) {
+        self.string = newText
+        
+        applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
+    }
+    
+    func changeTextAndScroll(_ newText: String) {
+        self.string = newText
+        
+        ScrollToBottom()
+        applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
+    }
+    
+    
+    
     func toggleVisability(_ sender: NSButton) {
         guard let scrollView = self.enclosingScrollView else {
             return
@@ -74,15 +205,12 @@ final class OutputTextView: XprimeTextView {
         
         if shouldShow {
             show()
-            sender.contentTintColor = .systemBlue
         } else {
             hide()
-            sender.contentTintColor = .white
         }
         scrollView.updateLayer()
     }
     
-  
     func hide() {
         if let scrollView = self.enclosingScrollView {
             scrollView.isHidden = true
@@ -98,5 +226,30 @@ final class OutputTextView: XprimeTextView {
         }
         minHeightConstraint?.isActive = true
         backgroundColor = NSColor(white: 0.11, alpha: 1.0)
+    }
+    
+    private func baseAttributes() -> [NSAttributedString.Key: Any] {
+        let font = NSFont.systemFont(ofSize: CGFloat(theme?.pointSize ?? 12), weight: .regular)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 0
+        paragraphStyle.paragraphSpacing = 0
+        paragraphStyle.alignment = .left
+        
+        return [
+            .font: font,
+            .foregroundColor: NSColor.textColor,
+            .kern: 0,
+            .ligature: 0,
+            .paragraphStyle: paragraphStyle
+        ]
+    }
+    
+    private func color(for scope: String, theme: Theme) -> NSColor {
+        for token in theme.tokenColors {
+            if token.scope.contains(scope), let color = NSColor(hex: token.settings.foreground) {
+                return color
+            }
+        }
+        return .white
     }
 }

@@ -37,8 +37,6 @@ class CustomViewController: NSViewController {
         
         guard let window = view.window else { return }
         
-        // Ensure UI work happens on the main thread without spawning a new Task to avoid QoS inversions
-        
         window.isOpaque = false
         window.titleVisibility = .hidden
         window.titlebarAppearsTransparent = true

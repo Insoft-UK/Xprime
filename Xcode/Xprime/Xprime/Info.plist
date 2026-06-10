@@ -48,6 +48,7 @@
 			<key>CFBundleTypeExtensions</key>
 			<array>
 				<string>hppplplus</string>
+				<string>hpppl+</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>hppplplus</string>
@@ -82,6 +83,44 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>uk.insoft.Xprime.note</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>hpprgm</string>
+				<string>hpappprgm</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>hpprgm</string>
+			<key>CFBundleTypeName</key>
+			<string>HP Prime Program</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.insoft.Xprime.hpprgm</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>hpnote</string>
+				<string>hpappnote</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>hpnote</string>
+			<key>CFBundleTypeName</key>
+			<string>HP Prime Note</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.insoft.Xprime.hpnote</string>
 			</array>
 		</dict>
 	</array>
@@ -139,6 +178,8 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>HP PPL+</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>uk.insoft.Xprime.hppplplus</string>
 			<key>UTTypeTagSpecification</key>
@@ -146,6 +187,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>hppplplus</string>
+					<string>hpppl+</string>
 				</array>
 			</dict>
 		</dict>
@@ -163,6 +205,46 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>note</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>HP Prime Program</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>uk.insoft.Xprime.hpprgm</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>hpprgm</string>
+					<string>hpappprgm</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>HP Prime Note</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>uk.insoft.Xprime.hpnote</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>hpnote</string>
+					<string>hpappnote</string>
 				</array>
 			</dict>
 		</dict>
@@ -227,6 +309,8 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>HP Note</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>uk.insoft.Xprime.note</string>
 			<key>UTTypeTagSpecification</key>

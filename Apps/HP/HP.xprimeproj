@@ -1,10 +1,10 @@
 {
-  "plainFallbackText" : true,
   "lib" : "$(SDKROOT)\/lib",
-  "includeProgramName" : true,
+  "compression" : true,
   "include" : "$(SDKROOT)\/include",
+  "archiveProjectAppOnly" : true,
+  "plainFallbackText" : false,
   "language" : "pas",
   "bin" : "$(SDKROOT)\/bin",
-  "compression" : false,
-  "archiveProjectAppOnly" : true
+  "includeProgramName" : true
 }

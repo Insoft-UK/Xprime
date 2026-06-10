@@ -23,6 +23,12 @@
 import Cocoa
 import UniformTypeIdentifiers
 
+class iconSize {
+    static let tiny = CGSize(width: 16, height: 16)
+    static let small = CGSize(width: 18, height: 18)
+    static let big = CGSize(width: 24, height: 24)
+}
+
 @main
 class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSMenuItemValidation {
     @IBOutlet weak var mainMenu: NSMenu!
@@ -45,12 +51,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
             let directorys: [URL] = [
                 defaultWorkingDirectoryURL,
                 defaultWorkingDirectoryURL.appending(path: "Projects"),
+                defaultWorkingDirectoryURL.appending(path: "Project Templates"),
                 defaultWorkingDirectoryURL.appending(path: "Themes"),
                 defaultWorkingDirectoryURL.appending(path: "Snippets"),
                 defaultWorkingDirectoryURL.appending(path: "Stubs")
             ]
             directorys.forEach {
-                try? FileManager.default.createDirectory(at: $0, withIntermediateDirectories: true)
+                try? FileManager.default.createDirectory(
+                    at: $0,
+                    withIntermediateDirectories: true
+                )
             }
             FileManager.default.changeCurrentDirectoryPath(defaultWorkingDirectoryURL.appendingPathComponent("Projects").path)
             Settings.shared.workingDirectory = defaultWorkingDirectoryURL.path

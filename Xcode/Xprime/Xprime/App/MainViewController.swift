@@ -40,6 +40,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     @IBOutlet var previewButton: NSButton!
     @IBOutlet var notesButton: NSButton!
+    @IBOutlet var autoIndentationButton: NSButton!
+    
     
     
     // MARK: - Managers
@@ -58,7 +60,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         // Managers that don’t depend on window
         documentManager = DocumentManager(editor: codeEditorTextView, outputTextView: outputTextView)
         documentManager.delegate = self
@@ -78,7 +80,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             func setImageSize(_ menu: NSMenu) {
                 for item in menu.items {
                     if item.submenu == nil {
-                        item.image?.size = NSSize(width: 18, height: 18)
+                        item.image?.size = iconSize.small
                         continue
                     }
                     setImageSize(item.submenu!)
@@ -124,6 +126,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         }
         
         setupPopovers()
+        autoIndentationButton.state = Settings.shared.autoIndentation ? .on : .off
+        autoIndentationButton.target = self
+        autoIndentationButton.action = #selector(toggleAutoIndentation(_:))
         
         guard let window = view.window else { return }
         window.styleMask.insert(.resizable)
@@ -187,9 +192,15 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
 #if Debug
         print("Window gained focus")
 #endif
+
+        NSApp.windows.forEach {
+            if $0.contentViewController is NotesViewController {
+                ($0.contentViewController as? NotesViewController)?.refresh()
+            }
+        }
         
         refreshQuickOpenToolbar()
-        //        updateWindowDocumentIcon()
+        updateWindowDocumentIcon()
     }
     
     @objc private func windowDidResignKey() {
@@ -202,28 +213,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     // MARK: - Popover Healper
     private var popover: NSPopover?
     
-    private func showPopover(_ sender: NSButton, withIdentifier identifier: String) {
-        let storyboard = NSStoryboard(name: "Main", bundle: nil)
-        
-        guard let vc = storyboard.instantiateController(
-            withIdentifier: identifier
-        ) as? NSViewController else {
-            return
-        }
-        
-        let popover = NSPopover()
-        popover.behavior = .transient
-        popover.contentViewController = vc
-        
-        popover.show(
-            relativeTo: sender.bounds,
-            of: sender,
-            preferredEdge: .maxY
-        )
-        
-        self.popover = popover
-    }
-    
     private func setupPopovers() {
         previewButton.target = self
         previewButton.action = #selector(showPreview(_:))
@@ -233,11 +222,106 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     }
     
     @objc func showPreview(_ sender: NSButton) {
-        showPopover(sender, withIdentifier: "PreviewViewController")
+        func convertToHPPPL() {
+            if let code = generateHPPPLCode() {
+                codeEditorTextView.string = code
+                codeEditorTextView.isEditable = false
+                codeEditorTextView.applySyntaxHighlighting()
+            }
+        }
+        
+        func toolbarStateChanged(_ state: Bool) {
+            if let toolbar = view.window?.toolbar {
+                for item in toolbar.items {
+                    item.isEnabled = state
+                }
+            }
+        }
+        
+        if sender.state == .on {
+            if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
+                AlertPresenter.presentYesNo(
+                    on: view.window,
+                    title: "Save Changes",
+                    message: "Do you want to save changes to '\(url.lastPathComponent)' before converting it?",
+                    primaryActionTitle: "Save"
+                ) { confirmed in
+                    if confirmed {
+                        self.documentManager.saveDocument()
+                        convertToHPPPL()
+                        toolbarStateChanged(false)
+                        sender.contentTintColor = .systemBlue
+                        return
+                    } else {
+                        self.view.window?.toolbar?.isVisible = true
+                        return
+                    }
+                }
+            } else {
+                convertToHPPPL()
+                toolbarStateChanged(false)
+                sender.contentTintColor = .systemBlue
+            }
+        } else {
+            if let url = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: url.path) {
+                openDocument(url: url)
+            }
+            codeEditorTextView.isEditable = true
+            toolbarStateChanged(true)
+            sender.contentTintColor = .white
+        }
     }
     
     @objc func showNotes(_ sender: NSButton) {
-        showPopover(sender, withIdentifier: "NotesViewController")
+        if sender.state == .on {
+            if documentManager.currentDocumentURL?.lastPathComponent == "info.note" {
+                documentManager.saveDocument()
+            }
+            sender.contentTintColor = .systemBlue
+            showWindow(from: sender, withIdentifier: "NotesViewController")
+        } else {
+            NSApp.windows.first {
+                $0.contentViewController is NotesViewController
+            }?.close()
+            sender.contentTintColor = .white
+        }
+        
+    }
+    
+    private func generateHPPPLCode() -> String? {
+        guard let url = projectManager.projectDirectoryURL else { return nil }
+        
+        let executable = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpppl+")
+        
+        let mainURL: URL
+        switch ProjectSettings.shared.language {
+        case "hpppl+", "hppplplus":
+            mainURL = url.appendingPathComponent("main.hppplplus")
+        case "hpppl":
+            mainURL = url.appendingPathComponent("main.hpppl")
+        case "pas":
+            mainURL = url.appendingPathComponent("main.pas")
+        default:
+            mainURL = url.appendingPathComponent("main.hppplplus")
+        }
+        
+        var arguments: [String] = [mainURL.path, "-o", "/dev/stdout"]
+        
+        if ProjectSettings.shared.compression {
+            arguments.append(contentsOf: ["--compress"])
+        }
+        
+        let result = ProcessRunner.run(
+            executable: executable,
+            arguments: arguments
+        )
+        
+        guard result.exitCode == 0, let out = result.out else {
+            return nil
+        }
+        
+        return out
+        
     }
     
     // MARK: - Snippets
@@ -647,6 +731,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         for main in [
             "main.hpppl",
             "main.hppplplus",
+            "main.hpppl+",
             "main.pas",
             "\(projectManager.projectName!).hpappdir/main.py",
             
@@ -1308,6 +1393,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     @IBAction func run(_ sender: Any) {
         buildForRunning(sender)
         guard documentManager.currentDocumentURL != nil else { return }
+        if !HPServices.isVirtualCalculatorInstalled {
+            AlertPresenter.showInfo(on: view.window, title: "Virtual Calculator", message: "HP Prime is not installed.")
+            return
+        }
         HPServices.launchVirtualCalculator()
     }
     
@@ -1472,6 +1561,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     
     // MARK: - Output Information
+    @objc func toggleAutoIndentation(_ sender: NSButton) {
+        Settings.shared.autoIndentation.toggle()
+    }
+    
     @IBAction func toggleOutput(_ sender: NSButton) {
         outputTextView.toggleVisability(sender)
     }
@@ -1483,27 +1576,26 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     // MARK: - Validation for Toolbar Items
     internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-        switch item.action {
-        case #selector(build(_:)), #selector(run(_:)):
-            if projectManager.projectDirectoryURL != nil  {
-                return true
-            }
-            return false
-            
-        case #selector(showBuildFolderInFinder(_:)):
-            if projectManager.projectDirectoryURL != nil {
-                return true
-            }
-            return false
-            
-            
-        default :
-            break
-        }
-        
+//        switch item.action {
+//        case #selector(build(_:)), #selector(run(_:)):
+//            if projectManager.projectDirectoryURL != nil, previewButton.state == .off  {
+//                return true
+//            }
+//            return false
+//            
+//        case #selector(showBuildFolderInFinder(_:)):
+//            if projectManager.projectDirectoryURL != nil {
+//                return true
+//            }
+//            return false
+//            
+//            
+//        default :
+//            break
+//        }
         return true
     }
-    
+
     // MARK: - Validation for Menu Items
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         if codeEditorTextView.isEditable == false {
@@ -1612,6 +1704,14 @@ extension MainViewController: DocumentManagerDelegate {
             .appendingPathComponent("\(projectName).xprimeproj")
         
         projectManager.saveProjectAs(at: projectFileURL)
+        
+        if notesButton.state == .on, manager.currentDocumentURL?.lastPathComponent == "info.note" {
+            NSApp.windows.forEach {
+                if $0.contentViewController is NotesViewController {
+                    ($0.contentViewController as? NotesViewController)?.refresh()
+                }
+            }
+        }
     }
     
     func documentManager(_ manager: DocumentManager, didFailWith error: Error) {
@@ -1631,11 +1731,10 @@ extension MainViewController: DocumentManagerDelegate {
         }
         
         previewButton.isEnabled = documentManager.currentDocumentURL?.pathExtension == "hppplplus"
-        notesButton.isEnabled = documentManager.currentDocumentURL?.pathExtension == "note"
         
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
-        
+        gutterView.needsDisplay = true
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {
@@ -1673,6 +1772,9 @@ extension MainViewController: ProjectManagerDelegate {
         FileManager.default.changeCurrentDirectoryPath(projectDirectoryURL.path)
         if let url = mainURL(in: projectDirectoryURL) {
             documentManager.openDocument(at: url)
+            if url.appendingPathComponent("info.note").isFileURL {
+                notesButton.isEnabled = true
+            }
         }
         
         if let projectURL = ProjectManager.projectURL(in: projectDirectoryURL) {
@@ -1685,6 +1787,7 @@ extension MainViewController: ProjectManagerDelegate {
                 item.image?.size = NSSize(width: 16, height: 16)
             }
         }
+        
     }
     
     func projectManager(_ manager: ProjectManager, didFailToOpen error: any Error) {
@@ -1700,5 +1803,6 @@ extension MainViewController: ProjectManagerDelegate {
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
         Settings.shared.lastOpenedProjectFile = ""
+        notesButton.isEnabled = false
     }
 }

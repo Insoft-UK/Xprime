@@ -22,14 +22,36 @@
 
 import Cocoa
 
-final class NewProjectViewController: CustomViewController, NSTextFieldDelegate, NSComboBoxDelegate {
+final class TiledBackgroundView: NSView {
+
+    var backgroundImage = NSImage(named: "PaperTexture")
+
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+
+        guard let image = backgroundImage else { return }
+
+        let pattern = NSColor(patternImage: image)
+        pattern.setFill()
+        dirtyRect.fill()
+    }
+}
+
+final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBOutlet private weak var projectTemplate: NSPopUpButton!
     @IBOutlet private weak var projectName: NSTextField!
     
     private var vc: MainViewController!
     
+  
     override func viewDidLoad() {
         super.viewDidLoad()
+
+//        if let image = NSImage(named: "PaperTexture") {
+//            view.wantsLayer = true
+//            view.layer?.backgroundColor = NSColor(patternImage: image).cgColor
+//        }
+
         setup()
     }
     
@@ -37,8 +59,49 @@ final class NewProjectViewController: CustomViewController, NSTextFieldDelegate,
         super.viewDidAppear()
         
         guard let window = view.window else { return }
+        window.isOpaque = false
+        window.titleVisibility = .hidden
+        window.titlebarAppearsTransparent = true
+        window.isMovableByWindowBackground = true
+        window.styleMask = [.titled, .fullSizeContentView]
         window.center()
         
+        if Settings.shared.visualEffectEnabled, let contentView = window.contentView {
+            // Add blur view behind content
+            let blurView = NSVisualEffectView(frame: contentView.bounds)
+            blurView.autoresizingMask = [.width, .height]
+            blurView.material = .hudWindow
+            blurView.blendingMode = .behindWindow
+            blurView.state = .active
+            
+            
+            final class PassthroughView: NSView {
+                override func hitTest(_ point: NSPoint) -> NSView? {
+                    nil
+                }
+            }
+            
+            let tintView = PassthroughView(frame: contentView.bounds)
+            tintView.autoresizingMask = [.width, .height]
+            tintView.wantsLayer = true
+            
+            tintView.layer?.backgroundColor =
+            NSColor.black.withAlphaComponent(0.25).cgColor
+            
+            let wallpaperView = TiledBackgroundView()
+            
+            contentView.addSubview(wallpaperView, positioned: .below, relativeTo: nil)
+            contentView.addSubview(tintView, positioned: .below, relativeTo: nil)
+            contentView.addSubview(blurView, positioned: .below, relativeTo: nil)
+        }
+        
+        DispatchQueue.main.async {
+            if let editor = window.fieldEditor(false, for: self.projectName) as? NSTextView {
+                let end = self.projectName.stringValue.count
+                editor.selectedRange = NSRange(location: end, length: 0)
+            }
+        }
+    
         guard let window = NSApplication.shared.windows.first else {
             self.view.window?.close(); return
         }
@@ -106,11 +169,11 @@ final class NewProjectViewController: CustomViewController, NSTextFieldDelegate,
                 if FileManager.default.fileExists(atPath: url.appendingPathExtension("png").path) {
                     let icon = NSImage(contentsOf: url.appendingPathExtension("png"))?.copy() as! NSImage
                     to.items.last?.image = icon
-                    to.items.last?.image?.size = NSSize(width: 24, height: 24)
+                    to.items.last?.image?.size = iconSize.big
                 } else {
                     let icon = NSImage(named: "Project")?.copy() as! NSImage
                     to.items.last?.image = icon
-                    to.items.last?.image?.size = NSSize(width: 24, height: 24)
+                    to.items.last?.image?.size = iconSize.big
                 }
                 
                 

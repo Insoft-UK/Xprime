@@ -265,96 +265,122 @@ namespace html {
         
         out = R"(<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <style>
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-                font-family: "Arial", monospace;
-            }
-            body {
-                width: 320px;
-                height: 240px;
-            }
-            header {
-                height: 18px;
-                line-height: 18px;
-                text-align: center;
-                color: white;
-                font-size: 12px;
-                background: linear-gradient(to bottom, #2562a8, #26509e);
-                border-bottom: 1px solid black;
-            }
-            .scroll-box {
-                width: 320px;
-                height: 200px;
-                overflow: auto;
-                border-top: 1px solid gray;
-                box-sizing: border-box;
-                white-space: nowrap;
-                padding-left: 1px;
-                padding-right: 1px;
-                line-height: 0;
-            }
-            button {
-                background: linear-gradient(to bottom, #202020, #4f4f4f);
-                border: 1px solid black;
-                width: 52px;
-                height: 20px;
-                font-size: 10pt;
-                color: white;
-                text-align: center;
-                padding: 0px;
-                border-radius: 3px;
-                margin-right: 1px;
-            }
-            button.menu {
-                border-radius: 0 0 3px 3px;
-            }
-            button.double {
-                width: 105px;
-            }
-            button.end {
-                width: 55px;
-                margin: 0;
-            }
-            .li0::before {
-                display: inline-block;
-            }
-            .li1::before {
-                content: '•';
-                padding-left: 4px;
-                padding-right: 8px;
-                line-height: 100%;
-            }
-            .li2::before {
-                content: '◦';
-                padding-left: 20px;
-                padding-right: 8px;
-                line-height: 100%;
-            }
-            .li3::before {
-                content: '▻';
-                padding-left: 36px;
-                padding-right: 8px;
-                line-height: 100%;
-            }
-        </style>
-    </head>
-    <body>
-        <header>Notes</header>
-        <div class="scroll-box">
-)";
-        
-        out += encodeNTFDocument(iss);
-        
-        out += R"(        </div>
-        <button class="menu">Format</button><button class="menu">Style</button><button class="double">&nbsp;</button><button>•</button><button class="menu end">Insert</button>
-    </body>
+<head>
+<meta charset="UTF-8">
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        background: #000;
+        font-family: "Arial", monospace;
+        display: flex;
+        justify-content: center;
+    }
+    .notes {
+        width: 320px;
+        height: 240px;
+        background: white;
+    }
+    .titlebar {
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        color: white;
+        font-size: 12px;
+        background: #2550a0 50%;
+        border-bottom: 1px solid #000;
+    }
+    .document {
+        width: 320px;
+        height: 200px;
+        white-space: nowrap;
+        overflow: auto;
+        box-sizing: border-box;
+        white-space: nowrap;
+        padding-left: 1px;
+        padding-right: 1px;
+        line-height: 0;
+    }
+    .menubar {
+        display: flex;
+        gap: 1px;
+        padding: 0px;
+    }
+    .button {
+        min-width: 53px;
+        height: 20px;
+
+        background: #383838 50%;
+
+        color: white;
+        font-size: 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .button.double {
+        width: 105px;
+    }
+    .button.menu {
+        clip-path: polygon(
+            4px 0,
+            100% 0,
+            100% 100%,
+            0 100%,
+            0 4px
+        );
+    }
+    .li0::before {
+        display: inline-block;
+    }
+    .li1::before {
+        content: '•';
+        padding-left: 4px;
+        padding-right: 8px;
+        line-height: 100%;
+    }
+    .li2::before {
+        content: '◦';
+        padding-left: 20px;
+        padding-right: 8px;
+        line-height: 100%;
+    }
+    .li3::before {
+        content: '▻';
+        padding-left: 36px;
+        padding-right: 8px;
+        line-height: 100%;
+    }
+</style>
+</head>
+<body>
+    <div class="notes">
+        <div class="titlebar">
+            Notes
+        </div>
+        <div class="document">
+            $(HTML)
+        </div>
+        <div class="menubar">
+            <div class="button menu">Format</div>
+            <div class="button menu">Style</div>
+
+            <div class="button double"></div>
+
+            <div class="button">•</div>
+            <div class="button menu">Insert</div>
+        </div>
+    </div>
+</body>
 </html>)";
         
-        return out;
+        auto pos = out.find("$(HTML)");
+        auto html = encodeNTFDocument(iss);
+        
+        return out.replace(pos, 7, html);
     }
 }

@@ -36,6 +36,7 @@ fileprivate enum DefaultsKey {
     static let keywordNormalization = "KeywordNormalization"
     static let visualEffectEnabled = "VisualEffectEnabled"
     static let hasShadow = "HasShadow"
+    static let autoIndentation = "AutoIndentation"
 }
 
 let defaultWorkingDirectoryURL = FileManager
@@ -51,7 +52,7 @@ final class Settings {
     @UserDefault(key: "SubstitutionEnabled", defaultValue: false)
     var substitutionEnabled: Bool
     
-    @UserDefault(key: "PreferredTheme", defaultValue: Bundle.main.resourceURL!.appendingPathComponent("HP Connectivity Kit (Dark).xpcolortheme").path)
+    @UserDefault(key: "PreferredTheme", defaultValue: Bundle.main.resourceURL!.appendingPathComponent("HP Connectivity Kit (Light).xpcolortheme").path)
     var preferredTheme: String
     
     @UserDefault(key: DefaultsKey.lastOpenedFile, defaultValue: "")
@@ -69,7 +70,7 @@ final class Settings {
     @UserDefault(
         key: DefaultsKey.supportedDocumentExtensions,
         defaultValue: [
-            "hpppl", "hppplplus", "ntf", "py"
+            "hpppl", "hppplplus", "hpppl+", "note", "ntf", "py"
         ]
     )
     var supportedDocumentExtensions: [String]
@@ -77,7 +78,7 @@ final class Settings {
     @UserDefault(
         key: DefaultsKey.allowedOpenFileExtensions,
         defaultValue: [
-            "xprimeproj", "hpppl", "hppplplus", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "note", "ntf", "py", "h", "bmp", "png"
+            "xprimeproj", "hpppl", "hppplplus", "hpppl+", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "note", "ntf", "py", "h", "bmp", "png"
         ]
     )
     var allowedOpenFileExtensions: [String]
@@ -85,7 +86,7 @@ final class Settings {
     @UserDefault(
         key: DefaultsKey.allowedSaveFileExtensions,
         defaultValue: [
-            "hpppl", "hppplplus", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "note", "ntf", "py", "pas"
+            "hpppl", "hppplplus", "hpppl+", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "note", "ntf", "py", "pas"
         ]
     )
     var allowedSaveFileExtensions: [String]
@@ -107,4 +108,7 @@ final class Settings {
     
     @UserDefault(key: "HasShadow", defaultValue: true)
     var hasShadow: Bool
+    
+    @UserDefault(key: "AutoIndentation", defaultValue: true)
+    var autoIndentation: Bool
 }
