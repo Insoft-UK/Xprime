@@ -29,7 +29,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
-### Automaticaly expand text patterns
+### Automaticaly Text Expansion Table
 |Pattern|Text Expansion|
 |:-|:-|
 |!=|≠|
