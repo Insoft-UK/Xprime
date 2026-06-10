@@ -52,7 +52,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |?}|UNTIL|
 |::|CASE|
 |*:|DEFAULT|
-|**|EXPR|
+|\\*|EXPR|
 |\\&|BITAND|
 |\\\||BITOR|
 |\\^|BITXOR|
@@ -61,7 +61,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |\\<|BITSL|
 
 >[!NOTE]
->The `WHILE`, `REPEAT`, `UNTIL` and `WHILE 1 DO` have been changed.
+>The `EXPR`, `WHILE`, `REPEAT`, `UNTIL` and `WHILE 1 DO` have been changed.
 
 ### Supported File Types
 |Type|Description|
