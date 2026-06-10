@@ -46,10 +46,10 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |??|IF|
 |?:|THEN|
 |?!|ELSE|
-|..|WHILE|
-|><|WHILE 1 DO|
-|>>|REPEAT|
-|<<|UNTIL|
+|{?|WHILE|
+|{}|WHILE 1 DO|
+|{:|REPEAT|
+|?}|UNTIL|
 |::|CASE|
 |*:|DEFAULT|
 |**|EXPR|
@@ -57,6 +57,9 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |\\||BITOR|
 |\\^|BITXOR|
 |\\~|BITNOT|
+
+>[!NOTE]
+>The `WHILE`, `REPEAT`, `UNTIL` and `WHILE 1 DO` have been changed.
 
 ### Supported File Types
 |Type|Description|
