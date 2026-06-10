@@ -119,7 +119,7 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     @IBAction func defaultSettings(_ sender: Any) {
         Settings.shared.substitutionEnabled = false
         Settings.shared.useBetaApplications = false
-        Settings.shared.preferredTheme = Bundle.main.resourceURL!.appendingPathComponent("HP Connectivity Kit.xpcolortheme").path
+        Settings.shared.preferredTheme = Bundle.main.resourceURL!.appendingPathComponent("HP Connectivity Kit (Light).xpcolortheme").path
         Settings.shared.workingDirectory = FileManager
             .default
             .homeDirectoryForCurrentUser

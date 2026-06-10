@@ -41,6 +41,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     @IBOutlet var previewButton: NSButton!
     @IBOutlet var notesButton: NSButton!
     @IBOutlet var autoIndentationButton: NSButton!
+    @IBOutlet var substitutionButton: NSButton!
     
     
     
@@ -130,6 +131,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         autoIndentationButton.target = self
         autoIndentationButton.action = #selector(toggleAutoIndentation(_:))
         
+        substitutionButton.state = Settings.shared.substitutionEnabled ? .on : .off
+        substitutionButton.target = self
+        substitutionButton.action = #selector(toggleSubstitution(_:))
+        
+        
+        
         guard let window = view.window else { return }
         window.styleMask.insert(.resizable)
     }
@@ -201,6 +208,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
+        substitutionButton.state = Settings.shared.substitutionEnabled ? .on : .off
     }
     
     @objc private func windowDidResignKey() {
@@ -1561,6 +1569,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     
     // MARK: - Output Information
+    @objc func toggleSubstitution(_ sender: NSButton) {
+        Settings.shared.substitutionEnabled.toggle()
+    }
+    
     @objc func toggleAutoIndentation(_ sender: NSButton) {
         Settings.shared.autoIndentation.toggle()
     }
