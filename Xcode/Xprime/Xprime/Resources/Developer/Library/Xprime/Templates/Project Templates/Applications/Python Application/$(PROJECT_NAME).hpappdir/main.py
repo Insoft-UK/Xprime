@@ -1,15 +1,11 @@
-from sys import argv
+from cas import *
 from hpprime import *
 from graphic import *
 
-def get_key():
-    if keyboard():
-        return eval('GETKEY()')
-    return 0
-
 # Main function
 def main() -> Any:
-  clear_screen(0)
+  fillrect(0,0,0,320,240,0,0)
+  
   try:
     while True:
       key = get_key()
@@ -20,9 +16,9 @@ def main() -> Any:
   except KeyboardInterrupt:
     pass
 
-  clear_screen()
-
 try:
-    main()
+  main()
 except KeyboardInterrupt:
-    clear_screen()
+  pass
+  
+print("Program Terminated")

@@ -1,7 +1,6 @@
 .DS_Store
 *.xcworkspace/xcuserdata/
 xcuserdata/
-installer
 *.app
 *.pkg
 *.dmg
