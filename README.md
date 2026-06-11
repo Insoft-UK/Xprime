@@ -40,7 +40,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |->|→|
 |<-|←|
 |\\pi|π|
-||||OR|
+|\|\||OR|
 |&&|AND|
 |!!|NOT|
 |^^|XOR|
