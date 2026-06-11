@@ -37,7 +37,10 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |>=|≥|
 |<=|≤|
 |=>|▶|
-||||OR|
+|->|→|
+|<-|←|
+|\\pi|π|
+|\|\||OR|
 |&&|AND|
 |!!|NOT|
 |^^|XOR|
@@ -45,8 +48,8 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |}}|END;|
 |{*|FOR|
 |[]|FOROM|
-|->|TO|
-|-<|DOWNTO|
+|:>|TO|
+|<:|DOWNTO|
 |??|IF|
 |?:|THEN|
 |?!|ELSE|
