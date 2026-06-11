@@ -56,7 +56,6 @@ final class EditorThemeApplier {
             NSColor(hex: theme.colors["editor.cursor"]!)!
         
         
-        
         switch theme.weight {
         case "ultraLight":
             editor.weight = .ultraLight
@@ -81,7 +80,6 @@ final class EditorThemeApplier {
         }
         
         editor.font = .monospacedSystemFont(ofSize: 13 , weight: editor.weight)
-        
 
         editor.colors["Functions"] = color(for: "Functions")
         editor.colors["Keywords"] = color(for: "Keywords")
@@ -98,5 +96,7 @@ final class EditorThemeApplier {
         editor.colors["Builtins"] = color(for: "Builtins")
         editor.colors["Constants"] = color(for: "Constants")
         editor.colors["Storage"] = color(for: "Storage")
+        
+        editor.paragraphSpacing = Double(theme.paragraphSpacing ?? 2.5)
     }
 }

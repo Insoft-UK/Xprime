@@ -102,6 +102,7 @@ final class CustomIconButton: NSButton {
     override func mouseDown(with event: NSEvent) {
         isPressed = true
         super.mouseDown(with: event)
+        if !isEnabled { NSSound.beep() }
         isPressed = false
     }
 

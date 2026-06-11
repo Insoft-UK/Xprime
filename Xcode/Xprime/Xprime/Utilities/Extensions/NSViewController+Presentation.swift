@@ -49,7 +49,6 @@ extension NSViewController {
 
     @discardableResult
     func showWindow(
-        from sender: NSButton,
         withIdentifier identifier: String
     ) -> NSWindow? {
         let storyboard = NSStoryboard(name: "Main", bundle: nil)

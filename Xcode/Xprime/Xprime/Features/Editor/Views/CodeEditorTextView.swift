@@ -162,6 +162,7 @@ final class CodeEditorTextView: NSTextView {
     
     var weight: NSFont.Weight = .medium
     var editorForegroundColor = NSColor(white: 1.0, alpha: 1.0)
+    var paragraphSpacing = 2.5
     
     private let syntaxHighlighter = SyntaxHighlighter()
     var snippetSession: SnippetSession?
@@ -339,7 +340,7 @@ final class CodeEditorTextView: NSTextView {
         let font = NSFont.monospacedSystemFont(ofSize: CGFloat(theme?.pointSize ?? 12), weight: weight)
         let style = NSMutableParagraphStyle()
         style.lineSpacing = 0
-        style.paragraphSpacing = 2.5
+        style.paragraphSpacing = self.paragraphSpacing
         style.alignment = .left
         return [.font: font, .foregroundColor: NSColor.textColor, .kern: 0, .ligature: 0, .paragraphStyle: style]
     }

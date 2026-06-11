@@ -27,6 +27,7 @@ struct Theme: Codable {
     let type: String
     let weight: String?
     let pointSize: Float?
+    let paragraphSpacing: Float?
     let colors: [String: String]
     let lineNumberRuler: [String: String]?
     let window: [String: String]?

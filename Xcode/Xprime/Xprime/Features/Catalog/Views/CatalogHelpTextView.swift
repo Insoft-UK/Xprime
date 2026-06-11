@@ -64,7 +64,7 @@ final class CatalogHelpTextView: NSTextView {
         setupEditor()
         let url = Bundle.main.url(forResource: "HP Connectivity Kit (Light)", withExtension: "xpcolortheme")!
 
-        loadGrammar(named: ".txt")
+        loadGrammar(named: "txt")
         loadTheme(from: url)
         if let theme {
             apply(theme)

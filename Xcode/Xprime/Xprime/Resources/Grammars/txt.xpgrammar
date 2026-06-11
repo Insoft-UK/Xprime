@@ -1,0 +1,26 @@
+{
+    "name": "Text",
+    "scopeName": "source.txt",
+    "patterns": [
+        {
+            "name": "Builtins",
+            "match": "\\b(ISKEYDOWN|RECT_P|RECT|LINE_P|LINE|ARC_P|ARC|PIXON_P|PIXON|PIXOFF_P|PIXOFF|GETPIX_P|GETPIX|TEXTOUT_P|TEXTOUT|TEXTSIZE|DIMGROB_P|DIMGROB|BLIT_P|BLIT|STRBLIT|TRIANGLE_P|TRIANGLE|FILLPOLY_P|FILLPOLY|GROBW_P|GROBW|GROBH_P|GROBH|DRAWMENU|FREEZE|WAIT|RGB|GETKEY|MOUSE|PRINT|INPUT|CHOOSE|MSGBOX|EDITMAT|EDITLIST|STARTVIEW|STARTAPP|ABS|CEIL|FLOOR|ROUND|IP|FP|SIGN|MAX|MIN|MOD|SIN|COS|TAN|ASIN|ACOS|ATAN|LN|LOG|EXP|SQRT|SQ|SIZE|DIM|MAKEMAT|MAKELIST|ADDROW|ADDCOL|REPLACE|SUPPRESS|APPEND|CONCAT|POS|SORT|REVERSE|CROSS|DOT|ROUND|l2norm|rowDim|colDim|subMat|LEFT|RIGHT|MID|INSTRING|DIM|ASC|CHAR|LOWER|UPPER|TRIM|ROTATE|STRING|EXPR|IFTE|TYPE|TICKS|PYTHON|AFiles|Theme|BITAND|BITOR|BITNOT|BITSL|BITSR|G[0-9])\\b"
+        },
+        {
+            "name": "Functions",
+            "match": "(?mi)\\b([%a-z\\u0080-\\uFFFF][\\.%a-z0-9_\\u0080-\\uFFFF]+)(?=\\()"
+        },
+        {
+            "name": "Strings",
+            "match": "\"([^\"\\\\]|\\\\.)*\""
+        },
+        {
+            "name": "Storage",
+            "match": "(?m)\\b(LOCAL|EXPORT|CONST|KEY|VIEW)\\b"
+        },
+        {
+            "name": "Keywords",
+            "match": "(?m)\\b(Syntax|Example|IN|BEGIN|END|IF|THEN|ELSE|CASE|FOR|FROM|TO|DOWNTO|STEP|DO|WHILE|REPEAT|UNTIL|BREAK|CONTINUE|RETURN|IFERR|KILL|DEFAULT|AND|OR|NOT|XOR|MOD)\\b"
+        },
+    ]
+}

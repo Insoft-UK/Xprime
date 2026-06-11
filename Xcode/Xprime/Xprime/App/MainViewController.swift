@@ -285,15 +285,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             if documentManager.currentDocumentURL?.lastPathComponent == "info.note" {
                 documentManager.saveDocument()
             }
-            sender.contentTintColor = .systemBlue
-            showWindow(from: sender, withIdentifier: "NotesViewController")
+            showWindow(withIdentifier: "NotesViewController")
         } else {
             NSApp.windows.first {
                 $0.contentViewController is NotesViewController
             }?.close()
-            sender.contentTintColor = .white
         }
-        
     }
     
     private func generateHPPPLCode() -> String? {
@@ -721,12 +718,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     private func loadAppropriateGrammar(forType fileExtension: String) {
         let grammar:[String : [String]] = [
-            ".hppplplus": ["hppplplus"],
-            ".hpppl": ["hpppl"],
-            ".py": ["py"],
-            ".pas": ["pas"],
-            ".note": ["note", "ntf"],
-            ".md": ["md"]
+            "hppplplus": ["hppplplus"],
+            "hpppl": ["hpppl"],
+            "py": ["py"],
+            "pas": ["pas"],
+            "note": ["note", "ntf"],
+            "md": ["md"]
         ]
         
         for (grammarName, ext) in grammar where ext.contains(fileExtension.lowercased()) {
