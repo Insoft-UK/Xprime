@@ -46,7 +46,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |{*|FOR|
 |[]|FOROM|
 |->|TO|
-|-<|DOWNTO|
+|<-|DOWNTO|
 |??|IF|
 |?:|THEN|
 |?!|ELSE|
