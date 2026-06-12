@@ -75,8 +75,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         if let menu = NSApp.mainMenu {
             populateOpenRecentMenu(menu: menu)
             populateTemplateMenu(menu: menu)
-            populateSnippetMenu(menu: menu)
-            populateStubMenu(menu: menu)
             
             func setImageSize(_ menu: NSMenu) {
                 for item in menu.items {
@@ -331,10 +329,16 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     // MARK: - Snippets
     private func populateSnippetMenu(menu: NSMenu) {
-        let url = defaultWorkingDirectoryURL
-            .appendingPathComponent("Snippets")
+        let url = FileManager
+            .default
+            .homeDirectoryForCurrentUser
+            .appending(path: "Xprime", directoryHint: .isDirectory)
+            .appending(path: "Libraries/Snippets")
+            .appendingPathComponent(documentManager.currentDocumentURL?.pathExtension ?? "hpppl")
+        
         guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Snippet") else { return }
         item.submenu = populateSnippetMenu(url: url)
+        item.isEnabled =  item.submenu?.items.isEmpty == true ? false : true
     }
     
     private func populateSnippetMenu(url: URL) -> NSMenu {
@@ -396,21 +400,33 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     // MARK: - Stubs
     private func populateStubMenu(menu: NSMenu) {
-        let url = defaultWorkingDirectoryURL
-            .appendingPathComponent("Stubs")
+        let url = FileManager
+            .default
+            .homeDirectoryForCurrentUser
+            .appending(path: "Xprime", directoryHint: .isDirectory)
+            .appending(path: "Libraries/Stubs")
+            .appending(path: documentManager.currentDocumentURL?.pathExtension ?? "")
+        
         guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Stub") else { return }
         item.submenu = populateStubMenu(url: url)
+        item.isEnabled =  item.submenu?.items.isEmpty == true ? false : true
     }
     
     private func populateStubMenu(url: URL) -> NSMenu {
         let icon = NSImage(named: "Stub")?.copy() as? NSImage
         let menu = NSMenu()
         
+        let pathExtension: String
+        switch documentManager.currentDocumentURL?.pathExtension.lowercased() ?? "" {
+        case "py": pathExtension = "pyi"
+        default : pathExtension = "inc"
+        }
+        
         let contents = try? FileManager.default.contentsOfDirectory(
             at: url,
             includingPropertiesForKeys: [.isDirectoryKey],
             options: [.skipsHiddenFiles]
-        ).filter { $0.pathExtension == "pyi" }
+        ).filter { $0.pathExtension == pathExtension }
         
         contents?.forEach { itemURL in
             if itemURL.isDirectory == false {
@@ -1679,18 +1695,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             }
             return false
             
-        case #selector(snippetSelected(_:)):
-            if ext == "hpppl" || ext == "hppplplus" || ext == "hpppl+" {
-                return true
-            }
-            return false
-            
-        case #selector(stubSelected(_:)):
-            if ext == "py" {
-                return true
-            }
-            return false
-            
         default:
             break
         }
@@ -1735,8 +1739,21 @@ extension MainViewController: DocumentManagerDelegate {
 #endif
         if let url = documentManager.currentDocumentURL {
             loadAppropriateGrammar(forType: url.pathExtension.lowercased())
+            let snippetsURL = URL(filePath: Settings.shared.workingDirectory)
+                .appendingPathComponent("Libraries")
+                .appendingPathComponent("Snippets")
+            if url.pathExtension.lowercased() == "hppplplus" {
+                codeEditorTextView.reloadSnippets(from: snippetsURL.appendingPathComponent("hpppl"))
+            } else {
+                codeEditorTextView.reloadSnippets(from: snippetsURL.appendingPathComponent(url.pathExtension.lowercased()))
+            }
         } else {
             loadAppropriateGrammar(forType:URL(fileURLWithPath: Settings.shared.lastOpenedFile).pathExtension.lowercased())
+        }
+        
+        if let menu = NSApp.mainMenu {
+            populateSnippetMenu(menu: menu)
+            populateStubMenu(menu: menu)
         }
         
         previewButton.isEnabled = documentManager.currentDocumentURL?.pathExtension == "hppplplus"

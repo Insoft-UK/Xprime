@@ -4,15 +4,7 @@ clear
 cd "$DIR"
 
 
-VERSION=$(/usr/libexec/PlistBuddy \
-        -c "Print :CFBundleShortVersionString" \
-        "Xprime.app/Contents/Info.plist"\
-       )
-       
-BUILD=$(/usr/libexec/PlistBuddy \
-        -c "Print :CFBundleVersion" \
-        "Xprime.app/Contents/Info.plist"\
-       )
+
        
 #-nobrowse
 MOUNT_POINT=$(hdiutil attach "Xprime.dmg" | \
@@ -20,7 +12,16 @@ MOUNT_POINT=$(hdiutil attach "Xprime.dmg" | \
 
 echo "$MOUNT_POINT"
 
-ditto "Xprime.app" "/Volumes/Xprime/Xprime.app"
+VERSION=$(/usr/libexec/PlistBuddy \
+        -c "Print :CFBundleShortVersionString" \
+        "/Volumes/Xprime/Xprime.app/Contents/Info.plist"\
+       )
+       
+BUILD=$(/usr/libexec/PlistBuddy \
+        -c "Print :CFBundleVersion" \
+        "/Volumes/Xprime/Xprime.app/Contents/Info.plist"\
+       )
+
 hdiutil detach "/Volumes/Xprime"
 
 hdiutil convert "Xprime.dmg" -format UDZO -o "../Xprime_${VERSION}.dmg"

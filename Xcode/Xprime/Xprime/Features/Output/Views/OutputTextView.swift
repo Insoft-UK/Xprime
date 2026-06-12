@@ -43,8 +43,8 @@ final class OutputTextView: NSTextView {
     
     // MARK: - Properties
     
-    private var theme: Theme!
-    private var grammar: Grammar!
+    private var theme: Theme?
+    private var grammar: Grammar?
     
     
     // MARK: - Initializers
@@ -70,7 +70,7 @@ final class OutputTextView: NSTextView {
     
     private func setupEditor() {
         theme = ThemeLoader.shared.loadTheme(from: URL(fileURLWithPath: Settings.shared.preferredTheme))
-        grammar = GrammarLoader.shared.loadGrammar(named: ".txt")
+        grammar = GrammarLoader.shared.loadGrammar(named: "txt")
         
         configureTextViewAppearance()
         configureTextContainer()
@@ -81,8 +81,8 @@ final class OutputTextView: NSTextView {
     
     private func configureTextViewAppearance() {
         font = NSFont.monospacedSystemFont(ofSize: CGFloat(theme?.pointSize ?? 13), weight: .regular)
-        backgroundColor = NSColor(hex: theme.colors["editor.background"]!)!
-        textColor = NSColor(hex: theme.colors["editor.foreground"]!)!
+        backgroundColor = NSColor(hex: theme?.colors["editor.background"] ?? "ffffff") ?? .black
+        textColor = NSColor(hex: theme?.colors["editor.foreground"] ?? "0") ?? .white
         isRichText = false
     }
     
@@ -139,12 +139,14 @@ final class OutputTextView: NSTextView {
     
     func setTheme(_ theme: Theme) {
         self.theme = theme
-        applySyntaxHighlighting(theme: self.theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: self.grammar))
+        guard let grammar else { return }
+        applySyntaxHighlighting(theme: self.theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
     }
     
     func setGrammar(_ grammar: Grammar) {
         self.grammar = grammar
-        applySyntaxHighlighting(theme: self.theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: self.grammar))
+        guard let theme else { return }
+        applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
     }
     
     func ScrollToBottom() {
@@ -178,12 +180,13 @@ final class OutputTextView: NSTextView {
         self.string += newText
 
         ScrollToBottom()
+        guard let theme, let grammar else { return }
         applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
     }
     
     func changeText(_ newText: String) {
         self.string = newText
-        
+        guard let theme, let grammar else { return }
         applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
     }
     
@@ -191,6 +194,7 @@ final class OutputTextView: NSTextView {
         self.string = newText
         
         ScrollToBottom()
+        guard let theme, let grammar else { return }
         applySyntaxHighlighting(theme: theme, syntaxPatterns: GrammarManager.syntaxPatterns(grammar: grammar))
     }
     

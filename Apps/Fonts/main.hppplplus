@@ -1,5 +1,7 @@
-#pragma mode( separator(.,;) integer(h64) addon(hpfont.h) )
+#pragma mode( separator(.,;) integer(h64) )
+
 {$ADDON hpfont.h}
+
 uses HP;
 
 var ARCADE := {$I ARCADE.h};

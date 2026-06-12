@@ -39,11 +39,6 @@ fileprivate enum DefaultsKey {
     static let autoIndentation = "AutoIndentation"
 }
 
-let defaultWorkingDirectoryURL = FileManager
-    .default
-    .homeDirectoryForCurrentUser
-    .appending(path: "Xprime", directoryHint: .isDirectory)
-
 final class Settings {
 
     static let shared = Settings()
@@ -63,7 +58,11 @@ final class Settings {
     
     @UserDefault(
         key: DefaultsKey.workingDirectory,
-        defaultValue: defaultWorkingDirectoryURL.path
+        defaultValue: FileManager
+            .default
+            .homeDirectoryForCurrentUser
+            .appending(path: "Xprime", directoryHint: .isDirectory)
+            .path
     )
     var workingDirectory: String
     

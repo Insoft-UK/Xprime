@@ -45,16 +45,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
         
         NSApp.helpMenu = nil
         
+        let url = FileManager
+            .default
+            .homeDirectoryForCurrentUser
+            .appending(path: "Xprime", directoryHint: .isDirectory)
        
         // Create the Xprime default working directory if missing!
-        if !defaultWorkingDirectoryURL.hasDirectoryPath {
+        if !url.hasDirectoryPath {
             let directorys: [URL] = [
-                defaultWorkingDirectoryURL,
-                defaultWorkingDirectoryURL.appending(path: "Projects"),
-                defaultWorkingDirectoryURL.appending(path: "Project Templates"),
-                defaultWorkingDirectoryURL.appending(path: "Themes"),
-                defaultWorkingDirectoryURL.appending(path: "Snippets"),
-                defaultWorkingDirectoryURL.appending(path: "Stubs")
+                url,
+                url.appending(path: "Projects"),
+                url.appending(path: "Libraries"),
+                url.appending(path: "Libraries/Templates"),
+                url.appending(path: "Themes")
             ]
             directorys.forEach {
                 try? FileManager.default.createDirectory(
@@ -62,8 +65,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
                     withIntermediateDirectories: true
                 )
             }
-            FileManager.default.changeCurrentDirectoryPath(defaultWorkingDirectoryURL.appendingPathComponent("Projects").path)
-            Settings.shared.workingDirectory = defaultWorkingDirectoryURL.path
+            FileManager.default.changeCurrentDirectoryPath(url.appendingPathComponent("Projects").path)
+            Settings.shared.workingDirectory = url.path
         }
     }
     

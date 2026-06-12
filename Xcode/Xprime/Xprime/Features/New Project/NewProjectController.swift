@@ -187,7 +187,7 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
         menu.addItem(NSMenuItem.separator())
         add(url.appendingPathComponent("Programs"), to: &menu)
         menu.addItem(NSMenuItem.separator())
-        add(URL(fileURLWithPath: Settings.shared.workingDirectory + "/Project Templates"), to: &menu)
+        add(URL(fileURLWithPath: Settings.shared.workingDirectory + "/Libraries/Templates"), to: &menu)
         
         projectTemplate.menu = menu
     }

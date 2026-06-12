@@ -1,9 +1,14 @@
 #pragma mode( separator(.,;) integer(h64) )
-uses HP;
-var CGA := {$I "CGA.h"};
 
-#define WHITE #FFFFFF:32h
-#define BLACK 0
+{$ADDON hpfont.h}
+
+uses HP;
+
+var CGA := {$I CGA.h};
+
+alias WHITE := #FFFFFF:32h;
+alias BLACK := 0;
+
 export START()
 begin
 	RECT(BLACK);

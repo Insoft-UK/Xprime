@@ -1,4 +1,5 @@
-#pragma mode( separator(.,;) integer(h64) indentation(2) )
+#pragma mode( separator(.,;) integer(h64) )
+
 uses HP;
 
 alias HUE := G2;

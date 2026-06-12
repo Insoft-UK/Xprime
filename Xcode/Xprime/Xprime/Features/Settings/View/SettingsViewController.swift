@@ -140,7 +140,11 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     private func configureThemeSelection() {
         populateThemeSelection(from: Bundle.main.resourceURL!)
         theme.menu?.addItem(NSMenuItem.separator())
-        populateThemeSelection(from: defaultWorkingDirectoryURL.appendingPathComponent("Themes"))
+        let url = FileManager
+            .default
+            .homeDirectoryForCurrentUser
+            .appending(path: "Xprime", directoryHint: .isDirectory)
+        populateThemeSelection(from: url.appendingPathComponent("Themes"))
     }
     
     private func populateThemeSelection(from directoryURL: URL) {

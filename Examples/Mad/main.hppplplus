@@ -1,4 +1,5 @@
-#pragma mode( separator(.,;) integer(h64) indentation(4) )
+#pragma mode( separator(.,;) integer(h64) )
+
 {$ADDON grob.bmp}
 
 DICTIONARY White := #FFFFFF:32h, Silver := #C0C0C0:32h, Gray := #808080:32h, Black := #000000:32h, Red := #FF0000:32h, \
@@ -10,6 +11,7 @@ Apple := #50B040:32h, LimeGreen := #00FF00:32h, Chocolate := #400808:32h, Brown 
 Olive := #808000:32h, Tangerine := #FFD000:32h, Yellow := #FFFF00:32h, Khaki := #F0E090:32h, Tan := #D0B090:32h, \
 Maroon := #800000:32h, SnowWhite := #FFF0F0:32h, Clear := #FF000000:32h \
 @Color;
+
 REGEX `\bCOPYRIGHT\b` "COPYRIGHT 1985 E.C. PUBLICATIONS"
 REGEX `\bEND_OF_DATA\b`      999
 REGEX `\bSCREEN_MIDDLE\b`    120
@@ -17,10 +19,13 @@ REGEX `\bSCREEN_CENTRE\b`    160
 
 /// PPL Data from file.
 LOCAL DATA:={$I data.hpppl};
+
 ALIAS line := LnD;
 ALIAS scale := Scl;
+
 LOCAL line;
 LOCAL scale := 1.0;
+
 ALIAS MAD::Init := Init;
 ALIAS MAD::Read := Read;
 ALIAS MAD::Draw := Draw;
