@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "xpsnippet.png",
+      "filename" : "Snippet.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "xpsnippet@2x.png",
+      "filename" : "Snippet@2x.png",
       "idiom" : "mac",
       "scale" : "2x"
     }

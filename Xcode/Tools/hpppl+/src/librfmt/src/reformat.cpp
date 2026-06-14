@@ -26,8 +26,7 @@
 #include "unary.hpp"
 
 
-#define INDENT_WIDTH 2
-
+//#define INDENT_WIDTH 2
 
 static bool isWordChar(char c)
 {
@@ -180,19 +179,19 @@ static std::string insertNewlineBeforeWords(
 // MARK: - Utills
 
 
-static std::string reformatLine(const std::string& str) {
+static std::string reformatLine(const std::string& str, int indentationWidth) {
     static int depth = 0;
     std::string output = str;
     
-    std::regex tokenRegex(R"(\b(?:BEGIN|FOR|IF|WHILE|REPEAT|CASE|UNTIL|ELSE)\b|END;)");
+    std::regex tokenRegex(R"(\b(?:BEGIN|FOR|IF|WHILE|REPEAT|CASE|UNTIL|ELSE|IFERR)\b|END;)");
     std::smatch match;
     if (std::regex_search(output, match, tokenRegex)) {
         std::string token = match.str();
         
         if (token == "BEGIN" || token == "FOR" || token == "IF" ||
-            token == "WHILE" || token == "REPEAT" || token == "CASE")
+            token == "WHILE" || token == "REPEAT" || token == "CASE" || token == "IFERR")
         {
-            output.insert(0, std::string(depth * INDENT_WIDTH, ' '));
+            output.insert(0, std::string(depth * indentationWidth, ' '));
             depth++;
         }
         
@@ -200,33 +199,33 @@ static std::string reformatLine(const std::string& str) {
         {
             depth--;
             if (depth > -1) {
-                output.insert(0, std::string(depth * INDENT_WIDTH, ' '));
+                output.insert(0, std::string(depth * indentationWidth, ' '));
             }
         }
         
         if (token == "ELSE")
         {
-            output.insert(0, std::string((depth - 1) * INDENT_WIDTH, ' '));
+            output.insert(0, std::string((depth - 1) * indentationWidth, ' '));
         }
     } else {
-        output.insert(0, std::string(depth * INDENT_WIDTH, ' '));
+        output.insert(0, std::string(depth * indentationWidth, ' '));
     }
     return output + '\n';
 }
 
-static std::string reformatAllLines(std::istringstream& iss)
+static std::string reformatAllLines(std::istringstream& iss, int indentationWidth)
 {
     std::string str;
     std::string result;
     
     while(getline(iss, str)) {
-        result.append(reformatLine(str));
+        result.append(reformatLine(str, indentationWidth));
     }
     
     return result;
 }
 
-std::string reformat::prgm(const std::string& s)
+std::string reformat::prgm(const std::string& s, int indentationWidth)
 {
     std::string output = s;
     std::regex re;
@@ -252,7 +251,7 @@ std::string reformat::prgm(const std::string& s)
     output = removeOperatorSpaces(output, {";"});
     
     output = insertNewlineAfterWords(output, {"THEN", "DO", "REPEAT", "ELSE", "DEFAULT", "CASE"});
-    output = insertNewlineBeforeWords(output, {"EXPORT", "LOCAL", "CONST", "IF", "CASE", "REPEAT", "FOR", "WHILE", "DEFAULT", "UNTIL", "ELSE", "IFERR", "END"});
+    output = insertNewlineBeforeWords(output, {"EXPORT", "LOCAL", "CONST", "BEGIN", "IF", "CASE", "REPEAT", "FOR", "WHILE", "DEFAULT", "UNTIL", "ELSE", "IFERR", "END"});
 
     output = cleanWhitespace(output);
     output = insertSpaceAfterComma(output);
@@ -261,7 +260,7 @@ std::string reformat::prgm(const std::string& s)
     
     std::istringstream iss;
     iss.str(output);
-    output = reformatAllLines(iss);
+    output = reformatAllLines(iss, indentationWidth);
     
     output = ensureSpaceAfterKeywordsCaseInsensitive(output, {
         "BEGIN", "RETURN", "KILL", "IF", "THEN", "ELSE", "XOR", "OR", "AND", "NOT",
@@ -276,6 +275,9 @@ std::string reformat::prgm(const std::string& s)
     output = restorePythonBlocks(output, python);
     output = restoreStrings(output, strings);
     output = restoreComments(output, comments);
+    
+    std::string pattern = R"((?:EXPORT|LOCAL)? +[%a-z\u0080-\uFFFF][\.%a-z0-9_\u0080-\uFFFF]+ *\(.*\)\s*BEGIN\b)";
+    output = std::regex_replace(output, std::regex(pattern, std::regex_constants::icase), "\n$0");
     
     return output;
 }

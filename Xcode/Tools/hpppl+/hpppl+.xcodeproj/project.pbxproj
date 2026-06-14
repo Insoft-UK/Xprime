@@ -78,6 +78,8 @@
 		13DC3D4C2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				build/arm64/hpprgm.o,
+				build/x86_64/hpprgm.o,
 				lib/arm64/libhpprgm.a,
 				lib/libhpprgm.a,
 				lib/x86_64/libhpprgm.a,
@@ -100,11 +102,6 @@
 		13DC3D4E2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"lib/arm64/hpppl+.a",
-				lib/arm64/librfmt.a,
-				lib/librfmt.a,
-				"lib/x86_64/hpppl+.a",
-				lib/x86_64/librfmt.a,
 				Makefile,
 			);
 			target = 137FB2842A03B06500AEFDF2 /* hpppl+ */;
@@ -258,7 +255,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 2640;
+				LastUpgradeCheck = 2650;
 				TargetAttributes = {
 					137FB2842A03B06500AEFDF2 = {
 						CreatedOnToolsVersion = 14.3;

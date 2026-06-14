@@ -134,7 +134,7 @@ final class CodeEditorTextView: NSTextView {
     func reloadSnippets(from url: URL) {
         snippets.removeAll()
         
-        guard url.isDirectory else {
+        guard url.directoryExists else {
             return
         }
         snippets = loadSnippets(from: url)
@@ -318,6 +318,53 @@ final class CodeEditorTextView: NSTextView {
         }
     }
     
+    //
+    
+    func stub() {
+        func loadStub(at file: URL) -> String? {
+            do {
+                let attributed = try NSAttributedString(
+                    url: file,
+                    options: [.documentType: NSAttributedString.DocumentType.plain],
+                    documentAttributes: nil
+                )
+                return attributed.string
+            } catch {
+                return nil
+            }
+        }
+        
+        let text = string as NSString
+        let lineRange = text.lineRange(for: NSRange(location: max(0, selectedRange().location - 1), length: 0))
+        var line = text.substring(with: lineRange)
+        
+        if line.hasPrefix("~"), line.count > 1 {
+            line.removeFirst()
+            
+            guard let window = NSApplication.shared.windows.first, let vc = window.contentViewController as? MainViewController else {
+                return
+            }
+            
+            let ext = vc.documentManager.currentDocumentURL?.pathExtension.lowercased() ?? "hpppl"
+            
+            let url = FileManager
+                .default
+                .homeDirectoryForCurrentUser
+                .appending(path: "Xprime", directoryHint: .isDirectory)
+                .appending(path: "Libraries/Stubs")
+                .appending(path: ext)
+            
+            let resolvedURL = url.resolvingSymlinksInPath()
+                .appending(path: line)
+                .appendingPathExtension(ext == "py" ? "pyi" : ext)
+            
+            if FileManager.default.fileExists(atPath: resolvedURL.path) {
+                let contents = loadStub(at: resolvedURL)
+                insertText(contents ?? "", replacementRange: selectedRange())
+            }
+        }
+    }
+    
     // MARK: - Overrides
     var isDeleting = false
  
@@ -381,6 +428,8 @@ final class CodeEditorTextView: NSTextView {
         if Settings.shared.substitutionEnabled {
             replaceLastTyped()
         }
+        
+        stub()
     }
 
     
@@ -411,19 +460,16 @@ final class CodeEditorTextView: NSTextView {
             length: min(cursorLocation - lineRange.location, lineRange.length)
         ))
         
-        
-        
         // Extract leading whitespace
         var indentation = String(lineText.prefix { $0 == " " || $0 == "\t" })
         
-        
-        //
+        // Auto indentation
         let indentWidth = 2
         let trimmedLine = lineText.trimmingCharacters(in: .whitespaces).lowercased()
-        let increaseIndentKeywords = ["begin", "if", "then", "do", "repeat", "else"]
+        let increaseIndentKeywords = ["begin", "if", "then", "do", "repeat", "else", "while"]
         let dedentKeywords = ["end", "until"]
         
-        if increaseIndentKeywords.contains(where: { trimmedLine.hasSuffix($0) }) {
+        if increaseIndentKeywords.contains(where: { trimmedLine.hasPrefix($0) }) {
             indentation += String(repeating: " ", count: indentWidth)
         }
         
@@ -433,7 +479,6 @@ final class CodeEditorTextView: NSTextView {
             }
         }
         
-        //
         // Insert newline + indentation
         insertText("\n" + indentation, replacementRange: selectedRange())
     }

@@ -20,10 +20,11 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 
-#pragma mode( separator(.,;) integer(h64) indentation(2) )
+#pragma mode( separator(.,;) integer(h64) indentation(1) )
 
 {$ADDON hpfont.h}
-{$INCLUDE HP.hpppl}
+
+{$I HP.hpppl}
 Font8 := {$INCLUDE Font8.h};
 Font10 := {$INCLUDE Font10.h};
 Sans24 := {$INCLUDE Sans24.h};

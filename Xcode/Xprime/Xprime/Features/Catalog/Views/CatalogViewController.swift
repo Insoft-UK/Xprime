@@ -45,19 +45,19 @@ final class CatalogViewController: CustomViewController, NSComboBoxDelegate, NST
         search.stringValue = Catalog.shared.lastOpenedCatalogHelpFile
     }
     
-        override func viewDidAppear() {
-            super.viewDidAppear()
-    
-            guard let window = view.window else { return }
-            window.level = .modalPanel
-    
-            DispatchQueue.main.async {
-                if let editor = window.fieldEditor(false, for: self.search) as? NSTextView {
-                    let end = self.search.stringValue.count
-                    editor.selectedRange = NSRange(location: end, length: 0)
-                }
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        guard let window = view.window else { return }
+        window.level = .modalPanel
+        
+        DispatchQueue.main.async {
+            if let editor = window.fieldEditor(false, for: self.search) as? NSTextView {
+                let end = self.search.stringValue.count
+                editor.selectedRange = NSRange(location: end, length: 0)
             }
         }
+    }
 
     private func loadHelp(for command: String) {
         guard let txtURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help") else {

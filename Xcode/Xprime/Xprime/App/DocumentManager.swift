@@ -68,7 +68,7 @@ final class DocumentManager {
     
     private func saveNote(url: URL) {
         saveDocument(to: url.appendingPathExtension("note"))
-        let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpnote")
+        let path = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "hpnote")
         
         
         var arguments: [String] = [url.appendingPathExtension("note").path, "-o", url.path]
@@ -135,7 +135,7 @@ final class DocumentManager {
         successLog: String? = nil,
         printStdErrOnSuccess: Bool = false,
     ) {
-        let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent(executableName)
+        let path = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: executableName)
         let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
         
         guard result.exitCode == 0, let out = result.out else {
@@ -197,7 +197,7 @@ final class DocumentManager {
     private func saveProgram(url: URL) {
         guard let currentDocumentURL else { return }
         
-        let path = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpppl+")
+        let path = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "hpppl+")
         let result = ProcessRunner.run(executable: path, arguments: [currentDocumentURL.path, "-o", url.path])
         
         guard result.exitCode == 0 else {

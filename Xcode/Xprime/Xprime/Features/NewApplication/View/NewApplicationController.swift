@@ -117,14 +117,17 @@ final class NewApplicationViewController: CustomViewController, NSTextFieldDeleg
                 to: destinationURL
             )
             
-            if let url = Bundle.main.url(forResource: "info", withExtension: "note") {
-                try FileManager.default.copyItem(
-                    at: url,
-                    to: directoryURL
-                        .appendingPathComponent(name)
-                        .appendingPathComponent("info.note")
-                )
-            }
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy/MM/dd"
+            let dateString = formatter.string(from: Date())
+            
+            createFileIfNeeded(
+                at: directoryURL
+                    .appendingPathComponent(name)
+                    .appendingPathComponent("info.note"),
+                defaultContent: "\\fs18\\b \(name)\n\\fs12\\b0Created by \(NSFullUserName()) on \(dateString)."
+            )
+            
             
             if let url = Bundle.main.url(forResource: "default", withExtension: "xprimeproj") {
                 try FileManager.default.copyItem(
@@ -144,6 +147,16 @@ final class NewApplicationViewController: CustomViewController, NSTextFieldDeleg
             )
         } catch {
             return
+        }
+    }
+    
+    private func createFileIfNeeded(at url: URL, defaultContent: String = "") {
+        guard !FileManager.default.fileExists(atPath: url.path) else { return }
+
+        do {
+            try defaultContent.write(to: url, atomically: true, encoding: .utf8)
+        } catch {
+            print("Failed to create file:", error)
         }
     }
     

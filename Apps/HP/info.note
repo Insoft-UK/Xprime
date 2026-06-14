@@ -1,19 +1,41 @@
-\b1The MIT License (MIT)
+\b\fs22HP
+{\pict\picw106\pich1\endian1\pixelw1
+    #007C807CE07C207D, #407D807DA07DE07D, #007E407E607E807E,
+    #A07EC07E007F207F, #407F607F807FA07F, #C07FE07FE07BE07B,
+    #E077E073E06FE06B, #E067E063E05FE05B, #E057E053E04FE04B,
+    #E043E03BE037E02F, #E027E01BE00FE303, #E603E803EA03EC03,
+    #EE03EF03F103F203, #F303F503F603F703, #F803F903FA03FB03,
+    #FC03FD03FE03FE03, #FF03DF03BF039F03, #7F035F033F03FF02,
+    #DF02BF029F025F02, #3F021F02DF01BF01, #7F013F01FF00BF00,
+    #7F001F041F0C1F14, #1F183F207F249F2C, #BF34DF38DF40FF44,
+    #FF48FF50FF54FF58, #DF60DF64BF6C9F70, #7F745F78
+}
+\fs16\sub The MIT License (MIT)
+\sub0\fs12Copyright (c) 2025-2026 Insoft.\b0
 \fs8
-Permission is hereby granted, free of charge, to any person obtaining a copy of this
-software  and  associated  documentation  files  (the "Software"),  to  deal  in the
-Software without restriction,  including  without  limitation  the rights  to  use,  copy,
-modify,  merge,  publish,  distribute,  sublicense, and/or sell copies of the Software,
-and to permit persons to whom the Software is  furnished to do so,  subject  to  the
-following conditions:
-  
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-THE AUTHORS OR  COPYRIGHT  HOLDERS BE  LIABLE  FOR  ANY  CLAIM,  DAMAGES  OR
-OTHER  LIABILITY,   WHETHER  IN  AN  ACTION  OF  CONTRACT,  TORT  OR  OTHERWISE,
-ARISING FROM,  OUT  OF  OR  IN  CONNECTION  WITH THE  SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
+HP.IMAGE(trgtG, dx, dy, img, scaleX, scaleY)
+HP.TEXTSIZE(text, font, weight)
+HP.TEXTOUT(text, G, x, y, font, textColor, backgroundColor, weight)
+HP.TEXTOUT(text, x, y)
+HP.TEXTOUT(text, G, x, y)
+HP.TEXTOUT(text, x, y, font, textColor)
+HP.TEXTOUT(text, G, x, y, font, textColor)
+HP.TEXTOUT(text, G, x, y, font, textColor, backgroundColor)
+RGBtoYPbPr(r, g, b)
+YPbPrToRGB(y, pb, pr)
+RGBtoYCbCr(r, g, b)
+YCbCrToRGB(y, cb, cr)
+RGBtoYUV(r, g, b)
+YUVtoRGB(y, u, v)
+RGBtoHSV(r, g, b)
+HSVtoRGB(h, s, v)
+HSLtoHSV(h, s, l)
+HSVtoHSL(h, s, v)
+HSLtoRGB(h, s, l)
+RGBtoHSL(r, g, b)
+RGBtoCMYK(r, g, b)
+YCbCr(y, cb, cr)
+YPbPr(y, pb, pr)
+HSL(h, s, l)
+HSV(h, s, v)
+CMYK(c, m, y, k)

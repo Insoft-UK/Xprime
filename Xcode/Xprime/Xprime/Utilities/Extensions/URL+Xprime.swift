@@ -46,11 +46,16 @@ extension URL {
         NSWorkspace.shared.activateFileViewerSelecting([self])
     }
     
-    
-    var isDirectory: Bool {
+    var fileExists: Bool {
         var isDir: ObjCBool = false
-        FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
-        return isDir.boolValue
+        let exists = FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
+        return exists && !isDir.boolValue
+    }
+    
+    var directoryExists: Bool {
+        var isDir: ObjCBool = false
+        let exists = FileManager.default.fileExists(atPath: path, isDirectory: &isDir)
+        return exists && isDir.boolValue
     }
     
     var modificationDate: Date? {

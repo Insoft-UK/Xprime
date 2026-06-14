@@ -97,7 +97,7 @@ std::string include(const std::filesystem::path& path);
 
 void terminator() {
     std::cerr << MessageType::CriticalError << "An internal pre-processing problem occurred at line:" << Singleton::shared()->currentLineNumber() << "\nPlease review the syntax before this point.\n";
-    exit(0);
+    exit(1);
 }
 void (*old_terminate)() = std::set_terminate(terminator);
 
@@ -578,7 +578,7 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
 // MARK: - Command Line
 void error(void) {
     std::cerr << COMMAND_NAME << ": try '" << COMMAND_NAME << " --help' for more information\n";
-    exit(0);
+    exit(1);
 }
 
 
@@ -595,6 +595,7 @@ void help(void) {
     << "  -c or --compress        Specify whether the PPL code should be compressed.\n"
     << "  -r or --reformat        Specify whether the PPL code should be reformatted.\n"
     << "  -n or --named           Create the .hpprgm as a named program.\n"
+    << "  --indent                Set the indentation width for reformatting."
     << "  -v or --verbose         Display detailed processing information.\n"
     << "\n"
     << "Additional Commands:\n"
@@ -629,7 +630,7 @@ fs::path resolveAndValidateInputFile(const char *input_file) {
         if (in_ext == extension) {
             if (bom != utf::BOM::none) {
                 std::cerr << "❓File " << path.filename() << " not utf-8 at " << path.parent_path() << " location.\n";
-                exit(0);
+                exit(1);
             }
         }
     }
@@ -637,7 +638,7 @@ fs::path resolveAndValidateInputFile(const char *input_file) {
     
     if (!fs::exists(path)) {
         std::cerr << "❓File " << path.filename() << " not found at " << path.parent_path() << " location.\n";
-        exit(0);
+        exit(1);
     }
     
     return path;
@@ -716,7 +717,7 @@ int main(int argc, char **argv) {
             if (args == "-o") {
                 if ( ++n >= argc ) {
                     error();
-                    exit(0);
+                    exit(1);
                 }
                 outpath = resolveOutputFile(argv[n]);
                 continue;
@@ -731,6 +732,15 @@ int main(int argc, char **argv) {
             if ( args == "-r" || args == "--reformat" ) {
                 reformat = true;
                 minify = false;
+                continue;
+            }
+            
+            if ( args == "--indent" ) {
+                if ( ++n >= argc ) {
+                    error();
+                    exit(1);
+                }
+                indentation = std::atoi(argv[n]);
                 continue;
             }
             
@@ -777,7 +787,7 @@ int main(int argc, char **argv) {
             }
             
             error();
-            exit(0);
+            exit(1);
         }
         
         inpath = resolveAndValidateInputFile(argv[n]);
@@ -787,8 +797,7 @@ int main(int argc, char **argv) {
     
     if (outpath == inpath) {
         std::cerr << "❌ error: Input file and output file cannot be the same. Choose a different output path.\n";
-        exit(0);
-        return 0;
+        exit(1);
     }
     
     auto in_ext = std::lowercased(inpath.extension().string());
@@ -861,7 +870,7 @@ int main(int argc, char **argv) {
     }
     
     if (reformat == true) {
-        output = reformat::prgm(output);
+        output = reformat::prgm(output, indentation);
     }
     
     if (minify == true) {
@@ -888,7 +897,7 @@ int main(int argc, char **argv) {
         } else {
             if (!utf::save(outpath, utf::to_wstring(output), utf::BOM::le)) {
                 std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";
-                return 0;
+                exit(1);
             }
         }
     

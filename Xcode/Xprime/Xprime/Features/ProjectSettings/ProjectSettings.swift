@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 fileprivate enum DefaultsKey {
+    static let reformatting = "Reformatting"
     static let compression = "Compression"
     static let includeProgramName = "IncludeProgramName"
     static let include = "include"
@@ -35,6 +36,9 @@ final class ProjectSettings {
 
     static let shared = ProjectSettings()
     private init() {}
+    
+    @UserDefault(key: DefaultsKey.reformatting, defaultValue: false)
+    var reformatting: Bool
 
     @UserDefault(key: DefaultsKey.compression, defaultValue: false)
     var compression: Bool

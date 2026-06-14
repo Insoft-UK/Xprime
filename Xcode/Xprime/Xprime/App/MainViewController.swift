@@ -71,6 +71,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         setupObservers()
         setupEditor()
+        setupActions()
         
         if let menu = NSApp.mainMenu {
             populateOpenRecentMenu(menu: menu)
@@ -115,7 +116,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                         .string(forKey: "location") ?? FileManager
                         .default
                         .homeDirectoryForCurrentUser
-                        .appendingPathComponent("Xprime/Projects")
+                        .appending(path: "Xprime/Projects")
                         .path
                 )
         }
@@ -124,16 +125,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             documentManager.openDocument(at: URL(fileURLWithPath: lastOpenedFile))
         }
         
-        setupPopovers()
-        autoIndentationButton.state = Settings.shared.autoIndentation ? .on : .off
-        autoIndentationButton.target = self
-        autoIndentationButton.action = #selector(toggleAutoIndentation(_:))
-        
-        substitutionButton.state = Settings.shared.substitutionEnabled ? .on : .off
-        substitutionButton.target = self
-        substitutionButton.action = #selector(toggleSubstitution(_:))
-        
-        
+        updateToolbarState()
         
         guard let window = view.window else { return }
         window.styleMask.insert(.resizable)
@@ -164,6 +156,248 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             name: NSTextView.didChangeSelectionNotification,
             object: codeEditorTextView
         )
+    }
+    
+    private func setupActions() {
+        previewButton.target = self
+        previewButton.action = #selector(showPreview(_:))
+        
+        notesButton.target = self
+        notesButton.action = #selector(showNotes(_:))
+        
+        autoIndentationButton.target = self
+        autoIndentationButton.action = #selector(toggleAutoIndentation(_:))
+    
+        substitutionButton.target = self
+        substitutionButton.action = #selector(toggleSubstitution(_:))
+    }
+    
+    // MARK: - Selector Actions
+    @objc func showNotes(_ sender: NSButton) {
+        if sender.state == .on {
+            if documentManager.currentDocumentURL?.lastPathComponent == "info.note" {
+                documentManager.saveDocument()
+            }
+            showWindow(withIdentifier: "NotesViewController")
+        } else {
+            NSApp.windows.first {
+                $0.contentViewController is NotesViewController
+            }?.close()
+        }
+    }
+    
+    @objc func showPreview(_ sender: NSButton) {
+        func convertToHPPPL() -> Bool {
+            guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return false }
+            guard let url = mainURL(in: projectDirectoryURL) else { return false }
+
+            let executable = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "hpppl+")
+            var arguments: [String] = [url.path, "-o", "/dev/stdout"]
+            
+            if ProjectSettings.shared.reformatting == true {
+                arguments.append(contentsOf: ["--reformat"])
+            }
+            
+            if ProjectSettings.shared.compression {
+                arguments.append(contentsOf: ["--compress"])
+            }
+            
+            let result = ProcessRunner.run(
+                executable: executable,
+                arguments: arguments
+            )
+            
+            guard result.exitCode == 0, let out = result.out else {
+                return false
+            }
+            
+                if out.isEmpty {
+                    return false
+                }
+                codeEditorTextView.string = out
+                codeEditorTextView.isEditable = false
+                codeEditorTextView.applySyntaxHighlighting()
+            return true
+        }
+        
+        func toolbarStateChanged(_ state: Bool) {
+            if let toolbar = view.window?.toolbar {
+                for item in toolbar.items {
+                    item.isEnabled = state
+                }
+            }
+        }
+        
+        if sender.state == .on {
+            if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
+                AlertPresenter.presentYesNo(
+                    on: view.window,
+                    title: "Save Changes",
+                    message: "Do you want to save changes to '\(url.lastPathComponent)' before converting it?",
+                    primaryActionTitle: "Save"
+                ) { confirmed in
+                    if confirmed {
+                        self.documentManager.saveDocument()
+                        if convertToHPPPL() {
+                            toolbarStateChanged(false)
+                            sender.contentTintColor = .systemBlue
+                        } else {
+                            sender.state = .off
+                            NSSound.beep()
+                        }
+                        return
+                    } else {
+                        self.view.window?.toolbar?.isVisible = true
+                        return
+                    }
+                }
+            } else {
+                if convertToHPPPL() {
+                    toolbarStateChanged(false)
+                    sender.contentTintColor = .systemBlue
+                } else {
+                    sender.state = .off
+                    NSSound.beep()
+                }
+            }
+        } else {
+            if let url = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: url.path) {
+                openDocument(url: url)
+            }
+            codeEditorTextView.isEditable = true
+            toolbarStateChanged(true)
+            sender.contentTintColor = .white
+        }
+    }
+    
+    @objc func toggleSubstitution(_ sender: NSButton) {
+        Settings.shared.substitutionEnabled = sender.state == .on
+    }
+    
+    @objc func toggleAutoIndentation(_ sender: NSButton) {
+        Settings.shared.autoIndentation = sender.state == .on
+    }
+    
+    @objc private func snippetSelected(_ sender: NSMenuItem) {
+        guard let url = sender.representedObject as? URL else { return }
+        let snippet = url.deletingPathExtension().lastPathComponent
+        codeEditorTextView.insertText("$\(snippet)", replacementRange: codeEditorTextView.selectedRange())
+    }
+    
+    @objc private func templateSelected(_ sender: NSMenuItem) {
+        func traceMenuItem(_ item: NSMenuItem) -> String {
+            if let parentMenu = item.menu {
+#if Debug
+                print("Item '\(item.title)' is in menu: \(parentMenu.title)")
+#endif
+                
+                // Try to find the parent NSMenuItem that links to this menu
+                for superitem in parentMenu.supermenu?.items ?? [] {
+                    if superitem.submenu == parentMenu {
+                        return superitem.title
+                    }
+                }
+            }
+            return ""
+        }
+        
+        let url = Bundle.main.bundleURL
+            .appending(path: templatesBasePath)
+            .appending(path: traceMenuItem(sender))
+            .appending(path: sender.title)
+            .appendingPathExtension("prgm")
+        
+        if let contents = HPServices.loadHPPrgm(at: url) {
+            codeEditorTextView.registerUndo(actionName: "Template")
+            if let selectedRange = codeEditorTextView.selectedRanges.first as? NSRange {
+                if let textStorage = codeEditorTextView.textStorage {
+                    textStorage.replaceCharacters(in: selectedRange, with: contents)
+                    codeEditorTextView.setSelectedRange(NSRange(location: selectedRange.location + contents.count, length: 0))
+                }
+            }
+            codeEditorTextView.applySyntaxHighlighting()
+        }
+    }
+    
+    @objc private func clearRecentMenu(_ sender: NSMenuItem) {
+        Settings.shared.recentFiles.removeAll()
+        if let menu = NSApp.mainMenu {
+            populateOpenRecentMenu(menu: menu)
+        }
+    }
+    
+    @objc private func quickOpen(_ sender: NSMenuItem) {
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
+            return
+        }
+        
+        if let url = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: url.path), documentManager.documentIsModified {
+            AlertPresenter.presentYesNo(
+                on: view.window,
+                title: "Save Changes",
+                message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
+                primaryActionTitle: "Save"
+            ) { confirmed in
+                if confirmed {
+                    self.documentManager.saveDocument()
+                    self.documentManager.openDocument(at: projectDirectoryURL.appending(path: sender.title))
+                } else {
+                    return
+                }
+            }
+        } else {
+            let url = sender.representedObject as? URL
+            self.documentManager.openDocument(at: url!)
+        }
+        
+        guard
+            let toolbar = view.window?.toolbar,
+            let item = toolbar.items.first(where: {
+                $0.paletteLabel == "Quick Open"
+            }),
+            let comboButton = item.view as? NSComboButton
+        else {
+            return
+        }
+        
+        let iconSize = iconSize.big
+        
+        switch documentManager.currentDocumentURL?.pathExtension.lowercased() {
+        case "hpppl":
+            comboButton.image = NSImage(named: "hpppl")?.copy() as? NSImage
+            
+        case "note":
+            comboButton.image = NSImage(named: "note")?.copy() as? NSImage
+        default:
+            comboButton.image = sender.image
+        }
+        
+        comboButton.image?.size = iconSize
+        
+    }
+    
+    @objc func baseApplicationSelection(_ sender: NSMenuItem) {
+        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
+        guard let name = projectManager.projectName else { return }
+        
+        
+        if projectDirectoryURL.appending(path: "\(name).hpappdir").directoryExists {
+            outputTextView.appendTextAndScroll("⚠️ Changing base application \"\(projectManager.baseApplicationName)\" to \"\(sender.title)\".\n")
+        } else {
+            outputTextView.appendTextAndScroll("🔨 Creating application directory\n")
+        }
+        
+        try? HPServices.resetHPAppContents(at: projectDirectoryURL, named: name, fromBaseApplicationNamed: sender.title)
+        outputTextView.appendTextAndScroll("Base application is \"\(projectManager.baseApplicationName)\"\n")
+        
+        
+        refreshQuickOpenToolbar()
+        updateWindowDocumentIcon()
+    }
+    
+    // MARK: - Interface Builder Actions
+    @IBAction func checkForUpdates(_ sender: Any) {
+        updateManager.checkForUpdates()
     }
     
     // MARK: - Observers
@@ -206,7 +440,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
-        substitutionButton.state = Settings.shared.substitutionEnabled ? .on : .off
+        updateToolbarState()
     }
     
     @objc private func windowDidResignKey() {
@@ -216,355 +450,122 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
 #endif
     }
     
-    // MARK: - Popover Healper
-    private var popover: NSPopover?
-    
-    private func setupPopovers() {
-        previewButton.target = self
-        previewButton.action = #selector(showPreview(_:))
-        
-        notesButton.target = self
-        notesButton.action = #selector(showNotes(_:))
-    }
-    
-    @objc func showPreview(_ sender: NSButton) {
-        func convertToHPPPL() {
-            if let code = generateHPPPLCode() {
-                codeEditorTextView.string = code
-                codeEditorTextView.isEditable = false
-                codeEditorTextView.applySyntaxHighlighting()
-            }
-        }
-        
-        func toolbarStateChanged(_ state: Bool) {
-            if let toolbar = view.window?.toolbar {
-                for item in toolbar.items {
-                    item.isEnabled = state
-                }
-            }
-        }
-        
-        if sender.state == .on {
-            if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
-                AlertPresenter.presentYesNo(
-                    on: view.window,
-                    title: "Save Changes",
-                    message: "Do you want to save changes to '\(url.lastPathComponent)' before converting it?",
-                    primaryActionTitle: "Save"
-                ) { confirmed in
-                    if confirmed {
-                        self.documentManager.saveDocument()
-                        convertToHPPPL()
-                        toolbarStateChanged(false)
-                        sender.contentTintColor = .systemBlue
-                        return
-                    } else {
-                        self.view.window?.toolbar?.isVisible = true
-                        return
-                    }
-                }
-            } else {
-                convertToHPPPL()
-                toolbarStateChanged(false)
-                sender.contentTintColor = .systemBlue
-            }
-        } else {
-            if let url = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: url.path) {
-                openDocument(url: url)
-            }
-            codeEditorTextView.isEditable = true
-            toolbarStateChanged(true)
-            sender.contentTintColor = .white
-        }
-    }
-    
-    @objc func showNotes(_ sender: NSButton) {
-        if sender.state == .on {
-            if documentManager.currentDocumentURL?.lastPathComponent == "info.note" {
-                documentManager.saveDocument()
-            }
-            showWindow(withIdentifier: "NotesViewController")
-        } else {
-            NSApp.windows.first {
-                $0.contentViewController is NotesViewController
-            }?.close()
-        }
-    }
-    
-    private func generateHPPPLCode() -> String? {
-        guard let url = projectManager.projectDirectoryURL else { return nil }
-        
-        let executable = URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpppl+")
-        
-        let mainURL: URL
-        switch ProjectSettings.shared.language {
-        case "hpppl+", "hppplplus":
-            mainURL = url.appendingPathComponent("main.hppplplus")
-        case "hpppl":
-            mainURL = url.appendingPathComponent("main.hpppl")
-        case "pas":
-            mainURL = url.appendingPathComponent("main.pas")
-        default:
-            mainURL = url.appendingPathComponent("main.hppplplus")
-        }
-        
-        var arguments: [String] = [mainURL.path, "-o", "/dev/stdout"]
-        
-        if ProjectSettings.shared.compression {
-            arguments.append(contentsOf: ["--compress"])
-        }
-        
-        let result = ProcessRunner.run(
-            executable: executable,
-            arguments: arguments
-        )
-        
-        guard result.exitCode == 0, let out = result.out else {
-            return nil
-        }
-        
-        return out
-        
-    }
-    
-    // MARK: - Snippets
+    // MARK: - Populate Snippets
     private func populateSnippetMenu(menu: NSMenu) {
+        func loadSnippet(at file: URL) -> (title: String, trigger: String) {
+            let decoder = JSONDecoder()
+            
+            guard let data = try? Data(contentsOf: file),
+                  let json = try? decoder.decode(JSONSnippet.self, from: data) else { return (file.deletingPathExtension().lastPathComponent, file.deletingPathExtension().lastPathComponent) }
+            
+            let trigger = file.deletingPathExtension().lastPathComponent
+            return (json.title, trigger)
+        }
+        
+        func populateSnippetMenu(url: URL) -> NSMenu {
+            let icon = NSImage(named: "Snippet")?.copy() as? NSImage
+            let menu = NSMenu()
+            
+            let resolvedURL = url.resolvingSymlinksInPath()
+            
+            let contents = try? FileManager.default.contentsOfDirectory(
+                at: resolvedURL,
+                includingPropertiesForKeys: [.isDirectoryKey],
+                options: [.skipsHiddenFiles]
+            ).filter { $0.pathExtension == "xpsnippet" }
+            
+            contents?.forEach { itemURL in
+                if itemURL.directoryExists == false {
+                    let snippet = loadSnippet(at: itemURL)
+                    
+                    let menuItem = NSMenuItem(
+                        title: snippet.title,
+                        action: #selector(snippetSelected(_:)),
+                        keyEquivalent: ""
+                    )
+                    menuItem.state = .off
+                    menuItem.representedObject = itemURL
+                    if FileManager.default.fileExists(atPath: itemURL
+                        .deletingPathExtension()
+                        .appendingPathExtension("png")
+                        .path
+                    ) {
+                        menuItem.image = NSImage(byReferencing: itemURL
+                            .deletingPathExtension()
+                            .appendingPathExtension("png")
+                        )
+                        menuItem.image?.size = iconSize.small
+                    } else {
+                        menuItem.image = icon
+                    }
+                    menu.addItem(menuItem)
+                }
+            }
+            
+            return menu
+        }
+        
         let url = FileManager
             .default
             .homeDirectoryForCurrentUser
             .appending(path: "Xprime", directoryHint: .isDirectory)
             .appending(path: "Libraries/Snippets")
-            .appendingPathComponent(documentManager.currentDocumentURL?.pathExtension ?? "hpppl")
+            .appending(path: documentManager.currentDocumentURL?.pathExtension ?? "hpppl")
         
         guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Snippet") else { return }
         item.submenu = populateSnippetMenu(url: url)
         item.isEnabled =  item.submenu?.items.isEmpty == true ? false : true
     }
     
-    private func populateSnippetMenu(url: URL) -> NSMenu {
-        let icon = NSImage(named: "Snippet")?.copy() as? NSImage
-        let menu = NSMenu()
-        
-        let contents = try? FileManager.default.contentsOfDirectory(
-            at: url,
-            includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles]
-        ).filter { $0.pathExtension == "xpsnippet" }
-        
-        contents?.forEach { itemURL in
-            if itemURL.isDirectory == false {
-                let snippet = loadSnippet(at: itemURL)
-                
-                let menuItem = NSMenuItem(
-                    title: snippet.title,
-                    action: #selector(snippetSelected(_:)),
-                    keyEquivalent: ""
-                )
-                menuItem.state = .off
-                menuItem.representedObject = itemURL
-                if FileManager.default.fileExists(atPath: itemURL
-                    .deletingPathExtension()
-                    .appendingPathExtension("png")
-                    .path
-                ) {
-                    menuItem.image = NSImage(byReferencing: itemURL
-                        .deletingPathExtension()
-                        .appendingPathExtension("png")
-                    )
-                    menuItem.image?.size = NSSize(width: 18, height: 18)
-                } else {
-                    menuItem.image = icon
-                }
-                menu.addItem(menuItem)
-            }
-        }
-        
-        return menu
-    }
+   
     
-    @objc private func snippetSelected(_ sender: NSMenuItem) {
-        guard let url = sender.representedObject as? URL else { return }
-        let snippet = url.deletingPathExtension().lastPathComponent
-        codeEditorTextView.insertText("$\(snippet)", replacementRange: codeEditorTextView.selectedRange())
-    }
-    
-    private func loadSnippet(at file: URL) -> (title: String, trigger: String) {
-        let decoder = JSONDecoder()
-        
-        guard let data = try? Data(contentsOf: file),
-              let json = try? decoder.decode(JSONSnippet.self, from: data) else { return (file.deletingPathExtension().lastPathComponent, file.deletingPathExtension().lastPathComponent) }
-        
-        let trigger = file.deletingPathExtension().lastPathComponent
-        return (json.title, trigger)
-    }
-    
-    // MARK: - Stubs
-    private func populateStubMenu(menu: NSMenu) {
-        let url = FileManager
-            .default
-            .homeDirectoryForCurrentUser
-            .appending(path: "Xprime", directoryHint: .isDirectory)
-            .appending(path: "Libraries/Stubs")
-            .appending(path: documentManager.currentDocumentURL?.pathExtension ?? "")
-        
-        guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Stub") else { return }
-        item.submenu = populateStubMenu(url: url)
-        item.isEnabled =  item.submenu?.items.isEmpty == true ? false : true
-    }
-    
-    private func populateStubMenu(url: URL) -> NSMenu {
-        let icon = NSImage(named: "Stub")?.copy() as? NSImage
-        let menu = NSMenu()
-        
-        let pathExtension: String
-        switch documentManager.currentDocumentURL?.pathExtension.lowercased() ?? "" {
-        case "py": pathExtension = "pyi"
-        default : pathExtension = "inc"
-        }
-        
-        let contents = try? FileManager.default.contentsOfDirectory(
-            at: url,
-            includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles]
-        ).filter { $0.pathExtension == pathExtension }
-        
-        contents?.forEach { itemURL in
-            if itemURL.isDirectory == false {
-                let menuItem = NSMenuItem(
-                    title: itemURL.deletingPathExtension().lastPathComponent,
-                    action: #selector(stubSelected(_:)),
-                    keyEquivalent: ""
-                )
-                
-                let attributed = try? NSAttributedString(
-                    url: itemURL.deletingPathExtension().appendingPathExtension("txt"),
-                    options: [.documentType: NSAttributedString.DocumentType.plain],
-                    documentAttributes: nil
-                )
-                if let attributed { menuItem.title = attributed.string }
-                
-                menuItem.state = .off
-                menuItem.representedObject = itemURL
-                if FileManager.default.fileExists(atPath: itemURL
-                    .deletingPathExtension()
-                    .appendingPathExtension("png")
-                    .path
-                ) {
-                    menuItem.image = NSImage(byReferencing: itemURL
-                        .deletingPathExtension()
-                        .appendingPathExtension("png")
-                    )
-                    menuItem.image?.size = NSSize(width: 18, height: 18)
-                } else {
-                    menuItem.image = icon
-                }
-                menu.addItem(menuItem)
-            }
-        }
-        
-        return menu
-    }
-    
-    @objc private func stubSelected(_ sender: NSMenuItem) {
-        guard let url = sender.representedObject as? URL else { return }
-        let stub = loadStub(at: url)
-        codeEditorTextView.insertText(stub, replacementRange: codeEditorTextView.selectedRange())
-    }
-    
-    private func loadStub(at file: URL) -> String {
-        do {
-            let attributed = try NSAttributedString(
-                url: file,
-                options: [.documentType: NSAttributedString.DocumentType.plain],
-                documentAttributes: nil
-            )
-            return attributed.string
-        } catch {
-            return ""
-        }
-    }
-    
-    // MARK: - Templates
+    // MARK: - Populate Templates
     private func populateTemplateMenu(menu: NSMenu) {
-        let url = Bundle.main.resourceURL!.appendingPathComponent("Developer/Library/Xprime/Templates/File Templates")
+        func populateTemplateMenu(url: URL) -> NSMenu {
+            let menu = NSMenu()
+            
+            let contents = try? FileManager.default.contentsOfDirectory(
+                at: url,
+                includingPropertiesForKeys: [.isDirectoryKey],
+                options: [.skipsHiddenFiles]
+            )
+            
+            contents?.forEach { itemURL in
+                if itemURL.directoryExists {
+                    let submenu = populateTemplateMenu(url: itemURL)
+                    
+                    let submenuItem = NSMenuItem(
+                        title: itemURL.lastPathComponent,
+                        action: nil,
+                        keyEquivalent: ""
+                    )
+                    submenuItem.submenu = submenu
+                    submenuItem.image = NSImage(named: "Templates")?.copy() as? NSImage
+                    submenuItem.image?.size = iconSize.small
+                    menu.addItem(submenuItem)
+                } else {
+                    let name = itemURL.deletingPathExtension().lastPathComponent
+                    
+                    let menuItem = NSMenuItem(
+                        title: name,
+                        action: #selector(templateSelected(_:)),
+                        keyEquivalent: ""
+                    )
+                    menuItem.representedObject = itemURL
+                    menuItem.image = NSImage(named: "HP")?.copy() as? NSImage
+                    menuItem.image?.size = iconSize.small
+                    menu.addItem(menuItem)
+                }
+            }
+            
+            return menu
+        }
+        
+        let url = Bundle.main.resourceURL!.appending(path: "Developer/Library/Xprime/Templates/File Templates")
         menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Template")?.submenu = populateTemplateMenu(url: url)
     }
     
-    private func populateTemplateMenu(url: URL) -> NSMenu {
-        let menu = NSMenu()
-        
-        let contents = try? FileManager.default.contentsOfDirectory(
-            at: url,
-            includingPropertiesForKeys: [.isDirectoryKey],
-            options: [.skipsHiddenFiles]
-        )
-        
-        contents?.forEach { itemURL in
-            if itemURL.isDirectory {
-                let submenu = populateTemplateMenu(url: itemURL)
-                
-                let submenuItem = NSMenuItem(
-                    title: itemURL.lastPathComponent,
-                    action: nil,
-                    keyEquivalent: ""
-                )
-                submenuItem.submenu = submenu
-                submenuItem.image = NSImage(named: "Templates")?.copy() as? NSImage
-                submenuItem.image?.size = NSSize(width: 18, height: 18)
-                menu.addItem(submenuItem)
-            } else {
-                let name = itemURL.deletingPathExtension().lastPathComponent
-                
-                let menuItem = NSMenuItem(
-                    title: name,
-                    action: #selector(templateSelected(_:)),
-                    keyEquivalent: ""
-                )
-                menuItem.representedObject = itemURL
-                menuItem.image = NSImage(named: "HP")?.copy() as? NSImage
-                menuItem.image?.size = NSSize(width: 18, height: 18)
-                menu.addItem(menuItem)
-            }
-        }
-        
-        return menu
-    }
-    
-    @objc private func templateSelected(_ sender: NSMenuItem) {
-        func traceMenuItem(_ item: NSMenuItem) -> String {
-            if let parentMenu = item.menu {
-#if Debug
-                print("Item '\(item.title)' is in menu: \(parentMenu.title)")
-#endif
-                
-                // Try to find the parent NSMenuItem that links to this menu
-                for superitem in parentMenu.supermenu?.items ?? [] {
-                    if superitem.submenu == parentMenu {
-                        return superitem.title
-                    }
-                }
-            }
-            return ""
-        }
-        
-        let url = Bundle.main.bundleURL
-            .appendingPathComponent(templatesBasePath)
-            .appendingPathComponent(traceMenuItem(sender))
-            .appendingPathComponent(sender.title)
-            .appendingPathExtension("prgm")
-        
-        if let contents = HPServices.loadHPPrgm(at: url) {
-            codeEditorTextView.registerUndo(actionName: "Template")
-            if let selectedRange = codeEditorTextView.selectedRanges.first as? NSRange {
-                if let textStorage = codeEditorTextView.textStorage {
-                    textStorage.replaceCharacters(in: selectedRange, with: contents)
-                    codeEditorTextView.setSelectedRange(NSRange(location: selectedRange.location + contents.count, length: 0))
-                }
-            }
-            codeEditorTextView.applySyntaxHighlighting()
-        }
-    }
-    
+    // MARK: - Populate Recently Opened Menu
     private func populateOpenRecentMenu(menu: NSMenu) {
         guard let submenu = menu.item(withTitle: "File")?.submenu?.item(withTitle: "Open Recent")?.submenu else { return }
         
@@ -589,11 +590,11 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             if path.hasSuffix(".xprimeproj") == true {
                 let url = URL(fileURLWithPath: path)
                 
-                if url.deletingPathExtension().appendingPathExtension("hpappdir").isDirectory == true {
+                if url.deletingPathExtension().appendingPathExtension("hpappdir").directoryExists == true {
                     menuItem.image = NSImage(contentsOf: url
                         .deletingPathExtension()
                         .appendingPathExtension("hpappdir")
-                        .appendingPathComponent("icon.png")
+                        .appending(path: "icon.png")
                     )?.copy() as? NSImage
                 } else {
                     menuItem.image = icon
@@ -604,7 +605,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 switch url.pathExtension.lowercased() {
                 case "py":
                     menuItem.image = pythonIcon
-                case "note", "md", "ntf":
+                case "note":
                     menuItem.image = NSImage(named: "Notes")?.copy() as? NSImage
                 default:
                     menuItem.image = icon
@@ -644,12 +645,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         }
     }
     
-    @objc private func clearRecentMenu(_ sender: NSMenuItem) {
-        Settings.shared.recentFiles.removeAll()
-        if let menu = NSApp.mainMenu {
-            populateOpenRecentMenu(menu: menu)
-        }
-    }
+    
     
     @objc private func handleOpenRecent(_ sender: NSMenuItem) {
         guard let url = sender.representedObject as? URL else { return }
@@ -682,27 +678,35 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     }
     
     
-    // MARK: - Base Application Action Handler
-    @objc func preferBaseApplicationSelection(_ sender: NSMenuItem) {
-        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
-        guard let name = projectManager.projectName else { return }
-        
-        
-        if projectDirectoryURL.appendingPathComponent("\(name).hpappdir").isDirectory {
-            outputTextView.appendTextAndScroll("⚠️ Changing base application \"\(projectManager.baseApplicationName)\" to \"\(sender.title)\".\n")
-        } else {
-            outputTextView.appendTextAndScroll("🔨 Creating application directory\n")
-        }
-        
-        try? HPServices.resetHPAppContents(at: projectDirectoryURL, named: name, fromBaseApplicationNamed: sender.title)
-        outputTextView.appendTextAndScroll("Base application is \"\(projectManager.baseApplicationName)\"\n")
-        
-        
-        refreshQuickOpenToolbar()
-        updateWindowDocumentIcon()
-    }
-    
     // MARK: - Helper Functions
+//    private func generateHPPPLCode() -> String? {
+//        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return nil }
+//        guard let url = mainURL(in: projectDirectoryURL) else { return nil }
+//
+//        let executable = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "hpppl+")
+//        var arguments: [String] = [url.path, "-o", "/dev/stdout"]
+//        
+//        if ProjectSettings.shared.reformatting == true {
+//            arguments.append(contentsOf: ["--reformat"])
+//        }
+//        
+//        if ProjectSettings.shared.compression {
+//            arguments.append(contentsOf: ["--compress"])
+//        }
+//        
+//        let result = ProcessRunner.run(
+//            executable: executable,
+//            arguments: arguments
+//        )
+//        
+//        guard result.exitCode == 0, let out = result.out else {
+//            return nil
+//        }
+//        
+//        return out
+//        
+//    }
+    
     private func updateWindowDocumentIcon() {
         guard let window = view.window else { return }
         
@@ -738,7 +742,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             "hpppl": ["hpppl"],
             "py": ["py"],
             "pas": ["pas"],
-            "note": ["note", "ntf"],
+            "note": ["note"],
             "md": ["md"]
         ]
         
@@ -758,7 +762,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             
         ] {
             let url = directoryURL
-                .appendingPathComponent(main)
+                .appending(path: main)
             
             if FileManager.default.fileExists(
                 atPath: url.path) == true
@@ -774,25 +778,34 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         guard let projectName = projectManager.projectName else { return }
         
         for file in [
-            "info.note", "info.ntf"
+            "info.note"
         ] {
             if FileManager.default.fileExists(
                 atPath: url
-                    .appendingPathComponent(file)
+                    .appending(path: file)
                     .path) == false
             {
                 continue
             }
             
+            let destinationURL: URL
+            
+            if projectManager.isProjectApplication {
+                destinationURL = url
+                    .appending(path: projectName)
+                    .appendingPathExtension("hpappdir")
+                    .appending(path: projectName)
+                    .appendingPathExtension("hpappnote")
+            } else {
+                destinationURL = url
+                    .appending(path: projectName)
+                    .appendingPathExtension("hpnote")
+            }
+            
             convertFileToHPNote(
                 from: url
-                    .appendingPathComponent(file),
-                to: url
-                    .appendingPathComponent(projectName)
-                    .appendingPathExtension("hpappdir")
-                    .appendingPathComponent(projectName)
-                    .appendingPathExtension("hpappnote")
-                
+                    .appending(path: file),
+                to: destinationURL
             )
             break
         }
@@ -806,8 +819,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         }
         guard let projectName = projectManager.projectName else { return }
         
+        noteToHpNote(in: url)
+        
         let destinationURL = url
-            .appendingPathComponent("\(projectName).hpprgm")
+            .appending(path: "\(projectName).hpprgm")
         
         let result = HPServices.preProccess(at: sourceURL, to: destinationURL)
         outputTextView.appendTextAndScroll(result.err ?? "")
@@ -834,9 +849,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             return
         }
         let result = HPServices.preProccess(at: sourceURL, to: url
-            .appendingPathComponent(projectName)
+            .appending(path: projectName)
             .appendingPathExtension("hpappdir")
-            .appendingPathComponent(projectName)
+            .appending(path: projectName)
             .appendingPathExtension("hpappprgm")
         )
         
@@ -850,15 +865,15 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         let url: URL
         
         let dirA = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
-            .appendingPathComponent(projectName)
+            .appending(path: "Documents/HP Prime/Calculators/Prime")
+            .appending(path: projectName)
             .appendingPathExtension("hpappdir")
-            .appendingPathComponent(projectName)
+            .appending(path: projectName)
             .appendingPathExtension("hpappprgm")
         let dirB = projectDirectoryURL
-            .appendingPathComponent(projectName)
+            .appending(path: projectName)
             .appendingPathExtension("hpappdir")
-            .appendingPathComponent(projectName)
+            .appending(path: projectName)
             .appendingPathExtension("hpappprgm")
         
         if dirA.isNewer(than: dirB), ProjectSettings.shared.archiveProjectAppOnly == false {
@@ -877,7 +892,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
     
-    // MARK: - Xprime `uses` support to PPL+ for importing Apps used by Program/App
+    // Xprime `uses` support to PPL+ for importing Apps used by Program/App
     private func processUses(in text: String) -> (cleaned: String, units: [String]) {
         // Matches: uses A, B, C;
         // Also supports multiline uses blocks
@@ -918,15 +933,15 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     private func installRequiredUnits(units: [String]) {
         let basePath = ToolchainPaths.developerRoot
-            .appendingPathComponent("usr")
-            .appendingPathComponent("hpappdir")
+            .appending(path: "usr")
+            .appending(path: "hpappdir")
         
         for unit in units {
             if HPServices.hpAppDirectoryIsInstalled(named: unit) {
                 continue
             }
             let fileURL = basePath
-                .appendingPathComponent(unit)
+                .appending(path: unit)
                 .appendingPathExtension("hpappdir")
             
             do {
@@ -939,55 +954,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     }
     
     // MARK: -
-    @objc private func quickOpen(_ sender: NSMenuItem) {
-        guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
-            return
-        }
-        
-        if let url = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: url.path), documentManager.documentIsModified {
-            AlertPresenter.presentYesNo(
-                on: view.window,
-                title: "Save Changes",
-                message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
-                primaryActionTitle: "Save"
-            ) { confirmed in
-                if confirmed {
-                    self.documentManager.saveDocument()
-                    self.documentManager.openDocument(at: projectDirectoryURL.appendingPathComponent(sender.title))
-                } else {
-                    return
-                }
-            }
-        } else {
-            let url = sender.representedObject as? URL
-            self.documentManager.openDocument(at: url!)
-        }
-        
-        guard
-            let toolbar = view.window?.toolbar,
-            let item = toolbar.items.first(where: {
-                $0.paletteLabel == "Quick Open"
-            }),
-            let comboButton = item.view as? NSComboButton
-        else {
-            return
-        }
-        
-        let iconSize = NSSize(width: 24, height: 24)
-        
-        switch documentManager.currentDocumentURL?.pathExtension.lowercased() {
-        case "hpppl":
-            comboButton.image = NSImage(named: "hpppl")?.copy() as? NSImage
-            
-        case "note":
-            comboButton.image = NSImage(named: "note")?.copy() as? NSImage
-        default:
-            comboButton.image = sender.image
-        }
-        
-        comboButton.image?.size = iconSize
-        
-    }
     
     private func refreshQuickOpenToolbar() {
         guard
@@ -1087,11 +1053,11 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                             menu.items.last?.image = file
                         }
                         
-                        menu.items.last?.image?.size = NSSize(width: 24, height: 24)
+                        menu.items.last?.image?.size = iconSize.big
                         if url == documentManager.currentDocumentURL {
                             menu.items.last?.state = .on
                             comboButton.image = menu.items.last?.image
-                            comboButton.image?.size = NSSize(width: 24, height: 24)
+                            comboButton.image?.size = iconSize.big
                         }
                     }
                 }
@@ -1112,7 +1078,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             for baseApplicationName in baseApplicationNames {
                 menu.addItem(
                     withTitle: baseApplicationName,
-                    action: #selector(preferBaseApplicationSelection(_:)),
+                    action: #selector(baseApplicationSelection(_:)),
                     keyEquivalent: ""
                 )
                 let image = NSImage(named: baseApplicationName)?.copy() as! NSImage
@@ -1135,13 +1101,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 at: 0
             )
             menu.item(at: 0)?.image = projectManager.projectIcon
-            menu.item(at: 0)?.image?.size = NSSize(width: 24, height: 24)
+            menu.item(at: 0)?.image?.size = iconSize.big
             menu.item(at: 0)?.submenu = createMenu(for: url
-                .appendingPathComponent(projectManager.projectName!)
+                .appending(path: projectManager.projectName!)
                 .appendingPathExtension("hpappdir")
             )
             for item in menu.item(at: 0)!.submenu!.items {
-                item.image?.size = NSSize(width: 24, height: 24)
+                item.image?.size = iconSize.big
             }
             menu.insertItem(NSMenuItem.separator(), at: 1)
             menu.item(at: 0)?.submenu?.insertItem(
@@ -1154,7 +1120,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             )
             let baseApplicationIcon = NSImage(named: projectManager.baseApplicationName)?.copy() as! NSImage
             menu.item(at: 0)?.submenu?.item(at: 0)?.image = baseApplicationIcon
-            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = NSSize(width: 24, height: 24)
+            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = iconSize.big
             menu.item(at: 0)?.submenu?.item(at: 0)?.submenu = createBaseMenu()
         }
         
@@ -1166,10 +1132,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         comboButton.action = #selector(revertDocumentToSaved(_:))
     }
     
-    // MARK: - Actions
-    @IBAction func checkForUpdates(_ sender: Any) {
-        updateManager.checkForUpdates()
-    }
     
     // MARK: - Add Files to Current Project
     @IBAction private func newDocument(_ sender : Any) {
@@ -1219,7 +1181,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             let selectedURLs = panel.urls
             
             for url in selectedURLs {
-                let destinationURL = projectDirectoryURL.appendingPathComponent(url.lastPathComponent)
+                let destinationURL = projectDirectoryURL.appending(path: url.lastPathComponent)
                 self.copyFileHandlingDuplicates(
                     from: url,
                     to: destinationURL
@@ -1447,7 +1409,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         guard let projectName = projectManager.projectName else { return }
         
         try? HPServices.exportToConnectivityKitContent(at: currentDirectoryURL
-            .appendingPathComponent(projectName)
+            .appending(path: projectName)
             .appendingPathExtension(projectManager.isProjectApplication ? "hpappdir" : "hpprgm")
         )
     }
@@ -1457,7 +1419,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         guard let projectName = projectManager.projectName else { return }
         
         let programURL = currentDirectoryURL
-            .appendingPathComponent(projectName)
+            .appending(path: projectName)
             .appendingPathExtension("hpprgm")
         outputTextView.appendTextAndScroll("Installing: \(programURL.lastPathComponent)\n")
         do {
@@ -1483,7 +1445,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         guard let projectName = projectManager.projectName else { return }
         
         let appDirURL = currentDirectoryURL
-            .appendingPathComponent(projectName)
+            .appending(path: projectName)
             .appendingPathExtension("hpappdir")
         outputTextView.appendTextAndScroll("Installing: \(appDirURL.lastPathComponent)\n")
         do {
@@ -1527,9 +1489,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         outputTextView.appendTextAndScroll("Cleaning...\n")
         
         let files: [URL] = [
-            currentDirectoryURL.appendingPathComponent("\(projectName).hpprgm"),
-            currentDirectoryURL.appendingPathComponent("\(projectName).hpappdir/\(projectName).hpappprgm"),
-            currentDirectoryURL.appendingPathComponent("\(projectName).hpappdir.zip")
+            currentDirectoryURL.appending(path: "\(projectName).hpprgm"),
+            currentDirectoryURL.appending(path: "\(projectName).hpnote"),
+            currentDirectoryURL.appending(path: "\(projectName).hpappdir/\(projectName).hpappprgm"),
+            currentDirectoryURL.appending(path: "\(projectName).hpappdir.zip")
         ]
         
         for file in files {
@@ -1558,7 +1521,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     @IBAction func showContentFolderInFinder(_ sender: Any) {
         let url = FileManager.default.homeDirectoryForCurrentUser
-            .appendingPathComponent("Documents/HP Connectivity Kit/Content")
+            .appending(path: "Documents/HP Connectivity Kit/Content")
         url.revealInFinderWithCooldown()
     }
     
@@ -1582,13 +1545,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     
     // MARK: - Output Information
-    @objc func toggleSubstitution(_ sender: NSButton) {
-        Settings.shared.substitutionEnabled.toggle()
-    }
     
-    @objc func toggleAutoIndentation(_ sender: NSButton) {
-        Settings.shared.autoIndentation.toggle()
-    }
     
     @IBAction func toggleOutput(_ sender: NSButton) {
         outputTextView.toggleVisability(sender)
@@ -1639,7 +1596,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             
         case #selector(exportToConnectivityKit(_:)):
             guard let url = projectManager.projectDirectoryURL, let name = projectManager.projectName else { return false }
-            if FileManager.default.fileExists(atPath: url.appendingPathComponent("\(name).hpprgm").path) {
+            if FileManager.default.fileExists(atPath: url.appending(path: "\(name).hpprgm").path) {
                 return true
             }
             return projectManager.isProjectApplication
@@ -1701,6 +1658,24 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         return true
     }
+    
+    
+    // MARK: - Update Toolbar State
+    func updateToolbarState() {
+        let url = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        
+        if let button = view.findButton(withIdentifier: "notes") {
+            button.isEnabled = url.appending(path: "info.note").fileExists
+        }
+        
+        if let button = view.findButton(withIdentifier: "autoIndentation") {
+            button.state = Settings.shared.autoIndentation ? .on : .off
+        }
+        
+        if let button = view.findButton(withIdentifier: "substitution") {
+            button.state = Settings.shared.substitutionEnabled ? .on : .off
+        }
+    }
 }
 
 // MARK: - 🤝 DocumentManagerDelegate
@@ -1714,7 +1689,7 @@ extension MainViewController: DocumentManagerDelegate {
         guard let projectName = projectManager.projectName else { return }
         
         let projectFileURL = projectDirectoryURL
-            .appendingPathComponent("\(projectName).xprimeproj")
+            .appending(path: "\(projectName).xprimeproj")
         
         projectManager.saveProjectAs(at: projectFileURL)
         
@@ -1740,12 +1715,12 @@ extension MainViewController: DocumentManagerDelegate {
         if let url = documentManager.currentDocumentURL {
             loadAppropriateGrammar(forType: url.pathExtension.lowercased())
             let snippetsURL = URL(filePath: Settings.shared.workingDirectory)
-                .appendingPathComponent("Libraries")
-                .appendingPathComponent("Snippets")
+                .appending(path: "Libraries")
+                .appending(path: "Snippets")
             if url.pathExtension.lowercased() == "hppplplus" {
-                codeEditorTextView.reloadSnippets(from: snippetsURL.appendingPathComponent("hpppl"))
+                codeEditorTextView.reloadSnippets(from: snippetsURL.appending(path: "hpppl"))
             } else {
-                codeEditorTextView.reloadSnippets(from: snippetsURL.appendingPathComponent(url.pathExtension.lowercased()))
+                codeEditorTextView.reloadSnippets(from: snippetsURL.appending(path: url.pathExtension.lowercased()))
             }
         } else {
             loadAppropriateGrammar(forType:URL(fileURLWithPath: Settings.shared.lastOpenedFile).pathExtension.lowercased())
@@ -1753,7 +1728,6 @@ extension MainViewController: DocumentManagerDelegate {
         
         if let menu = NSApp.mainMenu {
             populateSnippetMenu(menu: menu)
-            populateStubMenu(menu: menu)
         }
         
         previewButton.isEnabled = documentManager.currentDocumentURL?.pathExtension == "hppplplus"
@@ -1796,12 +1770,12 @@ extension MainViewController: ProjectManagerDelegate {
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
         
         FileManager.default.changeCurrentDirectoryPath(projectDirectoryURL.path)
+        
         if let url = mainURL(in: projectDirectoryURL) {
             documentManager.openDocument(at: url)
-            if url.appendingPathComponent("info.note").isFileURL {
-                notesButton.isEnabled = true
-            }
         }
+
+        updateToolbarState()
         
         if let projectURL = ProjectManager.projectURL(in: projectDirectoryURL) {
             appendToRecentMenu(url: projectURL)

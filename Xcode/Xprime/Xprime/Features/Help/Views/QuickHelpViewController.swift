@@ -51,8 +51,10 @@ final class QuickHelpViewController: NSViewController {
     ) {
         self.text = text
         self.hasHorizontalScroller = hasHorizontalScroller
-        self.grammar = GrammarLoader.shared.loadGrammar(named: ".hpppl")
-        self.theme = ThemeLoader.shared.loadTheme(from: URL(fileURLWithPath: Settings.shared.preferredTheme))
+        self.grammar = GrammarLoader.shared.loadGrammar(named: "hpppl")
+        let url = Bundle.main.url(forResource: "HP Connectivity Kit (Dark)", withExtension: "xpcolortheme")!
+
+        self.theme = ThemeLoader.shared.loadTheme(from: url)
         super.init(nibName: nil, bundle: nil)
     }
     

@@ -210,6 +210,7 @@ namespace hpnote {
         auto style = ntf::currentStyleState();
         auto format = ntf::currentFormatState();
         
+        
         if (!runs.size()) {
             // Blank line
             encodedLine += encodeParagraphAttributes(ntf::Align::Left, ntf::Bullet::None);

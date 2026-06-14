@@ -94,7 +94,7 @@ DQ
                 </viewController>
                 <customObject id="0qd-iU-jch" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-295" y="-46"/>
+            <point key="canvasLocation" x="-2463" y="546"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="CGL-up-35A">
@@ -251,7 +251,7 @@ Gw
                 </viewController>
                 <customObject id="0ge-Ir-HeY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1573" y="-1894"/>
+            <point key="canvasLocation" x="-1452" y="-1490"/>
         </scene>
         <!--New Program View Controller-->
         <scene sceneID="xDu-UI-fFO">
@@ -343,7 +343,7 @@ Gw
                 </viewController>
                 <customObject id="m8U-c9-I58" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-678" y="-1042"/>
+            <point key="canvasLocation" x="-1288" y="-698"/>
         </scene>
         <!--New Project View Controller-->
         <scene sceneID="Sio-19-KuF">
@@ -974,11 +974,7 @@ Gw
                                         <menuItem title="Template" image="Templates" id="dAk-Ox-0tv">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
-                                        <menuItem title="Snippet" image="Snippets" id="ehA-PE-5VO">
-                                            <attributedString key="attributedTitle"/>
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                        </menuItem>
-                                        <menuItem title="Stub" image="Stubs" id="Abs-sW-JsB">
+                                        <menuItem title="Snippet" image="Folder" id="ehA-PE-5VO">
                                             <attributedString key="attributedTitle"/>
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                         </menuItem>
@@ -1172,7 +1168,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IZu-lA-Rsu">
-                                <rect key="frame" x="18" y="228" width="142" height="16"/>
+                                <rect key="frame" x="18" y="233" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Archiving" id="ZOC-PW-IA6">
                                     <font key="font" metaFont="system"/>
@@ -1181,7 +1177,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YIL-S0-VhS">
-                                <rect key="frame" x="18" y="93" width="168" height="16"/>
+                                <rect key="frame" x="18" y="118" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Compression" id="BVX-Ke-nES">
                                     <font key="font" metaFont="system"/>
@@ -1205,7 +1201,7 @@ DQ
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OII-Pn-zIo">
-                                <rect key="frame" x="164" y="56" width="268" height="34"/>
+                                <rect key="frame" x="164" y="81" width="268" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" enabled="NO" alignment="left" title="Compression of your code results in it taking up less storage of your HP Prime's storage memory" id="FRY-Hc-v8i">
                                     <font key="font" metaFont="smallSystem"/>
@@ -1213,8 +1209,8 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5f-FW-b35">
-                                <rect key="frame" x="144" y="93" width="254" height="16"/>
+                            <button identifier="compression" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5f-FW-b35">
+                                <rect key="frame" x="144" y="118" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" title="Reduce hpppl code footprint" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" inset="2" id="DQa-Pt-Zve">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1222,7 +1218,7 @@ DQ
                                 </buttonCell>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93n-CX-ovO">
-                                <rect key="frame" x="18" y="117" width="168" height="16"/>
+                                <rect key="frame" x="18" y="142" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Named" id="iwS-AH-4EQ">
                                     <font key="font" metaFont="system"/>
@@ -1231,7 +1227,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k2p-TN-dBW">
-                                <rect key="frame" x="144" y="117" width="286" height="16"/>
+                                <rect key="frame" x="144" y="142" width="286" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" title="Create the .hpprgm as a named program" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="6hu-cV-iTr">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1239,7 +1235,7 @@ DQ
                                 </buttonCell>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qn-7X-3f6">
-                                <rect key="frame" x="144" y="228" width="254" height="16"/>
+                                <rect key="frame" x="144" y="233" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" title="Archive Project .hpappdir Only" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="yd2-dY-B37">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1247,7 +1243,7 @@ DQ
                                 </buttonCell>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooa-fk-Yt3">
-                                <rect key="frame" x="18" y="204" width="131" height="16"/>
+                                <rect key="frame" x="18" y="209" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Plain Fallback" id="xkN-6G-jXZ">
                                     <font key="font" metaFont="system"/>
@@ -1256,7 +1252,7 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDm-ic-Coh">
-                                <rect key="frame" x="144" y="204" width="254" height="16"/>
+                                <rect key="frame" x="144" y="209" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" title="Include plain text fallback" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="u0o-pu-ddQ">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1275,7 +1271,7 @@ DQ
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0Z-Ly-7al">
-                                <rect key="frame" x="18" y="141" width="219" height="24"/>
+                                <rect key="frame" x="18" y="166" width="219" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP PPL+ Settings" id="ZZq-iF-Ogj">
                                     <font key="font" metaFont="system" size="18"/>
@@ -1283,6 +1279,23 @@ DQ
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TaR-we-5nj">
+                                <rect key="frame" x="18" y="65" width="131" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Reformat" id="MGH-MT-fW6">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button identifier="reformatting" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Sd-VS-P78">
+                                <rect key="frame" x="144" y="65" width="286" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" title="Reformat the hpppl code" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" inset="2" id="sY0-PY-wjk">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -1294,7 +1307,7 @@ DQ
                 </viewController>
                 <customObject id="v87-fw-eo0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="374" y="-1029"/>
+            <point key="canvasLocation" x="-1047" y="120"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tHz-DL-wb2">
@@ -1319,7 +1332,7 @@ DQ
                 </viewController>
                 <customObject id="ADs-Oq-61e" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="850" y="-1029"/>
+            <point key="canvasLocation" x="-580" y="121"/>
         </scene>
         <!--Project Settings View Controller-->
         <scene sceneID="3zb-e1-bF9">
@@ -1461,7 +1474,7 @@ Gw
                 </viewController>
                 <customObject id="57P-ye-oRC" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-906" y="-79"/>
+            <point key="canvasLocation" x="-1577" y="120"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="NHA-8D-O4V">
@@ -1534,7 +1547,7 @@ Gw
                 </viewController>
                 <customObject id="om8-lc-c63" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2185" y="-999"/>
+            <point key="canvasLocation" x="-2115" y="-1374"/>
         </scene>
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
@@ -1542,7 +1555,7 @@ Gw
                 <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="Untitled (UNSAVED)" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" fullSizeContentView="YES"/>
-                        <rect key="contentRect" x="620" y="417" width="912" height="600"/>
+                        <rect key="contentRect" x="620" y="417" width="599" height="289"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <value key="minSize" type="size" width="800" height="600"/>
                         <value key="minFullScreenContentSize" type="size" width="800" height="600"/>
@@ -1679,7 +1692,7 @@ Gw
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1389" y="-909"/>
+            <point key="canvasLocation" x="-1545.5" y="-1064.5"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -1827,7 +1840,7 @@ Gw
                                             <segue destination="HsO-bO-Dfd" kind="modal" id="5RB-6J-gcI"/>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D8b-RZ-JHs" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                    <button identifier="notes" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D8b-RZ-JHs" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
                                         <rect key="frame" x="356" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="note.text" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PHk-D2-9F3">
@@ -1860,7 +1873,7 @@ Gw
                                         </buttonCell>
                                         <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NOe-DW-dJ5" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                    <button identifier="autoIndentation" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NOe-DW-dJ5" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
                                         <rect key="frame" x="482" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="increase.indent" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aZp-vS-wwc">
@@ -1869,7 +1882,7 @@ Gw
                                         </buttonCell>
                                         <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9c0-A1-8Rj" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                    <button identifier="subtitution" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9c0-A1-8Rj" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
                                         <rect key="frame" x="524" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="replacement" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uTW-8P-Ose">
@@ -1961,12 +1974,12 @@ Gw
                 </viewController>
                 <customObject id="xpR-Pt-CiF" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="252" y="-562"/>
+            <point key="canvasLocation" x="-2025" y="556"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="5RB-6J-gcI"/>
-        <segue reference="GAi-V2-Fxa"/>
+        <segue reference="sLN-NW-azV"/>
+        <segue reference="Fuk-bI-vJG"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="About" width="560" height="420"/>
@@ -1979,6 +1992,7 @@ Gw
         <image name="Explorer" width="19" height="19"/>
         <image name="Finance" width="19" height="19"/>
         <image name="Finder" width="18" height="18"/>
+        <image name="Folder" width="19" height="19"/>
         <image name="Function" width="19" height="19"/>
         <image name="Geometry" width="19" height="19"/>
         <image name="Graph 3D" width="19" height="19"/>
@@ -1992,12 +2006,10 @@ Gw
         <image name="Polar" width="19" height="19"/>
         <image name="Python" width="19" height="19"/>
         <image name="Sequence" width="19" height="19"/>
-        <image name="Snippets" width="18" height="18"/>
         <image name="Solve" width="19" height="19"/>
         <image name="Spreadsheet" width="19" height="19"/>
         <image name="Statistics 1Var" width="19" height="19"/>
         <image name="Statistics 2Var" width="19" height="19"/>
-        <image name="Stubs" width="19" height="19"/>
         <image name="Templates" width="19" height="19"/>
         <image name="Triangle Solver" width="19" height="19"/>
         <image name="VirtualCalculator" width="32" height="32"/>

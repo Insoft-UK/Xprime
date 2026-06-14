@@ -22,7 +22,6 @@
 
 import Cocoa
 
-
 extension NSTextView {
     func baseAttributes(defaultFontSize: CGFloat) -> [NSAttributedString.Key: Any] {
         let font = NSFont.systemFont(ofSize: defaultFontSize, weight: .regular)

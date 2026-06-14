@@ -53,39 +53,19 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/README.md"
+            argument = "$(PROJECT_DIR)/test/TEST.ntf"
             isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/README.rtf"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/README.ntf"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/LICENSE.ntf"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/INSOFT.ntf"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/DEBUG.ntf"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/DEBUG.note --html"
-            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o Note.hpnote"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/test/TEST.hpappnote --html -o Note.html"
+            argument = "$(PROJECT_DIR)/test/info.note"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "$(PROJECT_DIR)/test/README.ntf"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
@@ -106,7 +86,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o /dev/stdout"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--compress"
@@ -117,12 +97,12 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-o ~/Documents/HP\ Prime/Calculators/Prime/MyNote.hpappdir/MyNote.hpappnote"
+            argument = "~/Documents/HP\ Prime/Calculators/Prime/info.hpnote"
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-o ~/Documents/HP\ Prime/Calculators/Prime/"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--version"

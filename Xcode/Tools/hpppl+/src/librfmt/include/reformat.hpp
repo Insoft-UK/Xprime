@@ -31,5 +31,5 @@
 #include <cctype>
 
 namespace reformat {
-    std::string prgm(const std::string& s);
+    std::string prgm(const std::string& s, int indentationWidth = 2);
 }

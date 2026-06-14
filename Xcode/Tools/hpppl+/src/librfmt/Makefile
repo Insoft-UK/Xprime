@@ -11,7 +11,9 @@ CXXFLAGS := -std=c++23 \
 
 SRC := $(wildcard src/*.cpp)
 
-all:
+all: arm64 x86_64 universal
+
+native:
 	mkdir -p lib
 	$(CXX) -arch $(ARCH) $(CXXFLAGS) -c $(SRC)
 	libtool -static -o lib/$(PROJECT_NAME).a *.o
@@ -29,7 +31,7 @@ x86_64:
 	libtool -static -o lib/x86_64/$(PROJECT_NAME).a *.o
 	rm -f *.o
 
-universal: arm64 x86_64
+universal:
 	mkdir -p lib
 	lipo -create \
 		-output lib/$(PROJECT_NAME).a \

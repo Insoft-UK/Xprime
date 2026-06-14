@@ -56,9 +56,40 @@ final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NS
         
         configureIncludeProgramNameSelection()
         configureIncludeProgramNameActions()
+        
+        if let button = view.findButton(withIdentifier: "reformatting") {
+            button.state = ProjectSettings.shared.reformatting ? .on : .off
+            button.target = self
+            button.action = #selector(reformattingSwitchToggled)
+        }
     }
     
     // MARK: - Actions
+    @objc private func compressionSwitchToggled(_ sender: NSSwitch) {
+        if sender.state == .on {
+            ProjectSettings.shared.compression = true
+            ProjectSettings.shared.reformatting = false
+            if let button = view.findButton(withIdentifier: "reformatting") {
+                button.state = .off
+            }
+        } else {
+            ProjectSettings.shared.compression = false
+        }
+    }
+    
+    @objc func reformattingSwitchToggled(_ sender: NSSwitch) {
+        if sender.state == .on {
+            ProjectSettings.shared.reformatting = true
+            ProjectSettings.shared.compression = false
+            if let button = view.findButton(withIdentifier: "compression") {
+                button.state = .off
+            }
+        } else {
+            ProjectSettings.shared.reformatting = false
+        }
+    }
+    
+    
     @objc private func preferProjectBuildSwitchToggled(_ sender: NSSwitch) {
         ProjectSettings.shared.archiveProjectAppOnly = sender.state == .on
     }
@@ -67,9 +98,6 @@ final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NS
         ProjectSettings.shared.plainFallbackText = sender.state == .on
     }
     
-    @objc private func compressionSwitchToggled(_ sender: NSSwitch) {
-        ProjectSettings.shared.compression = sender.state == .on
-    }
     
     @objc private func includeProgramNameSwitchToggled(_ sender: NSSwitch) {
         ProjectSettings.shared.includeProgramName = sender.state == .on

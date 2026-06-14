@@ -6,13 +6,12 @@ uses HP;
 
 var CGA := {$I CGA.h};
 
-alias WHITE := #FFFFFF:32h;
-alias BLACK := 0;
+dictionary White := #FFFFFF:32h, Black  := 0 Color;
 
 export START()
 begin
-	RECT(BLACK);
-	HP.TEXTOUT("CGA Font Example", G0, 0, 0, CGA, WHITE);
+	RECT(Color.Black);
+	HP.TEXTOUT("CGA Font Example", G0, 0, 0, CGA, Color.White, 1);
 	WAIT(-1);
     return 0;
 end;

@@ -109,11 +109,10 @@ enum HPServices {
         
         let calculatorURL = FileManager.default
             .homeDirectoryForCurrentUser
-            .appendingPathComponent("Documents/HP Connectivity Kit/Calculators")
-            .appendingPathComponent(name)
+            .appending(path: "Documents/HP Connectivity Kit/Calculators")
+            .appending(path: name)
         
-        print(calculatorURL.isDirectory)
-        return calculatorURL.isDirectory
+        return calculatorURL.directoryExists
     }
     
     static func hpPrimeDirectory() -> URL? {
@@ -123,9 +122,9 @@ enum HPServices {
             return nil
         }
         let directoryURL = homeURL
-            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
+            .appending(path: "Documents/HP Prime/Calculators/Prime")
         
-        if directoryURL.isDirectory == false {
+        if directoryURL.directoryExists == false {
             return nil
         }
         
@@ -138,7 +137,7 @@ enum HPServices {
         // Determine base folder
         let baseURL: URL
         baseURL = homeURL
-                .appendingPathComponent("Documents/HP Connectivity Kit/Content")
+                .appending(path: "Documents/HP Connectivity Kit/Content")
         
         
         return hpPrgmExists(atPath: baseURL.path, named: name)
@@ -148,38 +147,38 @@ enum HPServices {
         let baseURL: URL
         if let user = user, hpPrimeCalculatorExists(named: user) {
             baseURL = FileManager.default.homeDirectoryForCurrentUser
-                .appendingPathComponent("Documents/HP Connectivity Kit/Content")
-                .appendingPathComponent(user)
+                .appending(path: "Documents/HP Connectivity Kit/Content")
+                .appending(path: user)
         } else {
             baseURL = FileManager.default.homeDirectoryForCurrentUser
-                .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
+                .appending(path: "Documents/HP Prime/Calculators/Prime")
         }
 
-        let appDirURL = baseURL.appendingPathComponent("\(name).hpappdir")
-        return appDirURL.isDirectory
+        let appDirURL = baseURL.appending(path: "\(name).hpappdir")
+        return appDirURL.directoryExists
     }
 
     
     static func hpPrgmExists(atPath path: String, named name: String) -> Bool {
         let programURL = URL(fileURLWithPath: path)
-            .appendingPathComponent(name)
+            .appending(path: name)
             .appendingPathExtension("hpprgm")
         return FileManager.default.fileExists(atPath: programURL.path)
     }
 
     static func hpAppDirIsComplete(atPath path: String, named name: String) -> Bool {
         let appDirURL = URL(fileURLWithPath: path)
-            .appendingPathComponent(name)
+            .appending(path: name)
             .appendingPathExtension("hpappdir")
         
-        guard appDirURL.isDirectory else {
+        guard appDirURL.directoryExists else {
             return false
         }
         
         let files: [URL] = [
-            appDirURL.appendingPathComponent("icon.png"),
-            appDirURL.appendingPathComponent("\(name).hpapp"),
-            appDirURL.appendingPathComponent("\(name).hpappprgm")
+            appDirURL.appending(path: "icon.png"),
+            appDirURL.appending(path: "\(name).hpapp"),
+            appDirURL.appending(path: "\(name).hpappprgm")
         ]
         for file in files {
             if !FileManager.default.fileExists(atPath: file.path) {
@@ -210,7 +209,7 @@ enum HPServices {
     }
     
     private static func ensureDirectoryExists(_ url: URL) throws {
-        if !url.isDirectory {
+        if !url.directoryExists {
             try FileManager.default.createDirectory(
                 at: url,
                 withIntermediateDirectories: true
@@ -225,7 +224,7 @@ enum HPServices {
         fileManager: FileManager = .default
     ) throws {
         let fileURL = destination
-            .appendingPathComponent(appName)
+            .appending(path: appName)
             .appendingPathExtension("hpappnote")
         
         guard !fileManager.fileExists(atPath: fileURL.path) else { return }
@@ -272,16 +271,16 @@ enum HPServices {
         let seedDate = creationDate()
         
         try copyIfMissing(
-            from: baseApplicationURL.appendingPathComponent("\(baseApplicationName).png"),
+            from: baseApplicationURL.appending(path: "\(baseApplicationName).png"),
             to: appDirectoryURL
-                .appendingPathComponent("icon.png"),
+                .appending(path: "icon.png"),
             date: seedDate
         )
 
         try copyIfMissing(
-            from: baseApplicationURL.appendingPathComponent("\(baseApplicationName).hpapp"),
+            from: baseApplicationURL.appending(path: "\(baseApplicationName).hpapp"),
             to: appDirectoryURL
-                .appendingPathComponent(appName)
+                .appending(path: appName)
                 .appendingPathExtension("hpapp"),
             date: seedDate
         )
@@ -298,12 +297,12 @@ enum HPServices {
         let safeName = try fileSafeName(from: appName)
 
         let baseApplicationURL = Bundle.main.bundleURL
-            .appendingPathComponent(baseApplicationPath)
-            .appendingPathComponent(baseAppName)
+            .appending(path: baseApplicationPath)
+            .appending(path: baseAppName)
             .appendingPathExtension("hpappdir")
 
         let appDirectoryURL = directory
-            .appendingPathComponent(safeName)
+            .appending(path: safeName)
             .appendingPathExtension("hpappdir")
 
         try ensureDirectoryExists(appDirectoryURL)
@@ -337,13 +336,13 @@ enum HPServices {
         let safeName = try fileSafeName(from: appName)
 
         let appDirectoryURL = directory
-            .appendingPathComponent(safeName)
+            .appending(path: safeName)
             .appendingPathExtension("hpappdir")
 
         try ensureDirectoryExists(appDirectoryURL)
         
         let iconURL = appDirectoryURL
-            .appendingPathComponent("icon")
+            .appending(path: "icon")
             .appendingPathExtension("png")
         
         let seedDate = creationDate()
@@ -357,7 +356,7 @@ enum HPServices {
 
         try? FileManager.default.removeItem(
             at: appDirectoryURL
-                .appendingPathComponent(safeName)
+                .appending(path: safeName)
                 .appendingPathExtension("hpapp")
         )
 
@@ -380,10 +379,10 @@ enum HPServices {
         var destinationPath = "\(name).hpappdir.zip"
         
         if let desctinationURL = desctinationURL {
-            try? FileManager.default.removeItem(at: desctinationURL.appendingPathComponent("\(name).hpappdir.zip"))
-            destinationPath = desctinationURL.appendingPathComponent("\(name).hpappdir.zip").path
+            try? FileManager.default.removeItem(at: desctinationURL.appending(path: "\(name).hpappdir.zip"))
+            destinationPath = desctinationURL.appending(path: "\(name).hpappdir.zip").path
         } else {
-            try? FileManager.default.removeItem(at: directory.appendingPathComponent("\(name).hpappdir.zip"))
+            try? FileManager.default.removeItem(at: directory.appending(path: "\(name).hpappdir.zip"))
         }
         
         
@@ -402,7 +401,7 @@ enum HPServices {
     static func loadHPPrgm(at url: URL) -> String? {
         
         if url.pathExtension.lowercased() == "hpprgm" || url.pathExtension.lowercased() == "hpappprgm" {
-            let result = ProcessRunner.run(executable: URL(fileURLWithPath: ToolchainPaths.bin).appendingPathComponent("hpppl+"), arguments: [url.path, "-o", "/dev/stdout"])
+            let result = ProcessRunner.run(executable: URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "hpppl+"), arguments: [url.path, "-o", "/dev/stdout"])
             if let out = result.out, !out.isEmpty {
                 return result.out
             }
@@ -434,8 +433,8 @@ enum HPServices {
         
         // Determine destination folder
         let destinationURL = homeURL
-            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
-            .appendingPathComponent(programURL.lastPathComponent)
+            .appending(path: "Documents/HP Prime/Calculators/Prime")
+            .appending(path: programURL.lastPathComponent)
 
         do {
             if FileManager.default.fileExists(atPath: destinationURL.path) {
@@ -443,17 +442,47 @@ enum HPServices {
             }
 
             try FileManager.default.copyItem(at: programURL, to: destinationURL)
+            
+            
+            let name = programURL.deletingPathExtension().lastPathComponent
+            
+            if FileManager.default.fileExists(
+                atPath: homeURL
+                    .appending(path: "Documents/HP Prime/Calculators/Prime")
+                    .appending(path: name)
+                    .appendingPathExtension("hpnote")
+                    .path
+            ) {
+                try FileManager.default.removeItem(
+                    at: homeURL
+                        .appending(path: "Documents/HP Prime/Calculators/Prime")
+                        .appending(path: name)
+                        .appendingPathExtension("hpnote")
+                )
+            }
+            
+            try FileManager.default.copyItem(
+                at: programURL.deletingPathExtension()
+                    .appendingPathExtension("hpnote"),
+                to: homeURL
+                    .appending(path: "Documents/HP Prime/Calculators/Prime")
+                    .appending(path: name)
+                    .appendingPathExtension("hpnote"))
         }
     }
     
     static func preProccess(at sourceURL: URL, to destinationURL: URL) -> (out: String?, err: String?, exitCode: Int32) {
     
-        let command = URL(fileURLWithPath: ToolchainPaths.resolvePath(ProjectSettings.shared.bin)).appendingPathComponent("hpppl+").path
+        let command = URL(fileURLWithPath: ToolchainPaths.resolvePath(ProjectSettings.shared.bin)).appending(path: "hpppl+").path
         var arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
         
         
         if ProjectSettings.shared.compression == true {
             arguments.append(contentsOf: ["--compress"])
+        }
+        
+        if ProjectSettings.shared.reformatting == true {
+            arguments.append(contentsOf: ["--reformat"])
         }
         
         if ProjectSettings.shared.includeProgramName == true {
@@ -489,8 +518,8 @@ enum HPServices {
         
         // Determine destination folder
         let destinationURL = homeURL
-            .appendingPathComponent("Documents/HP Connectivity Kit/Content")
-            .appendingPathComponent(appURL.lastPathComponent)
+            .appending(path: "Documents/HP Connectivity Kit/Content")
+            .appending(path: appURL.lastPathComponent)
 
         do {
             if FileManager.default.fileExists(atPath: destinationURL.path) {
@@ -501,16 +530,16 @@ enum HPServices {
         }
     }
     
-    static func installHPAppDirectory(at appURL: URL, forUser user: String? = nil) throws {
-        guard appURL.isDirectory else {
+    static func installHPAppDirectory(at appURL: URL) throws {
+        guard appURL.directoryExists else {
             return
         }
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
         
         // Determine destination folder
         let destinationURL = homeURL
-            .appendingPathComponent("Documents/HP Prime/Calculators/Prime")
-            .appendingPathComponent(appURL.lastPathComponent)
+            .appending(path: "Documents/HP Prime/Calculators/Prime")
+            .appending(path: appURL.lastPathComponent)
 
         do {
             if FileManager.default.fileExists(atPath: destinationURL.path) {

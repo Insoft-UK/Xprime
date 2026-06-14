@@ -86,13 +86,15 @@ func parseSnippet(_ body: String) -> (text: String, placeholders: [SnippetPlaceh
     return (text, placeholders)
 }
 
-func loadSnippets(from folder: URL) -> [String: String] {
+func loadSnippets(from url: URL) -> [String: String] {
     var snippets: [String: String] = [:]
     let decoder = JSONDecoder()
     
+    let resolvedURL = url.resolvingSymlinksInPath()
+    
     do {
         let files = try FileManager.default.contentsOfDirectory(
-            at: folder,
+            at: resolvedURL,
             includingPropertiesForKeys: nil
         )
         for file in files where file.pathExtension == "xpsnippet" {
@@ -100,7 +102,7 @@ func loadSnippets(from folder: URL) -> [String: String] {
                   let json = try? decoder.decode(JSONSnippet.self, from: data) else { continue }
             let text = json.body.joined(separator: "\n")
             let trigger = file.deletingPathExtension().lastPathComponent
-            snippets["$\(trigger)"] = text
+            snippets["§\(trigger)"] = text
         }
     } catch {
         print(error)

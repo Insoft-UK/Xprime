@@ -95,6 +95,17 @@ final class NewProgramViewController: CustomViewController, NSTextFieldDelegate,
                 withIntermediateDirectories: false
             )
             
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy/MM/dd"
+            let dateString = formatter.string(from: Date())
+            
+            createFileIfNeeded(
+                at: directoryURL
+                    .appendingPathComponent(name)
+                    .appendingPathComponent("info.note"),
+                defaultContent: "\\fs18\\b \(name)\n\\fs12\\b0Created by \(NSFullUserName()) on \(dateString)."
+            )
+            
             try replaceProjectName(
                 in: sourceURL,
                 to: destinationURL,
@@ -140,6 +151,16 @@ final class NewProgramViewController: CustomViewController, NSTextFieldDelegate,
             atomically: true,
             encoding: .utf8
         )
+    }
+    
+    private func createFileIfNeeded(at url: URL, defaultContent: String = "") {
+        guard !FileManager.default.fileExists(atPath: url.path) else { return }
+
+        do {
+            try defaultContent.write(to: url, atomically: true, encoding: .utf8)
+        } catch {
+            print("Failed to create file:", error)
+        }
     }
     
     enum AppError: Error {

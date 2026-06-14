@@ -74,7 +74,7 @@ final class ProjectManager {
         return projectDirectoryURL
             .appendingPathComponent(name)
             .appendingPathExtension("hpappdir")
-            .isDirectory
+            .directoryExists
     }
     
     var projectIcon: NSImage? {

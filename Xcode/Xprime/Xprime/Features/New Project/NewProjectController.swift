@@ -156,7 +156,7 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
             )
             
             for url in contents ?? [] {
-                if !url.isDirectory {
+                if !url.directoryExists {
                     continue
                 }
                 
@@ -230,7 +230,7 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
             contents?.forEach { url in
                 let lastPathComponent = url.lastPathComponent.replacingOccurrences(of: "$(PROJECT_NAME)", with: name)
                 
-                if url.isDirectory {
+                if url.directoryExists {
                     do {
                         try FileManager.default.createDirectory(at: to.appendingPathComponent(lastPathComponent), withIntermediateDirectories: true)
                         copy(from: url, to: to.appendingPathComponent(lastPathComponent))
@@ -239,8 +239,8 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
                     }
                 } else {
                     do {
-                        if url.path.hasSuffix(".pas") || url.path.hasSuffix(".hpppl") || url.path.hasSuffix(".hppplplus") {
-                            try replaceProjectName(in: url, to: to.appendingPathComponent(lastPathComponent), newName: name)
+                        if url.path.hasSuffix(".pas") || url.path.hasSuffix(".hpppl") || url.path.hasSuffix(".hppplplus") || url.path.hasSuffix(".note") {
+                            try replaceAllPlaceholders(in: url, to: to.appendingPathComponent(lastPathComponent), projectName: name)
                         } else {
                             try FileManager.default.copyItem(at: url, to: to.appendingPathComponent(lastPathComponent))
                         }
@@ -254,21 +254,56 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
         copy(from: templateURL, to: destinationURL)
     }
     
-    private func replaceProjectName(
+//    private func replaceProjectName(
+//        in sourceURL: URL,
+//        to destinationURL: URL,
+//        newName: String
+//    ) throws {
+//        // Read file contents
+//        let contents = try String(contentsOf: sourceURL, encoding: .utf8)
+//
+//        // Replace placeholder
+//        let updatedContents = contents.replacingOccurrences(
+//            of: "$(PROJECT_NAME)",
+//            with: newName.replacingOccurrences(of: " ", with: "_")
+//        )
+//
+//        // Write back to destination
+//        try updatedContents.write(
+//            to: destinationURL,
+//            atomically: true,
+//            encoding: .utf8
+//        )
+//    }
+    
+    private func replaceAllPlaceholders(
         in sourceURL: URL,
         to destinationURL: URL,
-        newName: String
+        projectName: String
     ) throws {
-        // Read file contents
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
         
+        // Read file contents
         let contents = try String(contentsOf: sourceURL, encoding: .utf8)
-
+        var updatedContents: String
+        
         // Replace placeholder
-        let updatedContents = contents.replacingOccurrences(
+        updatedContents = contents.replacingOccurrences(
             of: "$(PROJECT_NAME)",
-            with: newName.replacingOccurrences(of: " ", with: "_")
+            with: projectName.replacingOccurrences(of: " ", with: "_")
         )
-
+        
+        updatedContents = updatedContents.replacingOccurrences(
+            of: "$(USER_NAME)",
+            with: NSFullUserName()
+        )
+        
+        updatedContents = updatedContents.replacingOccurrences(
+            of: "$(DATE)",
+            with: formatter.string(from: Date())
+        )
+        
         // Write back to destination
         try updatedContents.write(
             to: destinationURL,
