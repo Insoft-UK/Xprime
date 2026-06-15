@@ -1722,7 +1722,7 @@ Gw
                                                 </textView>
                                             </subviews>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="4E4-6H-Z9M">
+                                        <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="4E4-6H-Z9M">
                                             <rect key="frame" x="0.0" y="-17" width="0.0" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -1882,7 +1882,7 @@ Gw
                                         </buttonCell>
                                         <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </button>
-                                    <button identifier="subtitution" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9c0-A1-8Rj" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                    <button identifier="substitution" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9c0-A1-8Rj" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
                                         <rect key="frame" x="524" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="replacement" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uTW-8P-Ose">
@@ -1918,7 +1918,6 @@ Gw
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="autoIndentationButton" destination="NOe-DW-dJ5" id="gvx-Hf-whz"/>
                         <outlet property="codeEditorTextView" destination="09p-Rf-tgR" id="YQS-0U-lVp"/>
                         <outlet property="notesButton" destination="D8b-RZ-JHs" id="ija-lf-pA0"/>
                         <outlet property="outputScrollView" destination="gM6-VC-kCh" id="Cbq-VN-EFd"/>
@@ -1926,7 +1925,6 @@ Gw
                         <outlet property="previewButton" destination="wQM-Vu-roh" id="VfX-4a-xso"/>
                         <outlet property="splitView" destination="VTQ-i6-i8i" id="hYA-ON-mGK"/>
                         <outlet property="statusLabel" destination="WwT-Xi-9rw" id="x8B-3n-gwE"/>
-                        <outlet property="substitutionButton" destination="9c0-A1-8Rj" id="of7-8d-TE9"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1978,8 +1976,8 @@ Gw
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sLN-NW-azV"/>
-        <segue reference="Fuk-bI-vJG"/>
+        <segue reference="5RB-6J-gcI"/>
+        <segue reference="GAi-V2-Fxa"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="About" width="560" height="420"/>
@@ -2050,10 +2048,10 @@ Gw
             <color white="0.0" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>
         <namedColor name="HP Prime Blue">
-            <color red="0.0" green="0.3919999897480011" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.017000000923871994" green="0.27900001406669617" blue="0.7929999828338623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="HP Prime Orange">
-            <color red="1" green="0.58399999141693115" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.47299998998641968" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

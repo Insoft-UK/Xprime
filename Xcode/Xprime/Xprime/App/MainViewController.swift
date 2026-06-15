@@ -40,8 +40,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     @IBOutlet var previewButton: NSButton!
     @IBOutlet var notesButton: NSButton!
-    @IBOutlet var autoIndentationButton: NSButton!
-    @IBOutlet var substitutionButton: NSButton!
     
     
     
@@ -165,11 +163,15 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         notesButton.target = self
         notesButton.action = #selector(showNotes(_:))
         
-        autoIndentationButton.target = self
-        autoIndentationButton.action = #selector(toggleAutoIndentation(_:))
-    
-        substitutionButton.target = self
-        substitutionButton.action = #selector(toggleSubstitution(_:))
+        if let button = view.findButton(withIdentifier: "autoIndentation") {
+            button.target = self
+            button.action = #selector(toggleAutoIndentation(_:))
+        }
+        
+        if let button = view.findButton(withIdentifier: "substitution") {
+            button.target = self
+            button.action = #selector(toggleSubstitution(_:))
+        }
     }
     
     // MARK: - Selector Actions
@@ -738,12 +740,14 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     private func loadAppropriateGrammar(forType fileExtension: String) {
         let grammar:[String : [String]] = [
-            "hppplplus": ["hppplplus"],
+            "hppplplus": ["hppplplus", "hpppl+"],
             "hpppl": ["hpppl"],
             "py": ["py"],
             "pas": ["pas"],
-            "note": ["note"],
-            "md": ["md"]
+            "note": ["note", "ntf"],
+            "md": ["md"],
+            "dat": ["data", "dat"],
+            "txt": ["txt"]
         ]
         
         for (grammarName, ext) in grammar where ext.contains(fileExtension.lowercased()) {
@@ -986,9 +990,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         let h = NSImage(named: "h")?.copy() as! NSImage
         let bmp = NSImage(named: "bmp")?.copy() as! NSImage
         let png = NSImage(named: "png")?.copy() as! NSImage
+        let data = NSImage(named: "data")?.copy() as! NSImage
         
         func createMenu(for url: URL) -> NSMenu {
             let menu = NSMenu()
+         
+            let excluded = ["xprimeproj", "prgm"]
             
             let contents = try? FileManager.default.contentsOfDirectory(
                 at: url,
@@ -999,16 +1006,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             contents?
                 .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
                 .forEach { url in
-                    if url.pathExtension == "hpppl" ||
-                        url.pathExtension == "hppplplus" ||
-                        url.pathExtension == "py"  ||
-                        url.pathExtension == "pas" ||
-                        url.pathExtension == "note" ||
-                        url.pathExtension == "hpnote" || url.pathExtension == "hpappnote" ||
-                        url.pathExtension == "bmp" ||
-                        url.pathExtension == "png" ||
-                        url.pathExtension == "h" ||
-                        url.pathExtension == "hpprgm" || url.pathExtension == "hpappprgm"
+                    if Settings.shared.allowedOpenFileExtensions.contains(url.pathExtension.lowercased()) &&
+                        excluded.contains(url.pathExtension.lowercased()) == false
                     {
                         menu.addItem(
                             withTitle: url.lastPathComponent,
@@ -1025,7 +1024,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                         case "hpprgm", "hpappprgm":
                             menu.items.last?.image = hpprgm
                             
-                        case "note":
+                        case "note", "ntf":
                             menu.items.last?.image = note
                             
                         case "hpnote", "hpappnote":
@@ -1048,6 +1047,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                             
                         case "png":
                             menu.items.last?.image = png
+                            
+                        case "data", "dat":
+                            menu.items.last?.image = data
                             
                         default:
                             menu.items.last?.image = file
@@ -1673,6 +1675,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         }
         
         if let button = view.findButton(withIdentifier: "substitution") {
+            if let url = documentManager.currentDocumentURL, url.pathExtension.lowercased() == "py" {
+                button.isEnabled = false
+                Settings.shared.substitutionEnabled = false
+            } else {
+                button.isEnabled = true
+            }
+            
             button.state = Settings.shared.substitutionEnabled ? .on : .off
         }
     }
@@ -1735,6 +1744,8 @@ extension MainViewController: DocumentManagerDelegate {
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
         gutterView.needsDisplay = true
+        
+        updateToolbarState()
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {

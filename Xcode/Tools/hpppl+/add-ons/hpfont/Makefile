@@ -33,7 +33,7 @@ x86_64:
 		-o build/x86_64/$(PROJECT_NAME) \
 		$(LDFLAGS)
 
-universal: arm64 x86_64
+universal:
 	lipo -create \
 		-output build/$(PROJECT_NAME) \
 		build/arm64/$(PROJECT_NAME) \

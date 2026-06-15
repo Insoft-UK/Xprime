@@ -30,7 +30,7 @@
 
 namespace fs = std::filesystem;
 
-static bool ppl = false;
+//static bool ppl = false;
 
 #include "../version_code.h"
 #define NAME "Adafruit GFX Font Converter"
@@ -197,6 +197,22 @@ std::string wrapAfterChars(const std::string& input, std::size_t maxLen, const s
     return result;
 }
 
+std::string replaceAll(std::string text,
+                       const std::string& from,
+                       const std::string& to)
+{
+    if (from.empty()) return text;
+
+    size_t pos = 0;
+    while ((pos = text.find(from, pos)) != std::string::npos)
+    {
+        text.replace(pos, from.length(), to);
+        pos += to.length();
+    }
+
+    return text;
+}
+
 fs::path resolveOutputFile(const char *output_file) {
     fs::path path;
     
@@ -240,6 +256,10 @@ fs::path resolveOutputPath(const fs::path& inpath, const fs::path& outpath) {
 int main(int argc, const char **argv)
 {
     namespace fs = std::filesystem;
+    enum Language {
+        LanguagePPL, LanguagePython
+    };
+    Language language = LanguagePPL;
     
     if (argc == 1) {
         error();
@@ -291,8 +311,19 @@ int main(int argc, const char **argv)
                 return 0;
             }
             
-            if (args == "--ppl") {
-                ppl = true;
+            if (args == "-t" || args == "--type") {
+                if ( ++n >= argc ) {
+                    error();
+                    exit(0);
+                }
+                args = argv[n];
+                
+                if (args == "python" || args == "py") {
+                    language = LanguagePython;
+                }
+                if (args == "hpppl" || args == "ppl") {
+                    language = LanguagePPL;
+                }
                 continue;
             }
             
@@ -315,11 +346,20 @@ int main(int argc, const char **argv)
     Timer timer;
    
     std::string output = adafruit::convertAdafruitFontToPPL(inpath, name);
+    
     if (minify) {
         output = regex_replace(output, std::regex(R"(#0+)"), "#");
         output = normalizeOperators(output, {"{", "}"});
         output = cleanWhitespace(output);
         output = wrapAfterChars(output, 128, {',', ';', '}', '{'});
+    }
+    
+    if (language == LanguagePython) {
+        // Convert .hpppl to .py
+        output = replaceAll(output, "#", "0x");
+        output = replaceAll(output, ":64h", "");
+        output = replaceAll(output, "{", "[");
+        output = replaceAll(output, "}", "]");
     }
     
     if (outpath == "/dev/stdout") {

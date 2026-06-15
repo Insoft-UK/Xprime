@@ -118,6 +118,22 @@ std::string expandTilde(const std::string &path) {
     return path;
 }
 
+std::string replaceAll(std::string text,
+                       const std::string& from,
+                       const std::string& to)
+{
+    if (from.empty()) return text;
+
+    size_t pos = 0;
+    while ((pos = text.find(from, pos)) != std::string::npos)
+    {
+        text.replace(pos, from.length(), to);
+        pos += to.length();
+    }
+
+    return text;
+}
+
 // MARK: - Command Line
 void help(void)
 {
@@ -212,6 +228,11 @@ int main(int argc, const char * argv[]) {
     bool le = true;
     bool data = false;
     
+    enum Language {
+        LanguagePPL, LanguagePython
+    };
+    Language language = LanguagePPL;
+    
     std::string utf8;
     std::ostringstream os;
 
@@ -235,6 +256,22 @@ int main(int argc, const char * argv[]) {
         
         if (args == "--data") {
             data = true;
+            continue;
+        }
+        
+        if (args == "-t" || args == "--type") {
+            if ( ++n >= argc ) {
+                error();
+                exit(0);
+            }
+            args = argv[n];
+            
+            if (args == "python" || args == "py") {
+                language = LanguagePython;
+            }
+            if (args == "hpppl" || args == "ppl") {
+                language = LanguagePPL;
+            }
             continue;
         }
         
@@ -430,6 +467,14 @@ int main(int argc, const char * argv[]) {
             }
             utf8.append(os.str());
             break;
+    }
+    
+    if (language == LanguagePython) {
+        // Convert .hpppl to .py
+        utf8 = replaceAll(utf8, "#", "0x");
+        utf8 = replaceAll(utf8, ":64h", "");
+        utf8 = replaceAll(utf8, "{", "[");
+        utf8 = replaceAll(utf8, "}", "]");
     }
 
     if (outpath == "/dev/stdout") {

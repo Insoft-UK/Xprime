@@ -61,7 +61,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/examples/spectrum-8bit.bmp"
+            argument = "$(PROJECT_DIR)/examples/spectrum-8bit.bmp --type py"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

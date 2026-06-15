@@ -101,7 +101,18 @@ final class DocumentManager {
         let documentURL: URL
         
         switch url.pathExtension.lowercased() {
-        case "h", "bmp", "png", "hpprgm", "hpappprgm":
+        case "h", "bmp", "png":
+            documentURL = url
+                .deletingPathExtension()
+                .appendingPathExtension(ProjectSettings.shared.language)
+            
+            if FileManager.default.fileExists(atPath: documentURL.path) {
+                return nil
+            } else {
+                return documentURL
+            }
+            
+        case "hpprgm", "hpappprgm":
             documentURL = url
                 .deletingPathExtension()
                 .appendingPathExtension("hpppl")
@@ -131,12 +142,13 @@ final class DocumentManager {
     private func openWithTool(
         executableName: String,
         url: URL,
+        arguments: [String],
         failureMessage: String,
         successLog: String? = nil,
         printStdErrOnSuccess: Bool = false,
     ) {
         let path = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: executableName)
-        let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"])
+        let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"] + arguments)
         
         guard result.exitCode == 0, let out = result.out else {
             let error = NSError(
@@ -170,6 +182,7 @@ final class DocumentManager {
         openWithTool(
             executableName: "grob",
             url: url,
+            arguments: ["--type", ProjectSettings.shared.language],
             failureMessage: "Failed to read from the image file.",
             successLog: "Importing \"\(url.lastPathComponent)\"\n"
         )
@@ -179,6 +192,7 @@ final class DocumentManager {
         openWithTool(
             executableName: "hpnote",
             url: url,
+            arguments: [],
             failureMessage: "Failed to read from the note file.",
             printStdErrOnSuccess: true
         )
@@ -188,6 +202,7 @@ final class DocumentManager {
         openWithTool(
             executableName: "hpfont",
             url: url,
+            arguments: ["--type", ProjectSettings.shared.language],
             failureMessage: "Failed to read from the font file.",
             successLog: "Importing \"\(url.lastPathComponent)\"\n",
             printStdErrOnSuccess: true
@@ -221,6 +236,7 @@ final class DocumentManager {
         openWithTool(
             executableName: "hpppl+",
             url: url,
+            arguments: [],
             failureMessage: "Failed to read from the program file.",
             successLog: "Importing \"\(url.lastPathComponent)\"\n",
             printStdErrOnSuccess: true
