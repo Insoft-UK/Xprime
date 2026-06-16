@@ -999,11 +999,16 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         let bmp = NSImage(named: "bmp")?.copy() as! NSImage
         let png = NSImage(named: "png")?.copy() as! NSImage
         let data = NSImage(named: "data")?.copy() as! NSImage
+        let bin = NSImage(named: "bin")?.copy() as! NSImage
         
         func createMenu(for url: URL) -> NSMenu {
             let menu = NSMenu()
          
-            let excluded = ["xprimeproj", "prgm"]
+            var ext = Settings.shared.allowedOpenFileExtensions
+                .filter { !Set(["xprimeproj", "prgm"]).contains($0)}
+            
+            ext.append("bin")
+            ext.append("binary")
             
             let contents = try? FileManager.default.contentsOfDirectory(
                 at: url,
@@ -1014,9 +1019,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             contents?
                 .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
                 .forEach { url in
-                    if Settings.shared.allowedOpenFileExtensions.contains(url.pathExtension.lowercased()) &&
-                        excluded.contains(url.pathExtension.lowercased()) == false
-                    {
+                    if ext.contains(url.pathExtension.lowercased()) {
                         menu.addItem(
                             withTitle: url.lastPathComponent,
                             action: #selector(quickOpen(_:)),
@@ -1058,6 +1061,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                             
                         case "data", "dat":
                             menu.items.last?.image = data
+                            
+                        case "binary", "bin":
+                            menu.items.last?.image = bin
+                            menu.items.last?.action = nil
                             
                         default:
                             menu.items.last?.image = file

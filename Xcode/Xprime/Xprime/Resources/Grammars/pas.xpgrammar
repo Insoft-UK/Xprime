@@ -51,12 +51,12 @@
             "match": "\"([^\"\\\\]|\\\\.)*\""
         },
         {
-            "name": "Preprocessor Statements",
-            "match": "(?mi)^\\s*#[a-z]\\w* .+($#end;)?"
-        },
-        {
             "name": "Comments",
             "match": "//.*"
+        },
+        {
+            "name": "Preprocessor Statements",
+            "match": "(?mi)#python [\\s\\S]+#end"
         }
     ]
 }

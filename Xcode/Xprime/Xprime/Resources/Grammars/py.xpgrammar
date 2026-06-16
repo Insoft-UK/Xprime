@@ -47,10 +47,6 @@
             "match": "\"([^\"\\\\]|\\\\.)*\""
         },
         {
-            "name": "Preprocessor Statements",
-            "match": "(?m)^\\s*#[a-z]{2}.+"
-        },
-        {
             "name": "Comments",
             "match": "#.*"
         }

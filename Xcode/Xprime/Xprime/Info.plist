@@ -132,7 +132,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>data</string>
 			<key>CFBundleTypeName</key>
-			<string>Xprime</string>
+			<string>Xprime Data</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
@@ -140,6 +140,24 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>uk.insoft.Xprime.data</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>bin</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>bin</string>
+			<key>CFBundleTypeName</key>
+			<string>Xprime Binary</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.insoft.Xprime.bin</string>
 			</array>
 		</dict>
 	</array>

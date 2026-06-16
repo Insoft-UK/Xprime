@@ -4,7 +4,7 @@
     "patterns": [
         {
             "name": "Keywords",
-            "match": "(?mi)\\b(loop|regex|dictionary|uses|alias|begin|end|if|elif|then|else|case|for|from|to|step|do|DOWNTO|while|repeat|until|break|continue|return|iferr|kill|default|and|or|not|xor|mod)\\b"
+            "match": "(?mi)\\b(in|loop|regex|dictionary|uses|alias|begin|end|if|elif|then|else|case|for|from|to|step|do|DOWNTO|while|repeat|until|break|continue|return|iferr|kill|default|and|or|not|xor|mod)\\b"
         },
         {
             "name": "Storage",
@@ -57,6 +57,10 @@
         {
             "name": "Comments",
             "match": "//.*"
+        },
+        {
+            "name": "Preprocessor Statements",
+            "match": "(?mi)#python [\\s\\S]+#end"
         }
     ]
 }
