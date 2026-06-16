@@ -41,6 +41,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     @IBOutlet var previewButton: NSButton!
     @IBOutlet var notesButton: NSButton!
     
+    @IBOutlet var scrollView: NSScrollView!
+    
     
     
     // MARK: - Managers
@@ -124,6 +126,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         }
         
         updateToolbarState()
+        
+        if codeEditorTextView.theme?.type == "dark" {
+            scrollView.scrollerKnobStyle = .light
+        } else {
+            scrollView.scrollerKnobStyle = .dark
+        }
         
         guard let window = view.window else { return }
         window.styleMask.insert(.resizable)

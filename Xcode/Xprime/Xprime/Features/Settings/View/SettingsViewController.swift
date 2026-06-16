@@ -104,6 +104,11 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
         }
         Settings.shared.preferredTheme = url.path
         vc.themeManager.applyTheme(from: url)
+        if vc.codeEditorTextView.theme?.type == "dark" {
+            vc.scrollView.scrollerKnobStyle = .light
+        } else {
+            vc.scrollView.scrollerKnobStyle = .dark
+        }
     }
     
     

@@ -1722,7 +1722,7 @@ Gw
                                                 </textView>
                                             </subviews>
                                         </clipView>
-                                        <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="4E4-6H-Z9M">
+                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="4E4-6H-Z9M">
                                             <rect key="frame" x="0.0" y="-17" width="0.0" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -1923,6 +1923,7 @@ Gw
                         <outlet property="outputScrollView" destination="gM6-VC-kCh" id="Cbq-VN-EFd"/>
                         <outlet property="outputTextView" destination="fLO-1H-GKd" id="2zB-kY-Jtt"/>
                         <outlet property="previewButton" destination="wQM-Vu-roh" id="VfX-4a-xso"/>
+                        <outlet property="scrollView" destination="Ec1-A6-M9f" id="KeR-bg-fsO"/>
                         <outlet property="splitView" destination="VTQ-i6-i8i" id="hYA-ON-mGK"/>
                         <outlet property="statusLabel" destination="WwT-Xi-9rw" id="x8B-3n-gwE"/>
                     </connections>
