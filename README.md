@@ -29,7 +29,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
-### Automaticaly Text Expansion Table
+### Automatic Text Expansion Table
 |Pattern|Text Expansion|
 |:-|:-|
 |!=|≠|
@@ -67,9 +67,6 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |\\>|BITSR|
 |\\<|BITSL|
 
->[!NOTE]
->The `EXPR`, `WHILE`, `REPEAT`, `UNTIL` and `WHILE 1 DO` have been changed.
-
 ### Supported File Types
 |Type|Description|
 |:-|:-|
@@ -86,7 +83,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.hppplplus|HP PPL+ source text|
 
 >[!NOTE]
->In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼ support, Xprime adopts the **.hpppl** **.hppplplus** and **.hpppl+** file types. This simplify development for those using either Visual Studio Code or Xprime.
+>In light of [HP Prime Development Tools](https://marketplace.visualstudio.com/items?itemName=AndreaBaccin.vscode-hpprime)￼for Visual Studio Code, Xprime adopts the **.hpppl** **.hppplplus** and **.hpppl+** file types. This simplify development for those using either Visual Studio Code or Xprime.
 
 Snippets & Stubs from HP Prime Development Tools are also included in Xprime Installer.
 
