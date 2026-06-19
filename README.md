@@ -29,7 +29,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
-### Symbol Substitutions
+### Auto-Expansion Rules
 |Pattern|Replacement|
 |:-|:-|
 |!=|≠|
