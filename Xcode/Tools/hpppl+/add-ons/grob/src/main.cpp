@@ -228,10 +228,12 @@ int main(int argc, const char * argv[]) {
     bool le = true;
     bool data = false;
     
-    enum Language {
-        LanguagePPL, LanguagePython
+    enum Type {
+        TypePPL, TypePython
     };
-    Language language = LanguagePPL;
+    Type type = TypePPL;
+    
+    std::string outpath_extension;
     
     std::string utf8;
     std::ostringstream os;
@@ -267,10 +269,15 @@ int main(int argc, const char * argv[]) {
             args = argv[n];
             
             if (args == "python" || args == "py") {
-                language = LanguagePython;
+                outpath_extension = ".py";
             }
+            
             if (args == "hpppl" || args == "ppl") {
-                language = LanguagePPL;
+                outpath_extension = ".hpppl";
+            }
+            
+            if (args == "cpp" || args == "c") {
+                outpath_extension = ".c";
             }
             continue;
         }
@@ -339,6 +346,10 @@ int main(int argc, const char * argv[]) {
         inpath = resolveAndValidateInputFile(argv[n]);
     }
     outpath = resolveOutputPath(inpath, outpath);
+    if (outpath_extension.empty()) {
+        outpath_extension = std::lowercased(outpath.extension().string());
+    }
+    
 
     if (name == "*") {
         name = inpath.stem().string();
@@ -425,72 +436,105 @@ int main(int argc, const char * argv[]) {
 
     if (columns < 1) columns = 1;
     
-    switch (bitmap.bpp) {
-        case 0:
-            if (name.size()) utf8 += name + " := ";
-            utf8 += "{\n" + ppl(bitmap.bytes.data(), lengthInBytes, columns, le) + "\n}";
-            break;
-
-        case 1:
-        case 4:
-        case 8:
-            if (name.size()) os << name << " := ";
-            os << "{\n";
-            os << "  {\n" << ppl(bitmap.bytes.data(), lengthInBytes, columns, le) << "\n  },\n";
-            os << "  { " << std::dec << std::to_string(bitmap.width) << ", " << std::to_string(bitmap.height) << ", " << std::to_string(bitmap.bpp) << " },\n";
-
-            os << "  {\n    ";
-            for (int i = 0; i < bitmap.palette.size(); i += 1) {
-                uint32_t color = bitmap.palette.at(i);
-#ifdef __LITTLE_ENDIAN__
-                color = std::byteswap(color);
-#endif
-                color &= 0xFFFFFF;
-                if (i) os << ", ";
-                if (i % 16 == 0 && i) os << "\n    ";
-                os << "#" << std::uppercase << std::hex << std::setfill('0') << std::setw(6) << color << ":32h";
-            }
-            os << "\n  }\n}";
-            
-            utf8.append(os.str());
-            break;
-
-        default:
-            if (data) {
-                os << "{\n" << ppl(bitmap.bytes.data(), lengthInBytes, columns, le) << "\n};\n";
-            } else {
+    if (outpath_extension != ".bin") {
+        
+        switch (bitmap.bpp) {
+            case 0:
+                if (name.size()) utf8 += name + " := ";
+                utf8 += "{\n" + ppl(bitmap.bytes.data(), lengthInBytes, columns, le) + "\n}";
+                break;
+                
+            case 1:
+            case 4:
+            case 8:
                 if (name.size()) os << name << " := ";
                 os << "{\n";
                 os << "  {\n" << ppl(bitmap.bytes.data(), lengthInBytes, columns, le) << "\n  },\n";
-                os << "  { " << std::dec << std::to_string(bitmap.width) << ", " << std::to_string(bitmap.height) << ", " << std::to_string(bitmap.bpp) << " }\n";
-                os << "}";
-            }
-            utf8.append(os.str());
-            break;
-    }
-    
-    if (language == LanguagePython) {
-        // Convert .hpppl to .py
-        utf8 = replaceAll(utf8, "#", "0x");
-        utf8 = replaceAll(utf8, ":64h", "");
-        utf8 = replaceAll(utf8, "{", "[");
-        utf8 = replaceAll(utf8, "}", "]");
+                os << "  { " << std::dec << std::to_string(bitmap.width) << ", " << std::to_string(bitmap.height) << ", " << std::to_string(bitmap.bpp) << " },\n";
+                
+                os << "  {\n    ";
+                for (int i = 0; i < bitmap.palette.size(); i += 1) {
+                    uint32_t color = bitmap.palette.at(i);
+#ifdef __LITTLE_ENDIAN__
+                    color = std::byteswap(color);
+#endif
+                    color &= 0xFFFFFF;
+                    if (i) os << ", ";
+                    if (i % 16 == 0 && i) os << "\n    ";
+                    os << "#" << std::uppercase << std::hex << std::setfill('0') << std::setw(6) << color << ":32h";
+                }
+                os << "\n  }\n}";
+                
+                utf8.append(os.str());
+                break;
+                
+            default:
+                if (data) {
+                    os << "{\n" << ppl(bitmap.bytes.data(), lengthInBytes, columns, le) << "\n};\n";
+                } else {
+                    if (name.size()) os << name << " := ";
+                    os << "{\n";
+                    os << "  {\n" << ppl(bitmap.bytes.data(), lengthInBytes, columns, le) << "\n  },\n";
+                    os << "  { " << std::dec << std::to_string(bitmap.width) << ", " << std::to_string(bitmap.height) << ", " << std::to_string(bitmap.bpp) << " }\n";
+                    os << "}";
+                }
+                utf8.append(os.str());
+                break;
+        }
+        
+        if (outpath_extension == ".c") {
+            utf8 = replaceAll(utf8, "#", "0x");
+            utf8 = regex_replace(utf8, std::regex(R"(:\d+h)"), "");
+            utf8 = regex_replace(utf8, std::regex(R"(\{\n  (?=\{))"), "$0.bitmap = ");
+            utf8 = regex_replace(utf8, std::regex(R"(  \},\n  (?=\{))"), "$0.info = ");
+            utf8 = regex_replace(utf8, std::regex(R"(,\n  \{)"), ",\n  .palette = {");
+            utf8 = regex_replace(utf8, std::regex(R"(^\{)"), "\
+typedef struct {\n\
+  uint64_t bitmap[@bitmap];\n\
+  uint16_t info[3];\n\
+  uint32_t palette[@palette];\n\
+} ImageData;\n\n\
+const ImageData image = {");
+            utf8 += ';';
+            
+            utf8 = regex_replace(utf8, std::regex(R"(@bitmap)"), std::to_string(lengthInBytes / 8));
+            utf8 = regex_replace(utf8, std::regex(R"(@palette)"), std::to_string(bitmap.palette.size()));
+            
+        }
+        
+        if (outpath_extension == ".py") {
+            utf8 = replaceAll(utf8, "#", "0x");
+            utf8 = regex_replace(utf8, std::regex(R"(:\d+h)"), "");
+            utf8 = replaceAll(utf8, "{", "[");
+            utf8 = replaceAll(utf8, "}", "]");
+        }
+        
+        
     }
 
     if (outpath == "/dev/stdout") {
         std::cout << utf8;
     } else {
-        auto extension = std::lowercased(outpath.extension().string());
         
-        if (extension == ".prgm" || extension == ".hpprgm") {
-            if (extension == ".hpprgm") {
-                hpprgm::write(outpath, utf8);
-            } else {
-                std::wstring utf16 = utf::utf16(utf8);
-                utf::save(outpath, utf16);
-            }
+        if (outpath_extension == ".bin") {
+            std::ofstream f(outpath, std::ios::binary);
+            if (!f) throw std::runtime_error("Cannot write file");
+            f.write((const char*)&bitmap.width, sizeof(uint16_t));
+            f.write((const char*)&bitmap.height, sizeof(uint16_t));
+            f.write((const char*)&bitmap.bpp, sizeof(uint8_t));
+            f.write((const char*)bitmap.palette.data(), sizeof(uint16_t) * bitmap.palette.size());
+            f.write((const char*)bitmap.bytes.data(), lengthInBytes);
         } else {
-            utf::save(outpath, utf8);
+            if (outpath_extension == ".prgm" || outpath_extension == ".hpprgm") {
+                if (outpath_extension == ".hpprgm") {
+                    hpprgm::write(outpath, utf8);
+                } else {
+                    std::wstring utf16 = utf::utf16(utf8);
+                    utf::save(outpath, utf16);
+                }
+            } else {
+                utf::save(outpath, utf8);
+            }
         }
         
         if (fs::exists(outpath)) {

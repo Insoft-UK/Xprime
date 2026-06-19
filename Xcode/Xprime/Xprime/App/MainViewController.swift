@@ -1004,11 +1004,11 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         func createMenu(for url: URL) -> NSMenu {
             let menu = NSMenu()
          
-            var ext = Settings.shared.allowedOpenFileExtensions
-                .filter { !Set(["xprimeproj", "prgm"]).contains($0)}
-            
-            ext.append("bin")
-            ext.append("binary")
+//            var ext = Settings.shared.allowedOpenFileExtensions
+//                .filter { !Set(["xprimeproj", "prgm"]).contains($0)}
+//            
+//            ext.append("bin")
+//            ext.append("binary")
             
             let contents = try? FileManager.default.contentsOfDirectory(
                 at: url,
@@ -1018,8 +1018,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             
             contents?
                 .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
-                .forEach { url in
-                    if ext.contains(url.pathExtension.lowercased()) {
+                .forEach { url in if !["xprimeproj", "prgm", "hpapp"].contains(url.pathExtension.lowercased()) {
+                    
+            
+                    //if ext.contains(url.pathExtension.lowercased()) {
                         menu.addItem(
                             withTitle: url.lastPathComponent,
                             action: #selector(quickOpen(_:)),
@@ -1068,6 +1070,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                             
                         default:
                             menu.items.last?.image = file
+                            menu.items.last?.action = nil
                         }
                         
                         menu.items.last?.image?.size = iconSize.big

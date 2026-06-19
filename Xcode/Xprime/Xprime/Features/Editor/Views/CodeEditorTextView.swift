@@ -466,11 +466,15 @@ final class CodeEditorTextView: NSTextView {
         // Auto indentation
         let indentWidth = 2
         let trimmedLine = lineText.trimmingCharacters(in: .whitespaces).lowercased()
-        let increaseIndentKeywords = ["begin", "if", "then", "do", "repeat", "else", "while"]
-        let dedentKeywords = ["end", "until"]
+        let increaseIndentKeywords = ["begin", "if", "elif", "case", "then", "do", "repeat", "else", "while"]
+        let dedentKeywords = ["end", "until", "break", "return", "continue"]
         
-        if increaseIndentKeywords.contains(where: { trimmedLine.hasPrefix($0) }) {
+        if trimmedLine.hasSuffix(":") {
             indentation += String(repeating: " ", count: indentWidth)
+        } else {
+            if increaseIndentKeywords.contains(where: { trimmedLine.hasPrefix($0) }) {
+                indentation += String(repeating: " ", count: indentWidth)
+            }
         }
         
         if dedentKeywords.contains(where: { trimmedLine.hasPrefix($0) }) {
