@@ -1,6 +1,4 @@
 <img src="assets/Icon.png" style="width: 128px" />
-
-
 ## HP PPL+ for HP Prime Programming Language
 **Command Line Tool**
 
@@ -15,10 +13,6 @@ Using these **add-ons**, **<a href="https://github.com/Insoft-UK/PrimePlus/blob/
 
 >[!IMPORTANT]
 >HP PPL+ discontinued support for #include. It's been replaced by the Pascal-style include directives: {$I file} or {$include file}.
-
->hpppl+ for macOS is installed in /usr/local/bin. To uninstall it, run: `sudo rm /usr/local/bin/hpppl+`
-
-`Usage: hpppl+ <input-file> [-o <output-file>] [-v]`
 
 <table>
   <thead>
