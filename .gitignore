@@ -3,6 +3,7 @@
 xcuserdata/
 *.app
 *.pkg
+*.zip
 Design/Icon Masters/Type/*.icns
 Design/Icon Masters/Project/*.icns
 rtf_output

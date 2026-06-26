@@ -57,7 +57,7 @@ enum ToolchainPaths {
     public static func resolvePath(_ path: String) -> String {
         return path
             .replacingOccurrences(
-                of: "$(SDKROOT)",
+                of: "$(DEVROOT)",
                 with: developerRoot
                     .appendingPathComponent("usr")
                     .path
