@@ -2,9 +2,9 @@
 ## HP Prime Development Tools
 
 ### Xprime Tools
-- [HPPPL+]([Xcode/Tools/hpppl%2B)
-- [GROB]([Xcode/Tools/hpppl%2B/add-ons/grob)
-- [HPFont]([Xcode/Tools/hpppl%2B/add-ons/hpfont)
+- [HPPPL+](Xcode/Tools/hpppl%2B)
+- [GROB](Xcode/Tools/hpppl%2B/add-ons/grob)
+- [HPFont](Xcode/Tools/hpppl%2B/add-ons/hpfont)
 - [HPNote](Xcode/Tools/hpnote)
 
 ### Xprime Code Editor
