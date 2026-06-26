@@ -1,7 +1,0 @@
-Syntax:
-pow2exp(Expr)
-
-Converts powers to exponentials. Essentially the inverse of exp2pow.
-
-Example:
-pow2exp(a^b) returns exp(b*ln(a))

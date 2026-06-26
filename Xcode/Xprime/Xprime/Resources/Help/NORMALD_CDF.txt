@@ -1,7 +1,0 @@
-Syntax:
-NORMAL_CDF(μ, σ, x)
-
-Cumulative normal distribution function. Returns the lower-tail probability of the normal probability density function for the value x, given the mean, μ, and standard deviation, σ, of a normal distribution. With one argument, x, returns the  lower-tail probability of the normal probability density function for the value x, assuming a mean of zero and standard deviation of 1.
-
-Example:
-NORMAL_CDF(0, 1, 2) returns 0.97724986805

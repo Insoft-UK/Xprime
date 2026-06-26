@@ -1,7 +1,0 @@
-Syntax:
-desolve(Eq,[TimeVar],Var)
-
-Solves a differential equation.
-
-Example:
-desolve(y&#39;&#39;+y=0,y) returns G_0*cos(x)+G_1*sin(x)

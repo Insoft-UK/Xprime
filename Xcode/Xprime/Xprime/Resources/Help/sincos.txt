@@ -1,7 +1,0 @@
-Syntax:
-sincos(Expr)
-
-Returns an expression with the complex exponentials rewritten in terms of sine and cosine.
-
-Example:
-sincos(exp(-i*x)) returns cos(x)-i*sin(x)

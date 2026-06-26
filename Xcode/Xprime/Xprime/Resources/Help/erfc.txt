@@ -1,7 +1,0 @@
-Syntax:
-erfc(Real(x0))
-
-Returns the approximate value of 2/√π*int(exp(-t^2),t,x0,∞).
-
-Example:
-erfc(1) returns 0.15729920705

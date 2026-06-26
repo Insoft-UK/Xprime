@@ -1,7 +1,0 @@
-Syntax:
-ASINH(value)
-
-Inverse hyperbolic sine.
-
-Example:
-ASINH(1.17520119365) returns 1

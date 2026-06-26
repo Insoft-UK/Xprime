@@ -1,7 +1,0 @@
-Syntax:
-RANDSEED([value])
-
-Sets the random number generator seed. With no input, uses current time value as seed.
-
-Example:
-RANDSEED(3.14)

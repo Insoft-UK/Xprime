@@ -1,7 +1,0 @@
-Syntax:
-irem(a, b)
-
-Euclidean remainder. Returns the integer remainder when the integer a is divided by the integer b.
-
-Example:
-irem(63, 23) returns 17

@@ -1,4 +1,0 @@
-Syntax:
-MINREAL
-
-Minimum real number. The smallest real number that the HP Prime can represent. Its value is 1E-499. Any number smaller than this is represented as zero.

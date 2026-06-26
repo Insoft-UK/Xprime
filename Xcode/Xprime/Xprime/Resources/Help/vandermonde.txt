@@ -1,7 +1,0 @@
-Syntax:
-vandermonde(Vect(V))
-
-Returns the Vandermonde matrix=[V^0,V^1,..]
-
-Example:
-vandermonde([1,2,3]) returns [[1,1,1],[1,2,4],[1,3,9]]

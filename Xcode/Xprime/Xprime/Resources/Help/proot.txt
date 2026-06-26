@@ -1,7 +1,0 @@
-Syntax:
-proot(Vect||Poly)
-
-Returns all computed roots of a polynomial given by its coefficients (may not work if roots are not simple).
-
-Example:
-proot([1,0,-2]) returns [-1.41421356237,1.41421356237]

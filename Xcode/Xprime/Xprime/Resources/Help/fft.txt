@@ -1,7 +1,0 @@
-Syntax:
-fft(Vect or (Vect(L),Intg(a),Intg(p))
-
-Fast Fourier Transform in R or in the field Z/pZ, with a as primitive n-th root of 1 (n=size(L)).
-
-Example:
-fft([1,2,3,4,0,0,0,0]) returns [10.0,-0.414213562373-7.24264068712*(i),-2.0+2.0*i,2.41421356237-1.24264068712*i,-2.0,2.41421356237+1.24264068712*i,-2.0-2.0*i]

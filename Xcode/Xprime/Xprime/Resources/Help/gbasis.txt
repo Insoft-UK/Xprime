@@ -1,7 +1,0 @@
-Syntax:
-gbasis(ListPoly, ListVar)
-
-Returns the Groebner basis of the ideal spanned by the list of polynomials.
-
-Example:
-gbasis({x^2-y^3,x+y^2},{x,y}) returns [y^4-y^3,x+y^2]

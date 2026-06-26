@@ -1,7 +1,0 @@
-Syntax:
-MKSA(Value_Unit)
-
-Converts the measurement Value_Unit to its corresponding value and unit in Unit&#39;s MKSA equivalent. MKSA stands for the Meter-Kilogram-Second-Ampere system.
-
-Example:
-MKSA(32_yd) returns 29.2608_m.

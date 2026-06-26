@@ -1,7 +1,0 @@
-Syntax:
-randexp(Real(a))
-
-Returns a random real according to the exponential distribution of parameter a>0
-
-Example:
-randexp(1) returns 1.17118631006

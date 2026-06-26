@@ -1,7 +1,0 @@
-Syntax:
-delrows(Mtrx(A),Interval(n1..n2)||n1)
-
-Returns the matrix where the rows n1..n2 (or n1) of the matrix A are deleted.
-
-Example:
-delrows([[1,2,3],[4,5,6],[7,8,9]],1..1) returns [[1,2,3],[7,8,9]]

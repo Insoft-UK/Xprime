@@ -1,7 +1,0 @@
-Syntax:
-f2nd(Frac or RatFrac)
-
-Returns the list built with the numerator and the denominator of the simplified fraction.
-
-Example:
-f2nd(42/12) returns [7,2]
