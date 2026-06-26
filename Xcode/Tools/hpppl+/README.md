@@ -1,6 +1,9 @@
 <img src="assets/Icon.png" style="width: 128px" />
 ## HP PPL+ for HP Prime Programming Language
+
 **Command Line Tool**
+
+Download links: [macOS Apple silicon](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-arm64.zip) | [macOS Intel](http://insoft.uk/action/?method=downlink&path=macos&file=hppplplus-x86_64.zip) | [Windows](http://insoft.uk/action/?method=downlink&path=pc&file=hppplplus-win-x86_64.zip) | [Linux](http://insoft.uk/action/?method=downlink&path=linux&file=hppplplus-linux-x86_64.zip)
 
 **HP PPL+** is a pre-processor that improves readability and maintainability of HP PPL code. It supports custom regex rules, can extract PPL source from **.hpprgm** and **.hpappprgm** files, and can also **compress** PPL source into a compact, optimized form for the HP Prime. HP PPL+ supports add-ons that enable conversion of Adafruit resources into PPL.
 Using these **add-ons**, **<a href="https://github.com/Insoft-UK/PrimePlus/blob/main/assets/HP.md">Adafruit</a>** fonts and Adafruit_GFX **.h** files can be converted to PPL. In addition, the **GROB** add-on allows image files to be imported and converted as well.

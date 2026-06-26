@@ -1,6 +1,12 @@
 <img src="assets/icon.png?raw=true" width="128" /></br>
 ## HP Prime Development Tools
 
+### Xprime Tools
+- [HPPPL+](Xcode/Tools/hpppl%2B)
+- [GROB](Xcode/Tools/hpppl%2B/add-ons/grob)
+- [HP Font](Xcode/Tools/hpppl%2B/add-ons/hpfont)
+- [HP Note](Xcode/Tools/hpnote)
+
 ### Xprime Code Editor
 - Edit your PPL or <a href="Xcode/Tools/hpppl%2B">**PPL+**</a> code for the HP Prime.
 - Package your application for deployment for the HP Prime or testing on the Virtual Calculator.
