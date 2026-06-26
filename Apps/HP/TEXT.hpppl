@@ -99,12 +99,12 @@ END;
 
 EXPORT TEXTOUT(text, x, y)
 BEGIN
-    TEXTOUT(text, G0, x, y, Font10, 0, -1, 1);
+    TEXTOUT(text, G0, x, y, Sys10, 0, -1, 1);
 END;
 
 EXPORT TEXTOUT(text, G, x, y)
 BEGIN
-    TEXTOUT(text, G, x, y, Font10, 0, -1, 1);
+    TEXTOUT(text, G, x, y, Sys10, 0, -1, 1);
 END;
 
 EXPORT TEXTOUT(text, x, y, font, textColor)

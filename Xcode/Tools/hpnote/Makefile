@@ -4,6 +4,8 @@ PROJECT_NAME ?= $(shell basename $(PWD))
 ARCH := $(shell arch)
 
 CXX := clang++
+CXXWIN := x86_64-w64-mingw32-g++
+CXXLINUX := x86_64-linux-musl-g++
 
 CXXFLAGS := -std=c++23 -Os -fno-ident -fno-asynchronous-unwind-tables
 LDFLAGS := -Wl,-dead_strip -Wl,-x
@@ -32,8 +34,24 @@ x86_64:
 		$(SRC) \
 		-o build/x86_64/$(PROJECT_NAME) \
 		$(LDFLAGS)
+		
+win_x86_64:
+	mkdir -p build/win_x86_64
+	$(CXXWIN) -std=c++23 \
+		$(INCLUDES) \
+		$(SRC) \
+		-o build/win_x86_64/$(PROJECT_NAME).exe \
+		-static -O2 -s
 
-universal: arm64 x86_64
+linux_x86_64:
+	mkdir -p build/linux_x86_64
+	$(CXXLINUX) $(CXXFLAGS) \
+		$(INCLUDES) \
+		$(SRC) \
+		-o build/linux_x86_64/$(PROJECT_NAME) \
+		-static -Wl,-x
+
+universal:
 	lipo -create \
 		-output build/$(PROJECT_NAME) \
 		build/arm64/$(PROJECT_NAME) \

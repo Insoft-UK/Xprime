@@ -25,8 +25,8 @@
 {$ADDON hpfont.h}
 
 {$I HP.hpppl}
-Font8 := {$INCLUDE Font8.h};
-Font10 := {$INCLUDE Font10.h};
+Sys8 := {$INCLUDE Sys8.h};
+Sys10 := {$INCLUDE Sys10.h};
 Sans24 := {$INCLUDE Sans24.h};
 {$INCLUDE TEXT.hpppl}
 {$INCLUDE GROB.hpppl}

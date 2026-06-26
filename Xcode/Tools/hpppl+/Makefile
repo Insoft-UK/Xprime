@@ -4,6 +4,8 @@ PROJECT_NAME := $(shell basename $(PWD))
 ARCH := $(shell arch)
 
 CXX := clang++
+CXXWIN := x86_64-w64-mingw32-g++
+CXXLINUX := x86_64-linux-musl-g++
 
 CXXFLAGS := -std=c++23 -Os -fno-ident -fno-asynchronous-unwind-tables
 LDFLAGS := -licucore -Wl,-dead_strip -Wl,-x
@@ -16,7 +18,12 @@ INCLUDES := \
 	-Isrc/libhpprgm/include \
 	-Isrc/common/include
 
-SRC := src/*.cpp
+SRC := \
+	src/*.cpp \
+	src/libhpppl/src/*.cpp \
+	src/libhpprgm/src/*.cpp \
+	src/librfmt/src/*.cpp \
+	src/libmin/src/*.cpp
 
 all: arm64 x86_64 universal
 
@@ -25,10 +32,6 @@ native:
 	$(CXX) -arch $(ARCH) $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
-		src/libhpppl/lib/$(ARCH)/libhpppl.a \
-		src/librfmt/lib/$(ARCH)/librfmt.a \
-		src/libmin/lib/$(ARCH)/libmin.a \
-		src/libhpprgm/lib/$(ARCH)/libhpprgm.a \
 		-o build/$(PROJECT_NAME) \
 		$(LDFLAGS)
 
@@ -37,10 +40,6 @@ arm64:
 	$(CXX) -arch arm64 $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
-		src/libhpppl/lib/arm64/libhpppl.a \
-		src/librfmt/lib/arm64/librfmt.a \
-		src/libmin/lib/arm64/libmin.a \
-		src/libhpprgm/lib/arm64/libhpprgm.a \
 		-o build/arm64/$(PROJECT_NAME) \
 		$(LDFLAGS)
 
@@ -49,12 +48,25 @@ x86_64:
 	$(CXX) -arch x86_64 $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
-		src/libhpppl/lib/x86_64/libhpppl.a \
-		src/librfmt/lib/x86_64/librfmt.a \
-		src/libmin/lib/x86_64/libmin.a \
-		src/libhpprgm/lib/x86_64/libhpprgm.a \
 		-o build/x86_64/$(PROJECT_NAME) \
 		$(LDFLAGS)
+		
+win_x86_64:
+	mkdir -p build/win_x86_64
+	$(CXXWIN) -std=c++23 \
+		$(INCLUDES) \
+		$(SRC) \
+		-o build/win_x86_64/$(PROJECT_NAME).exe \
+		-static -O2 -s
+
+linux_x86_64:
+	mkdir -p build/linux_x86_64
+	$(CXXLINUX) $(CXXFLAGS) \
+		$(INCLUDES) \
+		$(SRC) \
+		-o build/linux_x86_64/$(PROJECT_NAME) \
+		-static -Wl,-x
+
 
 universal:
 	lipo -create \
