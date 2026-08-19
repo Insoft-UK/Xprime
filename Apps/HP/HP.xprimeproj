@@ -1,10 +1,10 @@
 {
-  "lib" : "$(SDKROOT)\/lib",
-  "bin" : "$(SDKROOT)\/bin",
-  "plainFallbackText" : false,
   "includeProgramName" : true,
-  "compression" : false,
-  "archiveProjectAppOnly" : true,
   "include" : "$(SDKROOT)\/include",
-  "language" : "hppplplus"
+  "compression" : false,
+  "lib" : "$(SDKROOT)\/lib",
+  "plainFallbackText" : false,
+  "language" : "hppplplus",
+  "bin" : "$(SDKROOT)\/bin",
+  "archiveProjectAppOnly" : true
 }
