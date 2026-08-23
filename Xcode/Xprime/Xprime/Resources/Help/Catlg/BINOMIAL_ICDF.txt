@@ -1,0 +1,7 @@
+Syntax:
+BINOMIAL_ICDF(n, p, q)
+
+Inverse cumulative binomial distribution function. Returns the number of successes, k, out of n trials, each with a probability of p, such that the probability of k or fewer successes is q.
+
+Example:
+BINOMIAL_ICDF(4, 0.5, 0.6875) returns 2

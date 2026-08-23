@@ -1,0 +1,4 @@
+Syntax:
+LineHorz(Expr(a))
+
+Draws the horizontal line y=a

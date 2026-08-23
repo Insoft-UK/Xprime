@@ -1,0 +1,9 @@
+Syntax:
+element(object, real) or element(real1..real2)
+
+Creates a point on a geometric object whose abscissa is a given value or creates a real value on a given interval.
+
+Example:
+element(plotfunc(x^2),–2) creates a point on the graph of  y = x^2. Initially, this point will appear at (–2,4). You can move the point, but it will always remain on the graph of its function.
+
+element(0..5) creates a value of 2.5 initially. Tapping on this value and pressing Enter enables you to press a cursor key to increase or decrease the value in a manner similar to a slider bar. Press Enter again to close the slider bar. The value you set can be used as a coefficient in a function you subsequently plot.

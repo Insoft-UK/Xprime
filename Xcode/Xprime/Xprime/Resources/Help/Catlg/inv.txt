@@ -1,0 +1,7 @@
+Syntax:
+inv(Expr||Mtrx)
+
+Returns the inverse of an expression or matrix.
+
+Example:
+inv(9/5) returns 5/9

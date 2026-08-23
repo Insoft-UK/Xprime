@@ -1,0 +1,4 @@
+Syntax:
+halt(NULL)
+
+Puts a program in step-by-step debug mode.

@@ -1,0 +1,13 @@
+Syntax:
+HP.TEXTOUT(text, [G], x, y, [font], [textColor], [width], [backgroundColor], [weight])
+
+Draws text on graphic G at position (x, y) using font. Paints the background before drawing the text using color backgroundColor. If width is specified, does not draw text more than width pixels wide. If backgroundColor is not specified, the background is not erased.
+
+The default fonts are:
+
+0=current font (default)
+Font8 8pt
+Font10 10pt
+Sans24 24pt
+
+Note: HP.TEXTOUT requires the HP library.

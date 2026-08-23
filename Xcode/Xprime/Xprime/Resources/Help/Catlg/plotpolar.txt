@@ -1,0 +1,4 @@
+Syntax:
+plotpolar(Expr,Var,VarMin,VarMax)
+
+plotpolar(f(x),x,a,b) draws the polar curve r=fx) for x in [a,b]

@@ -1,0 +1,7 @@
+Syntax:
+exp2trig(Expr)
+
+Transforms the complex exponential into sine and cosine.
+
+Example:
+exp2trig(exp-(i*x)) returns cos(x)-i*sin(x)

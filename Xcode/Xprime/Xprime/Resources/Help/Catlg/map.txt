@@ -1,0 +1,7 @@
+Syntax:
+map(Lst(l),Fnc(f))
+
+Apply the function f at the elements of the list l or at a polynomial of internal format.
+
+Example:
+map([1,2,3],x->x^3) returns [1,8,27]

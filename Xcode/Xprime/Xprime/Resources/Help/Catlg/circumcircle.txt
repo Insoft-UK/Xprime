@@ -1,0 +1,7 @@
+Syntax:
+circumcircle(Point1, Point2, Point3)
+
+Draws the circumcircle of a triangle; that is, the circle circumscribed about a triangle.
+
+Example:
+circumcircle(GA, GB, GC) draws the circle circumscribed about ΔABC

@@ -1,0 +1,7 @@
+Syntax:
+nextprime(a)
+
+Next prime. Returns the next prime number greater than the integer a.
+
+Example:
+nextprime(12) returns 13

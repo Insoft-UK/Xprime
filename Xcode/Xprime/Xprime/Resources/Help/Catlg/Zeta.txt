@@ -1,0 +1,7 @@
+Syntax:
+Zeta(Real(a))
+
+Returns if a>1 sum(1/n^a,n,1,∞)
+
+Example:
+Zeta(2) returns π^2/6

@@ -1,0 +1,7 @@
+Syntax:
+stddevp(Lst||Mtrx,[Lst])
+
+Returns the population standard eviation of the elements of a list with the second argument as weight.
+
+Example:
+stddevp([1,2,3]) returns 1

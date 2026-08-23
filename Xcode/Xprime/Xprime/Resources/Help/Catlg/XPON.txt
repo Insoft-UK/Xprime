@@ -1,0 +1,7 @@
+Syntax:
+XPON(value)
+
+Exponent. Returns the exponent of value.
+
+Example:
+XPON(123.4) returns 2

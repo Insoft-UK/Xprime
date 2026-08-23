@@ -1,0 +1,5 @@
+Syntax:
+-Value or -Expression
+
+Unary minus. 
+Changes the sign of Value or Expression. Used to enter negative numbers.

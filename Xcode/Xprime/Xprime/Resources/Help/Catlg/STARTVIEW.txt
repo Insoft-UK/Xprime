@@ -1,0 +1,34 @@
+Syntax:
+STARTVIEW(ViewNumber[,Redraw])
+
+Starts a view of the current app. Redraw, is optional; if Redraw, is true (non 0), it will force a refresh for the view.
+
+The view numbers are as follows:
+0=Symbolic
+1=Plot
+2=Numeric
+3=Symbolic Setup
+4=Plot Setup
+5=Numeric Setup
+6=App Info
+7=Views key
+
+
+If the current app has views defined under the Views menu, then the following view numbers are used:
+8=First special view (Split Screen Plot Detail)
+9=Second special view (Split Screen Plot Table)
+10=Third special view (Autoscale)
+11=Fourth special view (Decimal)
+12=Fifth special view (Integer)
+13=Sixth special view (Trig)
+
+
+If ViewNumber is negative, the following global views are used:
+-1=HomeScreen
+-2=Modes
+-3=Memory Manager
+-4=App Library
+-5=Matrix Catalog
+-6=List Catalog
+-7=Program Catalog
+-8=Note Catalog

@@ -1,0 +1,7 @@
+Syntax:
+matrix .+ real/complex or real/complex .+ matrix
+
+Adds the real/complex to each element of the matrix
+
+Example:
+[1,2].+3 returns [4,5]

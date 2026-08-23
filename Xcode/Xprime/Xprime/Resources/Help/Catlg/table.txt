@@ -1,0 +1,4 @@
+Syntax:
+table(SeqEqual(index=value))
+
+Defines an array where the index are strings or real numbers

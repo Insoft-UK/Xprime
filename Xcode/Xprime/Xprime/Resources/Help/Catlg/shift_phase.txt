@@ -1,0 +1,7 @@
+Syntax:
+shift_phase(Expr)
+
+Returns the expressions where the phase of the evaluated trigonometric expressions is increased by π/2
+
+Example:
+shift_phase(sin(x)) returns -cos((π+2*x)/2)

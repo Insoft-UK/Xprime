@@ -1,0 +1,7 @@
+Syntax:
+iabcuv(Intg(a),Intg(b),Intg(c))
+
+Returns [u,v] such as au+bv=c for 3 integers a,b,c
+
+Example:
+iabcuv(21,28,7) returns [-1,1]

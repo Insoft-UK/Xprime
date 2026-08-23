@@ -1,0 +1,7 @@
+Syntax:
+iquorem(a, b)
+
+Euclidean quotient and remainder. Returns the integer quotient and remainder when the integer a is divided by the integer b.
+
+Example:
+iquorem(63, 23) returns [2, 17]

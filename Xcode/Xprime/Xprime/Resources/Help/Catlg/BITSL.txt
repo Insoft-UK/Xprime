@@ -1,0 +1,8 @@
+Syntax:
+BITSL(int1[, int2])
+
+Bitwise shift left. Takes one or two integers as input and returns the result of shifting the bits in the first integer to the left by the number of places indicated by the second integer. If there is no second integer, then the bits in the first integer are shifted to the left one place.
+
+Example:
+BITSL(28, 2) returns 112
+BITSL(5) returns 10

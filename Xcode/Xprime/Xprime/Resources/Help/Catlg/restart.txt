@@ -1,0 +1,4 @@
+Syntax:
+restart(NULL)
+
+Purges all the variables

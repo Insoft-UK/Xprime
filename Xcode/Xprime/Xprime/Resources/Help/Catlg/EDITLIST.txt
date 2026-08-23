@@ -1,0 +1,7 @@
+Syntax:
+EDITLIST(listname)
+
+Starts the List Editor and displays the specified list. If used in programming, returns to the program when user presses OK (menu key).
+
+Example:
+EDITLIST(L1) edits list L1.

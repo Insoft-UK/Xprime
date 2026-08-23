@@ -1,0 +1,7 @@
+Syntax:
+DOT(matrix1, matrix2)
+
+Dot Product. Finds the dot product of two arrays, matrix1 and matrix2.
+
+Example:
+DOT([1,2],[3,4]) returns 11

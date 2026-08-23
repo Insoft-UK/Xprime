@@ -1,0 +1,4 @@
+$(PROJECT_NAME)():=
+BEGIN
+RETURN;
+END;

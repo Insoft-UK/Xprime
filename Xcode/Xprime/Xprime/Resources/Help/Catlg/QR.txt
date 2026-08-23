@@ -1,0 +1,8 @@
+Syntax:
+QR(matrix)
+
+QR Factorization. Factors an mn matrix into three matrices:
+{[[mm orthogonal]],[[mn uppertrapezoidal]],[[nn permutation]]}.
+
+Example:
+QR([[1,2],[3,4]])

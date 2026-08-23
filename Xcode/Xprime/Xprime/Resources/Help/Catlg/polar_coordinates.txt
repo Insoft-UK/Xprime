@@ -1,0 +1,7 @@
+Syntax:
+polar_coordinates(Pnt or Cplx or LstRectCoord)
+
+Returns the list of the norm and of the argument of the affix of a point (for 2D) or of a complex number or of the the list of rectangular coordinates.
+
+Example:
+polar_coordinates(point(1+2*i)) returns [√5,atan(2)]

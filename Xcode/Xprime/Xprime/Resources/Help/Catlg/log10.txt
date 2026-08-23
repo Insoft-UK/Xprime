@@ -1,0 +1,7 @@
+Syntax:
+log10(Expr)
+
+Common logarithm (base 10).
+
+Example:
+log10(10) returns 1

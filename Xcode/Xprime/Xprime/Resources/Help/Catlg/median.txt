@@ -1,0 +1,7 @@
+Syntax:
+median(Lst||Mtrx,[Lst])
+
+Returns the median of a list with the second argument as the weight, or of the columns of a matrix.
+
+Example:
+median([1,2,3,5,10,4]) returns 3.0

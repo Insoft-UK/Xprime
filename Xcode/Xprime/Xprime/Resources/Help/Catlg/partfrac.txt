@@ -1,0 +1,7 @@
+Syntax:
+partfrac(RatFrac or Opt)
+
+Performs partial fraction decomposition on a fraction.
+
+Example:
+partfrac(x/(4-x^2)) returns (-1/2)/(x-2)-(1/2)/((x+2)

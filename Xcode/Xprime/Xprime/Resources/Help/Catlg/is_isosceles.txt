@@ -1,0 +1,8 @@
+Syntax:
+is_isosceles(Point1, Point2, Point3)
+
+Takes three points and tests whether or not they are vertices of a single isosceles triangle. Returns 0 if they are not. If they are, returns the number order of the common point of the two sides of equal length (1, 2, or 3). Returns 4 if the three points form an equilateral triangle.
+
+Example:
+is_isosceles(point(0,0), point(4,0), point(2,4)) returns 3
+is_isosceles(triangle(0,i,1+i)) returns 2

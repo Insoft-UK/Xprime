@@ -1,0 +1,4 @@
+Syntax:
+GROBH(G)
+
+Returns the height of G.

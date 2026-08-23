@@ -1,0 +1,8 @@
+Syntax:
+int(Expr,[Var],[Real1,Real2])
+
+Integral (definite or indefinite). You can specify a variable of integration as well as the bounds ofr integration. You can use the integration template in the Template menu as well.
+
+Example:
+int(1/x) returns ln(abs(x))
+int(sin(x),x,0,π) returns 2

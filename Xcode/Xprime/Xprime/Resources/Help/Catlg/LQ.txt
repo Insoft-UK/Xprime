@@ -1,0 +1,7 @@
+Syntax:
+LQ(matrix)
+
+LQ Factorization. Factors an m  n matrix into three matrices: {[[ m  n lowertrapezoidal]],[[ n  n orthogonal]], [[ m  m permutation]]}.
+
+Example:
+LQ([[1,2],[3,4]])

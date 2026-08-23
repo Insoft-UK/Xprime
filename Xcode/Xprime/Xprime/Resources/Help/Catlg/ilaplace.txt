@@ -1,0 +1,7 @@
+Syntax:
+ilaplace(Expr,[Var],[IlapVar])
+
+Inverse Laplace transform of a rational fraction.
+
+Example:
+ilaplace(1/(x^2+1)^2) returns (-x)*cos(x)/2+sin(x)/2

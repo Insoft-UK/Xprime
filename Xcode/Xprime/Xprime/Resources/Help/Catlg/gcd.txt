@@ -1,0 +1,8 @@
+Syntax:
+gcd(Poly1, Poly2)
+
+Returns the greatest common divisor of 2 polynomials of several variables. Can also be used as integer gcd.
+
+Example:
+gcd(x^2-4,x^2-5*x+6) returns x-2
+gcd(45,30) returns 15

@@ -1,0 +1,31 @@
+{
+    "name": "Data",
+    "scopeName": "source.py",
+    "patterns": [
+        {
+            "name": "Numbers",
+            "match": "-?\\d+(?:\\.\\d+)?"
+        },
+        {
+            "name": "Symbols",
+            "match": "[\\u0080-\\uFFFF]+"
+        },
+        {
+            "name": "Operators",
+            "match": "[▶:=+\\-*/<>≠≤≥]+"
+        },
+        {
+            "name": "Brackets",
+            "match": "[{}()\\[\\]]+"
+        },
+        {
+            "name": "Backquotes",
+            "match": "`.*?`"
+        },
+        {
+            "name": "Strings",
+            "match": "\"([^\"\\\\]|\\\\.)*\""
+        }
+    ]
+}
+

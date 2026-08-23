@@ -1,0 +1,4 @@
+Syntax:
+curve(Expr)
+
+Reserved word.

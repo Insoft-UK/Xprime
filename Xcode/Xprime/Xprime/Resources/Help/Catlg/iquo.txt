@@ -1,0 +1,7 @@
+Syntax:
+iquo(a, b)
+
+Euclidean quotient. Returns the integer quotient when the integer a is divided by the integer b.
+
+Example:
+iquo(63, 23) returns 2

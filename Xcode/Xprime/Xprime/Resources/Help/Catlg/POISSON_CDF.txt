@@ -1,0 +1,6 @@
+Syntax:
+POISSON_CDF(μ, x)
+
+Cumulative poisson distribution function. Returns the probability of x or fewer occurrences of an event in a given time interval, given μ expected (or mean) occurrences.
+
+POISSON_CDF(4, 2) returns 0.238103305554

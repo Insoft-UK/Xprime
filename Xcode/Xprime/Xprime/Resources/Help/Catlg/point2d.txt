@@ -1,0 +1,4 @@
+Syntax:
+point2d(Var1, Var2, ..., Varn)
+
+Randomly re-distributes a set of points such that, for each point, x is in the interval [-5, 5] and y  is in the interval [-5, 5]. Any further movement of one of the points will randomly re-distribute all of the points.

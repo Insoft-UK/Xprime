@@ -1,0 +1,7 @@
+Syntax:
+divis(Poly(P) or LstPoly)
+
+Returns the list of divisors of a polynomial.
+
+Example:
+divis(x^2-1) returns [1,x-1,x+1,(x-1)*(x+1)]

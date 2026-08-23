@@ -1,0 +1,11 @@
+Syntax:
+BINOMIAL_CDF(n, p, k, [k2])
+
+Cumulative binomial distribution function.
+Returns the probability of k or fewer successes out of n trials, with a probability of success, p for each trial.
+Note that n and k are integers with k≤n.
+With the optional fourth arguments k2, returns the cumulative probability for the two k-values; that is, the probability of between k and k2 successes.
+
+Example:
+BINOMIAL_CDF(20, 0.5, 6) returns 0.05765914917
+BINOMIAL_CDF(20, 0.5, 6, 12) returns 0.847717285156

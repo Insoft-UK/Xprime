@@ -1,0 +1,7 @@
+Syntax:
+COSH(value)
+
+Hyperbolic cosine.
+
+Example:
+ASINH(1.17520119365) returns 1

@@ -1,0 +1,7 @@
+Syntax:
+tsimplify(Expr)
+
+Returns an expression with transcendentals rewritten as complex exponentials
+
+Example:
+tsimplify(exp(2*x)+exp(x)) returns exp(x)^2+exp(x)

@@ -1,0 +1,7 @@
+Syntax:
+ACSC(value)
+
+Arc cosecant. The function derived from the inverse of the Cosecant function.
+
+Example:
+ACSC(1) returns 90 in degree mode

@@ -1,0 +1,7 @@
+Syntax:
+pmin(Mtrx,[Var])
+
+Returns the minimal polynomial of a square matrix.
+
+Example:
+pmin([[1,0],[0,1]],x) returns x-1

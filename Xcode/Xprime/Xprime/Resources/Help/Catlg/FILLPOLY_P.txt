@@ -1,0 +1,8 @@
+Syntax:
+FILLPOLY_P([G], {coordinates...} or [Coordinates], Color, [Alpha])
+
+Fills the polygon specified by the provided pixel coordinates using the color provided.
+If Alpha (0 to 255) is provided, the polygon is drawn with trensparency.
+
+Example:
+FILLPOLY_P([(20,20),(120,120),(150,20),(180,150),(50,100)], #FF, 128)

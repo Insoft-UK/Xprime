@@ -1,0 +1,4 @@
+Syntax:
+FREEZE
+
+Prevents the screen from being redrawn after the program ends. Leaves the modified display on the screen for the user to see.

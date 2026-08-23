@@ -1,0 +1,7 @@
+Syntax:
+linsolve(ListLinEq,ListVar)
+
+Linear equations system solver. Solves a set of linear equations for their common variable set.
+
+Example:
+linsolve([x+y+z=1,x-y=2,2*x-z=3],[x,y,z]) returns [3/2,-1/2,0]

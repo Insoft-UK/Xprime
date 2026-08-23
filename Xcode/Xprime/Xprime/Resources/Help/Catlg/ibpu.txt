@@ -1,0 +1,7 @@
+Syntax:
+ibpu(Expr1,Expr2,[Var],[Real1],[Real2])
+
+Integration by parts of Expr1=u(Var)*v&#39;(Var) with Expr2= u(Var) (or 0) as 2nd argument. You can specify a variable of integration and also the bounds of integration (Real1 and Real2).
+
+Example:
+ibpu(ln(x),ln(x),x,1,3) returns [3*ln(3),-1]

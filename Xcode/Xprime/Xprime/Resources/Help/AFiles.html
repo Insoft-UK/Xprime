@@ -1,0 +1,45 @@
+<style>
+    body {
+        margin: 0;
+    }
+    h1 {
+        font-size: 12pt;
+        margin: 0;
+    }
+    .syntax {
+        background-color: #f7efc6;
+    }
+    .example {
+        background-color: #e7f7b5;
+    }
+    .example p,
+    .example h1,
+    .example code {
+        background-image: repeating-linear-gradient(
+        to right,
+        currentColor 0,
+        currentColor 2px,
+        transparent 2px,
+        transparent 8px
+        );
+        background-position: top;
+        background-repeat: repeat-x;
+        background-size: auto 2px;
+        display: block;
+    }
+</style>
+<article>
+    <section class="syntax">
+        <h1>Syntax:</h1>
+        <code>AFiles(["name"])</code>
+    </section>
+    
+    Each HP Prime app can have any number of files associated with it. These files are sent with the app. For
+    example, if there is a file named icon.png associated with the app, then this file is used for the app icon in the
+    Application Library.
+    <section class="example">
+        <h1>Example:</h1>
+        <code>AFiles("name")</code>
+        <code>AFiles("name")</code>
+    </section>
+</article>

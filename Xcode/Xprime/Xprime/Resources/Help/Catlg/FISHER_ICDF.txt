@@ -1,0 +1,7 @@
+Syntax:
+FISHER_ICDF(n, d, p)
+
+Inverse cumulative F (Fisher or Fisher-Snedecor) distribution function. Returns the value x such that the F lower-tail probability of x, with numerator, n and denominator, d degrees of freedom, is p.
+
+Example:
+FISHER_ICDF(5, 5, 0.76748868087) returns 2

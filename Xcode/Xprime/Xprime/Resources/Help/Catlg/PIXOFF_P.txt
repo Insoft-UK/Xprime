@@ -1,0 +1,4 @@
+Syntax:
+PIXOFF_P([G], x, y)
+
+Sets the color of the pixel of G with coordinates (x,y) to white.

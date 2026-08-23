@@ -1,0 +1,4 @@
+Syntax:
+STRING(expression)
+
+Evaluates expression and returns the result as a string.

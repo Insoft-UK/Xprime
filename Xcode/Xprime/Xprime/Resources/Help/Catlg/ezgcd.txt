@@ -1,0 +1,7 @@
+Syntax:
+ezgcd(Poly,Poly)
+
+Returns the GCD of 2 polynomials with at least 2 variables, with the ezgcd algorithm.
+
+Example:
+ezgcd(x^2-+3*x-xy-3*y,x^2-y^2) returns x-y

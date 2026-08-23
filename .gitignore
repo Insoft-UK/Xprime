@@ -12,6 +12,5 @@ make
 ignore
 Dev
 _*
-Xprime
 test
 examples

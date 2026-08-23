@@ -1,0 +1,7 @@
+Syntax:
+REVERSE(list)
+
+Reverse list. Reverses the order of the elements in list and returns them in a new list.
+
+Example:
+REVERSE({2, 3, 4, 5}) returns {5, 4, 3, 2}.

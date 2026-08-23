@@ -1,0 +1,8 @@
+Syntax:
+distance2(point1, point2) or distance2(point, curve)
+
+Returns the square of the distance between two points or between a point and a curve.
+
+Example:
+distance2(1+i, 3+3i) returns 8.
+if GA is the point at (0, 0) and GB is defined as plotfunc(4-x^2/4), then distance (GA, GB) returns 12.

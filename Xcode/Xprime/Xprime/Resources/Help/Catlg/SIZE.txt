@@ -1,0 +1,7 @@
+Syntax:
+SIZE(list)
+
+List Size. Returns the number of elements in list.
+
+Example:
+SIZE({0, 1, 2, 3}) returns 4

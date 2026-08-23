@@ -20,13 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+import WebKit
 import Cocoa
 
 
 final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSTextFieldDelegate {
-    @IBOutlet weak var helpTextView: HelpTextView!
+//    @IBOutlet weak var helpTextView: HelpTextView!
     @IBOutlet weak var catalog: NSPopUpButton!
     @IBOutlet weak var search: NSTextField!
+    @IBOutlet weak var html: WKWebView!
     
     
     required init?(coder: NSCoder) {
@@ -42,6 +44,7 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
                                                name: NSControl.textDidChangeNotification,
                                                object: search)
         loadHelp(for: Help.shared.lastOpenedCatalogHelpFile)
+//        loadHTMLString(for: Help.shared.lastOpenedCatalogHelpFile)
         search.stringValue = Help.shared.lastOpenedCatalogHelpFile
     }
     
@@ -57,29 +60,93 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
                 editor.selectedRange = NSRange(location: end, length: 0)
             }
         }
+        
+//        if let layer = html.layer {
+//            layer.cornerRadius = 8
+//        }
     }
 
     private func loadHelp(for command: String) {
+//        guard let txtURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help/Catlg") else {
+//            // ⚠️ No .txt file found.
+//            helpTextView.string = ""
+//            return
+//        }
+//        
+//        do {
+//            let text = try String(contentsOf: txtURL, encoding: .utf8)
+//            helpTextView.string = text
+//            helpTextView.applySyntaxHighlighting()
+//
+//            helpTextView.highlightBold("Syntax:")
+//            helpTextView.highlightBold("Example:")
+//            helpTextView.highlightBold("Note:")
+//        } catch {
+//            // Failed to read RTF contents. Clear the view and optionally log.
+//            helpTextView.string = ""
+//            #if DEBUG
+//            NSLog("Failed to load RTF for command \(command): \(error.localizedDescription)")
+//            #endif
+//        }
+        
         guard let txtURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help/Catlg") else {
             // ⚠️ No .txt file found.
-            helpTextView.string = ""
+//            helpTextView.string = ""
+            self.html.loadHTMLString("", baseURL: nil)
             return
         }
         
         do {
-            let text = try String(contentsOf: txtURL, encoding: .utf8)
-            helpTextView.string = text
-            helpTextView.applySyntaxHighlighting()
-
-            helpTextView.highlightBold("Syntax:")
-            helpTextView.highlightBold("Example:")
-            helpTextView.highlightBold("Note:")
+            let result = try String(contentsOf: txtURL, encoding: .utf8)
+            let html = """
+            <style>
+                body {
+                    font-family: "Arial";
+                    font-size: 10pt;
+                    white-space: pre-wrap;
+                    overflow: scroll;
+                    margin: 0;
+                    padding: 0;
+                }
+                b {
+                    margin-bottom: 10px;
+                }
+                pre {
+                    white-space: pre-wrap;
+                    #overflow-wrap: anywhere;
+                }
+                .syntax {
+                    background-color: #f7efc6;
+                    padding: 4px 8px;
+                }
+                .example {
+                    background-color: #e7f7b5;
+                    padding: 4px 8px;
+                }
+                .example p,
+                .example h1,
+                .example code {
+                    background-image: repeating-linear-gradient(
+                    to right,
+                    currentColor 0,
+                    currentColor 2px,
+                    transparent 2px,
+                    transparent 8px
+                    );
+                    background-position: top;
+                    background-repeat: repeat-x;
+                    background-size: auto 2px;
+                    display: block;
+                }
+            </style>
+            """
+            let out = html.appending("<body>\(result)</body>")
+            self.html.loadHTMLString(out, baseURL: nil)
         } catch {
-            // Failed to read RTF contents. Clear the view and optionally log.
-            helpTextView.string = ""
-            #if DEBUG
-            NSLog("Failed to load RTF for command \(command): \(error.localizedDescription)")
-            #endif
+            let errorHTML = """
+            ---
+            """
+            self.html.loadHTMLString(errorHTML, baseURL: nil)
         }
     }
     
@@ -89,6 +156,7 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
         guard let file = searchCatalog(text) else { return }
         loadHelp(for: file)
         Help.shared.lastOpenedCatalogHelpFile = file
+//        loadHTMLString(for: file)
     }
     
     
@@ -195,6 +263,7 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
     @objc private func catalogSelected(_ sender: NSMenuItem) {
         if let url = sender.representedObject as? URL {
             loadHelp(for: url.deletingPathExtension().lastPathComponent)
+//            loadHTMLString(for: url.deletingPathExtension().lastPathComponent)
         }
     }
     
@@ -209,5 +278,64 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
     @IBAction func close(_ sender: Any) {
         self.view.window?.close()
     }
+    
+    
+    
+//    private func loadHTMLString(for command: String) {
+//        guard let htmlURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help/Catlg") else {
+//            // ⚠️ No .txt file found.
+//            helpTextView.string = ""
+//            return
+//        }
+//        
+//        do {
+//            let result = try String(contentsOf: htmlURL, encoding: .utf8)
+//            let html = """
+//            <style>
+//                body, pre {
+//                    margin: 0;
+//                }
+//                pre {
+//                    white-space: pre-wrap;
+//                    overflow-wrap: anywhere;
+//                }
+//                h1 {
+//                    font-size: 12pt;
+//                    margin: 0;
+//                }
+//                .syntax {
+//                    background-color: #f7efc6;
+//                    padding: 8px;
+//                }
+//                .example {
+//                    background-color: #e7f7b5;
+//                    padding: 8px;
+//                }
+//                .example p,
+//                .example h1,
+//                .example code {
+//                    background-image: repeating-linear-gradient(
+//                    to right,
+//                    currentColor 0,
+//                    currentColor 2px,
+//                    transparent 2px,
+//                    transparent 8px
+//                    );
+//                    background-position: top;
+//                    background-repeat: repeat-x;
+//                    background-size: auto 2px;
+//                    display: block;
+//                }
+//            </style>
+//            """
+//            let out = html.appending("<pre>\(result)</pre>")
+//            self.html.loadHTMLString(out, baseURL: nil)
+//        } catch {
+//            let errorHTML = """
+//            ---
+//            """
+//            self.html.loadHTMLString(errorHTML, baseURL: nil)
+//        }
+//    }
 }
 

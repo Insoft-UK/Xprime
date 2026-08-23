@@ -1,0 +1,7 @@
+Syntax:
+surd(Expr,Intg(n))
+
+Returns Expr to the power of 1/n
+
+Example:
+surd(8,3) returns 8^(1/3)

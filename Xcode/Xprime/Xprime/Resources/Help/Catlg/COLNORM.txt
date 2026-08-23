@@ -1,0 +1,7 @@
+Syntax:
+COLNORM(matrix)
+
+Column Norm. Finds the maximum value (over all columns) of the sums of the absolute values of all elements
+
+Example:
+COLNORM([[1,2],[3,4]]) returns 6

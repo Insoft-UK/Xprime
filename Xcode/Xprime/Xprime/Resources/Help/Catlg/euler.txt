@@ -1,0 +1,7 @@
+Syntax:
+euler(x);
+
+Euler’s phi (or totient) function. Takes a positive integer x and returns the number of positive integers less than or equal to x that are coprime to x.
+
+Example:
+euler(6) returns 2

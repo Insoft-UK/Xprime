@@ -1,0 +1,7 @@
+Syntax:
+laplacian(Expr(Xpr),LstVar)
+
+Returns the Laplacian of the expression Xpr with respect to the list of variables.
+
+Example:
+laplacian(exp(z)*cos(x*y),[x,y,z]) returns -x^2*cos(x*y)*exp(z)-y^2*cos(x*y)*exp(z)+cos(x*y)*exp(z)

@@ -1,0 +1,7 @@
+Syntax:
+append((Lst||Seq|| Set,Elem)
+
+Append an element to a list.
+
+Example:
+append([1,2,3],4) returns [1,2,3,4]
