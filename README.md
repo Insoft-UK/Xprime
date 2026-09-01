@@ -83,7 +83,7 @@ Hold down the **Option (⌥) key**, then **click and hold** on the About window 
 |.hpprgm|Standalone program binary|
 |.hpappprgm|App program binary (inside .hpappdir)|
 |.hpappnote|App note binary (inside .hpappdir)|
-|.hpnote|Standalone note binary (opens as .hpppl)|
+|.hpnote|Standalone note binary (opens as .note)|
 |.note|Note source text|
 |.hpppl|HP PPL source text|
 |.hppplplus|HP PPL+ source text|
