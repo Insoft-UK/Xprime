@@ -94,14 +94,14 @@ enum HPServices {
         if Settings.shared.useBetaApplications {
             return isApplicationInstalled(withBundleIdentifier: "com.moravia-consulting.hp-prime.beta")
         }
-        return isApplicationInstalled(withBundleIdentifier: "com.yourcompany.HP-Prime")
+        return isApplicationInstalled(withBundleIdentifier: "com.moravia-consulting.hp-prime")
     }
     
     static var isConnectivityKitInstalled: Bool {
         if Settings.shared.useBetaApplications {
             return isApplicationInstalled(withBundleIdentifier: "com.moravia-consulting.hp-connectivity-kit.beta")
         }
-        return isApplicationInstalled(withBundleIdentifier: "com.yourcompany.HP-Connectivity-Kit")
+        return isApplicationInstalled(withBundleIdentifier: "com.moravia-consulting.hp-connectivity-kit")
     }
     
     static func hpPrimeCalculatorExists(named name: String) -> Bool {

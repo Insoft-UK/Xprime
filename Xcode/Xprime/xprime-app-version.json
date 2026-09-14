@@ -1,7 +1,7 @@
 {
-    "latestVersion": "27.0.20260820",
-    "build": "20260820",
-    "downloadURL": "http://insoft.uk/action/?method=downlink&path=macos&file=xprime_20260820.zip",
+    "latestVersion": "27.0.20260914",
+    "build": "20260914",
+    "downloadURL": "http://insoft.uk/action/?method=downlink&path=macos&file=xprime_20260914.zip",
     "minimumOS": "26.0",
     "architecture": "universal",
     "releaseNotesURL": "http://insoft.uk/xprime-release-notes.txt"

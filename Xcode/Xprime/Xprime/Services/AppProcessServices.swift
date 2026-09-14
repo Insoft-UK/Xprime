@@ -24,7 +24,7 @@ import Cocoa
 
 func isApplicationInstalled(withBundleIdentifier bundleIdentifier: String) -> Bool {
     let appsURL = URL(fileURLWithPath: "/Applications")
-
+    // com.moravia-consulting
     do {
         let contents = try FileManager.default.contentsOfDirectory(
             at: appsURL,

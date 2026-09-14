@@ -108,6 +108,12 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
                     margin: 0;
                     padding: 0;
                 }
+            ul {
+                list-style-type: disc;
+            }
+            li {
+            margin: 0;
+            }
                 b {
                     margin-bottom: 10px;
                 }

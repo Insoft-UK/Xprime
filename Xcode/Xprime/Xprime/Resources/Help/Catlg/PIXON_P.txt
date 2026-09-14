@@ -1,4 +1,28 @@
-Syntax:
-PIXON_P([G], x, y, [color])
+<section class="syntax">
+<b>Syntax:</b>
+PIXON_P([G,] x, y [ Color])
+PIXON_P(G,] Coordinates [Color])
+PIXON_P([G,] Coordinates, Colors)
+</section>
+<artical>
 
-Sets the color of the pixel of GROB G with coordinates (x,y).
+Sets the color of one or more pixels in GROB G using pixel coordinates. If a single color is
+specified, it is applied to all specified pixels. When Coordinates is used with a list of colors,
+each color is applied to the corresponding pixel.
+
+<b>Parameters:</b>
+<ul>
+<li>x, y: Coordinates of a single pixel.</li>
+<li>Coordinates: Pixel coordinates provided as a list, vector, or matrix.</li>
+<li>Color: Optional color applied to all specified pixels.</li>
+<li>Colors: A list of colors applied to the corresponding pixels.</li>
+</ul>
+
+For general information about the graphics system, including default parameter values and supported input formats, see the Drawing
+Commands section.
+</artical>
+<section class="example">
+<b>Examples:</b>
+PIXON_P(50,50, RGB(255,0,0)) PIXON_P(50,50, RGB(255,0,0,128))
+PIXON_P(GO, (10,10},(20,20},(30,30}),#FFh)
+</section>
