@@ -493,6 +493,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                         action: #selector(snippetSelected(_:)),
                         keyEquivalent: ""
                     )
+                    if #available(macOS 27.0, *) {
+                        menuItem.preferredImageVisibility = .visible
+                    }
                     menuItem.state = .off
                     menuItem.representedObject = itemURL
                     if FileManager.default.fileExists(atPath: itemURL
@@ -549,6 +552,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                         action: nil,
                         keyEquivalent: ""
                     )
+                    if #available(macOS 27.0, *) {
+                        submenuItem.preferredImageVisibility = .visible
+                    }
                     submenuItem.submenu = submenu
                     submenuItem.image = NSImage(named: "Templates")?.copy() as? NSImage
                     submenuItem.image?.size = iconSize.small
@@ -561,6 +567,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                         action: #selector(templateSelected(_:)),
                         keyEquivalent: ""
                     )
+                    if #available(macOS 27.0, *) {
+                        menuItem.preferredImageVisibility = .visible
+                    }
                     menuItem.representedObject = itemURL
                     menuItem.image = NSImage(named: "HP")?.copy() as? NSImage
                     menuItem.image?.size = iconSize.small
@@ -597,6 +606,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             )
             menuItem.target = self   // Important so the selector fires
             menuItem.representedObject = URL(fileURLWithPath: path)
+            if #available(macOS 27.0, *) {
+                menuItem.preferredImageVisibility = .visible
+            }
             if path.hasSuffix(".xprimeproj") == true {
                 let url = URL(fileURLWithPath: path)
                 
@@ -987,101 +999,127 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             return
         }
         
-        let python = NSImage(named: "py")?.copy() as! NSImage
-        let pascal = NSImage(named: "pas")?.copy() as! NSImage
-        let hpnote = NSImage(named: "hpnote")?.copy() as! NSImage
-        let note = NSImage(named: "note")?.copy() as! NSImage
-        let file = NSImage(named: "file")?.copy() as! NSImage
-        let hpppl = NSImage(named: "hpppl")?.copy() as! NSImage
-        let hpprgm = NSImage(named: "hpprgm")?.copy() as! NSImage
-        let hppplplus = NSImage(named: "hppplplus")?.copy() as! NSImage
-        let h = NSImage(named: "h")?.copy() as! NSImage
-        let bmp = NSImage(named: "bmp")?.copy() as! NSImage
-        let png = NSImage(named: "png")?.copy() as! NSImage
-        let data = NSImage(named: "data")?.copy() as! NSImage
-        let bin = NSImage(named: "bin")?.copy() as! NSImage
+        func menuImage(_ name: String) -> NSImage? {
+            guard let image = NSImage(named: name)?.copy() as? NSImage else {
+                return nil
+            }
+
+            image.size = iconSize.big
+            return image
+        }
+        
+        let python = menuImage("py")
+        let pascal = menuImage("pas")
+        let hpnote = menuImage("hpnote")
+        let note = menuImage("note")
+        let file = menuImage("file")
+        let hpppl = menuImage("hpppl")
+        let hpprgm = menuImage("hpprgm")
+        let hppplplus = menuImage("hppplplus")
+        let h = menuImage("h")
+        let bmp = menuImage("bmp")
+        let png = menuImage("png")
+        let data = menuImage("data")
+        let bin = menuImage("bin")
+        
         
         func createMenu(for url: URL) -> NSMenu {
             let menu = NSMenu()
-         
-//            var ext = Settings.shared.allowedOpenFileExtensions
-//                .filter { !Set(["xprimeproj", "prgm"]).contains($0)}
-//            
-//            ext.append("bin")
-//            ext.append("binary")
-            
-            let contents = try? FileManager.default.contentsOfDirectory(
+
+            let excludedExtensions: Set<String> = [
+                "xprimeproj",
+                "prgm",
+                "hpapp"
+            ]
+
+            guard let contents = try? FileManager.default.contentsOfDirectory(
                 at: url,
                 includingPropertiesForKeys: [.isDirectoryKey],
                 options: [.skipsHiddenFiles]
-            )
-            
-            contents?
-                .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == false }
-                .forEach { url in if !["xprimeproj", "prgm", "hpapp"].contains(url.pathExtension.lowercased()) {
-                    
-            
-                    //if ext.contains(url.pathExtension.lowercased()) {
-                        menu.addItem(
-                            withTitle: url.lastPathComponent,
-                            action: #selector(quickOpen(_:)),
-                            keyEquivalent: ""
-                        )
-                        
-                        menu.items.last?.representedObject = url
-                        
-                        switch url.pathExtension.lowercased() {
-                        case "hppplplus", "hpppl+":
-                            menu.items.last?.image = hppplplus
-                            
-                        case "hpprgm", "hpappprgm":
-                            menu.items.last?.image = hpprgm
-                            
-                        case "note", "ntf":
-                            menu.items.last?.image = note
-                            
-                        case "hpnote", "hpappnote":
-                            menu.items.last?.image = hpnote
-                            
-                        case "py":
-                            menu.items.last?.image = python
-                            
-                        case "pas":
-                            menu.items.last?.image = pascal
-                            
-                        case "h":
-                            menu.items.last?.image = h
-                            
-                        case "hpppl":
-                            menu.items.last?.image = hpppl
-                            
-                        case "bmp":
-                            menu.items.last?.image = bmp
-                            
-                        case "png":
-                            menu.items.last?.image = png
-                            
-                        case "data", "dat":
-                            menu.items.last?.image = data
-                            
-                        case "binary", "bin":
-                            menu.items.last?.image = bin
-                            menu.items.last?.action = nil
-                            
-                        default:
-                            menu.items.last?.image = file
-                            menu.items.last?.action = nil
-                        }
-                        
-                        menu.items.last?.image?.size = iconSize.big
-                        if url == documentManager.currentDocumentURL {
-                            menu.items.last?.state = .on
-                            comboButton.image = menu.items.last?.image
-                            comboButton.image?.size = iconSize.big
-                        }
-                    }
+            ) else {
+                return menu
+            }
+
+            for fileURL in contents {
+                let pathExtension = fileURL.pathExtension.lowercased()
+
+                // Ignore directories and project-related files
+                guard
+                    let isDirectory = try? fileURL.resourceValues(
+                        forKeys: [.isDirectoryKey]
+                    ).isDirectory,
+                    !isDirectory,
+                    !excludedExtensions.contains(pathExtension)
+                else {
+                    continue
                 }
-            
+
+                let item = NSMenuItem(
+                    title: fileURL.lastPathComponent,
+                    action: #selector(quickOpen(_:)),
+                    keyEquivalent: ""
+                )
+
+                item.representedObject = fileURL
+                if #available(macOS 27.0, *) {
+                    item.preferredImageVisibility = .visible
+                }
+
+                switch pathExtension {
+                case "hppplplus", "hpppl+":
+                    item.image = hppplplus
+
+                case "hpprgm", "hpappprgm":
+                    item.image = hpprgm
+
+                case "note", "ntf":
+                    item.image = note
+
+                case "hpnote", "hpappnote":
+                    item.image = hpnote
+
+                case "py":
+                    item.image = python
+
+                case "pas":
+                    item.image = pascal
+
+                case "h":
+                    item.image = h
+
+                case "hpppl":
+                    item.image = hpppl
+
+                case "bmp":
+                    item.image = bmp
+
+                case "png":
+                    item.image = png
+
+                case "data", "dat":
+                    item.image = data
+
+                case "binary", "bin":
+                    item.image = bin
+                    item.action = nil
+
+                default:
+                    item.image = file
+                    item.action = nil
+                }
+
+                // Explicitly set the menu image size
+                item.image?.size = iconSize.big
+
+                if fileURL == documentManager.currentDocumentURL {
+                    item.state = .on
+                    comboButton.image = item.image
+                    comboButton.image?.size = iconSize.big
+                }
+
+                menu.addItem(item)
+            }
+
             return menu
         }
         
@@ -1103,7 +1141,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 )
                 let image = NSImage(named: baseApplicationName)?.copy() as! NSImage
                 menu.items.last?.image = image
-                menu.items.last?.image?.size = NSSize(width: 19, height: 19)
+                menu.items.last?.image?.size = iconSize.small
+                if #available(macOS 27.0, *) {
+                    menu.items.last?.preferredImageVisibility = .visible
+                }
             }
             
             
@@ -1120,6 +1161,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 ),
                 at: 0
             )
+            if #available(macOS 27.0, *) {
+                menu.item(at: 0)?.preferredImageVisibility = .visible
+            }
             menu.item(at: 0)?.image = projectManager.projectIcon
             menu.item(at: 0)?.image?.size = iconSize.big
             menu.item(at: 0)?.submenu = createMenu(for: url
@@ -1130,12 +1174,18 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 item.image?.size = iconSize.big
             }
             menu.insertItem(NSMenuItem.separator(), at: 1)
+            
+            let item = NSMenuItem(
+                title: projectManager.projectName! + ".hpapp",
+                action: nil,
+                keyEquivalent: ""
+            )
+            if #available(macOS 27.0, *) {
+                item.preferredImageVisibility = .visible
+            }
+            
             menu.item(at: 0)?.submenu?.insertItem(
-                NSMenuItem(
-                    title: projectManager.projectName! + ".hpapp",
-                    action: nil,
-                    keyEquivalent: ""
-                ),
+                item,
                 at: 0
             )
             let baseApplicationIcon = NSImage(named: projectManager.baseApplicationName)?.copy() as! NSImage

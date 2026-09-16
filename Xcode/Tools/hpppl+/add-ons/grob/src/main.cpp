@@ -40,6 +40,7 @@
 
 #define NAME "HP GROB"
 #define COMMAND_NAME "grob"
+#define MAX_LIST_LENGTH 10000
 
 namespace fs = std::filesystem;
 
@@ -437,6 +438,10 @@ int main(int argc, const char * argv[]) {
     if (columns < 1) columns = 1;
     
     if (outpath_extension != ".bin") {
+        if (lengthInBytes / 8 > MAX_LIST_LENGTH) {
+            std::cerr << "⚠️ Image too large.\n";
+            return 0;
+        }
         
         switch (bitmap.bpp) {
             case 0:
@@ -482,6 +487,7 @@ int main(int argc, const char * argv[]) {
                 break;
         }
         
+        // If the output is for C, we simply convert the PPL code to C
         if (outpath_extension == ".c") {
             utf8 = replaceAll(utf8, "#", "0x");
             utf8 = regex_replace(utf8, std::regex(R"(:\d+h)"), "");
@@ -499,7 +505,6 @@ const ImageData image = {");
             
             utf8 = regex_replace(utf8, std::regex(R"(@bitmap)"), std::to_string(lengthInBytes / 8));
             utf8 = regex_replace(utf8, std::regex(R"(@palette)"), std::to_string(bitmap.palette.size()));
-            
         }
         
         if (outpath_extension == ".py") {
