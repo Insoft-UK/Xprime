@@ -1,5 +1,5 @@
 <img src="assets/icon.png?raw=true" width="128" /></br>
-## HP Prime Development Tools
+## HP Prime Development Software
 
 ### Xprime Tools
 - [HPPPL+](Xcode/Tools/hpppl%2B)
