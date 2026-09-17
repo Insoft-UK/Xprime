@@ -1,6 +1,7 @@
 #!/bin/bash
 DIR=$(dirname "$0")
 cd "$DIR"
+
 clear
 
 set -euo pipefail
@@ -12,21 +13,15 @@ set -euo pipefail
 
 # ---------- CONFIGURATION ----------
 
+source ./notarization.sh
 
-#ISSUER_ID="69a6de6f-48d9-47e3-e053-5b8c7c11a4d1"
-#KEY_ID="PY2Z38PG7Z"
+APP_PATH=$(find ./build -maxdepth 1 -name "*.app" -type d -print -quit)
+APP_NAME=$(basename "$APP_PATH" .app)
+APP="build/$APP_NAME.app"
 
-source ~/GitHub/notarization.sh
-# Your AppleID, TeamID, Password and Name (An app-specific password NOT! AppleID password)
-if [ -z "$APPLE_ID" ]; then
-    source ./notarization.sh
-fi
+IDENTITY="Developer ID Application: $DEVELOPER_NAME ($TEAM_ID)"
 
-APP="build/Xprime.app"
-
-IDENTITY="Developer ID Application: $YOUR_NAME ($TEAM_ID)"
-
-NOTARY_PROFILE="mycreds"
+NOTARY_PROFILE="Apple-Notary"
 
 # Output directory
 DIST="dist"
@@ -127,7 +122,7 @@ done
 # ---------- VERIFY APP ----------
 
 echo
-echo "Verifying Xprime.app..."
+echo "Verifying $APP_NAME.app..."
 
 codesign \
     --verify \
@@ -149,7 +144,7 @@ codesign \
 
 # ---------- CREATE ZIP FOR NOTARIZATION ----------
 
-ZIP="$DIST/XPrime-notarize.zip"
+ZIP="$DIST/$APP_NAME-notarize.zip"
 
 echo
 echo "Creating notarization ZIP..."
@@ -176,7 +171,7 @@ xcrun notarytool submit \
 # ---------- STAPLE ----------
 
 echo
-echo "Stapling notarization ticket to Xprime.app..."
+echo "Stapling notarization ticket to $APP_NAME.app..."
 
 xcrun stapler staple \
     "$APP"
@@ -202,7 +197,7 @@ spctl \
 
 # ---------- CREATE FINAL DISTRIBUTION ZIP ----------
 
-FINAL="$DIST/Xprime.zip"
+FINAL="$DIST/$APP_NAME.zip"
 
 echo
 echo "Creating final distribution ZIP..."
@@ -226,7 +221,7 @@ shasum -a 256 "$FINAL"
 
 echo
 echo "========================================"
-echo " Xprime notarization complete"
+echo " $APP_NAME notarization complete"
 echo "========================================"
 echo
 echo "Final distribution:"
