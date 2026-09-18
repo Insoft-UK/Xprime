@@ -7,11 +7,12 @@
 - [HP Font](Xcode/Tools/hpppl%2B/add-ons/hpfont)
 - [HP Note](Xcode/Tools/hpnote)
 
-### Xprime Code Editor
-- Edit your PPL or <a href="Xcode/Tools/hpppl%2B">**PPL+**</a> code for the HP Prime.
-- Package your application for deployment for the HP Prime or testing on the Virtual Calculator.
-- Export a G1 .hpprgm/.hpappprgm file for use on a real HP Prime or the Virtual Calculator.
-- Compress code to fit more programs on your HP Prime
+### Xprime IDE
+XPrime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime PPL, package it, and create runnable HP Prime applications.
+* Provides a code editor for PPL+ source
+* Converts PPL+ into HP Prime PPL
+* Packages the resulting code into an HP Prime application/program
+* Allows the resulting executable/application to be run on the HP Prime
 
 >[!IMPORTANT]
 >Before running your program or application on either the Virtual HP Prime or a physical HP Prime calculator, you must first open the source code and perform a “Check” once.  
