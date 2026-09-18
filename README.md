@@ -20,7 +20,7 @@
 >
 >Simply opening the source code in the editor and performing a “Check” — or even just viewing the code and exiting the editor — causes the HP Prime to automatically resave the file using the current supported format. Once this has been done, the program or application will run normally.
 
-***Download links:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip) <img src="http://insoft.uk/action/?method=badge&number=xprime-universal.zip.txt&margin=10" height=20> | [Xprime 27.0.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime_20260916.zip) <img src="http://insoft.uk/action/?method=badge&number=xprime_20260916.zip.txt&margin=10" height=20></br>
+***Download links:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip) <img src="http://insoft.uk/action/?method=badge&number=xprime-universal.zip.txt&margin=10&refresh" height=20> | [Xprime 27.0.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime_20260916.zip) <img src="http://insoft.uk/action/?method=badge&number=xprime_20260916.zip.txt&margin=10&refresh" height=20></br>
 
 ### Requirements
 Apple Silicon or intel</br>
