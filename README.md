@@ -1,4 +1,4 @@
-<img src="assets/icon.png?raw=true" width="128" /></br>
+<img src="http://insoft.uk/action/?method=icon&icon=Xprime.png&number=xprime_20260916.zip.txt&raw=true" width="128" /></br>
 ## HP Prime Development Software
 
 ### Xprime Tools
