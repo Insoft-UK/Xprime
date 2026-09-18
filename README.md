@@ -8,7 +8,7 @@
 - [Note](Xcode/Tools/hpnote)
 
 ### Xprime IDE
-XPrime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime PPL, package it, and create runnable HP Prime applications.
+Xprime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime PPL, package it, and create runnable HP Prime applications.
 * Provides a code editor for PPL+ source
 * Converts PPL+ into HP Prime PPL
 * Packages the resulting code into an HP Prime application/program
