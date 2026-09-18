@@ -25,11 +25,11 @@ XPrime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime
 
 ### Xprime 27 Requirements
 Apple Silicon or intel</br>
-**macOS 13.5** or later</br>
+**macOS 26** or later</br>
 
 ### Xprime 26 Requirements
 Apple Silicon or intel</br>
-**macOS 26** or later</br>
+**macOS 13.5** or later</br>
 
 [HP Prime Virtual Calculator](https://updates.moravia-consulting.com/HP_Prime_Virtual_Calculator_2026_09_09.dmg)</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/HP_Prime_Connectivity_Kit_20260909.dmg) (for calculator sync)</br>
