@@ -2,10 +2,10 @@
 ## HP Prime Development Software
 
 ### Xprime Tools
-- [HP PPL+](Xcode/Tools/hpppl%2B)
-- [HP GROB](Xcode/Tools/hpppl%2B/add-ons/grob)
-- [HP Font](Xcode/Tools/hpppl%2B/add-ons/hpfont)
-- [HP Note](Xcode/Tools/hpnote)
+- [PPL+](Xcode/Tools/hpppl%2B)
+- [GROB](Xcode/Tools/hpppl%2B/add-ons/grob)
+- [Font](Xcode/Tools/hpppl%2B/add-ons/hpfont)
+- [Note](Xcode/Tools/hpnote)
 
 ### Xprime IDE
 XPrime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime PPL, package it, and create runnable HP Prime applications.
