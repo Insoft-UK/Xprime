@@ -21,6 +21,9 @@ Xprime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime
 >
 >Simply opening the source code in the editor and performing a “Check” — or even just viewing the code and exiting the editor — causes the HP Prime to automatically resave the file using the current supported format. Once this has been done, the program or application will run normally.
 
+>[!NOTE]
+>Xprime 27 will eventually generate .hpprgm and .hpappprgm files using the G2 format, dropping support for the older G1 format.
+
 ***Download links:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip) | [Xprime 27.0.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime_20260916.zip)</br>
 
 ### Xprime 27 Requirements
