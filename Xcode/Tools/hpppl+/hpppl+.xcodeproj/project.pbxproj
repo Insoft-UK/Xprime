@@ -78,11 +78,6 @@
 		13DC3D4C2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				build/arm64/hpprgm.o,
-				build/x86_64/hpprgm.o,
-				lib/arm64/libhpprgm.a,
-				lib/libhpprgm.a,
-				lib/x86_64/libhpprgm.a,
 				Makefile,
 			);
 			target = 137FB2842A03B06500AEFDF2 /* hpppl+ */;
@@ -90,11 +85,6 @@
 		13DC3D4D2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"lib/arm64/hpppl+.a",
-				lib/arm64/libmin.a,
-				lib/libmin.a,
-				"lib/x86_64/hpppl+.a",
-				lib/x86_64/libmin.a,
 				Makefile,
 			);
 			target = 137FB2842A03B06500AEFDF2 /* hpppl+ */;

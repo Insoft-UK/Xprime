@@ -661,18 +661,20 @@ fs::path resolveOutputPath(const fs::path& inpath, const fs::path& outpath) {
     if (path == "/dev/stdout") return path;
     
     if (path.empty()) {
-        // User did not specify specify an output filename, use the input filename with a .hpppl extension.
+        // User did not specify specify an output filename, use the input filename with .hpppl or .hpprgm extension.
         path = inpath;
-        path.replace_extension(".hpppl");
+        if (inpath.extension() == ".hpppl") path.replace_extension(".hpprgm");
+        if (inpath.extension() == ".hpprgm") path.replace_extension(".hpppl");
         return path;
     }
     
     if (fs::is_directory(path)) {
         /* User did not specify specify an output filename but has specified a path, so append
-         with the input filename and subtitute the extension with .hpppl
+         with the input filename and subtitute the extension with .hpppl or .hpprgm extension.
          */
         path = path / inpath.stem();
-        path.replace_extension("hpppl");
+        if (inpath.extension() == ".hpppl") path.replace_extension(".hpprgm");
+        if (inpath.extension() == ".hpprgm") path.replace_extension(".hpppl");
         return path;
     }
     
@@ -707,6 +709,7 @@ int main(int argc, char **argv) {
     bool minify = false;
     bool reformat = false;
     bool includeProgramName = false;
+    bool G1 = false;
     
     std::string args(argv[0]);
     
@@ -732,6 +735,11 @@ int main(int argc, char **argv) {
             if ( args == "-r" || args == "--reformat" ) {
                 reformat = true;
                 minify = false;
+                continue;
+            }
+            
+            if ( args == "-G1" ) {
+                G1 = true;
                 continue;
             }
             
@@ -893,7 +901,7 @@ int main(int argc, char **argv) {
     } else {
         if (out_ext == ".hpprgm" || out_ext == ".hpappprgm") {
             auto programName = inpath.stem().string();
-            hpprgm::write(outpath, output, includeProgramName);
+            hpprgm::write(outpath, output, G1 ? hpprgm::format::G1 : hpprgm::format::G2, includeProgramName);
         } else {
             if (!utf::save(outpath, utf::to_wstring(output), utf::BOM::le)) {
                 std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";

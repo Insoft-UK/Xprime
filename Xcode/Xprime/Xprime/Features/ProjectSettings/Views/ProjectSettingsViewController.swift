@@ -44,6 +44,8 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
         librarySearchPath.stringValue = ProjectSettings.shared.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include
         binSearchPath.stringValue = ProjectSettings.shared.bin
+        
+        
     }
     
     override func viewDidAppear() {
@@ -95,7 +97,6 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
         ProjectSettings.shared.include = "$(SDKROOT)/include"
         ProjectSettings.shared.lib = "$(SDKROOT)/lib"
         ProjectSettings.shared.bin = "$(SDKROOT)/bin"
-        
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include

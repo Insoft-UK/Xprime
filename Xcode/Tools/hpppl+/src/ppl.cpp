@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2023-2025 Insoft.
+// Copyright (c) 2023-2026 Insoft.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,19 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#pragma once
+#include "ppl.hpp"
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <filesystem>
 
-namespace hpprgm {
-    enum class format {
-        G1,
-        G2
-    };
-    
-    void write(const std::filesystem::path& path, const std::string& prgm, const format fmt, const bool includeProgramName = false);
-    std::wstring source(const std::filesystem::path& path);
-}

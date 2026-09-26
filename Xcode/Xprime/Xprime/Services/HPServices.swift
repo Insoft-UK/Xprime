@@ -489,6 +489,10 @@ enum HPServices {
             arguments.append(contentsOf: ["--named"])
         }
         
+        if ProjectSettings.shared.useLegacyHPPrgmFormat == true {
+            arguments.append(contentsOf: ["-G1"])
+        }
+        
         if ProjectSettings.shared.include.isEmpty == false {
             arguments.append(contentsOf: ["-I\(ToolchainPaths.resolvePath(ProjectSettings.shared.include))"])
         }

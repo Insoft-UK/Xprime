@@ -30,6 +30,7 @@ fileprivate enum DefaultsKey {
     static let archiveProjectApplicationOnly = "ArchiveProjectApplicationOnly"
     static let plainFallbackText = "PlainFallbackText"
     static let language = "Language"
+    static let useLegacyHPPrgmFormat = "UseLegacyHPPrgmFormat"
 }
 
 final class ProjectSettings {
@@ -63,4 +64,7 @@ final class ProjectSettings {
     
     @UserDefault(key: DefaultsKey.language, defaultValue: "hpppl")
     var language: String
+    
+    @UserDefault(key: DefaultsKey.useLegacyHPPrgmFormat, defaultValue: false)
+    var useLegacyHPPrgmFormat: Bool
 }

@@ -62,9 +62,23 @@ final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NS
             button.target = self
             button.action = #selector(reformattingSwitchToggled)
         }
+        
+        if let button = view.findButton(withIdentifier: "useLegacyHPPrgmFormat") {
+            button.state = ProjectSettings.shared.useLegacyHPPrgmFormat ? .on : .off
+            button.target = self
+            button.action = #selector(useLegacyHPPrgmFormatSwitchToggled)
+        }
     }
     
     // MARK: - Actions
+    @objc private func useLegacyHPPrgmFormatSwitchToggled(_ sender: NSSwitch) {
+        if sender.state == .on {
+            ProjectSettings.shared.useLegacyHPPrgmFormat = true
+        } else {
+            ProjectSettings.shared.useLegacyHPPrgmFormat = false
+        }
+    }
+    
     @objc private func compressionSwitchToggled(_ sender: NSSwitch) {
         if sender.state == .on {
             ProjectSettings.shared.compression = true

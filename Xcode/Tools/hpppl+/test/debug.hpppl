@@ -1,0 +1,14 @@
+#pragma mode( separator(.,;) integer(h64) )
+
+EXPORT START()
+BEGIN
+ RETURN 5;
+END;
+
+EXPORT one()
+BEGIN
+END;
+
+EXPORT two()
+BEGIN
+END;
