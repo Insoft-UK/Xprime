@@ -1,17 +1,18 @@
-<img src="assets/icon.png?raw=true" width="128" /></br>
+<img src="http://insoft.uk/action/?method=icon&icon=Xprime.png&number=xprime_20260916.zip.txt" width="128" /></br>
 ## HP Prime Development Software
 
 ### Xprime Tools
-- [HPPPL+](Xcode/Tools/hpppl%2B)
+- [PPL+](Xcode/Tools/hpppl%2B)
 - [GROB](Xcode/Tools/hpppl%2B/add-ons/grob)
-- [HP Font](Xcode/Tools/hpppl%2B/add-ons/hpfont)
-- [HP Note](Xcode/Tools/hpnote)
+- [Font](Xcode/Tools/hpppl%2B/add-ons/hpfont)
+- [Note](Xcode/Tools/hpnote)
 
-### Xprime Code Editor
-- Edit your PPL or <a href="Xcode/Tools/hpppl%2B">**PPL+**</a> code for the HP Prime.
-- Package your application for deployment for the HP Prime or testing on the Virtual Calculator.
-- Export a G1 .hpprgm/.hpappprgm file for use on a real HP Prime or the Virtual Calculator.
-- Compress code to fit more programs on your HP Prime
+### Xprime IDE
+Xprime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime PPL, package it, and create runnable HP Prime applications.
+* Provides a code editor for PPL+ source
+* Converts PPL+ into HP Prime PPL
+* Packages the resulting code into an HP Prime application/program
+* Allows the resulting executable/application to be run on the HP Prime
 
 >[!IMPORTANT]
 >Before running your program or application on either the Virtual HP Prime or a physical HP Prime calculator, you must first open the source code and perform a “Check” once.  
@@ -20,14 +21,21 @@
 >
 >Simply opening the source code in the editor and performing a “Check” — or even just viewing the code and exiting the editor — causes the HP Prime to automatically resave the file using the current supported format. Once this has been done, the program or application will run normally.
 
-***Download links:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip) | [Xprime 27.0.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime_20260820.zip)</br>
+>[!NOTE]
+>Xprime 27 will eventually generate .hpprgm and .hpappprgm files using the G2 format, dropping support for the older G1 format.
 
-### Requirements
+***Download links:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip) | [Xprime 27.0.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime_20260916.zip)</br>
+
+### Xprime 27 Requirements
+Apple Silicon or intel</br>
+**macOS 26** or later</br>
+
+### Xprime 26 Requirements
 Apple Silicon or intel</br>
 **macOS 13.5** or later</br>
+
 [HP Prime Virtual Calculator](https://updates.moravia-consulting.com/HP_Prime_Virtual_Calculator_2026_09_09.dmg)</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/HP_Prime_Connectivity_Kit_20260909.dmg) (for calculator sync)</br>
-[HP Prime Software Downloads](https://updates.moravia-consulting.com)
 
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
