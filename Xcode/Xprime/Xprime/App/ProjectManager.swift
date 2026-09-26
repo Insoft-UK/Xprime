@@ -49,6 +49,7 @@ fileprivate struct Project: Codable {
     let archiveProjectAppOnly: Bool
     let plainFallbackText: Bool
     let includeProgramName: Bool
+    let legacyG1Format: Bool
 }
 
 final class ProjectManager {
@@ -157,7 +158,8 @@ final class ProjectManager {
                     language: ProjectSettings.shared.language,
                     archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
                     plainFallbackText: ProjectSettings.shared.plainFallbackText,
-                    includeProgramName: ProjectSettings.shared.includeProgramName
+                    includeProgramName: ProjectSettings.shared.includeProgramName,
+                    legacyG1Format: ProjectSettings.shared.useLegacyHPPrgmFormat
                 )
             }
         } else {
@@ -174,6 +176,7 @@ final class ProjectManager {
         ProjectSettings.shared.archiveProjectAppOnly = project.archiveProjectAppOnly
         ProjectSettings.shared.plainFallbackText = project.plainFallbackText
         ProjectSettings.shared.includeProgramName = project.includeProgramName
+        ProjectSettings.shared.useLegacyHPPrgmFormat = project.legacyG1Format
         
         projectDirectoryURL = url.deletingLastPathComponent()
         Settings.shared.lastOpenedProjectFile = url.path
@@ -214,7 +217,8 @@ final class ProjectManager {
             language: ProjectSettings.shared.language,
             archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
             plainFallbackText: ProjectSettings.shared.plainFallbackText,
-            includeProgramName: ProjectSettings.shared.includeProgramName
+            includeProgramName: ProjectSettings.shared.includeProgramName,
+            legacyG1Format: ProjectSettings.shared.useLegacyHPPrgmFormat
         )
         do {
             let encoder = JSONEncoder()
@@ -297,5 +301,6 @@ final class ProjectManager {
         ProjectSettings.shared.archiveProjectAppOnly = true
         ProjectSettings.shared.plainFallbackText = true
         ProjectSettings.shared.includeProgramName = true
+        ProjectSettings.shared.useLegacyHPPrgmFormat = false
     }
 }
