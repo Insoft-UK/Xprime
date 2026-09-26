@@ -38,7 +38,7 @@ Using these **add-ons**, **<a href="https://github.com/Insoft-UK/PrimePlus/blob/
       <td>-v or --verbose</td><td>Display detailed processing information</td>
     </tr>
         <tr>
-      <td>-G1</td><td>Create .hpprgm or .hpappprg in the legacy G1 format.</td>
+      <td>-G1</td><td>Create .hpprgm or .hpappprgm in the legacy G1 format.</td>
     </tr>
     <tr>
       <td colspan="2"><b>Additional Commands</b></td>
