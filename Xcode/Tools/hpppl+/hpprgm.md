@@ -20,7 +20,16 @@ Here, the name is appended to the header without any size descriptors (the name 
 |Description|Header Size|  |  |  |  |  |  |  |Name Flag|  |  |  |  |  |  |  |Name Start|Name|End|Data|
 |Additional |    |  |  |  |  |  |  |  |Named    |  |  |  |  |  |  |  |Name end with 0×00, 0×00
 
-**.hpprgm** G2
+**.hpprgm** G2</br>
+
+A .hpprgm is a nested TLV container, little-endian:
+
+    7C 61 8A B2                        magic
+    FE FF FF FF  00 00 00 00           preamble
+    [u32 len][len bytes of payload]    records, nested
+    ...
+    <trailer>
+
 A TLV container is a simple way of storing multiple pieces of data inside a file or binary stream using:
 
 T — Type
@@ -31,3 +40,11 @@ Specifies how many bytes the data occupies.
 
 V — Value
 The actual data.
+
+The PPL source is stored inside one of these records as UTF-16LE, using LF line endings (not CRLF) and a terminating NUL. It is stored verbatim: neither compressed nor encrypted.
+
+The trailer, if present, is 1008 bytes in programs created by the Connectivity Kit. However, the calculator’s built-in applications demonstrate that this size is not universal, so the format does not rely on a fixed trailer length. Instead, the source record is located by its structure (see _source_record), and everything following it is preserved unchanged.
+
+A code program consists of a header, source record, and trailer. Programs that declare large matrices may also contain a COMPILED BLOCK before the source. This contains the matrix data in the calculator’s internal format, which explains why these files can be roughly three times the size of their source and can be opened without waiting for compilation.
+
+
