@@ -1,5 +1,5 @@
-### User BASIC programs
-**"*.hpprgm"**</br>
+### HPPRGM or HPAPPPRGM
+**.hpprgm** G1</br>
 There are two known types of files using the .hpprgm extension, one includes the script name in the metadata. Both versions use UTF16 (little endian byte order) for the name and the main data.
 
 **Unamed .hpprgm files**
@@ -19,3 +19,4 @@ Here, the name is appended to the header without any size descriptors (the name 
 |Example    |0C         |00|00|00|00|00|00|00|01       |00|00|00|00|00|00|00|31        |....|00 |00|... |
 |Description|Header Size|  |  |  |  |  |  |  |Name Flag|  |  |  |  |  |  |  |Name Start|Name|End|Data|
 |Additional |    |  |  |  |  |  |  |  |Named    |  |  |  |  |  |  |  |Name end with 0×00, 0×00
+
