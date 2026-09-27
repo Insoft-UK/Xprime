@@ -1,5 +1,5 @@
-### User BASIC programs
-**"*.hpprgm"** G1</br>
+### HPPRGM/HPAPPPRGM
+**.hpprgm** G1</br>
 There are two known types of files using the .hpprgm extension, one includes the script name in the metadata. Both versions use UTF16 (little endian byte order) for the name and the main data.
 
 **Unamed .hpprgm files**
