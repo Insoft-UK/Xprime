@@ -22,6 +22,9 @@ Here, the name is appended to the header without any size descriptors (the name 
 
 **.hpprgm** G2</br>
 
+>[!WARNING]
+>Draft documentation — incomplete and written as I document findings along the way. Mistakes are likely, so please don’t treat this as 100% accurate.
+
 A .hpprgm is a nested TLV container, little-endian:
 
     7C 61 8A B2                                    magic
