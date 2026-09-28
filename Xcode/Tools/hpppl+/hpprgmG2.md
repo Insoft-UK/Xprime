@@ -25,10 +25,12 @@ records, nested
         ]
         ...
     ]
-    [ xx xx xx xx ]:[ BE 00 40 01 4A 01 00 00 [
-        [ 44 00 00 00 ]:[ 8B 00 40 00 (UTF16LE Named... 64 bytes) ]
-        [ 08 00 00 00 ]:[ 85 00 80 00 00 00 0 00 ]
-        [ xx xx xx xx ]:[ 9B 00 C0 00 (UTF16LE PPL Code) ]
+    [ xx xx xx xx ]:[ BE 00 40 01
+        [ xx xx xx xx ]:[
+            [ 44 00 00 00 ]:[ 8B 00 40 00 (UTF16LE Named... 64 bytes) ]
+            [ 08 00 00 00 ]:[ 85 00 80 00 00 00 0 00 ]
+            [ xx xx xx xx ]:[ 9B 00 C0 00 (UTF16LE PPL Code) ]
+        ]
     ]
         
 A TLV container is a simple way of storing multiple pieces of data inside a file or binary stream using:
