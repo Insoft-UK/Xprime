@@ -9,6 +9,6 @@ EXPORT one()
 BEGIN
 END;
 
-EXPORT two()
+LOCAL two()
 BEGIN
 END;

@@ -28,256 +28,247 @@
 #include <string_view>
 #include <vector>
 
-struct FunctionInfo
-{
-    std::string name;
-
-    enum class Kind
+namespace ppl {
+    enum class kind
     {
         Defined,
         Local,
         Export
     };
-
-    Kind kind;
-};
-
-class PPLParser
-{
-public:
-    explicit PPLParser(std::string_view source)
+    
+    struct FunctionInfo
+    {
+        std::string name;
+        kind type;
+    };
+    
+    class Parser
+    {
+    public:
+        explicit Parser(std::string_view source)
         : source(source)
-    {
-    }
-
-    std::vector<FunctionInfo> parse()
-    {
-        std::vector<FunctionInfo> functions;
-
-        while (!eof())
         {
-            skipWhitespaceAndComments();
-
-            if (eof())
-                break;
-
-            std::string word = readIdentifier();
-
-            if (word.empty())
-            {
-                ++pos;
-                continue;
-            }
-
-            if (equalsIgnoreCase(word, "LOCAL"))
-            {
-                parseDeclaration(functions, FunctionInfo::Kind::Local);
-            }
-            else if (equalsIgnoreCase(word, "EXPORT"))
-            {
-                parseDeclaration(functions, FunctionInfo::Kind::Export);
-            }
-//            else if (equalsIgnoreCase(word, "EXPORT"))
-//            {
-//                parseDefinition(functions);
-//            }
         }
-
-        return functions;
-    }
-
-private:
-    std::string_view source;
-    size_t pos = 0;
-
-    bool eof() const
-    {
-        return pos >= source.size();
-    }
-
-    char peek() const
-    {
-        return eof() ? '\0' : source[pos];
-    }
-
-    char get()
-    {
-        return eof() ? '\0' : source[pos++];
-    }
-
-    static bool isIdentifierStart(char c)
-    {
-        return std::isalpha(static_cast<unsigned char>(c)) ||
-               c == '_';
-    }
-
-    static bool isIdentifierChar(char c)
-    {
-        return std::isalnum(static_cast<unsigned char>(c)) ||
-               c == '_';
-    }
-
-    std::string readIdentifier()
-    {
-        if (!isIdentifierStart(peek()))
-            return {};
-
-        size_t start = pos++;
-
-        while (!eof() && isIdentifierChar(peek()))
-            ++pos;
-
-        return std::string(source.substr(start, pos - start));
-    }
-
-    static bool equalsIgnoreCase(std::string_view a,
-                                 std::string_view b)
-    {
-        if (a.size() != b.size())
-            return false;
-
-        for (size_t i = 0; i < a.size(); ++i)
+        
+        std::vector<FunctionInfo> parse()
         {
-            if (std::tolower(static_cast<unsigned char>(a[i])) !=
-                std::tolower(static_cast<unsigned char>(b[i])))
+            std::vector<FunctionInfo> functions;
+            
+            while (!eof())
             {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    void skipWhitespaceAndComments()
-    {
-        for (;;)
-        {
-            while (!eof() &&
-                   std::isspace(static_cast<unsigned char>(peek())))
-            {
-                ++pos;
-            }
-
-            // // comment
-            if (pos + 1 < source.size() &&
-                source[pos] == '/' &&
-                source[pos + 1] == '/')
-            {
-                pos += 2;
-
-                while (!eof() && peek() != '\n')
+                skipWhitespaceAndComments();
+                
+                if (eof())
+                    break;
+                
+                std::string word = readIdentifier();
+                
+                if (word.empty()) {
                     ++pos;
-
-                continue;
+                    continue;
+                }
+                
+                
+                if (equalsIgnoreCase(word, "EXPORT")) {
+                    parseDeclaration(functions, kind::Export);
+                } else if (equalsIgnoreCase(word, "LOCAL")) {
+                    parseDeclaration(functions, kind::Local);
+                } else {
+                    parseDeclaration(functions, kind::Defined);
+                }
             }
-
-            // /* comment */
-            if (pos + 1 < source.size() &&
-                source[pos] == '/' &&
-                source[pos + 1] == '*')
-            {
-                pos += 2;
-
-                while (!eof())
+            
+            return functions;
+        }
+        
+    private:
+        std::string_view source;
+        size_t pos = 0;
+        
+        bool eof() const
+        {
+            return pos >= source.size();
+        }
+        
+        char peek() const
+        {
+            return eof() ? '\0' : source[pos];
+        }
+        
+        char get()
+        {
+            return eof() ? '\0' : source[pos++];
+        }
+        
+        static bool isIdentifierStart(char c)
+        {
+            return std::isalpha(static_cast<unsigned char>(c)) ||
+            c == '_';
+        }
+        
+        static bool isIdentifierChar(char c)
+        {
+            return std::isalnum(static_cast<unsigned char>(c)) ||
+            c == '_';
+        }
+        
+        std::string readIdentifier()
+        {
+            if (!isIdentifierStart(peek()))
+                return {};
+            
+            size_t start = pos++;
+            
+            while (!eof() && isIdentifierChar(peek()))
+                ++pos;
+            
+            return std::string(source.substr(start, pos - start));
+        }
+        
+        static bool equalsIgnoreCase(std::string_view a, std::string_view b)
+        {
+            if (a.size() != b.size())
+                return false;
+            
+            for (size_t i = 0; i < a.size(); ++i) {
+                if (std::tolower(static_cast<unsigned char>(a[i])) !=
+                    std::tolower(static_cast<unsigned char>(b[i])))
                 {
-                    if (source[pos] == '*' &&
-                        pos + 1 < source.size() &&
-                        source[pos + 1] == '/')
-                    {
-                        pos += 2;
-                        break;
-                    }
-
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        void skipWhitespaceAndComments()
+        {
+            for (;;)
+            {
+                while (!eof() &&
+                       std::isspace(static_cast<unsigned char>(peek())))
+                {
                     ++pos;
                 }
-
-                continue;
-            }
-
-            break;
-        }
-    }
-
-    void skipString()
-    {
-        char quote = get();
-
-        while (!eof())
-        {
-            char c = get();
-
-            if (c == '\\')
-            {
-                // Skip escaped character.
-                if (!eof())
-                    ++pos;
-            }
-            else if (c == quote)
-            {
+                
+                // // comment
+                if (pos + 1 < source.size() &&
+                    source[pos] == '/' &&
+                    source[pos + 1] == '/')
+                {
+                    pos += 2;
+                    
+                    while (!eof() && peek() != '\n')
+                        ++pos;
+                    
+                    continue;
+                }
+                
+                // /* comment */
+                if (pos + 1 < source.size() &&
+                    source[pos] == '/' &&
+                    source[pos + 1] == '*')
+                {
+                    pos += 2;
+                    
+                    while (!eof())
+                    {
+                        if (source[pos] == '*' &&
+                            pos + 1 < source.size() &&
+                            source[pos + 1] == '/')
+                        {
+                            pos += 2;
+                            break;
+                        }
+                        
+                        ++pos;
+                    }
+                    
+                    continue;
+                }
+                
                 break;
             }
         }
-    }
-
-    void skipTo(char wanted)
-    {
-        while (!eof())
+        
+        void skipString()
         {
-            if (peek() == '\'' || peek() == '"')
+            char quote = get();
+            
+            while (!eof())
             {
-                skipString();
-                continue;
+                char c = get();
+                
+                if (c == '\\')
+                {
+                    // Skip escaped character.
+                    if (!eof())
+                        ++pos;
+                }
+                else if (c == quote)
+                {
+                    break;
+                }
             }
-
-            if (peek() == wanted)
-                return;
-
-            ++pos;
         }
-    }
-
-    void parseDeclaration(std::vector<FunctionInfo>& functions,
-                          FunctionInfo::Kind kind)
-    {
-        skipWhitespaceAndComments();
-
-        std::string name = readIdentifier();
-
-        if (name.empty())
-            return;
-
-        skipWhitespaceAndComments();
-
-        // Only consider it a function if followed by '('.
-        if (peek() != '(')
-            return;
-
-        functions.push_back({
-            std::move(name),
-            kind
-        });
-    }
-
-    void parseDefinition(std::vector<FunctionInfo>& functions)
-    {
-        skipWhitespaceAndComments();
-
-        std::string name = readIdentifier();
-
-        if (name.empty())
-            return;
-
-        skipWhitespaceAndComments();
-
-        // EXPORT foo(...)
-        if (peek() != '(')
-            return;
-
-        functions.push_back({
-            std::move(name),
-            FunctionInfo::Kind::Defined
-        });
-    }
-};
-
-
+        
+        void skipTo(char wanted)
+        {
+            while (!eof())
+            {
+                if (peek() == '\'' || peek() == '"')
+                {
+                    skipString();
+                    continue;
+                }
+                
+                if (peek() == wanted)
+                    return;
+                
+                ++pos;
+            }
+        }
+        
+        void parseDeclaration(std::vector<FunctionInfo>& functions, const kind kind)
+        {
+            skipWhitespaceAndComments();
+            
+            std::string name = readIdentifier();
+            
+            if (name.empty())
+                return;
+            
+            skipWhitespaceAndComments();
+            
+            // Only consider it a function if followed by '('.
+            if (peek() != '(')
+                return;
+            
+            functions.push_back({
+                std::move(name),
+                kind
+            });
+        }
+        
+        void parseDefinition(std::vector<FunctionInfo>& functions)
+        {
+            skipWhitespaceAndComments();
+            
+            std::string name = readIdentifier();
+            
+            if (name.empty())
+                return;
+            
+            skipWhitespaceAndComments();
+            
+            // EXPORT foo(...)
+            if (peek() != '(')
+                return;
+            
+            functions.push_back({
+                std::move(name),
+                kind::Defined
+            });
+        }
+    };
+}

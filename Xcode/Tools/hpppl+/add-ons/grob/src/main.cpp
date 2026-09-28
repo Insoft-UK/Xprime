@@ -228,11 +228,7 @@ int main(int argc, const char * argv[]) {
     std::string grob("G0");
     bool le = true;
     bool data = false;
-    
-    enum Type {
-        TypePPL, TypePython
-    };
-    Type type = TypePPL;
+
     
     std::string outpath_extension;
     
@@ -532,9 +528,9 @@ const ImageData image = {");
         } else {
             if (outpath_extension == ".prgm" || outpath_extension == ".hpprgm") {
                 if (outpath_extension == ".hpprgm") {
-                    hpprgm::write(outpath, utf8);
+                    hpprgm::write(outpath, utf8, hpprgm::format::G2);
                 } else {
-                    std::wstring utf16 = utf::utf16(utf8);
+                    std::wstring utf16 = utf::to_wstring(utf8);
                     utf::save(outpath, utf16);
                 }
             } else {

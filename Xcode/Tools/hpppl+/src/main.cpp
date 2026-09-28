@@ -895,10 +895,13 @@ int main(int argc, char **argv) {
     }
     
     
-    if (outpath == "/dev/stdout") {
+    if (outpath == "/dev/stdout")
+    {
         std::cout << output;
         std::cerr << '\n';
-    } else {
+    }
+    else
+    {
         if (out_ext == ".hpprgm" || out_ext == ".hpappprgm") {
             auto programName = inpath.stem().string();
             hpprgm::write(outpath, output, G1 ? hpprgm::format::G1 : hpprgm::format::G2, includeProgramName);

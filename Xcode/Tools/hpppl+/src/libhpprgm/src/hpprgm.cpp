@@ -127,6 +127,17 @@ static void append32le(std::vector<uint8_t>& data, uint32_t value)
     data.push_back(static_cast<uint8_t>((value >> 24) & 0xFF));
 }
 
+static void append_u16string(std::vector<uint8_t>& data, std::u16string_view s, const int len = 64)
+{
+    std::u16string str(len / 2, u'\0');
+    str.replace(0, std::min(s.size(), str.size()), s);
+
+    const auto* bytes =
+        reinterpret_cast<const std::uint8_t*>(str.data());
+
+    data.insert(data.end(), bytes, bytes + str.size() * sizeof(char16_t));
+}
+
 static void write32le(std::vector<uint8_t>& data, size_t offset, uint32_t value)
 {
     data[offset + 0] = static_cast<uint8_t>(value & 0xFF);
@@ -236,32 +247,80 @@ static void writeG1(const std::filesystem::path& path, const std::string& prgm, 
     writeBytes(path, out);
 }
 
-static std::vector<uint8_t> createFunctionRecord(const std::string& funcName)
+static std::vector<uint8_t> createFunctionRecord(const std::string& name, const ppl::kind type)
 {
     std::vector<uint8_t> out;
+    const int len = 64;
     
-    append32le(out, 84);
-    append32le(out, 68);
-    append16le(out, 0x020B);
+    append32le(out, len + 20);
+    append32le(out, len + 4);
     
-    append16le(out, 64);
+    append16le(out, 0x020B); // 0000 0010 0000 1011 ❓
     
-    std::u16string func(32, u'\0');
-    std::u16string name(funcName.begin(), funcName.end());
-
-    func.replace(0, name.size(), name);
-    
-    const auto* bytes =
-        reinterpret_cast<const std::uint8_t*>(func.data());
-
-    out.insert(out.end(), bytes, bytes + func.size() * sizeof(char16_t));
+    append16le(out, len);
+    append_u16string(out, std::u16string(name.begin(), name.end()), len);
     
     append32le(out, 8);
-    append16le(out, 517);
-    append16le(out, 128);
-    append16le(out, 9);
+    append16le(out, 0x0205); // 0000 0010 0000 0101 ❓
+    append16le(out, 0x0080); // 0000 0000 1000 0000 ❓
+    append16le(out, type == ppl::kind::Export ? 9 : 8); // 0000 0000 0000 1001 or 0000 0000 0000 1000
     append16le(out, 0);
 
+    return out;
+}
+
+static std::vector<uint8_t> createFunctionRecords(const std::string& prgm)
+{
+    std::vector<uint8_t> out;
+    ppl::Parser parser(prgm);
+    auto functions = parser.parse();
+    
+    std::vector<uint8_t> records;
+    
+    for (const auto& function : functions) {
+        auto record = createFunctionRecord(function.name, function.type);
+        records.insert(records.end(), record.begin(), record.end());
+    }
+    
+    append32le(out, (uint32_t)records.size() + 4);
+    append16le(out, 0x023E);
+    append16le(out, 0x0100);
+    
+    out.insert(out.end(), records.begin(), records.end());
+    
+    return out;
+}
+
+static std::vector<uint8_t> createPPLCodeRecord(const std::string& prgm)
+{
+    auto sourceCode = utf16le(prgm);
+    uint32_t programSize = static_cast<uint32_t>(sourceCode.size());
+    
+    std::vector<uint8_t> out;
+    
+    append32le(out, programSize + 100);
+    append16le(out, 0x00BE);
+    append16le(out, 0x0140);
+    append32le(out, programSize + 100 - 8);
+    append16le(out, 68);
+    append16le(out, 0);
+    append16le(out, 139);
+    append16le(out, 64);
+    
+    append_u16string(out, u"Main", 64);
+    
+    append32le(out, 8);
+    append16le(out, 133);
+    append16le(out, 128);
+    append32le(out, 0);
+    
+    append32le(out, programSize + 4);
+    append16le(out, 155);
+    append16le(out, 192);
+    
+    out.reserve(sourceCode.size());
+    out.insert(out.end(), sourceCode.begin(), sourceCode.end());
+    
     return out;
 }
 
@@ -285,12 +344,8 @@ static void writeG2(const std::filesystem::path& path, const std::string& prgm)
         0xFE, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00
     };
     
-    auto sourceCode = utf16le(prgm);
-    uint32_t programSize = static_cast<uint32_t>(sourceCode.size());
-    
-    
 
-    std::vector<uint8_t> out;
+    std::vector<uint8_t> out, records;
     
     out.insert(out.end(), magic.begin(), magic.end());
     out.insert(out.end(), preamble.begin(), preamble.end());
@@ -302,61 +357,12 @@ static void writeG2(const std::filesystem::path& path, const std::string& prgm)
     out.insert(out.end(), uknownRecords.begin(), uknownRecords.end());
     
     
-    // Records for Functions
-    
-    PPLParser parser(prgm);
-    auto functions = parser.parse();
-    
-    std::vector<uint8_t> records;
-    
-    for (const auto& function : functions) {
-        std::cout << function.name << " ";
-
-        auto record = createFunctionRecord(function.name);
-        records.insert(records.end(), record.begin(), record.end());
-    }
-    
-    append32le(out, (uint32_t)records.size() + 4);
-    append16le(out, 0x023E);
-    append16le(out, 0x0100);
-    
+    records = createFunctionRecords(prgm);
     out.insert(out.end(), records.begin(), records.end());
     
-
-    // Record for PPL Source Code
-
-    append32le(out, programSize + 100);
-    append16le(out, 0x00BE);
-    append16le(out, 0x0140);
-    append32le(out, programSize + 100 - 8);
-    append16le(out, 68);
-    append16le(out, 0);
-    append16le(out, 139);
-    append16le(out, 64);
+    records = createPPLCodeRecord(prgm);
+    out.insert(out.end(), records.begin(), records.end());
     
-    std::u16string _main(32, u'\0');
-    _main.replace(0, 4, u"Main");
-
-    const auto* bytes =
-        reinterpret_cast<const std::uint8_t*>(_main.data());
-
-    out.insert(out.end(), bytes, bytes + _main.size() * sizeof(char16_t));
-    
-    append32le(out, 8);
-    append16le(out, 133);
-    append16le(out, 128);
-    append32le(out, 0);
-    
-    append32le(out, programSize + 4);
-    append16le(out, 155);
-    append16le(out, 192);
-    
-    
-    out.reserve(sourceCode.size());
-    out.insert(out.end(), sourceCode.begin(), sourceCode.end());
-    
-
-
     writeBytes(path, out);
 }
 
@@ -402,10 +408,3 @@ std::wstring hpprgm::source(const std::filesystem::path& path)
 
     return wstr;
 }
-
-
-
-
-
-
-

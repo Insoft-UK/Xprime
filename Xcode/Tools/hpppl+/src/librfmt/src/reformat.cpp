@@ -26,8 +26,6 @@
 #include "unary.hpp"
 
 
-//#define INDENT_WIDTH 2
-
 static bool isWordChar(char c)
 {
     return std::isalnum(static_cast<unsigned char>(c)) || c == '_';

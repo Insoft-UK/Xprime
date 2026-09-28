@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		130EA9382FBD11ED003941F9 /* libhpprgm.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 130EA9372FBD11ED003941F9 /* libhpprgm.a */; };
 		1352EDF62B4786BD003130E4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1352EDF42B4786BC003130E4 /* main.cpp */; };
-		136A44932EF5CD1B0017E5AF /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 136A448F2EF5CCE60017E5AF /* libz.a */; };
 		136A44972EF5CD280017E5AF /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 136A44962EF5CD280017E5AF /* libpng.a */; };
 		136A44A12EF5CE230017E5AF /* pbm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 136A449C2EF5CE230017E5AF /* pbm.cpp */; };
 		136A44A22EF5CE230017E5AF /* png.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 136A449E2EF5CE230017E5AF /* png.cpp */; };
@@ -29,7 +28,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		130EA9302FBD0F4E003941F9 /* libhpprgm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhpprgm.a; path = ../../src/libhpprgm/lib/libhpprgm.a; sourceTree = "<group>"; };
 		130EA9372FBD11ED003941F9 /* libhpprgm.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libhpprgm.a; sourceTree = "<group>"; };
 		1352EDF42B4786BC003130E4 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		136A448D2EF5CB7A0017E5AF /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
@@ -55,13 +53,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		13E354FF2FAD213A0002B8DA /* Exceptions for "libpng" folder in "grob" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				lib/arm64/libpng.a,
-			);
-			target = 13EBE2F22B22249000302F26 /* grob */;
-		};
 		13E355012FAD214B0002B8DA /* Exceptions for "libz" folder in "grob" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -79,9 +70,6 @@
 		};
 		136A44AC2EF5CEB90017E5AF /* libpng */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				13E354FF2FAD213A0002B8DA /* Exceptions for "libpng" folder in "grob" target */,
-			);
 			path = libpng;
 			sourceTree = "<group>";
 		};
@@ -99,7 +87,6 @@
 		13EBE2F02B22249000302F26 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
-				136A44932EF5CD1B0017E5AF /* libz.a in Frameworks */,
 				136A44972EF5CD280017E5AF /* libpng.a in Frameworks */,
 				130EA9382FBD11ED003941F9 /* libhpprgm.a in Frameworks */,
 			);
@@ -132,7 +119,6 @@
 		136A448E2EF5CCE60017E5AF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				130EA9302FBD0F4E003941F9 /* libhpprgm.a */,
 				136A44962EF5CD280017E5AF /* libpng.a */,
 				136A44942EF5CD1F0017E5AF /* libz.a */,
 				136A44912EF5CCF70017E5AF /* libpng.a */,
@@ -188,7 +174,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					13EBE2F22B22249000302F26 = {
 						CreatedOnToolsVersion = 14.3.1;

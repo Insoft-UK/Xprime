@@ -28,6 +28,11 @@
 #include <filesystem>
 
 namespace hpprgm {
-    void write(const std::filesystem::path& path, const std::string& prgm, const bool includeProgramName = false);
+    enum class format {
+        G1,
+        G2
+    };
+    
+    void write(const std::filesystem::path& path, const std::string& prgm, const format fmt, const bool includeProgramName = false);
     std::wstring source(const std::filesystem::path& path);
 }
