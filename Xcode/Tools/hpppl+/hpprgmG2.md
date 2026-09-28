@@ -7,15 +7,28 @@ A .hpprgm is a nested TLV container, little-endian:
 
     7C 61 8A B2                                    magic
     FE FF FF FF  00 00 00 00                       preamble
-    [ 08 00 00 00 ]:[ 05 FF 7F 00 00 00 00 00 ]    ❓
-    [ 08 00 00 00 ]:[ 05 FF 3F 02 00 00 00 00 ]    ❓
-    [ 08 00 00 00 ]:[ 05 FF BF 00 02 00 00 00 ]    ❓
-    [ xx xx xx xx ]:[ 3E 02 00 01 ... (function record/s) ]
-        function record
-        [ 54 00 00 00 44 00 00 00 0B 02 40 00 (UTF16LE Named... 64 bytes) [ 08 00 00 00 ]:[ 05 02 80 00 09 00 00 00 ] ]
     [u32 len][len bytes of payload]                records, nested
     ...
     <trailer>
+
+    records, nested
+    [ 08 00 00 00 ]:[ 05 FF 7F 00 00 00 00 00 ]    ❓
+    [ 08 00 00 00 ]:[ 05 FF 3F 02 00 00 00 00 ]    ❓
+    [ 08 00 00 00 ]:[ 05 FF BF 00 02 00 00 00 ]    ❓
+    [ xx xx xx xx ]:[ 3E 02 00 01 [ 
+        [ 54 00 00 00 ]:[
+            [ 44 00 00 00 ]:[ 0B 02 40 00 (UTF16LE Named... 64 bytes) ]
+            [ 08 00 00 00 ]:[ 05 02 80 00 xx 00 00 00 ]
+                                          ├── 09 : EXPORT
+                                          └── 08 : LOCAL or Not Specified
+        ]
+        ...
+    ]
+    [ xx xx xx xx ]:[ BE 00 40 01 4A 01 00 00 [
+        [ 44 00 00 00 ]:[ 8B 00 40 00 (UTF16LE Named... 64 bytes) ]
+        [ 08 00 00 00 ]:[ 85 00 80 00 00 00 0 00 ]
+        [ xx xx xx xx ]:[ 9B 00 C0 00 (UTF16LE PPL Code) ]
+    ]
         
 A TLV container is a simple way of storing multiple pieces of data inside a file or binary stream using:
 
