@@ -12,13 +12,18 @@ Overview of the Format
 
 * **Structure**: Consists of a nested, little-endian TLV container. It consists of a top-level header, an exported-item table describing the program’s exported variables and functions, and separate data/value blocks containing the associated program data.
 
+| Offset | Size | Field | Description |
+|---:|---:|---|---|
+| `0x00` | 4 | Magic | `7C 61 8A B2` — file magic |
+| `0x04` | 4 | Preamble | `FE FF FF FF` |
+| `0x08` | 4 | Reserved | `00 00 00 00` |
+| `0x0C` | 4 | Length | Little-endian `u32`; length of the following payload |
+| `0x10` | `len` | Payload | `len` bytes containing the nested records |
 
-    7C 61 8A B2                                    magic
-    FE FF FF FF  00 00 00 00                       preamble
-    [u32 len][len bytes of payload]                records, nested
-    ...
-    <trailer>
-</br>
+The file begins with a fixed 12-byte header (`magic`, `preamble`, and reserved
+field), followed by a little-endian `u32` payload length and that many bytes of
+payload. The payload consists of nested records, each encoded as a TLV structure.  
+
 records, nested
 
     [ 08 00 00 00 ]:[ 05 FF 7F 00 00 00 00 00 ]    ❓
