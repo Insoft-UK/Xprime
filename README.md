@@ -11,7 +11,8 @@
 Xprime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime PPL, package it, and create runnable HP Prime applications.
 * Provides a code editor for PPL+ source
 * Converts PPL+ into HP Prime PPL
-* Packages the resulting code into an HP Prime application/program
+* Generate real .hpprgm files and install them directly into HP Prime Virtual
+* Packages the resulting code into an HP Prime application
 * Allows the resulting executable/application to be run on the HP Prime
 
 >[!IMPORTANT]
