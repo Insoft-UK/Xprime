@@ -24,7 +24,7 @@ The file begins with a fixed 12-byte header (`magic`, `preamble`, and reserved
 field), followed by a little-endian `u32` payload length and that many bytes of
 payload. The payload consists of nested records, each encoded as a TLV structure.  
 
-records, nested
+Nested Records
 
     [ 08 00 00 00 ]:[ 05 FF 7F 00 00 00 00 00 ]    ❓
     [ 08 00 00 00 ]:[ 05 FF 3F 02 00 00 00 00 ]    ❓
