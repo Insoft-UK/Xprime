@@ -21,7 +21,7 @@ records, nested
             [ 44 00 00 00 ]:[ 0B 02 40 00 (UTF16LE Named... 64 bytes) ]
             [ 08 00 00 00 ]:[ 05 02 80 00 xx 00 00 00 ]
                                           ├── 09 : EXPORT
-                                          └── 08 : LOCAL or Not Specified
+                                          └── 08 : LOCAL or Defined
         ]
         ...
     ]
