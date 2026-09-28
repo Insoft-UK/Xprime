@@ -3,6 +3,15 @@
 >[!WARNING]
 >Draft documentation — incomplete and written as I document findings along the way. Mistakes are likely, so please don’t treat this as 100% accurate.
 
+An .hpprgm file is the standard compiled program file format used by the HP Prime graphing calculator.
+
+Overview of the Format
+* **Encoding**: Uses UTF-16 (little-endian byte order) for internal script names and metadata strings.
+
+* **Language**: Contains code written in HP PPL (Prime Programming Language).
+
+* **Structure**: Consists of a main header, an exported item table defining variables or functions, and distinct data/value blocks.
+
 A .hpprgm is a nested TLV container, little-endian:
 
     7C 61 8A B2                                    magic
