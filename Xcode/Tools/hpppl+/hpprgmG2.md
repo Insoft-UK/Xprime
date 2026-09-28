@@ -12,6 +12,7 @@ Overview of the Format
 
 * **Structure**: Consists of a nested, little-endian TLV container. It consists of a top-level header, an exported-item table describing the program’s exported variables and functions, and separate data/value blocks containing the associated program data.
 
+
     7C 61 8A B2                                    magic
     FE FF FF FF  00 00 00 00                       preamble
     [u32 len][len bytes of payload]                records, nested
