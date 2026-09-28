@@ -10,8 +10,9 @@ A .hpprgm is a nested TLV container, little-endian:
     [u32 len][len bytes of payload]                records, nested
     ...
     <trailer>
+</br>
+records, nested
 
-    records, nested
     [ 08 00 00 00 ]:[ 05 FF 7F 00 00 00 00 00 ]    ❓
     [ 08 00 00 00 ]:[ 05 FF 3F 02 00 00 00 00 ]    ❓
     [ 08 00 00 00 ]:[ 05 FF BF 00 02 00 00 00 ]    ❓
