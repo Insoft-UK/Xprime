@@ -10,7 +10,7 @@ Overview of the Format
 
 * **Language**: Contains code written in HP PPL (Prime Programming Language).
 
-* **Structure**: A .hpprgm is a nested, little-endian TLV container. It consists of a top-level header, an exported-item table describing the program’s exported variables and functions, and separate data/value blocks containing the associated program data.
+* **Structure**: Consists of a nested, little-endian TLV container. It consists of a top-level header, an exported-item table describing the program’s exported variables and functions, and separate data/value blocks containing the associated program data.
 
     7C 61 8A B2                                    magic
     FE FF FF FF  00 00 00 00                       preamble
