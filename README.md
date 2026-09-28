@@ -8,10 +8,11 @@
 - [Note](Xcode/Tools/hpnote)
 
 ### Xprime IDE
-Xprime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime PPL, package it, and create runnable HP Prime applications.
-* Provides a code editor for PPL+ source
+Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Prime PPL, package it, and create runnable HP Prime applications.
+* Provides a code editor for PPL, PPL+ and Python source code
 * Converts PPL+ into HP Prime PPL
-* Packages the resulting code into an HP Prime application/program
+* Generate real .hpprgm files and install them directly into HP Prime Virtual
+* Packages the resulting code into an HP Prime application
 * Allows the resulting executable/application to be run on the HP Prime
 
 >[!IMPORTANT]
@@ -24,7 +25,7 @@ Xprime is a lightweight IDE that lets you edit PPL+ code, convert it to HP Prime
 >[!NOTE]
 >Xprime 27 generates .hpprgm and .hpappprgm files using the G2 format.
 
-***Download links:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip) | [Xprime 27.0.x](http://insoft.uk/action/?method=downlink&path=macos&file=Xprime27.zip)</br>
+***Download links:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip) | [Xprime 27.0.x](http://insoft.uk/action/?method=downlink&path=macos&file=Xprime27.zip) | [Xprime 27.0.x Nightly Build](http://insoft.uk/action/?method=downlink&path=macos&file=xprime_20260928.zip)</br>
 
 ***Other links:*** [Xprime Themes](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-themes.zip) | [Xprime Libraries](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-libraries.zip)</br>
 
