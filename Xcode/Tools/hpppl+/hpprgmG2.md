@@ -15,13 +15,13 @@ The structure is **TLV-like**, but it is not a conventional Type-Length-Value (T
 
 A conventional TLV structure consists of:
 
-**T — Type**
+**T — Type**<br />
 Identifies what the data represents.
 
-**L — Length**
+**L — Length**<br />
 Specifies the size of the associated value.
 
-**V — Value**
+**V — Value**<br />
 Contains the actual data.
 
 The ***.hpprgm*** format instead uses length-prefixed records, which may contain typed fields and further nested records. Therefore, “nested length-prefixed record structure” is a more precise description than simply calling it a TLV container.
