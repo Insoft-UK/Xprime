@@ -5,23 +5,26 @@
 
 An .hpprgm file is the standard compiled program file format used by the HP Prime graphing calculator.
 
-Overview of the Format
-* **Encoding**: Uses UTF-16 (little-endian byte order) for internal script names and metadata strings.
+### Overview of the Format
 
+* **Encoding**: Uses UTF-16LE (little-endian byte order) for internal program names, metadata strings, and PPL source code.
 * **Language**: Contains code written in HP PPL (Prime Programming Language).
+* **Structure**: Consists of a nested, little-endian, length-prefixed record structure. The file contains a top-level header followed by a hierarchy of records and subrecords. These describe the program’s exported items, local or defined items, associated names and metadata, program source, and other data/value blocks.
 
-* **Structure**: Consists of a nested, little-endian TLV container. It consists of a top-level header, an exported-item table describing the program’s exported variables and functions, and separate data/value blocks containing the associated program data.
+The structure is TLV-like, but it is not a conventional Type-Length-Value (TLV) format. Records are primarily identified by their length, while type and flag information is contained within the record’s data rather than necessarily preceding the length as a separate type field.
 
-A TLV container is a simple way of storing multiple pieces of data inside a file or binary stream using:
+A conventional TLV structure consists of:
 
 T — Type
-Identifies what the data is.
+Identifies what the data represents.
 
 L — Length
-Specifies how many bytes the data occupies.
+Specifies the size of the associated value.
 
 V — Value
-The actual data.
+Contains the actual data.
+
+The ***.hpprgm*** format instead uses length-prefixed records, which may contain typed fields and further nested records. Therefore, “nested length-prefixed record structure” is a more precise description than simply calling it a TLV container.
 
 The PPL source is stored inside one of these records as UTF-16LE, using LF line endings (not CRLF) and a terminating NUL. It is stored verbatim: neither compressed nor encrypted.
 
