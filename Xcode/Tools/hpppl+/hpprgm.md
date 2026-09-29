@@ -57,7 +57,7 @@ This version of the file does not includes any name, just the length of the data
     <td></td>
     <td></td>
     <td></td>
-    <td>Name flag</td>
+    <td nowrap>Name flag</td>
     <td></td>
     <td></td>
     <td></td>
@@ -86,9 +86,109 @@ This version of the file does not includes any name, just the length of the data
     <td></td>
     <td></td>
     <td></td>
-    <td colspan="2">64K current fw limit</td>
+    <td colspan="2" nowrap>64K current fw limit</td>
     <td></td>
     <td></td>
+    <td></td>
+  </tr>
+</tbody></table>
+
+#### Named .hpprgm files
+
+Here, the name is appended to the header without any size descriptors (the name ends with two consecutive zero-valued bytes and after that, the data begins).
+
+<table><thead>
+  <tr>
+    <th>Byte</th>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>10</th>
+    <th>11</th>
+    <th>12</th>
+    <th>13</th>
+    <th>14</th>
+    <th>15</th>
+    <th>16</th>
+    <th>17</th>
+    <th>...</th>
+    <th>...</th>
+    <th>...</th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td>Example</td>
+    <td>0C</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>01</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>31</td>
+    <td>...</td>
+    <td>00</td>
+    <td>00</td>
+    <td>...</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td>Type</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td nowrap>Name flag</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td nowrap>Name start</td>
+    <td>Name</td>
+    <td colspan="2" nowrap>Name end</td>
+    <td>Data</td>
+  </tr>
+  <tr>
+    <td>Additional</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Named</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td colspan="4" nowrap>Name end with 0×00, 0×00</td>
     <td></td>
   </tr>
 </tbody></table>
