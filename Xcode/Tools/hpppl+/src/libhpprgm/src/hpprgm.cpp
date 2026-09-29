@@ -23,6 +23,12 @@
 #include "hpprgm.hpp"
 #include "ppl.hpp"
 
+struct Record
+{
+    uint32_t length;
+    std::vector<uint8_t> payload;
+};
+
 // MARK: - Helper Functions
 
 static inline std::vector<uint8_t> readBytes(const std::filesystem::path& path) {
@@ -138,6 +144,14 @@ static void append_u16string(std::vector<uint8_t>& data, std::u16string_view s, 
     data.insert(data.end(), bytes, bytes + str.size() * sizeof(char16_t));
 }
 
+static void append_record(const Record record, std::vector<uint8_t>& data)
+{
+    if (!record.length)
+        return;
+    
+    data.insert(data.end(), record.payload.begin(), record.payload.end());
+}
+
 static void write32le(std::vector<uint8_t>& data, size_t offset, uint32_t value)
 {
     data[offset + 0] = static_cast<uint8_t>(value & 0xFF);
@@ -247,81 +261,85 @@ static void writeG1(const std::filesystem::path& path, const std::string& prgm, 
     writeBytes(path, out);
 }
 
-static std::vector<uint8_t> createFunctionRecord(const std::string& name, const ppl::kind type)
+static Record createFunctionRecord(const std::string& name, const ppl::kind type)
 {
-    std::vector<uint8_t> out;
+    Record record;
     const int len = 64;
     
-    append32le(out, len + 20);
-    append32le(out, len + 4);
+    append32le(record.payload, len + 20);
+    append32le(record.payload, len + 4);
     
-    append16le(out, 0x020B); // 0000 0010 0000 1011 ❓
+    append16le(record.payload, 0x020B); // 0000 0010 0000 1011 ❓
     
-    append16le(out, len);
-    append_u16string(out, std::u16string(name.begin(), name.end()), len);
+    append16le(record.payload, len);
+    append_u16string(record.payload, std::u16string(name.begin(), name.end()), len);
     
-    append32le(out, 8);
-    append16le(out, 0x0205); // 0000 0010 0000 0101 ❓
-    append16le(out, 0x0080); // 0000 0000 1000 0000 ❓
-    append16le(out, type == ppl::kind::Export ? 9 : 8); // 0000 0000 0000 1001 or 0000 0000 0000 1000
-    append16le(out, 0);
+    append32le(record.payload, 8);
+    append16le(record.payload, 0x0205); // 0000 0010 0000 0101 ❓
+    append16le(record.payload, 0x0080); // 0000 0000 1000 0000 ❓
+    append16le(record.payload, type == ppl::kind::Export ? 9 : 8); // 0000 0000 0000 1001 or 0000 0000 0000 1000
+    append16le(record.payload, 0);
 
-    return out;
+    record.length = static_cast<uint32_t>(record.payload.size());
+    
+    return record;
 }
 
-static std::vector<uint8_t> createFunctionRecords(const std::string& prgm)
+static Record createFunctionRecords(const std::string& prgm)
 {
-    std::vector<uint8_t> out;
+    Record record;
     ppl::Parser parser(prgm);
     auto functions = parser.parse();
     
     std::vector<uint8_t> records;
     
     for (const auto& function : functions) {
-        auto record = createFunctionRecord(function.name, function.type);
-        records.insert(records.end(), record.begin(), record.end());
+        append_record(createFunctionRecord(function.name, function.type), records);
     }
     
-    append32le(out, (uint32_t)records.size() + 4);
-    append16le(out, 0x023E);
-    append16le(out, 0x0100);
+    append32le(record.payload, (uint32_t)records.size() + 4);
+    append16le(record.payload, 0x023E);
+    append16le(record.payload, 0x0100);
     
-    out.insert(out.end(), records.begin(), records.end());
+    record.payload.insert(record.payload.end(), records.begin(), records.end());
+    record.length = static_cast<uint32_t>(record.payload.size());
     
-    return out;
+    return record;
 }
 
-static std::vector<uint8_t> createPPLCodeRecord(const std::string& prgm)
+static Record createPPLCodeRecord(const std::string& prgm)
 {
+    Record record;
     auto sourceCode = utf16le(prgm);
     uint32_t programSize = static_cast<uint32_t>(sourceCode.size());
     
-    std::vector<uint8_t> out;
     
-    append32le(out, programSize + 100);
-    append16le(out, 0x00BE);
-    append16le(out, 0x0140);
-    append32le(out, programSize + 100 - 8);
-    append16le(out, 68);
-    append16le(out, 0);
-    append16le(out, 139);
-    append16le(out, 64);
+    append32le(record.payload, programSize + 100);
+    append16le(record.payload, 0x00BE);
+    append16le(record.payload, 0x0140);
+    append32le(record.payload, programSize + 100 - 8);
+    append16le(record.payload, 68);
+    append16le(record.payload, 0);
+    append16le(record.payload, 139);
+    append16le(record.payload, 64);
     
-    append_u16string(out, u"Main", 64);
+    append_u16string(record.payload, u"Main", 64);
     
-    append32le(out, 8);
-    append16le(out, 133);
-    append16le(out, 128);
-    append32le(out, 0);
+    append32le(record.payload, 8);
+    append16le(record.payload, 133);
+    append16le(record.payload, 128);
+    append32le(record.payload, 0);
     
-    append32le(out, programSize + 4);
-    append16le(out, 155);
-    append16le(out, 192);
+    append32le(record.payload, programSize + 4);
+    append16le(record.payload, 155);
+    append16le(record.payload, 192);
     
-    out.reserve(sourceCode.size());
-    out.insert(out.end(), sourceCode.begin(), sourceCode.end());
+    record.payload.reserve(sourceCode.size());
+    record.payload.insert(record.payload.end(), sourceCode.begin(), sourceCode.end());
     
-    return out;
+    record.length = static_cast<uint32_t>(record.payload.size());
+    
+    return record;
 }
 
 static void writeG2(const std::filesystem::path& path, const std::string& prgm)
@@ -344,24 +362,19 @@ static void writeG2(const std::filesystem::path& path, const std::string& prgm)
         0xFE, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00
     };
     
-
-    std::vector<uint8_t> out, records;
+    std::vector<uint8_t> out;
     
     out.insert(out.end(), magic.begin(), magic.end());
     out.insert(out.end(), preamble.begin(), preamble.end());
-    const std::vector<uint8_t> uknownRecords = {
-        0x08, 0x00, 0x00, 0x00, 0x05, 0xFF, 0x7F, 0x00, 0x00, 0x00, 0x00, 0x00,
-        0x08, 0x00, 0x00, 0x00, 0x05, 0xFF, 0x3F, 0x02, 0x00, 0x00, 0x00, 0x00,
-        0x08, 0x00, 0x00, 0x00, 0x05, 0xFF, 0xBF, 0x00, 0x02, 0x00, 0x00, 0x00
-    };
-    out.insert(out.end(), uknownRecords.begin(), uknownRecords.end());
+//    const std::vector<uint8_t> uknownRecords = {
+//        0x08, 0x00, 0x00, 0x00, 0x05, 0xFF, 0x7F, 0x00, 0x00, 0x00, 0x00, 0x00,
+//        0x08, 0x00, 0x00, 0x00, 0x05, 0xFF, 0x3F, 0x02, 0x00, 0x00, 0x00, 0x00,
+//        0x08, 0x00, 0x00, 0x00, 0x05, 0xFF, 0xBF, 0x00, 0x02, 0x00, 0x00, 0x00
+//    };
+//    out.insert(out.end(), uknownRecords.begin(), uknownRecords.end());
     
-    
-    records = createFunctionRecords(prgm);
-    out.insert(out.end(), records.begin(), records.end());
-    
-    records = createPPLCodeRecord(prgm);
-    out.insert(out.end(), records.begin(), records.end());
+    append_record(createFunctionRecords(prgm), out);
+    append_record(createPPLCodeRecord(prgm), out);
     
     writeBytes(path, out);
 }

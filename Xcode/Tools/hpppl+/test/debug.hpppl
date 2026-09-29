@@ -2,10 +2,10 @@
 
 EXPORT START()
 BEGIN
- RETURN 5;
+ RETURN 404;
 END;
 
-EXPORT one()
+one()
 BEGIN
 END;
 
