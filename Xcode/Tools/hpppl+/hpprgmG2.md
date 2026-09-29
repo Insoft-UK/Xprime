@@ -12,17 +12,9 @@ Overview of the Format
 
 * **Structure**: Consists of a nested, little-endian TLV container. It consists of a top-level header, an exported-item table describing the program’s exported variables and functions, and separate data/value blocks containing the associated program data.
 
-| Offset | Size | Field | Description |
-|---:|---:|---|---|
-| `0x00` | 4 | Magic | `7C 61 8A B2` — file magic |
-| `0x04` | 4 | Preamble | `FE FF FF FF` |
-| `0x08` | 4 | Reserved | `00 00 00 00` |
-| `0x0C` | 4 | Length | Little-endian `u32`; length of the following payload |
-| `0x10` | `len` | Payload | `len` bytes containing the nested records |
-
 <table><thead>
   <tr>
-    <th>Bytes</th>
+    <th align="left">Bytes</th>
     <th>0</th>
     <th>1</th>
     <th>2</th>
@@ -44,7 +36,7 @@ Overview of the Format
 <tbody>
   <tr>
     <td>Example</td>
-    <td>07</td>
+    <td>7C</td>
     <td>61</td>
     <td>8A</td>
     <td>B2</td>
