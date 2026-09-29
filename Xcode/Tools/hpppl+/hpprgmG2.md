@@ -11,17 +11,17 @@ An .hpprgm file is the standard compiled program file format used by the HP Prim
 * **Language**: Contains code written in HP PPL (Prime Programming Language).
 * **Structure**: Consists of a nested, little-endian, length-prefixed record structure. The file contains a top-level header followed by a hierarchy of records and subrecords. These describe the program’s exported items, local or defined items, associated names and metadata, program source, and other data/value blocks.
 
-The structure is TLV-like, but it is not a conventional Type-Length-Value (TLV) format. Records are primarily identified by their length, while type and flag information is contained within the record’s data rather than necessarily preceding the length as a separate type field.
+The structure is **TLV-like**, but it is not a conventional Type-Length-Value (TLV) format. Records are primarily identified by their length, while type and flag information is contained within the record’s data rather than necessarily preceding the length as a separate type field.
 
 A conventional TLV structure consists of:
 
-T — Type
+**T — Type**
 Identifies what the data represents.
 
-L — Length
+**L — Length**
 Specifies the size of the associated value.
 
-V — Value
+**V — Value**
 Contains the actual data.
 
 The ***.hpprgm*** format instead uses length-prefixed records, which may contain typed fields and further nested records. Therefore, “nested length-prefixed record structure” is a more precise description than simply calling it a TLV container.
@@ -85,9 +85,9 @@ Programs that declare large matrices may also contain a COMPILED BLOCK before th
 </tbody>
 </table>
 
-The file begins with a fixed 12-byte header (`magic`, `preamble`, and reserved
-field), followed by a little-endian `u32` payload length and that many bytes of
-payload. The payload consists of nested records, each encoded as a TLV structure.  
+The file begins with a fixed 12-byte header consisting of a magic value, preamble, and reserved field. This is followed by a 32-bit little-endian payload length and the specified number of payload bytes.
+
+The payload consists of nested, length-prefixed records. These records may contain typed fields and further nested records; the format is therefore TLV-like, but is not a conventional Type-Length-Value (TLV) structure. 
 
 Nested Records
 
