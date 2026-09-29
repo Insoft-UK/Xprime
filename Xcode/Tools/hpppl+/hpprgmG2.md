@@ -26,9 +26,6 @@ payload. The payload consists of nested records, each encoded as a TLV structure
 
 Nested Records
 
-    [ 08 00 00 00 ]:[ 05 FF 7F 00 00 00 00 00 ]    ❓
-    [ 08 00 00 00 ]:[ 05 FF 3F 02 00 00 00 00 ]    ❓
-    [ 08 00 00 00 ]:[ 05 FF BF 00 02 00 00 00 ]    ❓
     [ xx xx xx xx ]:[ 3E 02 00 01 [ 
         [ 54 00 00 00 ]:[
             [ 44 00 00 00 ]:[ 0B 02 40 00 (UTF16LE Named... 64 bytes) ]
