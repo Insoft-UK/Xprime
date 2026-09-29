@@ -12,6 +12,23 @@ Overview of the Format
 
 * **Structure**: Consists of a nested, little-endian TLV container. It consists of a top-level header, an exported-item table describing the program’s exported variables and functions, and separate data/value blocks containing the associated program data.
 
+A TLV container is a simple way of storing multiple pieces of data inside a file or binary stream using:
+
+T — Type
+Identifies what the data is.
+
+L — Length
+Specifies how many bytes the data occupies.
+
+V — Value
+The actual data.
+
+The PPL source is stored inside one of these records as UTF-16LE, using LF line endings (not CRLF) and a terminating NUL. It is stored verbatim: neither compressed nor encrypted.
+
+The trailer, if present, is 1008 bytes in programs created by the Connectivity Kit. However, the calculator’s built-in applications demonstrate that this size is not universal, so the format does not rely on a fixed trailer length.
+
+Programs that declare large matrices may also contain a COMPILED BLOCK before the source. This contains the matrix data in the calculator’s internal format, which explains why these files can be roughly three times the size of their source and can be opened without waiting for compilation.
+
 <table><thead>
   <tr>
     <th align="left">Bytes</th>
@@ -58,9 +75,9 @@ Overview of the Format
     <td>Description</td>
     <td colspan="4">Magic</td>
     <td colspan="4">Preamble</td>
-    <td colspan="4" nowrap>Start of Records</td>
-    <td colspan="4" nowrap>Little-endian u32; length of the following payload</td>
-    <td>Payloads</td>
+    <td colspan="4" nowrap>Start</td>
+    <td colspan="4" nowrap>Little-endian u32; length of the following data</td>
+    <td>Data</td>
   </tr>
 </tbody>
 </table>
@@ -88,20 +105,5 @@ Nested Records
         ]
     ]
         
-A TLV container is a simple way of storing multiple pieces of data inside a file or binary stream using:
 
-T — Type
-Identifies what the data is.
-
-L — Length
-Specifies how many bytes the data occupies.
-
-V — Value
-The actual data.
-
-The PPL source is stored inside one of these records as UTF-16LE, using LF line endings (not CRLF) and a terminating NUL. It is stored verbatim: neither compressed nor encrypted.
-
-The trailer, if present, is 1008 bytes in programs created by the Connectivity Kit. However, the calculator’s built-in applications demonstrate that this size is not universal, so the format does not rely on a fixed trailer length.
-
-Programs that declare large matrices may also contain a COMPILED BLOCK before the source. This contains the matrix data in the calculator’s internal format, which explains why these files can be roughly three times the size of their source and can be opened without waiting for compilation.
 
