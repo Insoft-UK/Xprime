@@ -75,7 +75,7 @@ Programs that declare large matrices may also contain a COMPILED BLOCK before th
     <td>Description</td>
     <td colspan="4">Magic</td>
     <td colspan="4">Preamble</td>
-    <td colspan="4" nowrap>Start</td>
+    <td colspan="4" nowrap>Reserved</td>
     <td colspan="4" nowrap>Little-endian u32; length of the following data</td>
     <td>Data</td>
   </tr>
