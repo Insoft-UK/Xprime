@@ -89,24 +89,40 @@ The file begins with a fixed 12-byte header consisting of a magic value, preambl
 
 The payload consists of nested, length-prefixed records. These records may contain typed fields and further nested records; the format is therefore TLV-like, but is not a conventional Type-Length-Value (TLV) structure. 
 
-Nested Records
+### Nested Records
 
-    [ xx xx xx xx ]:[ 3E 02 00 01 [ 
-        [ 54 00 00 00 ]:[
-            [ 44 00 00 00 ]:[ 0B 02 40 00 (UTF16LE Named... 64 bytes) ]
-            [ 08 00 00 00 ]:[ 05 02 80 00 xx 00 00 00 ]
-                                          ├── 09 : EXPORT
-                                          └── 08 : LOCAL or Defined
-        ]
+The payload is organised as a hierarchy of length-prefixed records. The examples below show the general structure and the meaning of the fields identified so far.
+
+`
+[ u32 length ][ record data
+    [ u32 length ][ record data
+        [ u32 length ][ field data ]
+        [ u32 length ][ field data ]
         ...
     ]
-    [ xx xx xx xx ]:[ BE 00 40 01
-        [ xx xx xx xx ]:[
-            [ 44 00 00 00 ]:[ 8B 00 40 00 (UTF16LE Named... 64 bytes) ]
-            [ 08 00 00 00 ]:[ 85 00 80 00 00 00 0 00 ]
-            [ xx xx xx xx ]:[ 9B 00 C0 00 (UTF16LE PPL Code) ]
-        ]
+]
+Example:
+[ xx xx xx xx ][ 3E 02 00 01
+    [ 54 00 00 00 ][
+        [ 44 00 00 00 ][ 0B 02 40 00 <UTF-16LE name, 64 bytes> ]
+        [ 08 00 00 00 ][ 05 02 80 00 xx 00 00 00 ]
+                                      ├── 09 : EXPORT
+                                      └── 08 : LOCAL or DEFINED
     ]
-        
+    ...
+]
+[ xx xx xx xx ][ BE 00 40 01
+    [ xx xx xx xx ][
+        [ 44 00 00 00 ][ 8B 00 40 00 <UTF-16LE name, 64 bytes> ]
+        [ 08 00 00 00 ][ 85 00 80 00 00 00 00 00 ]
+        [ xx xx xx xx ][ 9B 00 C0 00 <UTF-16LE PPL source> ]
+    ]
+]
+`
+
+The four-byte values shown as xx xx xx xx are lengths whose exact interpretation depends on the containing record. The data following each length may itself contain additional length-prefixed records, producing the nested structure.
+
+The values such as 0x4000020B, 0x80000205, and 0xC000009B appear to contain type/flag information rather than forming a separate Type field in a conventional TLV header.
+
 
 
