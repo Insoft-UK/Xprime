@@ -34,9 +34,9 @@ Apple Silicon or intel</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/HP_Prime_Connectivity_Kit_20260909.dmg) (for calculator sync)</br>
 
 >[!IMPORTANT]
->Before running your program or application on either the Virtual HP Prime or a physical HP Prime calculator, you must first open the source code and perform a “Check” once.  
+>For **Xprime 26**, before running your program or application on either the Virtual HP Prime or a physical HP Prime calculator, you must first open the source code and perform a “Check” once.  
 >
->This is required because Xprime 26 currently generates .hpprgm and .hpappprgm files using an older G1 format originally used by early HP Prime G1 firmware. The HP Prime will initially accept the file, but it must be resaved by the calculator before it becomes a fully valid modern .hpprgm or .hpappprgm file.  
+>This is required because **Xprime 26** currently generates ***.hpprgm*** and ***.hpappprgm*** files using an older G1 format originally used by early HP Prime G1 firmware. The HP Prime will initially accept the file, but it must be resaved by the calculator before it becomes a fully valid modern ***.hpprgm*** or ***.hpappprgm*** file.  
 >
 >Simply opening the source code in the editor and performing a “Check” — or even just viewing the code and exiting the editor — causes the HP Prime to automatically resave the file using the current supported format. Once this has been done, the program or application will run normally.
 
