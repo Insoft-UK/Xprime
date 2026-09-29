@@ -20,6 +20,59 @@ Overview of the Format
 | `0x0C` | 4 | Length | Little-endian `u32`; length of the following payload |
 | `0x10` | `len` | Payload | `len` bytes containing the nested records |
 
+<table><thead>
+  <tr>
+    <th>Bytes</th>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>10</th>
+    <th>11</th>
+    <th>12</th>
+    <th>13</th>
+    <th>14</th>
+    <th>15</th>
+    <th></th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td>Example</td>
+    <td>07</td>
+    <td>61</td>
+    <td>8A</td>
+    <td>B2</td>
+    <td>FE</td>
+    <td>FF</td>
+    <td>FF</td>
+    <td>FF</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td colspan="4">Magic</td>
+    <td colspan="4">Preamble</td>
+    <td colspan="4" nowrap>Start of Records</td>
+    <td colspan="4" nowrap>Little-endian u32; length of the following payload</td>
+    <td>Payloads</td>
+  </tr>
+</tbody>
+</table>
+
 The file begins with a fixed 12-byte header (`magic`, `preamble`, and reserved
 field), followed by a little-endian `u32` payload length and that many bytes of
 payload. The payload consists of nested records, each encoded as a TLV structure.  
