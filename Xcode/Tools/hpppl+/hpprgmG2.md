@@ -195,6 +195,7 @@ The payload is organised as a hierarchy of length-prefixed records. The examples
           </td>
           <tr>
             <td colspan="4" nowrap>Payload Size (84)</td>
+            <td></td>
           </tr>
         </tr>
       </table>
