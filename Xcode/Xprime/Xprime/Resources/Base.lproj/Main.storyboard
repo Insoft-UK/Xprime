@@ -1501,7 +1501,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShB-kd-zS4">
-                                <rect key="frame" x="18" y="68" width="524" height="83"/>
+                                <rect key="frame" x="18" y="68" width="248" height="83"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Xprime" id="HRh-pe-ATK">
                                     <font key="font" size="70" name="HelveticaNeue-Medium"/>
@@ -1515,6 +1515,15 @@ Gw
                                 <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="HP PPL+ 20260000 - HP GROB 20260000 - HP FONT 20260000 - HP NOTE 20260000" id="srx-Hx-arU">
                                     <font key="font" metaFont="miniSystem"/>
                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField hidden="YES" autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t31-ED-Y1n">
+                                <rect key="frame" x="378" y="398" width="180" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" alignment="right" title="Developer BUILD" id="llp-TR-X27">
+                                    <font key="font" size="20" name="HelveticaNeue-Light"/>
+                                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>

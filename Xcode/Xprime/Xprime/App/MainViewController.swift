@@ -291,7 +291,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     @objc private func snippetSelected(_ sender: NSMenuItem) {
         guard let url = sender.representedObject as? URL else { return }
         let snippet = url.deletingPathExtension().lastPathComponent
-        codeEditorTextView.insertText("$\(snippet)", replacementRange: codeEditorTextView.selectedRange())
+        codeEditorTextView.insertText("§\(snippet)", replacementRange: codeEditorTextView.selectedRange())
     }
     
     @objc private func templateSelected(_ sender: NSMenuItem) {

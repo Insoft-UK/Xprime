@@ -366,12 +366,6 @@ static void writeG2(const std::filesystem::path& path, const std::string& prgm)
     
     out.insert(out.end(), magic.begin(), magic.end());
     out.insert(out.end(), preamble.begin(), preamble.end());
-//    const std::vector<uint8_t> uknownRecords = {
-//        0x08, 0x00, 0x00, 0x00, 0x05, 0xFF, 0x7F, 0x00, 0x00, 0x00, 0x00, 0x00,
-//        0x08, 0x00, 0x00, 0x00, 0x05, 0xFF, 0x3F, 0x02, 0x00, 0x00, 0x00, 0x00,
-//        0x08, 0x00, 0x00, 0x00, 0x05, 0xFF, 0xBF, 0x00, 0x02, 0x00, 0x00, 0x00
-//    };
-//    out.insert(out.end(), uknownRecords.begin(), uknownRecords.end());
     
     append_record(createFunctionRecords(prgm), out);
     append_record(createPPLCodeRecord(prgm), out);
