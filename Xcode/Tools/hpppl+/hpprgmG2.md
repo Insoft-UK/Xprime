@@ -5,58 +5,126 @@
 
 An .hpprgm file is the standard compiled program file format used by the HP Prime graphing calculator.
 
-Overview of the Format
-* **Encoding**: Uses UTF-16 (little-endian byte order) for internal script names and metadata strings.
+### Overview of the Format
 
+* **Encoding**: Uses UTF-16LE (little-endian byte order) for internal program names, metadata strings, and PPL source code.
 * **Language**: Contains code written in HP PPL (Prime Programming Language).
+* **Structure**: Consists of a nested, little-endian, length-prefixed record structure. The file contains a top-level header followed by a hierarchy of records and subrecords. These describe the program’s exported items, local or defined items, associated names and metadata, program source, and other data/value blocks.
 
-* **Structure**: Consists of a nested, little-endian TLV container. It consists of a top-level header, an exported-item table describing the program’s exported variables and functions, and separate data/value blocks containing the associated program data.
+The structure is **TLV-like**, but it is not a conventional Type-Length-Value (TLV) format. Records are primarily identified by their length, while type and flag information is contained within the record’s data rather than necessarily preceding the length as a separate type field.
 
-| Offset | Size | Field | Description |
-|---:|---:|---|---|
-| `0x00` | 4 | Magic | `7C 61 8A B2` — file magic |
-| `0x04` | 4 | Preamble | `FE FF FF FF` |
-| `0x08` | 4 | Reserved | `00 00 00 00` |
-| `0x0C` | 4 | Length | Little-endian `u32`; length of the following payload |
-| `0x10` | `len` | Payload | `len` bytes containing the nested records |
+A conventional TLV structure consists of:
 
-The file begins with a fixed 12-byte header (`magic`, `preamble`, and reserved
-field), followed by a little-endian `u32` payload length and that many bytes of
-payload. The payload consists of nested records, each encoded as a TLV structure.  
+**T — Type**<br />
+Identifies what the data represents.
 
-Nested Records
+**L — Length**<br />
+Specifies the size of the associated value.
 
-    [ xx xx xx xx ]:[ 3E 02 00 01 [ 
-        [ 54 00 00 00 ]:[
-            [ 44 00 00 00 ]:[ 0B 02 40 00 (UTF16LE Named... 64 bytes) ]
-            [ 08 00 00 00 ]:[ 05 02 80 00 xx 00 00 00 ]
-                                          ├── 09 : EXPORT
-                                          └── 08 : LOCAL or Defined
-        ]
-        ...
-    ]
-    [ xx xx xx xx ]:[ BE 00 40 01
-        [ xx xx xx xx ]:[
-            [ 44 00 00 00 ]:[ 8B 00 40 00 (UTF16LE Named... 64 bytes) ]
-            [ 08 00 00 00 ]:[ 85 00 80 00 00 00 0 00 ]
-            [ xx xx xx xx ]:[ 9B 00 C0 00 (UTF16LE PPL Code) ]
-        ]
-    ]
-        
-A TLV container is a simple way of storing multiple pieces of data inside a file or binary stream using:
+**V — Value**<br />
+Contains the actual data.
 
-T — Type
-Identifies what the data is.
-
-L — Length
-Specifies how many bytes the data occupies.
-
-V — Value
-The actual data.
+The ***.hpprgm*** format instead uses length-prefixed records, which may contain typed fields and further nested records. Therefore, “nested length-prefixed record structure” is a more precise description than simply calling it a TLV container.
 
 The PPL source is stored inside one of these records as UTF-16LE, using LF line endings (not CRLF) and a terminating NUL. It is stored verbatim: neither compressed nor encrypted.
 
 The trailer, if present, is 1008 bytes in programs created by the Connectivity Kit. However, the calculator’s built-in applications demonstrate that this size is not universal, so the format does not rely on a fixed trailer length.
 
 Programs that declare large matrices may also contain a COMPILED BLOCK before the source. This contains the matrix data in the calculator’s internal format, which explains why these files can be roughly three times the size of their source and can be opened without waiting for compilation.
+
+<table><thead>
+  <tr>
+    <th align="left">Bytes</th>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>10</th>
+    <th>11</th>
+    <th>12</th>
+    <th>13</th>
+    <th>14</th>
+    <th>15</th>
+    <th></th>
+  </tr></thead>
+<tbody>
+  <tr>
+    <td>Example</td>
+    <td>7C</td>
+    <td>61</td>
+    <td>8A</td>
+    <td>B2</td>
+    <td>FE</td>
+    <td>FF</td>
+    <td>FF</td>
+    <td>FF</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>00</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td colspan="4">Magic</td>
+    <td colspan="4">Preamble</td>
+    <td colspan="4" nowrap>Reserved</td>
+    <td colspan="4" nowrap>Little-endian u32; length of the following payload</td>
+    <td>Payload</td>
+  </tr>
+</tbody>
+</table>
+
+The file begins with a fixed 12-byte header consisting of a magic value, preamble, and reserved field. This is followed by a 32-bit little-endian payload length and the specified number of payload bytes.
+
+The payload consists of nested, length-prefixed records. These records may contain typed fields and further nested records; the format is therefore TLV-like, but is not a conventional Type-Length-Value (TLV) structure. 
+
+### Nested Records
+
+The payload is organised as a hierarchy of length-prefixed records. The examples below show the general structure and the meaning of the fields identified so far.
+
+
+    [ u32 length ][ record data
+        [ u32 length ][ record data
+            [ u32 length ][ field data ]
+            [ u32 length ][ field data ]
+            ...
+        ]
+    ]
+    
+**Example**:
+
+    [ xx xx xx xx ][ 3E 02 00 01
+        [ 54 00 00 00 ][
+            [ 44 00 00 00 ][ 0B 02 40 00 <UTF-16LE name, 64 bytes> ]
+            [ 08 00 00 00 ][ 05 02 80 00 xx 00 00 00 ]
+                                          ├── 09 : EXPORT
+                                          └── 08 : LOCAL or DEFINED
+        ]
+        ...
+    ]
+    
+    [ xx xx xx xx ][ BE 00 40 01
+        [ xx xx xx xx ][
+            [ 44 00 00 00 ][ 8B 00 40 00 <UTF-16LE name, 64 bytes> ]
+            [ 08 00 00 00 ][ 85 00 80 00 00 00 00 00 ]
+            [ xx xx xx xx ][ 9B 00 C0 00 <UTF-16LE PPL source> ]
+        ]
+    ]
+
+The four-byte values shown as **xx xx xx xx** are lengths whose exact interpretation depends on the containing record. The data following each length may itself contain additional length-prefixed records, producing the nested structure.
+
+The values such as 0x4000020B, 0x80000205, and 0xC000009B appear to contain type/flag information rather than forming a separate Type field in a conventional TLV header.
+
+
 
