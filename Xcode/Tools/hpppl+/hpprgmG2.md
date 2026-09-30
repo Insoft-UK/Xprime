@@ -153,7 +153,7 @@ The payload is organised as a hierarchy of length-prefixed records. The examples
                 <td>00</td>
                 <td>...</td>
               </tr>
-                <td colspan="4" nowrap></td>
+                <td colspan="4" nowrap>Payload Size</td>
                 <td colspan="2" nowrap></td>
                 <td colspan="2" nowrap>Name Size (64)</td>
                 <td nowrap>UTF-16LE Name, 64 bytes</td>
