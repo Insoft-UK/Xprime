@@ -154,7 +154,7 @@ The payload is organised as a hierarchy of length-prefixed records. The examples
                 <td>...</td>
               </tr>
                 <td colspan="4" nowrap>Payload Size (68)</td>
-                <td colspan="2" nowrap></td>
+                <td colspan="2" nowrap>Function</td>
                 <td colspan="2" nowrap>Name Size (64)</td>
                 <td nowrap>UTF-16LE Name, 64 bytes</td>
               </tr>
