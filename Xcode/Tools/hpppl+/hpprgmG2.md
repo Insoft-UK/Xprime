@@ -202,7 +202,7 @@ The payload is organised as a hierarchy of length-prefixed records. The examples
     </td>
   </tr>
     <tr>
-      <td colspan="4" nowrap>Payload Size (264 * n + 4)</td>
+      <td colspan="4" nowrap>Payload Size (88 * n + 4)</td>
       <td colspan="4" nowrap>Function/s</td>
     </tr>
     </tbody>
