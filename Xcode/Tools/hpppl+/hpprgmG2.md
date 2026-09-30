@@ -124,7 +124,5 @@ The payload is organised as a hierarchy of length-prefixed records. The examples
 
 The four-byte values shown as **xx xx xx xx** are lengths whose exact interpretation depends on the containing record. The data following each length may itself contain additional length-prefixed records, producing the nested structure.
 
-The values such as 0x4000020B, 0x80000205, and 0xC000009B appear to contain type/flag information rather than forming a separate Type field in a conventional TLV header.
-
 
 
