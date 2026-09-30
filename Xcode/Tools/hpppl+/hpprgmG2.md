@@ -201,8 +201,15 @@ The payload is organised as a hierarchy of length-prefixed records. The examples
       </table>
     </td>
   </tr>
+    <tr>
+      <td colspan="4" nowrap>Payload Size (264 * n + 4)</td>
+      <td colspan="4" nowrap>Function/s</td>
+    </tr>
     </tbody>
 </table>
+
+>[NOTE!]
+>n = number of functions defined!
     
     [ xx xx xx xx ][ BE 00 40 01
         [ xx xx xx xx ][
