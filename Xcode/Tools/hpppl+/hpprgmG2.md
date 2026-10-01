@@ -104,15 +104,112 @@ The payload is organised as a hierarchy of length-prefixed records. The examples
     
 **Example**:
 
-    [ xx xx xx xx ][ 3E 02 00 01
-        [ 54 00 00 00 ][
-            [ 44 00 00 00 ][ 0B 02 40 00 <UTF-16LE name, 64 bytes> ]
-            [ 08 00 00 00 ][ 05 02 80 00 xx 00 00 00 ]
-                                          ├── 09 : EXPORT
-                                          └── 08 : LOCAL or DEFINED
-        ]
-        ...
-    ]
+<table>
+  <thead>
+    <tr>
+      <th align="left" colspan="4">Size</th>
+      <th align="left" colspan="5">Payload</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>xx</td>
+    <td>xx</td>
+    <td>xx</td>
+    <td>xx</td>
+    <td>3E</td>
+    <td>02</td>
+    <td>00</td>
+    <td>01</td>
+    <td>
+      <table>
+        <thead>
+          <tr>
+            <th align="left" colspan="4">Size</th>
+            <th align="left" colspan="16">Payload</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>54</td>
+          <td>00</td>
+          <td>00</td>
+          <td>00</td>
+          <td>
+            <table>
+              <thead>
+                <tr>
+                  <th align="left" colspan="4">Size</th>
+                  <th align="left" colspan="8">Payload</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>44</td>
+                <td>00</td>
+                <td>00</td>
+                <td>00</td>
+                <td>0B</td>
+                <td>02</td>
+                <td>40</td>
+                <td>00</td>
+                <td>...</td>
+              </tr>
+                <td colspan="4" nowrap>Payload Size (68)</td>
+                <td colspan="2" nowrap>Function</td>
+                <td colspan="2" nowrap>Name Size (64)</td>
+                <td nowrap>UTF-16LE Name, 64 bytes</td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table>
+              <thead>
+                <tr>
+                  <th align="left" colspan="4">Size</th>
+                  <th align="left" colspan="8">Payload</th>
+                </tr>
+              </thead>
+              <tr>
+                <td>08</td>
+                <td>00</td>
+                <td>00</td>
+                <td>00</td>
+                <td>05</td>
+                <td>02</td>
+                <td>80</td>
+                <td>00</td>
+                <td>xx</td>
+                <td>00</td>
+                <td>00</td>
+                <td>00</td>
+              </tr>
+              <tr>
+                <td colspan="4" nowrap></td>
+                <td colspan="2" nowrap></td>
+                <td colspan="2" nowrap></td>
+                <td nowrap>09 EXPORT else 08</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              </tr>
+            </table>
+          </td>
+          <tr>
+            <td colspan="4" nowrap>Payload Size (84)</td>
+            <td colspan="2"></td>
+          </tr>
+        </tr>
+      </table>
+    </td>
+  </tr>
+    <tr>
+      <td colspan="4" nowrap>Payload Size (88 * n + 4)</td>
+      <td colspan="5" nowrap>Function/s</td>
+    </tr>
+    </tbody>
+</table>
+
+>[!NOTE]
+>n = number of functions defined!
     
     [ xx xx xx xx ][ BE 00 40 01
         [ xx xx xx xx ][
@@ -123,8 +220,6 @@ The payload is organised as a hierarchy of length-prefixed records. The examples
     ]
 
 The four-byte values shown as **xx xx xx xx** are lengths whose exact interpretation depends on the containing record. The data following each length may itself contain additional length-prefixed records, producing the nested structure.
-
-The values such as 0x4000020B, 0x80000205, and 0xC000009B appear to contain type/flag information rather than forming a separate Type field in a conventional TLV header.
 
 
 
