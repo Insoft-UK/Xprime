@@ -1,4 +1,6 @@
-<img src="assets/icon.png" width="128" /></br>
+<img src="assets/Xprime.png" height="144" /></br>
+
+
 ## HP Prime Development Software
 
 ### Xprime Tools

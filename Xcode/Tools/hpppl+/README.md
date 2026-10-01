@@ -1,4 +1,5 @@
-<img src="assets/Icon.png" style="width: 128px" />
+<img
+src="../../../Design/Icon%20Masters/Types/hppplplus.png" width="128" />
 
 ## HP PPL+ for HP Prime Programming Language
 
