@@ -1,5 +1,5 @@
 <img
-src="../../../Design/Icon%20Masters/Types/hpnote.png" width="128" />
+src="../../../Design/Icon%20Masters/Types/note.png" width="128" />
 ## NOTE for HP Prime
 
 **Command Line Tool**
