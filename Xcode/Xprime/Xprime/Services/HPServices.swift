@@ -481,18 +481,6 @@ enum HPServices {
             arguments.append(contentsOf: ["--compress"])
         }
         
-        if ProjectSettings.shared.reformatting == true {
-            arguments.append(contentsOf: ["--reformat"])
-        }
-        
-        if ProjectSettings.shared.includeProgramName == true {
-            arguments.append(contentsOf: ["--named"])
-        }
-        
-        if ProjectSettings.shared.useLegacyHPPrgmFormat == true {
-            arguments.append(contentsOf: ["-G1"])
-        }
-        
         if ProjectSettings.shared.include.isEmpty == false {
             arguments.append(contentsOf: ["-I\(ToolchainPaths.resolvePath(ProjectSettings.shared.include))"])
         }

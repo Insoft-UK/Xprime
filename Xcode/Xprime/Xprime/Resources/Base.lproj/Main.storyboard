@@ -1137,14 +1137,14 @@ Gw
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xBy-WB-jhk">
                                 <rect key="frame" x="18" y="263" width="219" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Advance Project Settings" id="Ycq-Hd-0tL">
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP Prime Application" id="Ycq-Hd-0tL">
                                     <font key="font" metaFont="system" size="18"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IZu-lA-Rsu">
-                                <rect key="frame" x="18" y="233" width="131" height="16"/>
+                                <rect key="frame" x="18" y="246" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Archiving" id="ZOC-PW-IA6">
                                     <font key="font" metaFont="system"/>
@@ -1153,7 +1153,7 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YIL-S0-VhS">
-                                <rect key="frame" x="18" y="118" width="131" height="16"/>
+                                <rect key="frame" x="18" y="105" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Compression" id="BVX-Ke-nES">
                                     <font key="font" metaFont="system"/>
@@ -1177,7 +1177,7 @@ DQ
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OII-Pn-zIo">
-                                <rect key="frame" x="164" y="81" width="268" height="34"/>
+                                <rect key="frame" x="164" y="68" width="268" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" enabled="NO" alignment="left" title="Compression of your code results in it taking up less storage of your HP Prime's storage memory" id="FRY-Hc-v8i">
                                     <font key="font" metaFont="smallSystem"/>
@@ -1186,57 +1186,23 @@ DQ
                                 </textFieldCell>
                             </textField>
                             <button identifier="compression" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5f-FW-b35">
-                                <rect key="frame" x="144" y="118" width="254" height="16"/>
+                                <rect key="frame" x="144" y="105" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" title="Reduce hpppl code footprint" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" inset="2" id="DQa-Pt-Zve">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93n-CX-ovO">
-                                <rect key="frame" x="18" y="142" width="131" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Named" id="iwS-AH-4EQ">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k2p-TN-dBW">
-                                <rect key="frame" x="144" y="142" width="286" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="Create the .hpprgm as a named program" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="6hu-cV-iTr">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qn-7X-3f6">
-                                <rect key="frame" x="144" y="233" width="254" height="16"/>
+                                <rect key="frame" x="144" y="246" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="bevel" title="Archive Project .hpappdir Only" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="yd2-dY-B37">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooa-fk-Yt3">
-                                <rect key="frame" x="18" y="209" width="131" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Plain Fallback" id="xkN-6G-jXZ">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDm-ic-Coh">
-                                <rect key="frame" x="144" y="209" width="254" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="Include plain text fallback" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="u0o-pu-ddQ">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2dx-oQ-NW7">
-                                <rect key="frame" x="406" y="224" width="24" height="24"/>
+                                <rect key="frame" x="406" y="242" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="H5w-8L-eTt">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1247,44 +1213,36 @@ DQ
                                 </connections>
                             </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0Z-Ly-7al">
-                                <rect key="frame" x="18" y="166" width="219" height="24"/>
+                                <rect key="frame" x="18" y="122" width="219" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP PPL+ Settings" id="ZZq-iF-Ogj">
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP PPL" id="ZZq-iF-Ogj">
                                     <font key="font" metaFont="system" size="18"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TaR-we-5nj">
-                                <rect key="frame" x="18" y="65" width="131" height="16"/>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooa-fk-Yt3">
+                                <rect key="frame" x="18" y="172" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Reformat" id="MGH-MT-fW6">
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Plain Fallback" id="xkN-6G-jXZ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <button identifier="reformatting" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Sd-VS-P78">
-                                <rect key="frame" x="144" y="65" width="286" height="16"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDm-ic-Coh">
+                                <rect key="frame" x="144" y="172" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="Reformat the hpppl code" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" inset="2" id="sY0-PY-wjk">
+                                <buttonCell key="cell" type="bevel" title="Include plain text fallback" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="u0o-pu-ddQ">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <button identifier="useLegacyHPPrgmFormat" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="twa-I6-0lv">
-                                <rect key="frame" x="144" y="41" width="196" height="16"/>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8x-lm-N5J">
+                                <rect key="frame" x="18" y="188" width="219" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="Legacy G1 Format" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" inset="2" id="wc4-M2-wi9">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HSe-n8-SKf">
-                                <rect key="frame" x="18" y="41" width="131" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Format" id="5Wc-LL-HuP">
-                                    <font key="font" metaFont="system"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP Note" id="O1D-O3-rM4">
+                                    <font key="font" metaFont="system" size="18"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1294,7 +1252,6 @@ DQ
                     <connections>
                         <outlet property="compression" destination="L5f-FW-b35" id="WQC-8S-8ih"/>
                         <outlet property="fallback" destination="XDm-ic-Coh" id="NkJ-s4-OZL"/>
-                        <outlet property="includeProgramName" destination="k2p-TN-dBW" id="j3x-RE-3IL"/>
                         <outlet property="preferProjectBuild" destination="8qn-7X-3f6" id="9IS-iY-4rX"/>
                     </connections>
                 </viewController>

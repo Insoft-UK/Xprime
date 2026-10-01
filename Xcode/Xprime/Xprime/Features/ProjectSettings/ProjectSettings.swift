@@ -21,31 +21,22 @@
 // SOFTWARE.
 
 fileprivate enum DefaultsKey {
-    static let reformatting = "Reformatting"
     static let compression = "Compression"
-    static let includeProgramName = "IncludeProgramName"
     static let include = "include"
     static let lib = "lib"
     static let bin = "bin"
     static let archiveProjectApplicationOnly = "ArchiveProjectApplicationOnly"
     static let plainFallbackText = "PlainFallbackText"
     static let language = "Language"
-    static let useLegacyHPPrgmFormat = "UseLegacyHPPrgmFormat"
 }
 
 final class ProjectSettings {
 
     static let shared = ProjectSettings()
     private init() {}
-    
-    @UserDefault(key: DefaultsKey.reformatting, defaultValue: false)
-    var reformatting: Bool
 
     @UserDefault(key: DefaultsKey.compression, defaultValue: false)
     var compression: Bool
-    
-    @UserDefault(key: DefaultsKey.includeProgramName, defaultValue: true)
-    var includeProgramName: Bool
 
     @UserDefault(key: DefaultsKey.include, defaultValue: "$(SDKROOT)/include")
     var include: String
@@ -64,7 +55,4 @@ final class ProjectSettings {
     
     @UserDefault(key: DefaultsKey.language, defaultValue: "hpppl")
     var language: String
-    
-    @UserDefault(key: DefaultsKey.useLegacyHPPrgmFormat, defaultValue: false)
-    var useLegacyHPPrgmFormat: Bool
 }

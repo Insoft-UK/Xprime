@@ -7,8 +7,11 @@ END;
 
 one()
 BEGIN
+local islongergood;
 END;
 
 LOCAL two()
 BEGIN
+local mylongname;
+mylongname:=8;
 END;

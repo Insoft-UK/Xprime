@@ -289,13 +289,13 @@ final class DocumentManager {
     }
     
     @discardableResult
-    func saveDocument() -> Bool {
+    func saveDocument(_ silent: Bool = false) -> Bool {
         guard let url = currentDocumentURL else { return false }
-        return saveDocument(to: url)
+        return saveDocument(to: url, silent: silent)
     }
     
     @discardableResult
-    func saveDocument(to url: URL) -> Bool {
+    func saveDocument(to url: URL, silent: Bool = false) -> Bool {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
         case "prgm":
@@ -312,7 +312,9 @@ final class DocumentManager {
         
         do {
             try editor.string.write(to: url, atomically: true, encoding: encoding)
-            
+            if silent {
+                return true
+            }
             documentIsModified = false
             delegate?.documentManagerDidSave(self)
             return true

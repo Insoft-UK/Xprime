@@ -204,10 +204,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             let executable = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "hpppl+")
             var arguments: [String] = [url.path, "-o", "/dev/stdout"]
             
-            if ProjectSettings.shared.reformatting == true {
-                arguments.append(contentsOf: ["--reformat"])
-            }
-            
             if ProjectSettings.shared.compression {
                 arguments.append(contentsOf: ["--compress"])
             }
@@ -1598,7 +1594,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     @IBAction func reformatCode(_ sender: Any) {
         if let _ = documentManager.currentDocumentURL {
-            documentManager.saveDocument()
+            documentManager.saveDocument(true)
+        
         } else {
             proceedWithSavingDocumentAs()
         }
@@ -1609,7 +1606,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         let contents = ProcessRunner.run(executable: URL(fileURLWithPath: ToolchainPaths.bin + "/hpppl+"), arguments: [currentURL.path, "--reformat", "-o", "/dev/stdout"])
         if let out = contents.out, !out.isEmpty {
+            codeEditorTextView.registerUndo()
             codeEditorTextView.string = out
+            codeEditorTextView.applySyntaxHighlighting()
         }
         self.outputTextView.appendTextAndScroll(contents.err ?? "")
     }

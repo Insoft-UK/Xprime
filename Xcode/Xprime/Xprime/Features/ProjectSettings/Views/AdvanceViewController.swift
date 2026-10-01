@@ -26,7 +26,6 @@ final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NS
     @IBOutlet weak var preferProjectBuild: NSButton!
     @IBOutlet weak var fallback: NSButton!
     @IBOutlet weak var compression: NSButton!
-    @IBOutlet weak var includeProgramName: NSButton!
     
     private var projectManager: ProjectManager?
     
@@ -53,56 +52,18 @@ final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NS
         
         configureCompressionSelection()
         configureCompressionActions()
-        
-        configureIncludeProgramNameSelection()
-        configureIncludeProgramNameActions()
-        
-        if let button = view.findButton(withIdentifier: "reformatting") {
-            button.state = ProjectSettings.shared.reformatting ? .on : .off
-            button.target = self
-            button.action = #selector(reformattingSwitchToggled)
-        }
-        
-        if let button = view.findButton(withIdentifier: "useLegacyHPPrgmFormat") {
-            button.state = ProjectSettings.shared.useLegacyHPPrgmFormat ? .on : .off
-            button.target = self
-            button.action = #selector(useLegacyHPPrgmFormatSwitchToggled)
-        }
     }
     
     // MARK: - Actions
-    @objc private func useLegacyHPPrgmFormatSwitchToggled(_ sender: NSSwitch) {
-        if sender.state == .on {
-            ProjectSettings.shared.useLegacyHPPrgmFormat = true
-        } else {
-            ProjectSettings.shared.useLegacyHPPrgmFormat = false
-        }
-    }
+    
     
     @objc private func compressionSwitchToggled(_ sender: NSSwitch) {
         if sender.state == .on {
             ProjectSettings.shared.compression = true
-            ProjectSettings.shared.reformatting = false
-            if let button = view.findButton(withIdentifier: "reformatting") {
-                button.state = .off
-            }
         } else {
             ProjectSettings.shared.compression = false
         }
     }
-    
-    @objc func reformattingSwitchToggled(_ sender: NSSwitch) {
-        if sender.state == .on {
-            ProjectSettings.shared.reformatting = true
-            ProjectSettings.shared.compression = false
-            if let button = view.findButton(withIdentifier: "compression") {
-                button.state = .off
-            }
-        } else {
-            ProjectSettings.shared.reformatting = false
-        }
-    }
-    
     
     @objc private func preferProjectBuildSwitchToggled(_ sender: NSSwitch) {
         ProjectSettings.shared.archiveProjectAppOnly = sender.state == .on
@@ -113,9 +74,6 @@ final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NS
     }
     
     
-    @objc private func includeProgramNameSwitchToggled(_ sender: NSSwitch) {
-        ProjectSettings.shared.includeProgramName = sender.state == .on
-    }
     
     @IBAction func close(_ sender: Any) {
         self.view.window?.close()
@@ -138,15 +96,6 @@ final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NS
     private func configureFallbackActions() {
         fallback.target = self
         fallback.action = #selector(fallbackSwitchToggled(_:))
-    }
-    
-    private func configureIncludeProgramNameSelection() {
-        self.includeProgramName.state = ProjectSettings.shared.includeProgramName ? .on : .off
-    }
-    
-    private func configureIncludeProgramNameActions() {
-        includeProgramName.target = self
-        includeProgramName.action = #selector(includeProgramNameSwitchToggled)
     }
     
     private func configureCompressionSelection() {
