@@ -26,7 +26,7 @@ Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Pri
 
 ### Xprime 27 Requirements
 Apple Silicon or intel</br>
-**macOS 26** or later</br>
+**macOS 14 Sonoma** or later</br>
 
 ### Xprime 26 Requirements
 Apple Silicon or intel</br>
