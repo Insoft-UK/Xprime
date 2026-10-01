@@ -208,7 +208,7 @@ The payload is organised as a hierarchy of length-prefixed records. The examples
     </tbody>
 </table>
 
->[NOTE!]
+>[!NOTE]
 >n = number of functions defined!
     
     [ xx xx xx xx ][ BE 00 40 01
