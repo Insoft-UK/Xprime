@@ -1,4 +1,6 @@
-<img src="assets/icon.png" width="128" /></br>
+<img src="assets/Xprime.png" height="144" /></br>
+
+
 ## HP Prime Development Software
 
 ### Xprime Tools
@@ -7,6 +9,7 @@
 - [Font](Xcode/Tools/hpppl%2B/add-ons/hpfont)
 - [Note](Xcode/Tools/hpnote)
 
+<img src="assets/icon.png" width="128" /></br>
 ### Xprime IDE
 Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Prime PPL, package it, and create runnable HP Prime applications.
 * Provides a code editor for PPL, PPL+ and Python source code
