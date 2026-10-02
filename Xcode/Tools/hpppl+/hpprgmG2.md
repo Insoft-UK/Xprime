@@ -77,7 +77,8 @@ Programs that declare large matrices may also contain a COMPILED BLOCK before th
   <tr>
     <td>Description</td>
     <td colspan="4">Magic</td>
-    <td colspan="4">Preamble</td>
+    <td colspan="2">Type (FEFF hpprgm)</td>
+    <td colspan="2">Preamble</td>
     <td colspan="4" nowrap>Reserved</td>
     <td colspan="4" nowrap>Little-endian u32; length of the following payload</td>
     <td>Payload</td>
