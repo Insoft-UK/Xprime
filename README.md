@@ -20,13 +20,11 @@ Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Pri
 >[!NOTE]
 >Xprime 27 generates .hpprgm and .hpappprgm files using the G2 format.
 
-***Download links:*** [Xprime 26.5.x](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-universal.zip) | [Xprime 27.0.x](http://insoft.uk/action/?method=downlink&path=macos&file=Xprime27.zip) | [Xprime 27.0.x Developer Build](http://insoft.uk/action/?method=downlink&path=macos&file=Xprime27Developer.zip)</br>
-
-***Other links:*** [Xprime Themes](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-themes.zip) | [Xprime Libraries](http://insoft.uk/action/?method=downlink&path=macos&file=xprime-libraries.zip)</br>
+***Download link:*** [Xprime](http://insoft.uk/xprime.php)</br>
 
 ### Xprime 27 Requirements
 Apple Silicon or intel</br>
-**macOS 26** or later</br>
+**macOS 14 Sonoma** or later</br>
 
 ### Xprime 26 Requirements
 Apple Silicon or intel</br>
