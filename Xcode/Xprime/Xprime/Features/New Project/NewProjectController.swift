@@ -37,21 +37,6 @@ final class TiledBackgroundView: NSView {
     }
 }
 
-final class BackgroundView: NSView {
-
-    var backgroundImage = NSImage(named: "NewProject")
-
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-
-        guard let image = backgroundImage else { return }
-
-        let pattern = NSColor(patternImage: image)
-        pattern.setFill()
-        dirtyRect.fill()
-    }
-}
-
 final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBOutlet private weak var projectTemplate: NSPopUpButton!
     @IBOutlet private weak var projectName: NSTextField!
@@ -103,7 +88,7 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
             tintView.layer?.backgroundColor =
             NSColor.black.withAlphaComponent(0.25).cgColor
             
-            let wallpaperView = BackgroundView()
+            let wallpaperView = TiledBackgroundView()
             
             contentView.addSubview(wallpaperView, positioned: .below, relativeTo: nil)
             contentView.addSubview(tintView, positioned: .below, relativeTo: nil)
@@ -269,27 +254,6 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
         copy(from: templateURL, to: destinationURL)
     }
     
-//    private func replaceProjectName(
-//        in sourceURL: URL,
-//        to destinationURL: URL,
-//        newName: String
-//    ) throws {
-//        // Read file contents
-//        let contents = try String(contentsOf: sourceURL, encoding: .utf8)
-//
-//        // Replace placeholder
-//        let updatedContents = contents.replacingOccurrences(
-//            of: "$(PROJECT_NAME)",
-//            with: newName.replacingOccurrences(of: " ", with: "_")
-//        )
-//
-//        // Write back to destination
-//        try updatedContents.write(
-//            to: destinationURL,
-//            atomically: true,
-//            encoding: .utf8
-//        )
-//    }
     
     private func replaceAllPlaceholders(
         in sourceURL: URL,
