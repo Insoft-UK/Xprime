@@ -20,7 +20,7 @@ Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Pri
 >[!NOTE]
 >Xprime 27 generates .hpprgm and .hpappprgm files using the G2 format.
 
-***Website:*** [Xprime](http://insoft.uk/xprime.php)</br>
+***Download link:*** [Xprime](http://insoft.uk/xprime.php)</br>
 
 ### Xprime 27 Requirements
 Apple Silicon or intel</br>
