@@ -173,27 +173,10 @@ Gw
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OB4-TE-B2S">
-                                <rect key="frame" x="164" y="102" width="266" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="Use beta versions of applications" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" inset="2" id="N0M-cM-vbq">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KWN-2m-UwP">
                                 <rect key="frame" x="18" y="210" width="136" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Text Expansion" id="905-rh-amk">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iPU-V4-5j9">
-                                <rect key="frame" x="18" y="102" width="136" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Enable Beta Builds" id="p36-fE-i8S">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -223,7 +206,6 @@ Gw
                         <outlet property="location" destination="1Fp-9q-ftS" id="ec8-A0-zFd"/>
                         <outlet property="substitution" destination="dFc-xJ-ToO" id="o84-fR-e52"/>
                         <outlet property="theme" destination="yVB-zB-biD" id="0za-gl-qKf"/>
-                        <outlet property="useBetaApplications" destination="OB4-TE-B2S" id="RYN-WX-Vll"/>
                     </connections>
                 </viewController>
                 <customObject id="0ge-Ir-HeY" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1056,6 +1038,13 @@ Gw
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="7RV-lh-ZrF"/>
+                                        <menuItem title="Show Build Folder in Finder" image="Finder" id="gN5-MO-Fkb">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="showBuildFolderInFinder:" target="Ady-hI-5gd" id="Bli-w3-TfZ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="qDa-zc-LLG"/>
                                         <menuItem title="Show HP Prime in Finder" image="Finder" id="ZSS-Vw-fbg">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
@@ -1066,12 +1055,6 @@ Gw
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showContentFolderInFinder:" target="Ady-hI-5gd" id="XNj-aV-Peq"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Show Project in Finder" image="Finder" id="gN5-MO-Fkb">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showBuildFolderInFinder:" target="Ady-hI-5gd" id="Bli-w3-TfZ"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -1924,8 +1907,8 @@ Gw
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="5RB-6J-gcI"/>
-        <segue reference="GAi-V2-Fxa"/>
+        <segue reference="sLN-NW-azV"/>
+        <segue reference="Fuk-bI-vJG"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="About" width="576" height="448"/>

@@ -26,7 +26,6 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     @IBOutlet weak var substitution: NSButton!
     @IBOutlet weak var theme: NSPopUpButton!
     @IBOutlet weak var location: NSTextField!
-    @IBOutlet weak var useBetaApplications: NSButton!
     @IBOutlet weak var keywordNormalization: NSButton!
     
     private var vc: MainViewController!
@@ -61,7 +60,6 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     private func setup() {
         configureThemeSelection()
         configureSubtitutionActions()
-        configureUseBetaApplicationsActions()
         configureKeywordNormalizationActions()
         
         location.delegate = self
@@ -89,10 +87,6 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
         Settings.shared.substitutionEnabled = sender.state == .on
     }
     
-    @objc private func preferUseBetaApplicationsSwitchToggled(_ sender: NSMenuItem) {
-        Settings.shared.useBetaApplications = sender.state == .on
-    }
-    
     @objc private func handleThemeSelection(_ sender: NSMenuItem) {
         guard let url = sender.representedObject as? URL else {
             return
@@ -113,7 +107,6 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     
     @IBAction func defaultSettings(_ sender: Any) {
         Settings.shared.substitutionEnabled = false
-        Settings.shared.useBetaApplications = false
         Settings.shared.preferredTheme = Bundle.main.resourceURL!.appending(path: "HP Connectivity Kit (Light).xpcolortheme").path
         Settings.shared.workingDirectory = FileManager
             .default
@@ -126,7 +119,7 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
         
         let url = URL(fileURLWithPath: Settings.shared.preferredTheme)
         theme.selectItem(withTitle: url.deletingPathExtension().lastPathComponent)
-        useBetaApplications.state = .off
+        
         
         vc.themeManager.applyTheme(from: url)
     }
@@ -163,8 +156,6 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
             }
         
         for url in sortedURLs {
-//            let name = ThemeLoader.shared.loadTheme(from: url)?.name ?? url.deletingPathExtension().lastPathComponent
-            
             let name = url.deletingPathExtension().lastPathComponent
             
             let menuItem = NSMenuItem(
@@ -205,12 +196,6 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
         substitution.target = self
         substitution.action = #selector(preferSubtitutionSwitchToggled(_:))
         substitution.state = Settings.shared.substitutionEnabled ? .on : .off
-    }
-    
-    private func configureUseBetaApplicationsActions() {
-        useBetaApplications.target = self
-        useBetaApplications.action = #selector(preferUseBetaApplicationsSwitchToggled(_:))
-        useBetaApplications.state = Settings.shared.useBetaApplications ? .on : .off
     }
     
     private func configureKeywordNormalizationActions() {

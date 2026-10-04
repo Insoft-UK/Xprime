@@ -22,7 +22,7 @@
 
 import Cocoa
 
-fileprivate enum DefaultsKey {
+private enum DefaultsKey {
     static let subtitutionEnabled = "SubstitutionEnabled"
     static let preferredTheme = "PreferredTheme"
     static let lastOpenedFile = "LastOpenedFile"
@@ -32,10 +32,7 @@ fileprivate enum DefaultsKey {
     static let allowedOpenFileExtensions = "AllowedOpenFileExtensions"
     static let allowedSaveFileExtensions = "AllowedSaveFileExtensions"
     static let recentFiles = "RecentFiles"
-    static let useBetaApplications = "UseBetaApplications"
     static let keywordNormalization = "KeywordNormalization"
-//    static let visualEffectEnabled = "VisualEffectEnabled"
-//    static let hasShadow = "HasShadow"
     static let autoIndentation = "AutoIndentation"
 }
 
@@ -96,17 +93,8 @@ final class Settings {
     )
     var recentFiles: [String]
 
-    @UserDefault(key: DefaultsKey.useBetaApplications, defaultValue: false)
-    var useBetaApplications: Bool
-    
     @UserDefault(key: DefaultsKey.keywordNormalization, defaultValue: true)
     var keywordNormalization: Bool
-    
-//    @UserDefault(key: "VisualEffectEnabled", defaultValue: true)
-//    var visualEffectEnabled: Bool
-//    
-//    @UserDefault(key: "HasShadow", defaultValue: true)
-//    var hasShadow: Bool
     
     @UserDefault(key: "AutoIndentation", defaultValue: true)
     var autoIndentation: Bool

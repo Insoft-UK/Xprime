@@ -34,10 +34,10 @@ BEGIN
       END;
      
       IF BITAND(bits, 1) == 1 THEN
-        IF weight == 1 THEN
+        IF weight ≤ 1 THEN
           PIXON_P(trgtG, x + xx,y, color);
         ELSE
-          LINE_P(trgtG, x + xx, y, x + xx + weight, y, color);
+          LINE_P(trgtG, x + xx, y, x + xx + weight - 1, y, color);
         END;
       END;
       

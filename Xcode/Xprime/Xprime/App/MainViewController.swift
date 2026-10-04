@@ -135,52 +135,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         
         guard let window = view.window else { return }
         window.styleMask.insert(.resizable)
-        
-        
-//        if let toolbar = view.window?.toolbar {
-//            for item in toolbar.items {
-//                if item.label == "Stop" {
-//                    item.isEnabled = !isApplicationRunning(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
-//                }
-//            }
-//        }
-//
-//        
-//        NSWorkspace.shared.notificationCenter.addObserver(
-//            forName: NSWorkspace.didLaunchApplicationNotification,
-//            object: nil,
-//            queue: .main
-//        ) { notification in
-//            if let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey]
-//                as? NSRunningApplication {
-//                if app.bundleIdentifier == Constants.BundleIdentifier.hpPrime {
-//                    if let toolbar = self.view.window?.toolbar {
-//                        for item in toolbar.items {
-//                            if item.label == "Stop" {
-//                                item.isEnabled = false
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        
-//        NSWorkspace.shared.notificationCenter.addObserver(
-//            forName: NSWorkspace.didTerminateApplicationNotification,
-//            object: nil,
-//            queue: .main
-//        ) { notification in
-//            if let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey]
-//                as? NSRunningApplication {
-//                if let toolbar = self.view.window?.toolbar {
-//                    for item in toolbar.items {
-//                        if item.label == "Stop" {
-//                            item.isEnabled = true
-//                        }
-//                    }
-//                }
-//            }
-//        }
     }
 
     
@@ -767,33 +721,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     
     // MARK: - Helper Functions
-//    private func generateHPPPLCode() -> String? {
-//        guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return nil }
-//        guard let url = mainURL(in: projectDirectoryURL) else { return nil }
-//
-//        let executable = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "hpppl+")
-//        var arguments: [String] = [url.path, "-o", "/dev/stdout"]
-//        
-//        if ProjectSettings.shared.reformatting == true {
-//            arguments.append(contentsOf: ["--reformat"])
-//        }
-//        
-//        if ProjectSettings.shared.compression {
-//            arguments.append(contentsOf: ["--compress"])
-//        }
-//        
-//        let result = ProcessRunner.run(
-//            executable: executable,
-//            arguments: arguments
-//        )
-//        
-//        guard result.exitCode == 0, let out = result.out else {
-//            return nil
-//        }
-//        
-//        return out
-//        
-//    }
     
     private func updateWindowDocumentIcon() {
         guard let window = view.window else { return }
@@ -1753,7 +1680,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         }
         
         let ext = (documentManager.currentDocumentURL != nil) ? documentManager.currentDocumentURL!.pathExtension.lowercased() : ""
-        
+    
         
         switch menuItem.action {
         case #selector(reformatCode(_:)):
@@ -1792,7 +1719,18 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             
         case #selector(showBuildFolderInFinder(_:)):
             if projectManager.projectDirectoryURL != nil {
+                menuItem.image = projectManager.projectIcon
+                menuItem.image?.size = Constants.IconSizes.tiny
+                if #available(macOS 27.0, *) {
+                    menuItem.preferredImageVisibility  = .visible
+                }
                 return true
+            }
+            let icon = NSImage(named: "Finder")?.copy() as? NSImage
+            menuItem.image = icon
+            menuItem.image?.size = Constants.IconSizes.small
+            if #available(macOS 27.0, *) {
+                menuItem.preferredImageVisibility  = .visible
             }
             return false
             
