@@ -27,29 +27,7 @@ let applicationTemplateBasePath = "Contents/Resources/Developer/Library/Xprime/T
 let baseApplicationPath = "Contents/Resources/Developer/Library/Xprime/Templates/Base Applications"
 
 
-fileprivate func launchApplication(named appName: String, arguments: [String] = []) {
-    switch launchApp(named: appName, arguments: arguments) {
-    case .success:
-        return
-    case .failure(let error):
-        let alert = NSAlert()
-        alert.messageText = "Launch Failed"
-        
-        switch error {
-        case .notFound:
-            alert.informativeText = "The app was not found: \(appName)"
-        case .invalidPath:
-            alert.informativeText = "Invalid app path: \(appName)"
-        case .launchFailed(let err):
-            alert.informativeText = "Failed to launch: \(err.localizedDescription)"
-        }
-        
-        alert.runModal()
-        return
-    }
-}
-
-fileprivate func encodingType(_ data: inout Data) -> String.Encoding {
+private func encodingType(_ data: inout Data) -> String.Encoding {
     if data.starts(with: [0xFF, 0xFE]) {
         data.removeFirst(2)
         return .utf16LittleEndian
@@ -89,20 +67,6 @@ enum HPServices {
         return nil
     }
     
-
-    static var isVirtualCalculatorInstalled: Bool {
-        if Settings.shared.useBetaApplications {
-            return isApplicationInstalled(withBundleIdentifier: "com.moravia-consulting.hp-prime.beta")
-        }
-        return isApplicationInstalled(withBundleIdentifier: "com.moravia-consulting.hp-prime")
-    }
-    
-    static var isConnectivityKitInstalled: Bool {
-        if Settings.shared.useBetaApplications {
-            return isApplicationInstalled(withBundleIdentifier: "com.moravia-consulting.hp-connectivity-kit.beta")
-        }
-        return isApplicationInstalled(withBundleIdentifier: "com.moravia-consulting.hp-connectivity-kit")
-    }
     
     static func hpPrimeCalculatorExists(named name: String) -> Bool {
         guard !name.isEmpty else { return false }
@@ -118,9 +82,9 @@ enum HPServices {
     static func hpPrimeDirectory() -> URL? {
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
         
-        if HPServices.isVirtualCalculatorInstalled == false {
-            return nil
-        }
+//        if HPServices.isVirtualCalculatorInstalled == false {
+//            return nil
+//        }
         let directoryURL = homeURL
             .appending(path: "Documents/HP Prime/Calculators/Prime")
         
@@ -539,79 +503,6 @@ enum HPServices {
             }
 
             try FileManager.default.copyItem(at: appURL, to: destinationURL)
-        }
-    }
-    
-    static func terminateVirtualCalculator() {
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime") {
-            terminateApp(withBundleIdentifier: targetBundleIdentifier)
-        }
-        
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime BETA") {
-            terminateApp(withBundleIdentifier: targetBundleIdentifier)
-        }
-    }
-    
-    static func launchVirtualCalculator() {
-        guard let url = applicationURL(forApp: "HP Prime") else {
-            return
-        }
-        
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime") {
-            terminateApp(withBundleIdentifier: targetBundleIdentifier)
-        }
-        
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Prime BETA") {
-            terminateApp(withBundleIdentifier: targetBundleIdentifier)
-        }
-        
-        launchApplication(named: url.lastPathComponent)
-    }
-    
-    static func launchConnectivityKit() {
-        guard let url = applicationURL(forApp: "HP Connectivity Kit") else {
-            return
-        }
-        
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Connectivity Kit") {
-            terminateApp(withBundleIdentifier: targetBundleIdentifier)
-        }
-        
-        if let targetBundleIdentifier = getBundleIdentifier(forApp: "HP Connectivity Kit BETA") {
-            terminateApp(withBundleIdentifier: targetBundleIdentifier)
-        }
-        
-        launchApplication(named: url.lastPathComponent)
-    }
-    
-    static func applicationURL(forApp appName: String) -> URL? {
-        let applicationsURL = URL(fileURLWithPath: "/Applications")
-        let fileManager = FileManager.default
-        
-        let targetName = appName.lowercased()
-        let requireBeta = Settings.shared.useBetaApplications
-
-        do {
-            let contents = try fileManager.contentsOfDirectory(
-                at: applicationsURL,
-                includingPropertiesForKeys: nil,
-                options: [.skipsHiddenFiles]
-            )
-
-            return contents.first { url in
-                let name = url.lastPathComponent.lowercased()
-                
-                guard name.hasSuffix(".app"),
-                      name.contains(targetName) else {
-                    return false
-                }
-                
-                return !requireBeta || name.contains("beta")
-            }
-            
-        } catch {
-            print("Error reading /Applications:", error)
-            return nil
         }
     }
 }

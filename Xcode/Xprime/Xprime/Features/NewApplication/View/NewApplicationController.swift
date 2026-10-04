@@ -89,7 +89,7 @@ final class NewApplicationViewController: CustomViewController, NSTextFieldDeleg
     private func refreshBaseApplicationMenu() {
         guard let menu = baseApplication.menu else { return }
         for item in menu.items {
-            item.image?.size = iconSize.tiny
+            item.image?.size = Constants.IconSizes.tiny
         }
     }
     

@@ -257,7 +257,7 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
                     menuItem.image = NSImage(named: "Code")?.copy() as? NSImage
                 }
                 
-                menuItem.image?.size = iconSize.small
+                menuItem.image?.size = Constants.IconSizes.small
                 menuItem.representedObject = url as NSURL
                 menu.addItem(menuItem)
             }

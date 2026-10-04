@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="25098" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25098"/>
         <plugIn identifier="com.apple.WebKit2IBPlugin" version="25098"/>
         <capability name="Combo buttons" minToolsVersion="14.0" minSystemVersion="13.0"/>
@@ -1578,7 +1579,7 @@ Gw
                                 <toolbarItem implicitItemIdentifier="23C30700-2B4A-4DB2-B9FB-C970E7BD2A52" label="Project Folder" paletteLabel="Quick Open" bordered="YES" sizingBehavior="auto" id="J6a-Hn-bWN">
                                     <nil key="toolTip"/>
                                     <comboButton key="view" verticalHuggingPriority="750" controlSize="large" baseWritingDirection="leftToRight" alignment="left" title="" id="myg-bt-hEL">
-                                        <rect key="frame" x="13" y="14" width="43" height="28"/>
+                                        <rect key="frame" x="7" y="14" width="56" height="28"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <menu key="menu" autoenablesItems="NO" id="G1h-cf-dCG"/>
                                     </comboButton>

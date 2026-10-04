@@ -169,11 +169,11 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
                 if FileManager.default.fileExists(atPath: url.appendingPathExtension("png").path) {
                     let icon = NSImage(contentsOf: url.appendingPathExtension("png"))?.copy() as! NSImage
                     to.items.last?.image = icon
-                    to.items.last?.image?.size = iconSize.big
+                    to.items.last?.image?.size = Constants.IconSizes.big
                 } else {
                     let icon = NSImage(named: "Project")?.copy() as! NSImage
                     to.items.last?.image = icon
-                    to.items.last?.image?.size = iconSize.big
+                    to.items.last?.image?.size = Constants.IconSizes.big
                 }
                 
                 

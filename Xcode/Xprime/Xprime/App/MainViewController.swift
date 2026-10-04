@@ -30,7 +30,7 @@ extension MainViewController: NSWindowRestoration {
     }
 }
 
-final class MainViewController: CustomViewController, NSTextViewDelegate, NSToolbarItemValidation, NSMenuItemValidation, NSSplitViewDelegate {
+final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenuItemValidation, NSSplitViewDelegate {
     // MARK: - Outlets
     @IBOutlet weak var splitView: NSSplitView!
     @IBOutlet var codeEditorTextView: CodeEditorTextView!
@@ -80,7 +80,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             func setImageSize(_ menu: NSMenu) {
                 for item in menu.items {
                     if item.submenu == nil {
-                        item.image?.size = iconSize.small
+                        item.image?.size = Constants.IconSizes.small
                         continue
                     }
                     setImageSize(item.submenu!)
@@ -125,7 +125,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             documentManager.openDocument(at: URL(fileURLWithPath: lastOpenedFile))
         }
         
-        updateToolbarState()
+        validateToolbarItems()
         
         if codeEditorTextView.theme?.type == "dark" {
             scrollView.scrollerKnobStyle = .light
@@ -135,6 +135,52 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         guard let window = view.window else { return }
         window.styleMask.insert(.resizable)
+        
+        
+//        if let toolbar = view.window?.toolbar {
+//            for item in toolbar.items {
+//                if item.label == "Stop" {
+//                    item.isEnabled = !isApplicationRunning(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
+//                }
+//            }
+//        }
+//
+//        
+//        NSWorkspace.shared.notificationCenter.addObserver(
+//            forName: NSWorkspace.didLaunchApplicationNotification,
+//            object: nil,
+//            queue: .main
+//        ) { notification in
+//            if let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey]
+//                as? NSRunningApplication {
+//                if app.bundleIdentifier == Constants.BundleIdentifier.hpPrime {
+//                    if let toolbar = self.view.window?.toolbar {
+//                        for item in toolbar.items {
+//                            if item.label == "Stop" {
+//                                item.isEnabled = false
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        
+//        NSWorkspace.shared.notificationCenter.addObserver(
+//            forName: NSWorkspace.didTerminateApplicationNotification,
+//            object: nil,
+//            queue: .main
+//        ) { notification in
+//            if let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey]
+//                as? NSRunningApplication {
+//                if let toolbar = self.view.window?.toolbar {
+//                    for item in toolbar.items {
+//                        if item.label == "Stop" {
+//                            item.isEnabled = true
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     
@@ -162,6 +208,30 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             name: NSTextView.didChangeSelectionNotification,
             object: codeEditorTextView
         )
+        
+        NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didLaunchApplicationNotification,
+            object: nil,
+            queue: .main
+        ) { notification in
+            if let app = notification.userInfo?[NSWorkspace.applicationUserInfoKey]
+                as? NSRunningApplication {
+                if app.bundleIdentifier == Constants.BundleIdentifier.hpPrime {
+                    self.validateToolbarItems()
+                }
+            }
+        }
+        
+        NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didTerminateApplicationNotification,
+            object: nil,
+            queue: .main
+        ) { notification in
+            if notification.userInfo?[NSWorkspace.applicationUserInfoKey]
+                is NSRunningApplication {
+                self.validateToolbarItems()
+            }
+        }
     }
     
     private func setupActions() {
@@ -366,7 +436,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             return
         }
         
-        let iconSize = iconSize.big
+        let iconSize = Constants.IconSizes.big
         
         switch documentManager.currentDocumentURL?.pathExtension.lowercased() {
         case "hpppl":
@@ -446,7 +516,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
         
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
-        updateToolbarState()
+        validateToolbarItems()
     }
     
     @objc private func windowDidResignKey() {
@@ -503,7 +573,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                             .deletingPathExtension()
                             .appendingPathExtension("png")
                         )
-                        menuItem.image?.size = iconSize.small
+                        menuItem.image?.size = Constants.IconSizes.small
                     } else {
                         menuItem.image = icon
                     }
@@ -553,7 +623,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                     }
                     submenuItem.submenu = submenu
                     submenuItem.image = NSImage(named: "Templates")?.copy() as? NSImage
-                    submenuItem.image?.size = iconSize.small
+                    submenuItem.image?.size = Constants.IconSizes.small
                     menu.addItem(submenuItem)
                 } else {
                     let name = itemURL.deletingPathExtension().lastPathComponent
@@ -568,7 +638,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                     }
                     menuItem.representedObject = itemURL
                     menuItem.image = NSImage(named: "HP")?.copy() as? NSImage
-                    menuItem.image?.size = iconSize.small
+                    menuItem.image?.size = Constants.IconSizes.small
                     menu.addItem(menuItem)
                 }
             }
@@ -1000,7 +1070,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 return nil
             }
 
-            image.size = iconSize.big
+            image.size = Constants.IconSizes.big
             return image
         }
         
@@ -1105,12 +1175,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 }
 
                 // Explicitly set the menu image size
-                item.image?.size = iconSize.big
+                item.image?.size = Constants.IconSizes.big
 
                 if fileURL == documentManager.currentDocumentURL {
                     item.state = .on
                     comboButton.image = item.image
-                    comboButton.image?.size = iconSize.big
+                    comboButton.image?.size = Constants.IconSizes.big
                 }
 
                 menu.addItem(item)
@@ -1137,7 +1207,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 )
                 let image = NSImage(named: baseApplicationName)?.copy() as! NSImage
                 menu.items.last?.image = image
-                menu.items.last?.image?.size = iconSize.small
+                menu.items.last?.image?.size = Constants.IconSizes.small
                 if #available(macOS 27.0, *) {
                     menu.items.last?.preferredImageVisibility = .visible
                 }
@@ -1161,13 +1231,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
                 menu.item(at: 0)?.preferredImageVisibility = .visible
             }
             menu.item(at: 0)?.image = projectManager.projectIcon
-            menu.item(at: 0)?.image?.size = iconSize.big
+            menu.item(at: 0)?.image?.size = Constants.IconSizes.big
             menu.item(at: 0)?.submenu = createMenu(for: url
                 .appending(path: projectManager.projectName!)
                 .appendingPathExtension("hpappdir")
             )
             for item in menu.item(at: 0)!.submenu!.items {
-                item.image?.size = iconSize.big
+                item.image?.size = Constants.IconSizes.big
             }
             menu.insertItem(NSMenuItem.separator(), at: 1)
             
@@ -1186,7 +1256,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
             )
             let baseApplicationIcon = NSImage(named: projectManager.baseApplicationName)?.copy() as! NSImage
             menu.item(at: 0)?.submenu?.item(at: 0)?.image = baseApplicationIcon
-            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = iconSize.big
+            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = Constants.IconSizes.big
             menu.item(at: 0)?.submenu?.item(at: 0)?.submenu = createBaseMenu()
         }
         
@@ -1437,17 +1507,28 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     // MARK: - Project Actions
     @IBAction func stop(_ sender: Any) {
-        HPServices.terminateVirtualCalculator()
+        if isApplicationRunning(withBundleIdentifier: Constants.BundleIdentifier.hpPrime) {
+            terminateApp(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
+        }
     }
     
     @IBAction func run(_ sender: Any) {
         buildForRunning(sender)
         guard documentManager.currentDocumentURL != nil else { return }
-        if !HPServices.isVirtualCalculatorInstalled {
+        if !isApplicationInstalled(withBundleIdentifier: Constants.BundleIdentifier.hpPrime) {
             AlertPresenter.showInfo(on: view.window, title: "Virtual Calculator", message: "HP Prime is not installed.")
             return
         }
-        HPServices.launchVirtualCalculator()
+        
+        if isApplicationRunning(
+            withBundleIdentifier: Constants.BundleIdentifier.hpPrime
+        ) {
+            restartApplication(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
+        } else {
+            runApplication(
+                withBundleIdentifier: Constants.BundleIdentifier.hpPrime
+            )
+        }
     }
     
     @IBAction func archive(_ sender: Any) {
@@ -1627,25 +1708,42 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     
     
     // MARK: - Validation for Toolbar Items
-    internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-//        switch item.action {
-//        case #selector(build(_:)), #selector(run(_:)):
-//            if projectManager.projectDirectoryURL != nil, previewButton.state == .off  {
-//                return true
-//            }
-//            return false
-//            
-//        case #selector(showBuildFolderInFinder(_:)):
-//            if projectManager.projectDirectoryURL != nil {
-//                return true
-//            }
-//            return false
-//            
-//            
-//        default :
-//            break
-//        }
-        return true
+    func validateToolbarItems() {
+        let url = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        
+        
+        if let button = view.findButton(withIdentifier: Constants.Identifiers.notes) {
+            button.isEnabled = url.appending(path: "info.note").fileExists
+        }
+        
+        if let button = view.findButton(withIdentifier: Constants.Identifiers.autoIndentation) {
+            button.state = Settings.shared.autoIndentation ? .on : .off
+        }
+        
+        if let button = view.findButton(withIdentifier: Constants.Identifiers.substitution) {
+            let isPython = documentManager.currentDocumentURL?
+                .pathExtension.lowercased() == "py"
+
+            if isPython {
+                Settings.shared.substitutionEnabled = false
+            }
+
+            button.isEnabled = !isPython
+            button.state = Settings.shared.substitutionEnabled ? .on : .off
+        }
+        
+        if let toolbar = view.window?.toolbar {
+            for item in toolbar.items {
+                switch item.label {
+                case "Stop":
+                    item.isEnabled = isApplicationRunning(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
+                case "Build", "Run":
+                    item.isEnabled = projectManager.projectDirectoryURL != nil
+                default:
+                    item.isEnabled = true
+                }
+            }
+        }
     }
 
     // MARK: - Validation for Menu Items
@@ -1730,29 +1828,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSTool
     }
     
     
-    // MARK: - Update Toolbar State
-    func updateToolbarState() {
-        let url = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        
-        if let button = view.findButton(withIdentifier: "notes") {
-            button.isEnabled = url.appending(path: "info.note").fileExists
-        }
-        
-        if let button = view.findButton(withIdentifier: "autoIndentation") {
-            button.state = Settings.shared.autoIndentation ? .on : .off
-        }
-        
-        if let button = view.findButton(withIdentifier: "substitution") {
-            if let url = documentManager.currentDocumentURL, url.pathExtension.lowercased() == "py" {
-                button.isEnabled = false
-                Settings.shared.substitutionEnabled = false
-            } else {
-                button.isEnabled = true
-            }
-            
-            button.state = Settings.shared.substitutionEnabled ? .on : .off
-        }
-    }
 }
 
 // MARK: - 🤝 DocumentManagerDelegate
@@ -1813,7 +1888,7 @@ extension MainViewController: DocumentManagerDelegate {
         updateWindowDocumentIcon()
         gutterView.needsDisplay = true
         
-        updateToolbarState()
+        validateToolbarItems()
     }
     
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error) {
@@ -1854,7 +1929,7 @@ extension MainViewController: ProjectManagerDelegate {
             documentManager.openDocument(at: url)
         }
 
-        updateToolbarState()
+        validateToolbarItems()
         
         if let projectURL = ProjectManager.projectURL(in: projectDirectoryURL) {
             appendToRecentMenu(url: projectURL)

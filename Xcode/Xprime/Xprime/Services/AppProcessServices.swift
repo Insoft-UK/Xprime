@@ -22,48 +22,84 @@
 
 import Cocoa
 
+/*
+ * private → use when only the declaring scope needs it
+ * fileprivate → use when multiple declarations in the same file need it
+ * internal (default) → accessible throughout the module
+ * public → accessible to clients of the module
+ */
+
 func isApplicationInstalled(withBundleIdentifier bundleIdentifier: String) -> Bool {
-    let appsURL = URL(fileURLWithPath: "/Applications")
-    // com.moravia-consulting
-    do {
-        let contents = try FileManager.default.contentsOfDirectory(
-            at: appsURL,
-            includingPropertiesForKeys: nil
+    NSWorkspace.shared.urlForApplication(
+        withBundleIdentifier: bundleIdentifier
+    ) != nil
+}
+
+func isApplicationRunning(withBundleIdentifier bundleIdentifier: String) -> Bool {
+    NSWorkspace.shared.runningApplications.contains {
+        $0.bundleIdentifier == bundleIdentifier
+    }
+}
+
+func runApplication(withBundleIdentifier bundleIdentifier: String) {
+    guard let url = NSWorkspace.shared.urlForApplication(
+        withBundleIdentifier: bundleIdentifier
+    ) else {
+        return
+    }
+
+    let configuration = NSWorkspace.OpenConfiguration()
+    configuration.activates = true
+
+    NSWorkspace.shared.openApplication(
+        at: url,
+        configuration: configuration
+    ) { application, error in
+        if let error {
+            print("Failed to launch application: \(error)")
+        }
+    }
+}
+
+func terminateApp(
+    withBundleIdentifier bundleIdentifier: String,
+    completion: (() -> Void)? = nil
+) {
+    guard let application = NSWorkspace.shared.runningApplications.first(
+        where: { $0.bundleIdentifier == bundleIdentifier }
+    ) else {
+        completion?()
+        return
+    }
+
+    application.terminate()
+
+    waitForApplicationToTerminate(
+        withBundleIdentifier: bundleIdentifier,
+        completion: completion
+    )
+}
+
+private func waitForApplicationToTerminate(
+    withBundleIdentifier bundleIdentifier: String,
+    completion: (() -> Void)?
+) {
+    if !isApplicationRunning(withBundleIdentifier: bundleIdentifier) {
+        completion?()
+        return
+    }
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        waitForApplicationToTerminate(
+            withBundleIdentifier: bundleIdentifier,
+            completion: completion
         )
-        
-        for url in contents where url.pathExtension == "app" {
-            if let bundle = Bundle(url: url) {
-                if let id = bundle.bundleIdentifier {
-                    if id == bundleIdentifier {
-                        return true
-                    }
-                }
-            }
-        }
-    } catch {
-        return false
     }
-    
-    return false
 }
 
-// getBundleIdentifier by Jozef Dekoninck
-func getBundleIdentifier(forApp appName: String) -> String? {
-    let runningApps = NSWorkspace.shared.runningApplications
-    for app in runningApps {
-        if app.localizedName == appName {
-            return app.bundleIdentifier
-        }
-    }
-    return nil
-}
-
-func terminateApp(withBundleIdentifier bundleIdentifier: String) {
-    // Code by Jozef Dekoninck
-    let runningApps = NSWorkspace.shared.runningApplications
-    if let running = runningApps.first(where: { $0.bundleIdentifier == bundleIdentifier }) {
-        kill(running.processIdentifier, SIGTERM)
-        RunLoop.current.run(mode: .default, before: Date(timeIntervalSinceNow: 0.5))
+func restartApplication(withBundleIdentifier bundleIdentifier: String) {
+    terminateApp(withBundleIdentifier: bundleIdentifier) {
+        runApplication(withBundleIdentifier: bundleIdentifier)
     }
 }
 
@@ -93,52 +129,4 @@ func killProcess(named name: String) {
 
     do { try process.run() }
     catch { print("Failed to kill: \(error)") }
-}
-
-enum AppLaunchError: Error {
-    case notFound
-    case invalidPath
-    case launchFailed(Error)
-}
-
-@discardableResult
-func launchApp(named name: String,
-               arguments: [String] = []) -> Result<Process, AppLaunchError> {
-
-    
-    var resolvedPath: String?
-
-    // If "name" ends with .app, treat it as a bundle.
-    if name.hasSuffix(".app") {
-        let appURL = URL(fileURLWithPath: "/Applications/" + name)
-
-        if let bundle = Bundle(url: appURL),
-           let executableName = bundle.executableURL?.lastPathComponent {
-            resolvedPath = appURL.appendingPathComponent("Contents/MacOS/" + executableName)
-                .deletingPathExtension()
-                .path
-        }
-    }
-
-    // Otherwise treat as executable path
-    if resolvedPath == nil, FileManager.default.fileExists(atPath: name) {
-        resolvedPath = name
-    }
-
-    guard let path = resolvedPath else {
-        return .failure(.notFound)
-    }
-
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: path)
-    process.arguments = arguments
-    process.standardOutput = FileHandle.nullDevice
-    process.standardError = FileHandle.nullDevice
-
-    do {
-        try process.run()
-        return .success(process)
-    } catch {
-        return .failure(.launchFailed(error))
-    }
 }

@@ -23,14 +23,8 @@
 import Cocoa
 import UniformTypeIdentifiers
 
-class iconSize {
-    static let tiny = CGSize(width: 16, height: 16)
-    static let small = CGSize(width: 18, height: 18)
-    static let big = CGSize(width: 24, height: 24)
-}
-
 @main
-class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSMenuItemValidation {
+class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     @IBOutlet weak var mainMenu: NSMenu!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -80,35 +74,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSToolbarItemValidation, NSM
     
     // MARK: - Interface Builder Action Handlers
     @IBAction func launchHPConnectiveKit(_ sender: Any) {
-        HPServices.launchConnectivityKit()
+        runApplication(withBundleIdentifier: Constants.BundleIdentifier.hpConnectivityKit)
     }
     
     @IBAction func launchHPPrimeVirtualCalculator(_ sender: Any) {
-        HPServices.launchVirtualCalculator()
+        runApplication(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
     }
     
     
     // MARK: - Action Handlers
-    internal func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
-        switch item.action {
-        case #selector(launchHPConnectiveKit(_:)):
-            return HPServices.isConnectivityKitInstalled
-            
-        case #selector(launchHPPrimeVirtualCalculator(_:)):
-            return HPServices.isVirtualCalculatorInstalled
-        default:
-            break
-        }
-        return true
-    }
-    
     internal func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         switch menuItem.action {
         case #selector(launchHPConnectiveKit(_:)):
-            return HPServices.isConnectivityKitInstalled
+            if !isApplicationInstalled(withBundleIdentifier: Constants.BundleIdentifier.hpConnectivityKit) {
+                return false
+            }
+            return !isApplicationRunning(withBundleIdentifier: Constants.BundleIdentifier.hpConnectivityKit)
             
         case #selector(launchHPPrimeVirtualCalculator(_:)):
-            return HPServices.isVirtualCalculatorInstalled
+            if !isApplicationInstalled(withBundleIdentifier: Constants.BundleIdentifier.hpPrime) {
+                return false
+            }
+            return !isApplicationRunning(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
             
         default:
             break
