@@ -1,0 +1,75 @@
+/// The MIT License (MIT)
+///
+/// Copyright (c) 2023-2026 Insoft. All rights reserved.
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy
+/// of this software and associated documentation files (the "Software"), to deal
+/// in the Software without restriction, including without limitation the rights
+/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+/// copies of the Software, and to permit persons to whom the Software is
+/// furnished to do so, subject to the following conditions:
+///
+/// The above copyright notice and this permission notice shall be included in all
+/// copies or substantial portions of the Software.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+/// SOFTWARE.
+#pragma mode( separator(.,;) integer(h64) )
+{$ADDON hpfont.h}
+LOCAL Small := {$I SmallFontCodes.h};
+LOCAL Large := {$I LargeFontCodes.h};
+
+EXPORT START()
+BEGIN
+  LOCAL f:=Small, w:="NORMAL";
+  LOCAL f1, f2;
+  LOCAL txt:="TI-84 CE: Small Font";
+
+  WHILE 1 DO
+    RECT(2^24-1);
+    DRAWMENU({"Small", "Large", "", "NORMAL", "BOLD", "EXIT"});
+    HP.TEXTOUT(txt, G0, 8, 8, f, 0, RGB(0,0,0,255), IFTE(w=="BOLD",2,1));
+    HP.TEXTOUT(w, G0, 8, 32, HP.Sys10, 0, RGB(0,0,0,255), 2);
+    
+    LOCAL ms;
+    REPEAT
+      ms:=MOUSE;
+    UNTIL SIZE(ms(1))==5;
+  
+    LOCAL tx := ms(1,1), ty := ms(1,2);
+    IF ty < 200 THEN CONTINUE; END;
+      
+    LOCAL m:=1+FLOOR(tx/53);
+    CASE
+      IF m == 1 THEN
+        Small▶f;
+        "TI-84 CE: Small Font"▶txt;
+      END;
+      IF m == 2 THEN
+        Large▶f;
+        "TI-84 CE: Large Font"▶txt;
+      END;
+      IF m == 4 THEN
+        "NORMAL"▶w;
+      END;
+      IF m == 5 THEN
+        "BOLD"▶w;
+      END;
+      IF m == 6 THEN
+        RETURN;
+      END;
+    DEFAULT
+      CONTINUE;
+    END;
+  END;
+END;
+
+export RESET()
+begin
+    return 0;
+end;

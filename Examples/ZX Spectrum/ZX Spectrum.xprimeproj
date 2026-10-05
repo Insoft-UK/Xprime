@@ -1,0 +1,11 @@
+{
+  "include" : "$(SDKROOT)\/include",
+  "plainFallbackText" : true,
+  "compression" : false,
+  "lib" : "$(SDKROOT)\/lib",
+  "language" : "py",
+  "bin" : "$(SDKROOT)\/bin",
+  "legacyG1Format" : false,
+  "archiveProjectAppOnly" : true,
+  "includeProgramName" : true
+}

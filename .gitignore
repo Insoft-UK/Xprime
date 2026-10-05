@@ -13,5 +13,6 @@ ignore
 Dev
 _*
 test
-examples
+Xcode/Tools/*/examples
+Xcode/Tools/*/add-ons/*/examples
 installer
