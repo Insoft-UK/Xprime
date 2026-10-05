@@ -1045,16 +1045,16 @@ Gw
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="qDa-zc-LLG"/>
-                                        <menuItem title="Show HP Prime in Finder" image="Finder" id="ZSS-Vw-fbg">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="showCalculatorFolderInFinder:" target="Ady-hI-5gd" id="Kz2-HW-27t"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Show Content in Finder" image="Finder" id="CVK-py-37b">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="showContentFolderInFinder:" target="Ady-hI-5gd" id="XNj-aV-Peq"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Show HP Prime in Finder" image="Finder" alternate="YES" id="ZSS-Vw-fbg">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                            <connections>
+                                                <action selector="showCalculatorFolderInFinder:" target="Ady-hI-5gd" id="Kz2-HW-27t"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -1459,12 +1459,12 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField hidden="YES" autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t31-ED-Y1n">
-                                <rect key="frame" x="378" y="398" width="180" height="30"/>
+                            <textField autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t31-ED-Y1n">
+                                <rect key="frame" x="126" y="48" width="308" height="74"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" alignment="right" title="Developer BUILD" id="llp-TR-X27">
-                                    <font key="font" size="20" name="HelveticaNeue-Light"/>
-                                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" alignment="right" title="Developer" id="llp-TR-X27">
+                                    <font key="font" size="40" name="HelveticaNeue-Light"/>
+                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
@@ -1982,7 +1982,7 @@ Gw
             <color red="0.0" green="0.3919999897480011" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="HP Prime Orange">
-            <color red="1" green="0.58399999141693115" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.92900002002716064" green="0.43900001049041748" blue="0.17599999904632568" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

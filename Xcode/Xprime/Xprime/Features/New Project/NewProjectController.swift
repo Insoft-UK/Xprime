@@ -47,11 +47,6 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        if let image = NSImage(named: "PaperTexture") {
-//            view.wantsLayer = true
-//            view.layer?.backgroundColor = NSColor(patternImage: image).cgColor
-//        }
-
         setup()
     }
     
