@@ -22,10 +22,10 @@ Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Pri
 
 ***Download link:*** [Xprime](http://insoft.uk/xprime.php)</br>
 
-**Xprime 27.1**
-The Xprime folder, which was previously located in the user’s home directory, is now located inside the HP Connectivity Kit folder within the user’s Documents folder.
+**Xprime 27.1**</br>
+The **Xprime folder**, which was previously located in the user’s home directory, is now located inside the **HP Connectivity Kit folder** within the user’s **Documents folder**.
 
-The Project folder, which was previously located inside the Xprime folder, has been moved outside of it and now resides directly within the HP Connectivity Kit folder.
+The **Projects folder**, which was previously located inside the Xprime folder, has been moved outside of it and now resides directly within the HP Connectivity Kit folder.
 
 ### Xprime 27 Requirements
 Apple Silicon or intel</br>
