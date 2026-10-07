@@ -114,7 +114,8 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false
         panel.canCreateDirectories = true
-        panel.directoryURL = URL(fileURLWithPath: Settings.shared.workingDirectory + "/Projects")
+        panel.directoryURL = Constants.HPConnectivityKit.directoryURL
+            .appending(path: "Projects")
         panel.prompt = "Create"
         
         panel.begin { result in
@@ -178,12 +179,11 @@ final class NewProjectViewController: NSViewController, NSTextFieldDelegate, NSC
         
         var menu = NSMenu()
         
-        add(url.appendingPathComponent("Applications"), to: &menu)
+        add(url.appending(path: "Applications"), to: &menu)
         menu.addItem(NSMenuItem.separator())
-        add(url.appendingPathComponent("Programs"), to: &menu)
+        add(url.appending(path: "Programs"), to: &menu)
         menu.addItem(NSMenuItem.separator())
-        add(URL(fileURLWithPath: Settings.shared.workingDirectory + "/Libraries/Templates"), to: &menu)
-        
+        add(Constants.HPConnectivityKit.directoryURL.appending(path: "Xprime/Templates"), to: &menu)
         projectTemplate.menu = menu
     }
     

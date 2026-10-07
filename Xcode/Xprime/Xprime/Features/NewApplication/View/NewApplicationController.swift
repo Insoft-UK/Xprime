@@ -63,7 +63,8 @@ final class NewApplicationViewController: CustomViewController, NSTextFieldDeleg
         panel.canChooseDirectories = true
         panel.allowsMultipleSelection = false
         panel.canCreateDirectories = true
-        panel.directoryURL = URL(fileURLWithPath: Settings.shared.workingDirectory + "/Projects")
+        panel.directoryURL = Constants.HPConnectivityKit.directoryURL
+            .appending(path: "Projects")
         panel.prompt = "Create"
 
         panel.begin { result in

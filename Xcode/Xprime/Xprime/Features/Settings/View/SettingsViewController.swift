@@ -25,7 +25,6 @@ import Cocoa
 final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     @IBOutlet weak var substitution: NSButton!
     @IBOutlet weak var theme: NSPopUpButton!
-    @IBOutlet weak var location: NSTextField!
     @IBOutlet weak var keywordNormalization: NSButton!
     
     private var vc: MainViewController!
@@ -44,12 +43,12 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
         window.isMovable = false
         
         
-        DispatchQueue.main.async {
-            if let editor = window.fieldEditor(false, for: self.location) as? NSTextView {
-                let end = self.location.stringValue.count
-                editor.selectedRange = NSRange(location: end, length: 0)
-            }
-        }
+//        DispatchQueue.main.async {
+//            if let editor = window.fieldEditor(false, for: self.location) as? NSTextView {
+//                let end = self.location.stringValue.count
+//                editor.selectedRange = NSRange(location: end, length: 0)
+//            }
+//        }
         
         guard let window = NSApplication.shared.windows.first else {
             self.view.window?.close(); return
@@ -61,22 +60,17 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
         configureThemeSelection()
         configureSubtitutionActions()
         configureKeywordNormalizationActions()
-        
-        location.delegate = self
-        location.stringValue = Settings.shared.workingDirectory
     }
     
-    func controlTextDidChange(_ notification: Notification) {
-        guard let textField = notification.object as? NSTextField else { return }
-
-        switch textField.tag {
-        case 1:
-            Settings.shared.workingDirectory = textField.stringValue
-            break;
-        default:
-            break
-        }
-    }
+//    func controlTextDidChange(_ notification: Notification) {
+//        guard let textField = notification.object as? NSTextField else { return }
+//
+//        switch textField.tag {
+//
+//        default:
+//            break
+//        }
+//    }
     
     // MARK: - Actions
     @objc private func preferKeywordNormalizationToggled(_ sender: NSSwitch) {
@@ -108,18 +102,10 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     @IBAction func defaultSettings(_ sender: Any) {
         Settings.shared.substitutionEnabled = false
         Settings.shared.preferredTheme = Bundle.main.resourceURL!.appending(path: "HP Connectivity Kit (Light).xpcolortheme").path
-        Settings.shared.workingDirectory = FileManager
-            .default
-            .homeDirectoryForCurrentUser
-            .appendingPathComponent("Xprime")
-            .path
-        
-        location.stringValue = Settings.shared.workingDirectory
         substitution.state = .off
         
         let url = URL(fileURLWithPath: Settings.shared.preferredTheme)
         theme.selectItem(withTitle: url.deletingPathExtension().lastPathComponent)
-        
         
         vc.themeManager.applyTheme(from: url)
     }
@@ -128,11 +114,8 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     private func configureThemeSelection() {
         populateThemeSelection(from: Bundle.main.resourceURL!)
         theme.menu?.addItem(NSMenuItem.separator())
-        let url = FileManager
-            .default
-            .homeDirectoryForCurrentUser
-            .appending(path: "Xprime", directoryHint: .isDirectory)
-        populateThemeSelection(from: url.appending(path: "Themes"))
+        
+        populateThemeSelection(from: Constants.HPConnectivityKit.directoryURL.appending(path: "Xprime/Themes"))
     }
     
     private func populateThemeSelection(from directoryURL: URL) {

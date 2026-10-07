@@ -28,7 +28,6 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
     
     @IBOutlet weak var librarySearchPath: NSTextField!
     @IBOutlet weak var headerSearchPath: NSTextField!
-    @IBOutlet weak var binSearchPath: NSTextField!
     @IBOutlet weak var defaultButton: NSButton!
     @IBOutlet weak var doneButton: NSButton!
 
@@ -39,11 +38,9 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
         
         librarySearchPath.delegate = self
         headerSearchPath.delegate = self
-        binSearchPath.delegate = self
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include
-        binSearchPath.stringValue = ProjectSettings.shared.bin
         
         
     }
@@ -99,7 +96,6 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include
-        binSearchPath.stringValue = ProjectSettings.shared.bin
     }
     
  

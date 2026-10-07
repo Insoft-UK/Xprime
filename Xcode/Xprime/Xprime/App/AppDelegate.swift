@@ -27,8 +27,19 @@ import UniformTypeIdentifiers
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     @IBOutlet weak var mainMenu: NSMenu!
     
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+       
+        guard isApplicationInstalled(withBundleIdentifier: Constants.BundleIdentifier.hpConnectivityKit) else {
+            NSApp.terminate(nil)
+            return
+        }
+        
+        registerInstallation()
+        print("🔥 applicationDidFinishLaunching CALLED")
+        
+//        
+//        // Insert code here to initialize your application
         NSApp.appearance = NSAppearance(named: .darkAqua)
         
         UserDefaults.standard.set(false, forKey: "NSAutomaticPeriodSubstitutionEnabled")
@@ -38,20 +49,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         UserDefaults.standard.synchronize()
         
         NSApp.helpMenu = nil
-        
-        let url = FileManager
-            .default
-            .homeDirectoryForCurrentUser
-            .appending(path: "Xprime", directoryHint: .isDirectory)
        
-        // Create the Xprime default working directory if missing!
-        if !url.hasDirectoryPath {
+        if !Constants.HPConnectivityKit.directoryURL.hasDirectoryPath {
             let directorys: [URL] = [
-                url,
-                url.appending(path: "Projects"),
-                url.appending(path: "Libraries"),
-                url.appending(path: "Libraries/Templates"),
-                url.appending(path: "Themes")
+                Constants.HPConnectivityKit.directoryURL,
+                Constants.HPConnectivityKit.directoryURL.appending(path: "Xprime/Templates"),
+                Constants.HPConnectivityKit.directoryURL.appending(path: "Xprime/Themes"),
+                Constants.HPConnectivityKit.directoryURL.appending(path: "Projects")
             ]
             directorys.forEach {
                 try? FileManager.default.createDirectory(
@@ -59,9 +63,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
                     withIntermediateDirectories: true
                 )
             }
-            FileManager.default.changeCurrentDirectoryPath(url.appendingPathComponent("Projects").path)
-            Settings.shared.workingDirectory = url.path
         }
+        
+        FileManager.default.changeCurrentDirectoryPath(Constants.HPConnectivityKit.directoryURL.appendingPathComponent("Projects").path)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

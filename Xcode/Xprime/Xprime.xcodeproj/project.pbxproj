@@ -162,7 +162,7 @@
 				"echo \"{\\n\\",
 				"    \\\"latestVersion\\\": \\\"${VERSION}.${BUILD}\\\",\\n\\",
 				"    \\\"build\\\": \\\"${BUILD}\\\",\\n\\",
-				"    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=xprime_${BUILD}.zip\\\",\\n\\",
+				"    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=xprime.zip\\\",\\n\\",
 				"    \\\"minimumOS\\\": \\\"${MIN_OS}\\\",\\n\\",
 				"    \\\"architecture\\\": \\\"${ARCHITECTURE}\\\",\\n\\",
 				"    \\\"releaseNotesURL\\\": \\\"http://insoft.uk/xprime-release-notes.txt\\\"\\n\\",
@@ -322,7 +322,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20261005;
+				CURRENT_PROJECT_VERSION = 20261007;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8XN79M4JCJ;
 				ENABLE_APP_SANDBOX = NO;
@@ -355,7 +355,7 @@
 				MARKETING_VERSION = 27.1;
 				MTL_HEADER_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.Xprime;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.xprime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;
@@ -385,7 +385,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20261005;
+				CURRENT_PROJECT_VERSION = 20261007;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8XN79M4JCJ;
 				ENABLE_APP_SANDBOX = NO;
@@ -417,7 +417,7 @@
 				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 27.1;
 				MTL_HEADER_SEARCH_PATHS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.Xprime;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.xprime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				REGISTER_APP_GROUPS = YES;

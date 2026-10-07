@@ -196,7 +196,7 @@ final class ProjectManager {
         
         FileManager
             .default
-            .changeCurrentDirectoryPath(Settings.shared.workingDirectory)
+            .changeCurrentDirectoryPath(Constants.HPConnectivityKit.directoryURL.appending(path: "Projects").path)
         
         delegate?.projectManagerDidClose(self)
     }

@@ -392,7 +392,7 @@ final class CodeEditorTextView: NSTextView {
  
     override func didChangeText() {
         super.didChangeText()
-        applySyntaxHighlighting()
+        
 
         if isDeleting {
             isDeleting = false
@@ -452,6 +452,7 @@ final class CodeEditorTextView: NSTextView {
         }
         
         stub()
+        applySyntaxHighlighting()
     }
 
     

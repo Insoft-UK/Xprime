@@ -42,4 +42,20 @@ enum Constants {
         static let hpConnectivityKit = "com.moravia-consulting.hp-connectivity-kit"
         static let hpConnectivityKitBeta = "com.moravia-consulting.hp-connectivity-kit.beta"
     }
+    
+    enum HPConnectivityKit {
+        static let directoryURL = FileManager
+            .default
+            .homeDirectoryForCurrentUser
+            .appending(path: "Documents", directoryHint: .isDirectory)
+            .appending(path: "HP Connectivity Kit", directoryHint: .isDirectory)
+    }
+    
+    enum HPPrime {
+        static let directoryURL = FileManager
+            .default
+            .homeDirectoryForCurrentUser
+            .appending(path: "Documents", directoryHint: .isDirectory)
+            .appending(path: "HP Prime", directoryHint: .isDirectory)
+    }
 }

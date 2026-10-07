@@ -22,8 +22,8 @@
 
 import Cocoa
 
-fileprivate let hoverColor = NSColor(white: 1.0, alpha: 0.05)
-fileprivate let pressedColor = NSColor(white: 1.0, alpha: 0.1)
+fileprivate let hoverColor = NSColor(white: 1.0, alpha: 0.1)
+fileprivate let pressedColor = NSColor(white: 1.0, alpha: 0.25)
 
 //@IBDesignable
 final class CustomIconButton: NSButton {

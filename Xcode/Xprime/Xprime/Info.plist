@@ -21,7 +21,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>uk.insoft.Xprime.xprimeproj</string>
+				<string>uk.insoft.xprime.xprimeproj</string>
 			</array>
 		</dict>
 		<dict>
@@ -41,7 +41,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>uk.insoft.Xprime.hpppl</string>
+				<string>uk.insoft.xprime.hpppl</string>
 			</array>
 		</dict>
 		<dict>
@@ -62,7 +62,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>uk.insoft.Xprime.hppplplus</string>
+				<string>uk.insoft.xprime.hppplplus</string>
 			</array>
 		</dict>
 		<dict>
@@ -82,7 +82,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>uk.insoft.Xprime.note</string>
+				<string>uk.insoft.xprime.note</string>
 			</array>
 		</dict>
 		<dict>
@@ -101,7 +101,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>uk.insoft.Xprime.hpprgm</string>
+				<string>uk.insoft.xprime.hpprgm</string>
 			</array>
 		</dict>
 		<dict>
@@ -120,7 +120,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>uk.insoft.Xprime.hpnote</string>
+				<string>uk.insoft.xprime.hpnote</string>
 			</array>
 		</dict>
 		<dict>
@@ -139,7 +139,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>uk.insoft.Xprime.data</string>
+				<string>uk.insoft.xprime.data</string>
 			</array>
 		</dict>
 		<dict>
@@ -157,7 +157,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>uk.insoft.Xprime.bin</string>
+				<string>uk.insoft.xprime.bin</string>
 			</array>
 		</dict>
 	</array>
@@ -165,6 +165,11 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>api.insoft.uk</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>insoft.uk</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -181,8 +186,10 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Xprime Project</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.xprimeproj</string>
+			<string>uk.insoft.xprime.xprimeproj</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -198,8 +205,10 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>HP PPL</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.hpppl</string>
+			<string>uk.insoft.xprime.hpppl</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -218,7 +227,7 @@
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.hppplplus</string>
+			<string>uk.insoft.xprime.hppplplus</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -235,8 +244,10 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>HP Note</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.note</string>
+			<string>uk.insoft.xprime.note</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -255,7 +266,7 @@
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.hpprgm</string>
+			<string>uk.insoft.xprime.hpprgm</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -275,7 +286,7 @@
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.hpnote</string>
+			<string>uk.insoft.xprime.hpnote</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -295,7 +306,7 @@
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.data</string>
+			<string>uk.insoft.xprime.data</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -315,8 +326,10 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Xprime Project</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.xprimeproj</string>
+			<string>uk.insoft.xprime.xprimeproj</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -332,8 +345,10 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>HP PPL</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.hpppl</string>
+			<string>uk.insoft.xprime.hpppl</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -349,8 +364,10 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>HP PPL+</string>
+			<key>UTTypeIcons</key>
+			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.hppplplus</string>
+			<string>uk.insoft.xprime.hppplplus</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -369,7 +386,7 @@
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.Xprime.note</string>
+			<string>uk.insoft.xprime.note</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

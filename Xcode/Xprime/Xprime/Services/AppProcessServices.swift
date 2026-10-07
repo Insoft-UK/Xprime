@@ -130,3 +130,69 @@ func killProcess(named name: String) {
     do { try process.run() }
     catch { print("Failed to kill: \(error)") }
 }
+
+func registerInstallation() {
+
+    print("registerInstallation: START")
+
+    let uuid = XprimeUserID.get()
+    print("registerInstallation: UUID =", uuid)
+
+    var components = URLComponents(
+        string: "http://api.insoft.uk/"
+    )!
+    
+    
+    components.queryItems = [
+        URLQueryItem(name: "method", value: "installation"),
+        URLQueryItem(name: "uuid", value: uuid),
+        URLQueryItem(
+            name: "bundle_id",
+            value: Bundle.main.bundleIdentifier ?? ""
+        ),
+        URLQueryItem(
+            name: "app_version",
+            value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
+        ),
+        URLQueryItem(
+            name: "build",
+            value: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+        ),
+        URLQueryItem(
+            name: "macos_version",
+            value: ProcessInfo.processInfo.operatingSystemVersionString
+        )
+    ]
+
+    guard let url = components.url else {
+        print("registerInstallation: INVALID URL")
+        return
+    }
+
+    print("registerInstallation: URL =", url.absoluteString)
+    print("registerInstallation: starting request")
+
+    URLSession.shared.dataTask(with: url) { data, response, error in
+
+        print("registerInstallation: RESPONSE")
+
+        if let error {
+            print("API error:", error)
+            return
+        }
+
+        if let httpResponse = response as? HTTPURLResponse {
+            print("HTTP status:", httpResponse.statusCode)
+        }
+
+        guard let data else {
+            print("No data returned")
+            return
+        }
+
+        print(String(data: data, encoding: .utf8) ?? "")
+        
+    }.resume()
+
+    print("registerInstallation: REQUEST STARTED")
+}

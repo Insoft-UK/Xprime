@@ -20,9 +20,12 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 /// SOFTWARE.
 #pragma mode( separator(.,;) integer(h64) )
+USES HP;
+$
 {$ADDON hpfont.h}
 LOCAL Small := {$I SmallFontCodes.h};
 LOCAL Large := {$I LargeFontCodes.h};
+LOCAL Font10 := {$I Font10.h};
 
 EXPORT START()
 BEGIN
@@ -34,7 +37,7 @@ BEGIN
     RECT(2^24-1);
     DRAWMENU({"Small", "Large", "", "NORMAL", "BOLD", "EXIT"});
     HP.TEXTOUT(txt, G0, 8, 8, f, 0, RGB(0,0,0,255), IFTE(w=="BOLD",2,1));
-    HP.TEXTOUT(w, G0, 8, 32, HP.Sys10, 0, RGB(0,0,0,255), 2);
+    HP.TEXTOUT(w, G0, 8, 32, Font10, 0, RGB(0,0,0,255), 2);
     
     LOCAL ms;
     REPEAT

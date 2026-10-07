@@ -5,6 +5,7 @@ from graphic import *
 import grob
 import glyth
 
+
 bmp = [
     [0xFEDCBA9076543210],
     [16, 1, 4],

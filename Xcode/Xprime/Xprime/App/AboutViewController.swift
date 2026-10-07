@@ -43,6 +43,7 @@ final class AboutViewController: NSViewController {
     override func viewDidAppear() {
         super.viewDidAppear()
         
+        
         guard let window = view.window else { return }
         
         // Make window background transparent
@@ -83,8 +84,40 @@ final class AboutViewController: NSViewController {
                 layer.borderColor = NSColor(white: 0.5, alpha: 0.15).cgColor
             }
         }
+        
+        
+        
+        func findTextField(
+            in view: NSView,
+            identifier: NSUserInterfaceItemIdentifier
+        ) -> NSTextField? {
+            if let textField = view as? NSTextField,
+               textField.identifier == identifier {
+                return textField
+            }
+
+            for subview in view.subviews {
+                if let result = findTextField(in: subview, identifier: identifier) {
+                    return result
+                }
+            }
+
+            return nil
+        }
+    
+        
+        if let userID = findTextField(
+            in: view,
+            identifier: NSUserInterfaceItemIdentifier("userID")
+        ) {
+            userID.stringValue = XprimeUserID.get()
+        }
+        
+        
 
     }
+    
+   
     
     override func mouseDown(with event: NSEvent) {
         if event.modifierFlags.contains(.option) {

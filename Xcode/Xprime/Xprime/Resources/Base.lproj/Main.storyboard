@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="25098"/>
         <plugIn identifier="com.apple.WebKit2IBPlugin" version="25098"/>
         <capability name="Combo buttons" minToolsVersion="14.0" minSystemVersion="13.0"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -147,24 +148,6 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="1" textCompletion="NO" contentType="url" translatesAutoresizingMaskIntoConstraints="NO" id="1Fp-9q-ftS" customClass="CustomRoundedTextField" customModule="Xprime" customModuleProvider="target">
-                                <rect key="frame" x="164" y="134" width="185" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="Lbs-C0-mLY">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AcZ-cO-DR7">
-                                <rect key="frame" x="18" y="138" width="136" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="right" title="Working Directory" id="2vR-94-ek3">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                             <button allowsExpansionToolTips="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dFc-xJ-ToO">
                                 <rect key="frame" x="164" y="210" width="266" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -203,7 +186,6 @@ Gw
                     </view>
                     <connections>
                         <outlet property="keywordNormalization" destination="0lQ-hB-KDr" id="dZY-fQ-DB2"/>
-                        <outlet property="location" destination="1Fp-9q-ftS" id="ec8-A0-zFd"/>
                         <outlet property="substitution" destination="dFc-xJ-ToO" id="o84-fR-e52"/>
                         <outlet property="theme" destination="yVB-zB-biD" id="0za-gl-qKf"/>
                     </connections>
@@ -1373,24 +1355,6 @@ Gw
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="3" textCompletion="NO" contentType="url" translatesAutoresizingMaskIntoConstraints="NO" id="eTR-5f-30q" customClass="CustomRoundedTextField" customModule="Xprime" customModuleProvider="target">
-                                            <rect key="frame" x="187" y="78" width="230" height="23"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="7J9-Cq-ocy">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cY2-hL-qTe">
-                                            <rect key="frame" x="16" y="84" width="165" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Executable Search Paths" id="uZ7-k2-BjJ">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                     </subviews>
                                 </view>
                                 <color key="borderColor" name="quinaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -1399,7 +1363,6 @@ Gw
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="binSearchPath" destination="eTR-5f-30q" id="bUQ-lz-XsV"/>
                         <outlet property="defaultButton" destination="zef-RL-Kg5" id="ws1-hx-wty"/>
                         <outlet property="doneButton" destination="rsD-fj-6VW" id="KQi-rw-xtt"/>
                         <outlet property="headerSearchPath" destination="DNH-Ob-HLu" id="QEq-Ni-dgO"/>
@@ -1468,6 +1431,15 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField identifier="userID" autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AxL-tE-Csm">
+                                <rect key="frame" x="18" y="417" width="524" height="11"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="UserID" id="bxc-3f-H1n">
+                                    <font key="font" metaFont="miniSystem"/>
+                                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
@@ -1493,42 +1465,20 @@ Gw
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Pr6-Kd-yB2"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="vRb-OI-uPy"/>
-                                <toolbarItem implicitItemIdentifier="FD3A549D-C6D5-4AD7-894C-2FB4D0FCDB03" label="Stop" paletteLabel="Stop" toolTip="Stop the running program or application" image="stop.fill" catalog="system" id="7F3-R4-xVo">
-                                    <size key="minSize" width="32" height="32"/>
-                                    <size key="maxSize" width="32.5" height="32"/>
-                                    <button key="view" id="d54-Xe-ptl" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="14" width="32.5" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="stop.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="xG3-gj-pPM">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
+                                <toolbarItem implicitItemIdentifier="C3BDBDB5-C20B-4F03-B159-70C81DA931D5" label="Stop" paletteLabel="Stop" tag="-1" bordered="YES" autovalidates="NO" id="wEh-dO-kom">
+                                    <imageReference key="image" image="stop.fill" catalog="system" symbolScale="large"/>
+                                    <size key="minSize" width="36" height="24"/>
+                                    <size key="maxSize" width="36" height="24"/>
                                     <connections>
-                                        <action selector="stop:" target="Oky-zY-oP4" id="7Ps-RH-tqc"/>
+                                        <action selector="stop:" target="Oky-zY-oP4" id="mqz-70-yHD"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="77F54E77-8651-47EE-8ED0-02A8B4B7593B" label="Run" paletteLabel="Run" toolTip="Build then run the current program or application" image="play.fill" catalog="system" id="tqN-1u-Kyt">
-                                    <size key="minSize" width="32" height="32"/>
-                                    <size key="maxSize" width="32.5" height="32"/>
-                                    <button key="view" id="hbG-nK-8fJ" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="14" width="32.5" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="play.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="Dtq-36-7He">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
+                                <toolbarItem implicitItemIdentifier="6C1A55C2-E47F-4AD3-AD88-8214908B974F" label="Run" paletteLabel="Run" tag="-1" bordered="YES" autovalidates="NO" id="xT0-NP-Y35">
+                                    <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                    <size key="minSize" width="36" height="24"/>
+                                    <size key="maxSize" width="36" height="24"/>
                                     <connections>
-                                        <action selector="run:" target="Oky-zY-oP4" id="9dc-wQ-PH4"/>
+                                        <action selector="run:" target="Oky-zY-oP4" id="utN-93-Z1v"/>
                                     </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="5D9A4051-12F0-4C08-BA1E-ADBF0B51D3E1" label="" paletteLabel="Custom Space" tag="-1" id="XU0-4H-hqw">
@@ -1540,15 +1490,17 @@ Gw
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                     </customView>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="1BE36892-94F0-4E13-91AA-3C6499C27A6F" label="Build" paletteLabel="Build" toolTip="Build" image="hammer.fill" catalog="system" id="kxh-qG-rQF">
+                                <toolbarItem implicitItemIdentifier="1BE36892-94F0-4E13-91AA-3C6499C27A6F" label="Build" paletteLabel="Build" toolTip="Build" autovalidates="NO" id="kxh-qG-rQF">
+                                    <imageReference key="image" image="hammer.fill" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="32" height="32"/>
                                     <size key="maxSize" width="32" height="32"/>
                                     <button key="view" id="Hvj-VY-gJD" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
                                         <rect key="frame" x="1" y="14" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="hammer.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="71w-BX-aTB">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="71w-BX-aTB">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <imageReference key="image" image="hammer.fill" catalog="system" symbolScale="large"/>
                                         </buttonCell>
                                         <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
@@ -1567,15 +1519,17 @@ Gw
                                         <menu key="menu" autoenablesItems="NO" id="G1h-cf-dCG"/>
                                     </comboButton>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="C1553287-6235-4E95-8327-ACD13917EFBF" label="Save" paletteLabel="Save" toolTip="Save" image="square.and.arrow.down.fill" catalog="system" id="KW1-hx-Skc">
+                                <toolbarItem implicitItemIdentifier="9D0EDB37-8D3A-4493-B0B9-0E205E158B24" label="Show Build Folder in Finder" paletteLabel="Show Build Folder in Finder" toolTip="Build" id="WJW-BH-LDL">
+                                    <imageReference key="image" image="folder" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="32" height="32"/>
                                     <size key="maxSize" width="32.5" height="32"/>
-                                    <button key="view" id="xl4-rY-aVp" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="14" width="32.5" height="32"/>
+                                    <button key="view" id="nQy-Ac-TtU" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                        <rect key="frame" x="59" y="14" width="32.5" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="square.and.arrow.down.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="wJo-ru-gIo">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="Z0t-Zr-Hnu">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <imageReference key="image" image="folder" catalog="system" symbolScale="large"/>
                                         </buttonCell>
                                         <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
@@ -1583,26 +1537,7 @@ Gw
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <connections>
-                                        <action selector="saveDocument:" target="Oky-zY-oP4" id="jAh-9j-Vyy"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="B7AC0D01-1605-4B58-85DA-770450A65580" label="Save As" paletteLabel="Save As" toolTip="Save As" image="square.and.arrow.down.on.square.fill" catalog="system" id="X3f-Rs-CuT">
-                                    <size key="minSize" width="32" height="32"/>
-                                    <size key="maxSize" width="32.5" height="32"/>
-                                    <button key="view" id="Zig-iq-5ZG" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="14" width="32.5" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="square.and.arrow.down.on.square.fill" catalog="system" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="v3L-uL-ZaJ">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                    <connections>
-                                        <action selector="saveDocumentAs:" target="Oky-zY-oP4" id="K72-sn-4VE"/>
+                                        <action selector="showBuildFolderInFinder:" target="Oky-zY-oP4" id="1O4-h5-IPv"/>
                                     </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -1611,8 +1546,8 @@ Gw
                                 <toolbarItem reference="vRb-OI-uPy"/>
                                 <toolbarItem reference="kxh-qG-rQF"/>
                                 <toolbarItem reference="XU0-4H-hqw"/>
-                                <toolbarItem reference="7F3-R4-xVo"/>
-                                <toolbarItem reference="tqN-1u-Kyt"/>
+                                <toolbarItem reference="wEh-dO-kom"/>
+                                <toolbarItem reference="xT0-NP-Y35"/>
                             </defaultToolbarItems>
                         </toolbar>
                     </window>
@@ -1953,14 +1888,15 @@ Gw
         <image name="document.badge.plus" catalog="system" width="16" height="18"/>
         <image name="eraser.fill" catalog="system" width="16" height="15"/>
         <image name="flowchart" catalog="system" width="17" height="17"/>
+        <image name="folder" catalog="system" width="23" height="18"/>
         <image name="gear" catalog="system" width="17" height="17"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="hammer.fill" catalog="system" width="24" height="23"/>
         <image name="help-about" width="18" height="18"/>
         <image name="increase.indent" width="16" height="16"/>
         <image name="magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="minus.magnifyingglass" catalog="system" width="16" height="15"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="play.fill" catalog="system" width="15" height="17"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="plus.magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="replacement" width="16" height="16"/>
@@ -1968,10 +1904,8 @@ Gw
         <image name="screwdriver.fill" catalog="system" width="19" height="18"/>
         <image name="shippingbox" catalog="system" width="16" height="17"/>
         <image name="shippingbox.fill" catalog="system" width="16" height="16"/>
-        <image name="square.and.arrow.down.fill" catalog="system" width="15" height="16"/>
-        <image name="square.and.arrow.down.on.square.fill" catalog="system" width="18" height="19"/>
         <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
-        <image name="stop.fill" catalog="system" width="14" height="13"/>
+        <image name="stop.fill" catalog="system" width="18" height="17"/>
         <image name="text.document" catalog="system" width="14" height="16"/>
         <image name="text.pad.header" catalog="system" width="16" height="14"/>
         <image name="xmark" catalog="system" width="14" height="13"/>

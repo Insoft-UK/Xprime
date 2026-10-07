@@ -27,7 +27,7 @@ private enum DefaultsKey {
     static let preferredTheme = "PreferredTheme"
     static let lastOpenedFile = "LastOpenedFile"
     static let lastOpenedProjectFile = "LastOpenedProjectFile"
-    static let workingDirectory = "WorkingDirectory"
+//    static let workingDirectory = "WorkingDirectory"
     static let supportedDocumentExtensions = "SupportedDocumentExtensions"
     static let allowedOpenFileExtensions = "AllowedOpenFileExtensions"
     static let allowedSaveFileExtensions = "AllowedSaveFileExtensions"
@@ -53,15 +53,16 @@ final class Settings {
     @UserDefault(key: DefaultsKey.lastOpenedProjectFile, defaultValue: "")
     var lastOpenedProjectFile: String
     
-    @UserDefault(
-        key: DefaultsKey.workingDirectory,
-        defaultValue: FileManager
-            .default
-            .homeDirectoryForCurrentUser
-            .appending(path: "Xprime", directoryHint: .isDirectory)
-            .path
-    )
-    var workingDirectory: String
+//    @UserDefault(
+//        key: DefaultsKey.workingDirectory,
+//        defaultValue: FileManager
+//            .default
+//            .homeDirectoryForCurrentUser
+//            .appending(path: "Documents", directoryHint: .isDirectory)
+//            .appending(path: "Xprime", directoryHint: .isDirectory)
+//            .path
+//    )
+//    var workingDirectory: String
     
     @UserDefault(
         key: DefaultsKey.supportedDocumentExtensions,

@@ -538,11 +538,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             return menu
         }
         
-        let url = FileManager
-            .default
-            .homeDirectoryForCurrentUser
-            .appending(path: "Xprime", directoryHint: .isDirectory)
-            .appending(path: "Libraries/Snippets")
+        let url = Constants.HPConnectivityKit.directoryURL
+            .appending(path: "Xprime/Snippets")
             .appending(path: documentManager.currentDocumentURL?.pathExtension ?? "hpppl")
         
         guard let item = menu.item(withTitle: "Edit")?.submenu?.item(withTitle: "Snippet") else { return }
@@ -692,11 +689,21 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     @objc private func handleOpenRecent(_ sender: NSMenuItem) {
         guard let url = sender.representedObject as? URL else { return }
         
-        if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
+        if let projectDirectoryURL = projectManager.projectDirectoryURL,
+           let projectName = projectManager.projectName {
+            let projURL = projectDirectoryURL
+                .appending(path: projectName)
+                .appendingPathExtension("xprimeproj")
+            if url == projURL {
+                return
+            }
+        }
+        
+        if let currentDocumentURL = documentManager.currentDocumentURL, documentManager.documentIsModified {
             AlertPresenter.presentYesNo(
                 on: view.window,
                 title: "Save Changes",
-                message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
+                message: "Save changes to ‘\(currentDocumentURL.lastPathComponent)’ before opening another project.",
                 primaryActionTitle: "Save"
             ) { confirmed in
                 if confirmed {
@@ -1440,8 +1447,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     }
     
     @IBAction func run(_ sender: Any) {
-        buildForRunning(sender)
-        guard documentManager.currentDocumentURL != nil else { return }
         if !isApplicationInstalled(withBundleIdentifier: Constants.BundleIdentifier.hpPrime) {
             AlertPresenter.showInfo(on: view.window, title: "Virtual Calculator", message: "HP Prime is not installed.")
             return
@@ -1450,8 +1455,21 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         if isApplicationRunning(
             withBundleIdentifier: Constants.BundleIdentifier.hpPrime
         ) {
-            restartApplication(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
+            terminateApp(withBundleIdentifier: Constants.BundleIdentifier.hpPrime) {
+                runApplication(
+                    withBundleIdentifier: Constants.BundleIdentifier.hpPrime
+                )
+                
+                buildAndRun()
+            }
         } else {
+            buildAndRun()
+        }
+        
+        func buildAndRun() {
+            buildForRunning(sender)
+            guard documentManager.currentDocumentURL != nil else { return }
+            
             runApplication(
                 withBundleIdentifier: Constants.BundleIdentifier.hpPrime
             )
@@ -1661,11 +1679,15 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         
         if let toolbar = view.window?.toolbar {
             for item in toolbar.items {
-                switch item.label {
-                case "Stop":
-                    item.isEnabled = isApplicationRunning(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
+                switch item.paletteLabel {
                 case "Build", "Run":
                     item.isEnabled = projectManager.projectDirectoryURL != nil
+                case "Stop":
+                    item.isEnabled = isApplicationRunning(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
+                
+                    /*
+                     An instance of “Xprime” is already running. Would you like to terminate it and launch a new instance, or add an additional instance?
+                     */
                 default:
                     item.isEnabled = true
                 }
@@ -1690,6 +1712,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             return false
             
         case #selector(exportToConnectivityKit(_:)):
+            guard isApplicationInstalled(withBundleIdentifier: Constants.BundleIdentifier.hpConnectivityKit) else {
+                return false
+            }
             guard let url = projectManager.projectDirectoryURL, let name = projectManager.projectName else { return false }
             if FileManager.default.fileExists(atPath: url.appending(path: "\(name).hpprgm").path) {
                 return true
@@ -1804,9 +1829,10 @@ extension MainViewController: DocumentManagerDelegate {
 #endif
         if let url = documentManager.currentDocumentURL {
             loadAppropriateGrammar(forType: url.pathExtension.lowercased())
-            let snippetsURL = URL(filePath: Settings.shared.workingDirectory)
-                .appending(path: "Libraries")
-                .appending(path: "Snippets")
+            let snippetsURL = Constants.HPConnectivityKit.directoryURL
+                .appending(path: "Xprime/Snippets")
+        
+            
             if url.pathExtension.lowercased() == "hppplplus" {
                 codeEditorTextView.reloadSnippets(from: snippetsURL.appending(path: "hpppl"))
             } else {
@@ -1880,6 +1906,7 @@ extension MainViewController: ProjectManagerDelegate {
             }
         }
         
+        outputTextView.string = ""
     }
     
     func projectManager(_ manager: ProjectManager, didFailToOpen error: any Error) {
@@ -1896,5 +1923,8 @@ extension MainViewController: ProjectManagerDelegate {
         updateWindowDocumentIcon()
         Settings.shared.lastOpenedProjectFile = ""
         notesButton.isEnabled = false
+        
+        outputTextView.string = ""
+        validateToolbarItems()
     }
 }
