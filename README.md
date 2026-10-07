@@ -20,7 +20,7 @@ Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Pri
 >[!NOTE]
 >Xprime 27 generates .hpprgm and .hpappprgm files using the G2 format.
 
-***Download link:*** [Xprime](http://insoft.uk/xprime.php)</br>
+***Website:*** [Xprime](http://insoft.uk/xprime.php)</br>
 
 **Xprime 27.1**</br>
 The **Xprime folder**, which was previously located in the user’s home directory, is now located inside the **HP Connectivity Kit folder** within the user’s **Documents folder**.
