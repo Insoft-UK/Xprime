@@ -20,7 +20,7 @@ Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Pri
 ***Website:*** [Xprime](http://insoft.uk/xprime.php)</br>
 
 >[!NOTE]
->**Xprime 27.1** brings some changes, the **Xprime folder**, which was previously located in the user’s home directory, is now located inside the **HP Connectivity Kit folder** within the user’s **Documents folder**. XPrime 27.1 also introduces a new cloud-based help system. Help documentation is now supplied online, allowing updates and improvements to be made independently of the Xprime application itself.
+>**Xprime 27.1** brings some changes, the **Xprime folder**, which was previously located in the user’s home directory, is now located inside the **HP Connectivity Kit folder** within the user’s **Documents folder**. Xprime 27.1 also introduces a new cloud-based help system. Help documentation is now supplied online, allowing updates and improvements to be made independently of the Xprime application itself.
 
 The **Projects folder**, which was previously located inside the Xprime folder, has been moved outside of it and now resides directly within the HP Connectivity Kit folder.
 
