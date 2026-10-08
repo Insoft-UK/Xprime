@@ -5,7 +5,7 @@
 
 This is a handy utility that goes well with the original [fontconvert](https://github.com/adafruit/Adafruit-GFX-Library/tree/master/fontconvert) tool provided by [Adafruit](https://www.adafruit.com/) for converting Adafruit_GFX `.h` to Adafruit_GFX `.hpprgm` format.
 
-Download links: [macOS Apple silicon](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-arm64.zip) | [macOS Intel](http://insoft.uk/action/?method=downlink&path=macos&file=hpfont-x86_64.zip) | [Windows](http://insoft.uk/action/?method=downlink&path=pc&file=hpfont-win-x86_64.zip) | [Linux](http://insoft.uk/action/?method=downlink&path=linux&file=hpfont-linux-x86_64.zip)
+
 
 
 
