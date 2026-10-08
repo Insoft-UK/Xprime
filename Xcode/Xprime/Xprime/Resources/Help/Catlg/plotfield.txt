@@ -1,4 +1,0 @@
-Syntax:
-plotfield(Expr,VectVar,[Opt])
-
-plotfield(f(t,y),[t,y]) draws the slope field of the differential equation y&#39;=f(t,y)

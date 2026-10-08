@@ -1,7 +1,0 @@
-Syntax:
-is_concyclic(Point1, Point2, …, Pointn)
-
-Takes a set of points as argument and tests if they are all on the same circle. Returns 1 if the points are all on the same circle and 0 otherwise.
-
-Example:
-is_concyclic(point(-4,-2), point(-4,2), point(4,-2), point(4,2)) returns 1

@@ -1,4 +1,0 @@
-Syntax:
-BITNOT(int)
-
-Bitwise logical NOT. Takes one integer as input and returns its bitwise not.

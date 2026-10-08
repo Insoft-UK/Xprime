@@ -1,7 +1,0 @@
-Syntax:
-preval(f(Var), Real1, Real2, [Var])
-
-Returns f(Real2)-f(Real1).
-
-Example:
-preval(x^2-2,2,3) returns 5

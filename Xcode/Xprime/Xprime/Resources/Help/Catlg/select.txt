@@ -1,7 +1,0 @@
-Syntax:
-select(FncBool(f),Lst(l))
-
-Selects the elements e of l such that f(e)=true
-
-Example:
-select(x->x>=5,[1,2,6,7]) returns [6,7]

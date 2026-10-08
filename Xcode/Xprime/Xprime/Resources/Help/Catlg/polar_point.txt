@@ -1,4 +1,0 @@
-Syntax:
-polar_point(Real(r),Real(t))
-
-Returns the point (for 2D) with the arguments r and t as polar coordinates.

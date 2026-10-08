@@ -1,4 +1,0 @@
-Syntax:
-EXP(value)
-
-The natural exponential. This is more accurate than e^x due to limitations of the power function.

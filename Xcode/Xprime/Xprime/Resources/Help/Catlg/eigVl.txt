@@ -1,7 +1,0 @@
-Syntax:
-eigVl(Mtrx(A))
-
-Returns the Jordan matrix associated to A when the eigenvalues are calculable.
-
-Example:
-eigVl([[4,1],[-4,0]]) returns [[2,1],[0,2]]

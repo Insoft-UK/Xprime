@@ -1,6 +1,0 @@
-Syntax:
-LOCAL var_1[:=value][, more variables];
-
-Declares a local variable.
-If the declaration is in a function block, these variables will be local to the function.
-if the declaration is in the main program body, the variables are local to the program.

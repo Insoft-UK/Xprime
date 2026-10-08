@@ -33,7 +33,7 @@ enum ToolchainPaths {
     static var bin: String {
         resolveUserPath(
             key: "bin",
-            fallback: "$(SDKROOT)/bin",
+            fallback: Constants.Toolchain.bin,
             bundled: developerRoot.appendingPathComponent("usr/bin")
         )
     }
@@ -41,7 +41,7 @@ enum ToolchainPaths {
     static var include: String {
         resolveUserPath(
             key: "include",
-            fallback: "$(SDKROOT)/include",
+            fallback: Constants.Toolchain.include,
             bundled: developerRoot.appending(path: "usr/include")
         )
     }
@@ -49,7 +49,7 @@ enum ToolchainPaths {
     static var lib: String {
         resolveUserPath(
             key: "lib",
-            fallback: "$(SDKROOT)/lib",
+            fallback: Constants.Toolchain.lib,
             bundled: developerRoot.appending(path: "usr/lib")
         )
     }
@@ -57,7 +57,7 @@ enum ToolchainPaths {
     public static func resolvePath(_ path: String) -> String {
         return path
             .replacingOccurrences(
-                of: "$(SDKROOT)",
+                of: "$(DEVROOT)",
                 with: developerRoot
                     .appending(path: "usr")
                     .path
@@ -82,7 +82,7 @@ enum ToolchainPaths {
 
         return value
             .replacingOccurrences(
-                of: "$(SDKROOT)",
+                of: "$(DEVROOT)",
                 with: developerRoot
                     .appending(path: "usr")
                     .path

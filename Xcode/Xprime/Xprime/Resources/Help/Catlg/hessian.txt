@@ -1,7 +1,0 @@
-Syntax:
-hessian(Expr,LstVar)
-
-Returns the hessian matrix of the expression Expr.
-
-Example:
-hessian(2*x^2*y-x*z,[x,y,z]) returns [[4*y,4*x,-1],[2*2*x,0,0],[-1,0,0]]

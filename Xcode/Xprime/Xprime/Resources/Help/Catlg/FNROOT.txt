@@ -1,7 +1,0 @@
-Syntax:
-FNROOT(expression, variable, [guess], [guess2])
-
-Function root-finder (like the Solve app). Finds the value for variable at which expression most nearly evaluates to zero. Uses guess as initial estimate.
-
-Example:
-FNROOT(M*9.8/600-1, M, 1) returns 61.2244897959

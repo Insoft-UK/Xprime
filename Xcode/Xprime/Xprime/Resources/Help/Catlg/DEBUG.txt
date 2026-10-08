@@ -1,4 +1,0 @@
-Syntax:
-DEBUG(ProgramName(arguments))
-
-

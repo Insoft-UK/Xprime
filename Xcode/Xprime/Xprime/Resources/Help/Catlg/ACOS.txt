@@ -1,8 +1,0 @@
-Syntax:
-ACOS(Value)
-
-ACOS: the inverse cosine function.
-This Shift-key combination returns the inverse cosine of Value.  The output depends on the Angle Measure setting.
-
-Example:
-ACOS(-1) returns 3.14159265359

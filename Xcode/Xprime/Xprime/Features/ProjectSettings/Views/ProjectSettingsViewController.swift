@@ -90,9 +90,9 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
         ProjectSettings.shared.archiveProjectAppOnly = true
         ProjectSettings.shared.plainFallbackText = true
         ProjectSettings.shared.compression = false
-        ProjectSettings.shared.include = "$(SDKROOT)/include"
-        ProjectSettings.shared.lib = "$(SDKROOT)/lib"
-        ProjectSettings.shared.bin = "$(SDKROOT)/bin"
+        ProjectSettings.shared.include = Constants.Toolchain.include
+        ProjectSettings.shared.lib = Constants.Toolchain.lib
+        ProjectSettings.shared.bin = Constants.Toolchain.bin
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include

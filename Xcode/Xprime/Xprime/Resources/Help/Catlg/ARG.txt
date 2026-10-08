@@ -1,7 +1,0 @@
-Syntax:
-ARG(x+yi)
-
-The ARG function finds the angle determined by a complex number.
-
-Example:
-ARG(3+3i) returns 45 in degree mode.

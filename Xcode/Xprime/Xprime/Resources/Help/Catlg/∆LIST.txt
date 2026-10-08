@@ -1,7 +1,0 @@
-Syntax:
-ΔLIST(list)
-
-List Difference. Creates a new list composed of the first differences of list; that is, the differences between the sequential elements in list. The new list has one fewer elements than list.
-
-Example:
-ΔLIST({1, 2, 3, 5, 8}) returns {1, 1, 2, 3}

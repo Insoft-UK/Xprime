@@ -1,7 +1,0 @@
-Syntax:
-laplace(Expr,[Var],[LapVar])
-
-Returns the Laplace transform of Expr.
-
-Example:
-laplace(exp(x)*sin(x)) returns 1/(x^2-2*x+2)

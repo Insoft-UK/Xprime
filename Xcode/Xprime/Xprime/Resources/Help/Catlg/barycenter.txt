@@ -1,7 +1,0 @@
-Syntax:
-barycenter([Point1, Weight1], [Point2, Weight2],…,[Pointn, Weightn])
-
-Calculates the hypothetical center of mass of a set of points, each with a given weight (a real number). Each point, weight pair is enclosed in square brackets as a vector.
-
-Example:
-barycenter([–3,1],[3,1],[4,2]) returns point(2,0)

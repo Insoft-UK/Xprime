@@ -1,7 +1,0 @@
-Syntax:
-unapply(Expr,Var)
-
-Returns a function defined by an expression.
-
-Example:
-unapply(2*x^2,x) returns  (x)->2*x^2

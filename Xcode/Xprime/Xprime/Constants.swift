@@ -58,4 +58,10 @@ enum Constants {
             .appending(path: "Documents", directoryHint: .isDirectory)
             .appending(path: "HP Prime", directoryHint: .isDirectory)
     }
+    
+    enum Toolchain {
+        static let include = "$(DEVROOT)/include"
+        static let lib = "$(DEVROOT)/lib"
+        static let bin = "$(DEVROOT)/bin"
+    }
 }

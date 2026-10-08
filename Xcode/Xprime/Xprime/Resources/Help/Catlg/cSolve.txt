@@ -1,7 +1,0 @@
-Syntax:
-csolve(Eq,Var)
-
-Returns the solutions, including comlex solutions, of Eq, for Var. If Eq is an expression, solves Eq=0.
-
-Example:
-csolve(x^4=1,x) returns {1,-1,-i,i}

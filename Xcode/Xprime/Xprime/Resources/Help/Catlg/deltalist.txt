@@ -1,7 +1,0 @@
-Syntax:
-deltalist(Lst)
-
-Returns the list of the difference of two terms in succession.
-
-Example:
-deltalist([1,4,8,9]) returns [3,4,1]

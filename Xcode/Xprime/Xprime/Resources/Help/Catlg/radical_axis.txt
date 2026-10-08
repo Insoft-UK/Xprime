@@ -1,4 +1,0 @@
-Syntax:
-radical_axis(Crcle,Crcle)
-
-Returns the line of points with same powerpc with respect to the 2 circles.

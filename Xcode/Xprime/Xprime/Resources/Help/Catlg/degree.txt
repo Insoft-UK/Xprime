@@ -1,7 +1,0 @@
-Syntax:
-degree(Poly)
-
-Returns the degree of the polynomial Poly.
-
-Example:
-degree(x^4+x) returns 3

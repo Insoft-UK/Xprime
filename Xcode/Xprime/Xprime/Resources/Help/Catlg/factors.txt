@@ -1,7 +1,0 @@
-Syntax:
-factors(Poly) or factors({Poly1, Poly2, ..., Polyn})
-
-Returns the list of prime factors of a polynomial; each factor followed by its multiplicity.
-
-Example:
-factors(x^4-1) returns [x-1,1,x+1,1,x^2+1,1]

@@ -38,13 +38,13 @@ final class ProjectSettings {
     @UserDefault(key: DefaultsKey.compression, defaultValue: false)
     var compression: Bool
 
-    @UserDefault(key: DefaultsKey.include, defaultValue: "$(SDKROOT)/include")
+    @UserDefault(key: DefaultsKey.include, defaultValue: Constants.Toolchain.include)
     var include: String
 
-    @UserDefault(key: DefaultsKey.lib, defaultValue: "$(SDKROOT)/lib")
+    @UserDefault(key: DefaultsKey.lib, defaultValue: Constants.Toolchain.lib)
     var lib: String
 
-    @UserDefault(key: DefaultsKey.bin, defaultValue: "$(SDKROOT)/bin")
+    @UserDefault(key: DefaultsKey.bin, defaultValue: Constants.Toolchain.bin)
     var bin: String
 
     @UserDefault(key: DefaultsKey.archiveProjectApplicationOnly, defaultValue: true)

@@ -1,9 +1,0 @@
-Syntax:
-LU(matrix)
-
-LU Decomposition. Factors a square matrix into three matrices: 
-{[[lowertriangular]],[[uppertriangular]],[[permutation]]} 
-The uppertriangular has ones on its diagonal.
-
-Example:
-LU([[1,2],[3,4]])

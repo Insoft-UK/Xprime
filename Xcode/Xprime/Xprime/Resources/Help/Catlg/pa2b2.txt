@@ -1,7 +1,0 @@
-Syntax:
-pa2b2(Intg(n))
-
-Returns [a,b] such as a^2+b^2=n (for n prime and n=1 (mod 4))
-
-Example:
-pa2b2(17) returns [4,1]

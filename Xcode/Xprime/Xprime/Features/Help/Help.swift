@@ -24,7 +24,6 @@ import Cocoa
 
 fileprivate enum DefaultsKey {
     static let lastOpenedCatalogHelpFile = "LastOpenedCatalogHelpFile"
-    static let lastOpenedHelpFilePath = "LastOpenedHelpFilePath"
 }
 
 final class Help {
@@ -34,7 +33,4 @@ final class Help {
     
     @UserDefault(key: DefaultsKey.lastOpenedCatalogHelpFile, defaultValue: "-")
     var lastOpenedCatalogHelpFile: String
-    
-    @UserDefault(key: DefaultsKey.lastOpenedHelpFilePath, defaultValue: "-")
-    var lastOpenedHelpFilePath: String
 }

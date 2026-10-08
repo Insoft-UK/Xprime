@@ -1,7 +1,0 @@
-Syntax:
-SETBASE(#integer[, base])
-
-Sets the base used for display of this integer.
-If base is not specified the calculator default is used.
-0<=Base<=4
-0: system, 1: bin, 2: oct, 3: dec, 4: hex

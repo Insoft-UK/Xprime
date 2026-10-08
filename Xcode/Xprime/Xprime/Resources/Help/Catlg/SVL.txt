@@ -1,7 +1,0 @@
-Syntax:
-SVL(matrix)
-
-Singular Values. Returns a vector containing the singular values of matrix.
-
-Example:
-SVL([[1,2],[3,4]])

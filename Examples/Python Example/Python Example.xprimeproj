@@ -1,9 +1,9 @@
 {
   "bin" : "$(SDKROOT)\/bin",
-  "archiveProjectAppOnly" : true,
   "plainFallbackText" : true,
-  "lib" : "$(SDKROOT)\/lib",
   "compression" : false,
+  "archiveProjectAppOnly" : true,
   "language" : "py",
-  "include" : "$(SDKROOT)\/include"
+  "include" : "$(SDKROOT)\/include",
+  "lib" : "$(SDKROOT)\/lib"
 }

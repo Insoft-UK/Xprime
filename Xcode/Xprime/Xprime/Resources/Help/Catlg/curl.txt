@@ -1,7 +1,0 @@
-Syntax:
-curl(Lst(A,B,C),Lst(x,y,z))
-
-Returns the curl of a vector. curl([A,B,C],[x,y,z])=[dC/dy-dB/dz,dA/dz-dC/dx,dB/dx-dA/dy].
-
-Example:
-curl([2*x*y,x*z,y*z],[x,y,z]) returns [z-x,0,z-2*x]

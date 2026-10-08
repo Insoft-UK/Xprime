@@ -1,4 +1,0 @@
-Syntax:
-LINE([G], x1, y1, x2, y2, [color])
-
-Draws a line on GROB G between points (x1,y1) and (x2,y2).

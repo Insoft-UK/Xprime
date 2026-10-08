@@ -1,9 +1,9 @@
 {
-  "lib" : "$(SDKROOT)\/lib",
   "archiveProjectAppOnly" : true,
   "plainFallbackText" : true,
-  "bin" : "$(SDKROOT)\/bin",
-  "include" : "$(SDKROOT)\/include",
   "language" : "pas",
-  "compression" : false
+  "compression" : false,
+  "lib" : "$(DEVROOT)\/lib",
+  "include" : "$(DEVROOT)\/include",
+  "bin" : "$(DEVROOT)\/bin"
 }

@@ -1,7 +1,0 @@
-Syntax:
-algvar(Expr)
-
-List of the variables by ascending algebraic extension order.
-
-Example:
-algvar(√x+y) returns [[y],[x]]

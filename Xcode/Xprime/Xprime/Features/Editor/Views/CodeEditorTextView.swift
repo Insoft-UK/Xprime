@@ -534,27 +534,38 @@ final class CodeEditorTextView: NSTextView {
     }
     
     private func showQuickHelp(for symbol: String, at point: NSPoint) {
-        guard let url = Bundle.main.url(
-            forResource: symbol,
-            withExtension: "txt",
-            subdirectory: "Help/Catlg"
-        ) else {
-            return
-        }
-        
-        do {
-            let helpText = try String(contentsOf: url, encoding: .utf8)
-            
-            let popover = NSPopover()
-            popover.behavior = .transient
-            popover.contentViewController = QuickHelpViewController(text: helpText, hasHorizontalScroller: false)
-            popover.show(
-                relativeTo: NSRect(origin: point, size: .zero),
-                of: self,
-                preferredEdge: .maxY
-            )
-        } catch {
-            return
+        let symbols = [symbol, symbol.uppercased()]
+
+        for symbol in symbols {
+            guard let url = URL(string: "http://insoft.uk/docs/hpprime/catlg/\(symbol).txt") else {
+                continue
+            }
+
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                do {
+                    let result = try String(contentsOf: url, encoding: .utf8)
+
+                    DispatchQueue.main.async {
+                        guard let self else { return }
+
+                        let popover = NSPopover()
+                        popover.behavior = .transient
+                        popover.contentViewController = QuickHelpViewController(
+                            text: result,
+                            hasHorizontalScroller: false
+                        )
+
+                        popover.show(
+                            relativeTo: NSRect(origin: point, size: .zero),
+                            of: self,
+                            preferredEdge: .maxY
+                        )
+                    }
+
+                } catch {
+                    // Try the next filename.
+                }
+            }
         }
     }
         

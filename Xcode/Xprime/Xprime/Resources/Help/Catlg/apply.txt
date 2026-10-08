@@ -1,7 +1,0 @@
-Syntax:
-apply(Fnc(f),Lst(l))
-
-Apply the function f at the elements of the list l (option matrix for a matrix).
-
-Example:
-apply(x->x^3,[1,2,3]) returns [1,8,27]

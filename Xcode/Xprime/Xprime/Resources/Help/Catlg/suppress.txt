@@ -1,7 +1,0 @@
-Syntax:
-suppress(Vect(l),Intg(n))
-
-Returns l without the element of index n
-
-Example:
-suppress([0,1,2,3],2) returns [0,1,3]

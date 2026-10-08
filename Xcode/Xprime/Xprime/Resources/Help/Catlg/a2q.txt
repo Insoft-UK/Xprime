@@ -1,7 +1,0 @@
-Syntax:
-a2q(Mtrx,VectVar)
-
-a2q(A,X)=the quadratic form q associated to A, X=vector of variables.
-
-Example:
-a2q([[1,2],[4,4]],[x,y]) returns x^2+6*x*y+4*y^2

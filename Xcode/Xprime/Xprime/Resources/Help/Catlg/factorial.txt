@@ -1,7 +1,0 @@
-Syntax:
-factorial(Intg(n)|| Real(a) )
-
-factorial(n)=n!. For non-integers, factorial(a)=a! = G(a + 1). This calculates the Gamma function.
-
-Example:
-factorial(4) returns 24

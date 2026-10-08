@@ -1,7 +1,0 @@
-Syntax:
-l1norm(Vect)
-
-Returns the l1 norm of the vector=sum of the absolute value of its coordinates.
-
-Example:
-l1norm([3,-4,2]) returns 9

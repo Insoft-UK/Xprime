@@ -1,7 +1,0 @@
-Syntax:
-IP(value)
-
-Integer part. Returns the Integer part of value.
-
-Example:
-IP(23.2) returns 23

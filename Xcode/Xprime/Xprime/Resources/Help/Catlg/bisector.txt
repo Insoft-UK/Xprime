@@ -1,8 +1,0 @@
-Syntax:
-bisector(Point1, Point2, Point3)
-
-Given three points, creates the bisector of the angle defined by the three points whose vertex is at the first point. The angle does not have to be drawn in the Plot view.
-
-Example:
-bisector(GA, GB, GC) draws the bisector of ∡BAC.
-bisector(0,-4i,4) draws the line given by y=–x

@@ -1,6 +1,0 @@
-Syntax:
-HP.IMAGEW(I)
-
-Returns the width of I.
-
-Note: HP.TEXTOUT requires the HP library.

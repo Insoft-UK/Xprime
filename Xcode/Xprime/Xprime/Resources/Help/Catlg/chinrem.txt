@@ -1,7 +1,0 @@
-Syntax:
-chinrem([Lst||Expr,Lst||Expr],[Lst||Expr,Lst||Expr])
-
-Chinese remainder for polynomials written as matrices.
-
-Example:
-chinrem([[1,2,0],[1,0,1]],[[1,1,0],[1,1,1]]) returns [[2,2,1] [1,1,2,1,1]].

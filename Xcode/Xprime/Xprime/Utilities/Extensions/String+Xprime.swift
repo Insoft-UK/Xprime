@@ -32,9 +32,10 @@ extension String {
         self = attributed.string
     }
     
-    /// Percent-encode only specific characters
-    func customPercentEncoded(replacing chars: [Character: String] = [" ": "%20", ".": "%2E", "/": "%2F", ":": "%3A"]) -> String {
+    /// Encodes specific characters using custom URL representations.
+    func percentEncoded(replacing chars: [Character: String] = ["%": "%2525"]) -> String {
         var result = ""
+
         for char in self {
             if let replacement = chars[char] {
                 result += replacement
@@ -42,31 +43,7 @@ extension String {
                 result.append(char)
             }
         }
-        return result
-    }
-    
-    
-    /// Decodes only specific percent-encoded sequences
-    func customPercentDecoded(replacing codes: [String: Character] = ["%20": " ", "%2E": ".", "%2F": "/", "%3A": ":"]) -> String {
-        var result = ""
-        var index = self.startIndex
-        
-        while index < self.endIndex {
-            if self[index] == "%" {
-                let endIndex = self.index(index, offsetBy: 3, limitedBy: self.endIndex) ?? self.endIndex
-                let code = String(self[index..<endIndex])
-                
-                if let replacement = codes[code.uppercased()] {
-                    result.append(replacement)
-                    index = endIndex
-                    continue
-                }
-            }
-            
-            result.append(self[index])
-            index = self.index(after: index)
-        }
-        
+
         return result
     }
     

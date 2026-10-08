@@ -1,7 +1,0 @@
-Syntax:
-COS(Value)
-
-Returns the cosine of Value. Value is interpreted as either degrees or radians, depending on the setting of Angle Measure in Home Modes or Symbolic Setup.
-
-Example:
-in radian mode, COS(π) returns -1.

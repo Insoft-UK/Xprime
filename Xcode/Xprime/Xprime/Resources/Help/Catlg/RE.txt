@@ -1,7 +1,0 @@
-Syntax:
-RE(x+yi)
-
-Real Part. Returns the real part of a complex number.
-
-Example:
-RE(3+4i) returns 3

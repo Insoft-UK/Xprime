@@ -1,9 +1,0 @@
-Syntax:
-INSTRING(string1, string2)
-
-Returns the index of the first occurrence of string2 in string1. Returns 0 if str2 is not present in str1. Note that the first character in a string is in position 1.
-
-Example:
-INSTRING("vanilla", "van") returns 1
-INSTRING("banana","na") returns 3
-INSTRING("ab","abc") returns 0

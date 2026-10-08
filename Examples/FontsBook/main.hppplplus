@@ -21,7 +21,7 @@
 /// SOFTWARE.
 #pragma mode( separator(.,;) integer(h64) )
 USES HP;
-$
+
 {$ADDON hpfont.h}
 LOCAL Small := {$I SmallFontCodes.h};
 LOCAL Large := {$I LargeFontCodes.h};

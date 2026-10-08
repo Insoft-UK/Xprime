@@ -1,9 +1,0 @@
-Syntax:
-perimeter(Polygon) or perimeter(Circle)
-
-Returns the perimeter of a polygon or the circumference of a circle.
-
-Example:
-perimeter(0,1,i) returns √2+2
-If GA is the point at (0, 0), GB is the point at (1, 0), and GC is defined as circle(GA, GB-GA), then perimeter(GC) returns 2π.
-If GA is the point at (0, 0), GB is the point at (1, 0), and GC is defined as square(GA, GB-GA), then perimeter(GC) returns 4.

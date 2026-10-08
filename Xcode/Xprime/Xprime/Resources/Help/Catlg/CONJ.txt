@@ -1,7 +1,0 @@
-Syntax:
-CONJ(x+yi)
-
-Complex Conjugate. Reverses the sign of the imaginary part of a complex number.
-
-Example:
-CONJ(3+4i) returns 3-4i

@@ -1,9 +1,0 @@
-Syntax:
-CONVERT(Value_Unit1, 1_Unit2)
-
-Converts Value in Unit1 to the corresponding value in compatible Unit2.
-
-Example:
-CONVERT(20_m, 1_ft) returns 65.6167979003_ft
-
-Alternative: 20_m ► _ft

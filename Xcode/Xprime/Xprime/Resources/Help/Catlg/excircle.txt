@@ -1,9 +1,0 @@
-Syntax:
-excircle(Point1, Point2, Point3)
-
-excircle(A,B,C) draws the A-excircle of the ABC triangle.  
-
-Draws one of the excircles of a triangle, a circle tangent to one side of the triangle and also tangent to the extensions of the other two sides.
-
-Example:
-excircle(GA, GB, GC) draws the circle tangent to BC and to the rays AB and AC.

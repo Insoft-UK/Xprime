@@ -1,4 +1,0 @@
-Syntax:
-DRAWMENU({text...}) or DRAWMENU(text..)
-
-Draw a menu containing the items specified

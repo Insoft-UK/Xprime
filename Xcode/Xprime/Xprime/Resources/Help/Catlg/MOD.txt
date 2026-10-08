@@ -1,7 +1,0 @@
-Syntax:
-value1 MOD value2
-
-Modulo. Returns the remainder of value1/value2.
-
-Example:
-9 MOD 4 returns 1

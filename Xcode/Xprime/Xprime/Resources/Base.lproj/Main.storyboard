@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="um3-nH-PU9" customClass="HelpViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="JPh-bh-aek">
-                        <rect key="frame" x="0.0" y="0.0" width="454" height="376"/>
+                        <rect key="frame" x="0.0" y="0.0" width="454" height="351"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O2K-X3-t4R">
-                                <rect key="frame" x="338" y="18" width="96" height="28"/>
+                                <rect key="frame" x="338" y="20" width="96" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" controlSize="large" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3Xq-U8-qvD">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -34,7 +34,7 @@ DQ
                                 </connections>
                             </button>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RpU-8D-rRd">
-                                <rect key="frame" x="20" y="20" width="205" height="24"/>
+                                <rect key="frame" x="20" y="22" width="205" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="large" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="Efq-Em-lK3">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -43,7 +43,7 @@ DQ
                                 </popUpButtonCell>
                             </popUpButton>
                             <box fixedFrame="YES" boxType="custom" borderType="line" borderWidth="0.0" cornerRadius="12" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="nI3-0y-gpE">
-                                <rect key="frame" x="20" y="64" width="414" height="265"/>
+                                <rect key="frame" x="20" y="66" width="414" height="265"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" appearanceType="darkAqua" id="gFQ-NM-3VC">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="265"/>
@@ -62,35 +62,16 @@ DQ
                                 <color key="borderColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="fillColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </box>
-                            <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="1" textCompletion="NO" contentType="url" translatesAutoresizingMaskIntoConstraints="NO" id="NsV-gw-cvS" customClass="CustomRoundedTextField" customModule="Xprime" customModuleProvider="target">
-                                <rect key="frame" x="237" y="339" width="197" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="large" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Search" usesSingleLineMode="YES" bezelStyle="round" id="slD-Dr-fEM">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xra-Sn-Dn0">
-                                <rect key="frame" x="210" y="342.5" width="27.5" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="magnifyingglass" catalog="system" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="Kyb-MX-TG6">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <color key="contentTintColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="catalog" destination="RpU-8D-rRd" id="eh7-x9-3kp"/>
                         <outlet property="html" destination="Ekj-dk-hRV" id="LDH-nT-Gqv"/>
-                        <outlet property="search" destination="NsV-gw-cvS" id="biv-QZ-Zut"/>
                     </connections>
                 </viewController>
                 <customObject id="0qd-iU-jch" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2461" y="584"/>
+            <point key="canvasLocation" x="-2461" y="571.5"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="CGL-up-35A">
@@ -1422,7 +1403,7 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t31-ED-Y1n">
+                            <textField hidden="YES" autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t31-ED-Y1n">
                                 <rect key="frame" x="126" y="48" width="308" height="74"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" alignment="right" title="Developer" id="llp-TR-X27">
@@ -1842,8 +1823,8 @@ Gw
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sLN-NW-azV"/>
-        <segue reference="Fuk-bI-vJG"/>
+        <segue reference="5RB-6J-gcI"/>
+        <segue reference="GAi-V2-Fxa"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="About" width="576" height="448"/>
@@ -1891,12 +1872,12 @@ Gw
         <image name="folder" catalog="system" width="23" height="18"/>
         <image name="gear" catalog="system" width="17" height="17"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="24" height="23"/>
+        <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="help-about" width="18" height="18"/>
         <image name="increase.indent" width="16" height="16"/>
         <image name="magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="minus.magnifyingglass" catalog="system" width="16" height="15"/>
-        <image name="play.fill" catalog="system" width="15" height="17"/>
+        <image name="play.fill" catalog="system" width="12" height="13"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="plus.magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="replacement" width="16" height="16"/>

@@ -1,6 +1,0 @@
-Syntax:
-RGB(R, G, B, [A])
-
-Returns an integer number that can be used as the color parameter for a  drawing function. Based on Red, Green and Blue components values (0 to 255).
-
-If Alpha is greater than 128, returns the color flagged as transparent. There is no alpha channel blending on Prime.

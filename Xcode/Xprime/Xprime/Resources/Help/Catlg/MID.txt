@@ -1,8 +1,0 @@
-Syntax:
-MID(string, position, [n])
-
-Extracts n characters from string starting at position. If n is not specified, then MID  extracts the remainder of the string from position.
-
-Example:
-MID("MOMOGUMBO",3,5) returns "MOGUM"
-MID("PUDGE",4) returns "GE"

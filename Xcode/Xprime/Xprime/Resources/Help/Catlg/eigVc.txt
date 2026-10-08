@@ -1,7 +1,0 @@
-Syntax:
-eigVc(Mtrx)
-
-Computes the eigenvectors of a diagonalizable matrix.
-
-Example:
-eigVc([[-2,-2,1],[-2,1,-2],[1,-2,-2]]) returns [[1,-3,-3],[-2,0,-3],[1,3,-3]]

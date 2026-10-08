@@ -1,4 +1,0 @@
-Syntax:
-SCALE(matrixname, value, rownumber)
-
-Multiplies the specified row_number of the specified matrix by value.

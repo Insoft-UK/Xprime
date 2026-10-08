@@ -1,7 +1,0 @@
-Syntax:
-sqrfree(Expr)
-
-Returns a polynomial factorized as a product of powers of coprime factors where each factor has roots of multiplicity 1
-
-Example:
-sqrfree(x^4-2*x^2+1) returns (x^2-1)^2

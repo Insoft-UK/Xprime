@@ -25,11 +25,8 @@ import Cocoa
 
 
 final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSTextFieldDelegate {
-//    @IBOutlet weak var helpTextView: HelpTextView!
     @IBOutlet weak var catalog: NSPopUpButton!
-    @IBOutlet weak var search: NSTextField!
     @IBOutlet weak var html: WKWebView!
-    
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -39,13 +36,8 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
         super.viewDidLoad()
         
         populateCatalogMenu()
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(searchTextDidChange(_:)),
-                                               name: NSControl.textDidChangeNotification,
-                                               object: search)
+        
         loadHelp(for: Help.shared.lastOpenedCatalogHelpFile)
-//        loadHTMLString(for: Help.shared.lastOpenedCatalogHelpFile)
-        search.stringValue = Help.shared.lastOpenedCatalogHelpFile
     }
     
     override func viewDidAppear() {
@@ -53,141 +45,47 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
         
         guard let window = view.window else { return }
         window.level = .modalPanel
-        
-        DispatchQueue.main.async {
-            if let editor = window.fieldEditor(false, for: self.search) as? NSTextView {
-                let end = self.search.stringValue.count
-                editor.selectedRange = NSRange(location: end, length: 0)
-            }
-        }
-        
-//        if let layer = html.layer {
-//            layer.cornerRadius = 8
-//        }
     }
-
+    
     private func loadHelp(for command: String) {
-//        guard let txtURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help/Catlg") else {
-//            // ⚠️ No .txt file found.
-//            helpTextView.string = ""
-//            return
-//        }
-//        
-//        do {
-//            let text = try String(contentsOf: txtURL, encoding: .utf8)
-//            helpTextView.string = text
-//            helpTextView.applySyntaxHighlighting()
-//
-//            helpTextView.highlightBold("Syntax:")
-//            helpTextView.highlightBold("Example:")
-//            helpTextView.highlightBold("Note:")
-//        } catch {
-//            // Failed to read RTF contents. Clear the view and optionally log.
-//            helpTextView.string = ""
-//            #if DEBUG
-//            NSLog("Failed to load RTF for command \(command): \(error.localizedDescription)")
-//            #endif
-//        }
-        
-        guard let txtURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help/Catlg") else {
-            // ⚠️ No .txt file found.
-//            helpTextView.string = ""
-            self.html.loadHTMLString("", baseURL: nil)
+        let filename = command.percentEncoded()
+
+        guard let url = URL(string: "http://insoft.uk/docs/hpprime/catlg/\(filename).txt") else {
             return
         }
-        
-        do {
-            let result = try String(contentsOf: txtURL, encoding: .utf8)
-            let html = """
-            <style>
-                body {
-                    font-family: "Arial";
-                    font-size: 10pt;
-                    white-space: pre-wrap;
-                    overflow: scroll;
-                    margin: 0;
-                    padding: 0;
-                }
-            ul {
-                list-style-type: disc;
-            }
-            li {
-            margin: 0;
-            }
-                b {
-                    margin-bottom: 10px;
-                }
-                pre {
-                    white-space: pre-wrap;
-                    #overflow-wrap: anywhere;
-                }
-                .syntax {
-                    background-color: #f7efc6;
-                    padding: 4px 8px;
-                }
-                .example {
-                    background-color: #e7f7b5;
-                    padding: 4px 8px;
-                }
-                .example p,
-                .example h1,
-                .example code {
-                    background-image: repeating-linear-gradient(
-                    to right,
-                    currentColor 0,
-                    currentColor 2px,
-                    transparent 2px,
-                    transparent 8px
-                    );
-                    background-position: top;
-                    background-repeat: repeat-x;
-                    background-size: auto 2px;
-                    display: block;
-                }
-            </style>
-            """
-            let out = html.appending("<body>\(result)</body>")
-            self.html.loadHTMLString(out, baseURL: nil)
-        } catch {
-            let errorHTML = """
-            ---
-            """
-            self.html.loadHTMLString(errorHTML, baseURL: nil)
-        }
-    }
-    
-    
-    
-    func handleInput(_ text: String) {
-        guard let file = searchCatalog(text) else { return }
-        loadHelp(for: file)
-        Help.shared.lastOpenedCatalogHelpFile = file
-//        loadHTMLString(for: file)
-    }
-    
-    
-    
-    private func searchCatalog(_ text: String) -> String? {
-        guard !text.isEmpty,
-              let items = self.catalog.menu?.items.map({ $0.title }),
-              !items.isEmpty else {
-            return nil
-        }
 
-        return items.first { $0.localizedCaseInsensitiveContains(text) }
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                let result = try String(contentsOf: url, encoding: .utf8)
+
+                let html = """
+                    <style>
+                        body {
+                            font-family: "Arial";
+                            font-size: 10pt;
+                            white-space: pre-wrap;
+                            overflow: scroll;
+                            margin: 0;
+                            padding: 0;
+                            line-height: 1.5;
+                        }
+                    </style>
+                    <body>\(result)</body>
+                    """
+
+                DispatchQueue.main.async {
+                    self.html.loadHTMLString(html, baseURL: nil)
+                }
+
+            } catch {
+                print("Failed to load help: \(error)")
+            }
+        }
     }
-    
     
     
     private func populateCatalogMenu() {
         let menu = NSMenu()
-        
-        guard let resourceURLs = Bundle.main.urls(
-            forResourcesWithExtension: "txt",
-            subdirectory: "Help/Catlg"
-        ) else {
-            return
-        }
         
         let keywords: Set<String> = [
             "BEGIN", "END",
@@ -228,120 +126,56 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
             "<", "<=", "<>", ">", ">=", "^", "|"
         ]
         
-        let catalog = resourceURLs
-            .map { $0.deletingPathExtension().lastPathComponent.customPercentDecoded() }
-            .sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
-
-        for name in catalog {
-            if let url = Bundle.main.url(
-                forResource: name.customPercentEncoded(),
-                withExtension: "txt",
-                subdirectory: "Help/Catlg"
-            ) {
-                let menuItem = NSMenuItem(
-                    title: name,
-                    action: #selector(catalogSelected(_:)),
-                    keyEquivalent: ""
+        if let url = Bundle.main.url(
+            forResource: "catlg",
+            withExtension: "txt",
+            subdirectory: "Help"
+        ) {
+            do {
+                let contents = try String(contentsOf: url, encoding: .utf8)
+                
+                for line in contents.components(separatedBy: .newlines) {
+                    let name = line
+                    let menuItem = NSMenuItem(
+                        title: name,
+                        action: #selector(catalogSelected(_:)),
+                        keyEquivalent: ""
+                        
+                    )
                     
-                )
-                menuItem.image = NSImage(named: "HPPrimeFunction")?.copy() as? NSImage
-                
-                if keywords.contains(name) {
-                    menuItem.image = NSImage(named: "HPPPLKeyword")?.copy() as? NSImage
+                    menuItem.image = NSImage(named: "HPPrimeFunction")?.copy() as? NSImage
+                    
+                    if keywords.contains(name) {
+                        menuItem.image = NSImage(named: "HPPPLKeyword")?.copy() as? NSImage
+                    }
+                    if builtins.contains(name) {
+                        menuItem.image = NSImage(named: "HPPPLFunction")?.copy() as? NSImage
+                    }
+                    
+                    if symbols.contains(name) {
+                        menuItem.image = NSImage(named: "Code")?.copy() as? NSImage
+                    }
+                    
+                    menuItem.image?.size = Constants.IconSizes.small
+                    menuItem.representedObject = url as NSURL
+                    menu.addItem(menuItem)
                 }
-                if builtins.contains(name) {
-                    menuItem.image = NSImage(named: "HPPPLFunction")?.copy() as? NSImage
-                }
-                
-                if symbols.contains(name) {
-                    menuItem.image = NSImage(named: "Code")?.copy() as? NSImage
-                }
-                
-                menuItem.image?.size = Constants.IconSizes.small
-                menuItem.representedObject = url as NSURL
-                menu.addItem(menuItem)
+            } catch {
+                print("Failed to read file: \(error)")
             }
         }
+        
         menu.item(withTitle: Help.shared.lastOpenedCatalogHelpFile)?.state = .on
         self.catalog.menu = menu
     }
     
     @objc private func catalogSelected(_ sender: NSMenuItem) {
-        if let url = sender.representedObject as? URL {
-            loadHelp(for: url.deletingPathExtension().lastPathComponent)
-//            loadHTMLString(for: url.deletingPathExtension().lastPathComponent)
-        }
+        loadHelp(for: sender.title)
+        Help.shared.lastOpenedCatalogHelpFile = sender.title
     }
-    
-    @objc private func searchTextDidChange(_ notification: Notification) {
-        guard let textField = notification.object as? NSTextField else { return }
-
-        let text = textField.stringValue
-        handleInput(text)
-    }
-
     
     @IBAction func close(_ sender: Any) {
         self.view.window?.close()
     }
-    
-    
-    
-//    private func loadHTMLString(for command: String) {
-//        guard let htmlURL = Bundle.main.url(forResource: command, withExtension: "txt", subdirectory: "Help/Catlg") else {
-//            // ⚠️ No .txt file found.
-//            helpTextView.string = ""
-//            return
-//        }
-//        
-//        do {
-//            let result = try String(contentsOf: htmlURL, encoding: .utf8)
-//            let html = """
-//            <style>
-//                body, pre {
-//                    margin: 0;
-//                }
-//                pre {
-//                    white-space: pre-wrap;
-//                    overflow-wrap: anywhere;
-//                }
-//                h1 {
-//                    font-size: 12pt;
-//                    margin: 0;
-//                }
-//                .syntax {
-//                    background-color: #f7efc6;
-//                    padding: 8px;
-//                }
-//                .example {
-//                    background-color: #e7f7b5;
-//                    padding: 8px;
-//                }
-//                .example p,
-//                .example h1,
-//                .example code {
-//                    background-image: repeating-linear-gradient(
-//                    to right,
-//                    currentColor 0,
-//                    currentColor 2px,
-//                    transparent 2px,
-//                    transparent 8px
-//                    );
-//                    background-position: top;
-//                    background-repeat: repeat-x;
-//                    background-size: auto 2px;
-//                    display: block;
-//                }
-//            </style>
-//            """
-//            let out = html.appending("<pre>\(result)</pre>")
-//            self.html.loadHTMLString(out, baseURL: nil)
-//        } catch {
-//            let errorHTML = """
-//            ---
-//            """
-//            self.html.loadHTMLString(errorHTML, baseURL: nil)
-//        }
-//    }
 }
 

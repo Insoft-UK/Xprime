@@ -1,7 +1,0 @@
-Syntax:
-hyp2exp(ExprHyperb)
-
-Transforms the hyperbolic functions with the exponential function.
-
-Example:
-hyp2exp(cosh(x)) returns (exp(x)+1/exp(x))/2

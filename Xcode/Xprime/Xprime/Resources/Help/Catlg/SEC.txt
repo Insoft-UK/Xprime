@@ -1,7 +1,0 @@
-Syntax:
-SEC(value)
-
-Secant. The Secant function; that is, 1/cos(x).
-
-Example:
-SEC(0) returns 1 in degree mode

@@ -1,6 +1,0 @@
-Syntax:
-CHOOSE(var, “title”, “item1”, “item2”,[…"item14"]) or CHOOSE(var,"title",{"item1"..."itemN")
-
-Displays a choose box with the given title and containing items with the strings "item1", etc. If the user choose an object, var will be updated to contain the number of the selected object (an integer, 1, 2, 3, …); otherwise, stores zero in var if the user exits without choosing.
-
-Returns true (non zero) if the user selects an object, otherwise return false (0).

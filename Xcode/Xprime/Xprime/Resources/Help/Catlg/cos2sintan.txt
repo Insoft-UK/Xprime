@@ -1,7 +1,0 @@
-Syntax:
-cos2sintan(Expr)
-
-Replaces cos(x) by  sin(x)/tan(x) in the argument.
-
-Example:
-cos2sintan(cos(x)) returns sin(x)/tan(x)

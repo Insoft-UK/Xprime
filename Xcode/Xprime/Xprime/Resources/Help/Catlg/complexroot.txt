@@ -1,7 +1,0 @@
-Syntax:
-complexroot(Poly(P),Real(l),[Cplx(a)],[Cplx(b)])
-
-Returns the list of the vertices of the squares (side<=l) containing roots of P [inside the rectangle with opposed vertices a and b] with their mulitiplicity.
-
-Example:
-complexroot(x^5-2*x^4+x^3+i,0.1) returns [[[(-21-12*i)/32,(-18-9*i)/32],1],[[(6-15*i)/16,(-6-21*i)/(16-16*i)],1],[[(27+18*i)/(16+16*i),(24-3*i)/16],1],[[(6+27*i)/(16+16*i),(9+6*i)/8],1],[[(-15+6*i)/(16+16*i),(-3+12*i)/16],1]]

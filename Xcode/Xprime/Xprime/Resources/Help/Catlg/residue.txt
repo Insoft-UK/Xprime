@@ -1,7 +1,0 @@
-Syntax:
-residue(Expr,Var(v),Cplx(a))
-
-Returns the residue in a of the expression Expr with v as variable
-
-Example:
-residue(1/z,z,0) returns 1

@@ -1,7 +1,0 @@
-Syntax:
-cat(SeqObj)
-
-Evaluates the arguments, then concatenates them into a string.
-
-Example:
-cat("aaa","c",12*3) returns "aaac36"

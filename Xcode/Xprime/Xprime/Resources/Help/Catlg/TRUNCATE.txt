@@ -1,7 +1,0 @@
-Syntax:
-TRUNCATE(value, [places])
-
-Truncates value to system display settings. If optional places is given, truncates value to places decimal places. If places is negative, truncates to significant digits instead.
-
-Example:
-TRUNCATE(2.3678,2) returns 2.36

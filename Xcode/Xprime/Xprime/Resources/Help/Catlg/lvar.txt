@@ -1,7 +1,0 @@
-Syntax:
-lvar(Expr)
-
-List of variables of an object (with rational dependence).
-
-Example:
-lvar(exp(x)*2*sin(y)) returns [exp(x),sin(y)]

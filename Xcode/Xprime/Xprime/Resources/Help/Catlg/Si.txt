@@ -1,7 +1,0 @@
-Syntax:
-Si(Expr)
-
-Sine integral int(sin(t)/t,t=0..x)
-
-Example:
-Si(1.0) returns 0.946083070367

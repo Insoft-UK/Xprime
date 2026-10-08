@@ -1,7 +1,0 @@
-Syntax:
-diag(Lst(l)||Mtrx(A))
-
-Returns either the diagonal matrix with diagonal l or the diagonal of A.
-
-Example:
-diag([1,2],[3,4]) returns [1,4]

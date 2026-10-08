@@ -1,7 +1,0 @@
-Syntax:
-asin2acos(Expr)
-
-Replaces arcsin(x) by π/2-arccos(x) in the argument.
-
-Example:
-asin2acos(acos(x)+asin(x)) returns π/2-acos(x)+acos(x)

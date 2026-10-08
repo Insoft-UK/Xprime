@@ -1,4 +1,0 @@
-Syntax:
-white(Opt)
-
-Option of the display command to display with color.

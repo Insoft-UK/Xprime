@@ -1,7 +1,0 @@
-Syntax:
-is_orthogonal(Line1, Line2) or is_orthogonal(Circle1, Circle2
-
-Tests whether or not two lines or two circles are orthogonal (perpendicular). In the case of two circles, tests whether or not the tangent lines at a point of intersection are orthogonal. Returns 1 if they are and 0 otherwise.
-
-Example:
-is_orthogonal(line(y=x),line(y=-x)) returns 1.

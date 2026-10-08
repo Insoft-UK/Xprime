@@ -1,6 +1,0 @@
-Syntax:
-DIMGROB_P(G, w, h, [color]) or DIMGROB(G, list)
-
-Sets the dimensions of GROB G to w*h. Initializes the graphic G with color or with the graphic data provided in list. If the graphic is initialized using graphic data, then list is a list of integers. Each integer, as seen in base 16, describes one color every 16 bits.
-
-Colors are in A1R5G5B5 format (ie, 1 bit for alpha channel, and 5 bits for R, G and B).

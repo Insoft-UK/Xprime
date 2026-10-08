@@ -104,7 +104,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         themeManager.applyTheme(from: url)
         registerWindowFocusObservers()
         
-        let lastOpenedFile = Settings.shared.lastOpenedFile
         if FileManager.default.fileExists(atPath: Settings.shared.lastOpenedProjectFile) {
             projectManager.openProject(at: URL(fileURLWithPath: Settings.shared.lastOpenedProjectFile))
         } else {
@@ -113,19 +112,15 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 .changeCurrentDirectoryPath(
                     UserDefaults
                         .standard
-                        .string(forKey: "location") ?? FileManager
-                        .default
-                        .homeDirectoryForCurrentUser
-                        .appending(path: "Xprime/Projects")
+                        .string(forKey: "location") ??
+                    Constants.HPConnectivityKit.directoryURL
+                        .appending(path: "Projects")
                         .path
                 )
+            if FileManager.default.fileExists(atPath: Settings.shared.lastOpenedFile) {
+                documentManager.openDocument(at: URL(fileURLWithPath: Settings.shared.lastOpenedFile))
+            }
         }
-        
-        if FileManager.default.fileExists(atPath: lastOpenedFile) {
-            documentManager.openDocument(at: URL(fileURLWithPath: lastOpenedFile))
-        }
-        
-        validateToolbarItems()
         
         if codeEditorTextView.theme?.type == "dark" {
             scrollView.scrollerKnobStyle = .light

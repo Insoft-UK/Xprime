@@ -1,7 +1,0 @@
-Syntax:
-PERM(n, r)
-
-Permutations. Returns the number of permutations (with regard to order) of n things taken r at a time:  n!/(n-r)!
-
-Example:
-PERM(5,2) returns 20

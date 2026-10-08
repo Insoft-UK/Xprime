@@ -1,7 +1,0 @@
-Syntax:
-expexpand(Expr)
-
-Expands exponentials usinng the identity exp(a*f(x))=(exp(f(x)))^a.
-
-Example:
-expexpand(exp(3*x)) returns exp(x)^3

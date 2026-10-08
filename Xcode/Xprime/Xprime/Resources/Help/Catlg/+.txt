@@ -1,8 +1,0 @@
-Syntax:
-Object1 + Object2
-
-Addition.
-Returns the result of adding Object2 to Object 1. The objects may be numerical values or expressions that return numerical results. The objects may also be lists or matrices of appropriate dimensions.
-
-Example:
-3+2 returns 5

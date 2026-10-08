@@ -1,4 +1,0 @@
-Syntax:
-GETPIX([G], x, y)
-
-Returns the color of the pixel of G with coordinates (x,y).

@@ -1,7 +1,0 @@
-Syntax:
-STUDENT_ICDF(n, p)
-
-Inverse cumulative Student’s t distribution function. Returns the value x such that the Student’s-t lower-tail probability of x, with n degrees of freedom, is p.
-
-Example:
-STUDENT_ICDF(3, 0.0246659214813) returns -3.2

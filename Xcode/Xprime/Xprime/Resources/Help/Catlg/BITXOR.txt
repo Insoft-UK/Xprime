@@ -1,7 +1,0 @@
-Syntax:
-BITXOR(int1[, int2..,intn])
-
-Bitwise logical exclusive OR (XOR). Takes n integers as input and returns their bitwise XOR.
-
-Example:
-BITXOR(9, 26) returns 19

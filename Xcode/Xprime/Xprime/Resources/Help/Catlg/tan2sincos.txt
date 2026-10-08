@@ -1,7 +1,0 @@
-Syntax:
-tan2sincos(Expr)
-
-Rewrites Expr with tan(x) using sin(x)/cos(x)
-
-Example:
-tan2sincos(tan(x)) returns sin(x)/cos(x)

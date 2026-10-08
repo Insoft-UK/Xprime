@@ -1,7 +1,0 @@
-Syntax:
-isosceles_triangle(Point1, Point2, Angle)
-
-Draws an isosceles triangle defined by two of its vertices and an angle. The vertices define one of the two sides equal in length and the angle defines the angle between the two sides of equal length. Like equilateral_triangle, you have the option of storing the coordinates of the third point into a CAS variable.
-
-Example:
-isosceles_triangle(GA, GB, angle(GC, GA, GB) defines an isosceles triangle such that one of the two sides of equal length is AB, and the angle between the two sides of equal length has a measure equal to that of ∡ACB.

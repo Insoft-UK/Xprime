@@ -1,7 +1,0 @@
-Syntax:
-ATANH(value)
-
-Inverse hyperbolic tangent.
-
-Example:
-ATANH(.761594155956) returns 1

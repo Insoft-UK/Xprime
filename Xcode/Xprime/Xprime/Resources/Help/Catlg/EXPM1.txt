@@ -1,7 +1,0 @@
-Syntax:
-EXPM1(value)
-
-Exponent minus 1. This is more accurate than EXP when x is close to zero.
-
-Example:
-EXPM1(.23) returns .258600009929

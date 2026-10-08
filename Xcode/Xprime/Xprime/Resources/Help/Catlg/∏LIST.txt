@@ -1,7 +1,0 @@
-Syntax:
-ΠLIST(list)
-
-List Product. Calculates the product of all elements in list.
-
-Example:
-ΠLIST({2,3,4}) returns 24.

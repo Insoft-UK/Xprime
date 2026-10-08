@@ -1,4 +1,0 @@
-Syntax:
-DELROW(matrixname, row_number)
-
-Delete Row. Deletes the row row_number from the matrix matrixname.

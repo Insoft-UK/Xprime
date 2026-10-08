@@ -36,9 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         }
         
         registerInstallation()
-        print("🔥 applicationDidFinishLaunching CALLED")
-        
-//        
+
 //        // Insert code here to initialize your application
         NSApp.appearance = NSAppearance(named: .darkAqua)
         

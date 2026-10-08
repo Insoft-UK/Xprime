@@ -1,7 +1,0 @@
-Syntax:
-IM(x+yi)
-
-Imaginary Part. Returns the imaginary part of a complex number.
-
-Example:
-IM(3+4i)  returns 4
