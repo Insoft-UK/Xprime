@@ -5,7 +5,7 @@ src="../../../Design/Icon%20Masters/Types/note.png" width="128" />
 **Command Line Tool**
 A command-line tool that converts .md and .ntf files into the HP Prime .hpnote format, preserving formatting such as bold and italic text, font sizes, and foreground and background colors.
 
-<img src="assets/screenshots/screenshot_1.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_2.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_3.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_4.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_5.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_6.png?raw=true" width="160" />
+<img src="assets/screenshots/screenshot_1.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_2.png?raw=true" width="160" /> <img src="assets/screenshots/screenshot_3.png?raw=true" width="160" />
 
 >[!IMPORTANT]
 >The NOTE tool currently dosn't support formulars.

@@ -19,10 +19,10 @@ Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Pri
 
 ***Website:*** [Xprime](http://insoft.uk/xprime.php)</br>
 
->[!NOTE]
+>[!IMPORTANT]
 >**Xprime 27.1** brings some changes, the **Xprime folder**, which was previously located in the user’s home directory, is now located inside the **HP Connectivity Kit folder** within the user’s **Documents folder**. Xprime 27.1 also introduces a new cloud-based help system. Help documentation is now supplied online, allowing updates and improvements to be made independently of the Xprime application itself.
-
-The **Projects folder**, which was previously located inside the Xprime folder, has been moved outside of it and now resides directly within the HP Connectivity Kit folder.
+>
+>The **Projects folder**, which was previously located inside the Xprime folder, has been moved outside of it and now resides directly within the HP Connectivity Kit folder.
 
 ### Xprime 27 Requirements
 Apple Silicon or intel</br>
@@ -35,16 +35,9 @@ Apple Silicon or intel</br>
 [HP Prime Virtual Calculator](https://updates.moravia-consulting.com/HP_Prime_Virtual_Calculator_2026_09_09.dmg)</br>
 [HP Connectivity Kit](https://updates.moravia-consulting.com/HP_Prime_Connectivity_Kit_20260909.dmg) (for calculator sync)</br>
 
->[!IMPORTANT]
->For **Xprime 26**, before running your program or application on either the Virtual HP Prime or a physical HP Prime calculator, you must first open the source code and perform a “Check” once.  
->
->This is required because **Xprime 26** currently generates ***.hpprgm*** and ***.hpappprgm*** files using an older G1 format originally used by early HP Prime G1 firmware. The HP Prime will initially accept the file, but it must be resaved by the calculator before it becomes a fully valid modern ***.hpprgm*** or ***.hpappprgm*** file.  
->
->Simply opening the source code in the editor and performing a “Check” — or even just viewing the code and exiting the editor — causes the HP Prime to automatically resave the file using the current supported format. Once this has been done, the program or application will run normally.
-
 ### Reveal Version Detail
 In Xprime, you can reveal the full version number from the About window.
-Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **26.5.2.20260610**.
+Hold down the **Option (⌥) key**, then **click and hold** on the About window to display the extended version format, combining the app version and build number — for example: **27.1.20261009**.
 
 <img src="assets/screenshots/xprime.png?raw=true" width="756" />
 
