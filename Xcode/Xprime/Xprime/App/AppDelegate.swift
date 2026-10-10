@@ -27,14 +27,7 @@ import UniformTypeIdentifiers
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     @IBOutlet weak var mainMenu: NSMenu!
     
-    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-       
-        guard isApplicationInstalled(withBundleIdentifier: Constants.BundleIdentifier.hpConnectivityKit) else {
-            NSApp.terminate(nil)
-            return
-        }
-        
         registerInstallation()
 
         // Insert code here to initialize your application
@@ -48,9 +41,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         
         NSApp.helpMenu = nil
        
-        if !Constants.HPConnectivityKit.directoryURL.hasDirectoryPath {
+        if Constants.HPConnectivityKit.directoryURL.hasDirectoryPath {
             let directorys: [URL] = [
-                Constants.HPConnectivityKit.directoryURL,
                 Constants.HPConnectivityKit.directoryURL.appending(path: "Xprime/Templates"),
                 Constants.HPConnectivityKit.directoryURL.appending(path: "Xprime/Themes"),
                 Constants.HPConnectivityKit.directoryURL.appending(path: "Projects")
