@@ -132,16 +132,11 @@ func killProcess(named name: String) {
 }
 
 func registerInstallation() {
-
-    print("registerInstallation: START")
-
     let uuid = XprimeUserID.get()
-    print("registerInstallation: UUID =", uuid)
 
     var components = URLComponents(
         string: "http://api.insoft.uk/"
     )!
-    
     
     components.queryItems = [
         URLQueryItem(name: "method", value: "installation"),
@@ -165,34 +160,38 @@ func registerInstallation() {
     ]
 
     guard let url = components.url else {
+#if Debug
         print("registerInstallation: INVALID URL")
+#endif
         return
     }
-
+#if Debug
     print("registerInstallation: URL =", url.absoluteString)
     print("registerInstallation: starting request")
+#endif
 
     URLSession.shared.dataTask(with: url) { data, response, error in
-
-        print("registerInstallation: RESPONSE")
-
         if let error {
+#if Debug
             print("API error:", error)
+#endif
             return
         }
 
         if let httpResponse = response as? HTTPURLResponse {
+#if Debug
             print("HTTP status:", httpResponse.statusCode)
+#endif
         }
 
         guard let data else {
+#if Debug
             print("No data returned")
+#endif
             return
         }
-
+#if Debug
         print(String(data: data, encoding: .utf8) ?? "")
-        
+#endif
     }.resume()
-
-    print("registerInstallation: REQUEST STARTED")
 }

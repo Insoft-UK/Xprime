@@ -2,7 +2,7 @@
   "compression" : false,
   "include" : "",
   "lib" : "",
-  "bin" : "$(SDKROOT)/bin",
+  "bin" : "$(DEVROOT)/bin",
   "language" : "py",
   "archiveProjectAppOnly" : true,
   "includeProgramName" : true,

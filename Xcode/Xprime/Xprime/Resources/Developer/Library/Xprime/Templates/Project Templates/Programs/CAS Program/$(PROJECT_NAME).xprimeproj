@@ -1,8 +1,8 @@
 {
   "compression" : false,
-  "include" : "$(SDKROOT)/include",
-  "lib" : "$(SDKROOT)/lib",
-  "bin" : "$(SDKROOT)/bin",
+  "include" : "$(DEVROOT)/include",
+  "lib" : "$(DEVROOT)/lib",
+  "bin" : "$(DEVROOT)/bin",
   "language" : "hpppl",
   "archiveProjectAppOnly" : true,
   "includeProgramName" : true,

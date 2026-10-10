@@ -20,11 +20,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+/*
+ 2026-10-08
+ 
+ What changed
+ Before: The child process could fill a pipe and become blocked while XPrime waited for it to exit.
+ After: Both output streams are drained concurrently, so the child can continue running.
+ Also: A DispatchGroup ensures both streams have finished reading before the method returns.
+ */
 
 import Cocoa
 
 enum ProcessRunner {
-
     @discardableResult
     static func run(
         executable: URL,
@@ -51,13 +58,44 @@ enum ProcessRunner {
             return (nil, error.localizedDescription, -1)
         }
 
+        let group = DispatchGroup()
+        let lock = NSLock()
+
+        var outData = Data()
+        var errData = Data()
+
+        group.enter()
+        DispatchQueue.global(qos: .utility).async {
+            let data = outPipe.fileHandleForReading.readDataToEndOfFile()
+
+            lock.lock()
+            outData = data
+            lock.unlock()
+
+            group.leave()
+        }
+
+        group.enter()
+        DispatchQueue.global(qos: .utility).async {
+            let data = errPipe.fileHandleForReading.readDataToEndOfFile()
+
+            lock.lock()
+            errData = data
+            lock.unlock()
+
+            group.leave()
+        }
+
         task.waitUntilExit()
+        group.wait()
 
-        let outData = outPipe.fileHandleForReading.readDataToEndOfFile()
-        let errData = errPipe.fileHandleForReading.readDataToEndOfFile()
+        let out = outData.isEmpty
+            ? nil
+            : String(data: outData, encoding: .utf8)
 
-        let out = outData.isEmpty ? nil : String(data: outData, encoding: .utf8)
-        let err = errData.isEmpty ? nil : String(data: errData, encoding: .utf8)
+        let err = errData.isEmpty
+            ? nil
+            : String(data: errData, encoding: .utf8)
 
         return (out, err, task.terminationStatus)
     }

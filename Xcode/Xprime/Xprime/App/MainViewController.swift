@@ -150,7 +150,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         }
     }
     
+
+    
     private func setupObservers() {
+        // Line and Column status update on text change
         NotificationCenter.default.addObserver(
             statusManager!,
             selector: #selector(StatusManager.textDidChange(_:)),
@@ -352,20 +355,17 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     }
     
     @objc private func quickOpen(_ sender: NSMenuItem) {
-        guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
-            return
-        }
-        
-        if let url = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: url.path), documentManager.documentIsModified {
+        if let currentDocumentURL = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: currentDocumentURL.path), documentManager.documentIsModified {
             AlertPresenter.presentYesNo(
                 on: view.window,
                 title: "Save Changes",
-                message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
+                message: "Do you want to save changes to '\(currentDocumentURL.lastPathComponent)' before opening another document",
                 primaryActionTitle: "Save"
             ) { confirmed in
                 if confirmed {
                     self.documentManager.saveDocument()
-                    self.documentManager.openDocument(at: projectDirectoryURL.appending(path: sender.title))
+                    let url = sender.representedObject as? URL
+                    self.documentManager.openDocument(at: url!) // projectDirectoryURL.appending(path: sender.title)
                 } else {
                     return
                 }
@@ -426,11 +426,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     }
     
     // MARK: - Observers
-    func textDidChange(_ notification: Notification) {
+    @objc internal func textDidChange(_ notification: Notification) {
 #if Debug
         print("Text did change!")
 #endif
         documentManager.documentIsModified = true
+        codeEditorTextView.applySyntaxHighlighting()
     }
     
     private func registerWindowFocusObservers() {
@@ -1646,6 +1647,46 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         outputTextView.string = ""
     }
     
+    @IBAction func reducePythonIndentation(_ sender: Any) {
+        codeEditorTextView.registerUndo()
+        codeEditorTextView.string = reducePYIndentation(codeEditorTextView.string)
+        codeEditorTextView.didChangeText()
+    }
+    
+    private func reducePYIndentation(_ source: String) -> String {
+        let lines = source.components(separatedBy: .newlines)
+        var indentationLevels: [Int] = [0]
+
+        return lines.map { line in
+            let indentation = line.prefix(while: { $0 == " " }).count
+            let content = String(line.dropFirst(indentation))
+
+            // Preserve blank lines.
+            guard !content.trimmingCharacters(in: .whitespaces).isEmpty else {
+                return ""
+            }
+
+            // Find the matching indentation level or create a new one.
+            if indentation > indentationLevels.last! {
+                indentationLevels.append(indentation)
+            } else {
+                while indentationLevels.count > 1,
+                      indentation < indentationLevels.last! {
+                    indentationLevels.removeLast()
+                }
+
+                // Handle an indentation width not previously encountered.
+                if indentation != indentationLevels.last! {
+                    indentationLevels.append(indentation)
+                }
+            }
+
+            let newIndentation = indentationLevels.count - 1
+
+            return String(repeating: " ", count: newIndentation) + content
+        }
+        .joined(separator: "\n")
+    }
     
     // MARK: - Validation for Toolbar Items
     func validateToolbarItems() {
@@ -1724,6 +1765,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             
         case #selector(templateSelected(_:)):
             if ext == "hpppl" || ext == "hppplplus" || ext == "hpppl+" {
+                return true
+            }
+            return false
+            
+        case #selector(reducePythonIndentation(_:)):
+            if ext == "py" {
                 return true
             }
             return false

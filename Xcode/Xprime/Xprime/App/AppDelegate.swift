@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
         
         registerInstallation()
 
-//        // Insert code here to initialize your application
+        // Insert code here to initialize your application
         NSApp.appearance = NSAppearance(named: .darkAqua)
         
         UserDefaults.standard.set(false, forKey: "NSAutomaticPeriodSubstitutionEnabled")

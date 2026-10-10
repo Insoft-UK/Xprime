@@ -13,7 +13,12 @@ set -euo pipefail
 
 # ---------- CONFIGURATION ----------
 
-source ./notarization.sh
+if [ -f "$HOME/GitHub/notarization.sh" ]; then
+    source "$HOME/GitHub/notarization.sh"
+else
+    source ./notarization.sh
+fi
+
 
 APP_PATH=$(find ./build -maxdepth 1 -name "*.app" -type d -print -quit)
 APP_NAME=$(basename "$APP_PATH" .app)

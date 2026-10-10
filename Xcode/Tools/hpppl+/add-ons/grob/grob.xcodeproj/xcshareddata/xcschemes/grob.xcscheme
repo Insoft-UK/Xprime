@@ -65,7 +65,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "$(PROJECT_DIR)/examples/example-16bit.bmp"
+            argument = "$(PROJECT_DIR)/examples/squares.png"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -85,7 +85,7 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-o /dev/stdout"
+            argument = "-o /dev/stdout --type py"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

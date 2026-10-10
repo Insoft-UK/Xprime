@@ -1,7 +1,6 @@
 LOCAL Zs := {{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1},{-1,-1,-1,-1}};
 LOCAL ms := 0;
 
-
 EWait()
 BEGIN
   LOCAL e := WAIT(-1);
@@ -9,7 +8,7 @@ BEGIN
     RETURN {-1,-1,-1,-1,-1,e};
   END;
   IF SIZE(e)==5 THEN
-    RETURN CONCAT(e,-1);
+       RETURN CONCAT(e,-1);
   END;
   RETURN CONCAT(e,{-1,-1,-1});
 END;
