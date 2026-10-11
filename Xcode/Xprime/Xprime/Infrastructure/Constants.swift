@@ -64,4 +64,9 @@ enum Constants {
         static let lib = "$(DEVROOT)/lib"
         static let bin = "$(DEVROOT)/bin"
     }
+    
+    enum Insoft {
+        static let api = "http://api.insoft.uk"
+        static let website = "http://insoft.uk"
+    }
 }

@@ -45,7 +45,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
             let directorys: [URL] = [
                 Constants.HPConnectivityKit.directoryURL.appending(path: "Xprime/Templates"),
                 Constants.HPConnectivityKit.directoryURL.appending(path: "Xprime/Themes"),
-                Constants.HPConnectivityKit.directoryURL.appending(path: "Projects")
+                Constants.HPConnectivityKit.directoryURL.appending(path: "Projects"),
+                Constants.HPConnectivityKit.directoryURL.appending(path: "Content")
             ]
             directorys.forEach {
                 try? FileManager.default.createDirectory(

@@ -58,598 +58,202 @@ enum PythonSourceEditor {
         .joined(separator: "\n")
     }
     
-    private struct PythonToken {
-        let text: String
-        let start: String.Index
-        let end: String.Index
-        let line: Int
-        let indent: Int
-        let isIdentifier: Bool
+    
+    static func preprocessAliases(in source: String) -> String {
+        var aliases: [String: String] = [:]
+        var output: [String] = []
+        var tripleQuote: String? = nil
+
+        for line in source.components(separatedBy: "\n") {
+            let trimmed = line.trimmingCharacters(in: .whitespaces)
+
+            // Directives are recognised only outside multiline strings.
+            if tripleQuote == nil,
+               let directive = parseAliasDirective(trimmed) {
+
+                switch directive {
+                case .alias(let original, let alias):
+                    aliases[alias] = original
+
+                case .unalias(let alias):
+                    aliases.removeValue(forKey: alias)
+                }
+
+                // Do not include the directive in the output.
+                continue
+            }
+
+            output.append(
+                replacingAliasIdentifiers(
+                    in: line,
+                    aliases: aliases,
+                    tripleQuote: &tripleQuote
+                )
+            )
+        }
+
+        return output.joined(separator: "\n")
     }
 
-    private struct PythonScope {
-        var startLine: Int
-        var endLine: Int
-        var indent: Int
-        var locals: Set<String> = []
-        var globals: Set<String> = []
-        var replacements: [String: String] = [:]
-        var name: String?
+    private enum AliasDirective {
+        case alias(original: String, alias: String)
+        case unalias(String)
     }
 
-    private static let pythonKeywords: Set<String> = [
-        "False", "None", "True", "and", "as", "assert",
-        "async", "await", "break", "class", "continue",
-        "def", "del", "elif", "else", "except", "finally",
-        "for", "from", "global", "if", "import", "in",
-        "is", "lambda", "nonlocal", "not", "or", "pass",
-        "raise", "return", "try", "while", "with", "yield"
-    ]
+    private static func parseAliasDirective(
+        _ line: String
+    ) -> AliasDirective? {
+        // Allow trailing comments on directive lines.
+        let statement = String(line.prefix { $0 != "#" })
+            .trimmingCharacters(in: .whitespaces)
 
-    private static let pythonBuiltins: Set<String> = [
-        "abs", "all", "any", "ascii", "bin", "bool",
-        "breakpoint", "bytearray", "bytes", "callable",
-        "chr", "classmethod", "compile", "complex",
-        "delattr", "dict", "dir", "divmod", "enumerate",
-        "eval", "exec", "filter", "float", "format",
-        "frozenset", "getattr", "globals", "hasattr",
-        "hash", "help", "hex", "id", "input", "int",
-        "isinstance", "issubclass", "iter", "len", "list",
-        "locals", "map", "max", "memoryview", "min",
-        "next", "object", "oct", "open", "ord", "pow",
-        "print", "property", "range", "repr", "reversed",
-        "round", "set", "setattr", "slice", "sorted",
-        "staticmethod", "str", "sum", "super", "tuple",
-        "type", "vars", "zip", "__import__"
-    ]
+        let parts = statement.split(whereSeparator: {
+            $0.isWhitespace
+        })
 
-    private static let assignmentOperators: Set<String> = [
-        "=", "+=", "-=", "*=", "/=", "//=", "%=",
-        "**=", "&=", "|=", "^=", ">>=", "<<="
-    ]
+        if parts.count == 4,
+           parts[0] == "alias",
+           parts[2] == "as",
+           isPythonIdentifier(String(parts[1])),
+           isPythonIdentifier(String(parts[3])) {
 
-    static func shortenVariableNames(_ source: String) -> String {
-        let tokens = tokenizePython(source)
-        var scopes = identifyScopes(in: tokens)
+            return .alias(
+                original: String(parts[1]),
+                alias: String(parts[3])
+            )
+        }
 
-        discoverVariables(
-            in: tokens,
-            scopes: &scopes
-        )
+        if parts.count == 2,
+           parts[0] == "unalias",
+           isPythonIdentifier(String(parts[1])) {
 
-        assignReplacements(
-            in: tokens,
-            scopes: &scopes
-        )
+            return .unalias(String(parts[1]))
+        }
 
-        return applyReplacements(
-            to: source,
-            tokens: tokens,
-            scopes: scopes
-        )
+        return nil
     }
 
-    private static func tokenizePython(
-        _ source: String
-    ) -> [PythonToken] {
-        let chars = Array(source)
-        var tokens: [PythonToken] = []
+    private static func isPythonIdentifier(_ name: String) -> Bool {
+        guard let first = name.first,
+              first == "_" || first.isLetter else {
+            return false
+        }
 
+        return name.dropFirst().allSatisfy {
+            $0 == "_" || $0.isLetter || $0.isNumber
+        }
+    }
+
+    private static func replacingAliasIdentifiers(
+        in line: String,
+        aliases: [String: String],
+        tripleQuote: inout String?
+    ) -> String {
+        let chars = Array(line)
+        var result = ""
         var index = 0
-        var line = 0
-        var indent = 0
-        var lineStart = true
+        var quote: Character? = nil
+        var escaped = false
+        var inComment = false
+
+        func resolve(_ name: String) -> String {
+            var current = name
+            var visited = Set<String>()
+
+            while let replacement = aliases[current],
+                  visited.insert(current).inserted {
+                current = replacement
+            }
+
+            return current
+        }
 
         while index < chars.count {
-            let startOffset = index
-            let character = chars[index]
+            let char = chars[index]
 
-            if character == "\n" {
+            // Inside a Python triple-quoted string.
+            if let triple = tripleQuote {
+                if index + 2 < chars.count,
+                   String(chars[index...index + 2]) == triple {
+                    result += triple
+                    index += 3
+                    tripleQuote = nil
+                } else {
+                    result.append(char)
+                    index += 1
+                }
+                continue
+            }
+
+            // Inside a normal single- or double-quoted string.
+            if let activeQuote = quote {
+                result.append(char)
                 index += 1
-                line += 1
-                indent = 0
-                lineStart = true
+
+                if escaped {
+                    escaped = false
+                } else if char == "\\" {
+                    escaped = true
+                } else if char == activeQuote {
+                    quote = nil
+                }
+
                 continue
             }
 
-            if lineStart && (character == " " || character == "\t") {
-                indent += character == "\t" ? 8 : 1
+            // Comments must remain unchanged.
+            if inComment {
+                result.append(char)
                 index += 1
                 continue
             }
 
-            if character.isWhitespace {
+            if char == "#" {
+                inComment = true
+                result.append(char)
                 index += 1
                 continue
             }
 
-            lineStart = false
-
-            if character == "#" {
-                skipComment(
-                    in: chars,
-                    index: &index
-                )
+            // Detect triple-quoted strings.
+            if char == "'" || char == "\"" {
+                if index + 2 < chars.count,
+                   chars[index + 1] == char,
+                   chars[index + 2] == char {
+                    let triple = String(repeating: String(char), count: 3)
+                    result += triple
+                    tripleQuote = triple
+                    index += 3
+                } else {
+                    quote = char
+                    result.append(char)
+                    index += 1
+                }
                 continue
             }
 
-            if character == "'" || character == "\"" {
-                skipString(
-                    in: chars,
-                    index: &index
-                )
-
-                tokens.append(makeToken(
-                    from: source,
-                    chars: chars,
-                    startOffset: startOffset,
-                    endOffset: index,
-                    line: line,
-                    indent: indent,
-                    isIdentifier: false
-                ))
-                continue
-            }
-
-            if character == "_" || character.isLetter {
+            // Replace identifiers, not substrings.
+            if char == "_" || char.isLetter {
+                let start = index
                 index += 1
 
                 while index < chars.count,
-                      chars[index] == "_"
-                        || chars[index].isLetter
-                        || chars[index].isNumber {
+                      chars[index] == "_" ||
+                        chars[index].isLetter ||
+                        chars[index].isNumber {
                     index += 1
                 }
 
-                tokens.append(makeToken(
-                    from: source,
-                    chars: chars,
-                    startOffset: startOffset,
-                    endOffset: index,
-                    line: line,
-                    indent: indent,
-                    isIdentifier: true
-                ))
+                let identifier = String(chars[start..<index])
+                result += resolve(identifier)
                 continue
             }
 
+            result.append(char)
             index += 1
-
-            tokens.append(makeToken(
-                from: source,
-                chars: chars,
-                startOffset: startOffset,
-                endOffset: index,
-                line: line,
-                indent: indent,
-                isIdentifier: false
-            ))
-        }
-
-        return tokens
-    }
-
-    private static func skipComment(
-        in chars: [Character],
-        index: inout Int
-    ) {
-        while index < chars.count && chars[index] != "\n" {
-            index += 1
-        }
-    }
-
-    private static func skipString(
-        in chars: [Character],
-        index: inout Int
-    ) {
-        let quote = chars[index]
-        let isTripleQuoted = index + 2 < chars.count
-            && chars[index + 1] == quote
-            && chars[index + 2] == quote
-
-        index += isTripleQuoted ? 3 : 1
-
-        while index < chars.count {
-            if chars[index] == "\\" {
-                index += min(2, chars.count - index)
-                continue
-            }
-
-            if chars[index] == quote {
-                if !isTripleQuoted {
-                    index += 1
-                    break
-                }
-
-                if index + 2 < chars.count,
-                   chars[index + 1] == quote,
-                   chars[index + 2] == quote {
-                    index += 3
-                    break
-                }
-            }
-
-            index += 1
-        }
-    }
-
-    private static func makeToken(
-        from source: String,
-        chars: [Character],
-        startOffset: Int,
-        endOffset: Int,
-        line: Int,
-        indent: Int,
-        isIdentifier: Bool
-    ) -> PythonToken {
-        PythonToken(
-            text: String(chars[startOffset..<endOffset]),
-            start: source.index(
-                source.startIndex,
-                offsetBy: startOffset
-            ),
-            end: source.index(
-                source.startIndex,
-                offsetBy: endOffset
-            ),
-            line: line,
-            indent: indent,
-            isIdentifier: isIdentifier
-        )
-    }
-
-    private static func identifyScopes(
-        in tokens: [PythonToken]
-    ) -> [PythonScope] {
-        var scopes: [PythonScope] = [
-            PythonScope(
-                startLine: -1,
-                endLine: Int.max,
-                indent: -1
-            )
-        ]
-
-        for index in tokens.indices
-        where tokens[index].text == "def" {
-            guard index + 1 < tokens.count,
-                  tokens[index + 1].isIdentifier else {
-                continue
-            }
-
-            let functionToken = tokens[index]
-            let endLine = findScopeEndLine(
-                for: index,
-                in: tokens
-            )
-
-            scopes.append(
-                PythonScope(
-                    startLine: functionToken.line,
-                    endLine: endLine,
-                    indent: functionToken.indent,
-                    name: tokens[index + 1].text
-                )
-            )
-        }
-
-        return scopes
-    }
-
-    private static func findScopeEndLine(
-        for index: Int,
-        in tokens: [PythonToken]
-    ) -> Int {
-        let functionToken = tokens[index]
-
-        for nextIndex in (index + 1)..<tokens.count {
-            let token = tokens[nextIndex]
-
-            if token.line > functionToken.line,
-               token.indent <= functionToken.indent,
-               token.text != ")" {
-                return token.line
-            }
-        }
-
-        return Int.max
-    }
-
-    private static func discoverVariables(
-        in tokens: [PythonToken],
-        scopes: inout [PythonScope]
-    ) {
-        for index in tokens.indices
-        where tokens[index].isIdentifier {
-            let scopeIndex = scopeIndex(
-                forLine: tokens[index].line,
-                in: scopes
-            )
-
-            discoverGlobalDeclarations(
-                at: index,
-                in: tokens,
-                scopeIndex: scopeIndex,
-                scopes: &scopes
-            )
-
-            discoverFunctionParameters(
-                at: index,
-                in: tokens,
-                scopes: &scopes
-            )
-
-            discoverAssignments(
-                at: index,
-                in: tokens,
-                scopeIndex: scopeIndex,
-                scopes: &scopes
-            )
-
-            discoverLoopVariables(
-                at: index,
-                in: tokens,
-                scopeIndex: scopeIndex,
-                scopes: &scopes
-            )
-        }
-    }
-
-    private static func discoverGlobalDeclarations(
-        at index: Int,
-        in tokens: [PythonToken],
-        scopeIndex: Int,
-        scopes: inout [PythonScope]
-    ) {
-        guard tokens[index].text == "global",
-              scopeIndex != 0 else {
-            return
-        }
-
-        var nextIndex = index + 1
-
-        while nextIndex < tokens.count,
-              tokens[nextIndex].line == tokens[index].line {
-            if tokens[nextIndex].isIdentifier {
-                scopes[scopeIndex].globals.insert(
-                    tokens[nextIndex].text
-                )
-            }
-
-            nextIndex += 1
-        }
-    }
-
-    private static func discoverFunctionParameters(
-        at index: Int,
-        in tokens: [PythonToken],
-        scopes: inout [PythonScope]
-    ) {
-        guard tokens[index].text == "def",
-              index + 1 < tokens.count else {
-            return
-        }
-
-        let functionName = tokens[index + 1].text
-
-        guard let functionScope = scopes.indices.first(where: {
-            $0 != 0
-                && scopes[$0].name == functionName
-                && scopes[$0].startLine == tokens[index].line
-        }) else {
-            return
-        }
-
-        var nextIndex = index + 2
-
-        while nextIndex < tokens.count,
-              tokens[nextIndex].text != ")" {
-            if tokens[nextIndex].isIdentifier,
-               nextIndex + 1 < tokens.count,
-               [",", "=", ":", "/"].contains(
-                    tokens[nextIndex + 1].text
-               ) {
-                scopes[functionScope].locals.insert(
-                    tokens[nextIndex].text
-                )
-            }
-
-            nextIndex += 1
-        }
-    }
-
-    private static func discoverAssignments(
-        at index: Int,
-        in tokens: [PythonToken],
-        scopeIndex: Int,
-        scopes: inout [PythonScope]
-    ) {
-        guard index + 1 < tokens.count,
-              assignmentOperators.contains(
-                tokens[index + 1].text
-              ),
-              !pythonKeywords.contains(tokens[index].text) else {
-            return
-        }
-
-        addLocalVariable(
-            tokens[index].text,
-            to: scopeIndex,
-            scopes: &scopes
-        )
-    }
-
-    private static func discoverLoopVariables(
-        at index: Int,
-        in tokens: [PythonToken],
-        scopeIndex: Int,
-        scopes: inout [PythonScope]
-    ) {
-        guard index > 0,
-              tokens[index - 1].text == "for" else {
-            return
-        }
-
-        addLocalVariable(
-            tokens[index].text,
-            to: scopeIndex,
-            scopes: &scopes
-        )
-    }
-
-    private static func addLocalVariable(
-        _ name: String,
-        to scopeIndex: Int,
-        scopes: inout [PythonScope]
-    ) {
-        if scopeIndex == 0 {
-            scopes[0].locals.insert(name)
-        } else if !scopes[scopeIndex].globals.contains(name) {
-            scopes[scopeIndex].locals.insert(name)
-        }
-    }
-
-    private static func assignReplacements(
-        in tokens: [PythonToken],
-        scopes: inout [PythonScope]
-    ) {
-        var counter = 1
-
-        for index in tokens.indices
-        where tokens[index].isIdentifier {
-            let name = tokens[index].text
-            let scopeIndex = scopeIndex(
-                forLine: tokens[index].line,
-                in: scopes
-            )
-
-            guard shouldRename(
-                tokenIndex: index,
-                name: name,
-                tokens: tokens
-            ) else {
-                continue
-            }
-
-            let targetScope = targetScopeIndex(
-                for: name,
-                in: scopeIndex,
-                scopes: scopes
-            )
-
-            if scopes[targetScope].replacements[name] == nil {
-                scopes[targetScope].replacements[name] = "v\(counter)"
-                counter += 1
-            }
-        }
-    }
-
-    private static func applyReplacements(
-        to source: String,
-        tokens: [PythonToken],
-        scopes: [PythonScope]
-    ) -> String {
-        var result = source
-
-        for index in tokens.indices.reversed()
-        where tokens[index].isIdentifier {
-            let name = tokens[index].text
-            let scopeIndex = scopeIndex(
-                forLine: tokens[index].line,
-                in: scopes
-            )
-
-            guard shouldRename(
-                tokenIndex: index,
-                name: name,
-                tokens: tokens
-            ) else {
-                continue
-            }
-
-            let targetScope = targetScopeIndex(
-                for: name,
-                in: scopeIndex,
-                scopes: scopes
-            )
-
-            guard let replacement = scopes[targetScope]
-                .replacements[name] else {
-                continue
-            }
-
-            result.replaceSubrange(
-                tokens[index].start..<tokens[index].end,
-                with: replacement
-            )
         }
 
         return result
     }
 
-    private static func scopeIndex(
-        forLine line: Int,
-        in scopes: [PythonScope]
-    ) -> Int {
-        scopes.indices
-            .filter {
-                $0 != 0
-                    && scopes[$0].startLine < line
-                    && line < scopes[$0].endLine
-            }
-            .max {
-                scopes[$0].startLine < scopes[$1].startLine
-            } ?? 0
-    }
-
-    private static func targetScopeIndex(
-        for name: String,
-        in scopeIndex: Int,
-        scopes: [PythonScope]
-    ) -> Int {
-        if scopeIndex == 0 {
-            return 0
-        }
-
-        if scopes[scopeIndex].globals.contains(name) {
-            return 0
-        }
-
-        if scopes[scopeIndex].locals.contains(name) {
-            return scopeIndex
-        }
-
-        return scopes[0].locals.contains(name)
-            ? 0
-            : scopeIndex
-    }
-
-    private static func shouldRename(
-        tokenIndex: Int,
-        name: String,
-        tokens: [PythonToken]
-    ) -> Bool {
-        guard name.count > 3,
-              !pythonKeywords.contains(name),
-              !pythonBuiltins.contains(name) else {
-            return false
-        }
-
-        if tokenIndex > 0,
-           ["def", "class", "."].contains(
-                tokens[tokenIndex - 1].text
-           ) {
-            return false
-        }
-
-        if tokenIndex + 1 < tokens.count,
-           tokens[tokenIndex + 1].text == "=",
-           tokenIndex > 0,
-           ["(", ","].contains(
-                tokens[tokenIndex - 1].text
-           ) {
-            return false
-        }
-
-        return true
-    }
 }

@@ -133,10 +133,12 @@ func killProcess(named name: String) {
 
 func registerInstallation() {
     let uuid = XprimeUserID.get()
-
-    var components = URLComponents(
-        string: "http://api.insoft.uk/"
-    )!
+    
+    guard var components = URLComponents(
+        string: Constants.Insoft.api
+    ) else {
+        return
+    }
     
     components.queryItems = [
         URLQueryItem(name: "method", value: "installation"),

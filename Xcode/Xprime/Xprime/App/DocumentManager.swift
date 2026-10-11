@@ -31,43 +31,31 @@ protocol DocumentManagerDelegate: AnyObject {
     func documentManager(_ manager: DocumentManager, didFailWith error: Error)
     
     // Called when a document is successfully opened
-    func documentManagerDidOpen(_ manager: DocumentManager)
+    func documentManagerDidOpen(_ manager: DocumentManager, withResult result: (out: String?, err: String?, exitCode: Int32))
     
     // Optional: called when opening fails
     func documentManager(_ manager: DocumentManager, didFailToOpen error: Error)
     
     // Called when a document is successfully closed
     func documentManagerDidClose(_ manager: DocumentManager)
+    
+    func appendOutput(_ text: String)
 }
+
 
 final class DocumentManager {
     
     weak var delegate: DocumentManagerDelegate?
     
     private(set) var currentDocumentURL: URL?
-    private var editor: CodeEditorTextView
-    private(set) var outputTextView: OutputTextView
     
     var documentIsModified: Bool = false {
         didSet {
             NotificationCenter.default.post(name: .documentModificationChanged, object: nil)
         }
     }
-    
-    init(editor: CodeEditorTextView, outputTextView output: OutputTextView) {
-        self.editor = editor
-        self.outputTextView = output
-    }
-    
-    private func openUntitled() {
-        editor.string = ""
-        editor.undoManager?.removeAllActions()
-        currentDocumentURL = nil
-        documentIsModified = false
-    }
-    
+
     private func saveNote(url: URL) {
-        saveDocument(to: url.appendingPathExtension("note"))
         let path = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "hpnote")
         
         
@@ -86,13 +74,13 @@ final class DocumentManager {
             )
             
             try? FileManager.default.removeItem(at: url.appendingPathExtension("note"))
-            outputTextView.appendTextAndScroll(result.err ?? "")
+            delegate?.appendOutput(result.err ?? "")
             delegate?.documentManager(self, didFailWith: error)
             return
         }
         
         try? FileManager.default.removeItem(at: url.appendingPathExtension("note"))
-        outputTextView.appendTextAndScroll(result.err ?? "")
+        delegate?.appendOutput(result.err ?? "")
         documentIsModified = false
         delegate?.documentManagerDidSave(self)
     }
@@ -156,26 +144,24 @@ final class DocumentManager {
                 code: 0,
                 userInfo: [NSLocalizedDescriptionKey: failureMessage]
             )
-            outputTextView.appendTextAndScroll(result.err ?? "")
+            delegate?.appendOutput(result.err ?? "")
             delegate?.documentManager(self, didFailToOpen: error)
             return
         }
         
         if let successLog {
-            outputTextView.appendTextAndScroll(successLog)
+            delegate?.appendOutput(successLog)
         }
         
         if printStdErrOnSuccess {
-            outputTextView.appendTextAndScroll(result.err ?? "")
+            delegate?.appendOutput(result.err ?? "")
         }
         
-        editor.string = out
-        editor.undoManager?.removeAllActions()
         documentIsModified = false
         Settings.shared.lastOpenedFile = url.path
         currentDocumentURL = resolveDocumentURL(from: url)
         
-        delegate?.documentManagerDidOpen(self)
+        delegate?.documentManagerDidOpen(self, withResult: result)
     }
     
     private func openImage(url: URL) {
@@ -221,12 +207,12 @@ final class DocumentManager {
                 code: 0,
                 userInfo: [NSLocalizedDescriptionKey: "Failed to write \"\(url.lastPathComponent)\" to file."]
             )
-            outputTextView.appendTextAndScroll(result.err ?? "")
+            delegate?.appendOutput(result.err ?? "")
             delegate?.documentManager(self, didFailWith: error)
             return
         }
         
-        outputTextView.appendTextAndScroll(result.err ?? "")
+        delegate?.appendOutput(result.err ?? "")
         self.currentDocumentURL = url
         documentIsModified = false
         delegate?.documentManagerDidSave(self)
@@ -271,12 +257,11 @@ final class DocumentManager {
         
         do {
             let content = try String(contentsOf: url, encoding: encoding)
-            editor.string = content
-            editor.undoManager?.removeAllActions()
             currentDocumentURL = url
             documentIsModified = false
             Settings.shared.lastOpenedFile = url.path
-            delegate?.documentManagerDidOpen(self)
+            delegate?.documentManagerDidOpen(self, withResult: (out: content, err: "", exitCode: 0))
+            
         } catch {
             delegate?.documentManager(self, didFailToOpen: error)
         }
@@ -289,13 +274,13 @@ final class DocumentManager {
     }
     
     @discardableResult
-    func saveDocument(_ silent: Bool = false) -> Bool {
+    func saveDocument(content: String, _ silent: Bool = false) -> Bool {
         guard let url = currentDocumentURL else { return false }
-        return saveDocument(to: url, silent: silent)
+        return saveDocument(to: url, content: content, silent: silent)
     }
     
     @discardableResult
-    func saveDocument(to url: URL, silent: Bool = false) -> Bool {
+    func saveDocument(to url: URL, content: String, silent: Bool = false) -> Bool {
         let encoding: String.Encoding
         switch url.pathExtension.lowercased() {
         case "prgm":
@@ -311,7 +296,8 @@ final class DocumentManager {
         }
         
         do {
-            try editor.string.write(to: url, atomically: true, encoding: encoding)
+            try content.write(to: url, atomically: true, encoding: encoding)
+//            try editor.string.write(to: url, atomically: true, encoding: encoding)
             if silent {
                 return true
             }
@@ -325,15 +311,16 @@ final class DocumentManager {
     }
     
     func saveDocumentAs(
+        content: String,
         allowedContentTypes: [UTType],
-        defaultFileName: String = "Untitled"
+        defaultFileName: String = "Untitled",
     ) {
         let allowedExtensions = allowedContentTypes.compactMap { type in
             type.preferredFilenameExtension
         }
         
         saveAs(allowedExtensions: allowedExtensions, defaultFileName: defaultFileName) { outputURL in
-            self.saveDocument(to: outputURL)
+            self.saveDocument(to: outputURL, content: content)
             self.openDocument(at: outputURL)
         }
     }

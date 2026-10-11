@@ -912,10 +912,10 @@ Gw
                                                 <action selector="reducePythonIndentation:" target="Ady-hI-5gd" id="9mM-7J-ZcD"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Shorten Python Variable Names" image="arrow.left.and.right" catalog="system" id="qK2-qz-0rD">
+                                        <menuItem title="Preprocess Aliases" image="arrow.left.and.right" catalog="system" id="qK2-qz-0rD">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="shortenPythonVariableNames:" target="Ady-hI-5gd" id="Od3-Of-Dsv"/>
+                                                <action selector="preprocessAliases:" target="Ady-hI-5gd" id="zEC-ly-PCY"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -1575,7 +1575,7 @@ Gw
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="textColor" red="0.99131000000000002" green="0.56076000000000004" blue="0.24611" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <color key="backgroundColor" red="0.16078431372549018" green="0.16470588235294117" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <size key="minSize" width="260" height="513"/>
+                                                    <size key="minSize" width="1060" height="513"/>
                                                     <size key="maxSize" width="10000" height="10000000"/>
                                                 </textView>
                                             </subviews>
@@ -1889,7 +1889,7 @@ Gw
         <image name="folder" catalog="system" width="23" height="18"/>
         <image name="gear" catalog="system" width="17" height="17"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="hammer.fill" catalog="system" width="24" height="23"/>
         <image name="help-about" width="18" height="18"/>
         <image name="increase.indent" width="16" height="16"/>
         <image name="interface.window" catalog="system" width="18" height="14"/>

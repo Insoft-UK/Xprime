@@ -63,7 +63,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         super.viewDidLoad()
     
         // Managers that don’t depend on window
-        documentManager = DocumentManager(editor: codeEditorTextView, outputTextView: outputTextView)
+        documentManager = DocumentManager()
         documentManager.delegate = self
         projectManager = ProjectManager()
         projectManager.delegate = self
@@ -208,7 +208,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     @objc func showNotes(_ sender: NSButton) {
         if sender.state == .on {
             if documentManager.currentDocumentURL?.lastPathComponent == "info.note" {
-                documentManager.saveDocument()
+                documentManager.saveDocument(content: codeEditorTextView.string)
             }
             showWindow(withIdentifier: "NotesViewController")
         } else {
@@ -265,7 +265,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                     primaryActionTitle: "Save"
                 ) { confirmed in
                     if confirmed {
-                        self.documentManager.saveDocument()
+                        self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                         if convertToHPPPL() {
                             toolbarStateChanged(false)
                             sender.contentTintColor = .systemBlue
@@ -363,7 +363,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 primaryActionTitle: "Save"
             ) { confirmed in
                 if confirmed {
-                    self.documentManager.saveDocument()
+                    self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                     let url = sender.representedObject as? URL
                     self.documentManager.openDocument(at: url!) // projectDirectoryURL.appending(path: sender.title)
                 } else {
@@ -703,7 +703,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 primaryActionTitle: "Save"
             ) { confirmed in
                 if confirmed {
-                    self.documentManager.saveDocument()
+                    self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                     if url.lastPathComponent.hasSuffix(".xprimeproj") {
                         self.projectManager.openProject(at: url)
                     } else {
@@ -1209,7 +1209,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 primaryActionTitle: "Save"
             ) { confirmed in
                 if confirmed {
-                    self.documentManager.saveDocument()
+                    self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                     self.proceedWithNewDocument()
                 } else {
                     return
@@ -1301,7 +1301,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         panel.begin { result in
             guard result == .OK, let url = panel.url else { return }
             self.documentManager.closeDocument()
-            self.documentManager.saveDocument(to: url)
+            self.documentManager.saveDocument(to: url, content: self.codeEditorTextView.string)
             self.documentManager.openDocument(at: url)
         }
     }
@@ -1342,7 +1342,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 primaryActionTitle: "Save"
             ) { confirmed in
                 if confirmed {
-                    self.documentManager.saveDocument()
+                    self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                     self.proceedWithOpeningDocument()
                 } else {
                     return
@@ -1364,7 +1364,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             proceedWithSavingDocumentAs()
             return
         }
-        documentManager.saveDocument()
+        documentManager.saveDocument(content: self.codeEditorTextView.string)
     }
     
     @IBAction func closeDocument(_ sender: Any) {
@@ -1384,6 +1384,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             allowedContentTypes.append(UTType(filenameExtension: type)!)
         }
         documentManager.saveDocumentAs(
+            content: codeEditorTextView.string,
             allowedContentTypes: allowedContentTypes,
             defaultFileName: documentManager.currentDocumentURL?.lastPathComponent ?? "Untitled"
         )
@@ -1616,7 +1617,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     @IBAction func reformatCode(_ sender: Any) {
         if let _ = documentManager.currentDocumentURL {
-            documentManager.saveDocument(true)
+            documentManager.saveDocument(content: codeEditorTextView.string, true)
         
         } else {
             proceedWithSavingDocumentAs()
@@ -1653,9 +1654,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         codeEditorTextView.didChangeText()
     }
     
-    @IBAction func shortenPythonVariableNames(_ sender: Any) {
+    @IBAction func preprocessAliases(_ sender: Any) {
+        let sourceCode = codeEditorTextView.string
+        
         codeEditorTextView.registerUndo()
-        codeEditorTextView.string = PythonSourceEditor.shortenVariableNames(codeEditorTextView.string)
+        let processedCode = PythonSourceEditor.preprocessAliases(in: sourceCode)
+        codeEditorTextView.string = processedCode
         codeEditorTextView.didChangeText()
     }
     
@@ -1838,10 +1842,15 @@ extension MainViewController: DocumentManagerDelegate {
 #endif
     }
     
-    func documentManagerDidOpen(_ manager: DocumentManager) {
+    func documentManagerDidOpen(_ manager: DocumentManager, withResult result: (out: String?, err: String?, exitCode: Int32)) {
 #if Debug
         print("Opened successfully")
 #endif
+        if let out = result.out {
+            codeEditorTextView.string = out
+            codeEditorTextView.undoManager?.removeAllActions()
+        }
+        
         if let url = documentManager.currentDocumentURL {
             loadAppropriateGrammar(forType: url.pathExtension.lowercased())
             let snippetsURL = Constants.HPConnectivityKit.directoryURL
@@ -1880,6 +1889,10 @@ extension MainViewController: DocumentManagerDelegate {
         codeEditorTextView.string = ""
         refreshQuickOpenToolbar()
         Settings.shared.lastOpenedFile = ""
+    }
+    
+    func appendOutput(_ text: String) {
+        outputTextView.appendTextAndScroll(text)
     }
 }
 

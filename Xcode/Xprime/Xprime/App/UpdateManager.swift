@@ -63,7 +63,7 @@ final class UpdateManager {
     }
     
     func checkForUpdates() {
-        guard let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json?") else { return }
+        guard let url = URL(string: "\(Constants.Insoft.website)/downloads/macos/xprime-app-version.json?") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let self = self else { return }
