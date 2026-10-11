@@ -563,25 +563,25 @@ Gw
                                             </menu>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide Xprime" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide Xprime" image="interface.window" catalog="system" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Hide Others" keyEquivalent="h" id="Vdr-fp-XzO">
+                                        <menuItem title="Hide Others" image="interface.window.on.rectangle.dashed" catalog="system" keyEquivalent="h" id="Vdr-fp-XzO">
                                             <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="hideOtherApplications:" target="Ady-hI-5gd" id="VT4-aY-XCT"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Show All" id="Kd2-mp-pUS">
+                                        <menuItem title="Show All" image="interface.window.on.rectangle" catalog="system" id="Kd2-mp-pUS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="unhideAllApplications:" target="Ady-hI-5gd" id="Dhg-Le-xox"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit Xprime" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit Xprime" image="xmark.interface.window" catalog="system" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -632,7 +632,7 @@ Gw
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="k1T-F0-EUy"/>
-                                        <menuItem title="Open…" keyEquivalent="o" id="lub-ID-MFY">
+                                        <menuItem title="Open…" image="arrow.up.forward" catalog="system" keyEquivalent="o" id="lub-ID-MFY">
                                             <connections>
                                                 <action selector="openDocument:" target="Ady-hI-5gd" id="EKn-8H-hZl"/>
                                             </connections>
@@ -661,12 +661,12 @@ Gw
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="2O6-iy-OW6"/>
-                                        <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
+                                        <menuItem title="Save…" image="square.and.arrow.down" catalog="system" keyEquivalent="s" id="pxx-59-PXV">
                                             <connections>
                                                 <action selector="saveDocument:" target="Ady-hI-5gd" id="6y1-Lw-kQR"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Save As…" keyEquivalent="S" id="Bw7-FT-i3A">
+                                        <menuItem title="Save As…" image="square.and.arrow.down.on.square" catalog="system" keyEquivalent="S" id="Bw7-FT-i3A">
                                             <connections>
                                                 <action selector="saveDocumentAs:" target="Ady-hI-5gd" id="NiY-yk-tWd"/>
                                             </connections>
@@ -692,39 +692,39 @@ Gw
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Edit" id="W48-6f-4Dl">
                                     <items>
-                                        <menuItem title="Undo" keyEquivalent="z" id="dRJ-4n-Yzg">
+                                        <menuItem title="Undo" image="arrow.uturn.backward" catalog="system" keyEquivalent="z" id="dRJ-4n-Yzg">
                                             <connections>
                                                 <action selector="undo:" target="Ady-hI-5gd" id="M6e-cu-g7V"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Redo" keyEquivalent="Z" id="6dh-zS-Vam">
+                                        <menuItem title="Redo" image="arrow.uturn.forward" catalog="system" keyEquivalent="Z" id="6dh-zS-Vam">
                                             <connections>
                                                 <action selector="redo:" target="Ady-hI-5gd" id="oIA-Rs-6OD"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="WRV-NI-Exz"/>
-                                        <menuItem title="Cut" keyEquivalent="x" id="uRl-iY-unG">
+                                        <menuItem title="Cut" image="scissors" catalog="system" keyEquivalent="x" id="uRl-iY-unG">
                                             <connections>
                                                 <action selector="cut:" target="Ady-hI-5gd" id="YJe-68-I9s"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Copy" keyEquivalent="c" id="x3v-GG-iWU">
+                                        <menuItem title="Copy" image="doc.on.doc" catalog="system" keyEquivalent="c" id="x3v-GG-iWU">
                                             <connections>
                                                 <action selector="copy:" target="Ady-hI-5gd" id="G1f-GL-Joy"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Paste" keyEquivalent="v" id="gVA-U4-sdL">
+                                        <menuItem title="Paste" image="doc.on.clipboard" catalog="system" keyEquivalent="v" id="gVA-U4-sdL">
                                             <connections>
                                                 <action selector="paste:" target="Ady-hI-5gd" id="UvS-8e-Qdg"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Delete" id="pa3-QI-u2k">
+                                        <menuItem title="Delete" image="trash" catalog="system" id="pa3-QI-u2k">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="delete:" target="Ady-hI-5gd" id="0Mk-Ml-PaM"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Select All" keyEquivalent="a" id="Ruw-6m-B2m">
+                                        <menuItem title="Select All" image="textbox" catalog="system" keyEquivalent="a" id="Ruw-6m-B2m">
                                             <connections>
                                                 <action selector="selectAll:" target="Ady-hI-5gd" id="VNm-Mi-diN"/>
                                             </connections>
@@ -912,6 +912,12 @@ Gw
                                                 <action selector="reducePythonIndentation:" target="Ady-hI-5gd" id="9mM-7J-ZcD"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Shorten Python Variable Names" image="arrow.left.and.right" catalog="system" id="qK2-qz-0rD">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="shortenPythonVariableNames:" target="Ady-hI-5gd" id="Od3-Of-Dsv"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -925,14 +931,14 @@ Gw
                                                 <action selector="toggleToolbarShown:" target="Ady-hI-5gd" id="BXY-wc-z0C"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Customize Toolbar…" id="1UK-8n-QPP">
+                                        <menuItem title="Customize Toolbar…" image="wrench" catalog="system" id="1UK-8n-QPP">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="pQI-g3-MTW"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="hB3-LF-h0Y"/>
-                                        <menuItem title="Show Sidebar" hidden="YES" keyEquivalent="s" id="kIP-vf-haE">
+                                        <menuItem title="Show Sidebar" image="sidebar.leading" catalog="system" hidden="YES" keyEquivalent="s" id="kIP-vf-haE">
                                             <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                             <connections>
                                                 <action selector="toggleSidebar:" target="Ady-hI-5gd" id="iwa-gc-5KM"/>
@@ -1038,7 +1044,7 @@ Gw
                                                 <action selector="performMiniaturize:" target="Ady-hI-5gd" id="VwT-WD-YPe"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Zoom" id="R4o-n2-Eq4">
+                                        <menuItem title="Zoom" image="square.arrowtriangle.4.outward" catalog="system" id="R4o-n2-Eq4">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="performZoom:" target="Ady-hI-5gd" id="DIl-cC-cCs"/>
@@ -1638,7 +1644,7 @@ Gw
                                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Ar-qR-hmp" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
                                         <rect key="frame" x="20" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="apple.terminal" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fm4-lT-uMB">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="terminal" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fm4-lT-uMB">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -1829,8 +1835,8 @@ Gw
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sLN-NW-azV"/>
-        <segue reference="Fuk-bI-vJG"/>
+        <segue reference="5RB-6J-gcI"/>
+        <segue reference="GAi-V2-Fxa"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="About" width="576" height="448"/>
@@ -1864,9 +1870,11 @@ Gw
         <image name="Triangle Solver" width="19" height="19"/>
         <image name="VirtualCalculator" width="32" height="32"/>
         <image name="app" catalog="system" width="15" height="14"/>
-        <image name="apple.terminal" catalog="system" width="18" height="14"/>
+        <image name="arrow.left.and.right" catalog="system" width="16" height="10"/>
+        <image name="arrow.up.forward" catalog="system" width="13" height="12"/>
         <image name="arrow.up.forward.app" catalog="system" width="15" height="14"/>
         <image name="arrow.uturn.backward" catalog="system" width="15" height="14"/>
+        <image name="arrow.uturn.forward" catalog="system" width="15" height="14"/>
         <image name="binoculars.fill" catalog="system" width="20" height="15"/>
         <image name="book.fill" catalog="system" width="18" height="14"/>
         <image name="bubbles.and.sparkles" catalog="system" width="17" height="15"/>
@@ -1874,6 +1882,7 @@ Gw
         <image name="curlybraces" catalog="system" width="15" height="16"/>
         <image name="decrease.indent" catalog="system" width="18" height="13"/>
         <image name="doc" catalog="system" width="14" height="16"/>
+        <image name="doc.on.clipboard" catalog="system" width="16" height="18"/>
         <image name="doc.on.doc" catalog="system" width="16" height="18"/>
         <image name="eraser.fill" catalog="system" width="16" height="15"/>
         <image name="flowchart" catalog="system" width="17" height="17"/>
@@ -1883,20 +1892,33 @@ Gw
         <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="help-about" width="18" height="18"/>
         <image name="increase.indent" width="16" height="16"/>
+        <image name="interface.window" catalog="system" width="18" height="14"/>
+        <image name="interface.window.on.rectangle" catalog="system" width="19" height="15"/>
+        <image name="interface.window.on.rectangle.dashed" catalog="system" width="19" height="15"/>
         <image name="magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="minus.magnifyingglass" catalog="system" width="16" height="15"/>
-        <image name="play.fill" catalog="system" width="15" height="17"/>
+        <image name="play.fill" catalog="system" width="12" height="13"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="plus.magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="replacement" width="16" height="16"/>
+        <image name="scissors" catalog="system" width="20" height="15"/>
         <image name="screwdriver" catalog="system" width="19" height="19"/>
         <image name="screwdriver.fill" catalog="system" width="19" height="18"/>
         <image name="shippingbox" catalog="system" width="16" height="17"/>
         <image name="shippingbox.fill" catalog="system" width="16" height="16"/>
+        <image name="sidebar.leading" catalog="system" width="18" height="14"/>
+        <image name="square.and.arrow.down" catalog="system" width="15" height="17"/>
+        <image name="square.and.arrow.down.on.square" catalog="system" width="17" height="20"/>
         <image name="square.and.arrow.up" catalog="system" width="15" height="18"/>
+        <image name="square.arrowtriangle.4.outward" catalog="system" width="17" height="16"/>
         <image name="stop.fill" catalog="system" width="18" height="17"/>
+        <image name="terminal" catalog="system" width="18" height="14"/>
         <image name="text.insert" catalog="system" width="16" height="13"/>
+        <image name="textbox" catalog="system" width="19" height="14"/>
+        <image name="trash" catalog="system" width="15" height="17"/>
+        <image name="wrench" catalog="system" width="18" height="18"/>
         <image name="xmark" catalog="system" width="14" height="13"/>
+        <image name="xmark.interface.window" catalog="system" width="18" height="14"/>
         <namedColor name="25%">
             <color white="0.0" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </namedColor>

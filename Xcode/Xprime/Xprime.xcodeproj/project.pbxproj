@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 100;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXFileReference section */
@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1351590A2EA1989400EEDF1C /* Exceptions for "Xprime" folder in "Xprime" target */ = {
+		1351590A2EA1989400EEDF1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Credits.rtf,
@@ -25,26 +25,16 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		13EE0F642DF9DEDE004F3D7E /* Xprime */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				1351590A2EA1989400EEDF1C /* Exceptions for "Xprime" folder in "Xprime" target */,
-			);
-			explicitFolders = (
-				Resources/Developer,
-				Resources/Grammars,
-				Resources/Help,
-			);
-			path = Xprime;
-			sourceTree = "<group>";
-		};
+		13EE0F642DF9DEDE004F3D7E /* Xprime */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1351590A2EA1989400EEDF1C /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (Resources/Developer, Resources/Grammars, Resources/Help, ); path = Xprime; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		13EE0F5F2DF9DEDE004F3D7E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -79,10 +69,14 @@
 			);
 			buildRules = (
 			);
+			dependencies = (
+			);
 			fileSystemSynchronizedGroups = (
 				13EE0F642DF9DEDE004F3D7E /* Xprime */,
 			);
 			name = Xprime;
+			packageProductDependencies = (
+			);
 			productName = Xprime;
 			productReference = 13EE0F622DF9DEDE004F3D7E /* Xprime.app */;
 			productType = "com.apple.product-type.application";
@@ -104,6 +98,7 @@
 				};
 			};
 			buildConfigurationList = 13EE0F5D2DF9DEDE004F3D7E /* Build configuration list for PBXProject "Xprime" */;
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -112,7 +107,6 @@
 			);
 			mainGroup = 13EE0F592DF9DEDE004F3D7E;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 100;
 			productRefGroup = 13EE0F632DF9DEDE004F3D7E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,8 +119,10 @@
 /* Begin PBXResourcesBuildPhase section */
 		13EE0F602DF9DEDE004F3D7E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
@@ -134,58 +130,36 @@
 		137DBD6A2E04798800657C42 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			name = "Run Script";
-			shellPath = /bin/sh;
-			shellScript = (
-				"if [ \"$ACTION\" = \"build\" ]; then",
-				"    # Get current date in YYYYMMDD format",
-				"    #BUILD=$(date +\"%Y%m%d\")",
-				"    #agvtool new-version -all $BUILD",
-				"    ",
-				"    VERSION=$(/usr/libexec/PlistBuddy \\",
-				"        -c \"Print :CFBundleShortVersionString\" \\",
-				"        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")",
-				"  ",
-				"    BUILD=$(/usr/libexec/PlistBuddy \\",
-				"        -c \"Print :CFBundleVersion\" \\",
-				"        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")",
-				"  ",
-				"    MIN_OS=$(/usr/libexec/PlistBuddy \\",
-				"        -c \"Print :LSMinimumSystemVersion\" \\",
-				"        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")",
-				"        ",
-				"    if [[ \"$ARCHS_STANDARD\" == *\"arm64\"* && \"$ARCHS_STANDARD\" == *\"x86_64\"* ]]; then",
-				"        ARCHITECTURE=\"universal\"",
-				"    else",
-				"        ARCHITECTURE=\"$ARCHS\"",
-				"    fi",
-				"",
-				"echo \"{\\n\\",
-				"    \\\"latestVersion\\\": \\\"${VERSION}.${BUILD}\\\",\\n\\",
-				"    \\\"build\\\": \\\"${BUILD}\\\",\\n\\",
-				"    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=xprime.zip\\\",\\n\\",
-				"    \\\"minimumOS\\\": \\\"${MIN_OS}\\\",\\n\\",
-				"    \\\"architecture\\\": \\\"${ARCHITECTURE}\\\",\\n\\",
-				"    \\\"releaseNotesURL\\\": \\\"http://insoft.uk/xprime-release-notes.txt\\\"\\n\\",
-				"}\" > xprime-app-version.json",
-				"",
-				"",
-				"fi",
-				"",
+			buildActionMask = 2147483647;
+			files = (
 			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$ACTION\" = \"build\" ]; then\n    # Get current date in YYYYMMDD format\n    #BUILD=$(date +\"%Y%m%d\")\n    #agvtool new-version -all $BUILD\n    \n    VERSION=$(/usr/libexec/PlistBuddy \\\n        -c \"Print :CFBundleShortVersionString\" \\\n        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\n  \n    BUILD=$(/usr/libexec/PlistBuddy \\\n        -c \"Print :CFBundleVersion\" \\\n        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\n  \n    MIN_OS=$(/usr/libexec/PlistBuddy \\\n        -c \"Print :LSMinimumSystemVersion\" \\\n        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\n        \n    if [[ \"$ARCHS_STANDARD\" == *\"arm64\"* && \"$ARCHS_STANDARD\" == *\"x86_64\"* ]]; then\n        ARCHITECTURE=\"universal\"\n    else\n        ARCHITECTURE=\"$ARCHS\"\n    fi\n\necho \"{\\n\\\n    \\\"latestVersion\\\": \\\"${VERSION}.${BUILD}\\\",\\n\\\n    \\\"build\\\": \\\"${BUILD}\\\",\\n\\\n    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=xprime.zip\\\",\\n\\\n    \\\"minimumOS\\\": \\\"${MIN_OS}\\\",\\n\\\n    \\\"architecture\\\": \\\"${ARCHITECTURE}\\\",\\n\\\n    \\\"releaseNotesURL\\\": \\\"http://insoft.uk/xprime-release-notes.txt\\\"\\n\\\n}\" > xprime-app-version.json\n\n\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		13EE0F5E2DF9DEDE004F3D7E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		13EE0F6F2DF9DEDF004F3D7E /* Debug configuration for PBXProject "Xprime" */ = {
+		13EE0F6F2DF9DEDF004F3D7E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -251,7 +225,7 @@
 			};
 			name = Debug;
 		};
-		13EE0F702DF9DEDF004F3D7E /* Release configuration for PBXProject "Xprime" */ = {
+		13EE0F702DF9DEDF004F3D7E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -309,7 +283,7 @@
 			};
 			name = Release;
 		};
-		13EE0F722DF9DEDF004F3D7E /* Debug configuration for PBXNativeTarget "Xprime" */ = {
+		13EE0F722DF9DEDF004F3D7E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -351,7 +325,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 27.1;
 				MTL_HEADER_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "";
@@ -371,7 +345,7 @@
 			};
 			name = Debug;
 		};
-		13EE0F732DF9DEDF004F3D7E /* Release configuration for PBXNativeTarget "Xprime" */ = {
+		13EE0F732DF9DEDF004F3D7E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -413,7 +387,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 27.1;
 				MTL_HEADER_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.xprime;
@@ -437,17 +411,19 @@
 		13EE0F5D2DF9DEDE004F3D7E /* Build configuration list for PBXProject "Xprime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				13EE0F6F2DF9DEDF004F3D7E /* Debug configuration for PBXProject "Xprime" */,
-				13EE0F702DF9DEDF004F3D7E /* Release configuration for PBXProject "Xprime" */,
+				13EE0F6F2DF9DEDF004F3D7E /* Debug */,
+				13EE0F702DF9DEDF004F3D7E /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		13EE0F712DF9DEDF004F3D7E /* Build configuration list for PBXNativeTarget "Xprime" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				13EE0F722DF9DEDF004F3D7E /* Debug configuration for PBXNativeTarget "Xprime" */,
-				13EE0F732DF9DEDF004F3D7E /* Release configuration for PBXNativeTarget "Xprime" */,
+				13EE0F722DF9DEDF004F3D7E /* Debug */,
+				13EE0F732DF9DEDF004F3D7E /* Release */,
 			);
+			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */

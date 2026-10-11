@@ -1649,44 +1649,17 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     @IBAction func reducePythonIndentation(_ sender: Any) {
         codeEditorTextView.registerUndo()
-        codeEditorTextView.string = reducePYIndentation(codeEditorTextView.string)
+        codeEditorTextView.string = PythonSourceEditor.reduceIndentation(codeEditorTextView.string)
         codeEditorTextView.didChangeText()
     }
     
-    private func reducePYIndentation(_ source: String) -> String {
-        let lines = source.components(separatedBy: .newlines)
-        var indentationLevels: [Int] = [0]
-
-        return lines.map { line in
-            let indentation = line.prefix(while: { $0 == " " }).count
-            let content = String(line.dropFirst(indentation))
-
-            // Preserve blank lines.
-            guard !content.trimmingCharacters(in: .whitespaces).isEmpty else {
-                return ""
-            }
-
-            // Find the matching indentation level or create a new one.
-            if indentation > indentationLevels.last! {
-                indentationLevels.append(indentation)
-            } else {
-                while indentationLevels.count > 1,
-                      indentation < indentationLevels.last! {
-                    indentationLevels.removeLast()
-                }
-
-                // Handle an indentation width not previously encountered.
-                if indentation != indentationLevels.last! {
-                    indentationLevels.append(indentation)
-                }
-            }
-
-            let newIndentation = indentationLevels.count - 1
-
-            return String(repeating: " ", count: newIndentation) + content
-        }
-        .joined(separator: "\n")
+    @IBAction func shortenPythonVariableNames(_ sender: Any) {
+        codeEditorTextView.registerUndo()
+        codeEditorTextView.string = PythonSourceEditor.shortenVariableNames(codeEditorTextView.string)
+        codeEditorTextView.didChangeText()
     }
+    
+    
     
     // MARK: - Validation for Toolbar Items
     func validateToolbarItems() {
