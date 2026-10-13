@@ -537,17 +537,15 @@ final class CodeEditorTextView: NSTextView {
         let symbols = [symbol, symbol.uppercased()]
 
         for symbol in symbols {
-            guard let url = URL(string: "http://insoft.uk/docs/hpprime/catlg/\(symbol).txt") else {
+            guard let url = URL(string: "\(Constants.Insoft.website)/docs/hpprime/catlg/\(symbol).txt") else {
                 continue
             }
 
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            DispatchQueue.global(qos: .userInitiated).async {
                 do {
                     let result = try String(contentsOf: url, encoding: .utf8)
 
                     DispatchQueue.main.async {
-                        guard let self else { return }
-
                         let popover = NSPopover()
                         popover.behavior = .transient
                         popover.contentViewController = QuickHelpViewController(

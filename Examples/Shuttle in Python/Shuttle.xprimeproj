@@ -1,9 +1,9 @@
 {
+  "bin" : "$(DEVROOT)\/bin",
+  "plainFallbackText" : false,
   "language" : "py",
-  "plainFallbackText" : true,
-  "include" : "$(SDKROOT)\/include",
+  "include" : "$(DEVROOT)\/include",
   "archiveProjectAppOnly" : true,
-  "compression" : false,
-  "lib" : "$(SDKROOT)\/lib",
-  "bin" : "$(SDKROOT)\/bin"
+  "lib" : "$(DEVROOT)\/lib",
+  "compression" : true
 }

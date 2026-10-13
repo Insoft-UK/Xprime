@@ -906,7 +906,7 @@ Gw
                                                 <action selector="reformatCode:" target="Ady-hI-5gd" id="NkF-Cf-Wgk"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Reduce Python Indentation" image="decrease.indent" catalog="system" id="7yH-KG-EwB">
+                                        <menuItem title="Reduce Indentation" image="decrease.indent" catalog="system" id="7yH-KG-EwB">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="reducePythonIndentation:" target="Ady-hI-5gd" id="9mM-7J-ZcD"/>
@@ -1006,17 +1006,17 @@ Gw
                                                 <action selector="build:" target="Ady-hI-5gd" id="jgL-VQ-g2m"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Clean Build Folder..." image="bubbles.and.sparkles" catalog="system" id="Up0-W5-9DQ">
+                                        <menuItem title="Clean Project Folder..." image="bubbles.and.sparkles" catalog="system" id="Up0-W5-9DQ">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="cleanBuildFolder:" target="Ady-hI-5gd" id="q0Y-mJ-rjI"/>
+                                                <action selector="cleanProjectFolder:" target="Ady-hI-5gd" id="fEr-k4-e6M"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="7RV-lh-ZrF"/>
-                                        <menuItem title="Show Build Folder in Finder" image="Finder" id="gN5-MO-Fkb">
+                                        <menuItem title="Show Project Folder in Finder" image="Finder" id="gN5-MO-Fkb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="showBuildFolderInFinder:" target="Ady-hI-5gd" id="Bli-w3-TfZ"/>
+                                                <action selector="showProjectFolderInFinder:" target="Ady-hI-5gd" id="aFg-rM-ogg"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="qDa-zc-LLG"/>
@@ -1458,6 +1458,14 @@ Gw
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Pr6-Kd-yB2"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="vRb-OI-uPy"/>
+                                <toolbarItem implicitItemIdentifier="23C30700-2B4A-4DB2-B9FB-C970E7BD2A52" label="Project Folder" paletteLabel="Quick Open" sizingBehavior="auto" id="J6a-Hn-bWN">
+                                    <nil key="toolTip"/>
+                                    <comboButton key="view" verticalHuggingPriority="750" controlSize="large" baseWritingDirection="leftToRight" alignment="left" title="" id="myg-bt-hEL">
+                                        <rect key="frame" x="7" y="14" width="56" height="28"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <menu key="menu" autoenablesItems="NO" id="G1h-cf-dCG"/>
+                                    </comboButton>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="C3BDBDB5-C20B-4F03-B159-70C81DA931D5" label="Stop" paletteLabel="Stop" tag="-1" bordered="YES" autovalidates="NO" id="wEh-dO-kom">
                                     <imageReference key="image" image="stop.fill" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="36" height="24"/>
@@ -1483,6 +1491,27 @@ Gw
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                     </customView>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="79F7DCE7-D665-44E2-9FA9-54C7F6B5448F" label="Build" paletteLabel="Build" toolTip="Build" autovalidates="NO" id="E5A-Do-rOq">
+                                    <imageReference key="image" image="bubbles.and.sparkles" catalog="system" symbolScale="large"/>
+                                    <size key="minSize" width="31.5" height="32"/>
+                                    <size key="maxSize" width="32" height="32"/>
+                                    <button key="view" id="0AM-XF-gnZ" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                        <rect key="frame" x="1" y="14" width="31.5" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="EDb-AZ-oTC">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <imageReference key="image" image="bubbles.and.sparkles" catalog="system" symbolScale="large"/>
+                                        </buttonCell>
+                                        <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <connections>
+                                        <action selector="cleanProjectFolder:" target="Oky-zY-oP4" id="9yj-EG-xog"/>
+                                    </connections>
+                                </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="1BE36892-94F0-4E13-91AA-3C6499C27A6F" label="Build" paletteLabel="Build" toolTip="Build" autovalidates="NO" id="kxh-qG-rQF">
                                     <imageReference key="image" image="hammer.fill" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="32" height="32"/>
@@ -1504,20 +1533,54 @@ Gw
                                         <action selector="build:" target="Oky-zY-oP4" id="tcd-CJ-52I"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="23C30700-2B4A-4DB2-B9FB-C970E7BD2A52" label="Project Folder" paletteLabel="Quick Open" bordered="YES" sizingBehavior="auto" id="J6a-Hn-bWN">
-                                    <nil key="toolTip"/>
-                                    <comboButton key="view" verticalHuggingPriority="750" controlSize="large" baseWritingDirection="leftToRight" alignment="left" title="" id="myg-bt-hEL">
-                                        <rect key="frame" x="7" y="14" width="56" height="28"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <menu key="menu" autoenablesItems="NO" id="G1h-cf-dCG"/>
-                                    </comboButton>
+                                <toolbarItem implicitItemIdentifier="A3F745CE-4169-4A6D-A62B-F6854585CBB2" label="Stop" paletteLabel="Stop" toolTip="Build" autovalidates="NO" id="oHP-Wo-2kQ">
+                                    <imageReference key="image" image="stop.fill" catalog="system" symbolScale="large"/>
+                                    <size key="minSize" width="32" height="32"/>
+                                    <size key="maxSize" width="32.5" height="32"/>
+                                    <button key="view" id="d2V-PI-br0" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="32.5" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="uTx-mX-53J">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <imageReference key="image" image="stop.fill" catalog="system" symbolScale="large"/>
+                                        </buttonCell>
+                                        <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <connections>
+                                        <action selector="stop:" target="Oky-zY-oP4" id="ULa-C3-bfl"/>
+                                    </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="9D0EDB37-8D3A-4493-B0B9-0E205E158B24" label="Show Build Folder in Finder" paletteLabel="Show Build Folder in Finder" toolTip="Build" id="WJW-BH-LDL">
+                                <toolbarItem implicitItemIdentifier="6DF93AA1-261D-4F64-8719-463ADB8693E4" label="Run" paletteLabel="Run" toolTip="Build" autovalidates="NO" id="VrT-KR-C7z">
+                                    <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                    <size key="minSize" width="32" height="32"/>
+                                    <size key="maxSize" width="32.5" height="32"/>
+                                    <button key="view" id="l1J-h3-Mdq" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="14" width="32.5" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="4Nn-Cu-gnv">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
+                                        </buttonCell>
+                                        <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <connections>
+                                        <action selector="run:" target="Oky-zY-oP4" id="hL3-6O-1Xd"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="9D0EDB37-8D3A-4493-B0B9-0E205E158B24" label="Show Project Folder in Finder" paletteLabel="Show Project Folder in Finder" toolTip="Build" id="WJW-BH-LDL">
                                     <imageReference key="image" image="folder" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="32" height="32"/>
                                     <size key="maxSize" width="32.5" height="32"/>
                                     <button key="view" id="nQy-Ac-TtU" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
-                                        <rect key="frame" x="59" y="14" width="32.5" height="32"/>
+                                        <rect key="frame" x="64" y="14" width="32.5" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="Z0t-Zr-Hnu">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1530,7 +1593,7 @@ Gw
                                         </userDefinedRuntimeAttributes>
                                     </button>
                                     <connections>
-                                        <action selector="showBuildFolderInFinder:" target="Oky-zY-oP4" id="1O4-h5-IPv"/>
+                                        <action selector="showProjectFolderInFinder:" target="Oky-zY-oP4" id="pQi-DS-OkG"/>
                                     </connections>
                                 </toolbarItem>
                             </allowedToolbarItems>
@@ -1539,8 +1602,8 @@ Gw
                                 <toolbarItem reference="vRb-OI-uPy"/>
                                 <toolbarItem reference="kxh-qG-rQF"/>
                                 <toolbarItem reference="XU0-4H-hqw"/>
-                                <toolbarItem reference="wEh-dO-kom"/>
-                                <toolbarItem reference="xT0-NP-Y35"/>
+                                <toolbarItem reference="oHP-Wo-2kQ"/>
+                                <toolbarItem reference="VrT-KR-C7z"/>
                             </defaultToolbarItems>
                         </toolbar>
                     </window>
@@ -1777,7 +1840,6 @@ Gw
                     </view>
                     <connections>
                         <outlet property="codeEditorTextView" destination="09p-Rf-tgR" id="YQS-0U-lVp"/>
-                        <outlet property="notesButton" destination="D8b-RZ-JHs" id="ija-lf-pA0"/>
                         <outlet property="outputScrollView" destination="gM6-VC-kCh" id="Cbq-VN-EFd"/>
                         <outlet property="outputTextView" destination="fLO-1H-GKd" id="2zB-kY-Jtt"/>
                         <outlet property="previewButton" destination="wQM-Vu-roh" id="VfX-4a-xso"/>
@@ -1889,7 +1951,7 @@ Gw
         <image name="folder" catalog="system" width="23" height="18"/>
         <image name="gear" catalog="system" width="17" height="17"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="24" height="23"/>
+        <image name="hammer.fill" catalog="system" width="19" height="17"/>
         <image name="help-about" width="18" height="18"/>
         <image name="increase.indent" width="16" height="16"/>
         <image name="interface.window" catalog="system" width="18" height="14"/>

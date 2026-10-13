@@ -138,7 +138,7 @@ final class DocumentManager {
         let path = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: executableName)
         let result = ProcessRunner.run(executable: path, arguments: [url.path, "-o", "/dev/stdout"] + arguments)
         
-        guard result.exitCode == 0, let out = result.out else {
+        guard result.exitCode == 0 else {
             let error = NSError(
                 domain: "Error",
                 code: 0,

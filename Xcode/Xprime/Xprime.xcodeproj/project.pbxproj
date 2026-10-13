@@ -17,7 +17,7 @@
 				Credits.rtf,
 				empty.metal,
 				Info.plist,
-				Resources/Developer.xcassets,
+				Resources/Release.xcassets,
 				UI/Autocomplete/Autocomplete.swift,
 			);
 			target = 13EE0F612DF9DEDE004F3D7E /* Xprime */;
@@ -89,7 +89,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2650;
-				LastUpgradeCheck = 2600;
+				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					13EE0F612DF9DEDE004F3D7E = {
 						CreatedOnToolsVersion = 16.4;
@@ -296,7 +296,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20261012;
+				CURRENT_PROJECT_VERSION = 20261014;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8XN79M4JCJ;
 				ENABLE_APP_SANDBOX = NO;
@@ -326,8 +326,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				MARKETING_VERSION = 27.1;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 27.2;
 				MTL_HEADER_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.xprime;
@@ -341,7 +341,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = Debug;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_STRICT_CONCURRENCY = "$(SWIFT_STRICT_CONCURRENCY_DEFAULT)";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -360,7 +360,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20261012;
+				CURRENT_PROJECT_VERSION = 20261014;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8XN79M4JCJ;
 				ENABLE_APP_SANDBOX = NO;
@@ -389,8 +389,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				MARKETING_VERSION = 27.1;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MARKETING_VERSION = 27.2;
 				MTL_HEADER_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.xprime;
 				PRODUCT_NAME = "$(TARGET_NAME)";

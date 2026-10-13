@@ -68,6 +68,27 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
+				<string>pyplus</string>
+				<string>py+</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>pyplus</string>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<false/>
+			<key>CFBundleTypeName</key>
+			<string>Python Plus</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.insoft.xprime.pyplus</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
 				<string>note</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
@@ -158,6 +179,24 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>uk.insoft.xprime.bin</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>hpapp</string>
+			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>hpapp</string>
+			<key>CFBundleTypeName</key>
+			<string>HP Prime App</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>uk.insoft.xprime.hpapp</string>
 			</array>
 		</dict>
 	</array>
@@ -316,6 +355,48 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Python Plus</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>uk.insoft.xprime.pyplus</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>pyplus</string>
+					<string>py+</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>HP Prime Application</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconBadgeName</key>
+				<string></string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>uk.insoft.xprime</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>hpapp</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
@@ -373,6 +454,7 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>hppplplus</string>
+					<string>hpppl+</string>
 				</array>
 			</dict>
 		</dict>
@@ -392,6 +474,26 @@
 				<key>public.filename-extension</key>
 				<array>
 					<string>note</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Python Plus</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>uk.insoft.xprime.pyplus</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>pyplus</string>
+					<string>py+</string>
 				</array>
 			</dict>
 		</dict>

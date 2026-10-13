@@ -23,7 +23,7 @@
 import Cocoa
 
 enum PythonSourceEditor {
-    static func reduceIndentation(_ source: String) -> String {
+    static func reduceIndentation(in source: String) -> String {
         let lines = source.components(separatedBy: .newlines)
         var indentationLevels: [Int] = [0]
 
@@ -254,6 +254,13 @@ enum PythonSourceEditor {
         }
 
         return result
+    }
+    
+    static func removeBlankLines(in source: String) -> String {
+        source
+            .components(separatedBy: .newlines)
+            .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+            .joined(separator: "\n")
     }
 
 }

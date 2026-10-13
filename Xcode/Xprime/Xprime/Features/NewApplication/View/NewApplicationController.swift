@@ -141,7 +141,7 @@ final class NewApplicationViewController: CustomViewController, NSTextFieldDeleg
             }
             
             let baseApplicationName = baseApplication.selectedItem!.title
-            try HPServices.resetHPAppContents(at: directoryURL.appendingPathComponent(name), named: name.replacingOccurrences(of: " ", with: "_"), fromBaseApplicationNamed: baseApplicationName)
+            try HPPrimeServices.resetHPAppContents(at: directoryURL.appendingPathComponent(name), named: name.replacingOccurrences(of: " ", with: "_"), fromBaseApplicationNamed: baseApplicationName)
             
             FileManager.default.changeCurrentDirectoryPath(
                 directoryURL.appendingPathComponent(name).path

@@ -1,9 +1,9 @@
 {
   "bin" : "$(DEVROOT)\/bin",
-  "include" : "$(DEVROOT)\/include",
+  "lib" : "$(DEVROOT)\/lib",
+  "plainFallbackText" : true,
   "archiveProjectAppOnly" : true,
   "compression" : false,
-  "language" : "py",
-  "plainFallbackText" : true,
-  "lib" : "$(DEVROOT)\/lib"
+  "include" : "$(DEVROOT)\/include",
+  "language" : "py"
 }

@@ -70,6 +70,13 @@ final class ProjectManager {
         guard let projectDirectoryURL, let name = ProjectManager.projectName(in: projectDirectoryURL) else {
             return false
         }
+        
+        // NEW
+//        return projectDirectoryURL
+//            .appending(path: name)
+//            .appendingPathExtension("hpapp")
+//            .fileExists
+        
         return projectDirectoryURL
             .appendingPathComponent(name)
             .appendingPathExtension("hpappdir")
@@ -80,6 +87,17 @@ final class ProjectManager {
         guard isProjectApplication, let projectDirectoryURL, let projectName = self.projectName else {
             return NSImage(named: "Icon")?.copy() as? NSImage
         }
+        
+        // NEW
+//        let url = projectDirectoryURL
+//            .appending(path: "icon")
+//            .appendingPathExtension("png")
+//        
+//        if url.fileExists {
+//            return NSImage(contentsOfFile: url.path)?.copy() as? NSImage
+//        }
+//        
+//        return nil
         
         let url = projectDirectoryURL
             .appendingPathComponent(projectName)

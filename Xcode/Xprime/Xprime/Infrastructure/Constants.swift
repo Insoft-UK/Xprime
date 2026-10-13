@@ -51,7 +51,7 @@ enum Constants {
             .appending(path: "HP Connectivity Kit", directoryHint: .isDirectory)
     }
     
-    enum HPPrime {
+    enum HPPrimeVirtualCalculator {
         static let directoryURL = FileManager
             .default
             .homeDirectoryForCurrentUser
@@ -66,7 +66,7 @@ enum Constants {
     }
     
     enum Insoft {
-        static let api = "http://api.insoft.uk"
-        static let website = "http://insoft.uk"
+        static let api = "https://api.insoft.uk"
+        static let website = "https://insoft.uk"
     }
 }

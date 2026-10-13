@@ -1,9 +1,9 @@
 {
-  "archiveProjectAppOnly" : true,
-  "plainFallbackText" : true,
-  "language" : "pas",
   "compression" : false,
+  "bin" : "$(DEVROOT)\/bin",
+  "language" : "pas",
   "lib" : "$(DEVROOT)\/lib",
+  "archiveProjectAppOnly" : true,
   "include" : "$(DEVROOT)\/include",
-  "bin" : "$(DEVROOT)\/bin"
+  "plainFallbackText" : true
 }

@@ -44,6 +44,7 @@ import Cocoa
 //    }
 //}
 
+
 final class EditorThemeApplier {
 
     static func apply(_ theme: Theme, to editor: CodeEditorTextView) {

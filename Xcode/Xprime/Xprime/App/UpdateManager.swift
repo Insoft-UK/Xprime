@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// ✅ Completed: CLOSED TO FURTHER IMPROVMENTS
+
 import Cocoa
 
 final class UpdateManager {
@@ -29,40 +31,19 @@ final class UpdateManager {
         self.presenterWindow = presenterWindow
     }
     
+    /// Checks the Insoft website for available XPrime updates and informs the user
+    /// whether an update is available or the installed version is up to date.
+    ///
+    /// Retrieves the latest version information, including the version number,
+    /// build number, download URL, and supported architecture. If a newer build
+    /// is available for the current architecture, prompts the user to download it.
+    /// Otherwise, displays an informational message. Errors encountered during
+    /// the network request or response processing are reported to the user.
+    ///
+    /// - Parameters: None.
+    /// - Returns: Nothing. The update check runs asynchronously and reports its
+    ///   result through an update prompt or informational or error message.
     func checkForAvaliableUpdates() {
-        let url = URL(string: "http://insoft.uk/downloads/macos/xprime-app-version.json?ts=\(Date().timeIntervalSince1970)")!
-        
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let self = self else { return }
-            guard error == nil, let data = data else {
-                return
-            }
-            
-            do {
-                if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                   let latestVersion = json["latestVersion"] as? String,
-                   let downloadString = json["downloadURL"] as? String,
-                   let buildString = json["build"] as? String,
-                   let downloadURL = URL(string: downloadString) {
-                    let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
-                    
-                    let architecture = json["architecture"] as? String ?? "universal"
-                    
-                    if architecture == "universal" || architecture == currentArchitecture() {
-                        if isRemoteBuildNewer(latestBuild: buildString, currentBuild: build) {
-                            promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
-                        }
-                    }
-                }
-                
-            } catch {
-            }
-        }
-        
-        task.resume()
-    }
-    
-    func checkForUpdates() {
         guard let url = URL(string: "\(Constants.Insoft.website)/downloads/macos/xprime-app-version.json?") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
@@ -111,11 +92,18 @@ final class UpdateManager {
     }
     
     // MARK: - Version comparison
+    
+    /// Determines whether the remote build is newer than the currently installed build
+    /// using numeric string comparison.
     private func isRemoteBuildNewer(latestBuild: String, currentBuild: String) -> Bool {
         return latestBuild.compare(currentBuild, options: .numeric) == .orderedDescending
     }
     
     // MARK: - Alerts
+    
+    /// Displays an update alert on the main thread, allowing the user to download
+    /// the latest version or postpone the update. Opens the download URL in the
+    /// default browser if the user chooses to download.
     private func promptUpdate(downloadURL: URL, latestVersion: String) {
         DispatchQueue.main.async { [weak self] in
             guard self != nil else { return }
@@ -130,6 +118,7 @@ final class UpdateManager {
         }
     }
     
+    /// Displays an informational alert on the main thread if a presenter window is available.
     private func showInfo(_ message: String, informationalText: String = "") {
         DispatchQueue.main.async { [weak self] in
             guard (self?.presenterWindow) != nil else { return }
@@ -140,6 +129,7 @@ final class UpdateManager {
         }
     }
     
+    /// Displays a critical error alert on the main thread if a presenter window is available.
     private func showError(_ message: String) {
         DispatchQueue.main.async { [weak self] in
             guard (self?.presenterWindow) != nil else { return }
@@ -151,6 +141,7 @@ final class UpdateManager {
         }
     }
     
+    /// Retrieves the current Mac’s hardware architecture identifier using uname.
     private func currentArchitecture() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)

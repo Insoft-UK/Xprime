@@ -39,7 +39,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     @IBOutlet var outputScrollView: NSScrollView!
     
     @IBOutlet var previewButton: NSButton!
-    @IBOutlet var notesButton: NSButton!
     
     @IBOutlet var scrollView: NSScrollView!
     
@@ -186,12 +185,15 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         }
     }
     
+    
     private func setupActions() {
         previewButton.target = self
         previewButton.action = #selector(showPreview(_:))
-        
-        notesButton.target = self
-        notesButton.action = #selector(showNotes(_:))
+     
+        if let button = view.findButton(withIdentifier: Constants.Identifiers.notes) {
+            button.target = self
+            button.action = #selector(showNotes(_:))
+        }
         
         if let button = view.findButton(withIdentifier: "autoIndentation") {
             button.target = self
@@ -330,12 +332,31 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         }
         
         let url = Bundle.main.bundleURL
-            .appending(path: templatesBasePath)
+            .appending(path: "Contents/Resources/Developer/Library/Xprime/Templates/File Templates")
             .appending(path: traceMenuItem(sender))
             .appending(path: sender.title)
             .appendingPathExtension("prgm")
         
-        if let contents = HPServices.loadHPPrgm(at: url) {
+        func loadTextFile(at url: URL) -> String? {
+            var encoding: String.Encoding = .utf8
+            
+            do {
+                var data = try Data(contentsOf: url)
+                encoding = encodingType(&data)
+                
+                return String(data: data, encoding: encoding)
+            } catch {
+                let alert = NSAlert()
+                alert.messageText = "Error"
+                alert.informativeText = "Failed to open file: \(error)"
+                alert.runModal()
+            }
+            
+            return nil
+        }
+        
+        
+        if let contents = loadTextFile(at: url) {
             codeEditorTextView.registerUndo(actionName: "Template")
             if let selectedRange = codeEditorTextView.selectedRanges.first as? NSRange {
                 if let textStorage = codeEditorTextView.textStorage {
@@ -412,7 +433,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             outputTextView.appendTextAndScroll("🔨 Creating application directory\n")
         }
         
-        try? HPServices.resetHPAppContents(at: projectDirectoryURL, named: name, fromBaseApplicationNamed: sender.title)
+        try? HPPrimeServices.resetHPAppContents(at: projectDirectoryURL, named: name, fromBaseApplicationNamed: sender.title)
         outputTextView.appendTextAndScroll("Base application is \"\(projectManager.baseApplicationName)\"\n")
         
         
@@ -422,7 +443,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     // MARK: - Interface Builder Actions
     @IBAction func checkForUpdates(_ sender: Any) {
-        updateManager.checkForUpdates()
+        updateManager.checkForAvaliableUpdates()
     }
     
     // MARK: - Observers
@@ -758,7 +779,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         let grammar:[String : [String]] = [
             "hppplplus": ["hppplplus", "hpppl+"],
             "hpppl": ["hpppl"],
-            "py": ["py"],
+            "py": ["py", "pyplus", "py+"],
             "pas": ["pas"],
             "note": ["note", "ntf"],
             "md": ["md"],
@@ -778,6 +799,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             "main.hppplplus",
             "main.hpppl+",
             "main.pas",
+            "main.pyplus",
+            "main.py+",
             "\(projectManager.projectName!).hpappdir/main.py",
             
         ] {
@@ -834,7 +857,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     private func buildProgram() {
         guard let url = projectManager.projectDirectoryURL else { return }
         guard let sourceURL = mainURL(in: url) else {
-            AlertPresenter.showInfo(on: view.window, title: "Build Failed", message: "Unable to find main.hpppl or main.hppplplus file.")
+            AlertPresenter.showInfo(on: view.window, title: "Build Failed", message: "Unable to find main.py, main.hpppl or main.hppplplus file.")
             return
         }
         guard let projectName = projectManager.projectName else { return }
@@ -844,7 +867,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         let destinationURL = url
             .appending(path: "\(projectName).hpprgm")
         
-        let result = HPServices.preProccess(at: sourceURL, to: destinationURL)
+        let result = preprocessPPLSource(at: sourceURL, to: destinationURL)
         outputTextView.appendTextAndScroll(result.err ?? "")
     }
     
@@ -857,7 +880,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         guard let projectName = projectManager.projectName else { return }
         
         do {
-            try HPServices.ensureHPAppDirectory(at: url, named: projectName, fromBaseApplicationNamed: projectManager.baseApplicationName)
+            try HPPrimeServices.ensureAppDirectory(at: url, named: projectName, fromBaseApplicationNamed: projectManager.baseApplicationName)
         } catch {
             outputTextView.appendTextAndScroll("Failed to build for archiving: \(error)\n")
             return
@@ -868,43 +891,75 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         if sourceURL.pathExtension == "py" {
             return
         }
-        let result = HPServices.preProccess(at: sourceURL, to: url
-            .appending(path: projectName)
-            .appendingPathExtension("hpappdir")
-            .appending(path: projectName)
-            .appendingPathExtension("hpappprgm")
+        
+        let result = preprocessPPLSource(
+            at: sourceURL,
+            to: url
+                .appending(path: projectName)
+                .appendingPathExtension("hpappdir")
+                .appending(path: projectName)
+                .appendingPathExtension("hpappprgm")
         )
         
         outputTextView.appendTextAndScroll(result.err ?? "")
+        
+        let extensions: Set<String> = ["pyplus", "py+"]
+        
+        let fileURLs = try? FileManager.default.contentsOfDirectory(
+            at: url,
+            includingPropertiesForKeys: [.isRegularFileKey],
+            options: [.skipsHiddenFiles]
+        )
+
+        guard let fileURLs else {
+            return
+        }
+        
+        for fileURL in fileURLs {
+            guard extensions.contains(fileURL.pathExtension.lowercased()) else {
+                continue
+            }
+            
+            let result = preprocessPythonSource(
+                at: fileURL,
+                to: url
+                    .appending(path: projectName)
+                    .appendingPathExtension("hpappdir")
+                    .appending(path: fileURL.deletingPathExtension().lastPathComponent)
+                    .appendingPathExtension("py")
+            )
+            
+            outputTextView.appendTextAndScroll(result.err ?? "")
+        }
     }
     
     private func archiveProcess() {
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
-        guard let projectName = projectManager.projectName else { return }
+        guard let name = projectManager.projectName else { return }
         
         let url: URL
         
         let dirA = FileManager.default.homeDirectoryForCurrentUser
             .appending(path: "Documents/HP Prime/Calculators/Prime")
-            .appending(path: projectName)
+            .appending(path: name)
             .appendingPathExtension("hpappdir")
-            .appending(path: projectName)
+            .appending(path: name)
             .appendingPathExtension("hpappprgm")
         let dirB = projectDirectoryURL
-            .appending(path: projectName)
+            .appending(path: name)
             .appendingPathExtension("hpappdir")
-            .appending(path: projectName)
+            .appending(path: name)
             .appendingPathExtension("hpappprgm")
         
         if dirA.isNewer(than: dirB), ProjectSettings.shared.archiveProjectAppOnly == false {
             url = dirA.deletingLastPathComponent()
-            outputTextView.appendTextAndScroll("📦 Archiving from the virtual calculator directory.\n")
+            outputTextView.appendTextAndScroll("📦 Archiving \"\(name).hpappdir\" from the virtual calculator directory…\n")
         } else {
             url = projectDirectoryURL
-            outputTextView.appendTextAndScroll("📦 Archiving from the current project directory.\n")
+            outputTextView.appendTextAndScroll("📦 Archiving \"\(name).hpappdir\" from the current project directory…\n")
         }
         
-        let result = HPServices.archiveHPAppDirectory(in: url, named: projectName, to: projectDirectoryURL)
+        let result = HPPrimeServices.archiveAppDirectory(in: url, named: name, to: projectDirectoryURL)
         
         if let out = result.out, !out.isEmpty {
             outputTextView.appendTextAndScroll(out)
@@ -957,7 +1012,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             .appending(path: "hpappdir")
         
         for unit in units {
-            if HPServices.hpAppDirectoryIsInstalled(named: unit) {
+            if HPPrimeServices.isAppDirectoryInstalled(named: unit) {
                 continue
             }
             let fileURL = basePath
@@ -965,13 +1020,101 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 .appendingPathExtension("hpappdir")
             
             do {
-                try HPServices.installHPAppDirectory(at: fileURL)
+                try HPPrimeServices.exportToPrimeVirtualCalculator(at: fileURL)
                 outputTextView.appendTextAndScroll("Installed: \"\(unit)\"\n")
             } catch {
                 outputTextView.appendTextAndScroll("Error installing \"\(unit)\": \(error)\n")
             }
         }
     }
+    
+    
+    /// Runs the PPL+ preprocessor on the source file using the configured
+    /// compression and include/library paths.
+    ///
+    /// - Parameters:
+    ///   - sourceURL: The source file to preprocess.
+    ///   - destinationURL: The URL for the generated output file.
+    /// - Returns: The process output, error output, and exit code.
+    private func preprocessPPLSource(
+        at sourceURL: URL,
+        to destinationURL: URL
+    ) -> (out: String?, err: String?, exitCode: Int32) {
+
+        let settings = ProjectSettings.shared
+
+        let executableURL = URL(
+            fileURLWithPath: ToolchainPaths.resolvePath(settings.bin)
+        )
+        .appending(path: "hpppl+")
+
+        var arguments = [
+            sourceURL.path,
+            "-o",
+            destinationURL.path
+        ]
+
+        if settings.compression {
+            arguments.append("--compress")
+        }
+
+        if !settings.include.isEmpty {
+            arguments.append(
+                "-I\(ToolchainPaths.resolvePath(settings.include))"
+            )
+        }
+
+        if !settings.lib.isEmpty {
+            arguments.append(
+                "-L\(ToolchainPaths.resolvePath(settings.lib))"
+            )
+        }
+
+        // Remove any previous output to prevent stale results.
+        try? FileManager.default.removeItem(at: destinationURL)
+
+        return ProcessRunner.run(
+            executable: executableURL,
+            arguments: arguments
+        )
+    }
+    
+    /// Reads and preprocesses the Python source file by reducing indentation
+    /// and replacing aliases, then writes the processed source to the destination.
+    ///
+    /// - Parameters:
+    ///   - sourceURL: The URL of the Python source file to preprocess.
+    ///   - destinationURL: The URL where the processed source will be saved.
+    /// - Returns: The standard output, standard error, and exit code.
+    private func preprocessPythonSource(
+        at sourceURL: URL,
+        to destinationURL: URL
+    ) -> (out: String?, err: String?, exitCode: Int32) {
+        do {
+            var processedSource = try String(contentsOf: sourceURL, encoding: .utf8)
+   
+            processedSource = PythonSourceEditor.preprocessAliases(in: processedSource)
+            processedSource = PythonSourceEditor.reduceIndentation(in: processedSource)
+            processedSource = PythonSourceEditor.removeBlankLines(in: processedSource)
+            
+            try processedSource.write(to: destinationURL, atomically: true, encoding: .utf8)
+            
+            let originalSize = (try? sourceURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
+            let compressedSize = (try? destinationURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
+            let reduction = originalSize > 0
+                ? (Double(originalSize - compressedSize) / Double(originalSize)) * 100
+                : 0
+            
+            return (
+                processedSource,
+                "Successully preprocessed \"\(sourceURL.lastPathComponent)\"\nPython Code (deflated \(String(format: "%.1f%%", reduction)))\n",
+                0
+            )
+        } catch {
+            return ("", error.localizedDescription, 1)
+        }
+    }
+
     
     // MARK: -
     
@@ -1017,6 +1160,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         let png = menuImage("png")
         let data = menuImage("data")
         let bin = menuImage("bin")
+        let pyplus = menuImage("pyplus")
         
         
         func createMenu(for url: URL) -> NSMenu {
@@ -1076,6 +1220,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
 
                 case "py":
                     item.image = python
+                    
+                case "pyplus", "py+":
+                    item.image = pyplus
 
                 case "pas":
                     item.image = pascal
@@ -1443,6 +1590,17 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         }
     }
     
+    @IBAction func build(_ sender: Any) {
+        saveDocument(sender)
+        guard let _ = documentManager.currentDocumentURL else { return }
+        
+        if !projectManager.isProjectApplication {
+            buildProgram()
+        } else {
+            buildApplication()
+        }
+    }
+    
     @IBAction func run(_ sender: Any) {
         if !isApplicationInstalled(withBundleIdentifier: Constants.BundleIdentifier.hpPrime) {
             AlertPresenter.showInfo(on: view.window, title: "Virtual Calculator", message: "HP Prime is not installed.")
@@ -1498,7 +1656,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         guard let currentDirectoryURL = projectManager.projectDirectoryURL else { return }
         guard let projectName = projectManager.projectName else { return }
         
-        try? HPServices.exportToConnectivityKitContent(at: currentDirectoryURL
+        try? HPPrimeServices.exportToConnectivityKitContent(at: currentDirectoryURL
             .appending(path: projectName)
             .appendingPathExtension(projectManager.isProjectApplication ? "hpappdir" : "hpprgm")
         )
@@ -1511,20 +1669,20 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         let programURL = currentDirectoryURL
             .appending(path: projectName)
             .appendingPathExtension("hpprgm")
-        outputTextView.appendTextAndScroll("Installing: \(programURL.lastPathComponent)\n")
+        outputTextView.appendTextAndScroll("Installing \"\(programURL.lastPathComponent)\"…\n")
         do {
-            try HPServices.installHPPrgm(at: programURL)
+            try HPPrimeServices.exportToPrimeVirtualCalculator(at: programURL)
             
-            if let projectName = projectManager.projectName, HPServices.hpPrgmIsInstalled(named: projectName) {
-                outputTextView.appendTextAndScroll("✅ Successfully re-installed \"\(programURL.lastPathComponent)\" \n")
+            if let projectName = projectManager.projectName, HPPrimeServices.isProgramInstalled(named: projectName) {
+                outputTextView.appendTextAndScroll("✅ Reinstalled \"\(programURL.lastPathComponent)\"\n")
             } else {
-                outputTextView.appendTextAndScroll("✅ Successfully installed \"\(programURL.lastPathComponent)\" \n")
+                outputTextView.appendTextAndScroll("✅ Installed \"\(programURL.lastPathComponent)\"\n")
             }
         } catch {
             AlertPresenter.showInfo(
-                on: self.view.window,
-                title: "Installing Failed",
-                message: "Installing file: \(error)"
+                on: view.window,
+                title: "Installation Failed",
+                message: "Could not install the HP Prime program: \(error.localizedDescription)"
             )
             return
         }
@@ -1537,20 +1695,20 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         let appDirURL = currentDirectoryURL
             .appending(path: projectName)
             .appendingPathExtension("hpappdir")
-        outputTextView.appendTextAndScroll("Installing: \(appDirURL.lastPathComponent)\n")
+        outputTextView.appendTextAndScroll("Installing \"\(programURL.lastPathComponent)\"…\n")
         do {
-            try HPServices.installHPAppDirectory(at: appDirURL)
+            try HPPrimeServices.exportToPrimeVirtualCalculator(at: appDirURL)
             
-            if let projectName = projectManager.projectName, HPServices.hpAppDirectoryIsInstalled(named: projectName) {
-                outputTextView.appendTextAndScroll("✅ Successfully re-installed \"\(appDirURL.lastPathComponent)\" \n")
+            if let projectName = projectManager.projectName, HPPrimeServices.isAppDirectoryInstalled(named: projectName) {
+                outputTextView.appendTextAndScroll("✅ Reinstalled \"\(appDirURL.lastPathComponent)\" \n")
             } else {
-                outputTextView.appendTextAndScroll("✅ Successfully installed \"\(appDirURL.lastPathComponent)\" \n")
+                outputTextView.appendTextAndScroll("✅ Installed \"\(appDirURL.lastPathComponent)\" \n")
             }
         } catch {
             AlertPresenter.showInfo(
                 on: self.view.window,
-                title: "Installing Failed",
-                message: "Installing application directory: \(error)"
+                title: "Installation Failed",
+                message: "Could not install the HP Prime application: \(error)"
             )
             return
         }
@@ -1560,42 +1718,106 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         archiveProcess()
     }
     
-    @IBAction func build(_ sender: Any) {
-        saveDocument(sender)
-        guard let _ = documentManager.currentDocumentURL else { return }
-        
-        if !projectManager.isProjectApplication {
-            buildProgram()
-        } else {
-            buildApplication()
-        }
-    }
     
-    @IBAction func cleanBuildFolder(_ sender: Any) {
-        guard let currentDirectoryURL = projectManager.projectDirectoryURL, let projectName = projectManager.projectName else {
-            return
+    @IBAction func cleanProjectFolder(_ sender: Any) {
+        
+//        let enumerator = FileManager.default.enumerator(
+//            at: directoryURL,
+//            includingPropertiesForKeys: [.isRegularFileKey],
+//            options: [.skipsHiddenFiles]
+//        )
+//
+//        while let url = enumerator?.nextObject() as? URL {
+//            guard extensions.contains(url.pathExtension.lowercased()) else {
+//                continue
+//            }
+//        }
+        
+        func hasPythonPlusFile(for fileURL: URL) -> Bool {
+            guard fileURL.pathExtension.lowercased() == "py" else {
+                return false
+            }
+
+            let parentURL = fileURL
+                .deletingLastPathComponent()  // Me.hpappdir
+                .deletingLastPathComponent()  // Files
+
+            let baseName = fileURL.deletingPathExtension().lastPathComponent
+
+            return ["py+", "pyplus"].contains { ext in
+                let candidateURL = parentURL.appending(path: "\(baseName).\(ext)")
+                return FileManager.default.fileExists(atPath: candidateURL.path)
+            }
         }
+        
+        func deleteFile(at url: URL) {
+            do {
+                try FileManager.default.removeItem(at: url)
+                outputTextView.appendTextAndScroll(
+                    "✅ Removed: \"\(url.lastPathComponent)\"\n"
+                )
+            } catch {
+                let message: String
+
+                if (error as NSError).code == NSFileNoSuchFileError {
+                    message = "⚠️ Not found: \"\(url.lastPathComponent)\"\n"
+                } else {
+                    message = "❌ Could not remove \"\(url.lastPathComponent)\": \(error.localizedDescription)\n"
+                }
+
+                outputTextView.appendTextAndScroll(message)
+            }
+        }
+        
+        guard let directoryURL = projectManager.projectDirectoryURL, let name = projectManager.projectName else { return }
         
         outputTextView.appendTextAndScroll("Cleaning...\n")
         
-        let files: [URL] = [
-            currentDirectoryURL.appending(path: "\(projectName).hpprgm"),
-            currentDirectoryURL.appending(path: "\(projectName).hpnote"),
-            currentDirectoryURL.appending(path: "\(projectName).hpappdir/\(projectName).hpappprgm"),
-            currentDirectoryURL.appending(path: "\(projectName).hpappdir.zip")
-        ]
         
-        for file in files {
-            do {
-                try FileManager.default.removeItem(at: file)
-                outputTextView.appendTextAndScroll("✅ File removed: \(file.lastPathComponent)\n")
-            } catch {
-                outputTextView.appendTextAndScroll("⚠️ No file found: \(file.lastPathComponent)\n")
+        for fileURL in [
+            directoryURL.appending(path: "\(name).hpprgm"),
+            directoryURL.appending(path: "\(name).hpnote"),
+            directoryURL.appending(path: "\(name).hpappdir.zip")
+        ] {
+            if !fileURL.fileExists {
+                continue
             }
+            deleteFile(at: fileURL)
+        }
+        
+        let appDirectoryURL = directoryURL.appending(path: "\(name).hpappdir")
+
+        guard let fileURLs = try? FileManager.default.contentsOfDirectory(
+            at: appDirectoryURL,
+            includingPropertiesForKeys: [.isRegularFileKey],
+            options: [.skipsHiddenFiles]
+        ) else {
+            return
+        }
+
+        let allowedExtensions: Set<String> = ["hpprgm", "hpappprgm", "hpappnote", "py"]
+
+        for fileURL in fileURLs {
+            guard
+                allowedExtensions.contains(fileURL.pathExtension.lowercased()),
+                (try? fileURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile) == true
+            else {
+                continue
+            }
+            
+            if fileURL.pathExtension == "py" && !hasPythonPlusFile(for: fileURL) {
+                continue
+            }
+            
+            if fileURL.pathExtension == "hpappprgm" && projectManager.baseApplicationName == "Python" {
+                continue
+            }
+
+            deleteFile(at: fileURL)
         }
     }
     
-    @IBAction func showBuildFolderInFinder(_ sender: Any) {
+    @IBAction func showProjectFolderInFinder(_ sender: Any) {
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else {
             return
         }
@@ -1603,10 +1825,9 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     }
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
-        guard let url = HPServices.hpPrimeDirectory() else {
-            return
-        }
-        url.revealInFinderWithCooldown()
+        Constants.HPPrimeVirtualCalculator.directoryURL
+            .appending(path: "Prime")
+            .revealInFinderWithCooldown()
     }
     
     @IBAction func showContentFolderInFinder(_ sender: Any) {
@@ -1650,7 +1871,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     @IBAction func reducePythonIndentation(_ sender: Any) {
         codeEditorTextView.registerUndo()
-        codeEditorTextView.string = PythonSourceEditor.reduceIndentation(codeEditorTextView.string)
+        codeEditorTextView.string = PythonSourceEditor.reduceIndentation(in: codeEditorTextView.string)
         codeEditorTextView.didChangeText()
     }
     
@@ -1664,14 +1885,18 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     }
     
     
-    
     // MARK: - Validation for Toolbar Items
     func validateToolbarItems() {
-        let url = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        
-        
+
         if let button = view.findButton(withIdentifier: Constants.Identifiers.notes) {
-            button.isEnabled = url.appending(path: "info.note").fileExists
+            button.isEnabled = projectManager.projectDirectoryURL
+                .map { $0.appending(path: "info.note").fileExists } ?? false
+            if button.isEnabled == false {
+                NSApp.windows.first {
+                    $0.contentViewController is NotesViewController
+                }?.close()
+                button.state = .off
+            }
         }
         
         if let button = view.findButton(withIdentifier: Constants.Identifiers.autoIndentation) {
@@ -1746,7 +1971,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             }
             return false
             
-        case #selector(reducePythonIndentation(_:)):
+        case #selector(reducePythonIndentation(_:)), #selector(preprocessAliases(_:)):
             if ext == "py" {
                 return true
             }
@@ -1755,13 +1980,14 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         case #selector(revertDocumentToSaved(_:)):
             return documentManager.documentIsModified
             
-        case #selector(cleanBuildFolder(_:)):
+        case #selector(cleanProjectFolder(_:)):
             if projectManager.projectDirectoryURL != nil {
                 return true
             }
             return false
             
-        case #selector(showBuildFolderInFinder(_:)):
+        case #selector(showProjectFolderInFinder(_:)):
+            menuItem.title = "Show \(projectManager.projectName ?? "Project") Folder in Finder"
             if projectManager.projectDirectoryURL != nil {
                 menuItem.image = projectManager.projectIcon
                 menuItem.image?.size = Constants.IconSizes.tiny
@@ -1826,14 +2052,6 @@ extension MainViewController: DocumentManagerDelegate {
             .appending(path: "\(projectName).xprimeproj")
         
         projectManager.saveProjectAs(at: projectFileURL)
-        
-        if notesButton.state == .on, manager.currentDocumentURL?.lastPathComponent == "info.note" {
-            NSApp.windows.forEach {
-                if $0.contentViewController is NotesViewController {
-                    ($0.contentViewController as? NotesViewController)?.refresh()
-                }
-            }
-        }
     }
     
     func documentManager(_ manager: DocumentManager, didFailWith error: Error) {
@@ -1950,7 +2168,6 @@ extension MainViewController: ProjectManagerDelegate {
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()
         Settings.shared.lastOpenedProjectFile = ""
-        notesButton.isEnabled = false
         
         outputTextView.string = ""
         validateToolbarItems()
