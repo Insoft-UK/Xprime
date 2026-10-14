@@ -31,25 +31,29 @@ final class UpdateManager {
         self.presenterWindow = presenterWindow
     }
     
-    /// Checks the Insoft website for available XPrime updates and informs the user
-    /// whether an update is available or the installed version is up to date.
+    /// Checks the Insoft website for available XPrime updates and notifies the user
+    /// if a newer version is available.
     ///
     /// Retrieves the latest version information, including the version number,
     /// build number, download URL, and supported architecture. If a newer build
     /// is available for the current architecture, prompts the user to download it.
-    /// Otherwise, displays an informational message. Errors encountered during
-    /// the network request or response processing are reported to the user.
+    /// Otherwise, displays an informational message unless suppressNoUpdateAlert
+    /// is true. Errors encountered during the network request or response
+    /// processing are reported to the user.
     ///
-    /// - Parameters: None.
+    /// - Parameter suppressNoUpdateAlert: If true, suppresses the informational
+    ///   message when no update is available. Defaults to false.
     /// - Returns: Nothing. The update check runs asynchronously and reports its
-    ///   result through an update prompt or informational or error message.
-    func checkForAvaliableUpdates() {
+    ///   result through an update prompt or an informational or error message.
+    func checkForAvailableUpdates(suppressNoUpdateAlert: Bool = false) {
         guard let url = URL(string: "\(Constants.Insoft.website)/downloads/macos/xprime-app-version.json?") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let self = self else { return }
             guard error == nil, let data = data else {
-                self.showError("Could not check for updates: \(error?.localizedDescription ?? "Unknown error")")
+                if !suppressNoUpdateAlert {
+                    self.showError("Could not check for updates: \(error?.localizedDescription ?? "Unknown error")")
+                }
                 return
             }
             
@@ -69,22 +73,30 @@ final class UpdateManager {
                         if architecture == "universal" || architecture == currentArchitecture() {
                             promptUpdate(downloadURL: downloadURL, latestVersion: latestVersion)
                         } else {
+                            if !suppressNoUpdateAlert {
+                                showInfo(
+                                    "You're up to date!",
+                                    informationalText: "Xprime \(version) is currently the newest version available."
+                                )
+                            }
+                        }
+                    } else {
+                        if !suppressNoUpdateAlert {
                             showInfo(
                                 "You're up to date!",
                                 informationalText: "Xprime \(version) is currently the newest version available."
                             )
                         }
-                    } else {
-                        showInfo(
-                            "You're up to date!",
-                            informationalText: "Xprime \(version) is currently the newest version available."
-                        )
                     }
                 } else {
-                    self.showError("Invalid update info received.")
+                    if !suppressNoUpdateAlert {
+                        self.showError("Invalid update info received.")
+                    }
                 }
             } catch {
-                self.showError("Failed to parse update info: \(error.localizedDescription)")
+                if !suppressNoUpdateAlert {
+                    self.showError("Failed to parse update info: \(error.localizedDescription)")
+                }
             }
         }
         

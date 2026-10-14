@@ -27,10 +27,6 @@ private enum DefaultsKey {
     static let preferredTheme = "PreferredTheme"
     static let lastOpenedFile = "LastOpenedFile"
     static let lastOpenedProjectFile = "LastOpenedProjectFile"
-//    static let workingDirectory = "WorkingDirectory"
-    static let supportedDocumentExtensions = "SupportedDocumentExtensions"
-    static let allowedOpenFileExtensions = "AllowedOpenFileExtensions"
-    static let allowedSaveFileExtensions = "AllowedSaveFileExtensions"
     static let recentFiles = "RecentFiles"
     static let keywordNormalization = "KeywordNormalization"
     static let autoIndentation = "AutoIndentation"
@@ -52,41 +48,6 @@ final class Settings {
     
     @UserDefault(key: DefaultsKey.lastOpenedProjectFile, defaultValue: "")
     var lastOpenedProjectFile: String
-    
-//    @UserDefault(
-//        key: DefaultsKey.workingDirectory,
-//        defaultValue: FileManager
-//            .default
-//            .homeDirectoryForCurrentUser
-//            .appending(path: "Documents", directoryHint: .isDirectory)
-//            .appending(path: "Xprime", directoryHint: .isDirectory)
-//            .path
-//    )
-//    var workingDirectory: String
-    
-    @UserDefault(
-        key: DefaultsKey.supportedDocumentExtensions,
-        defaultValue: [
-            "hpppl", "hppplplus", "hpppl+", "note", "ntf", "py"
-        ]
-    )
-    var supportedDocumentExtensions: [String]
-    
-    @UserDefault(
-        key: DefaultsKey.allowedOpenFileExtensions,
-        defaultValue: [
-            "xprimeproj", "hpppl", "hppplplus", "hpppl+", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "note", "ntf", "py", "h", "bmp", "png", "dat"
-        ]
-    )
-    var allowedOpenFileExtensions: [String]
-    
-    @UserDefault(
-        key: DefaultsKey.allowedSaveFileExtensions,
-        defaultValue: [
-            "hpppl", "hppplplus", "hpppl+", "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote", "note", "ntf", "py", "pas", "dat"
-        ]
-    )
-    var allowedSaveFileExtensions: [String]
     
     @UserDefault(
         key: DefaultsKey.recentFiles,

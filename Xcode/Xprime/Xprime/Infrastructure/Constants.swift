@@ -29,6 +29,25 @@ enum Constants {
         static let big = CGSize(width: 24, height: 24)
     }
     
+    enum DocumentExtensions {
+        static let supported = [
+            "hpppl", "hppplplus", "hpppl+", "note", "ntf",
+            "py", "py+", "pyplus"
+        ]
+        static let allowedOpen = [
+            "xprimeproj", "hpppl", "hppplplus", "hpppl+",
+            "prgm", "hpprgm", "hpappprgm", "hpappnote", "hpnote",
+            "note", "ntf", "py", "py+", "pyplus",
+            "h", "bmp", "png", "dat"
+        ]
+        static let allowedSave = [
+            "hpppl", "hppplplus", "hpppl+", "prgm",
+            "hpprgm", "hpappprgm", "hpappnote", "hpnote",
+            "note", "ntf", "py", "py+", "pyplus",
+            "pas", "dat"
+        ]
+    }
+    
     enum Identifiers {
         static let notes = "notes"
         static let autoIndentation = "autoIndentation"

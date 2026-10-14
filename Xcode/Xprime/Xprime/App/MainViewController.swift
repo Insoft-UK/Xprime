@@ -129,6 +129,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         
         guard let window = view.window else { return }
         window.styleMask.insert(.resizable)
+        
+        updateManager.checkForAvailableUpdates(suppressNoUpdateAlert: true)
     }
 
     
@@ -443,7 +445,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     // MARK: - Interface Builder Actions
     @IBAction func checkForUpdates(_ sender: Any) {
-        updateManager.checkForAvaliableUpdates()
+        updateManager.checkForAvailableUpdates()
     }
     
     // MARK: - Observers
@@ -920,16 +922,23 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 continue
             }
             
+            let destinationURL = url
+                .appending(path: projectName)
+                .appendingPathExtension("hpappdir")
+                .appending(path: fileURL.deletingPathExtension().lastPathComponent)
+                .appendingPathExtension("py")
+            
             let result = preprocessPythonSource(
                 at: fileURL,
-                to: url
-                    .appending(path: projectName)
-                    .appendingPathExtension("hpappdir")
-                    .appending(path: fileURL.deletingPathExtension().lastPathComponent)
-                    .appendingPathExtension("py")
+                to: destinationURL
             )
-            
-            outputTextView.appendTextAndScroll(result.err ?? "")
+
+            outputTextView.appendTextAndScroll("Preprocessing \"\(fileURL.lastPathComponent)\"\n")
+            if result.exitCode == 0 {
+                outputTextView.appendTextAndScroll(result.err ?? "")
+            } else {
+                outputTextView.appendTextAndScroll("⚠️ Missing \"Python Minify\".\n")
+            }
         }
     }
     
@@ -1091,27 +1100,30 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         to destinationURL: URL
     ) -> (out: String?, err: String?, exitCode: Int32) {
         do {
-            var processedSource = try String(contentsOf: sourceURL, encoding: .utf8)
+            let source = try String(contentsOf: sourceURL, encoding: .utf8)
    
-            processedSource = PythonSourceEditor.preprocessAliases(in: processedSource)
-            processedSource = PythonSourceEditor.reduceIndentation(in: processedSource)
-            processedSource = PythonSourceEditor.removeBlankLines(in: processedSource)
-            
-            try processedSource.write(to: destinationURL, atomically: true, encoding: .utf8)
-            
-            let originalSize = (try? sourceURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
-            let compressedSize = (try? destinationURL.resourceValues(forKeys: [.fileSizeKey]).fileSize) ?? 0
-            let reduction = originalSize > 0
-                ? (Double(originalSize - compressedSize) / Double(originalSize)) * 100
-                : 0
-            
-            return (
-                processedSource,
-                "Successully preprocessed \"\(sourceURL.lastPathComponent)\"\nPython Code (deflated \(String(format: "%.1f%%", reduction)))\n",
-                0
-            )
+            let editor = PythonSourceEditor()
+            let processed = editor.preprocessAliases(in: source)
+ 
+            try processed.write(to: destinationURL, atomically: true, encoding: .utf8)
+            return minifyPythonCode(at: destinationURL, to: destinationURL)
         } catch {
             return ("", error.localizedDescription, 1)
+        }
+        
+        func minifyPythonCode(
+            at sourceURL: URL,
+            to destinationURL: URL
+        ) -> (out: String?, err: String?, exitCode: Int32) {
+            let executable = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "pymin")
+            let arguments: [String] = [sourceURL.path, "-o", destinationURL.path]
+            
+            let result = ProcessRunner.run(
+                executable: executable,
+                arguments: arguments,
+            )
+            
+            return result
         }
     }
 
@@ -1138,29 +1150,18 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             return
         }
         
-        func menuImage(_ name: String) -> NSImage? {
-            guard let image = NSImage(named: name)?.copy() as? NSImage else {
-                return nil
-            }
-
-            image.size = Constants.IconSizes.big
-            return image
-        }
         
-        let python = menuImage("py")
-        let pascal = menuImage("pas")
-        let hpnote = menuImage("hpnote")
-        let note = menuImage("note")
-        let file = menuImage("file")
-        let hpppl = menuImage("hpppl")
-        let hpprgm = menuImage("hpprgm")
-        let hppplplus = menuImage("hppplplus")
-        let h = menuImage("h")
-        let bmp = menuImage("bmp")
-        let png = menuImage("png")
-        let data = menuImage("data")
-        let bin = menuImage("bin")
-        let pyplus = menuImage("pyplus")
+        let types = ["hpppl", "hppplplus", "hpprgm", "hpapp", "hpnote", "note", "py", "pyplus", "file", "bmp", "png", "data", "bin", "h", "pas"]
+
+        var icons: [(name: String, image: NSImage?)] = []
+
+        for type in types {
+            guard let image = NSImage(named: type)?.copy() as? NSImage else {
+                continue
+            }
+            image.size = Constants.IconSizes.big
+            icons.append((name: type, image: image))
+        }
         
         
         func createMenu(for url: URL) -> NSMenu {
@@ -1168,8 +1169,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
 
             let excludedExtensions: Set<String> = [
                 "xprimeproj",
-                "prgm",
-                "hpapp"
+                "prgm"
             ]
 
             guard let contents = try? FileManager.default.contentsOfDirectory(
@@ -1180,12 +1180,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 return menu
             }
 
-            for fileURL in contents {
-                let pathExtension = fileURL.pathExtension.lowercased()
+            for url in contents {
+                let pathExtension = url.pathExtension.lowercased()
 
                 // Ignore directories and project-related files
                 guard
-                    let isDirectory = try? fileURL.resourceValues(
+                    let isDirectory = try? url.resourceValues(
                         forKeys: [.isDirectoryKey]
                     ).isDirectory,
                     !isDirectory,
@@ -1195,66 +1195,59 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 }
 
                 let item = NSMenuItem(
-                    title: fileURL.lastPathComponent,
-                    action: #selector(quickOpen(_:)),
+                    title: url.lastPathComponent,
+                    action: nil,
                     keyEquivalent: ""
                 )
 
-                item.representedObject = fileURL
                 if #available(macOS 27.0, *) {
                     item.preferredImageVisibility = .visible
                 }
+                
+                item.representedObject = url
 
                 switch pathExtension {
                 case "hppplplus", "hpppl+":
-                    item.image = hppplplus
+                    item.image = icons.first { $0.name == "hpplplus" }?.image
 
                 case "hpprgm", "hpappprgm":
-                    item.image = hpprgm
+                    item.image = icons.first { $0.name == "hpprgm" }?.image
 
                 case "note", "ntf":
-                    item.image = note
+                    item.image = icons.first { $0.name == "note" }?.image
 
                 case "hpnote", "hpappnote":
-                    item.image = hpnote
+                    item.image = icons.first { $0.name == "hpnote" }?.image
 
-                case "py":
-                    item.image = python
-                    
                 case "pyplus", "py+":
-                    item.image = pyplus
+                    item.image = icons.first { $0.name == "pyplus" }?.image
 
-                case "pas":
-                    item.image = pascal
-
-                case "h":
-                    item.image = h
-
-                case "hpppl":
-                    item.image = hpppl
-
-                case "bmp":
-                    item.image = bmp
-
-                case "png":
-                    item.image = png
-
+                case "pas", "h", "hpppl", "bmp", "png", "py":
+                    item.image = icons.first { $0.name == pathExtension }?.image
+             
                 case "data", "dat":
-                    item.image = data
+                    item.image = icons.first { $0.name == "data" }?.image
 
                 case "binary", "bin":
-                    item.image = bin
-                    item.action = nil
+                    item.image = icons.first { $0.name == "bin" }?.image
+                    
+                case "hpapp":
+                    item.image = icons.first { $0.name == "hpapp" }?.image
 
                 default:
-                    item.image = file
-                    item.action = nil
+                    item.image = icons.first { $0.name == "file" }?.image
+                }
+                
+                for `extension` in Constants.DocumentExtensions.allowedOpen {
+                    if `extension` == pathExtension {
+                        item.action = #selector(quickOpen(_:))
+                    }
                 }
 
                 // Explicitly set the menu image size
                 item.image?.size = Constants.IconSizes.big
 
-                if fileURL == documentManager.currentDocumentURL {
+                if url == documentManager.currentDocumentURL {
                     item.state = .on
                     comboButton.image = item.image
                     comboButton.image?.size = Constants.IconSizes.big
@@ -1378,7 +1371,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             UTType(filenameExtension: "png")!,
             UTType.cHeader
         ]
-        for `extension` in Settings.shared.supportedDocumentExtensions {
+        for `extension` in Constants.DocumentExtensions.supported {
             let allowedType = UTType(filenameExtension: `extension`)!
             panel.allowedContentTypes.append(allowedType)
         }
@@ -1441,7 +1434,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         panel.title = ""
         panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         
-        for type in Settings.shared.supportedDocumentExtensions {
+        for type in Constants.DocumentExtensions.supported {
             panel.allowedContentTypes.append(UTType(filenameExtension: type)!)
         }
         
@@ -1464,7 +1457,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         
         panel.title = ""
         panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-        for type in Settings.shared.allowedOpenFileExtensions {
+        for type in Constants.DocumentExtensions.allowedOpen {
             panel.allowedContentTypes.append(UTType(filenameExtension: type)!)
         }
         
@@ -1527,7 +1520,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     private func proceedWithSavingDocumentAs() {
         var allowedContentTypes: [UTType] = []
         
-        for type in Settings.shared.allowedSaveFileExtensions {
+        for type in Constants.DocumentExtensions.allowedSave {
             allowedContentTypes.append(UTType(filenameExtension: type)!)
         }
         documentManager.saveDocumentAs(
@@ -1695,7 +1688,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         let appDirURL = currentDirectoryURL
             .appending(path: projectName)
             .appendingPathExtension("hpappdir")
-        outputTextView.appendTextAndScroll("Installing \"\(programURL.lastPathComponent)\"…\n")
+        outputTextView.appendTextAndScroll("Installing \"\(currentDirectoryURL.lastPathComponent)\"…\n")
         do {
             try HPPrimeServices.exportToPrimeVirtualCalculator(at: appDirURL)
             
@@ -1826,14 +1819,14 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     @IBAction func showCalculatorFolderInFinder(_ sender: Any) {
         Constants.HPPrimeVirtualCalculator.directoryURL
-            .appending(path: "Prime")
+            .appending(path: "Calculators")
             .revealInFinderWithCooldown()
     }
     
     @IBAction func showContentFolderInFinder(_ sender: Any) {
-        let url = FileManager.default.homeDirectoryForCurrentUser
-            .appending(path: "Documents/HP Connectivity Kit/Content")
-        url.revealInFinderWithCooldown()
+        Constants.HPConnectivityKit.directoryURL
+            .appending(path: "Content")
+            .revealInFinderWithCooldown()
     }
     
     @IBAction func reformatCode(_ sender: Any) {
@@ -1876,11 +1869,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     }
     
     @IBAction func preprocessAliases(_ sender: Any) {
-        let sourceCode = codeEditorTextView.string
+        let source = codeEditorTextView.string
         
         codeEditorTextView.registerUndo()
-        let processedCode = PythonSourceEditor.preprocessAliases(in: sourceCode)
-        codeEditorTextView.string = processedCode
+        let editor = PythonSourceEditor()
+        let processed = editor.preprocessAliases(in: source)
+        
+        codeEditorTextView.string = processed
         codeEditorTextView.didChangeText()
     }
     
@@ -1971,8 +1966,14 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             }
             return false
             
-        case #selector(reducePythonIndentation(_:)), #selector(preprocessAliases(_:)):
-            if ext == "py" {
+        case #selector(reducePythonIndentation(_:)):
+            if ext == "py" || ext == "py+" || ext == "pyplus" {
+                return true
+            }
+            return false
+            
+        case #selector(preprocessAliases(_:)):
+            if ext == "py+" || ext == "pyplus" {
                 return true
             }
             return false

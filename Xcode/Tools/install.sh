@@ -10,6 +10,7 @@ cp hpppl+/build/hpppl+ $DEST/
 cp hpppl+/add-ons/grob/build/grob $DEST/
 cp hpppl+/add-ons/hpfont/build/hpfont $DEST/
 cp hpnote/build/hpnote $DEST/
+cp pymin/build/pymin $DEST/
 
 # Close the Terminal window
 #osascript -e 'tell application "Terminal" to close window 1' & exit

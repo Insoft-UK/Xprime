@@ -20,10 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
-
 import Cocoa
-
 
 final class AboutViewController: NSViewController {
     @IBOutlet weak var Version: NSTextField!
@@ -85,8 +82,6 @@ final class AboutViewController: NSViewController {
             }
         }
         
-        
-        
         func findTextField(
             in view: NSView,
             identifier: NSUserInterfaceItemIdentifier
@@ -117,8 +112,6 @@ final class AboutViewController: NSViewController {
 
     }
     
-   
-    
     override func mouseDown(with event: NSEvent) {
         if event.modifierFlags.contains(.option) {
             let bundleShortVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "26.0"
@@ -135,12 +128,18 @@ final class AboutViewController: NSViewController {
     }
     
     private func toolsInfo() {
-        let `ppl+` = version(forTool: "hpppl+");
-        let grob = version(forTool: "grob");
-        let hpfont = version(forTool: "hpfont");
-        let hpnote = version(forTool: "hpnote");
-        
-        Tools.stringValue = "HP PPL+ \(`ppl+`) - HP GROB \(grob) - HP FONT \(hpfont) - HP NOTE \(hpnote)"
+        let tools = [
+            ("PPL+", "hpppl+"),
+            ("GROB", "grob"),
+            ("FONT", "hpfont"),
+            ("NOTE", "hpnote"),
+            ("PYTHON MINIFY", "pymin")
+        ]
+
+        Tools.stringValue = tools
+            .map { "\($0.0) \(version(forTool: $0.1))" }
+            .joined(separator: " - ")
+
         Tools.isHidden = false
     }
     

@@ -177,6 +177,9 @@ final class OutputTextView: NSTextView {
     
     /// Appends text and scrolls reliably to the bottom
     func appendTextAndScroll(_ newText: String) {
+        if !string.isEmpty && string.last != "\n" {
+            string += "\n"
+        }
         self.string += newText
 
         ScrollToBottom()

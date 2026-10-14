@@ -76,7 +76,7 @@
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<false/>
 			<key>CFBundleTypeName</key>
-			<string>Python Plus</string>
+			<string>Python+</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
@@ -361,7 +361,7 @@
 				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Python Plus</string>
+			<string>Python+</string>
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
@@ -381,7 +381,7 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>HP Prime Application</string>
+			<string>HP Prime App</string>
 			<key>UTTypeIcons</key>
 			<dict>
 				<key>UTTypeIconBadgeName</key>
@@ -483,7 +483,7 @@
 				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Python Plus</string>
+			<string>Python+</string>
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>

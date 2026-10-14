@@ -12,7 +12,7 @@
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
 //
-// THE SOFTWARE IS PROVIDED AS IS, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
@@ -22,20 +22,27 @@
 
 import Cocoa
 
-enum PythonSourceEditor {
+final class PythonSourceEditor {
+    private var aliases: [String: String] = [:]
+    private var reservedNames: Set<String> = []
+    private var nextAutoName = 1
+    private var nextModuleName = 1
+    
+    // MARK: - Indentation
     static func reduceIndentation(in source: String) -> String {
         let lines = source.components(separatedBy: .newlines)
         var indentationLevels: [Int] = [0]
-
         return lines.map { line in
-            let indentation = line.prefix(while: { $0 == " " }).count
+            let indentation = line.prefix {
+                $0 == " "
+            }.count
             let content = String(line.dropFirst(indentation))
-
             // Preserve blank lines.
-            guard !content.trimmingCharacters(in: .whitespaces).isEmpty else {
+            guard !content.trimmingCharacters(
+                in: .whitespaces
+            ).isEmpty else {
                 return ""
             }
-
             // Find the matching indentation level or create a new one.
             if indentation > indentationLevels.last! {
                 indentationLevels.append(indentation)
@@ -44,37 +51,46 @@ enum PythonSourceEditor {
                       indentation < indentationLevels.last! {
                     indentationLevels.removeLast()
                 }
-
                 // Handle an indentation width not previously encountered.
                 if indentation != indentationLevels.last! {
                     indentationLevels.append(indentation)
                 }
             }
-
             let newIndentation = indentationLevels.count - 1
-
-            return String(repeating: " ", count: newIndentation) + content
+            return String(
+                repeating: " ",
+                count: newIndentation
+            ) + content
         }
         .joined(separator: "\n")
     }
-    
-    
-    static func preprocessAliases(in source: String) -> String {
-        var aliases: [String: String] = [:]
+    // MARK: - Aliases
+    func preprocessAliases(in source: String) -> String {
+        aliases.removeAll()
+        reservedNames = identifiers(in: source)
+        nextAutoName = 1
         var output: [String] = []
         var tripleQuote: String? = nil
-
         for line in source.components(separatedBy: "\n") {
             let trimmed = line.trimmingCharacters(in: .whitespaces)
-
             // Directives are recognised only outside multiline strings.
             if tripleQuote == nil,
                let directive = parseAliasDirective(trimmed) {
-
+                
                 switch directive {
                 case .alias(let original, let alias):
-                    aliases[alias] = original
-
+                    if original == "_" {
+                        let realName = generateAutoName()
+                        aliases[alias] = realName
+                        reservedNames.insert(realName)
+                    } else if original == "*" {
+                        let moduleName = generateModuleName()
+                        aliases[alias] = moduleName
+                        reservedNames.insert(moduleName)
+                        output.append("import \(alias) as \(moduleName)")
+                    } else {
+                        aliases[alias] = original
+                    }
                 case .unalias(let alias):
                     aliases.removeValue(forKey: alias)
                 }
@@ -82,71 +98,105 @@ enum PythonSourceEditor {
                 // Do not include the directive in the output.
                 continue
             }
-
             output.append(
                 replacingAliasIdentifiers(
                     in: line,
-                    aliases: aliases,
                     tripleQuote: &tripleQuote
                 )
             )
         }
-
         return output.joined(separator: "\n")
     }
-
     private enum AliasDirective {
         case alias(original: String, alias: String)
         case unalias(String)
     }
-
-    private static func parseAliasDirective(
+    private func parseAliasDirective(
         _ line: String
     ) -> AliasDirective? {
         // Allow trailing comments on directive lines.
-        let statement = String(line.prefix { $0 != "#" })
-            .trimmingCharacters(in: .whitespaces)
-
+        let statement = String(line.prefix {
+            $0 != "#"
+        }).trimmingCharacters(in: .whitespaces)
         let parts = statement.split(whereSeparator: {
             $0.isWhitespace
         })
-
         if parts.count == 4,
            parts[0] == "alias",
            parts[2] == "as",
-           isPythonIdentifier(String(parts[1])),
+           (parts[1] == "_"
+               || parts[1] == "*"
+               || isPythonIdentifier(String(parts[1]))),
            isPythonIdentifier(String(parts[3])) {
-
             return .alias(
                 original: String(parts[1]),
                 alias: String(parts[3])
             )
         }
-
         if parts.count == 2,
            parts[0] == "unalias",
            isPythonIdentifier(String(parts[1])) {
-
             return .unalias(String(parts[1]))
         }
-
         return nil
     }
+    private func generateAutoName() -> String {
+        var name: String
+        repeat {
+            name = "v\(nextAutoName)"
+            nextAutoName += 1
+        } while reservedNames.contains(name)
+            || aliases.values.contains(name)
+        return name
+    }
+    
+    private func generateModuleName() -> String {
+        var name: String
+        repeat {
+            name = "m\(nextModuleName)"
+            nextModuleName += 1
+        } while reservedNames.contains(name)
+            || aliases.values.contains(name)
+        return name
+    }
 
-    private static func isPythonIdentifier(_ name: String) -> Bool {
+    private func isPythonIdentifier(
+        _ name: String
+    ) -> Bool {
         guard let first = name.first,
               first == "_" || first.isLetter else {
             return false
         }
-
         return name.dropFirst().allSatisfy {
             $0 == "_" || $0.isLetter || $0.isNumber
         }
     }
-
-    private static func replacingAliasIdentifiers(
+    private func identifiers(
+        in source: String
+    ) -> Set<String> {
+        let chars = Array(source)
+        var result: Set<String> = []
+        var index = 0
+        while index < chars.count {
+            let char = chars[index]
+            guard char == "_" || char.isLetter else {
+                index += 1
+                continue
+            }
+            let start = index
+            index += 1
+            while index < chars.count,
+                  chars[index] == "_"
+                    || chars[index].isLetter
+                    || chars[index].isNumber {
+                index += 1
+            }
+            result.insert(String(chars[start..<index]))
+        }
+        return result
+    }
+    private func replacingAliasIdentifiers(
         in line: String,
-        aliases: [String: String],
         tripleQuote: inout String?
     ) -> String {
         let chars = Array(line)
@@ -155,22 +205,17 @@ enum PythonSourceEditor {
         var quote: Character? = nil
         var escaped = false
         var inComment = false
-
         func resolve(_ name: String) -> String {
             var current = name
             var visited = Set<String>()
-
             while let replacement = aliases[current],
                   visited.insert(current).inserted {
                 current = replacement
             }
-
             return current
         }
-
         while index < chars.count {
             let char = chars[index]
-
             // Inside a Python triple-quoted string.
             if let triple = tripleQuote {
                 if index + 2 < chars.count,
@@ -184,12 +229,10 @@ enum PythonSourceEditor {
                 }
                 continue
             }
-
             // Inside a normal single- or double-quoted string.
             if let activeQuote = quote {
                 result.append(char)
                 index += 1
-
                 if escaped {
                     escaped = false
                 } else if char == "\\" {
@@ -197,30 +240,29 @@ enum PythonSourceEditor {
                 } else if char == activeQuote {
                     quote = nil
                 }
-
                 continue
             }
-
             // Comments must remain unchanged.
             if inComment {
                 result.append(char)
                 index += 1
                 continue
             }
-
             if char == "#" {
                 inComment = true
                 result.append(char)
                 index += 1
                 continue
             }
-
             // Detect triple-quoted strings.
             if char == "'" || char == "\"" {
                 if index + 2 < chars.count,
                    chars[index + 1] == char,
                    chars[index + 2] == char {
-                    let triple = String(repeating: String(char), count: 3)
+                    let triple = String(
+                        repeating: String(char),
+                        count: 3
+                    )
                     result += triple
                     tripleQuote = triple
                     index += 3
@@ -231,36 +273,34 @@ enum PythonSourceEditor {
                 }
                 continue
             }
-
             // Replace identifiers, not substrings.
             if char == "_" || char.isLetter {
                 let start = index
                 index += 1
-
                 while index < chars.count,
-                      chars[index] == "_" ||
-                        chars[index].isLetter ||
-                        chars[index].isNumber {
+                      chars[index] == "_"
+                        || chars[index].isLetter
+                        || chars[index].isNumber {
                     index += 1
                 }
-
                 let identifier = String(chars[start..<index])
                 result += resolve(identifier)
                 continue
             }
-
             result.append(char)
             index += 1
         }
-
         return result
     }
-    
+    // MARK: - Blank Lines
     static func removeBlankLines(in source: String) -> String {
         source
             .components(separatedBy: .newlines)
-            .filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+            .filter {
+                !$0.trimmingCharacters(
+                    in: .whitespaces
+                ).isEmpty
+            }
             .joined(separator: "\n")
     }
-
 }

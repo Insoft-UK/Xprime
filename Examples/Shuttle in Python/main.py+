@@ -3,10 +3,9 @@ from hpprime import *
 from graphic import *
 
 from sys import argv
-import shuttle
 
-alias k as key
-    
+alias * as shuttle
+
 # Main function
 def main() -> Any:
   fillrect(0, 0, 0, 320, 240, 0, 0)

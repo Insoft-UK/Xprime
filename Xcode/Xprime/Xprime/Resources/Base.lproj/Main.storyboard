@@ -1407,10 +1407,10 @@ Gw
                                 </textFieldCell>
                             </textField>
                             <textField hidden="YES" autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32N-W6-Vx7">
-                                <rect key="frame" x="18" y="20" width="524" height="11"/>
+                                <rect key="frame" x="18" y="20" width="540" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="HP PPL+ 20260000 - HP GROB 20260000 - HP FONT 20260000 - HP NOTE 20260000" id="srx-Hx-arU">
-                                    <font key="font" metaFont="miniSystem"/>
+                                <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" title="Loading..." id="srx-Hx-arU">
+                                    <font key="font" metaFont="system" size="8"/>
                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -1939,7 +1939,7 @@ Gw
         <image name="arrow.uturn.forward" catalog="system" width="15" height="14"/>
         <image name="binoculars.fill" catalog="system" width="20" height="15"/>
         <image name="book.fill" catalog="system" width="18" height="14"/>
-        <image name="bubbles.and.sparkles" catalog="system" width="17" height="15"/>
+        <image name="bubbles.and.sparkles" catalog="system" width="22" height="20"/>
         <image name="clock" catalog="system" width="15" height="15"/>
         <image name="curlybraces" catalog="system" width="15" height="16"/>
         <image name="decrease.indent" catalog="system" width="18" height="13"/>
@@ -1951,7 +1951,7 @@ Gw
         <image name="folder" catalog="system" width="23" height="18"/>
         <image name="gear" catalog="system" width="17" height="17"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="hammer.fill" catalog="system" width="24" height="23"/>
         <image name="help-about" width="18" height="18"/>
         <image name="increase.indent" width="16" height="16"/>
         <image name="interface.window" catalog="system" width="18" height="14"/>
@@ -1959,7 +1959,7 @@ Gw
         <image name="interface.window.on.rectangle.dashed" catalog="system" width="19" height="15"/>
         <image name="magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="minus.magnifyingglass" catalog="system" width="16" height="15"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="play.fill" catalog="system" width="15" height="17"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="plus.magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="replacement" width="16" height="16"/>

@@ -1,9 +1,9 @@
 {
+  "include" : "$(DEVROOT)\/include",
+  "lib" : "$(DEVROOT)\/lib",
   "compression" : false,
+  "archiveProjectAppOnly" : true,
   "bin" : "$(DEVROOT)\/bin",
   "language" : "pas",
-  "lib" : "$(DEVROOT)\/lib",
-  "archiveProjectAppOnly" : true,
-  "include" : "$(DEVROOT)\/include",
   "plainFallbackText" : true
 }

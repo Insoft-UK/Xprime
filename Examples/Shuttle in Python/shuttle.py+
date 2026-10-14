@@ -1,9 +1,5 @@
 import hpprime as hp
 
-alias d as data
-alias p as pen
-alias c as color
-
 with open("drawing.dat") as f:
   data = [int(x) for x in f.read().split(",")]
 

@@ -1,0 +1,28 @@
+from cas import *
+from graphic import *
+alias * as hpprime
+alias * as zxspectrum
+
+# Main function
+def main() -> Any:
+  hpprime.fillrect(0,0,0,320,240,0,0)
+  zxspectrum.render_scr("47.scr")
+  
+  try:
+    while True:
+      key = get_key()
+      if key > 0:
+        if key == 4: # ESC
+          break
+          
+        zxspectrum.render_scr(str(int(key))+".scr")
+      
+  except KeyboardInterrupt:
+    pass
+
+try:
+  main()
+except KeyboardInterrupt:
+  pass
+  
+print("Program Terminated")
