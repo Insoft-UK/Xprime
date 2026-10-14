@@ -8,6 +8,7 @@
 - [GROB](Xcode/Tools/hpppl%2B/add-ons/grob)
 - [Font](Xcode/Tools/hpppl%2B/add-ons/hpfont)
 - [Note](Xcode/Tools/hpnote)
+- [Python Minify](Xcode/Tools/pymin)
 
 ### Xprime IDE
 Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Prime PPL, package it, and create runnable HP Prime applications.
