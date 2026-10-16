@@ -23,10 +23,9 @@
 import WebKit
 import Cocoa
 
-
 final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSTextFieldDelegate {
     @IBOutlet weak var catalog: NSPopUpButton!
-    @IBOutlet weak var html: WKWebView!
+    @IBOutlet var webView: WKWebView!
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -37,7 +36,19 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
         
         populateCatalogMenu()
         
-        loadHelp(for: Help.shared.lastOpenedCatalogHelpFile)
+//        loadHelp(for: Help.shared.lastOpenedCatalogHelpFile)
+        
+        if let htmlURL = Bundle.main.url(forResource: "catalog", withExtension: "html") {
+            webView.loadFileURL(
+                htmlURL,
+                allowingReadAccessTo: htmlURL.deletingLastPathComponent()
+            )
+        }
+        
+        webView.wantsLayer = true
+        webView.layer?.cornerRadius = 8
+        webView.layer?.masksToBounds = true
+        webView.appearance = NSAppearance(named: .aqua)
     }
     
     override func viewDidAppear() {
@@ -45,40 +56,45 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
         
         guard let window = view.window else { return }
         window.level = .modalPanel
+        
+        
     }
     
     private func loadHelp(for command: String) {
         let filename = command.percentEncoded()
+        let helpDirectory = Constants.HPConnectivityKit.directoryURL
+            .appending(path: "Xprime/Help/catlg")
 
-        guard let url = URL(string: "http://insoft.uk/docs/hpprime/catlg/\(filename).txt") else {
-            return
-        }
+        let htmlURL = helpDirectory.appending(path: "\(filename).html")
+        let txtURL = helpDirectory.appending(path: "\(filename).txt")
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            do {
-                let result = try String(contentsOf: url, encoding: .utf8)
+        let fileManager = FileManager.default
 
-                let html = """
-                    <style>
-                        body {
-                            font-family: "Arial";
-                            font-size: 10pt;
-                            white-space: pre-wrap;
-                            overflow: scroll;
-                            margin: 0;
-                            padding: 0;
-                            line-height: 1.5;
-                        }
-                    </style>
-                    <body>\(result)</body>
-                    """
+        if fileManager.fileExists(atPath: htmlURL.path) {
+            webView.loadFileURL(
+                htmlURL,
+                allowingReadAccessTo: helpDirectory
+            )
+        } else if fileManager.fileExists(atPath: txtURL.path) {
+            webView.loadFileURL(
+                txtURL,
+                allowingReadAccessTo: helpDirectory
+            )
+        } else {
+            let onlineURL = URL(
+                string: "\(Constants.Insoft.website)/docs/hpprime/?file=catlg/\(filename)"
+            )!
+            
+            let dataStore = WKWebsiteDataStore.default()
 
-                DispatchQueue.main.async {
-                    self.html.loadHTMLString(html, baseURL: nil)
-                }
-
-            } catch {
-                print("Failed to load help: \(error)")
+            dataStore.removeData(
+                ofTypes: [
+                    WKWebsiteDataTypeMemoryCache,
+                    WKWebsiteDataTypeDiskCache
+                ],
+                modifiedSince: .distantPast
+            ) {
+                self.webView.load(URLRequest(url: onlineURL))
             }
         }
     }
@@ -126,47 +142,77 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
             "<", "<=", "<>", ">", ">=", "^", "|"
         ]
         
-        if let url = Bundle.main.url(
-            forResource: "catlg",
-            withExtension: "txt",
-            subdirectory: "Help"
-        ) {
+        let localURL = Constants.HPConnectivityKit.directoryURL
+            .appending(path: "Xprime/Help/catlg.txt")
+        
+        if localURL.fileExists {
             do {
-                let contents = try String(contentsOf: url, encoding: .utf8)
-                
-                for line in contents.components(separatedBy: .newlines) {
-                    let name = line
-                    let menuItem = NSMenuItem(
-                        title: name,
-                        action: #selector(catalogSelected(_:)),
-                        keyEquivalent: ""
-                        
-                    )
-                    
-                    menuItem.image = NSImage(named: "HPPrimeFunction")?.copy() as? NSImage
-                    
-                    if keywords.contains(name) {
-                        menuItem.image = NSImage(named: "HPPPLKeyword")?.copy() as? NSImage
-                    }
-                    if builtins.contains(name) {
-                        menuItem.image = NSImage(named: "HPPPLFunction")?.copy() as? NSImage
-                    }
-                    
-                    if symbols.contains(name) {
-                        menuItem.image = NSImage(named: "Code")?.copy() as? NSImage
-                    }
-                    
-                    menuItem.image?.size = Constants.IconSizes.small
-                    menuItem.representedObject = url as NSURL
-                    menu.addItem(menuItem)
-                }
+                let contents = try String(contentsOf: localURL, encoding: .utf8)
+                populateCatalogMenu(with: contents)
             } catch {
-                print("Failed to read file: \(error)")
+                print("Failed to load local catalog entries:", error.localizedDescription)
             }
+            return
         }
         
-        menu.item(withTitle: Help.shared.lastOpenedCatalogHelpFile)?.state = .on
-        self.catalog.menu = menu
+        guard let url = URL(
+            string: "\(Constants.Insoft.website)/docs/hpprime/catlg.txt"
+        ) else {
+            print("Invalid catalog entries URL")
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data,
+                  let response = response as? HTTPURLResponse,
+                  (200..<300).contains(response.statusCode),
+                  let contents = String(data: data, encoding: .utf8) else {
+                print(
+                    "Failed to load catalog entries:",
+                    error?.localizedDescription ?? "Invalid response"
+                )
+                return
+            }
+            DispatchQueue.main.async {
+                populateCatalogMenu(with: contents)
+            }
+        }.resume()
+        
+        func populateCatalogMenu(with contents: String) {
+            for line in contents.components(separatedBy: .newlines) {
+                let name = line.trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                guard !name.isEmpty else {
+                    continue
+                }
+                
+                let menuItem = NSMenuItem(
+                    title: name,
+                    action: #selector(catalogSelected(_:)),
+                    keyEquivalent: ""
+                )
+                
+                menuItem.image = NSImage(named: "HPPrimeFunction")?.copy() as? NSImage
+                
+                if keywords.contains(name) {
+                    menuItem.image = NSImage(named: "HPPPLKeyword")?.copy() as? NSImage
+                }
+                
+                if builtins.contains(name) {
+                    menuItem.image = NSImage(named: "HPPPLFunction")?.copy() as? NSImage
+                }
+                
+                if symbols.contains(name) {
+                    menuItem.image = NSImage(named: "Code")?.copy() as? NSImage
+                }
+                
+                menuItem.image?.size = Constants.IconSizes.small
+                menu.addItem(menuItem)
+            }
+            
+//            menu.item(withTitle: Help.shared.lastOpenedCatalogHelpFile)?.state = .on
+            self.catalog.menu = menu
+        }
     }
     
     @objc private func catalogSelected(_ sender: NSMenuItem) {

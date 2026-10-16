@@ -340,8 +340,6 @@ final class CodeEditorTextView: NSTextView {
         }
     }
     
-    //
-    
     func stub() {
         func loadStub(at file: URL) -> String? {
             do {
@@ -369,9 +367,7 @@ final class CodeEditorTextView: NSTextView {
             
             let ext = vc.documentManager.currentDocumentURL?.pathExtension.lowercased() ?? "hpppl"
             
-            let url = FileManager
-                .default
-                .homeDirectoryForCurrentUser
+            let url = Constants.HPConnectivityKit.directoryURL
                 .appending(path: "Xprime", directoryHint: .isDirectory)
                 .appending(path: "Libraries/Stubs")
                 .appending(path: ext)
@@ -537,9 +533,16 @@ final class CodeEditorTextView: NSTextView {
         let symbols = [symbol, symbol.uppercased()]
 
         for symbol in symbols {
-            guard let url = URL(string: "\(Constants.Insoft.website)/docs/hpprime/catlg/\(symbol).txt") else {
-                continue
+            let localURL = Constants.HPConnectivityKit.directoryURL
+                .appending(path: "Xprime/Help/catlg/\(symbol).txt")
+
+            guard let url = localURL.fileExists
+                ? localURL
+                : URL(string: "\(Constants.Insoft.website)/docs/hpprime/catlg/\(symbol).txt")
+            else {
+                return
             }
+            
 
             DispatchQueue.global(qos: .userInitiated).async {
                 do {

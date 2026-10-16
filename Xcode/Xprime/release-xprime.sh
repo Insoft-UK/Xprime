@@ -7,7 +7,7 @@ clear
 set -euo pipefail
 
 # ============================================================
-# XPrime macOS Developer ID release
+# macOS Developer ID release
 # Signs -> verifies -> notarizes -> staples -> creates ZIP
 # ============================================================
 
@@ -93,7 +93,7 @@ done
 # ---------- SIGN MAIN APPLICATION ----------
 
 echo
-echo "Signing Xprime.app..."
+echo "Signing $APP_NAME.app..."
 
 codesign \
     --force \
@@ -222,11 +222,26 @@ echo
 echo "SHA-256:"
 shasum -a 256 "$FINAL"
 
+
+# --------- RENAME ----------
+
+VERSION=$(/usr/libexec/PlistBuddy \
+    -c "Print :CFBundleShortVersionString" \
+    "$APP_PATH/Contents/Info.plist")
+
+DATE=$(date +%Y%m%d)
+
+SOURCE="dist/${APP_NAME}.zip"
+DESTINATION="dist/${APP_NAME}_${DATE}.zip"
+
+rm -f "$DESTINATION"
+mv "$SOURCE" "$DESTINATION"
+
 # ---------- DONE ----------
 
 echo
 echo "========================================"
-echo " $APP_NAME notarization complete"
+echo " $APP_NAME $VERSION notarization complete"
 echo "========================================"
 echo
 echo "Final distribution:"

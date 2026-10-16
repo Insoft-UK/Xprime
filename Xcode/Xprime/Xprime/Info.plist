@@ -388,7 +388,7 @@
 				<string></string>
 			</dict>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.xprime</string>
+			<string>uk.insoft.xprime.hpapp</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

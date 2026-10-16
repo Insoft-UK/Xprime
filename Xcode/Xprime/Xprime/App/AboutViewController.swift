@@ -129,10 +129,10 @@ final class AboutViewController: NSViewController {
     
     private func toolsInfo() {
         let tools = [
-            ("PPL+", "hpppl+"),
+            ("HP PPL+", "hpppl+"),
             ("GROB", "grob"),
-            ("FONT", "hpfont"),
-            ("NOTE", "hpnote"),
+            ("HP NOTE", "hpnote"),
+            ("HP FONT", "hpfont"),
             ("PYTHON MINIFY", "pymin")
         ]
 

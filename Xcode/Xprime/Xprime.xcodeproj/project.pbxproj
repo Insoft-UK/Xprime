@@ -17,7 +17,7 @@
 				Credits.rtf,
 				empty.metal,
 				Info.plist,
-				Resources/Release.xcassets,
+				Resources/Developer.xcassets,
 				UI/Autocomplete/Autocomplete.swift,
 			);
 			target = 13EE0F612DF9DEDE004F3D7E /* Xprime */;
@@ -144,7 +144,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"$ACTION\" = \"build\" ]; then\n    # Get current date in YYYYMMDD format\n    #BUILD=$(date +\"%Y%m%d\")\n    #agvtool new-version -all $BUILD\n    \n    VERSION=$(/usr/libexec/PlistBuddy \\\n        -c \"Print :CFBundleShortVersionString\" \\\n        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\n  \n    BUILD=$(/usr/libexec/PlistBuddy \\\n        -c \"Print :CFBundleVersion\" \\\n        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\n  \n    MIN_OS=$(/usr/libexec/PlistBuddy \\\n        -c \"Print :LSMinimumSystemVersion\" \\\n        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\n        \n    if [[ \"$ARCHS_STANDARD\" == *\"arm64\"* && \"$ARCHS_STANDARD\" == *\"x86_64\"* ]]; then\n        ARCHITECTURE=\"universal\"\n    else\n        ARCHITECTURE=\"$ARCHS\"\n    fi\n\necho \"{\\n\\\n    \\\"latestVersion\\\": \\\"${VERSION}.${BUILD}\\\",\\n\\\n    \\\"build\\\": \\\"${BUILD}\\\",\\n\\\n    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=xprime.zip\\\",\\n\\\n    \\\"minimumOS\\\": \\\"${MIN_OS}\\\",\\n\\\n    \\\"architecture\\\": \\\"${ARCHITECTURE}\\\",\\n\\\n    \\\"releaseNotesURL\\\": \\\"http://insoft.uk/xprime-release-notes.txt\\\"\\n\\\n}\" > xprime-app-version.json\n\n\nfi\n";
+			shellScript = "if [ \"$ACTION\" = \"build\" ]; then\n    # Get current date in YYYYMMDD format\n    #BUILD=$(date +\"%Y%m%d\")\n    #agvtool new-version -all $BUILD\n    \n    VERSION=$(/usr/libexec/PlistBuddy \\\n        -c \"Print :CFBundleShortVersionString\" \\\n        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\n  \n    BUILD=$(/usr/libexec/PlistBuddy \\\n        -c \"Print :CFBundleVersion\" \\\n        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\n  \n    MIN_OS=$(/usr/libexec/PlistBuddy \\\n        -c \"Print :LSMinimumSystemVersion\" \\\n        \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\")\n        \n    if [[ \"$ARCHS_STANDARD\" == *\"arm64\"* && \"$ARCHS_STANDARD\" == *\"x86_64\"* ]]; then\n        ARCHITECTURE=\"universal\"\n    else\n        ARCHITECTURE=\"$ARCHS\"\n    fi\n\necho \"{\\n\\\n    \\\"latestVersion\\\": \\\"${VERSION}.${BUILD}\\\",\\n\\\n    \\\"build\\\": \\\"${BUILD}\\\",\\n\\\n    \\\"downloadURL\\\": \\\"http://insoft.uk/action/?method=downlink&path=macos&file=Xprime_${BUILD}.zip\\\",\\n\\\n    \\\"minimumOS\\\": \\\"${MIN_OS}\\\",\\n\\\n    \\\"architecture\\\": \\\"${ARCHITECTURE}\\\",\\n\\\n    \\\"releaseNotesURL\\\": \\\"http://insoft.uk/xprime-release-notes.txt\\\"\\n\\\n}\" > xprime-app-version.json\n\n\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -296,7 +296,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20261014;
+				CURRENT_PROJECT_VERSION = 20261016;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8XN79M4JCJ;
 				ENABLE_APP_SANDBOX = NO;
@@ -326,7 +326,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 27.2;
 				MTL_HEADER_SEARCH_PATHS = "";
 				OTHER_SWIFT_FLAGS = "";
@@ -360,7 +360,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20261014;
+				CURRENT_PROJECT_VERSION = 20261016;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 8XN79M4JCJ;
 				ENABLE_APP_SANDBOX = NO;
@@ -389,7 +389,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MARKETING_VERSION = 27.2;
 				MTL_HEADER_SEARCH_PATHS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = uk.insoft.xprime;
