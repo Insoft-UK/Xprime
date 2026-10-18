@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// 🚧 In Progress: OPEN TO FURTHER IMPROVEMENTS
+
 import Cocoa
 
 protocol ProjectManagerDelegate: AnyObject {
@@ -257,6 +259,7 @@ final class ProjectManager {
         
         return saveProjectAs(at: url)
     }
+
     
     
     // MARK: - Type Methods

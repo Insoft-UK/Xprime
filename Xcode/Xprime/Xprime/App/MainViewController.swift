@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// 🚧 In Progress: OPEN TO FURTHER IMPROVEMENTS
+
 import Cocoa
 import UniformTypeIdentifiers
 
@@ -101,7 +103,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         
         let url = URL(fileURLWithPath: Settings.shared.preferredTheme)
         themeManager.applyTheme(from: url)
-        registerWindowFocusObservers()
+        setupWindowFocusObservers()
         
         if FileManager.default.fileExists(atPath: Settings.shared.lastOpenedProjectFile) {
             projectManager.openProject(at: URL(fileURLWithPath: Settings.shared.lastOpenedProjectFile))
@@ -185,6 +187,42 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 self.validateToolbarItems()
             }
         }
+        
+        
+//        guard
+//            let toolbar = view.window?.toolbar,
+//            let item = toolbar.items.first(where: {
+//                $0.paletteLabel == "Quick Open"
+//            }),
+//            let comboButton = item.view as? NSComboButton
+//        else {
+//            return
+//        }
+//        
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(handleQuickOpenSelected(_:)),
+//            name: Notification.Name("quickOpenSelected"),
+//            object: comboButton
+//        )
+    }
+    
+    private func setupWindowFocusObservers() {
+        guard let window = view.window else { return }
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(windowDidBecomeKey),
+            name: NSWindow.didBecomeKeyNotification,
+            object: window
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(windowDidResignKey),
+            name: NSWindow.didResignKeyNotification,
+            object: window
+        )
     }
     
     
@@ -262,13 +300,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         
         if sender.state == .on {
             if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
-                AlertPresenter.presentYesNo(
+                AlertPresenter.presentConfirmation(
                     on: view.window,
                     title: "Save Changes",
                     message: "Do you want to save changes to '\(url.lastPathComponent)' before converting it?",
                     primaryActionTitle: "Save"
-                ) { confirmed in
-                    if confirmed {
+                ) { result in
+                    if result == .primary {
                         self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                         if convertToHPPPL() {
                             toolbarStateChanged(false)
@@ -379,13 +417,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     @objc private func quickOpen(_ sender: NSMenuItem) {
         if let currentDocumentURL = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: currentDocumentURL.path), documentManager.documentIsModified {
-            AlertPresenter.presentYesNo(
+            AlertPresenter.presentConfirmation(
                 on: view.window,
                 title: "Save Changes",
                 message: "Do you want to save changes to '\(currentDocumentURL.lastPathComponent)' before opening another document",
                 primaryActionTitle: "Save"
-            ) { confirmed in
-                if confirmed {
+            ) { result in
+                if result == .primary {
                     self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                     let url = sender.representedObject as? URL
                     self.documentManager.openDocument(at: url!) // projectDirectoryURL.appending(path: sender.title)
@@ -443,6 +481,204 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         updateWindowDocumentIcon()
     }
     
+    // MARK: - New Project
+    
+    private var projectChooser:
+        ProjectTemplateChooserWindowController?
+
+    @IBAction func showNewProjectChooser(_ sender: Any) {
+        guard let resourceURL = Bundle.main.resourceURL else { return }
+        
+        let templatesURL = resourceURL
+            .appending(path: "Developer/Library/Xprime/Templates/Project Templates")
+
+        let chooser = ProjectTemplateChooserWindowController {
+            [weak self] selection in
+
+            switch selection.type {
+            case .application:
+                print("Create application: \(selection.name)")
+                AlertPresenter.presentConfirmation(
+                    on: self?.view.window,
+                    title: "Choose a Language",
+                    message: "Which programming language would you like to use for your new application?",
+                    primaryActionTitle: "PPL",
+                    secondaryActionTitle: "Python",
+                    tertiaryActionTitle: "Cancel",
+                    style: .informational
+                ) { result in
+                    switch result {
+                    case .primary:
+                        // Create a PPL application
+                        self?.createNewProject(
+                            named: selection.name,
+                            from: templatesURL.appending(path: "Applications/PPL Application")
+                        )
+
+                    case .secondary:
+                        // Create a Python application
+                        self?.createNewProject(
+                            named: selection.name,
+                            from: templatesURL.appending(path: "Applications/Python Application")
+                        )
+
+                    case .tertiary:
+                        // Cancel or no window available
+                        break
+
+                    case .unavailable:
+                        break
+                    }
+                }
+                
+
+            case .program:
+                print("Create program: \(selection.name)")
+                AlertPresenter.presentConfirmation(
+                    on: self?.view.window,
+                    title: "Choose Program Type",
+                    message: "Would you like to create a normal PPL program or a CAS program?",
+                    primaryActionTitle: "Normal",
+                    secondaryActionTitle: "CAS",
+                    tertiaryActionTitle: "Cancel"
+                ) { result in
+                    switch result {
+                    case .primary:
+                        // Create a normal PPL program
+                        self?.createNewProject(
+                            named: selection.name,
+                            from: templatesURL.appending(path: "Programs/PPL Program")
+                        )
+
+                    case .secondary:
+                        // Create a CAS program
+                        self?.createNewProject(
+                            named: selection.name,
+                            from: templatesURL.appending(path: "Programs/CAS Program")
+                        )
+
+                    case .tertiary:
+                        // Cancel or no window available
+                        break
+
+                    case .unavailable:
+                        break
+                    }
+                }
+
+//            case .template:
+//                print("Select template for: \(selection.name)")
+            }
+        }
+
+        projectChooser = chooser
+        chooser.showModal()
+    }
+    
+    func createNewProject(named name: String, from templateURL: URL) {
+        let destinationURL = Constants.HPConnectivityKit.directoryURL
+            .appending(path: "Projects")
+            .appending(path: name)
+        
+        if FileManager.default.fileExists(atPath: destinationURL.path) {
+            AlertPresenter.showInfo(
+                on: view.window,
+                title: "Unable to create project",
+                message: "A directory already exists at \(destinationURL.path)"
+            )
+            return
+        }
+        
+        do {
+            try FileManager.default.createDirectory(at: destinationURL, withIntermediateDirectories: true)
+        } catch {
+            AlertPresenter.showInfo(
+                on: view.window,
+                title: "Unable to create project",
+                message: "Unable to create directory at \(destinationURL.path)"
+            )
+            return
+        }
+        
+        func copy(from: URL, to: URL) {
+            let contents = try? FileManager.default.contentsOfDirectory(
+                at: from,
+                includingPropertiesForKeys: [.isDirectoryKey],
+                options: [.skipsHiddenFiles]
+            )
+            
+            contents?.forEach { url in
+                let lastPathComponent = url.lastPathComponent.replacingOccurrences(of: "$(PROJECT_NAME)", with: name)
+                
+                if url.directoryExists {
+                    do {
+                        try FileManager.default.createDirectory(at: to.appendingPathComponent(lastPathComponent), withIntermediateDirectories: true)
+                        copy(from: url, to: to.appendingPathComponent(lastPathComponent))
+                    } catch {
+                        AlertPresenter.showInfo(
+                            on: view.window,
+                            title: "Create directory error",
+                            message: "Unable to create directory at \(to.appendingPathComponent(lastPathComponent).path)"
+                        )
+                    }
+                } else {
+                    do {
+                        if url.path.hasSuffix(".pas") || url.path.hasSuffix(".hpppl") || url.path.hasSuffix(".hppplplus") || url.path.hasSuffix(".note") {
+                            try replaceAllPlaceholders(in: url, to: to.appendingPathComponent(lastPathComponent), projectName: name)
+                        } else {
+                            try FileManager.default.copyItem(at: url, to: to.appendingPathComponent(lastPathComponent))
+                        }
+                    } catch {
+                        AlertPresenter.showInfo(
+                            on: view.window,
+                            title: "Create file error",
+                            message: "Unable to create file at \(to.appendingPathComponent(lastPathComponent).path)"
+                        )
+                    }
+                }
+            }
+        }
+        
+        copy(from: templateURL, to: destinationURL)
+        projectManager.openProject(in: destinationURL)
+    }
+
+    private func replaceAllPlaceholders(
+        in sourceURL: URL,
+        to destinationURL: URL,
+        projectName: String
+    ) throws {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy/MM/dd"
+        
+        // Read file contents
+        let contents = try String(contentsOf: sourceURL, encoding: .utf8)
+        var updatedContents: String
+        
+        // Replace placeholder
+        updatedContents = contents.replacingOccurrences(
+            of: "$(PROJECT_NAME)",
+            with: projectName.replacingOccurrences(of: " ", with: "_")
+        )
+        
+        updatedContents = updatedContents.replacingOccurrences(
+            of: "$(USER_NAME)",
+            with: NSFullUserName()
+        )
+        
+        updatedContents = updatedContents.replacingOccurrences(
+            of: "$(DATE)",
+            with: formatter.string(from: Date())
+        )
+        
+        // Write back to destination
+        try updatedContents.write(
+            to: destinationURL,
+            atomically: true,
+            encoding: .utf8
+        )
+    }
+    
     // MARK: - Interface Builder Actions
     @IBAction func checkForUpdates(_ sender: Any) {
         updateManager.checkForAvailableUpdates()
@@ -455,24 +691,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
 #endif
         documentManager.documentIsModified = true
         codeEditorTextView.applySyntaxHighlighting()
-    }
-    
-    private func registerWindowFocusObservers() {
-        guard let window = view.window else { return }
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(windowDidBecomeKey),
-            name: NSWindow.didBecomeKeyNotification,
-            object: window
-        )
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(windowDidResignKey),
-            name: NSWindow.didResignKeyNotification,
-            object: window
-        )
     }
     
     @objc private func windowDidBecomeKey() {
@@ -719,13 +937,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         }
         
         if let currentDocumentURL = documentManager.currentDocumentURL, documentManager.documentIsModified {
-            AlertPresenter.presentYesNo(
+            AlertPresenter.presentConfirmation(
                 on: view.window,
                 title: "Save Changes",
                 message: "Save changes to ‘\(currentDocumentURL.lastPathComponent)’ before opening another project.",
                 primaryActionTitle: "Save"
-            ) { confirmed in
-                if confirmed {
+            ) { result in
+                if result == .primary {
                     self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                     if url.lastPathComponent.hasSuffix(".xprimeproj") {
                         self.projectManager.openProject(at: url)
@@ -1130,6 +1348,17 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     // MARK: -
     
+//    @objc private func quickOpenSelected(_ sender: NSComboButton) {
+//        NotificationCenter.default.post(
+//            name: Notification.Name("quickOpenSelected"),
+//            object: sender
+//        )
+//    }
+//    
+//    @objc private func handleQuickOpenSelected(_ sender: NSComboButton) {
+//        let _ = "OK"
+//    }
+    
     private func refreshQuickOpenToolbar() {
         guard
             let toolbar = view.window?.toolbar,
@@ -1208,7 +1437,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
 
                 switch pathExtension {
                 case "hppplplus", "hpppl+":
-                    item.image = icons.first { $0.name == "hpplplus" }?.image
+                    item.image = icons.first { $0.name == "hppplplus" }?.image
 
                 case "hpprgm", "hpappprgm":
                     item.image = icons.first { $0.name == "hpprgm" }?.image
@@ -1342,13 +1571,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     // MARK: - Add Files to Current Project
     @IBAction private func newDocument(_ sender : Any) {
         if let url = documentManager.currentDocumentURL, documentManager.documentIsModified {
-            AlertPresenter.presentYesNo(
+            AlertPresenter.presentConfirmation(
                 on: view.window,
                 title: "Save Changes",
                 message: "Do you want to save changes to '\(url.lastPathComponent)' before creating another document",
                 primaryActionTitle: "Save"
-            ) { confirmed in
-                if confirmed {
+            ) { result in
+                if result == .primary {
                     self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                     self.proceedWithNewDocument()
                 } else {
@@ -1475,13 +1704,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     @IBAction func openDocument(_ sender: Any) {
         if let url = documentManager.currentDocumentURL, FileManager.default.fileExists(atPath: url.path), documentManager.documentIsModified {
-            AlertPresenter.presentYesNo(
+            AlertPresenter.presentConfirmation(
                 on: view.window,
                 title: "Save Changes",
                 message: "Do you want to save changes to '\(url.lastPathComponent)' before opening another document",
                 primaryActionTitle: "Save"
-            ) { confirmed in
-                if confirmed {
+            ) { result in
+                if result == .primary {
                     self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                     self.proceedWithOpeningDocument()
                 } else {
@@ -1562,13 +1791,13 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     @IBAction func revertDocumentToSaved(_ sender: Any) {
         guard let url = documentManager.currentDocumentURL, documentManager.documentIsModified else { return }
         
-        AlertPresenter.presentYesNo(
+        AlertPresenter.presentConfirmation(
             on: view.window,
             title: "Revert to Original",
             message: "All changes to '\(url.lastPathComponent)' will be lost.",
             primaryActionTitle: "Revert"
-        ) { confirmed in
-            if confirmed {
+        ) { result in
+            if result == .primary {
                 self.openDocument(url: url)
             } else {
                 return
@@ -1592,6 +1821,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         } else {
             buildApplication()
         }
+        refreshQuickOpenToolbar()
     }
     
     @IBAction func run(_ sender: Any) {
@@ -1643,6 +1873,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             buildProgram()
             installHPPrgmFileToCalculator()
         }
+        
+        refreshQuickOpenToolbar()
     }
     
     @IBAction func exportToConnectivityKit(_ sender: Any) {
@@ -1808,6 +2040,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
 
             deleteFile(at: fileURL)
         }
+        
+        refreshQuickOpenToolbar()
     }
     
     @IBAction func showProjectFolderInFinder(_ sender: Any) {

@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// 🚧 In Progress: OPEN TO FURTHER IMPROVEMENTS
+
 import Cocoa
 import UniformTypeIdentifiers
 
@@ -28,7 +30,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
     @IBOutlet weak var mainMenu: NSMenu!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        registerInstallation()
+        migrateXprimeUserID()
+        registerInstallation(companyName: "Insoft")
 
         // Insert code here to initialize your application
         NSApp.appearance = NSAppearance(named: .darkAqua)
@@ -113,6 +116,34 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuItemValidation {
                 return
             }
         }
+    }
+    
+    private func migrateXprimeUserID() {
+        let fileManager = FileManager.default
+
+        guard let applicationSupport = fileManager.urls(
+            for: .applicationSupportDirectory,
+            in: .userDomainMask
+        ).first,
+        let bundleID = Bundle.main.bundleIdentifier
+        else {
+            return
+        }
+
+        let directory = applicationSupport
+            .appendingPathComponent("Insoft", isDirectory: true)
+            .appendingPathComponent("Xprime", isDirectory: true)
+
+        let oldURL = directory.appendingPathComponent("XprimeUserID")
+        let newURL = directory.appendingPathComponent(bundleID)
+
+        guard fileManager.fileExists(atPath: oldURL.path),
+              !fileManager.fileExists(atPath: newURL.path)
+        else {
+            return
+        }
+
+        try? fileManager.moveItem(at: oldURL, to: newURL)
     }
 }
 

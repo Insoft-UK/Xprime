@@ -166,24 +166,6 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>bin</string>
-			</array>
-			<key>CFBundleTypeIconFile</key>
-			<string>bin</string>
-			<key>CFBundleTypeName</key>
-			<string>Xprime Binary</string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>LSHandlerRank</key>
-			<string>Owner</string>
-			<key>LSItemContentTypes</key>
-			<array>
-				<string>uk.insoft.xprime.bin</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeExtensions</key>
-			<array>
 				<string>hpapp</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
@@ -202,17 +184,19 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>xpcolortheme</string>
+				<string>py</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>py</string>
 			<key>CFBundleTypeName</key>
-			<string>Xprime Theme</string>
+			<string>Xprime Python</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
-			<string>Default</string>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>uk.insoft.xprime.xpcolortheme</string>
+				<string>uk.insoft.xprime.py</string>
 			</array>
 		</dict>
 	</array>
@@ -237,7 +221,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.json</string>
+				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Xprime Project</string>
@@ -374,7 +358,7 @@
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.plain-text</string>
+				<string>public.python-script</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Python+</string>
@@ -399,10 +383,7 @@
 			<key>UTTypeDescription</key>
 			<string>HP Prime App</string>
 			<key>UTTypeIcons</key>
-			<dict>
-				<key>UTTypeIconBadgeName</key>
-				<string></string>
-			</dict>
+			<dict/>
 			<key>UTTypeIdentifier</key>
 			<string>uk.insoft.xprime.hpapp</string>
 			<key>UTTypeTagSpecification</key>
@@ -413,103 +394,63 @@
 				</array>
 			</dict>
 		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Xprime Theme</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>uk.insoft.xprime.xpcolortheme</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>xpcolortheme</string>
+				</array>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Xprime Binary</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>uk.insoft.xprime.bin</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>bin</string>
+				</array>
+			</dict>
+		</dict>
 	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>
 			<array>
-				<string>public.json</string>
+				<string>public.python-script</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Xprime Project</string>
+			<string>Xprime Python</string>
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.xprime.xprimeproj</string>
+			<string>uk.insoft.xprime.py</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
 				<array>
-					<string>xprimeproj</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.plain-text</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>HP PPL</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.xprime.hpppl</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>hpppl</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.plain-text</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>HP PPL+</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.xprime.hppplplus</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>hppplplus</string>
-					<string>hpppl+</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.plain-text</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>HP Note</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.xprime.note</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>note</string>
-				</array>
-			</dict>
-		</dict>
-		<dict>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.plain-text</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>Python+</string>
-			<key>UTTypeIcons</key>
-			<dict/>
-			<key>UTTypeIdentifier</key>
-			<string>uk.insoft.xprime.pyplus</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>public.filename-extension</key>
-				<array>
-					<string>pyplus</string>
-					<string>py+</string>
+					<string>py</string>
 				</array>
 			</dict>
 		</dict>

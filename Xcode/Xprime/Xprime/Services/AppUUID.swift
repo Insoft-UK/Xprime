@@ -20,40 +20,57 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// ✅ Completed: CLOSED TO FURTHER IMPROVMENTS
+
 import Foundation
-enum XprimeUserID {
-    private static let fileName = "XprimeUserID"
-    /// Returns the existing XPrime ID, or creates one on first run.
-    static func get() -> String {
-        if let existingID = read() {
+
+/// Returns the existing application UUID, or generates and saves one on first use.
+///
+/// - Parameter companyName: The company name used to determine the UUID’s storage directory.
+/// - Returns: The existing UUID if available, or a newly generated UUID. If saving fails, returns a UUID for the current session.
+enum AppUUID {
+    private static let fileName = Bundle.main.bundleIdentifier
+
+    /// Returns the existing UUID or generates a new one if none exists.
+    /// - Parameter companyName: The company name used with the application name to determine the UUID’s storage location.
+    /// - Returns: The UUID as a string.
+    static func get(companyName: String) -> String {
+        if let existingID = read(companyName: companyName) {
             return existingID
         }
+
         let newID = UUID().uuidString
-        if save(newID) {
+
+        if save(newID, companyName: companyName) {
             return newID
         }
-        // If the ID cannot be saved, still provide an ID for this session.
+
         return newID
     }
-    // MARK: - Storage
-    private static var fileURL: URL? {
+
+    private static func fileURL(companyName: String) -> URL? {
         guard let applicationSupport =
                 FileManager.default.urls(
                     for: .applicationSupportDirectory,
                     in: .userDomainMask
-                ).first
+                ).first,
+              let fileName,
+              let appName = Bundle.main.object(
+                  forInfoDictionaryKey: "CFBundleName"
+              ) as? String
         else {
             return nil
         }
-        let directory =
-            applicationSupport
-                .appendingPathComponent("Insoft", isDirectory: true)
-                .appendingPathComponent("Xprime", isDirectory: true)
+
+        let directory = applicationSupport
+            .appendingPathComponent(companyName, isDirectory: true)
+            .appendingPathComponent(appName, isDirectory: true)
+
         return directory.appendingPathComponent(fileName)
     }
-    
-    private static func read() -> String? {
-        guard let url = fileURL,
+
+    private static func read(companyName: String) -> String? {
+        guard let url = fileURL(companyName: companyName),
               let data = try? Data(contentsOf: url),
               let value = String(data: data, encoding: .utf8)
         else {
@@ -62,33 +79,26 @@ enum XprimeUserID {
 
         let id = value.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        guard !id.isEmpty,
-              UUID(uuidString: id) != nil
-        else {
-            return nil
-        }
-
-        return id
+        return UUID(uuidString: id) == nil ? nil : id
     }
-    
+
     @discardableResult
-    private static func save(_ id: String) -> Bool {
-        guard let url = fileURL,
+    private static func save(
+        _ id: String,
+        companyName: String
+    ) -> Bool {
+        guard let url = fileURL(companyName: companyName),
               let data = id.data(using: .utf8)
         else {
             return false
         }
+
         do {
-            let directory = url.deletingLastPathComponent()
             try FileManager.default.createDirectory(
-                at: directory,
-                withIntermediateDirectories: true,
-                attributes: nil
+                at: url.deletingLastPathComponent(),
+                withIntermediateDirectories: true
             )
-            try data.write(
-                to: url,
-                options: .atomic
-            )
+            try data.write(to: url, options: .atomic)
             return true
         } catch {
             return false

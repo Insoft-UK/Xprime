@@ -23,7 +23,14 @@
 import Cocoa
 
 enum AlertPresenter {
-    static func presentYesNo(
+    enum ConfirmationResult {
+        case primary
+        case secondary
+        case tertiary
+        case unavailable
+    }
+    
+    static func presentConfirmation(
         on window: NSWindow?,
         title: String,
         message: String,
@@ -31,26 +38,39 @@ enum AlertPresenter {
         secondaryActionTitle: String? = nil,
         tertiaryActionTitle: String? = nil,
         style: NSAlert.Style = .warning,
-        completion: @escaping (Bool) -> Void
+        completion: @escaping (ConfirmationResult) -> Void
     ) {
         let alert = NSAlert()
         alert.messageText = title
         alert.informativeText = message
         alert.alertStyle = style
-        
+
         alert.addButton(withTitle: primaryActionTitle)
         alert.addButton(withTitle: secondaryActionTitle ?? "Cancel")
-        if let tertiaryActionTitle = tertiaryActionTitle {
+
+        if let tertiaryActionTitle {
             alert.addButton(withTitle: tertiaryActionTitle)
         }
-        
-        guard let window = window else {
-            completion(false)
+
+        guard let window else {
+            completion(.unavailable)
             return
         }
-        
+
         alert.beginSheetModal(for: window) { response in
-            completion(response == .alertFirstButtonReturn)
+            switch response {
+            case .alertFirstButtonReturn:
+                completion(.primary)
+
+            case .alertSecondButtonReturn:
+                completion(.secondary)
+
+            case .alertThirdButtonReturn:
+                completion(.tertiary)
+
+            default:
+                completion(.unavailable)
+            }
         }
     }
     

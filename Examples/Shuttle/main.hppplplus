@@ -68,7 +68,7 @@ begin
     
     N := Shuttle::Data(I);
   end;
-  
+
   repeat until ISKEYDOWN(4);
   return 0;
 end;

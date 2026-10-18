@@ -29,6 +29,8 @@
  Also: A DispatchGroup ensures both streams have finished reading before the method returns.
  */
 
+// ✅ Completed: CLOSED TO FURTHER IMPROVMENTS
+
 import Cocoa
 
 enum ProcessRunner {

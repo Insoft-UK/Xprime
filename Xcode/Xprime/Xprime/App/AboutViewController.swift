@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// 🚧 In Progress: OPEN TO FURTHER IMPROVEMENTS
+
 import Cocoa
 
 final class AboutViewController: NSViewController {
@@ -101,11 +103,11 @@ final class AboutViewController: NSViewController {
         }
     
         
-        if let userID = findTextField(
+        if let uuid = findTextField(
             in: view,
-            identifier: NSUserInterfaceItemIdentifier("userID")
+            identifier: NSUserInterfaceItemIdentifier("UUID")
         ) {
-            userID.stringValue = XprimeUserID.get()
+            uuid.stringValue = AppUUID.get(companyName: "Insoft")
         }
         
         

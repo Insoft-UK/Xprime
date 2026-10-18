@@ -20,6 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// 🚧 In Progress: OPEN TO FURTHER IMPROVEMENTS
+
 import Cocoa
 
 /*
@@ -131,8 +133,8 @@ func killProcess(named name: String) {
     catch { print("Failed to kill: \(error)") }
 }
 
-func registerInstallation() {
-    let uuid = XprimeUserID.get()
+func registerInstallation(companyName: String = "Uknown") {
+    let uuid = AppUUID.get(companyName: companyName)
     
     guard var components = URLComponents(
         string: Constants.Insoft.api
