@@ -51,9 +51,10 @@ enum Constants {
     }
     
     enum Identifiers {
-        static let notes = "notes"
-        static let autoIndentation = "autoIndentation"
-        static let substitution = "substitution"
+        static let notes = NSUserInterfaceItemIdentifier("notes")
+        static let autoIndentation = NSUserInterfaceItemIdentifier("autoIndentation")
+        static let substitution = NSUserInterfaceItemIdentifier("substitution")
+        static let baseAppication = NSUserInterfaceItemIdentifier("Base Application")
     }
     
     enum BundleIdentifier {
@@ -88,6 +89,10 @@ enum Constants {
     
     enum Insoft {
         static let api = "https://api.insoft.uk"
+#if !Debug
+        static let website = "http://localhost:8888"
+#else
         static let website = "https://insoft.uk"
+#endif
     }
 }

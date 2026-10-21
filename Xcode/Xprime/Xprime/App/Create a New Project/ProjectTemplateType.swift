@@ -36,4 +36,5 @@ enum ProjectTemplateType: String, CaseIterable {
 struct ProjectTemplateSelection {
     let type: ProjectTemplateType
     let name: String
+    let language: String
 }

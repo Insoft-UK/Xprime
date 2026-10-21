@@ -710,6 +710,7 @@ int main(int argc, char **argv) {
     bool reformat = false;
     bool includeProgramName = false;
     bool G1 = false;
+    bool cas = false;
     
     std::string args(argv[0]);
     
@@ -729,6 +730,11 @@ int main(int argc, char **argv) {
             if ( args == "-c" || args == "--compress" ) {
                 minify = true;
                 reformat = false;
+                continue;
+            }
+            
+            if ( args == "--cas" ) {
+                cas = true;
                 continue;
             }
             
@@ -904,7 +910,7 @@ int main(int argc, char **argv) {
     {
         if (out_ext == ".hpprgm" || out_ext == ".hpappprgm") {
             auto programName = inpath.stem().string();
-            hpprgm::write(outpath, output, G1 ? hpprgm::format::G1 : hpprgm::format::G2, includeProgramName);
+            hpprgm::write(outpath, output, G1 ? hpprgm::format::G1 : hpprgm::format::G2, cas, includeProgramName);
         } else {
             if (!utf::save(outpath, utf::to_wstring(output), utf::BOM::le)) {
                 std::cerr << "❌ Unable to create file " << outpath.filename() << ".\n";

@@ -48,8 +48,8 @@ fileprivate struct Project: Codable {
     let lib: String
     let bin: String
     let language: String
-    let archiveProjectAppOnly: Bool
     let plainFallbackText: Bool
+    let cas: Bool
 }
 
 final class ProjectManager {
@@ -89,17 +89,6 @@ final class ProjectManager {
         guard isProjectApplication, let projectDirectoryURL, let projectName = self.projectName else {
             return NSImage(named: "Icon")?.copy() as? NSImage
         }
-        
-        // NEW
-//        let url = projectDirectoryURL
-//            .appending(path: "icon")
-//            .appendingPathExtension("png")
-//        
-//        if url.fileExists {
-//            return NSImage(contentsOfFile: url.path)?.copy() as? NSImage
-//        }
-//        
-//        return nil
         
         let url = projectDirectoryURL
             .appendingPathComponent(projectName)
@@ -174,8 +163,8 @@ final class ProjectManager {
                     lib: ProjectSettings.shared.lib,
                     bin: ProjectSettings.shared.bin,
                     language: ProjectSettings.shared.language,
-                    archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
-                    plainFallbackText: ProjectSettings.shared.plainFallbackText
+                    plainFallbackText: ProjectSettings.shared.plainFallbackText,
+                    cas: ProjectSettings.shared.cas
                 )
             }
         } else {
@@ -189,8 +178,8 @@ final class ProjectManager {
         ProjectSettings.shared.lib = project.lib
         ProjectSettings.shared.bin = project.bin
         ProjectSettings.shared.language = project.language
-        ProjectSettings.shared.archiveProjectAppOnly = project.archiveProjectAppOnly
         ProjectSettings.shared.plainFallbackText = project.plainFallbackText
+        ProjectSettings.shared.cas = project.cas
         
         projectDirectoryURL = url.deletingLastPathComponent()
         Settings.shared.lastOpenedProjectFile = url.path
@@ -229,8 +218,8 @@ final class ProjectManager {
             lib: ProjectSettings.shared.lib,
             bin: ProjectSettings.shared.bin,
             language: ProjectSettings.shared.language,
-            archiveProjectAppOnly: ProjectSettings.shared.archiveProjectAppOnly,
-            plainFallbackText: ProjectSettings.shared.plainFallbackText
+            plainFallbackText: ProjectSettings.shared.plainFallbackText,
+            cas: ProjectSettings.shared.cas
         )
         do {
             let encoder = JSONEncoder()
@@ -311,7 +300,7 @@ final class ProjectManager {
         ProjectSettings.shared.include = Constants.Toolchain.include
         ProjectSettings.shared.lib = Constants.Toolchain.lib
         ProjectSettings.shared.bin = Constants.Toolchain.bin
-        ProjectSettings.shared.archiveProjectAppOnly = true
         ProjectSettings.shared.plainFallbackText = true
+        ProjectSettings.shared.cas = false
     }
 }

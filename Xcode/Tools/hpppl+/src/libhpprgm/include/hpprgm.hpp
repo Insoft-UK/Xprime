@@ -33,6 +33,6 @@ namespace hpprgm {
         G2
     };
     
-    void write(const std::filesystem::path& path, const std::string& prgm, const format fmt, const bool includeProgramName = false);
+    void write(const std::filesystem::path& path, const std::string& prgm, const format fmt, const bool cas, const bool includeProgramName = false);
     std::wstring source(const std::filesystem::path& path);
 }

@@ -23,8 +23,8 @@
 import Cocoa
 
 
-final class ProjectSettingsViewController: CustomViewController, NSTextFieldDelegate {
-    private var vc: MainViewController!
+final class ProjectSettingsViewController: NSViewController, NSTextFieldDelegate {
+//    private var vc: MainViewController!
     
     @IBOutlet weak var librarySearchPath: NSTextField!
     @IBOutlet weak var headerSearchPath: NSTextField!
@@ -41,29 +41,42 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
         
         librarySearchPath.stringValue = ProjectSettings.shared.lib
         headerSearchPath.stringValue = ProjectSettings.shared.include
-        
-        
     }
     
+    private var vc: MainViewController!
+
     override func viewDidAppear() {
         super.viewDidAppear()
+
+        guard let window = view.window,
+              let mainVC = presentingViewController as? MainViewController else {
+            return
+        }
         
-        guard let window = view.window else { return }
-        window.center()
         window.isMovableByWindowBackground = false
-        window.isMovable = false
+        window.styleMask.remove(.resizable)
         
+        vc = mainVC
+
         DispatchQueue.main.async {
             if let editor = window.fieldEditor(false, for: self.headerSearchPath) as? NSTextView {
                 let end = self.headerSearchPath.stringValue.count
                 editor.selectedRange = NSRange(location: end, length: 0)
             }
         }
-        
-        guard let window = NSApplication.shared.windows.first else {
-            self.view.window?.close(); return
+
+        configureViews()
+    }
+    
+    @IBAction func showAdvanced(_ sender: NSButton) {
+        guard let storyboard,
+              let advancedVC = storyboard.instantiateController(
+                  withIdentifier: "AdvanceViewController"
+              ) as? AdvanceViewController else {
+            return
         }
-        vc = window.contentViewController as? MainViewController
+
+        presentAsSheet(advancedVC)
     }
     
 
@@ -87,7 +100,6 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
     }
     
     @IBAction func defaultSettings(_ sender: Any) {
-        ProjectSettings.shared.archiveProjectAppOnly = true
         ProjectSettings.shared.plainFallbackText = true
         ProjectSettings.shared.compression = false
         ProjectSettings.shared.include = Constants.Toolchain.include
@@ -101,7 +113,38 @@ final class ProjectSettingsViewController: CustomViewController, NSTextFieldDele
  
     @IBAction func close(_ sender: Any) {
         vc.projectManager.saveProject()
-        self.view.window?.close()
+        dismiss(nil)
+    }
+    
+    @objc private func selectedBaseApplication(_ sender: NSPopUpButton) {
+        guard let url = vc.projectManager.projectDirectoryURL else { return }
+        guard let name = vc.projectManager.projectName else { return }
+        try? HPPrimeServices.resetHPAppContents(at: url, named: name, fromBaseApplicationNamed: sender.title)
+        vc.outputTextView.appendTextAndScroll("Base application is \"\(vc.projectManager.baseApplicationName)\"\n")
+    }
+    
+    private func configureViews() {
+        guard vc.projectManager.isProjectOpen else {
+            return
+        }
+        let isHidden = !vc.projectManager.isProjectApplication
+        
+        
+        if let popupButton: NSPopUpButton = view.findView(
+            withIdentifier: Constants.Identifiers.baseAppication
+        ) {
+            // Configure popup button
+            popupButton.target = self
+            popupButton.action = #selector(selectedBaseApplication(_:))
+            popupButton.selectItem(withTitle: vc.projectManager.baseApplicationName)
+            popupButton.isHidden = isHidden
+        }
+
+        if let textField: NSTextField = view.findView(
+            withIdentifier: Constants.Identifiers.baseAppication
+        ) {
+            textField.isHidden = isHidden
+        }
     }
 }
 

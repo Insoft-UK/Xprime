@@ -1,9 +1,9 @@
 {
   "include" : "$(DEVROOT)/include",
-  "archiveProjectAppOnly" : true,
   "bin" : "$(DEVROOT)/bin",
   "plainFallbackText" : true,
   "compression" : false,
   "language" : "hppplplus",
-  "lib" : "$(DEVROOT)/lib"
+  "lib" : "$(DEVROOT)/lib",
+  "cas" : false
 }

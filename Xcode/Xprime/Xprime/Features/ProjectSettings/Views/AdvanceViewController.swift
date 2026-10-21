@@ -22,8 +22,7 @@
 
 import Cocoa
 
-final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NSComboBoxDelegate {
-    @IBOutlet weak var preferProjectBuild: NSButton!
+final class AdvanceViewController: NSViewController, NSTextFieldDelegate, NSComboBoxDelegate {
     @IBOutlet weak var fallback: NSButton!
     @IBOutlet weak var compression: NSButton!
     
@@ -37,15 +36,18 @@ final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NS
     override func viewDidAppear() {
         super.viewDidAppear()
         
-        guard let window = view.window else { return }
+        guard let window = view.window, let mainVC = presentingViewController as? MainViewController else { return }
         window.center()
         window.isMovableByWindowBackground = false
-        window.isMovable = false
+        window.titleVisibility = .hidden
+//        window.titlebarAppearsTransparent = true
+        window.styleMask = [.titled]
+
     }
+    
 
     private func setup() {
-        configureArchiveSourceSelection()
-        configureArchiveSourceActions()
+
         
         configureFallbackSelection()
         configureFallbackActions()
@@ -65,30 +67,16 @@ final class AdvanceViewController: CustomViewController, NSTextFieldDelegate, NS
         }
     }
     
-    @objc private func preferProjectBuildSwitchToggled(_ sender: NSSwitch) {
-        ProjectSettings.shared.archiveProjectAppOnly = sender.state == .on
-    }
-    
     @objc private func fallbackSwitchToggled(_ sender: NSSwitch) {
         ProjectSettings.shared.plainFallbackText = sender.state == .on
     }
     
-    
-    
+
     @IBAction func close(_ sender: Any) {
         self.view.window?.close()
     }
     
     // MARK: - Private Helpers
-    private func configureArchiveSourceSelection() {
-        self.preferProjectBuild.state = ProjectSettings.shared.archiveProjectAppOnly ? .on : .off
-    }
-    
-    private func configureArchiveSourceActions() {
-        preferProjectBuild.target = self
-        preferProjectBuild.action = #selector(preferProjectBuildSwitchToggled)
-    }
-    
     private func configureFallbackSelection() {
         self.fallback.state = ProjectSettings.shared.plainFallbackText ? .on : .off
     }

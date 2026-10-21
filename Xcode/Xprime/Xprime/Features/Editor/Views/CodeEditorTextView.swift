@@ -538,7 +538,7 @@ final class CodeEditorTextView: NSTextView {
 
             guard let url = localURL.fileExists
                 ? localURL
-                : URL(string: "\(Constants.Insoft.website)/docs/hpprime/catlg/\(symbol).txt")
+                    : URL(string: "\(Constants.Insoft.website)/docs/hpprime/catlg/\(symbol.underscoreEncoded()).txt")
             else {
                 return
             }

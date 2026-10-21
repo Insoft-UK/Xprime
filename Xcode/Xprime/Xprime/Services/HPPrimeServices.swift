@@ -389,12 +389,17 @@ enum HPPrimeServices {
             )
         }
         
-        try FileManager.default.copyItem(
-            at: url.deletingPathExtension()
-                .appendingPathExtension("hpnote"),
-            to: Constants.HPPrimeVirtualCalculator.directoryURL
-                .appending(path: "Calculators/\(name)/\(url.deletingPathExtension().lastPathComponent).hpnote")
+        if url.deletingPathExtension()
+            .appendingPathExtension("hpnote")
+            .fileExists
+        {
+            try FileManager.default.copyItem(
+                at: url.deletingPathExtension()
+                    .appendingPathExtension("hpnote"),
+                to: Constants.HPPrimeVirtualCalculator.directoryURL
+                    .appending(path: "Calculators/\(name)/\(url.deletingPathExtension().lastPathComponent).hpnote")
             )
+        }
         
     }
 }

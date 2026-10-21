@@ -45,11 +45,16 @@
 DQ
 </string>
                                 </buttonCell>
-                                <color key="bezelColor" name="HP Prime Blue"/>
+                                <color key="bezelColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="close:" target="um3-nH-PU9" id="DOU-Y0-sVA"/>
                                 </connections>
                             </button>
+                            <imageView identifier="Online" hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AFK-Bv-n5n">
+                                <rect key="frame" x="458" y="336" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <imageCell key="cell" controlSize="large" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="Internet" id="Dns-0P-VA1"/>
+                            </imageView>
                         </subviews>
                     </view>
                     <connections>
@@ -64,7 +69,7 @@ DQ
         <!--Settings View Controller-->
         <scene sceneID="CGL-up-35A">
             <objects>
-                <viewController showSeguePresentationStyle="single" id="Q8R-MK-74O" customClass="SettingsViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" showSeguePresentationStyle="single" id="Q8R-MK-74O" customClass="SettingsViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="2jF-39-Lx7">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -79,7 +84,7 @@ DQ
 DQ
 </string>
                                 </buttonCell>
-                                <color key="bezelColor" name="HP Prime Blue"/>
+                                <color key="bezelColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="close:" target="Q8R-MK-74O" id="zdI-Dk-7Zr"/>
                                 </connections>
@@ -182,7 +187,7 @@ Gw
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
                                         <menuItem title="Settings..." image="gear" catalog="system" keyEquivalent="," id="36R-ZF-jrv">
                                             <connections>
-                                                <segue destination="Q8R-MK-74O" kind="modal" id="Fuk-bI-vJG"/>
+                                                <action selector="showSettings:" target="Ady-hI-5gd" id="1as-zx-ssF"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Check for Updates..." image="CheckUpdate" id="fYr-Rq-ysS">
@@ -246,19 +251,10 @@ Gw
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="New" id="hZv-jB-C2g">
                                                 <items>
-                                                    <menuItem title="Project..." image="hammer" catalog="system" hidden="YES" id="mGj-u0-dLa">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
                                                     <menuItem title="Project..." image="hammer" catalog="system" keyEquivalent="N" id="EO1-mM-2Lo">
                                                         <connections>
                                                             <action selector="showNewProjectChooser:" target="Ady-hI-5gd" id="Cke-Kf-tpr"/>
                                                         </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Program" image="flowchart" catalog="system" hidden="YES" id="RmS-hM-ZdF">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                                    </menuItem>
-                                                    <menuItem title="Application" image="app" catalog="system" hidden="YES" id="afU-Xi-L0m">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="JQC-zS-pEl"/>
                                                     <menuItem title="Empty File" image="doc" catalog="system" id="KUS-cc-S6Q">
@@ -321,7 +317,7 @@ Gw
                                         <menuItem title="Project Settings..." image="screwdriver" catalog="system" id="XKP-pX-tAG">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <segue destination="HsO-bO-Dfd" kind="modal" id="sLN-NW-azV"/>
+                                                <action selector="showProjectSettings:" target="Ady-hI-5gd" id="Q9h-s1-Mua"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="xXG-Yz-UUM"/>
@@ -734,34 +730,68 @@ Gw
         <!--Advance View Controller-->
         <scene sceneID="nIq-NE-g9z">
             <objects>
-                <viewController showSeguePresentationStyle="single" id="RUs-SG-NT1" customClass="AdvanceViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AdvanceViewController" showSeguePresentationStyle="single" id="RUs-SG-NT1" customClass="AdvanceViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="eXk-jc-ekz">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="220"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xBy-WB-jhk">
-                                <rect key="frame" x="18" y="263" width="219" height="24"/>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YIL-S0-VhS">
+                                <rect key="frame" x="18" y="93" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP Prime Application" id="Ycq-Hd-0tL">
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Compression" id="BVX-Ke-nES">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OII-Pn-zIo">
+                                <rect key="frame" x="164" y="56" width="268" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" enabled="NO" alignment="left" title="Compression of your code results in it taking up less storage of your HP Prime's storage memory" id="FRY-Hc-v8i">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button identifier="compression" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5f-FW-b35">
+                                <rect key="frame" x="144" y="93" width="254" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="bevel" title="Reduce hpppl code footprint" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" inset="2" id="DQa-Pt-Zve">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0Z-Ly-7al">
+                                <rect key="frame" x="18" y="110" width="219" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP PPL" id="ZZq-iF-Ogj">
                                     <font key="font" metaFont="system" size="18"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IZu-lA-Rsu">
-                                <rect key="frame" x="18" y="246" width="131" height="16"/>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooa-fk-Yt3">
+                                <rect key="frame" x="18" y="160" width="131" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Archiving" id="ZOC-PW-IA6">
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Plain Fallback" id="xkN-6G-jXZ">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YIL-S0-VhS">
-                                <rect key="frame" x="18" y="105" width="131" height="16"/>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDm-ic-Coh">
+                                <rect key="frame" x="144" y="160" width="254" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Compression" id="BVX-Ke-nES">
+                                <buttonCell key="cell" type="bevel" title="Include plain text fallback" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="u0o-pu-ddQ">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8x-lm-N5J">
+                                <rect key="frame" x="18" y="176" width="219" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP Note" id="O1D-O3-rM4">
+                                    <font key="font" metaFont="system" size="18"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -776,123 +806,26 @@ Gw
 DQ
 </string>
                                 </buttonCell>
-                                <color key="bezelColor" name="HP Prime Blue"/>
+                                <color key="bezelColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="close:" target="RUs-SG-NT1" id="9Lh-aO-pMV"/>
                                 </connections>
                             </button>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OII-Pn-zIo">
-                                <rect key="frame" x="164" y="68" width="268" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" enabled="NO" alignment="left" title="Compression of your code results in it taking up less storage of your HP Prime's storage memory" id="FRY-Hc-v8i">
-                                    <font key="font" metaFont="smallSystem"/>
-                                    <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button identifier="compression" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L5f-FW-b35">
-                                <rect key="frame" x="144" y="105" width="254" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="Reduce hpppl code footprint" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" inset="2" id="DQa-Pt-Zve">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8qn-7X-3f6">
-                                <rect key="frame" x="144" y="246" width="254" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="Archive Project .hpappdir Only" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="yd2-dY-B37">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2dx-oQ-NW7">
-                                <rect key="frame" x="406" y="242" width="24" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="help" bezelStyle="helpButton" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="H5w-8L-eTt">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <segue destination="lQU-LP-rhD" kind="popover" popoverAnchorView="2dx-oQ-NW7" popoverBehavior="t" preferredEdge="maxY" id="8ab-qp-JA4"/>
-                                </connections>
-                            </button>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="G0Z-Ly-7al">
-                                <rect key="frame" x="18" y="122" width="219" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP PPL" id="ZZq-iF-Ogj">
-                                    <font key="font" metaFont="system" size="18"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ooa-fk-Yt3">
-                                <rect key="frame" x="18" y="172" width="131" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Plain Fallback" id="xkN-6G-jXZ">
-                                    <font key="font" metaFont="system"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XDm-ic-Coh">
-                                <rect key="frame" x="144" y="172" width="254" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="bevel" title="Include plain text fallback" bezelStyle="regularSquare" image="CheckOff" imagePosition="left" alternateImage="CheckOn" state="on" inset="2" id="u0o-pu-ddQ">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N8x-lm-N5J">
-                                <rect key="frame" x="18" y="188" width="219" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="HP Note" id="O1D-O3-rM4">
-                                    <font key="font" metaFont="system" size="18"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="compression" destination="L5f-FW-b35" id="WQC-8S-8ih"/>
                         <outlet property="fallback" destination="XDm-ic-Coh" id="NkJ-s4-OZL"/>
-                        <outlet property="preferProjectBuild" destination="8qn-7X-3f6" id="9IS-iY-4rX"/>
                     </connections>
                 </viewController>
                 <customObject id="v87-fw-eo0" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1047" y="120"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="tHz-DL-wb2">
-            <objects>
-                <viewController showSeguePresentationStyle="single" id="lQU-LP-rhD" sceneMemberID="viewController">
-                    <view key="view" id="xHa-2f-tvu">
-                        <rect key="frame" x="0.0" y="0.0" width="341" height="143"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DeA-3a-zyj">
-                                <rect key="frame" x="18" y="12" width="305" height="111"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" enabled="NO" alignment="left" id="0y8-KO-T9P">
-                                    <font key="font" metaFont="system"/>
-                                    <string key="title">When enabled, only the project’s .hpappdir will be archived. If disabled, the archive process will compare the version in the HP Prime Virtual Calculator with your working project folder. If the version in the HP Prime Virtual Calculator is newer, its .hpappdir will be archived instead.</string>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
-                        </subviews>
-                    </view>
-                </viewController>
-                <customObject id="ADs-Oq-61e" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-580" y="121"/>
+            <point key="canvasLocation" x="-1047" y="80"/>
         </scene>
         <!--Project Settings View Controller-->
         <scene sceneID="3zb-e1-bF9">
             <objects>
-                <viewController showSeguePresentationStyle="single" id="HsO-bO-Dfd" customClass="ProjectSettingsViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProjectSettingsViewController" showSeguePresentationStyle="single" id="HsO-bO-Dfd" customClass="ProjectSettingsViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="1RK-mx-rDE">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="324"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -907,7 +840,7 @@ DQ
 DQ
 </string>
                                 </buttonCell>
-                                <color key="bezelColor" name="HP Prime Blue"/>
+                                <color key="bezelColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="close:" target="HsO-bO-Dfd" id="SQ6-d3-RYb"/>
                                 </connections>
@@ -922,7 +855,6 @@ DQ
 Gw
 </string>
                                 </buttonCell>
-                                <color key="bezelColor" name="25%"/>
                                 <connections>
                                     <action selector="defaultSettings:" target="HsO-bO-Dfd" id="nBS-fr-Uc0"/>
                                 </connections>
@@ -953,9 +885,9 @@ Gw
 Gw
 </string>
                                             </buttonCell>
-                                            <color key="bezelColor" name="HP Prime Orange"/>
+                                            <color key="bezelColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="RUs-SG-NT1" kind="modal" id="FZs-6y-XaH"/>
+                                                <action selector="showAdvanced:" target="HsO-bO-Dfd" id="6tP-Dw-PP4"/>
                                             </connections>
                                         </button>
                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="640-TN-z96">
@@ -1064,7 +996,7 @@ Gw
                                                 </menu>
                                             </popUpButtonCell>
                                         </popUpButton>
-                                        <textField hidden="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NXh-x7-GRh">
+                                        <textField identifier="Base Application" hidden="YES" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NXh-x7-GRh">
                                             <rect key="frame" x="16" y="80" width="149" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" enabled="NO" alignment="left" title="Base Application" id="E8Y-Ej-K1w">
@@ -1140,7 +1072,7 @@ Gw
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t31-ED-Y1n">
+                            <textField hidden="YES" autoresizesSubviews="NO" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t31-ED-Y1n">
                                 <rect key="frame" x="254" y="76" width="304" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="mini" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" alignment="left" title="Preview" id="llp-TR-X27">
@@ -1183,29 +1115,13 @@ Gw
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="Pr6-Kd-yB2"/>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="vRb-OI-uPy"/>
-                                <toolbarItem implicitItemIdentifier="23C30700-2B4A-4DB2-B9FB-C970E7BD2A52" label="Project Folder" paletteLabel="Quick Open" sizingBehavior="auto" id="J6a-Hn-bWN">
+                                <toolbarItem implicitItemIdentifier="23C30700-2B4A-4DB2-B9FB-C970E7BD2A52" label="" paletteLabel="Quick Open" sizingBehavior="auto" id="J6a-Hn-bWN">
                                     <nil key="toolTip"/>
                                     <comboButton key="view" verticalHuggingPriority="750" controlSize="large" baseWritingDirection="leftToRight" alignment="left" title="" id="myg-bt-hEL">
                                         <rect key="frame" x="7" y="14" width="56" height="28"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <menu key="menu" autoenablesItems="NO" id="G1h-cf-dCG"/>
                                     </comboButton>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="C3BDBDB5-C20B-4F03-B159-70C81DA931D5" label="Stop" paletteLabel="Stop" tag="-1" bordered="YES" autovalidates="NO" id="wEh-dO-kom">
-                                    <imageReference key="image" image="stop.fill" catalog="system" symbolScale="large"/>
-                                    <size key="minSize" width="36" height="24"/>
-                                    <size key="maxSize" width="36" height="24"/>
-                                    <connections>
-                                        <action selector="stop:" target="Oky-zY-oP4" id="mqz-70-yHD"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="6C1A55C2-E47F-4AD3-AD88-8214908B974F" label="Run" paletteLabel="Run" tag="-1" bordered="YES" autovalidates="NO" id="xT0-NP-Y35">
-                                    <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
-                                    <size key="minSize" width="36" height="24"/>
-                                    <size key="maxSize" width="36" height="24"/>
-                                    <connections>
-                                        <action selector="run:" target="Oky-zY-oP4" id="utN-93-Z1v"/>
-                                    </connections>
                                 </toolbarItem>
                                 <toolbarItem implicitItemIdentifier="5D9A4051-12F0-4C08-BA1E-ADBF0B51D3E1" label="" paletteLabel="Custom Space" tag="-1" id="XU0-4H-hqw">
                                     <nil key="toolTip"/>
@@ -1216,7 +1132,7 @@ Gw
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                     </customView>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="79F7DCE7-D665-44E2-9FA9-54C7F6B5448F" label="Build" paletteLabel="Build" toolTip="Build" autovalidates="NO" id="E5A-Do-rOq">
+                                <toolbarItem implicitItemIdentifier="79F7DCE7-D665-44E2-9FA9-54C7F6B5448F" label="" paletteLabel="Build" toolTip="Build" autovalidates="NO" id="E5A-Do-rOq">
                                     <imageReference key="image" image="bubbles.and.sparkles" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="31.5" height="32"/>
                                     <size key="maxSize" width="32" height="32"/>
@@ -1237,7 +1153,7 @@ Gw
                                         <action selector="cleanProjectFolder:" target="Oky-zY-oP4" id="9yj-EG-xog"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="1BE36892-94F0-4E13-91AA-3C6499C27A6F" label="Build" paletteLabel="Build" toolTip="Build" autovalidates="NO" id="kxh-qG-rQF">
+                                <toolbarItem implicitItemIdentifier="1BE36892-94F0-4E13-91AA-3C6499C27A6F" label="" paletteLabel="Build" toolTip="Build" autovalidates="NO" id="kxh-qG-rQF">
                                     <imageReference key="image" image="hammer.fill" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="32" height="32"/>
                                     <size key="maxSize" width="32" height="32"/>
@@ -1258,7 +1174,7 @@ Gw
                                         <action selector="build:" target="Oky-zY-oP4" id="tcd-CJ-52I"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="A3F745CE-4169-4A6D-A62B-F6854585CBB2" label="Stop" paletteLabel="Stop" toolTip="Build" autovalidates="NO" id="oHP-Wo-2kQ">
+                                <toolbarItem implicitItemIdentifier="A3F745CE-4169-4A6D-A62B-F6854585CBB2" label="" paletteLabel="Stop" toolTip="Build" autovalidates="NO" id="oHP-Wo-2kQ">
                                     <imageReference key="image" image="stop.fill" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="32" height="32"/>
                                     <size key="maxSize" width="32.5" height="32"/>
@@ -1279,17 +1195,17 @@ Gw
                                         <action selector="stop:" target="Oky-zY-oP4" id="ULa-C3-bfl"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="6DF93AA1-261D-4F64-8719-463ADB8693E4" label="Run" paletteLabel="Run" toolTip="Build" autovalidates="NO" id="VrT-KR-C7z">
-                                    <imageReference key="image" image="toolbarItem:VrT-KR-C7z:image" catalog="system" symbolScale="large"/>
+                                <toolbarItem implicitItemIdentifier="6DF93AA1-261D-4F64-8719-463ADB8693E4" label="" paletteLabel="Run" toolTip="Build" autovalidates="NO" id="VrT-KR-C7z">
+                                    <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="32" height="32"/>
-                                    <size key="maxSize" width="32.5" height="32"/>
+                                    <size key="maxSize" width="33.5" height="32"/>
                                     <button key="view" id="l1J-h3-Mdq" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="14" width="32.5" height="32"/>
+                                        <rect key="frame" x="0.0" y="14" width="33.5" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="4Nn-Cu-gnv">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
-                                            <imageReference key="image" image="toolbarItem:VrT-KR-C7z:image" catalog="system" symbolScale="large"/>
+                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
                                         </buttonCell>
                                         <color key="contentTintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
@@ -1300,7 +1216,7 @@ Gw
                                         <action selector="run:" target="Oky-zY-oP4" id="hL3-6O-1Xd"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="9D0EDB37-8D3A-4493-B0B9-0E205E158B24" label="Show Project Folder in Finder" paletteLabel="Show Project Folder in Finder" toolTip="Build" id="WJW-BH-LDL">
+                                <toolbarItem implicitItemIdentifier="9D0EDB37-8D3A-4493-B0B9-0E205E158B24" label="" paletteLabel="Show Project Folder in Finder" toolTip="Build" id="WJW-BH-LDL">
                                     <imageReference key="image" image="folder" catalog="system" symbolScale="large"/>
                                     <size key="minSize" width="32" height="32"/>
                                     <size key="maxSize" width="32.5" height="32"/>
@@ -1343,7 +1259,7 @@ Gw
         <!--Main View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController storyboardIdentifier="MainViewController" id="XfG-lQ-9wD" customClass="MainViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Main" id="XfG-lQ-9wD" customClass="MainViewController" customModule="Xprime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="1060" height="640"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1468,10 +1384,10 @@ Gw
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="Q8R-MK-74O" kind="modal" id="GAi-V2-Fxa"/>
+                                            <action selector="showSettings:" target="XfG-lQ-9wD" id="3fv-MS-6Hr"/>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5tv-fo-793" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                    <button identifier="Project Settings" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5tv-fo-793" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
                                         <rect key="frame" x="188" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="screwdriver.fill" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KDh-lG-tqD">
@@ -1483,7 +1399,7 @@ Gw
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="ignoreState" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <segue destination="HsO-bO-Dfd" kind="modal" id="5RB-6J-gcI"/>
+                                            <action selector="showProjectSettings:" target="XfG-lQ-9wD" id="6pP-sv-75n"/>
                                         </connections>
                                     </button>
                                     <button identifier="notes" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D8b-RZ-JHs" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
@@ -1510,7 +1426,7 @@ Gw
                                             <segue destination="um3-nH-PU9" kind="show" id="LPa-0J-oWJ"/>
                                         </connections>
                                     </button>
-                                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wQM-Vu-roh" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
+                                    <button identifier="Preview" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wQM-Vu-roh" customClass="CustomIconButton" customModule="Xprime" customModuleProvider="target">
                                         <rect key="frame" x="398" y="16" width="32" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="binoculars.fill" catalog="system" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="CpF-l0-r8T">
@@ -1621,10 +1537,6 @@ Gw
             <point key="canvasLocation" x="-2025" y="556"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="sLN-NW-azV"/>
-        <segue reference="Fuk-bI-vJG"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="About" width="576" height="448"/>
         <image name="CheckOff" width="20" height="24"/>
@@ -1634,10 +1546,10 @@ Gw
         <image name="Finder" width="18" height="18"/>
         <image name="HP" width="18" height="18"/>
         <image name="HP Logo" width="16" height="16"/>
+        <image name="Internet" width="12.800000190734863" height="12.800000190734863"/>
         <image name="NSTouchBarComposeTemplate" width="21" height="21"/>
         <image name="NSTouchBarPlayTemplate" width="15" height="17"/>
         <image name="VirtualCalculator" width="32" height="32"/>
-        <image name="app" catalog="system" width="15" height="14"/>
         <image name="arrow.left.and.right" catalog="system" width="16" height="10"/>
         <image name="arrow.up.forward" catalog="system" width="13" height="12"/>
         <image name="arrow.up.forward.app" catalog="system" width="15" height="14"/>
@@ -1645,7 +1557,7 @@ Gw
         <image name="arrow.uturn.forward" catalog="system" width="15" height="14"/>
         <image name="binoculars.fill" catalog="system" width="20" height="15"/>
         <image name="book.fill" catalog="system" width="18" height="14"/>
-        <image name="bubbles.and.sparkles" catalog="system" width="22" height="20"/>
+        <image name="bubbles.and.sparkles" catalog="system" width="17" height="15"/>
         <image name="clock" catalog="system" width="15" height="15"/>
         <image name="curlybraces" catalog="system" width="15" height="16"/>
         <image name="decrease.indent" catalog="system" width="18" height="13"/>
@@ -1653,11 +1565,10 @@ Gw
         <image name="doc.on.clipboard" catalog="system" width="16" height="18"/>
         <image name="doc.on.doc" catalog="system" width="16" height="18"/>
         <image name="eraser.fill" catalog="system" width="16" height="15"/>
-        <image name="flowchart" catalog="system" width="17" height="17"/>
         <image name="folder" catalog="system" width="23" height="18"/>
         <image name="gear" catalog="system" width="17" height="17"/>
         <image name="hammer" catalog="system" width="20" height="18"/>
-        <image name="hammer.fill" catalog="system" width="19" height="17"/>
+        <image name="hammer.fill" catalog="system" width="24" height="23"/>
         <image name="help-about" width="18" height="18"/>
         <image name="increase.indent" width="16" height="16"/>
         <image name="interface.window" catalog="system" width="18" height="14"/>
@@ -6357,117 +6268,12 @@ N6c3tDe3N8Q3yTfRN9Q32TfhAAAAAAAAAgEAAAAAAAAAVQAAAAAAAAAAAAAAAAAAN+Q
         <image name="terminal" catalog="system" width="18" height="14"/>
         <image name="text.insert" catalog="system" width="16" height="13"/>
         <image name="textbox" catalog="system" width="19" height="14"/>
-        <image name="toolbarItem:VrT-KR-C7z:image" catalog="system" width="15" height="17">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9iamVjdHMSAAGGoF8QD05T
-S2V5ZWRBcmNoaXZlctEICVRyb290gAGvEBILDCcsMzQ5P0BBQkVQWFldYGFVJG51bGzdDQ4PEBESExQV
-FhcYGRobHB0eHyAhIiMkJSZfEBZOU0ltYWdlSGludFN5bWJvbFNjYWxlXxAmTlNBbGlnbm1lbnRSZWN0
-SW5Ob3JtYWxpemVkQ29vcmRpbmF0ZXNfEB5OU0ltYWdlSGludFN5bWJvbEZvbnRQb2ludFNpemVbTlNU
-aW50Q29sb3JfEBtOU0ltYWdlSGludFN5bWJvbEZvbnRXZWlnaHRWTlNSZXBzXxAeTlNJbWFnZUhpbnRT
-eW1ib2xDb25maWd1cmF0aW9uXk5TUmVzaXppbmdNb2RlViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNTaXpl
-XE5TSXNUZW1wbGF0ZVdOU0NvbG9yEAOAECNAKgAAAAAAAIAAIwAAAAAAAAAAgAWAAhAAgBESIMAAAIAE
-CYAL1CgVKSoaKx4cXU5TU3ltYm9sU2NhbGVcTlNGb250V2VpZ2h0W05TUG9pbnRTaXplgAPSLS4vMFok
-Y2xhc3NuYW1lWCRjbGFzc2VzXxAaTlNJbWFnZVN5bWJvbENvbmZpZ3VyYXRpb26iMTJfEBpOU0ltYWdl
-U3ltYm9sQ29uZmlndXJhdGlvblhOU09iamVjdFh7MTUsIDE3fdI1FTY4Wk5TLm9iamVjdHOhN4AGgArS
-NRU6OKM7PD2AB4AIgAmAChAGWXBsYXkuZmlsbAjSLS5DRFdOU0FycmF5okMy1kYVR0hJSktMTRpOT1dO
-U1doaXRlXE5TQ29tcG9uZW50c1xOU0NvbG9yU3BhY2VfEBJOU0N1c3RvbUNvbG9yU3BhY2VfEBBOU0xp
-bmVhckV4cG9zdXJlRDAgMACAD0MwIDCADEEx1FFSUxVUVVZXVE5TSURVTlNJQ0NXTlNNb2RlbBAJgA0Q
-AIAOTxERnAAAEZxhcHBsAgAAAG1udHJHUkFZWFlaIAfcAAgAFwAPAC4AD2Fjc3BBUFBMAAAAAG5vbmUA
-AAAAAAAAAAAAAAAAAAAAAAD21gABAAAAANMtYXBwbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAABWRlc2MAAADAAAAAeWRzY20AAAE8AAAIGmNwcnQAAAlYAAAAI3d0cHQA
-AAl8AAAAFGtUUkMAAAmQAAAIDGRlc2MAAAAAAAAAH0dlbmVyaWMgR3JheSBHYW1tYSAyLjIgUHJvZmls
-ZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABtbHVjAAAAAAAAAB8AAAAMc2tTSwAAAC4AAAGEZGFESwAAADoA
-AAGyY2FFUwAAADgAAAHsdmlWTgAAAEAAAAIkcHRCUgAAAEoAAAJkdWtVQQAAACwAAAKuZnJGVQAAAD4A
-AALaaHVIVQAAADQAAAMYemhUVwAAABoAAANMa29LUgAAACIAAANmbmJOTwAAADoAAAOIY3NDWgAAACgA
-AAPCaGVJTAAAACQAAAPqcm9STwAAACoAAAQOZGVERQAAAE4AAAQ4aXRJVAAAAE4AAASGc3ZTRQAAADgA
-AATUemhDTgAAABoAAAUMamFKUAAAACYAAAUmZWxHUgAAACoAAAVMcHRQTwAAAFIAAAV2bmxOTAAAAEAA
-AAXIZXNFUwAAAEwAAAYIdGhUSAAAADIAAAZUdHJUUgAAACQAAAaGZmlGSQAAAEYAAAaqaHJIUgAAAD4A
-AAbwcGxQTAAAAEoAAAcuYXJFRwAAACwAAAd4cnVSVQAAADoAAAekZW5VUwAAADwAAAfeAFYBYQBlAG8A
-YgBlAGMAbgDhACAAcwBpAHYA4QAgAGcAYQBtAGEAIAAyACwAMgBHAGUAbgBlAHIAaQBzAGsAIABnAHIA
-5QAgADIALAAyACAAZwBhAG0AbQBhAC0AcAByAG8AZgBpAGwARwBhAG0AbQBhACAAZABlACAAZwByAGkA
-cwBvAHMAIABnAGUAbgDoAHIAaQBjAGEAIAAyAC4AMgBDHqUAdQAgAGgA7ABuAGgAIABNAOAAdQAgAHgA
-4QBtACAAQwBoAHUAbgBnACAARwBhAG0AbQBhACAAMgAuADIAUABlAHIAZgBpAGwAIABHAGUAbgDpAHIA
-aQBjAG8AIABkAGEAIABHAGEAbQBhACAAZABlACAAQwBpAG4AegBhAHMAIAAyACwAMgQXBDAEMwQwBDsE
-TAQ9BDAAIABHAHIAYQB5AC0EMwQwBDwEMAAgADIALgAyAFAAcgBvAGYAaQBsACAAZwDpAG4A6QByAGkA
-cQB1AGUAIABnAHIAaQBzACAAZwBhAG0AbQBhACAAMgAsADIAwQBsAHQAYQBsAOEAbgBvAHMAIABzAHoA
-/AByAGsAZQAgAGcAYQBtAG0AYQAgADIALgAykBp1KHBwlo5RSV6mADIALgAygnJfaWPPj/DHfLwYACDW
-jMDJACCsELnIACAAMgAuADIAINUEuFzTDMd8AEcAZQBuAGUAcgBpAHMAawAgAGcAcgDlACAAZwBhAG0A
-bQBhACAAMgAsADIALQBwAHIAbwBmAGkAbABPAGIAZQBjAG4A4QAgAWEAZQBkAOEAIABnAGEAbQBhACAA
-MgAuADIF0gXQBd4F1AAgBdAF5AXVBegAIAXbBdwF3AXZACAAMgAuADIARwBhAG0AYQAgAGcAcgBpACAA
-ZwBlAG4AZQByAGkAYwEDACAAMgAsADIAQQBsAGwAZwBlAG0AZQBpAG4AZQBzACAARwByAGEAdQBzAHQA
-dQBmAGUAbgAtAFAAcgBvAGYAaQBsACAARwBhAG0AbQBhACAAMgAsADIAUAByAG8AZgBpAGwAbwAgAGcA
-cgBpAGcAaQBvACAAZwBlAG4AZQByAGkAYwBvACAAZABlAGwAbABhACAAZwBhAG0AbQBhACAAMgAsADIA
-RwBlAG4AZQByAGkAcwBrACAAZwByAOUAIAAyACwAMgAgAGcAYQBtAG0AYQBwAHIAbwBmAGkAbGZukBpw
-cF6mfPtlcAAyAC4AMmPPj/Blh072TgCCLDCwMOwwpDCsMPMw3gAgADIALgAyACAw1zDtMNUwoTCkMOsD
-kwO1A70DuQO6A8wAIAOTA7oDwQO5ACADkwOsA7wDvAOxACAAMgAuADIAUABlAHIAZgBpAGwAIABnAGUA
-bgDpAHIAaQBjAG8AIABkAGUAIABjAGkAbgB6AGUAbgB0AG8AcwAgAGQAYQAgAEcAYQBtAG0AYQAgADIA
-LAAyAEEAbABnAGUAbQBlAGUAbgAgAGcAcgBpAGoAcwAgAGcAYQBtAG0AYQAgADIALAAyAC0AcAByAG8A
-ZgBpAGUAbABQAGUAcgBmAGkAbAAgAGcAZQBuAOkAcgBpAGMAbwAgAGQAZQAgAGcAYQBtAG0AYQAgAGQA
-ZQAgAGcAcgBpAHMAZQBzACAAMgAsADIOIw4xDgcOKg41DkEOAQ4hDiEOMg5ADgEOIw4iDkwOFw4xDkgO
-Jw5EDhsAIAAyAC4AMgBHAGUAbgBlAGwAIABHAHIAaQAgAEcAYQBtAGEAIAAyACwAMgBZAGwAZQBpAG4A
-ZQBuACAAaABhAHIAbQBhAGEAbgAgAGcAYQBtAG0AYQAgADIALAAyACAALQBwAHIAbwBmAGkAaQBsAGkA
-RwBlAG4AZQByAGkBDQBrAGkAIABHAHIAYQB5ACAARwBhAG0AbQBhACAAMgAuADIAIABwAHIAbwBmAGkA
-bABVAG4AaQB3AGUAcgBzAGEAbABuAHkAIABwAHIAbwBmAGkAbAAgAHMAegBhAHIAbwFbAGMAaQAgAGcA
-YQBtAG0AYQAgADIALAAyBjoGJwZFBicAIAAyAC4AMgAgBkQGSAZGACAGMQZFBicGLwZKACAGOQYnBkUE
-HgQxBEkEMARPACAEQQQ1BEAEMARPACAEMwQwBDwEPAQwACAAMgAsADIALQQ/BEAEPgREBDgEOwRMAEcA
-ZQBuAGUAcgBpAGMAIABHAHIAYQB5ACAARwBhAG0AbQBhACAAMgAuADIAIABQAHIAbwBmAGkAbABlAAB0
-ZXh0AAAAAENvcHlyaWdodCBBcHBsZSBJbmMuLCAyMDEyAABYWVogAAAAAAAA81EAAQAAAAEWzGN1cnYA
-AAAAAAAEAAAAAAUACgAPABQAGQAeACMAKAAtADIANwA7AEAARQBKAE8AVABZAF4AYwBoAG0AcgB3AHwA
-gQCGAIsAkACVAJoAnwCkAKkArgCyALcAvADBAMYAywDQANUA2wDgAOUA6wDwAPYA+wEBAQcBDQETARkB
-HwElASsBMgE4AT4BRQFMAVIBWQFgAWcBbgF1AXwBgwGLAZIBmgGhAakBsQG5AcEByQHRAdkB4QHpAfIB
-+gIDAgwCFAIdAiYCLwI4AkECSwJUAl0CZwJxAnoChAKOApgCogKsArYCwQLLAtUC4ALrAvUDAAMLAxYD
-IQMtAzgDQwNPA1oDZgNyA34DigOWA6IDrgO6A8cD0wPgA+wD+QQGBBMEIAQtBDsESARVBGMEcQR+BIwE
-mgSoBLYExATTBOEE8AT+BQ0FHAUrBToFSQVYBWcFdwWGBZYFpgW1BcUF1QXlBfYGBgYWBicGNwZIBlkG
-agZ7BowGnQavBsAG0QbjBvUHBwcZBysHPQdPB2EHdAeGB5kHrAe/B9IH5Qf4CAsIHwgyCEYIWghuCIII
-lgiqCL4I0gjnCPsJEAklCToJTwlkCXkJjwmkCboJzwnlCfsKEQonCj0KVApqCoEKmAquCsUK3ArzCwsL
-Igs5C1ELaQuAC5gLsAvIC+EL+QwSDCoMQwxcDHUMjgynDMAM2QzzDQ0NJg1ADVoNdA2ODakNww3eDfgO
-Ew4uDkkOZA5/DpsOtg7SDu4PCQ8lD0EPXg96D5YPsw/PD+wQCRAmEEMQYRB+EJsQuRDXEPURExExEU8R
-bRGMEaoRyRHoEgcSJhJFEmQShBKjEsMS4xMDEyMTQxNjE4MTpBPFE+UUBhQnFEkUahSLFK0UzhTwFRIV
-NBVWFXgVmxW9FeAWAxYmFkkWbBaPFrIW1hb6Fx0XQRdlF4kXrhfSF/cYGxhAGGUYihivGNUY+hkgGUUZ
-axmRGbcZ3RoEGioaURp3Gp4axRrsGxQbOxtjG4obshvaHAIcKhxSHHscoxzMHPUdHh1HHXAdmR3DHewe
-Fh5AHmoelB6+HukfEx8+H2kflB+/H+ogFSBBIGwgmCDEIPAhHCFIIXUhoSHOIfsiJyJVIoIiryLdIwoj
-OCNmI5QjwiPwJB8kTSR8JKsk2iUJJTglaCWXJccl9yYnJlcmhya3JugnGCdJJ3onqyfcKA0oPyhxKKIo
-1CkGKTgpaymdKdAqAio1KmgqmyrPKwIrNitpK50r0SwFLDksbiyiLNctDC1BLXYtqy3hLhYuTC6CLrcu
-7i8kL1ovkS/HL/4wNTBsMKQw2zESMUoxgjG6MfIyKjJjMpsy1DMNM0YzfzO4M/E0KzRlNJ402DUTNU01
-hzXCNf02NzZyNq426TckN2A3nDfXOBQ4UDiMOMg5BTlCOX85vDn5OjY6dDqyOu87LTtrO6o76DwnPGU8
-pDzjPSI9YT2hPeA+ID5gPqA+4D8hP2E/oj/iQCNAZECmQOdBKUFqQaxB7kIwQnJCtUL3QzpDfUPARANE
-R0SKRM5FEkVVRZpF3kYiRmdGq0bwRzVHe0fASAVIS0iRSNdJHUljSalJ8Eo3Sn1KxEsMS1NLmkviTCpM
-cky6TQJNSk2TTdxOJU5uTrdPAE9JT5NP3VAnUHFQu1EGUVBRm1HmUjFSfFLHUxNTX1OqU/ZUQlSPVNtV
-KFV1VcJWD1ZcVqlW91dEV5JX4FgvWH1Yy1kaWWlZuFoHWlZaplr1W0VblVvlXDVchlzWXSddeF3JXhpe
-bF69Xw9fYV+zYAVgV2CqYPxhT2GiYfViSWKcYvBjQ2OXY+tkQGSUZOllPWWSZedmPWaSZuhnPWeTZ+lo
-P2iWaOxpQ2maafFqSGqfavdrT2una/9sV2yvbQhtYG25bhJua27Ebx5veG/RcCtwhnDgcTpxlXHwckty
-pnMBc11zuHQUdHB0zHUodYV14XY+dpt2+HdWd7N4EXhueMx5KnmJeed6RnqlewR7Y3vCfCF8gXzhfUF9
-oX4BfmJ+wn8jf4R/5YBHgKiBCoFrgc2CMIKSgvSDV4O6hB2EgITjhUeFq4YOhnKG14c7h5+IBIhpiM6J
-M4mZif6KZIrKizCLlov8jGOMyo0xjZiN/45mjs6PNo+ekAaQbpDWkT+RqJIRknqS45NNk7aUIJSKlPSV
-X5XJljSWn5cKl3WX4JhMmLiZJJmQmfyaaJrVm0Kbr5wcnImc951kndKeQJ6unx2fi5/6oGmg2KFHobai
-JqKWowajdqPmpFakx6U4pammGqaLpv2nbqfgqFKoxKk3qamqHKqPqwKrdavprFys0K1ErbiuLa6hrxav
-i7AAsHWw6rFgsdayS7LCszizrrQltJy1E7WKtgG2ebbwt2i34LhZuNG5SrnCuju6tbsuu6e8IbybvRW9
-j74KvoS+/796v/XAcMDswWfB48JfwtvDWMPUxFHEzsVLxcjGRsbDx0HHv8g9yLzJOsm5yjjKt8s2y7bM
-Ncy1zTXNtc42zrbPN8+40DnQutE80b7SP9LB00TTxtRJ1MvVTtXR1lXW2Ndc1+DYZNjo2WzZ8dp22vvb
-gNwF3IrdEN2W3hzeot8p36/gNuC94UThzOJT4tvjY+Pr5HPk/OWE5g3mlucf56noMui86Ubp0Opb6uXr
-cOv77IbtEe2c7ijutO9A78zwWPDl8XLx//KM8xnzp/Q09ML1UPXe9m32+/eK+Bn4qPk4+cf6V/rn+3f8
-B/yY/Sn9uv5L/tz/bf//0i0uWltcTlNDb2xvclNwYWNlolwyXE5TQ29sb3JTcGFjZdItLl5fV05TQ29s
-b3KiXjJfEEZ7ezAsIDAuMjA1ODgyMzUyOTQxMTc2NDZ9LCB7MC45NjY2NjY2NjY2NjY2NjY2NywgMC41
-Mjk0MTE3NjQ3MDU4ODIzNn190i0uYmNXTlNJbWFnZaJiMgAIABEAGgAkACkAMgA3AEkATABRAFMAaABu
-AIkAogDLAOwA+AEWAR0BPgFNAVQBYQFoAXUBfQF/AYEBigGMAZUBlwGZAZsBnQGiAaQBpQGnAbABvgHL
-AdcB2QHeAekB8gIPAhICLwI4AkECRgJRAlMCVQJXAlwCYAJiAmQCZgJoAmoCdAJ1AnoCggKFApICmgKn
-ArQCyQLcAuEC4wLnAukC6wL0AvkC/wMHAwkDCwMNAw8UrxS0FMEUxBTRFNYU3hThFSoVLxU3AAAAAAAA
-AgEAAAAAAAAAZAAAAAAAAAAAAAAAAAAAFTo
-</mutableData>
-        </image>
         <image name="trash" catalog="system" width="15" height="17"/>
         <image name="wrench" catalog="system" width="18" height="18"/>
         <image name="xmark" catalog="system" width="14" height="13"/>
         <image name="xmark.interface.window" catalog="system" width="18" height="14"/>
         <namedColor name="25%">
             <color white="0.0" alpha="0.25" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </namedColor>
-        <namedColor name="HP Prime Blue">
-            <color red="0.0" green="0.58823529411764708" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="HP Prime Orange">
-            <color red="0.94901960784313721" green="0.5490196078431373" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

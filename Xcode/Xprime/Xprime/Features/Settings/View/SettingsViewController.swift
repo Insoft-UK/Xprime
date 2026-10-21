@@ -22,38 +22,53 @@
 
 import Cocoa
 
-final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
+final class SettingsViewController: NSViewController, NSTextFieldDelegate {
     @IBOutlet weak var substitution: NSButton!
     @IBOutlet weak var theme: NSPopUpButton!
     @IBOutlet weak var keywordNormalization: NSButton!
     
-    private var vc: MainViewController!
+//    private var vc: MainViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
+//    override func viewDidAppear() {
+//        super.viewDidAppear()
+//        
+//        guard let window = view.window else { return }
+//        window.center()
+//        window.isMovableByWindowBackground = false
+//        window.isMovable = false
+//        
+//        
+////        DispatchQueue.main.async {
+////            if let editor = window.fieldEditor(false, for: self.location) as? NSTextView {
+////                let end = self.location.stringValue.count
+////                editor.selectedRange = NSRange(location: end, length: 0)
+////            }
+////        }
+//        
+//        guard let window = NSApplication.shared.windows.first else {
+//            self.view.window?.close(); return
+//        }
+//        vc = window.contentViewController as? MainViewController
+//    }
+    
+    private var vc: MainViewController!
+
     override func viewDidAppear() {
         super.viewDidAppear()
-        
-        guard let window = view.window else { return }
-        window.center()
-        window.isMovableByWindowBackground = false
-        window.isMovable = false
-        
-        
-//        DispatchQueue.main.async {
-//            if let editor = window.fieldEditor(false, for: self.location) as? NSTextView {
-//                let end = self.location.stringValue.count
-//                editor.selectedRange = NSRange(location: end, length: 0)
-//            }
-//        }
-        
-        guard let window = NSApplication.shared.windows.first else {
-            self.view.window?.close(); return
+
+        guard let window = view.window,
+              let mainVC = presentingViewController as? MainViewController else {
+            return
         }
-        vc = window.contentViewController as? MainViewController
+        
+        window.styleMask.remove(.resizable)
+
+        vc = mainVC
     }
     
     private func setup() {
@@ -96,7 +111,7 @@ final class SettingsViewController: CustomViewController, NSTextFieldDelegate {
     
     
     @IBAction func close(_ sender: Any) {
-        self.view.window?.close()
+        dismiss(nil)
     }
     
     @IBAction func defaultSettings(_ sender: Any) {

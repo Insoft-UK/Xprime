@@ -25,9 +25,9 @@ fileprivate enum DefaultsKey {
     static let include = "include"
     static let lib = "lib"
     static let bin = "bin"
-    static let archiveProjectApplicationOnly = "ArchiveProjectApplicationOnly"
     static let plainFallbackText = "PlainFallbackText"
     static let language = "Language"
+    static let cas = "CAS"
 }
 
 final class ProjectSettings {
@@ -47,12 +47,12 @@ final class ProjectSettings {
     @UserDefault(key: DefaultsKey.bin, defaultValue: Constants.Toolchain.bin)
     var bin: String
 
-    @UserDefault(key: DefaultsKey.archiveProjectApplicationOnly, defaultValue: true)
-    var archiveProjectAppOnly: Bool
-
     @UserDefault(key: DefaultsKey.plainFallbackText, defaultValue: true)
     var plainFallbackText: Bool
     
     @UserDefault(key: DefaultsKey.language, defaultValue: "hpppl")
     var language: String
+    
+    @UserDefault(key: DefaultsKey.cas, defaultValue: false)
+    var cas: Bool
 }

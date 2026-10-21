@@ -307,7 +307,7 @@ static Record createFunctionRecords(const std::string& prgm)
     return record;
 }
 
-static Record createPPLCodeRecord(const std::string& prgm)
+static Record createPPLCodeRecord(const std::string& prgm, bool cas)
 {
     Record record;
     auto sourceCode = utf16le(prgm);
@@ -328,7 +328,7 @@ static Record createPPLCodeRecord(const std::string& prgm)
     append32le(record.payload, 8);
     append16le(record.payload, 133);
     append16le(record.payload, 128);
-    append32le(record.payload, 0);
+    append32le(record.payload, cas ? 2 : 0);
     
     append32le(record.payload, programSize + 4);
     append16le(record.payload, 155);
@@ -342,7 +342,7 @@ static Record createPPLCodeRecord(const std::string& prgm)
     return record;
 }
 
-static void writeG2(const std::filesystem::path& path, const std::string& prgm)
+static void writeG2(const std::filesystem::path& path, const std::string& prgm, const bool cas)
 {
     /**
      A .hpprgm is a nested TLV container, little-endian:
@@ -368,21 +368,21 @@ static void writeG2(const std::filesystem::path& path, const std::string& prgm)
     out.insert(out.end(), preamble.begin(), preamble.end());
     
     append_record(createFunctionRecords(prgm), out);
-    append_record(createPPLCodeRecord(prgm), out);
+    append_record(createPPLCodeRecord(prgm, cas), out);
     
     writeBytes(path, out);
 }
 
 // MARK: - 📣 Public API functions
 
-void hpprgm::write(const std::filesystem::path& path, const std::string& prgm, const format fmt, const bool includeProgramName)
+void hpprgm::write(const std::filesystem::path& path, const std::string& prgm, const format fmt, const bool cas, const bool includeProgramName)
 {
     if (fmt == format::G1) {
         writeG1(path, prgm, includeProgramName);
         return;
     }
     
-    writeG2(path, prgm);
+    writeG2(path, prgm, cas);
 }
 
 std::wstring hpprgm::source(const std::filesystem::path& path)

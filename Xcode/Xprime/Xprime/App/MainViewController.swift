@@ -230,17 +230,17 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         previewButton.target = self
         previewButton.action = #selector(showPreview(_:))
      
-        if let button = view.findButton(withIdentifier: Constants.Identifiers.notes) {
+        if let button: NSButton = view.findView(withIdentifier: Constants.Identifiers.notes) {
             button.target = self
             button.action = #selector(showNotes(_:))
         }
         
-        if let button = view.findButton(withIdentifier: "autoIndentation") {
+        if let button: NSButton = view.findView(withIdentifier: NSUserInterfaceItemIdentifier("autoIndentation")) {
             button.target = self
             button.action = #selector(toggleAutoIndentation(_:))
         }
         
-        if let button = view.findButton(withIdentifier: "substitution") {
+        if let button: NSButton = view.findView(withIdentifier: NSUserInterfaceItemIdentifier("substitution")) {
             button.target = self
             button.action = #selector(toggleSubstitution(_:))
         }
@@ -491,83 +491,61 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         
         let templatesURL = resourceURL
             .appending(path: "Developer/Library/Xprime/Templates/Project Templates")
-
+        
         let chooser = ProjectTemplateChooserWindowController {
             [weak self] selection in
-
+            
             switch selection.type {
             case .application:
                 print("Create application: \(selection.name)")
-                AlertPresenter.presentConfirmation(
-                    on: self?.view.window,
-                    title: "Choose a Language",
-                    message: "Which programming language would you like to use for your new application?",
-                    primaryActionTitle: "PPL",
-                    secondaryActionTitle: "Python",
-                    tertiaryActionTitle: "Cancel",
-                    style: .informational
-                ) { result in
-                    switch result {
-                    case .primary:
-                        // Create a PPL application
-                        self?.createNewProject(
-                            named: selection.name,
-                            from: templatesURL.appending(path: "Applications/PPL Application")
-                        )
-
-                    case .secondary:
-                        // Create a Python application
-                        self?.createNewProject(
-                            named: selection.name,
-                            from: templatesURL.appending(path: "Applications/Python Application")
-                        )
-
-                    case .tertiary:
-                        // Cancel or no window available
-                        break
-
-                    case .unavailable:
-                        break
-                    }
+                switch selection.language {
+                case "PPL":
+                    self?.createNewProject(
+                        named: selection.name,
+                        from: templatesURL.appending(path: "Applications/PPL Application")
+                    )
+                case "PPL+":
+                    self?.createNewProject(
+                        named: selection.name,
+                        from: templatesURL.appending(path: "Applications/PPL+ Application")
+                    )
+                case "Python":
+                    self?.createNewProject(
+                        named: selection.name,
+                        from: templatesURL.appending(path: "Applications/Python Application")
+                    )
+                default:
+                    break
                 }
                 
-
             case .program:
                 print("Create program: \(selection.name)")
-                AlertPresenter.presentConfirmation(
-                    on: self?.view.window,
-                    title: "Choose Program Type",
-                    message: "Would you like to create a normal PPL program or a CAS program?",
-                    primaryActionTitle: "Normal",
-                    secondaryActionTitle: "CAS",
-                    tertiaryActionTitle: "Cancel"
-                ) { result in
-                    switch result {
-                    case .primary:
-                        // Create a normal PPL program
-                        self?.createNewProject(
-                            named: selection.name,
-                            from: templatesURL.appending(path: "Programs/PPL Program")
-                        )
-
-                    case .secondary:
-                        // Create a CAS program
-                        self?.createNewProject(
-                            named: selection.name,
-                            from: templatesURL.appending(path: "Programs/CAS Program")
-                        )
-
-                    case .tertiary:
-                        // Cancel or no window available
-                        break
-
-                    case .unavailable:
-                        break
-                    }
+                switch selection.language {
+                case "PPL":
+                    // Create a normal PPL program
+                    self?.createNewProject(
+                        named: selection.name,
+                        from: templatesURL.appending(path: "Programs/PPL Program")
+                    )
+                case "PPL+":
+                    self?.createNewProject(
+                        named: selection.name,
+                        from: templatesURL.appending(path: "Programs/PPL+ Program")
+                    )
+                    
+                case "CAS":
+                    // Create a CAS program
+                    self?.createNewProject(
+                        named: selection.name,
+                        from: templatesURL.appending(path: "Programs/CAS Program")
+                    )
+                    
+                default:
+                    break
                 }
-
-//            case .template:
-//                print("Select template for: \(selection.name)")
+                
+                //            case .template:
+                //                print("Select template for: \(selection.name)")
             }
         }
 
@@ -1164,27 +1142,29 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
         guard let name = projectManager.projectName else { return }
         
-        let url: URL
+//        let url: URL
+//        
+//        let dirA = FileManager.default.homeDirectoryForCurrentUser
+//            .appending(path: "Documents/HP Prime/Calculators/Prime")
+//            .appending(path: name)
+//            .appendingPathExtension("hpappdir")
+//            .appending(path: name)
+//            .appendingPathExtension("hpappprgm")
+//        let dirB = projectDirectoryURL
+//            .appending(path: name)
+//            .appendingPathExtension("hpappdir")
+//            .appending(path: name)
+//            .appendingPathExtension("hpappprgm")
+//        
+//        if dirA.isNewer(than: dirB), ProjectSettings.shared.archiveProjectAppOnly == false {
+//            url = dirA.deletingLastPathComponent()
+//            outputTextView.appendTextAndScroll("📦 Archiving \"\(name).hpappdir\" from the virtual calculator directory…\n")
+//        } else {
+//            url = projectDirectoryURL
+//            outputTextView.appendTextAndScroll("📦 Archiving \"\(name).hpappdir\" from the current project directory…\n")
+//        }
         
-        let dirA = FileManager.default.homeDirectoryForCurrentUser
-            .appending(path: "Documents/HP Prime/Calculators/Prime")
-            .appending(path: name)
-            .appendingPathExtension("hpappdir")
-            .appending(path: name)
-            .appendingPathExtension("hpappprgm")
-        let dirB = projectDirectoryURL
-            .appending(path: name)
-            .appendingPathExtension("hpappdir")
-            .appending(path: name)
-            .appendingPathExtension("hpappprgm")
-        
-        if dirA.isNewer(than: dirB), ProjectSettings.shared.archiveProjectAppOnly == false {
-            url = dirA.deletingLastPathComponent()
-            outputTextView.appendTextAndScroll("📦 Archiving \"\(name).hpappdir\" from the virtual calculator directory…\n")
-        } else {
-            url = projectDirectoryURL
-            outputTextView.appendTextAndScroll("📦 Archiving \"\(name).hpappdir\" from the current project directory…\n")
-        }
+        let url = projectDirectoryURL
         
         let result = HPPrimeServices.archiveAppDirectory(in: url, named: name, to: projectDirectoryURL)
         
@@ -1284,6 +1264,10 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         if settings.compression {
             arguments.append("--compress")
         }
+        
+        if ProjectSettings.shared.cas {
+            arguments.append("--cas")
+        }
 
         if !settings.include.isEmpty {
             arguments.append(
@@ -1348,16 +1332,29 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     // MARK: -
     
-//    @objc private func quickOpenSelected(_ sender: NSComboButton) {
-//        NotificationCenter.default.post(
-//            name: Notification.Name("quickOpenSelected"),
-//            object: sender
-//        )
-//    }
-//    
-//    @objc private func handleQuickOpenSelected(_ sender: NSComboButton) {
-//        let _ = "OK"
-//    }
+    @IBAction private func showSettings(_ sender: Any) {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+
+        guard let vc = storyboard.instantiateController(
+            withIdentifier: "SettingsViewController"
+        ) as? SettingsViewController else {
+            return
+        }
+
+        presentAsSheet(vc)
+    }
+    
+    @IBAction private func showProjectSettings(_ sender: Any) {
+        let storyboard = NSStoryboard(name: "Main", bundle: nil)
+
+        guard let vc = storyboard.instantiateController(
+            withIdentifier: "ProjectSettingsViewController"
+        ) as? ProjectSettingsViewController else {
+            return
+        }
+
+        presentAsSheet(vc)
+    }
     
     private func refreshQuickOpenToolbar() {
         guard
@@ -1380,7 +1377,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         }
         
         
-        let types = ["hpppl", "hppplplus", "hpprgm", "hpapp", "hpnote", "note", "py", "pyplus", "file", "bmp", "png", "data", "bin", "h", "pas"]
+        let types = ["hpppl", "hppplplus", "hpprgm", "hpapp", "hpnote", "note", "py", "pyplus", "file", "bmp", "png", "data", "bin", "h", "pas", "cas"]
 
         var icons: [(name: String, image: NSImage?)] = []
 
@@ -1441,6 +1438,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
 
                 case "hpprgm", "hpappprgm":
                     item.image = icons.first { $0.name == "hpprgm" }?.image
+                    
 
                 case "note", "ntf":
                     item.image = icons.first { $0.name == "note" }?.image
@@ -1451,8 +1449,15 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 case "pyplus", "py+":
                     item.image = icons.first { $0.name == "pyplus" }?.image
 
-                case "pas", "h", "hpppl", "bmp", "png", "py":
+                case "pas", "h", "bmp", "png", "py":
                     item.image = icons.first { $0.name == pathExtension }?.image
+                    
+                case "hpppl":
+                    if ProjectSettings.shared.cas {
+                        item.image = icons.first { $0.name == "cas" }?.image
+                    } else {
+                        item.image = icons.first { $0.name == pathExtension }?.image
+                    }
              
                 case "data", "dat":
                     item.image = icons.first { $0.name == "data" }?.image
@@ -1462,6 +1467,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                     
                 case "hpapp":
                     item.image = icons.first { $0.name == "hpapp" }?.image
+                    item.action = #selector(showProjectSettings(_:))
+                    
 
                 default:
                     item.image = icons.first { $0.name == "file" }?.image
@@ -1472,6 +1479,8 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                         item.action = #selector(quickOpen(_:))
                     }
                 }
+                
+                
 
                 // Explicitly set the menu image size
                 item.image?.size = Constants.IconSizes.big
@@ -1488,33 +1497,33 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             return menu
         }
         
-        func createBaseMenu() -> NSMenu {
-            let menu = NSMenu()
-            
-            let baseApplicationNames = [
-                "None", "Function", "Advanced Graphing", "Graph 3D", "Geometry",
-                "Spreadsheet", "Statistics 1Var", "Statistics 2Var", "Inference",
-                "Data Streamer", "Solve", "Linear Solver", "Triangle Solver",
-                "Finance", "Python", "Parametric", "Polar", "Sequence"
-            ]
-            
-            for baseApplicationName in baseApplicationNames {
-                menu.addItem(
-                    withTitle: baseApplicationName,
-                    action: #selector(baseApplicationSelection(_:)),
-                    keyEquivalent: ""
-                )
-                let image = NSImage(named: baseApplicationName)?.copy() as! NSImage
-                menu.items.last?.image = image
-                menu.items.last?.image?.size = Constants.IconSizes.small
-                if #available(macOS 27.0, *) {
-                    menu.items.last?.preferredImageVisibility = .visible
-                }
-            }
-            
-            
-            return menu
-        }
+//        func createBaseMenu() -> NSMenu {
+//            let menu = NSMenu()
+//            
+//            let baseApplicationNames = [
+//                "None", "Function", "Advanced Graphing", "Graph 3D", "Geometry",
+//                "Spreadsheet", "Statistics 1Var", "Statistics 2Var", "Inference",
+//                "Data Streamer", "Solve", "Linear Solver", "Triangle Solver",
+//                "Finance", "Python", "Parametric", "Polar", "Sequence"
+//            ]
+//            
+//            for baseApplicationName in baseApplicationNames {
+//                menu.addItem(
+//                    withTitle: baseApplicationName,
+//                    action: #selector(baseApplicationSelection(_:)),
+//                    keyEquivalent: ""
+//                )
+//                let image = NSImage(named: baseApplicationName)?.copy() as! NSImage
+//                menu.items.last?.image = image
+//                menu.items.last?.image?.size = Constants.IconSizes.small
+//                if #available(macOS 27.0, *) {
+//                    menu.items.last?.preferredImageVisibility = .visible
+//                }
+//            }
+//            
+//            
+//            return menu
+//        }
         
         let menu = createMenu(for: url)
         if projectManager.isProjectApplication {
@@ -1540,23 +1549,23 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             }
             menu.insertItem(NSMenuItem.separator(), at: 1)
             
-            let item = NSMenuItem(
-                title: projectManager.projectName! + ".hpapp",
-                action: nil,
-                keyEquivalent: ""
-            )
-            if #available(macOS 27.0, *) {
-                item.preferredImageVisibility = .visible
-            }
+//            let item = NSMenuItem(
+//                title: projectManager.projectName! + ".hpapp",
+//                action: nil,
+//                keyEquivalent: ""
+//            )
+//            if #available(macOS 27.0, *) {
+//                item.preferredImageVisibility = .visible
+//            }
             
-            menu.item(at: 0)?.submenu?.insertItem(
-                item,
-                at: 0
-            )
-            let baseApplicationIcon = NSImage(named: projectManager.baseApplicationName)?.copy() as! NSImage
-            menu.item(at: 0)?.submenu?.item(at: 0)?.image = baseApplicationIcon
-            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = Constants.IconSizes.big
-            menu.item(at: 0)?.submenu?.item(at: 0)?.submenu = createBaseMenu()
+//            menu.item(at: 0)?.submenu?.insertItem(
+//                item,
+//                at: 0
+//            )
+//            let baseApplicationIcon = NSImage(named: projectManager.baseApplicationName)?.copy() as! NSImage
+//            menu.item(at: 0)?.submenu?.item(at: 0)?.image = baseApplicationIcon
+//            menu.item(at: 0)?.submenu?.item(at: 0)?.image?.size = Constants.IconSizes.big
+//            menu.item(at: 0)?.submenu?.item(at: 0)?.submenu = createBaseMenu()
         }
         
         comboButton.menu = menu
@@ -1686,6 +1695,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         
         panel.title = ""
         panel.directoryURL = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        
         for type in Constants.DocumentExtensions.allowedOpen {
             panel.allowedContentTypes.append(UTType(filenameExtension: type)!)
         }
@@ -1945,19 +1955,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     
     @IBAction func cleanProjectFolder(_ sender: Any) {
-        
-//        let enumerator = FileManager.default.enumerator(
-//            at: directoryURL,
-//            includingPropertiesForKeys: [.isRegularFileKey],
-//            options: [.skipsHiddenFiles]
-//        )
-//
-//        while let url = enumerator?.nextObject() as? URL {
-//            guard extensions.contains(url.pathExtension.lowercased()) else {
-//                continue
-//            }
-//        }
-        
         func hasPythonPlusFile(for fileURL: URL) -> Bool {
             guard fileURL.pathExtension.lowercased() == "py" else {
                 return false
@@ -2117,7 +2114,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     // MARK: - Validation for Toolbar Items
     func validateToolbarItems() {
 
-        if let button = view.findButton(withIdentifier: Constants.Identifiers.notes) {
+        if let button: NSButton = view.findView(withIdentifier: Constants.Identifiers.notes) {
             button.isEnabled = projectManager.projectDirectoryURL
                 .map { $0.appending(path: "info.note").fileExists } ?? false
             if button.isEnabled == false {
@@ -2128,11 +2125,11 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             }
         }
         
-        if let button = view.findButton(withIdentifier: Constants.Identifiers.autoIndentation) {
+        if let button: NSButton = view.findView(withIdentifier: Constants.Identifiers.autoIndentation) {
             button.state = Settings.shared.autoIndentation ? .on : .off
         }
         
-        if let button = view.findButton(withIdentifier: Constants.Identifiers.substitution) {
+        if let button: NSButton = view.findView(withIdentifier: Constants.Identifiers.substitution) {
             let isPython = documentManager.currentDocumentURL?
                 .pathExtension.lowercased() == "py"
 
@@ -2147,18 +2144,27 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
         if let toolbar = view.window?.toolbar {
             for item in toolbar.items {
                 switch item.paletteLabel {
-                case "Build", "Run":
-                    item.isEnabled = projectManager.projectDirectoryURL != nil
+                case "Build", "Run", "Show Project Folder in Finder", "Quick Open":
+                    item.isEnabled = projectManager.isProjectOpen
                 case "Stop":
                     item.isEnabled = isApplicationRunning(withBundleIdentifier: Constants.BundleIdentifier.hpPrime)
                 
                     /*
                      An instance of “Xprime” is already running. Would you like to terminate it and launch a new instance, or add an additional instance?
                      */
+                
                 default:
                     item.isEnabled = true
                 }
             }
+        }
+        
+        if let view: NSButton = view.findView(withIdentifier: NSUserInterfaceItemIdentifier("Project Settings")) {
+            view.isEnabled = projectManager.isProjectOpen
+        }
+        
+        if let view: NSButton = view.findView(withIdentifier: NSUserInterfaceItemIdentifier("Preview")) {
+            view.isEnabled = projectManager.isProjectOpen
         }
     }
 
@@ -2189,7 +2195,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             return projectManager.isProjectApplication
             
         case #selector(run(_:)), #selector(archive(_:)), #selector(build(_:)), #selector(buildForRunning(_:)):
-            if projectManager.projectDirectoryURL != nil   {
+            if projectManager.projectDirectoryURL != nil  {
                 return true
             }
             return false
@@ -2214,12 +2220,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             
         case #selector(revertDocumentToSaved(_:)):
             return documentManager.documentIsModified
-            
-        case #selector(cleanProjectFolder(_:)):
-            if projectManager.projectDirectoryURL != nil {
-                return true
-            }
-            return false
             
         case #selector(showProjectFolderInFinder(_:)):
             menuItem.title = "Show \(projectManager.projectName ?? "Project") Folder in Finder"
@@ -2256,12 +2256,12 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             menuItem.isHidden = true
             return false
             
+        case #selector(saveDocument(_:)), #selector(saveDocumentAs(_:)):
+            return documentManager.currentDocumentURL != nil
             
-        case #selector(closeProject(_:)):
-            if let _ = projectManager.projectDirectoryURL {
-                return true
-            }
-            return false
+        case #selector(closeProject(_:)), #selector(cleanProjectFolder(_:)), #selector(newDocument(_:)), #selector(showProjectSettings(_:)):
+            return projectManager.isProjectOpen
+
             
         default:
             break
@@ -2340,6 +2340,8 @@ extension MainViewController: DocumentManagerDelegate {
     
     func documentManagerDidClose(_ manager: DocumentManager) {
         codeEditorTextView.string = ""
+        codeEditorTextView.undoManager?.removeAllActions()
+        
         refreshQuickOpenToolbar()
         Settings.shared.lastOpenedFile = ""
     }
@@ -2388,6 +2390,7 @@ extension MainViewController: ProjectManagerDelegate {
         }
         
         outputTextView.string = ""
+//        codeEditorTextView.isEditable = true
     }
     
     func projectManager(_ manager: ProjectManager, didFailToOpen error: any Error) {
@@ -2406,5 +2409,7 @@ extension MainViewController: ProjectManagerDelegate {
         
         outputTextView.string = ""
         validateToolbarItems()
+//        codeEditorTextView.string = ""
+//        codeEditorTextView.isEditable = false
     }
 }

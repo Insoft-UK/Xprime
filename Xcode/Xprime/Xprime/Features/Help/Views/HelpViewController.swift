@@ -61,7 +61,7 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
     }
     
     private func loadHelp(for command: String) {
-        let filename = command.percentEncoded()
+        let filename = command.underscoreEncoded()
         let helpDirectory = Constants.HPConnectivityKit.directoryURL
             .appending(path: "Xprime/Help/catlg")
 
@@ -69,7 +69,11 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
         let txtURL = helpDirectory.appending(path: "\(filename).txt")
 
         let fileManager = FileManager.default
-
+        
+        let imageView = view.findView(withIdentifier: NSUserInterfaceItemIdentifier("Online"))
+        imageView?.isHidden = true
+        
+        print(htmlURL.path)
         if fileManager.fileExists(atPath: htmlURL.path) {
             webView.loadFileURL(
                 htmlURL,
@@ -95,6 +99,7 @@ final class HelpViewController: CustomViewController, NSComboBoxDelegate, NSText
                 modifiedSince: .distantPast
             ) {
                 self.webView.load(URLRequest(url: onlineURL))
+                imageView?.isHidden = false
             }
         }
     }

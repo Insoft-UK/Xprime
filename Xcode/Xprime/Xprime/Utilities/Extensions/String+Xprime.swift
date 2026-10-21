@@ -32,8 +32,35 @@ extension String {
         self = attributed.string
     }
     
-    /// Encodes specific characters using custom URL representations.
-    func percentEncoded(replacing chars: [Character: String] = ["%": "%2525"]) -> String {
+    /// Encodes characters that are invalid in macOS filenames or have special meaning in URLs.
+    func underscoreEncoded(
+        replacing chars: [Character: String] = [
+            "%": "_25",
+            "/": "_2F",
+            ":": "_3A",
+//            "?": "%3F",
+//            "#": "%23",
+//            "[": "%5B",
+//            "]": "%5D",
+//            "@": "%40",
+//            "!": "%21",
+//            "$": "%24",
+//            "&": "%26",
+//            "'": "%27",
+//            "(": "%28",
+//            ")": "%29",
+//            "*": "%2A",
+            "+": "_2B",
+//            ",": "%2C",
+//            ";": "%3B",
+//            "=": "%3D",
+//            "\\": "%5C",
+//            "<": "%3C",
+//            ">": "%3E",
+//            "\"": "%22",
+//            "|": "_7C"
+        ]
+    ) -> String {
         var result = ""
 
         for char in self {

@@ -4,7 +4,6 @@
   "lib" : "",
   "bin" : "$(DEVROOT)/bin",
   "language" : "py",
-  "archiveProjectAppOnly" : true,
-  "includeProgramName" : true,
+  "cas" : false,
   "plainFallbackText" : true
 }

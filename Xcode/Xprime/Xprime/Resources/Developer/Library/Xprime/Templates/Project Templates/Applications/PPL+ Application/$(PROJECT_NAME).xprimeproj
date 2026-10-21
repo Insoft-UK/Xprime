@@ -3,7 +3,7 @@
   "archiveProjectAppOnly" : true,
   "bin" : "$(DEVROOT)/bin",
   "plainFallbackText" : true,
-  "includeProgramName" : true,
+  "cas" : false,
   "compression" : false,
   "language" : "hppplplus",
   "lib" : "$(DEVROOT)/lib"

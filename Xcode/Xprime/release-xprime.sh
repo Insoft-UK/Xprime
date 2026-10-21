@@ -232,7 +232,7 @@ VERSION=$(/usr/libexec/PlistBuddy \
 DATE=$(date +%Y%m%d)
 
 SOURCE="dist/${APP_NAME}.zip"
-DESTINATION="dist/${APP_NAME}_${DATE}.zip"
+DESTINATION="dist/${APP_NAME}_${VERSION}.${DATE}.zip"
 
 rm -f "$DESTINATION"
 mv "$SOURCE" "$DESTINATION"

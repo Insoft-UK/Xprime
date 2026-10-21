@@ -4,7 +4,6 @@
   "lib" : "$(DEVROOT)/lib",
   "bin" : "$(DEVROOT)/bin",
   "language" : "hpppl",
-  "archiveProjectAppOnly" : true,
-  "includeProgramName" : true,
+  "cas" : false,
   "plainFallbackText" : true
 }

@@ -22,16 +22,17 @@
 
 import Cocoa
 
+// @available(*, deprecated, message: "Use findView(withIdentifier:) instead.")
+
 extension NSView {
-    func findButton(withIdentifier id: String) -> NSButton? {
-        if let button = self as? NSButton,
-           button.identifier?.rawValue == id {
-            return button
+    func findView<T: NSView>(withIdentifier identifier: NSUserInterfaceItemIdentifier) -> T? {
+        if self.identifier == identifier, let matchingView = self as? T {
+            return matchingView
         }
 
         for subview in subviews {
-            if let button = subview.findButton(withIdentifier: id) {
-                return button
+            if let matchingView: T = subview.findView(withIdentifier: identifier) {
+                return matchingView
             }
         }
 
