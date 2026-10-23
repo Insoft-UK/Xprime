@@ -10,7 +10,7 @@
 - [Note](Xcode/Tools/hpnote)
 - [Python Minify](Xcode/Tools/pymin)
 
-### Xprime IDE
+### [Xprime IDE](https://www.hpmuseum.org/forum/thread-23773.html)
 Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Prime PPL, package it, and create runnable HP Prime applications.
 * Provides a code editor for PPL, PPL+ and Python source code
 * Converts PPL+ into HP Prime PPL
