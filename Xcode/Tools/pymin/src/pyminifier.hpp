@@ -25,6 +25,7 @@
 #include <cstddef>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 class PythonMinifier
 {
@@ -90,4 +91,23 @@ private:
     void trimTrailingWhitespace();
     std::string combineStatements(const std::string& source);
     std::string shortenVariables(const std::string& source);
+    
+    // Variable shortening
+    std::unordered_map<std::string, std::string> replacements_;
+
+    int nextVariableNumber_ = 1;
+    int nextParameterNumber_ = 1;
+
+    [[nodiscard]] std::string shortenParameters(
+        const std::string& signature);
+
+    void collectLocalVariables(const std::string& statement);
+
+    [[nodiscard]] std::string replaceIdentifiers(
+        const std::string& text);
+
+    void assignVariableAlias(const std::string& name);
+
+    [[nodiscard]] std::string nextVariableAlias();
+    [[nodiscard]] std::string nextParameterAlias();
 };

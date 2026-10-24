@@ -1,5 +1,6 @@
 import hpprime as hp
 
+alias _ as data
 with open("drawing.dat") as f:
   data = [int(x) for x in f.read().split(",")]
 

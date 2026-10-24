@@ -1,9 +1,9 @@
 {
-  "archiveProjectAppOnly" : true,
-  "lib" : "$(DEVROOT)\/lib",
-  "bin" : "$(DEVROOT)\/bin",
-  "compression" : true,
   "include" : "$(DEVROOT)\/include",
+  "lib" : "$(DEVROOT)\/lib",
+  "language" : "hppplplus",
   "plainFallbackText" : false,
-  "language" : "py"
+  "cas" : false,
+  "compression" : true,
+  "bin" : "$(DEVROOT)\/bin"
 }

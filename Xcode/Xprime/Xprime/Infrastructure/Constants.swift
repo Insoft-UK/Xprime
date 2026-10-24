@@ -89,10 +89,6 @@ enum Constants {
     
     enum Insoft {
         static let api = "https://api.insoft.uk"
-#if !Debug
-        static let website = "http://localhost:8888"
-#else
-        static let website = "https://insoft.uk"
-#endif
+        static let website = "https://www.insoft.uk"
     }
 }
