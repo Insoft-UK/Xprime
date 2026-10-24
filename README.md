@@ -10,7 +10,7 @@
 - [Note](Xcode/Tools/hpnote)
 - [Python Minify](Xcode/Tools/pymin)
 
-### Xprime IDE
+### [Xprime IDE](https://www.hpmuseum.org/forum/thread-23773.html)
 Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Prime PPL, package it, and create runnable HP Prime applications.
 * Provides a code editor for PPL, PPL+ and Python source code
 * Converts PPL+ into HP Prime PPL
@@ -19,13 +19,6 @@ Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Pri
 * Allows the resulting executable/application to be run on the HP Prime
 
 ***Website:*** [Xprime](http://insoft.uk/xprime.php)</br>
-
->[!IMPORTANT]
->**Xprime 27.1** brings some changes, the **Xprime folder**, which was previously located in the user’s home directory, is now located inside the **HP Connectivity Kit folder** within the user’s **Documents folder**. Xprime 27.1 also introduces a new cloud-based help system. Help documentation is now supplied online, allowing updates and improvements to be made independently of the Xprime application itself.
->
->The **Projects folder**, which was previously located inside the Xprime folder, has been moved outside of it and now resides directly within the HP Connectivity Kit folder.
->
->**Xprime 27.2** will bring other further changes regarding the build folder's location as it will no longer be in the project's folder but located in the **HP Connectivity Kit folder**
 
 ### Xprime 27 Requirements
 Apple Silicon or intel</br>
