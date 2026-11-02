@@ -1,6 +1,6 @@
 #pragma mode( separator(.,;) integer(h64) )
 
-ICON "background.png";
+icon "background.png";
 
 export START()
 begin

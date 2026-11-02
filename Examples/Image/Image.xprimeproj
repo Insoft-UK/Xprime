@@ -1,9 +1,9 @@
 {
-  "include" : "$(DEVROOT)\/include",
-  "language" : "hppplplus",
-  "compression" : false,
   "lib" : "$(DEVROOT)\/lib",
+  "compression" : false,
+  "cas" : false,
+  "include" : "$(DEVROOT)\/include",
   "bin" : "$(DEVROOT)\/bin",
-  "plainFallbackText" : true,
-  "cas" : false
+  "language" : "hppplplus",
+  "plainFallbackText" : true
 }

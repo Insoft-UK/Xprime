@@ -82,7 +82,7 @@ static std::string generatePPLCode(const Image& image) {
             << "{\n"
             << "  {" << formatPPLHexData(image.pixels) << "},\n"
             << "  {" << std::dec << std::to_string(image.width) << "," << std::to_string(image.height) << "," << std::to_string(image.bitCount) << "},\n"
-            << "  {#FFFFFF:32h,#000000:32h}\n};";
+            << "  {#FFFFFF:32h,#000000:32h}\n}";
             
             utf8.append(os.str());
             break;
@@ -104,7 +104,7 @@ static std::string generatePPLCode(const Image& image) {
                 
                 os << "#" << std::uppercase << std::hex << std::setfill('0') << std::setw(6) << color << ":32h";
             }
-            os << "}\n};";
+            os << "}\n}";
             
             utf8.append(os.str());
             break;
@@ -115,7 +115,7 @@ static std::string generatePPLCode(const Image& image) {
             << "{\n"
             << "  {" << formatPPLHexData(image.pixels) << "},\n"
             << "  {" << std::dec << std::to_string(image.width) << ", " << std::to_string(image.height) << "}\n"
-            << "};";
+            << "}";
             
             utf8.append(os.str());
             break;
