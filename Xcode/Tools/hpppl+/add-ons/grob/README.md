@@ -4,7 +4,7 @@
 **Command Line Tool**
 A utility for generating HP PPL code from an image file for use with the BLIT and BLIT_P functions on the HP Prime.
 
-`Usage: grob <input-file> [-o <output-file>] [-c <columns>] [-n <name>] [-g<1-9>] [-ppl]`
+`Usage: grob <input-file> [-o <output-file>] [-G<1-9>] [--language <language>]`
 
 <table>
   <thead>
@@ -18,19 +18,10 @@ A utility for generating HP PPL code from an image file for use with the BLIT an
       <td>-o <output-file></td><td>Specify the filename for generated code</td>
     </tr>
     <tr>
-      <td>-c or --columns</td><td>Number of columns</td>
+      <td>-G&lt;1-9&gt;</td><td>Graphic object G1-G9 to for DIMGROB_P</td>
     </tr>
     <tr>
-      <td>-n or --name</td><td>Custom name</td>
-    </tr>
-    <tr>
-      <td>-G<1-9></td><td>Graphic object G1-G9 to use if file is an image</td>
-    </tr>
-    <tr>
-      <td>--pragma</td><td>Include \"#pragma mode( separator(.,;) integer(h64) )\" line</td>
-    </tr>
-    <tr>
-      <td>--endian <le|be></td><td>Endianes le(default)</td>
+      <td>-l --language &lt;language&gt;</td><td>Specify the output language (ppl or python).</td>
     </tr>
     <tr>
       <td colspan="2"><b>Additional Commands</b></td>
@@ -47,13 +38,73 @@ A utility for generating HP PPL code from an image file for use with the BLIT an
   </tbody>
 </table>
 
-<img width="64" height="64" src="assets/spectrum-8bit.png" >
-
+For 1-bit, 4-bit, and 8-bit GROB images.<br />
+for HP PPL [GROB_P](GROB_P.hpppl)
 ```
-grob spectrum-8bit.bmp -G1
+#PYTHON GROB_P(trgtG, dx, dy, img, scaleX, scaleY)
+from sys import argv
+from hpprime import *
+
+trgtG = int(argv[0][1:])
+dx = int(argv[1])
+dy = int(argv[2])
+img = eval(argv[3])
+scaleX = int(argv[4])
+scaleY = int(argv[5])
+
+w = int(img[1][0]); h = int(img[1][1]); bpp = int(img[1][2])
+m = (1 << bpp) - 1; s = 64 / bpp
+x = 0; y = 0
+
+size = len(img[0])
+for i in range(size):
+  d = int(img[0][i])
+  for j in range(64 / bpp):
+    c = img[2][d & m]
+    if scaleX == 1 and scaleY == 1:
+      pixon(trgtG, x+dx, y+dy, c),0,0
+    elif scaleX == 1 and scaleY > 1:
+      line(trgtG, x+dx, y+dy, x+dx, y+dy+scaleY - 1, c)
+    elif scaleX > 1 and scaleY == 1:
+      line(trgtG, x+dx, y+dy, x+dx+scaleX-1, y+dy, c)
+    else:
+      fillrect(trgtG, x+dx, y+dy, scaleX, scaleY, c, c)
+    d = d >> bpp
+    x = x + scaleX
+    if x == w * scaleX:
+      x = 0
+      y = y + scaleY
+#END
+```
+for Python [grob](grob.py)
+```
+from hpprime import pixon, line, fillrect
+
+def grob(trgtG, dx, dy, img, scaleX, scaleY):
+  w = int(img[1][0]); h = int(img[1][1]); bpp = int(img[1][2])
+  m = (1 << bpp) - 1; s = 64 / bpp
+  x = 0; y = 0
+
+  size = len(img[0])
+  for i in range(size):
+    d = int(img[0][i])
+    for j in range(64 / bpp):
+      c = img[2][d & m]
+      if scaleX == 1 and scaleY == 1:
+        pixon(trgtG, x+dx, y+dy, c),0,0
+      elif scaleX == 1 and scaleY > 1:
+        line(trgtG, x+dx, y+dy, x+dx, y+dy+scaleY - 1, c)
+      elif scaleX > 1 and scaleY == 1:
+        line(trgtG, x+dx, y+dy, x+dx+scaleX-1, y+dy, c)
+      else:
+        fillrect(trgtG, x+dx, y+dy, scaleX, scaleY, c, c)
+      d = d >> bpp
+      x = x + scaleX
+      if x == w * scaleX:
+        x = 0
+        y = y + scaleY
 ```
 
 > [!NOTE]
-The only image file format currently supported by this utility tool is the Bitmap (BMP) format for Windows & Linux, with 1-bit, 4-bit, 8-bit, 16-bit, or 32-bit color depth.
-PNG is only supported for macOS.
+This utility currently supports three image formats: Bitmap (BMP), with 1-bit, 4-bit, 8-bit, 16-bit, and 32-bit colour depths; Portable Bitmap (PBM), with 1-bit colour depth; and PNG, with 8-bit and 32-bit colour depths.
 
