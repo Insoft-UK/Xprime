@@ -38,7 +38,7 @@ A utility for generating HP PPL code from an image file for use with the BLIT an
   </tbody>
 </table>
 
-For 1-bit, 4-bit, and 8-bit GROB images.
+For 1-bit, 4-bit, and 8-bit GROB images.<br />
 for HP PPL [GROB_P](GROB_P.hpppl)
 ```
 #PYTHON GROB_P(trgtG, dx, dy, img, scaleX, scaleY)
