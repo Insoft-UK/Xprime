@@ -18,19 +18,10 @@ A utility for generating HP PPL code from an image file for use with the BLIT an
       <td>-o <output-file></td><td>Specify the filename for generated code</td>
     </tr>
     <tr>
-      <td>-c or --columns</td><td>Number of columns</td>
+      <td>-G<1-9></td><td>Graphic object G1-G9 to for DIMGROB_P</td>
     </tr>
     <tr>
-      <td>-n or --name</td><td>Custom name</td>
-    </tr>
-    <tr>
-      <td>-G<1-9></td><td>Graphic object G1-G9 to use if file is an image</td>
-    </tr>
-    <tr>
-      <td>--pragma</td><td>Include \"#pragma mode( separator(.,;) integer(h64) )\" line</td>
-    </tr>
-    <tr>
-      <td>--endian <le|be></td><td>Endianes le(default)</td>
+      <td>-l --language <language></td><td>Specify the output language (ppl or python).</td>
     </tr>
     <tr>
       <td colspan="2"><b>Additional Commands</b></td>
