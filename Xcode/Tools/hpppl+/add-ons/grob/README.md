@@ -38,12 +38,6 @@ A utility for generating HP PPL code from an image file for use with the BLIT an
   </tbody>
 </table>
 
-<img width="64" height="64" src="assets/spectrum-8bit.png" >
-
-```
-grob spectrum-8bit.bmp -G1
-```
-
 > [!NOTE]
 This utility currently supports three image formats: Bitmap (BMP), with 1-bit, 4-bit, 8-bit, 16-bit, and 32-bit colour depths; Portable Bitmap (PBM), with 1-bit colour depth; and PNG, with 8-bit and 32-bit colour depths.
 
