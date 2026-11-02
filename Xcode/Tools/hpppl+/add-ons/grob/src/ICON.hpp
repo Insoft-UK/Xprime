@@ -1,7 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2024-2025 Insoft. All rights reserved.
-// Originally created in 2023
+// Copyright (c) 2023-2026 Insoft.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,22 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef pbm_hpp
-#define pbm_hpp
+#pragma once
 
-#include <cstdint>
+#include <iostream>
 #include <filesystem>
-#include <vector>
 
-#include "image.hpp"
-
-namespace pbm {
-    /**
-     @brief Loads a file in the Portable Bitmap (PBM) format.
-     @param path The pathname of the Portable Bitmap (PBM) to be loaded.
-     @return A structure containing the image data.
-     */
-    image::TImage load(const std::filesystem::path& path);
-}
-
-#endif /* pbm_hpp */
+namespace hpprime {
+    // Generate PPL Icon Directive
+    std::string ICON(const std::filesystem::path& path);
+};

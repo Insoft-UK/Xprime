@@ -5,8 +5,7 @@ Version 1.1
 - **Data:**
   - {#0000000000000000:64h,#0000000000000000:64h,…},
 - **Header:**
-  - { width, height, bpp },
+  - { width, height, bitCount },
 - **Color Table:**
   - { #00000000:32h, #00FFFFFF:32h, … }
-
 };

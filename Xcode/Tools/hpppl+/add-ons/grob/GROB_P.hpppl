@@ -1,4 +1,6 @@
-#PYTHON IMAGE(trgtG, dx, dy, img, scaleX, scaleY)
+#pragma mode( separator(.,;) integer(h64) )
+
+#PYTHON GROB_P(trgtG, dx, dy, img, scaleX, scaleY)
 from sys import argv
 from hpprime import *
 
@@ -18,16 +20,17 @@ for i in range(size):
   d = int(img[0][i])
   for j in range(64 / bpp):
     c = img[2][d & m]
-    fillrect(trgtG, x + dx, y + dy, scaleX, scaleY, c, c)
+    if scaleX == 1 and scaleY == 1:
+      pixon(trgtG, x+dx, y+dy, c),0,0
+    elif scaleX == 1 and scaleY > 1:
+      line(trgtG, x+dx, y+dy, x+dx, y+dy+scaleY - 1, c)
+    elif scaleX > 1 and scaleY == 1:
+      line(trgtG, x+dx, y+dy, x+dx+scaleX-1, y+dy, c)
+    else:
+      fillrect(trgtG, x+dx, y+dy, scaleX, scaleY, c, c)
     d = d >> bpp
     x = x + scaleX
     if x == w * scaleX:
       x = 0
       y = y + scaleY
 #END
-
-EXPORT HPPPL()
-BEGIN
-  LOCAL system := 0;
-  RETURN system;
-END;

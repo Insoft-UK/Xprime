@@ -44,6 +44,7 @@ namespace hppplplus {
         
         static bool isIncludeDirective(const std::string& str);
         static std::filesystem::path extractIncludeDirective(const std::string& str);
+        static std::vector<std::string> extractArguments(const std::string& input);
     };
     
 }

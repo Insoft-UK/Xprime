@@ -119,10 +119,10 @@ final class CodeEditorTextView: NSTextView {
         textContainerInset = NSSize(width: 0, height: 10)
         backgroundColor = NSColor.textBackgroundColor
         
-        if let tc = textContainer {
-            tc.widthTracksTextView = false
-            tc.containerSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
-        }
+//        if let tc = textContainer {
+//            tc.widthTracksTextView = false
+//            tc.containerSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
+//        }
         enclosingScrollView?.hasHorizontalScroller = true
         typingAttributes[.kern] = 0
         typingAttributes[.ligature] = 0
@@ -132,6 +132,15 @@ final class CodeEditorTextView: NSTextView {
         if let url = Bundle.main.url(forResource: "substitutions", withExtension: "json") {
             loadSubstitutions(at: url)
         }
+        
+//        isHorizontallyResizable = false
+//        isVerticallyResizable = true
+
+        textContainer?.widthTracksTextView = true
+        textContainer?.containerSize = NSSize(
+            width: 0,
+            height: CGFloat.greatestFiniteMagnitude
+        )
     }
     
  

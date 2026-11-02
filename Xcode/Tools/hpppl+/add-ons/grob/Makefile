@@ -11,13 +11,18 @@ CXXFLAGS := -std=c++23 -Os -fno-ident -fno-asynchronous-unwind-tables
 LDFLAGS := -Wl,-dead_strip -Wl,-x
 
 INCLUDES := \
-	-I../../src/libhpprgm/include \
-	-Isrc/libpng/include \
-	-Isrc/libz/include
+	-I../../src/libpng/include \
+	-I../../src/libz/include
 
+LIBPNG := \
+	../../src/libpng/lib
+	
+LIBZ := \
+	../../src/libz/lib
+	
 SRC := \
-	src/*.cpp \
-	../../src/libhpprgm/src/*.cpp
+	src/*.cpp
+	
 
 all: arm64 x86_64 universal
 
@@ -26,8 +31,8 @@ native:
 	$(CXX) -arch $(ARCH) $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
-		src/libpng/lib/$(ARCH)/libpng.a \
-		src/libz/lib/$(ARCH)/libz.a \
+		$(LIBPNG)/$(ARCH)/libpng.a \
+		$(LIBZ)/$(ARCH)/libz.a \
 		-o build/$(PROJECT_NAME) \
 		$(LDFLAGS)
 
@@ -36,8 +41,8 @@ arm64:
 	$(CXX) -arch arm64 $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
-		src/libpng/lib/arm64/libpng.a \
-		src/libz/lib/arm64/libz.a \
+		$(LIBPNG)/arm64/libpng.a \
+		$(LIBZ)/arm64/libz.a \
 		-o build/arm64/$(PROJECT_NAME) \
 		$(LDFLAGS)
 
@@ -46,8 +51,8 @@ x86_64:
 	$(CXX) -arch x86_64 $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
-		src/libpng/lib/x86_64/libpng.a \
-		src/libz/lib/x86_64/libz.a \
+		$(LIBPNG)/x86_64/libpng.a \
+		$(LIBZ)/x86_64/libz.a \
 		-o build/x86_64/$(PROJECT_NAME) \
 		$(LDFLAGS)
 		
@@ -56,6 +61,8 @@ win_x86_64:
 	$(CXXWIN) -std=c++23 \
 		$(INCLUDES) \
 		$(SRC) \
+		$(LIBPNG)/win_x86_64/libpng.a \
+		$(LIBZ)/win_x86_64/libz.a \
 		-o build/win_x86_64/$(PROJECT_NAME).exe \
 		-static -O2 -s
 
@@ -64,6 +71,8 @@ linux_x86_64:
 	$(CXXLINUX) $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
+		$(LIBPNG)/linux_x86_64/libpng.a \
+		$(LIBZ)/linux_x86_64/libz.a \
 		-o build/linux_x86_64/$(PROJECT_NAME) \
 		-static -Wl,-x
 

@@ -1,7 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2024-2025 Insoft.
-// Originally created in 2025
+// Copyright (c) 2023-2026 Insoft.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +20,83 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#include "png.hpp"
-
-#if __APPLE__
-
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
-
+#include "dimgrob.hpp"
+#include "inverter.hpp"
+#include "singleton.hpp"
 #include "png.h"
 
-using namespace image;
+#include <regex>
+#include <fstream>
+#include <sstream>
 
-TImage png::load(const std::filesystem::path& path)
+//#include <cstdint>
+#include <vector>
+//#include <string>
+//#include <stdexcept>
+//#include <cstdio>
+
+
+static std::string pattern = R"(\bDIMGROB_P *\( *(G\d) *, *\"((?:\\.|[^"\\])*)\" *\))";
+
+#if __cplusplus >= 202302L
+    #include <bit>
+    using std::byteswap;
+#elif __cplusplus >= 201103L
+    #include <cstdint>
+    namespace std {
+        template <typename T>
+        T byteswap(T u)
+        {
+            
+            static_assert (CHAR_BIT == 8, "CHAR_BIT != 8");
+            
+            union
+            {
+                T u;
+                unsigned char u8[sizeof(T)];
+            } source, dest;
+            
+            source.u = u;
+            
+            for (size_t k = 0; k < sizeof(T); k++)
+                dest.u8[k] = source.u8[sizeof(T) - k - 1];
+            
+            return dest.u;
+        }
+    }
+#else
+    #error "C++11 or newer is required"
+#endif
+
+// A list is limited to 10,000 elements. Attempting to create a longer list will result in error 38 (Insufficient memory) being thrown.
+static std::string formatPPLHexData(const void *data, const size_t lengthInBytes) {
+    std::ostringstream os;
+    uint64_t n;
+    size_t count = 0;
+    size_t length = lengthInBytes;
+    uint64_t *bytes = (uint64_t *)data;
+    
+    while (length >= 8) {
+        n = *bytes++;
+        
+        if (count) os << ",";
+        os << "#" << std::uppercase << std::hex << std::setfill('0') << std::setw(16) << n << ":64h";
+        
+        count += 1;
+        length -= 8;
+    }
+    return os.str();
+}
+
+typedef struct {
+    uint16_t width;
+    uint16_t height;
+    uint8_t  bpp;
+    std::vector<uint32_t> palette; // !Palette stored in RGBA format.
+    std::vector<uint8_t> bytes;
+} TImage;
+
+static TImage load(const std::filesystem::path& path)
 {
     TImage image;
     
@@ -116,84 +179,60 @@ TImage png::load(const std::filesystem::path& path)
     return image;
 }
 
-bool png::save(const std::filesystem::path& path, const TImage &image) {
-
-    // Open file
-    FILE* fp = fopen(path.c_str(), "wb");
-    if (!fp) {
-        std::cerr << "Error: Unable to open file for writing: " << path.filename().string() << std::endl;
-        return false;
-    }
-
-    // Create PNG write struct
-    png_structp png = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
-    if (!png) {
-        std::cerr << "Error: Unable to create PNG write struct." << std::endl;
-        fclose(fp);
-        return false;
-    }
-
-    // Create PNG info struct
-    png_infop info = png_create_info_struct(png);
-    if (!info) {
-        std::cerr << "Error: Unable to create PNG info struct." << std::endl;
-        png_destroy_write_struct(&png, nullptr);
-        fclose(fp);
-        return false;
-    }
-
-    // Setup error handling
-    if (setjmp(png_jmpbuf(png))) {
-        std::cerr << "Error: Exception during PNG creation." << std::endl;
-        png_destroy_write_struct(&png, &info);
-        fclose(fp);
-        return false;
-    }
-
-    // Initialize file I/O
-    png_init_io(png, fp);
-
-    // Set image header info
-    int color_type;
-    switch (image.bpp) {
-        case 8:
-            color_type = PNG_COLOR_TYPE_GRAY;
-            break;
-        case 24:
-            color_type = PNG_COLOR_TYPE_RGB;
-            break;
-        case 32:
-            color_type = PNG_COLOR_TYPE_RGBA;
-            break;
-        default:
-            std::cerr << "Error: Unsupported bit width." << std::endl;
-            png_destroy_write_struct(&png, &info);
-            fclose(fp);
-            return false;
-    }
-
-    png_set_IHDR(png, info, image.width, image.height, 8, color_type,
-                 PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_DEFAULT, PNG_FILTER_TYPE_DEFAULT);
-
-    png_write_info(png, info);
-
-    // Write image data row by row
-    const int bytes_per_pixel = image.bpp / 8;
-    std::vector<png_bytep> row_pointers(image.height);
-    for (size_t y = 0; y < image.height; ++y) {
-        row_pointers[y] = (png_bytep)(&image.bytes.data()[y * image.width * bytes_per_pixel]);
-    }
-    png_write_image(png, row_pointers.data());
-
-    // End write
-    png_write_end(png, nullptr);
-
-    // Cleanup
-    png_destroy_write_struct(&png, &info);
-    fclose(fp);
-
-    std::cerr << "PNG file saved successfully: " << path.filename().string() << std::endl;
-    return true;
+bool DIMGROB::isDIMGROB(const std::string &str) {
+    return regex_search(str, std::regex(pattern, std::regex_constants::icase));
 }
 
-#endif // __APPLE__
+std::string DIMGROB::processDIMGROB(const std::string &str) {
+    std::smatch match;
+    std::string code = str;
+    static const std::regex re(
+                               pattern,
+                               std::regex_constants::icase
+                               );
+    
+    if (!std::regex_search(str, match, re)) {
+        return str;
+    }
+    
+    std::filesystem::path path(match.str(2));
+    std::string name;
+    
+    name = path.stem().string();
+    name = regex_replace(name, std::regex(R"([-.])"), "_");
+    
+    
+    if (path.parent_path().empty()) {
+        path = hppplplus::Singleton::shared()->getMainSourceDir() / path;
+    }
+    
+    TImage image = load(path);
+
+    if (image.bpp != 32) {
+        std::cerr << MessageType::Warning;
+        std::cerr << "Unsupported PNG colour type for DIMGROB_P in " << path.filename() << "!\n";
+        return std::regex_replace(str, re, "DIMGROB_P(" + match.str(1) + ",4,4,{#7C007FFF7FFF7C00:64h,#7FFF7C007C007FFF:64h,#7FFF7C007C007FFF:64h,#7C007FFF7FFF7C00:64h}))");
+    }
+    
+    if (image.bytes.size() / 8 > 10000) {
+        std::cerr << MessageType::Warning;
+        std::cerr << "list limit of 10,000 reached for " << path.filename() << "!\n";
+        return std::regex_replace(str, re, "DIMGROB_P(" + match.str(1) + ",4,4,{#7C007FFF7FFF7C00:64h,#7FFF7C007C007FFF:64h,#7FFF7C007C007FFF:64h,#7C007FFF7FFF7C00:64h}))");
+    }
+    
+    // Convert to HP Prime GROB format.
+    for (std::size_t i = 0; i < image.bytes.size(); i += 4) {
+        std::swap(image.bytes[i], image.bytes[i + 2]);
+        image.bytes[i + 3] = 255 - image.bytes[i + 3];
+    }
+    
+    // Generate the PPL code for DIMGROB_P.
+    code = formatPPLHexData(image.bytes.data(), image.bytes.size());
+
+    const std::string replacement =
+        "DIMGROB_P(" + match.str(1) + "," +
+        std::to_string(image.width) + "," +
+        std::to_string(image.height) + ",{" + code + "})";
+
+    return std::regex_replace(str, re, replacement);
+}

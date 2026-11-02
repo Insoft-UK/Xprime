@@ -16,7 +16,9 @@ INCLUDES := \
 	-Isrc/librfmt/include \
 	-Isrc/libmin/include \
 	-Isrc/libhpprgm/include \
-	-Isrc/common/include
+	-Isrc/common/include \
+	-Isrc/libz/include \
+	-Isrc/libpng/include
 
 SRC := \
 	src/*.cpp \
@@ -32,6 +34,8 @@ native:
 	$(CXX) -arch $(ARCH) $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
+		src/libpng/lib/$(ARCH)/libpng.a \
+		src/libz/lib/$(ARCH)/libz.a \
 		-o build/$(PROJECT_NAME) \
 		$(LDFLAGS)
 
@@ -40,6 +44,8 @@ arm64:
 	$(CXX) -arch arm64 $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
+		src/libpng/lib/arm64/libpng.a \
+		src/libz/lib/arm64/libz.a \
 		-o build/arm64/$(PROJECT_NAME) \
 		$(LDFLAGS)
 
@@ -48,6 +54,8 @@ x86_64:
 	$(CXX) -arch x86_64 $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
+		src/libpng/lib/x86_64/libpng.a \
+		src/libz/lib/x86_64/libz.a \
 		-o build/x86_64/$(PROJECT_NAME) \
 		$(LDFLAGS)
 		
@@ -56,6 +64,8 @@ win_x86_64:
 	$(CXXWIN) -std=c++23 \
 		$(INCLUDES) \
 		$(SRC) \
+		src/libpng/lib/win_x86_64/libpng.a \
+		src/libz/lib/win_x86_64/libz.a \
 		-o build/win_x86_64/$(PROJECT_NAME).exe \
 		-static -O2 -s
 
@@ -64,6 +74,8 @@ linux_x86_64:
 	$(CXXLINUX) $(CXXFLAGS) \
 		$(INCLUDES) \
 		$(SRC) \
+		src/libpng/lib/linux_x86_64/libpng.a \
+		src/libz/lib/linux_x86_64/libz.a \
 		-o build/linux_x86_64/$(PROJECT_NAME) \
 		-static -Wl,-x
 

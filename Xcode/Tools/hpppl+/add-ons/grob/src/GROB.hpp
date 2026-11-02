@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2023-2025 Insoft.
+// Copyright (c) 2023-2026 Insoft.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,16 +23,14 @@
 #pragma once
 
 #include <iostream>
-#include <fstream>
-#include <vector>
 #include <filesystem>
+#include "image.hpp"
 
-namespace hpprgm {
-    enum class format {
-        G1,
-        G2
+namespace hpprime {
+    enum class Language : std::uint8_t {
+        HPPPL      = 0,
+        Python     = 1
     };
     
-    void write(const std::filesystem::path& path, const std::string& prgm, const format fmt, const bool includeProgramName = false);
-    std::wstring source(const std::filesystem::path& path);
-}
+    std::string GROB(image::Image image, const Language language = Language::HPPPL);
+};

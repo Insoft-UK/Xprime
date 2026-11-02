@@ -23,15 +23,38 @@
 
 #pragma once
 
+#include <filesystem>
 #include <cstdint>
 #include <vector>
 
 namespace image {
+    
+    using Bytes = std::vector<std::uint8_t>;
+
+    enum class ColourType : std::uint8_t {
+        Grayscale      = 0,
+        RGB            = 2,
+        Indexed        = 3,
+        GrayscaleAlpha = 4,
+        RGBA           = 6,
+        
+        HighColour     = 7,  // ARGB1555 (16-bit),
+        
+        Unknown        = 255
+    };
+    
     typedef struct {
-        uint16_t width;
-        uint16_t height;
-        uint8_t  bpp;
-        std::vector<uint32_t> palette; // !Palette stored in RGBA format.
-        std::vector<uint8_t> bytes;
-    } TImage;
+        int width;
+        int height;
+        
+        ColourType colorType;
+        uint8_t bitDepth; // bits per channel
+        uint8_t bitCount;
+        
+        std::vector<uint32_t> palette; // RGBA palette entries
+        std::vector<uint8_t> pixels;
+    } Image;
+    
+    Image loadImage(const std::filesystem::path& path);
+    bool saveImage(const std::filesystem::path& path, const Image& image);
 }

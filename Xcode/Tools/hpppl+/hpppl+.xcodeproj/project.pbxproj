@@ -15,6 +15,11 @@
 		136E64542D35B0980054E0CC /* regexp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 136E64532D35B0980054E0CC /* regexp.cpp */; };
 		136E645B2D3964A90054E0CC /* dictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 136E645A2D3964A90054E0CC /* dictionary.cpp */; };
 		137FB2892A03B06500AEFDF2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 137FB2882A03B06500AEFDF2 /* main.cpp */; };
+		13ABF73A309271A200D7BA4E /* icon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13ABF739309271A200D7BA4E /* icon.cpp */; };
+		13ABF75E3092794500D7BA4E /* inverter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13ABF75D3092794500D7BA4E /* inverter.cpp */; };
+		13ABF76030927A4000D7BA4E /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13ABF75F30927A4000D7BA4E /* libz.a */; };
+		13ABF7633092B2DB00D7BA4E /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13ABF7623092B2DB00D7BA4E /* libpng.a */; };
+		13ABF7B23092CC4100D7BA4E /* dimgrob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13ABF7653092B63100D7BA4E /* dimgrob.cpp */; };
 		13C21F9A2A7829C80067CE22 /* directives.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13C21F982A7829C80067CE22 /* directives.cpp */; };
 		13C21F9D2A783D8D0067CE22 /* common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13C21F9B2A783D8D0067CE22 /* common.cpp */; };
 		13C21FB42A7892540067CE22 /* alias.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 13C21FB22A7892540067CE22 /* alias.cpp */; };
@@ -58,6 +63,14 @@
 		137FB2942A046E8E00AEFDF2 /* hpppl+.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "hpppl+.entitlements"; sourceTree = "<group>"; };
 		1389CFEA2CA73BA6008FDBEB /* timer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = timer.hpp; sourceTree = "<group>"; };
 		138F54D22C976F10009357F9 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		13ABF738309271A200D7BA4E /* icon.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = icon.hpp; sourceTree = "<group>"; };
+		13ABF739309271A200D7BA4E /* icon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = icon.cpp; sourceTree = "<group>"; };
+		13ABF75C3092793D00D7BA4E /* inverter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = inverter.hpp; sourceTree = "<group>"; };
+		13ABF75D3092794500D7BA4E /* inverter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = inverter.cpp; sourceTree = "<group>"; };
+		13ABF75F30927A4000D7BA4E /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = src/libz/lib/arm64/libz.a; sourceTree = "<group>"; };
+		13ABF7623092B2DB00D7BA4E /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = src/libpng/lib/arm64/libpng.a; sourceTree = "<group>"; };
+		13ABF7643092B63100D7BA4E /* dimgrob.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dimgrob.hpp; sourceTree = "<group>"; };
+		13ABF7653092B63100D7BA4E /* dimgrob.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dimgrob.cpp; sourceTree = "<group>"; };
 		13C21F982A7829C80067CE22 /* directives.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = directives.cpp; sourceTree = "<group>"; };
 		13C21F992A7829C80067CE22 /* directives.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = directives.hpp; sourceTree = "<group>"; };
 		13C21F9B2A783D8D0067CE22 /* common.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = common.cpp; sourceTree = "<group>"; };
@@ -78,6 +91,9 @@
 		13DC3D4C2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				lib/arm64/libhpprgm.a,
+				lib/libhpprgm.a,
+				lib/x86_64/libhpprgm.a,
 				Makefile,
 			);
 			target = 137FB2842A03B06500AEFDF2 /* hpppl+ */;
@@ -108,6 +124,8 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		13ABF7A43092C81500D7BA4E /* libpng */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = libpng; sourceTree = "<group>"; };
+		13ABF7B13092C82200D7BA4E /* libz */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = libz; sourceTree = "<group>"; };
 		13B07BDB2ECD5D1C00B81E80 /* test */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = test; sourceTree = "<group>"; };
 		13DC3BB92F032AF600E131FC /* libhpprgm */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (13DC3D4C2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = libhpprgm; sourceTree = "<group>"; };
 		13DC3BC12F032AF600E131FC /* libmin */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (13DC3D4D2F05FD8300E131FC /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = libmin; sourceTree = "<group>"; };
@@ -120,6 +138,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13ABF7633092B2DB00D7BA4E /* libpng.a in Frameworks */,
+				13ABF76030927A4000D7BA4E /* libz.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				137FB2882A03B06500AEFDF2 /* main.cpp */,
+				13ABF7B13092C82200D7BA4E /* libz */,
+				13ABF7A43092C81500D7BA4E /* libpng */,
 				13DC3E6C2F0714A400E131FC /* libhpppl */,
 				13DC3BB92F032AF600E131FC /* libhpprgm */,
 				13DC3BC12F032AF600E131FC /* libmin */,
@@ -160,6 +182,8 @@
 				13C21F9E2A783E820067CE22 /* Classes */,
 				136A44F82EF5EF500017E5AF /* tool.hpp */,
 				136A44F92EF5EF500017E5AF /* tool.cpp */,
+				13ABF75C3092793D00D7BA4E /* inverter.hpp */,
+				13ABF75D3092794500D7BA4E /* inverter.cpp */,
 				13C21F9C2A783D8D0067CE22 /* common.hpp */,
 				13C21F9B2A783D8D0067CE22 /* common.cpp */,
 				134779A32DE5F117009EB2C8 /* utf.hpp */,
@@ -185,6 +209,10 @@
 				13CD08242D60D9880005D2EA /* code_stack.cpp */,
 				13EE0F2A2DF888AC004F3D7E /* base.cpp */,
 				134DD6A02F606CE30018F1C0 /* pascal.cpp */,
+				13ABF738309271A200D7BA4E /* icon.hpp */,
+				13ABF739309271A200D7BA4E /* icon.cpp */,
+				13ABF7643092B63100D7BA4E /* dimgrob.hpp */,
+				13ABF7653092B63100D7BA4E /* dimgrob.cpp */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -208,6 +236,8 @@
 		13DC3D4F2F05FD9300E131FC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13ABF7623092B2DB00D7BA4E /* libpng.a */,
+				13ABF75F30927A4000D7BA4E /* libz.a */,
 				134DD4BA2F5B70060018F1C0 /* libicucore.tbd */,
 			);
 			name = Frameworks;
@@ -275,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13ABF75E3092794500D7BA4E /* inverter.cpp in Sources */,
 				13C21F9A2A7829C80067CE22 /* directives.cpp in Sources */,
 				136E645B2D3964A90054E0CC /* dictionary.cpp in Sources */,
 				136A44FA2EF5EF500017E5AF /* tool.cpp in Sources */,
@@ -284,6 +315,8 @@
 				13C21F9D2A783D8D0067CE22 /* common.cpp in Sources */,
 				13CD08252D60D9880005D2EA /* code_stack.cpp in Sources */,
 				136E64542D35B0980054E0CC /* regexp.cpp in Sources */,
+				13ABF7B23092CC4100D7BA4E /* dimgrob.cpp in Sources */,
+				13ABF73A309271A200D7BA4E /* icon.cpp in Sources */,
 				13C21FB42A7892540067CE22 /* alias.cpp in Sources */,
 				1351CC532BF530CE0073FEDF /* calc.cpp in Sources */,
 				13F1D8832AB6185400EF623A /* aliases.cpp in Sources */,
@@ -436,6 +469,8 @@
 					"$(PROJECT_DIR)/src/librfmt/lib/arm64",
 					"$(PROJECT_DIR)/src/librfmt/lib/x86_64",
 					"$(PROJECT_DIR)/src/librfmt/lib",
+					"$(PROJECT_DIR)/src/libz/lib/arm64",
+					"$(PROJECT_DIR)/src/libpng/lib/arm64",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
@@ -470,6 +505,8 @@
 					"$(PROJECT_DIR)/src/librfmt/lib/arm64",
 					"$(PROJECT_DIR)/src/librfmt/lib/x86_64",
 					"$(PROJECT_DIR)/src/librfmt/lib",
+					"$(PROJECT_DIR)/src/libz/lib/arm64",
+					"$(PROJECT_DIR)/src/libpng/lib/arm64",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

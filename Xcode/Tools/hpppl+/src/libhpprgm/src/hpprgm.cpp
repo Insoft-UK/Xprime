@@ -345,7 +345,7 @@ static Record createPPLCodeRecord(const std::string& prgm, bool cas)
 static void writeG2(const std::filesystem::path& path, const std::string& prgm, const bool cas)
 {
     /**
-     A .hpprgm is a nested TLV container, little-endian:
+     A .hpprgm is a nested TLV like container, little-endian:
 
          7C 61 8A B2                        magic
          FE FF FF FF  00 00 00 00           preamble

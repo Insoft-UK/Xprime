@@ -36,6 +36,8 @@ namespace hppplplus {
     class Singleton {
         
     public:
+        bool preview = false;
+        
         Aliases aliases;
         Regexp regexp;
         CodeStack codeStack;

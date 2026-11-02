@@ -32,7 +32,7 @@ ALIAS MAD::Draw := Draw;
 
 MAD::Init()
 BEGIN
-	VAR bmp := {$I mad.bmp};
+	LOCAL bmp := {$I mad.bmp};
     line := {0, 0, 0, 0};
     scale := 1.0;
 

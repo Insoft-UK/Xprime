@@ -1280,7 +1280,7 @@ Gw
                                                     <color key="textColor" red="0.99131000000000002" green="0.56076000000000004" blue="0.24611" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <color key="backgroundColor" red="0.16078431372549018" green="0.16470588235294117" blue="0.18431372549019609" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <size key="minSize" width="1060" height="513"/>
-                                                    <size key="maxSize" width="10000" height="10000000"/>
+                                                    <size key="maxSize" width="1060" height="10000000"/>
                                                 </textView>
                                             </subviews>
                                         </clipView>
@@ -1483,7 +1483,6 @@ Gw
                         <outlet property="codeEditorTextView" destination="09p-Rf-tgR" id="YQS-0U-lVp"/>
                         <outlet property="outputScrollView" destination="gM6-VC-kCh" id="Cbq-VN-EFd"/>
                         <outlet property="outputTextView" destination="fLO-1H-GKd" id="2zB-kY-Jtt"/>
-                        <outlet property="previewButton" destination="wQM-Vu-roh" id="VfX-4a-xso"/>
                         <outlet property="scrollView" destination="Ec1-A6-M9f" id="KeR-bg-fsO"/>
                         <outlet property="splitView" destination="VTQ-i6-i8i" id="hYA-ON-mGK"/>
                         <outlet property="statusLabel" destination="WwT-Xi-9rw" id="x8B-3n-gwE"/>
@@ -6250,7 +6249,7 @@ N6c3tDe3N8Q3yTfRN9Q32TfhAAAAAAAAAgEAAAAAAAAAVQAAAAAAAAAAAAAAAAAAN+Q
 </mutableData>
         </image>
         <image name="minus.magnifyingglass" catalog="system" width="16" height="15"/>
-        <image name="play.fill" catalog="system" width="12" height="13"/>
+        <image name="play.fill" catalog="system" width="15" height="17"/>
         <image name="plus" catalog="system" width="14" height="13"/>
         <image name="plus.magnifyingglass" catalog="system" width="16" height="15"/>
         <image name="replacement" width="16" height="16"/>

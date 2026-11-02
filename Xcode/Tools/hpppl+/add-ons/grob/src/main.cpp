@@ -28,13 +28,13 @@
 #include <cstring>
 #include <iomanip>
 #include <cstdint>
-#include "utf.hpp"
-#include "hpprgm.hpp"
+
+#include "image.hpp"
+#include "DIMGROB_P.hpp"
+#include "ICON.hpp"
+#include "GROB.hpp"
 
 #include "../version_code.h"
-#include "bmp.hpp"
-#include "png.hpp"
-#include "pbm.hpp"
 #include "timer.hpp"
 #include "extensions.hpp"
 
@@ -46,70 +46,7 @@ namespace fs = std::filesystem;
 
 // MARK: - Functions
 
-// A list is limited to 10,000 elements. Attempting to create a longer list will result in error 38 (Insufficient memory) being thrown.
-static std::string ppl(const void *data, const size_t lengthInBytes, const int columns, bool le = true) {
-    std::ostringstream os;
-    uint64_t n;
-    size_t count = 0;
-    size_t length = lengthInBytes;
-    uint64_t *bytes = (uint64_t *)data;
-    
-    while (length >= 8) {
-        n = *bytes++;
-        
-        if (!le) {
-            n = std::byteswap(n);
-        }
-        
-#ifdef __BIG_ENDIAN__
-        /*
-         This platform utilizes big-endian, not little-endian. To ensure
-         that data is processed correctly when generating the list, we
-         must convert between big-endian and little-endian.
-         */
-        if (le) n = std::byteswap(n);
-#endif // __BIG_ENDIAN__
-
-        if (count) os << ", ";
-        if (count % columns == 0) {
-            os << (count ? "\n    " : "    ");
-        }
-        os << "#" << std::uppercase << std::hex << std::setfill('0') << std::setw(16) << n << ":64h";
-        
-        count += 1;
-        length -= 8;
-    }
-    return os.str();
-}
-
-static std::ifstream::pos_type filesize(const char* filename)
-{
-    std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
-    std::ifstream::pos_type pos = in.tellg();
-    in.close();
-    return pos;
-}
-
-static size_t loadBinaryFile(const char* filename, image::TImage &bitmap) {
-    size_t fsize;
-    std::ifstream infile;
-    
-    if ((fsize = filesize(filename)) == 0) return 0;
-    
-    infile.open(filename, std::ios::in | std::ios::binary);
-    
-    if (!infile.is_open()) return 0;
-
-    bitmap.bytes.reserve(fsize);
-    bitmap.bytes.resize(fsize);
-    infile.read((char *)bitmap.bytes.data(), fsize);
-    bitmap.bpp = 0;
-    
-    infile.close();
-    return fsize;
-}
-
-std::string expandTilde(const std::string &path) {
+static std::string expandHomeDirectory(const std::string &path) {
     if (path.starts_with("~/")) {
         const char* home = getenv("HOME");
         if (home) {
@@ -119,36 +56,27 @@ std::string expandTilde(const std::string &path) {
     return path;
 }
 
-std::string replaceAll(std::string text,
-                       const std::string& from,
-                       const std::string& to)
-{
-    if (from.empty()) return text;
+static bool writeFile(const std::filesystem::path& path, const std::string& data) {
+    std::ofstream file(path, std::ios::binary);
+    if (!file) return false;
 
-    size_t pos = 0;
-    while ((pos = text.find(from, pos)) != std::string::npos)
-    {
-        text.replace(pos, from.length(), to);
-        pos += to.length();
-    }
-
-    return text;
+    file.write(data.data(), data.size());
+    return file.good();
 }
 
+
 // MARK: - Command Line
-void help(void)
+static void printHelp(void)
 {
     std::cerr
     << "Copyright (C) 2024-" << YEAR << " Insoft.\n"
     << "Insoft "<< NAME << " version, " << VERSION_NUMBER << " (BUILD " << BUNDLE_VERSION << ")\n"
     << "\n"
-    << "Usage: " << COMMAND_NAME << " <input-file> [-o <output-file>] [-c <columns>] [-n <name>] [-g<1-9>] [-ppl] \n"
+    << "Usage: " << COMMAND_NAME << " <input-file> [-o <output-file>] [-G<1-9>] \n"
     << "\n"
     << "Options:\n"
-    << "  -o <output-file>           Specify the filename for generated PPL code.\n"
-    << "  -c <columns>               Number of columns.\n"
-    << "  --pragma                   Include \"#pragma mode( separator(.,;) integer(h64) )\" line.\n"
-    << "  --endian <le|be>           Endianes le(default).\n"
+    << "  -o <output-file>           Specify the filename for generated code.\n"
+    << "  -l --language <language>   Specify the output language (ppl or python).\n"
     << "\n"
     << "Additional Commands:\n"
     << "  " << COMMAND_NAME << " {--version | --help}\n"
@@ -157,12 +85,12 @@ void help(void)
 }
 
 
-void error(void) {
+static void printUsageError(void) {
     std::cerr << COMMAND_NAME << ": try '" << COMMAND_NAME << " --help' for more information\n";
     exit(0);
 }
 
-fs::path resolveAndValidateInputFile(const char *input_file) {
+fs::path resolveInputFilePath(const char *input_file) {
     fs::path path;
     
     path = input_file;
@@ -180,7 +108,7 @@ fs::path resolveAndValidateInputFile(const char *input_file) {
     return path;
 }
 
-fs::path resolveOutputFile(const char *output_file) {
+fs::path resolveOutputFilePath(const char *output_file) {
     fs::path path;
     
     path = output_file;
@@ -191,29 +119,29 @@ fs::path resolveOutputFile(const char *output_file) {
     return path;
 }
 
-fs::path resolveOutputPath(const fs::path& inpath, const fs::path& outpath) {
+fs::path determineOutputPath(const fs::path& inpath, const fs::path& outpath) {
     fs::path path = outpath;
     
     if (path == "/dev/stdout") return path;
     
     
     if (path.empty()) {
-        // User did not specify specify an output filename, use the input filename with a .prgm extension.
+        // User did not specify specify an output filename, use the input filename with a .hpppl extension.
         path = inpath;
-        path.replace_extension(".prgm");
+        path.replace_extension("hpppl");
         return path;
     }
     
     if (fs::is_directory(path)) {
         /* User did not specify specify an output filename but has specified a path, so append
-         with the input filename and subtitute the extension with .prgm
+         with the input filename and subtitute the extension with .hpppl
          */
         path = path / inpath.stem();
-        path.replace_extension("prgm");
+        path.replace_extension("hpppl");
         return path;
     }
     
-    if (!path.has_extension()) path.replace_extension("prgm");
+    if (!path.has_extension()) path.replace_extension("hpppl");
     if (path.parent_path().empty()) path = inpath.parent_path() / path;
     
     return path;
@@ -221,13 +149,11 @@ fs::path resolveOutputPath(const fs::path& inpath, const fs::path& outpath) {
 
 // MARK: - Main
 int main(int argc, const char * argv[]) {
-    std::string prefix, sufix, name;
+    std::string prefix, sufix;
     fs::path inpath, outpath;
     
-    int columns = 8;
-    std::string grob("G0");
-    bool le = true;
-    bool data = false;
+    unsigned int grob = 0;
+    bool icon = false;
 
     
     std::string outpath_extension;
@@ -237,7 +163,7 @@ int main(int argc, const char * argv[]) {
 
     if ( argc == 1 )
     {
-        error();
+        printUsageError();
         exit( 0 );
     }
    
@@ -246,41 +172,37 @@ int main(int argc, const char * argv[]) {
         
         if (args == "-o" || args == "--outfile") {
             if ( ++n >= argc ) {
-                error();
+                printUsageError();
                 exit(0);
             }
-            outpath = resolveOutputFile(argv[n]);
+            outpath = resolveOutputFilePath(argv[n]);
             continue;
         }
         
-        if (args == "--data") {
-            data = true;
-            continue;
-        }
-        
-        if (args == "-t" || args == "--type") {
+        if (args == "-l" || args == "--language") {
             if ( ++n >= argc ) {
-                error();
+                printUsageError();
                 exit(0);
             }
             args = argv[n];
             
-            if (args == "python" || args == "py") {
+            if (args == "python") {
                 outpath_extension = ".py";
             }
             
-            if (args == "hpppl" || args == "ppl") {
+            if (args == "ppl") {
                 outpath_extension = ".hpppl";
-            }
-            
-            if (args == "cpp" || args == "c") {
-                outpath_extension = ".c";
             }
             continue;
         }
         
+        if (args == "--icon") {
+            icon = true;
+            continue;
+        }
+        
         if (args == "--help") {
-            help();
+            printHelp();
             exit(0);
         }
         
@@ -299,244 +221,50 @@ int main(int argc, const char * argv[]) {
             continue;
         }
         
-        if (args == "--endian") {
-            if ( n + 1 >= argc ) {
-                exit(0);
-            }
-            
-            n++;
-            if (strcmp( argv[n], "le" ) == 0) le = true;
-            if (strcmp( argv[n], "be" ) == 0) le = false;
-        
-            continue;
-        }
-        
         if (args.substr(0,2) == "-G") {
-            grob = args.substr(1);
+            grob = std::atoi(args.substr(2).c_str());
             continue;
         }
         
-        if (args == "-c") {
-            if ( n + 1 >= argc ) {
-                exit(0);
-            }
-            
-            n++;
-            columns = atoi(argv[n]);
-        
-            continue;
-        }
-        
-        if (args == "-n")
-        {
-            if ( n + 1 >= argc ) {
-                error();
-                exit(-1);
-            }
-            
-            n++;
-            name = argv[n];
-        
-            continue;
-        }
-        
-        inpath = resolveAndValidateInputFile(argv[n]);
+        inpath = resolveInputFilePath(argv[n]);
     }
-    outpath = resolveOutputPath(inpath, outpath);
+    outpath = determineOutputPath(inpath, outpath);
     if (outpath_extension.empty()) {
         outpath_extension = std::lowercased(outpath.extension().string());
     }
     
-
-    if (name == "*") {
-        name = inpath.stem().string();
-        name = regex_replace(name, std::regex(R"([-.])"), "_");
-    }
-    
     // Start measuring time
     Timer timer;
+    std::string output;
     
-    size_t lengthInBytes = 0;
-    image::TImage bitmap{};
-    
-    auto ext = std::lowercased(inpath.extension().string());
-    if (ext == ".bmp") bitmap = bmp::load(inpath);
-#if __APPLE__
-    if (ext == ".png") bitmap = png::load(inpath);
-#endif
-    if (ext == ".pbm") bitmap = pbm::load(inpath);
-    
-    if (bitmap.bytes.empty()) {
-        lengthInBytes = loadBinaryFile(inpath.string().c_str(), bitmap);
+    if (icon) {
+        output = hpprime::ICON(inpath);
     } else {
-        switch (bitmap.bpp) {
-            case 1:
-                lengthInBytes = bitmap.width * bitmap.height / 8;
-                columns = bitmap.width / 64;
-                bitmap.palette.resize(0);
-                bitmap.palette.push_back(0xFFFFFFFF);
-                bitmap.palette.push_back(0xFF);
-                if (!bitmap.bytes.empty()) {
-                    uint8_t *bytes = (uint8_t *)bitmap.bytes.data();
-                    for (int i = 0; i < lengthInBytes; i += 1) {
-                        uint8_t result = 0;
-                        for (int n = 0; n < 8; n += 1) {
-                            result <<= 1;
-                            result |= bytes[i] & 1;
-                            bytes[i] >>= 1;
-                        }
-                        bytes[i] = result;
-                    }
-                }
-                break;
-                
-            case 4:
-                lengthInBytes = bitmap.width * bitmap.height / 2;
-                columns = bitmap.width / 16;
-                if (!bitmap.bytes.empty() && le) {
-                    /*
-                     Due to the use of little-endian format, when the 8-byte sequence
-                     is interpreted as a single 64-bit number, the bytes are stored in
-                     reverse order (from least significant to most significant).
-                     Since this data represents an image where each nibble corresponds
-                     to an index, we must first swap the nibbles in the entire data
-                     sequence to ensure they remain in the correct order when read from
-                     right to left.
-                     */
-                    
-                    uint8_t *bytes = (uint8_t *)bitmap.bytes.data();
-                    for (int i = 0; i < lengthInBytes; i += 1) {
-                        // Swap nibbles
-                        bytes[i] = bytes[i] >> 4 | bytes[i] << 4;
-                    }
-                }
-                break;
-                
-            case 8:
-                lengthInBytes = bitmap.width * bitmap.height;
-                columns = bitmap.width / 8;
-                break;
-                
-            case 16:
-                lengthInBytes = bitmap.width * bitmap.height * 2;
-                break;
-                
-            case 32:
-                lengthInBytes = bitmap.width * bitmap.height * 4;
-                break;
-                
-            default:
-                return -1;
-                break;
-        }
-    }
-
-    if (columns < 1) columns = 1;
-    
-    if (outpath_extension != ".bin") {
-        if (lengthInBytes / 8 > MAX_LIST_LENGTH) {
+        image::Image image = image::loadImage(inpath);
+        
+        if (image.pixels.size() / 8 > 10000) {
             std::cerr << "⚠️ Image too large.\n";
             return 0;
         }
         
-        switch (bitmap.bpp) {
-            case 0:
-                if (name.size()) utf8 += name + " := ";
-                utf8 += "{\n" + ppl(bitmap.bytes.data(), lengthInBytes, columns, le) + "\n}";
-                break;
-                
-            case 1:
-            case 4:
-            case 8:
-                if (name.size()) os << name << " := ";
-                os << "{\n";
-                os << "  {\n" << ppl(bitmap.bytes.data(), lengthInBytes, columns, le) << "\n  },\n";
-                os << "  { " << std::dec << std::to_string(bitmap.width) << ", " << std::to_string(bitmap.height) << ", " << std::to_string(bitmap.bpp) << " },\n";
-                
-                os << "  {\n    ";
-                for (int i = 0; i < bitmap.palette.size(); i += 1) {
-                    uint32_t color = bitmap.palette.at(i);
-#ifdef __LITTLE_ENDIAN__
-                    color = std::byteswap(color);
-#endif
-                    color &= 0xFFFFFF;
-                    if (i) os << ", ";
-                    if (i % 16 == 0 && i) os << "\n    ";
-                    os << "#" << std::uppercase << std::hex << std::setfill('0') << std::setw(6) << color << ":32h";
-                }
-                os << "\n  }\n}";
-                
-                utf8.append(os.str());
-                break;
-                
-            default:
-                if (data) {
-                    os << "{\n" << ppl(bitmap.bytes.data(), lengthInBytes, columns, le) << "\n};\n";
-                } else {
-                    if (name.size()) os << name << " := ";
-                    os << "{\n";
-                    os << "  {\n" << ppl(bitmap.bytes.data(), lengthInBytes, columns, le) << "\n  },\n";
-                    os << "  { " << std::dec << std::to_string(bitmap.width) << ", " << std::to_string(bitmap.height) << ", " << std::to_string(bitmap.bpp) << " }\n";
-                    os << "}";
-                }
-                utf8.append(os.str());
-                break;
-        }
-        
-        // If the output is for C, we simply convert the PPL code to C
-        if (outpath_extension == ".c") {
-            utf8 = replaceAll(utf8, "#", "0x");
-            utf8 = regex_replace(utf8, std::regex(R"(:\d+h)"), "");
-            utf8 = regex_replace(utf8, std::regex(R"(\{\n  (?=\{))"), "$0.bitmap = ");
-            utf8 = regex_replace(utf8, std::regex(R"(  \},\n  (?=\{))"), "$0.info = ");
-            utf8 = regex_replace(utf8, std::regex(R"(,\n  \{)"), ",\n  .palette = {");
-            utf8 = regex_replace(utf8, std::regex(R"(^\{)"), "\
-typedef struct {\n\
-  uint64_t bitmap[@bitmap];\n\
-  uint16_t info[3];\n\
-  uint32_t palette[@palette];\n\
-} ImageData;\n\n\
-const ImageData image = {");
-            utf8 += ';';
-            
-            utf8 = regex_replace(utf8, std::regex(R"(@bitmap)"), std::to_string(lengthInBytes / 8));
-            utf8 = regex_replace(utf8, std::regex(R"(@palette)"), std::to_string(bitmap.palette.size()));
-        }
-        
-        if (outpath_extension == ".py") {
-            utf8 = replaceAll(utf8, "#", "0x");
-            utf8 = regex_replace(utf8, std::regex(R"(:\d+h)"), "");
-            utf8 = replaceAll(utf8, "{", "[");
-            utf8 = replaceAll(utf8, "}", "]");
-        }
-        
-        
-    }
-
-    if (outpath == "/dev/stdout") {
-        std::cout << utf8;
-    } else {
-        
-        if (outpath_extension == ".bin") {
-            std::ofstream f(outpath, std::ios::binary);
-            if (!f) throw std::runtime_error("Cannot write file");
-            f.write((const char*)&bitmap.width, sizeof(uint16_t));
-            f.write((const char*)&bitmap.height, sizeof(uint16_t));
-            f.write((const char*)&bitmap.bpp, sizeof(uint8_t));
-            f.write((const char*)bitmap.palette.data(), sizeof(uint16_t) * bitmap.palette.size());
-            f.write((const char*)bitmap.bytes.data(), lengthInBytes);
+        if (grob != 0) {
+            output = hpprime::DIMGROB_P(image, grob);
         } else {
-            if (outpath_extension == ".prgm" || outpath_extension == ".hpprgm") {
-                if (outpath_extension == ".hpprgm") {
-                    hpprgm::write(outpath, utf8, hpprgm::format::G2);
-                } else {
-                    std::wstring utf16 = utf::to_wstring(utf8);
-                    utf::save(outpath, utf16);
-                }
-            } else {
-                utf::save(outpath, utf8);
+            output = hpprime::GROB(image, outpath_extension == "py" ? hpprime::Language::Python : hpprime::Language::HPPPL);
+            
+            if (output.empty()) {
+                std::cerr << "❌ Unable to create GROB " << outpath.filename() << ".\n";
+                return 0;
             }
         }
+    }
+    
+
+    if (outpath == "/dev/stdout") {
+        std::cout << output;
+        std::cerr << "\n";
+    } else {
+        writeFile(outpath, output);
         
         if (fs::exists(outpath)) {
             std::cerr << "Successfully created " << outpath.filename() << "\n";

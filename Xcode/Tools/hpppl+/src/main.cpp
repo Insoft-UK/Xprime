@@ -42,6 +42,8 @@
 #include "timer.hpp"
 #include "singleton.hpp"
 
+#include "icon.hpp"
+#include "dimgrob.hpp"
 #include "directives.hpp"
 #include "dictionary.hpp"
 #include "alias.hpp"
@@ -86,7 +88,7 @@ static Directives directives = Directives();
 typedef struct {
     std::string command;
     std::string extension;
-    std::vector<std::string> arguments; // Unused
+    std::vector<std::string> arguments;
 } addon_t;
 
 static std::vector<addon_t> addons = {};
@@ -158,8 +160,6 @@ std::string translatePPLPlusLine(const std::string& input) {
             return "";
     }
 
-    output = replaceWords(output, {"var"}, "LOCAL");
-    output = regex_replace(output, std::regex(R"(\bloop\b)", std::regex_constants::icase), "WHILE 1 DO");
     output = capitalizeWords(output, {"log", "cos", "sin", "tan", "ln", "min", "max"});
     
     //MARK: User Define Alias Parsing
@@ -173,7 +173,7 @@ std::string translatePPLPlusLine(const std::string& input) {
         "end", "return", "kill", "if", "then", "else", "xor", "or", "and", "not",
         "case", "default", "iferr", "ifte", "for", "from", "step", "downto", "to", "do",
         "while", "repeat", "until", "break", "continue", "const", "local",
-        "eval", "freeze", "view", "begin", "export", "const", "local"
+        "eval", "freeze", "view", "begin", "export", "const", "local", "icon"
     });
     
     re = R"(\b(BEGIN|IF|FOR|CASE|REPEAT|WHILE|IFERR)\b)";
@@ -208,7 +208,7 @@ std::string translatePPLPlusLine(const std::string& input) {
         auto path = singleton.currentSourceFilePath();
         std::filesystem::path includePath = Directives::extractIncludeDirective(input);
         static const std::regex re(
-                                   R"(\{\$(?:INCLUDE|I) +[\w \-_~,;\[\]\(\).']+ *\})",
+                                   R"(\{\$(?:INCLUDE|I) +[\w \-+_~,;\[\]\(\).'\/]+ *\})",
                                    std::regex_constants::icase
                                    );
         std::string ext = std::lowercased(includePath.extension().string());
@@ -223,6 +223,18 @@ std::string translatePPLPlusLine(const std::string& input) {
     
     
     output = restoreStrings(output, strings);
+    
+    if (!Singleton::shared()->preview) {
+        // ICON
+        if (hppplplus::ICON::isIconDirective(output)) {
+            return hppplplus::ICON::processIconDirective(output);
+        }
+        
+        // DIMGROB
+        if (DIMGROB::isDIMGROB(output)) {
+            output = DIMGROB::processDIMGROB(output);
+        }
+    }
     
     if (!comment.empty()) output += comment;
 
@@ -485,13 +497,14 @@ std::string translatePPLPlusToPPL(const fs::path& path) {
         // Addons
         std::smatch match;
         re = std::regex(
-            R"(^ *\{\$ADDON +([\w \-_~,;\[\]\(\).']+)(\.[a-z0-9]{1,10}) *\} *$)",
+            R"(^ *\{\$ADDON +([\w \-+_~,;\[\]\(\).'\/]+)(\.[a-z0-9]{1,10}) *(.*)\} *$)",
             std::regex_constants::icase
         );
         if (std::regex_search(input, match, re)) {
             addons.push_back({
                 .command = match.str(1),
-                .extension = match.str(2)
+                .extension = match.str(2),
+                .arguments = Directives::extractArguments(match.str(3))
             });
             continue;
         }
@@ -663,7 +676,7 @@ fs::path resolveOutputPath(const fs::path& inpath, const fs::path& outpath) {
     if (path.empty()) {
         // User did not specify specify an output filename, use the input filename with .hpppl or .hpprgm extension.
         path = inpath;
-        if (inpath.extension() == ".hpppl") path.replace_extension(".hpprgm");
+        if (inpath.extension() == ".hpppl" || inpath.extension() == ".hppplplus") path.replace_extension(".hpprgm");
         if (inpath.extension() == ".hpprgm") path.replace_extension(".hpppl");
         return path;
     }
@@ -673,7 +686,7 @@ fs::path resolveOutputPath(const fs::path& inpath, const fs::path& outpath) {
          with the input filename and subtitute the extension with .hpppl or .hpprgm extension.
          */
         path = path / inpath.stem();
-        if (inpath.extension() == ".hpppl") path.replace_extension(".hpprgm");
+        if (inpath.extension() == ".hpppl" || inpath.extension() == ".hppplplus") path.replace_extension(".hpprgm");
         if (inpath.extension() == ".hpprgm") path.replace_extension(".hpppl");
         return path;
     }
@@ -712,6 +725,14 @@ int main(int argc, char **argv) {
     bool G1 = false;
     bool cas = false;
     
+    Singleton::shared()->regexp.parse(R"(regex @`\btrue\b`i 1)");
+    Singleton::shared()->regexp.parse(R"(regex @`\bfalse\b`i 0)");
+    Singleton::shared()->regexp.parse(R"(regex `__SCREEN\b` G0)");
+    Singleton::shared()->regexp.parse(R"(regex `__MAX_LIST` 10000)");
+    Singleton::shared()->regexp.parse(R"(regex >`\bguard +(.*) +else\b`i IF NOT($1) THEN)");
+    Singleton::shared()->regexp.parse(R"(regex >`\bloop\b`i WHILE 1 DO)");
+    
+    
     std::string args(argv[0]);
     
     for (int n = 1; n < argc; n++) {
@@ -735,6 +756,11 @@ int main(int argc, char **argv) {
             
             if ( args == "--cas" ) {
                 cas = true;
+                continue;
+            }
+            
+            if ( args == "--preview" ) {
+                Singleton::shared()->preview = true;
                 continue;
             }
             
@@ -822,6 +848,8 @@ int main(int argc, char **argv) {
     
     str = "{$DEFINE __hppplplus}";
     directives.parse(str);
+    
+    
     
     // Start measuring time
     Timer timer;

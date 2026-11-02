@@ -1,7 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2024-2025 Insoft.
-// Originally created in 2025
+// Copyright (c) 2023-2026 Insoft.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,34 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#pragma once
 
-#ifndef png_hpp
-#define png_hpp
+#include <iostream>
 
-#if __APPLE__
-
-#include <cstdint>
-#include <filesystem>
-#include <vector>
-
-#include "image.hpp"
-
-namespace png {
-    /**
-     @brief    Loads a file in the Portable Network Graphics  (PNG) format.
-     @param    path The pathname of the Portable Network Graphics  (PNG) to be loaded.
-     @return   A structure containing the bitmap image data.
-     */
-    image::TImage load(const std::filesystem::path& path);
-    
-    /**
-     @brief    Saves a file in the Portable Network Graphics  (PNG) format.
-     @param    path The pathname of the Portable Network Graphics  (PNG) to be saved.
-     @param    image A structure containing the bitmap image data.
-     */
-    bool save(const std::filesystem::path& path, const image::TImage &image);
+namespace hppplplus {
+    class ICON {
+    public:
+        static bool isIconDirective(const std::string& str);
+        static std::string processIconDirective(const std::string& str);
+    private:
+    };
 }
-
-#endif // __APPLE__
-
-#endif /* png_hpp */

@@ -28,6 +28,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cstring>
+#include <filesystem>
 
 #if defined(_WIN32)
     #include <windows.h>
@@ -190,8 +191,17 @@ static std::string readFd(int fd)
 
 result_t tool::runTool(const std::string& command, const std::vector<std::string>& arguments)
 {
-    std::string dir  = executableDir();
-    std::string tool = dir + "/" + command;
+    std::string tool;
+    
+    std::filesystem::path path(command);
+    if (path.has_parent_path()) {
+        tool = command;
+    } else {
+        tool = executableDir() + "/" + command;
+    }
+
+    
+    
 
     // Pipes for stdout and stderr
     int outPipe[2];

@@ -118,7 +118,7 @@ std::string Directives::parse(const std::string& str) {
 
 bool Directives::isIncludeDirective(const std::string& str) {
     static const std::regex re(
-        R"(\{\$(?:INCLUDE|I) +[\w \-_~,;\[\]\(\).']+ *\})",
+        R"(\{\$(?:INCLUDE|I) +[\w \-+_~,;\[\]\(\).'\/]+ *\})",
         std::regex_constants::icase
     );
 
@@ -130,7 +130,7 @@ std::filesystem::path Directives::extractIncludeDirective(const std::string& str
     std::filesystem::path path;
     
     auto re = std::regex(
-        R"(\{\$(?:INCLUDE|I) +([\w \-_~,;\[\]\(\).']+) *\})",
+        R"(\{\$(?:INCLUDE|I) +([\w \-+_~,;\[\]\(\).'\/]+) *\})",
         std::regex_constants::icase
     );
 
@@ -138,6 +138,18 @@ std::filesystem::path Directives::extractIncludeDirective(const std::string& str
         path = std::filesystem::path(match.str(1));
     }
     return path;
+}
+
+std::vector<std::string> Directives::extractArguments(const std::string& input)
+{
+    std::istringstream stream(input);
+    std::vector<std::string> arguments;
+    std::string argument;
+
+    while (stream >> argument)
+        arguments.push_back(argument);
+
+    return arguments;
 }
 
 

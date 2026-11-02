@@ -40,7 +40,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     @IBOutlet var outputTextView: OutputTextView!
     @IBOutlet var outputScrollView: NSScrollView!
     
-    @IBOutlet var previewButton: NSButton!
     
     @IBOutlet var scrollView: NSScrollView!
     
@@ -227,8 +226,11 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     
     
     private func setupActions() {
-        previewButton.target = self
-        previewButton.action = #selector(showPreview(_:))
+        
+        if let view: NSButton = view.findView(withIdentifier: NSUserInterfaceItemIdentifier("Preview")) {
+            view.target = self
+            view.action = #selector(showPreview(_:))
+        }
      
         if let button: NSButton = view.findView(withIdentifier: Constants.Identifiers.notes) {
             button.target = self
@@ -266,7 +268,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
             guard let url = mainURL(in: projectDirectoryURL) else { return false }
 
             let executable = URL(fileURLWithPath: ToolchainPaths.bin).appending(path: "hpppl+")
-            var arguments: [String] = [url.path, "-o", "/dev/stdout"]
+            var arguments: [String] = [url.path, "-o", "/dev/stdout", "--preview"]
             
             if ProjectSettings.shared.compression {
                 arguments.append(contentsOf: ["--compress"])
@@ -426,7 +428,7 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
                 if result == .primary {
                     self.documentManager.saveDocument(content: self.codeEditorTextView.string)
                     let url = sender.representedObject as? URL
-                    self.documentManager.openDocument(at: url!) // projectDirectoryURL.appending(path: sender.title)
+                    self.documentManager.openDocument(at: url!)
                 } else {
                     return
                 }
@@ -1141,28 +1143,6 @@ final class MainViewController: CustomViewController, NSTextViewDelegate, NSMenu
     private func archiveProcess() {
         guard let projectDirectoryURL = projectManager.projectDirectoryURL else { return }
         guard let name = projectManager.projectName else { return }
-        
-//        let url: URL
-//        
-//        let dirA = FileManager.default.homeDirectoryForCurrentUser
-//            .appending(path: "Documents/HP Prime/Calculators/Prime")
-//            .appending(path: name)
-//            .appendingPathExtension("hpappdir")
-//            .appending(path: name)
-//            .appendingPathExtension("hpappprgm")
-//        let dirB = projectDirectoryURL
-//            .appending(path: name)
-//            .appendingPathExtension("hpappdir")
-//            .appending(path: name)
-//            .appendingPathExtension("hpappprgm")
-//        
-//        if dirA.isNewer(than: dirB), ProjectSettings.shared.archiveProjectAppOnly == false {
-//            url = dirA.deletingLastPathComponent()
-//            outputTextView.appendTextAndScroll("📦 Archiving \"\(name).hpappdir\" from the virtual calculator directory…\n")
-//        } else {
-//            url = projectDirectoryURL
-//            outputTextView.appendTextAndScroll("📦 Archiving \"\(name).hpappdir\" from the current project directory…\n")
-//        }
         
         let url = projectDirectoryURL
         
@@ -2323,7 +2303,9 @@ extension MainViewController: DocumentManagerDelegate {
             populateSnippetMenu(menu: menu)
         }
         
-        previewButton.isEnabled = documentManager.currentDocumentURL?.pathExtension == "hppplplus"
+        if let view: NSButton = view.findView(withIdentifier: NSUserInterfaceItemIdentifier("Preview")) {
+            view.isEnabled = documentManager.currentDocumentURL?.pathExtension == "hppplplus"
+        }
         
         refreshQuickOpenToolbar()
         updateWindowDocumentIcon()

@@ -1,0 +1,21 @@
+#pragma mode( separator(.,;) integer(h64) )
+{$I dictionary}
+dictionary Event e;
+
+e.x := 7;
+ICON "background.png";
+
+export START()
+begin
+    DIMGROB_P(G1, "hammer.png");
+    RECT(0);
+    BLIT_P(G0, 0, 0, "background");
+    BLIT_P(G0, 96, 64, G1);
+    WAIT(-1);
+    return 0;
+end;
+
+export RESET()
+begin
+    return 0;
+end;

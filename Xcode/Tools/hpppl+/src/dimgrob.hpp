@@ -1,7 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2024-2025 Insoft. All rights reserved.
-// Originally created in 2023
+// Copyright (c) 2023-2026 Insoft.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#ifndef bmp_hpp
-#define bmp_hpp
+#pragma once
 
-#include <cstdint>
-#include <vector>
-#include <filesystem>
+#include <iostream>
 
-#include "image.hpp"
-
-namespace bmp {
-    /**
-     @brief    Loads a file in the Bitmap (BMP) format.
-     @param    path The pathname of the Bitmap (BMP) to be loaded.
-     @return   A structure containing the bitmap image data.
-     */
-    image::TImage load(const std::filesystem::path& path);
-    
-    /**
-     @brief    Saves a file in the Bitmap (BMP) format.
-     @param    filename The filename of the Bitmap (BMP) to be saved.
-     @param    image A structure containing the bitmap image data.
-     */
-    bool save(const char *filename, const image::TImage &image);
-}
-
-#endif /* bmp_hpp */
+class DIMGROB {
+public:
+    static bool isDIMGROB(const std::string& str);
+    static std::string processDIMGROB(const std::string& str);
+private:
+};
