@@ -45,6 +45,5 @@ grob spectrum-8bit.bmp -G1
 ```
 
 > [!NOTE]
-The only image file format currently supported by this utility tool is the Bitmap (BMP) format for Windows & Linux, with 1-bit, 4-bit, 8-bit, 16-bit, or 32-bit color depth.
-PNG is only supported for macOS.
+The only image file format currently supported by this utility tool is the Bitmap (BMP) format for 1-bit, 4-bit, 8-bit, 16-bit, or 32-bit color depth and PNG for 32-bit.
 
