@@ -4,7 +4,7 @@
 **Command Line Tool**
 A utility for generating HP PPL code from an image file for use with the BLIT and BLIT_P functions on the HP Prime.
 
-`Usage: grob <input-file> [-o <output-file>] [-c <columns>] [-n <name>] [-g<1-9>] [-ppl]`
+`Usage: grob <input-file> [-o <output-file>] [-G&lt;1-9&gt;] [--language &lt;language&gt;]`
 
 <table>
   <thead>
