@@ -1,8 +1,5 @@
 #pragma mode( separator(.,;) integer(h64) )
-{$I dictionary}
-dictionary Event e;
 
-e.x := 7;
 ICON "background.png";
 
 export START()
