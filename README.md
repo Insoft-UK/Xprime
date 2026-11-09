@@ -18,7 +18,7 @@ Xprime is a lightweight IDE that lets you edit code, convert PPL+ code to HP Pri
 * Packages the resulting code into an HP Prime application
 * Allows the resulting executable/application to be run on the HP Prime
 
-***Website:*** [Xprime](http://insoft.uk/xprime.php)</br>
+***Website:*** [Xprime](http://insoft.uk/downloads.html)</br>
 
 ### Xprime 27 Requirements
 Apple Silicon or intel</br>
